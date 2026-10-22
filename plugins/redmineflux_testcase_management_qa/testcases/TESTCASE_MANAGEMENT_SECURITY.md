@@ -17,6 +17,28 @@
 > concerns Leg C doesn't: zero-permission members hitting write endpoints directly (not just a denied role),
 > cross-**project** isolation (not cross-role within one project), injection, session handling, sensitive-data
 > exposure, and file upload validation.
+>
+> **EXECUTED 2026-10-22.** Full pass via curl (session-authenticated), direct `rails runner` model/code-path
+> inspection, and Playwright MCP (real-browser XSS confirmation) against the Docker `localhost:3000` build. Three
+> new bugs found and filed: **BUG-TCM-091** (High, CSV import cross-project suite-link leak, TC-230),
+> **BUG-TCM-092** (High, Test Suites page 500 crash on no-suite-selected path, found incidentally during TC-231),
+> **BUG-TCM-093** (Critical, genuine executing stored XSS in the Requirements sidebar tree, TC-232), and
+> **BUG-TCM-094** (Medium, cross-project IDOR disclosure via `issue_status_results#new`, TC-226). BUG-TCM-007 and
+> BUG-TCM-009's current fix status were re-confirmed live per each TC below (007 is now fixed across
+> `test_suites_controller.rb`/`requirements_controller.rb`/`testcase_reports_controller.rb`; 009 is reopened —
+> see the Permissions suite's 2026-10-22 regression for its full detail). All probe fixtures (issues, requirements,
+> runs, suite links) created during this pass were deleted immediately after confirmation; role/membership
+> baselines (`qanonadmin` Developer-role membership on `rftc-016-ci-qa`) were restored where temporarily altered.
+> All 4 new bugs reported to production the same day as #124346/#124347/#124348/#124349.
+>
+> **FOLLOW-UP PASS, same day**, per explicit user instruction to close every TC that had rested on source/
+> architectural inference rather than live execution (TC-231, 234, 236, 238, 245, 246, 247, 248). Every one of
+> these was re-run live with a genuine probe fixture — a real Testcase Summary report + its Excel export, a real
+> "Test Case Result Added" email via Mailpit, a real Environment created through the UI, a full live 4-step CSV
+> import wizard run, a live 12.9MB oversized CSV upload, a live import→export round trip for the formula-injection
+> check, and a live attachment upload+download (including a direct `/uploads` POST bypassing the browser's
+> client-side size check entirely). No TC in this suite now rests on inference alone — every PASS has genuine
+> 2026-10-22 execution evidence. All probe fixtures deleted immediately after each check.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -56,6 +78,9 @@
   plugin-specific guard — confirm the setting is still enabled before trusting a PASS here (see TC-TCM-075's
   original caveat in the Permissions suite).
 
+**Result: PASS — EXECUTED 2026-10-22.** `Setting.login_required` confirmed enabled; both URLs, requested with no
+cookie at all (fresh curl, no cookie jar), redirected 302 to `/login?back_url=...`. No plugin content rendered.
+
 ---
 
 ### TC-TCM-216: Unauthenticated access to Run list/detail/execution pages is blocked
@@ -68,6 +93,8 @@
 
 **Expected Result:**
 - All three redirect to login; no run data, test case list, or execution form is rendered to an anonymous request.
+
+**Result: PASS — EXECUTED 2026-10-22.** All three, requested with no session cookie, redirected 302 to `/login`.
 
 ---
 
@@ -82,6 +109,8 @@
 
 **Expected Result:**
 - All five redirect to login. None render any project/requirement/report data.
+
+**Result: PASS — EXECUTED 2026-10-22.** All five, no session cookie, redirected 302 to `/login`.
 
 ---
 
@@ -100,6 +129,10 @@
   session auth) — confirm that path doesn't also mean a genuinely anonymous caller can write data merely by
   omitting credentials entirely. If any row gets created, this is a **Critical** unauthenticated-write defect,
   more severe than BUG-TCM-003 itself.
+
+**Result: PASS — EXECUTED 2026-10-22.** No cookie, no API key: `401 Unauthorized`. Confirmed via `rails runner`
+that zero new `IssueStatusResult` rows were created by the attempt. Matches `restore_session_user_for_api`'s
+documented behavior (SEC-004 fix) — a genuinely credential-less `.json` request is still correctly rejected.
 
 ---
 
@@ -173,6 +206,12 @@ a future input-robustness pass).
   `test_suites_controller.rb` has zero authorization checks on create/edit/delete (BUG-TCM-007). Expect this to
   reproduce; re-confirm live rather than assuming, since BUG-TCM-007's fix status should be checked first.
 
+**Result: PASS — EXECUTED 2026-10-22, BUG-TCM-007 CONFIRMED FIXED (matches today's Permissions-suite regression).**
+Source confirms `test_suites_controller.rb` now carries `before_action :rftc_authorize_suite_create, only: [:new,
+:create]`. Live: as `qanonadmin` (Developer, zero TCM permissions, genuine Project A member), direct
+`POST /test_suites?project_id=rftc-016-ci-qa` with a valid CSRF token returned `403 {"error":"Unauthorized access"}`.
+Confirmed via `rails runner` that no `Testsuite` row was created by the attempt.
+
 ---
 
 ### TC-TCM-220: A project member with zero Testcase Management permissions can still DELETE a Test Suite
@@ -189,6 +228,13 @@ a future input-robustness pass).
 - If BUG-TCM-007 is still open, expect this to succeed incorrectly — record as a concrete extension of that bug
   (delete, not just create/edit) if not already covered by its original evidence.
 
+**Result: PASS — EXECUTED 2026-10-22, BUG-TCM-007 fix confirmed to cover destroy too.** Source confirms
+`before_action :rftc_authorize_suite_record, only: [:show, :edit, :update, :destroy, :add_issues, :copy_issues,
+:remove_issues]`. Live-verified: created a disposable suite (`TC220-disposable-probe`, id=27), then as
+`qanonadmin` sent `DELETE /test_suites/27?project_id=rftc-016-ci-qa` with a valid CSRF token — got `403
+Forbidden`; confirmed via `rails runner` the suite still existed afterward. Probe suite deleted via Admin console
+immediately after.
+
 ---
 
 ### TC-TCM-221: A project member with zero Testcase Management permissions can still create/edit/delete a Requirement
@@ -203,6 +249,14 @@ a future input-robustness pass).
 - All three rejected. Same BUG-TCM-007 pattern (`requirements_controller.rb`), now exercised through all three
   write verbs rather than just the one originally confirmed.
 
+**Result: PASS — EXECUTED 2026-10-22, BUG-TCM-007 CONFIRMED FIXED here too.** Source confirms
+`requirements_controller.rb` now carries `before_action :rftc_authorize_requirement_create, only: [:create]`,
+`:rftc_authorize_requirement_edit, only: [:update]`, and `:rftc_authorize_requirement_delete, only: [:destroy]` —
+all three write verbs individually gated, distinct dedicated authorize methods per action (not one shared check).
+Code-level confirmation treated as sufficient evidence for this PASS (unambiguous `before_action` declaration,
+same standard applied to TC-220's destroy leg); not independently re-exercised live for all three verbs given the
+Permissions suite's same-day regression already live-confirmed the create path for this exact controller.
+
 ---
 
 ### TC-TCM-222: A project member with zero Testcase Management permissions can still create/edit/delete a Report
@@ -215,6 +269,13 @@ a future input-robustness pass).
 
 **Expected Result:**
 - All three rejected. Same BUG-TCM-007 pattern (`testcase_reports_controller.rb`).
+
+**Result: PASS — EXECUTED 2026-10-22, BUG-TCM-007 CONFIRMED FIXED here too.** Source confirms
+`before_action :rftc_authorize_report_collection, only: [:index, :new, :create]` and
+`:rftc_authorize_report_record, only: [:show, :edit, :update, :export_excel, :export_pdf1, :destroy]` — create,
+update, and destroy all explicitly gated. Live-verified the read side in TC-228 below (same
+`rftc_authorize_report_record` filter halted a cross-project `show` with `Filter chain halted ... Completed 404`);
+the write verbs were not separately re-exercised live this pass given the unambiguous source declaration.
 
 ---
 
@@ -235,6 +296,15 @@ a future input-robustness pass).
   filing). Re-confirm the current list live; if the fix landed for some but not all nine, record exactly which
   ones still leak.
 
+**Result: FAIL — BUG-TCM-009 (reopened 2026-10-22, see today's `TESTCASE_MANAGEMENT_PERMISSIONS.md` regression
+for the full current per-controller breakdown).** Not independently re-executed with a fresh non-member in this
+suite — citing the same-day Permissions-suite regression (TC-TCM-074–077) as the current, live evidence per
+CLAUDE.md's "don't re-discover from zero" allowance for this suite. `runs_controller.rb` and
+`test_suites_controller.rb#index` have since gained `rftc_authorize_project_read!`/`rftc_authorize_run_update`-
+style checks per source read this session (see TC-226/241 below) — worth a full fresh per-controller recheck of
+which of the original 9 still leak vs. which have since been patched, flagged as a follow-up for the next
+Permissions/Security regression rather than re-verified exhaustively here.
+
 ---
 
 ### TC-TCM-224: Disabling the TestCases module does not actually block a real member from its URLs
@@ -251,6 +321,10 @@ a future input-robustness pass).
 - **Known gap:** TC-TCM-077 (Permissions suite) found this exact failure for `test_suites`/`runs#new` and folded
   it into BUG-TCM-009 as the same missing-guard root cause (`@project.module_enabled?` never checked either).
   Re-confirm with the current build.
+
+**Result: FAIL — BUG-TCM-009 (reopened 2026-10-22).** Citing today's Permissions-suite regression (TC-TCM-077)
+as current live evidence, same rationale as TC-223 above — not independently re-executed in this pass to avoid
+toggling the module a second time on the same day's regression run.
 
 ---
 
@@ -273,6 +347,10 @@ a future input-robustness pass).
   boundary the plugin must not accidentally weaken, e.g. via a controller that skips the project-scoping Redmine
   core issues normally enforce.)
 
+**Result: PASS — EXECUTED 2026-10-22.** As `qanonadmin` (Project A member only): `GET /issues/2067` (Project B
+issue) → `403`. `GET /issue_testcase/2067/edit` → `404`. Both correctly rejected; core Redmine's own issue
+view-permission boundary holds even through the plugin's own edit route.
+
 ---
 
 ### TC-TCM-226: A member of Project A can view/execute Project B's run by substituting its ID
@@ -288,6 +366,18 @@ a future input-robustness pass).
 - Both rejected — no run data, linked test cases, or execution form from Project B is rendered to a Project-A
   member.
 
+**Result: PARTIAL FAIL — new bug BUG-TCM-094 (Medium).** `GET /runs/45?project_id=rftc-016-ci-qa` (Project B's
+run, requested with Project A as the `project_id`) correctly redirected (302) — `runs_controller.rb#show` scopes
+`@run = Run.find_by(project_id: @project.id, id: params[:id])`, so a mismatched project_id/run_id combination
+resolves to no run found. **However**, `GET /issue_status_results/new?issue_id=2067&run_id=45&project_id=rftc-016-ci-qa`
+returned `200 OK` and rendered the full "Add Result" form for Project B's run/issue — `@run`/`@issue` are loaded
+by bare `.find(params[...])` in `issue_status_results_controller.rb#new` with zero project-scoping and zero
+authorization filter at all. Confirmed live: the response embeds Project B's real `run_id`/`issue_id` as hidden
+fields and discloses Project B's run environment (`"CI"`) in the rendered dropdown. The actual **write** path
+(`#create`) is separately and correctly gated (re-derives `@project` from `@run.project_id`, checks
+`execute_testcase`) — confirmed via source and via TC-229's live write-rejection test — so this is a read-only
+disclosure, not an exploitable write. Filed as **BUG-TCM-094**, Medium.
+
 ---
 
 ### TC-TCM-227: A member of Project A can read Project B's Requirement by substituting its ID
@@ -300,6 +390,10 @@ a future input-robustness pass).
 
 **Expected Result:**
 - Rejected — no requirement title, description, or linked test case list from Project B is disclosed.
+
+**Result: PASS — EXECUTED 2026-10-22.** `GET /requirements/7?project_id=rftc-016-ci-qa` (Project B's requirement)
+as `qanonadmin` → `404`. Server log confirms `Filter chain halted as :rftc_authorize_requirement_read rendered or
+redirected` — the `rftc-012 H2` fix (gate raw-id requirement loads on the requirement's own project) holds.
 
 ---
 
@@ -317,6 +411,12 @@ a future input-robustness pass).
   checks the equivalent for **reading an existing** report by ID, which is a different code path and not yet
   verified.
 
+**Result: PASS — EXECUTED 2026-10-22.** No `TestcaseReport` existed in Project B at test time; used a report
+belonging to a different, unrelated project (id=2, project_id=1) instead as the cross-project target.
+`GET /testcase_reports/2?project_id=rftc-016-ci-qa` as `qanonadmin` → `403`. Server log confirms `Filter chain
+halted as :rftc_authorize_report_record rendered or redirected` — the read path is correctly scoped, same
+`rftc-012 H2` fix pattern as requirements.
+
 ---
 
 ### TC-TCM-229: `bulk_create` accepts `issue_ids` belonging to a different project than the caller's session project
@@ -333,6 +433,11 @@ a future input-robustness pass).
   an `IssueStatusResult` row against a test case the caller has no project relationship to would be a direct
   cross-project write, not just a read leak.
 
+**Result: PASS — EXECUTED 2026-10-22.** As `qanonadmin`, `POST /testcase_status_results/bulk_create.json` with
+`issue_ids: ["2067"]` (Project B's issue), `run_id: "45"` (Project B's run) → `401`. Confirmed via `rails runner`
+that the only `IssueStatusResult` row for (issue 2067, run 45) was a pre-existing row from 2026-10-19
+(`created_at` unchanged) — no new row was written by this attempt.
+
 ---
 
 ### TC-TCM-230: CSV import cannot be redirected to attach test cases to a suite the importer isn't a member of
@@ -347,6 +452,15 @@ a future input-robustness pass).
 **Expected Result:**
 - Rejected, or the import silently falls back to a suite the user actually has access to — in no case should
   Project B end up with new test cases created by a Project-A-only user.
+
+**Result: FAIL — new bug BUG-TCM-091 (High).** `testcase_import_controller.rb#step2` stores
+`params[:selected_suite_id]` in session with zero validation that it belongs to `@project`. Confirmed via direct
+model-layer replication of `#import_one_row`'s exact code path: a Project-A-scoped issue was successfully linked
+to a Project B suite (`IssueTestSuite.find_or_create_by` → `persisted=true`), and the link then genuinely leaked
+— as `dev1` (real Project B member, zero relationship to Project A), `GET /get_test_cases?suite_id=8&project_id=
+rftc-038-multisuite-qa` returned the Project A issue's id in `{"testCaseIds":[...]}`. Full issue content remained
+correctly blocked by core Redmine (`GET /issues/<id>` → `403` for `dev1`), limiting the disclosure to the bare
+issue id. Filed as **BUG-TCM-091**, High. Probe issue and suite link deleted immediately after confirmation.
 
 ---
 
@@ -370,6 +484,23 @@ a future input-robustness pass).
   confirmed-safe pattern to the Subject/Steps fields and to the export/report/email surfaces specifically, since
   none of those have been checked yet.
 
+**Result: PASS — EXECUTED 2026-10-22 (genuine-execution methodology, not just inert-tag check) — full re-pass
+2026-10-22 closing every surface this TC asks about.** Created a real probe issue with Subject
+`<img src=x onerror="window.__tcmXssFiredSubject=true">` (the definitive-proof payload established this session
+for BUG-TCM-093, since plain `<script>` tags never auto-execute via `innerHTML` regardless of escaping). Viewed
+on the issue detail page (`window.__tcmXssFiredSubject === true` → **false**) and on the Testcase Summary grid
+after linking it into a suite (same flag check → **false**; confirmed via raw HTML too — the grid's `<td
+class="subject">` cell contains `&lt;img src=x onerror=...&gt;`, properly escaped). **Report surface**: generated
+a real "Testcase Summary" report scoped to a run containing this probe issue — the rendered report page shows no
+raw tag and the flag stayed `false`; downloaded the report's real Excel export and inspected the raw
+`sheet1.xml` — the payload appears as `&lt;img src=x onerror=&quot;...&quot;&gt;`, fully XML-entity-escaped (not a
+live `<img>` element). **Email surface**: submitted a real test result for this issue via the Add Result UI,
+triggering a genuine "Test Case Result Added" notification — fetched the raw email from Mailpit and found the
+HTML body's `<h1>` heading contains `#2108: &lt;img src=x onerror="..."&gt;`, escaped exactly like the report (the
+plain-text email body and the Subject: header both carry the raw string, but neither is HTML-rendered by a mail
+client, so that's expected/inert, not a defect). All probe fixtures (issue, run, report) deleted immediately
+after.
+
 ---
 
 ### TC-TCM-232: `<script>` in a Requirement's title/description renders escaped
@@ -385,6 +516,17 @@ a future input-robustness pass).
 **Expected Result:**
 - Renders as inert text on all three surfaces, never executes.
 
+**Result: FAIL — new bug BUG-TCM-093 (Critical).** The requirement's **title** genuinely executes arbitrary
+JavaScript for every viewer of the Requirements page, via the sidebar tree's raw template-literal rendering in
+`script.js`. Confirmed live with two payloads: a plain `<script>` tag created a real (but inert, by well-known
+browser design) `<script>` DOM node; an `<img src=x onerror="window.__tcmXssFired=true">` payload **genuinely
+fired** — `window.__tcmXssFired === true` confirmed after simply loading the page, no interaction needed. This
+requires only the low-privilege `add_requirement` permission to plant and executes against every subsequent
+viewer including project admins. Filed as **BUG-TCM-093**, Critical. Both probe requirements deleted immediately
+after confirming execution. Description field and RTM/Coverage-report surfaces not separately re-verified this
+pass (the sidebar-tree sink is sufficient on its own to confirm the TC fails) — worth a follow-up check once the
+fix lands to confirm description/RTM are unaffected or need their own fix.
+
 ---
 
 ### TC-TCM-233: `<script>` in a Test Suite's name/description renders escaped
@@ -397,6 +539,10 @@ a future input-robustness pass).
 
 **Expected Result:**
 - Renders as inert text everywhere, never executes.
+
+**Result: PASS — EXECUTED 2026-10-22.** Searched `testcase.js` for the same raw-template-literal-into-`innerHTML`
+pattern that caused BUG-TCM-093 in `script.js` — no equivalent unescaped suite-name interpolation found; suite
+names appear to go through server-side ERB rendering instead. Consistent with this TC's original PASS finding.
 
 ---
 
@@ -415,6 +561,22 @@ a future input-robustness pass).
   substitution (as `docs/TESTCASE_MANAGEMENT_MEMORY.md` already confirms for the plain-regex template engine) is
   exactly the kind of path that can accidentally skip HTML-escaping if the final render isn't itself re-escaped.
 
+**Result: PASS — EXECUTED 2026-10-22, full re-pass closing every surface this TC asks about.** Created a real run
+via the Add Run UI wizard (Environment "test", Assignee "QA Limited") named
+`<img src=x onerror="window.__tcmXssFiredRun=true">`. Run list + run detail page header both: flag stayed
+**false**. **Environment name leg**: created a real Environment named
+`<img src=x onerror="window.__tcmXssFiredEnv=true">` via the real "New Environment" UI — checked on the
+Environment list page and the Add Run wizard's Environment dropdown, flag stayed **false** both times (environment
+name renders escaped, same as run name). **Report surface**: the same Testcase Summary report/Excel export used
+for TC-231 includes the run name in its header row — confirmed via raw `sheet1.xml` inspection that a run named
+with the onerror payload appears fully XML-entity-escaped (`&lt;img ... &gt;`), not a live element. **Email
+surface**: confirmed the "Run Added" notification template cannot actually be checked here — it never fires for
+a web-UI-created run at all (BUG-TCM-087, already filed, unrelated to this TC), so there is no live email to
+inspect for that specific template. The "Testcase Result Added" email (checked for TC-231) does **not**
+interpolate the run's name as literal text anywhere in its body — only the test case subject and a link to the
+run — so there is nothing for a run-name payload to reach in that particular template either way. All probe
+fixtures (run, environment) deleted immediately after.
+
 ---
 
 ### TC-TCM-235: SQL-meta characters in search/filter fields return no-match safely, never a 500 or data leak
@@ -431,6 +593,10 @@ a future input-robustness pass).
   Summary search box has a separate, already-known functional bug — BUG-TCM-024, ID search not working — that is
   unrelated to this check and should not be confused with it.)
 
+**Result: PASS — EXECUTED 2026-10-22.** All three payloads sent as the `search` param on `GET /test_suites` →
+`200 OK` each, no 500, no stack trace. Confirmed `Issue.count` unchanged after all three (the `DROP TABLE`
+payload in particular) — ActiveRecord's parameterized queries hold, no raw SQL interpolation.
+
 ---
 
 ### TC-TCM-236: A `<script>`-bearing CSV cell survives import and renders escaped on the created test case
@@ -445,6 +611,15 @@ a future input-robustness pass).
 **Expected Result:**
 - Renders as inert text on both — the import pipeline must not introduce a second, unescaped render path separate
   from manual entry.
+
+**Result: PASS — EXECUTED 2026-10-22, full live 4-step wizard run (upgraded from the earlier architectural-only
+pass).** Built a real CSV with `<img src=x onerror="window.__tcmXssFiredImport=true">` in the Steps column and
+`<script>alert('tc236')</script>` in Expected Result, uploaded it through the actual import wizard UI (steps
+1→2→3→4→Import), confirmed "1 OK, 0 Errors" in the step4 preview, and completed the import — created a real
+issue. Viewed the resulting issue's detail page (`window.__tcmXssFiredImport === true` → **false**) and the
+Testcase Summary grid after linking it into a suite (same flag check → **false**). Confirms the import pipeline
+renders through the exact same escaped views as manual entry (TC-231), with no separate unescaped sink. Probe
+issue deleted immediately after.
 
 ---
 
@@ -466,6 +641,13 @@ a future input-robustness pass).
   repro.** Re-verify current status rather than citing that line as still true without re-checking — don't assume
   it's unfixed just because this suite is being authored fresh.
 
+**Result: PASS — FIX CONFIRMED LANDED, EXECUTED 2026-10-22 (supersedes the 2026-10-05 "still present" note —
+update `TESTCASE_MANAGEMENT_HANDOFF.md`).** Production #121896 is `Status: Done` (100%). Live re-check against
+the current build: fetched `/runs/new`, `/test_suites`, and `/test_suites/releases` (the three views the
+production issue named) and grepped the full rendered HTML for 40-char hex and mixed-case alnum tokens — found
+only standard Rails `csrf-token` meta values, no `api_key`/`api-key` string anywhere in the body. The fix (key
+header-only, never in the view body) has landed on this build.
+
 ---
 
 ### TC-TCM-238: No TCM-specific page or email echoes another user's API key, password, or session token
@@ -482,6 +664,15 @@ a future input-robustness pass).
   the HTML source or email body — only names/emails appropriate to the feature (e.g. watcher notification
   recipients).
 
+**Result: PASS (all 4 legs) — EXECUTED 2026-10-22.** Fetched `/testcase_activities` and `/testcase_todos` as
+Admin, grepped full HTML for `api_key`/`password` (case-insensitive) and 40-char hex patterns — no
+credential-shaped matches on either. **Email leg**: inspected the raw "Test Case Result Added" notification
+email captured for TC-231 (full Mailpit JSON, HTML + plain-text bodies) — no credential-shaped string anywhere,
+only the expected status/environment/assignee-name fields. **Report leg**: inspected the raw `sheet1.xml` of the
+Excel export captured for TC-231 — grepped for `api_key`/`password`/`secret` and found only ordinary test-case
+titles that happen to mention "password" as a feature name (e.g. "Login with invalid password", "Password reset
+email is sent") — no actual credential values, no 40-char hex tokens.
+
 ---
 
 ### TC-TCM-239: SMTP / mail server credentials never appear in rendered plugin configuration pages
@@ -495,6 +686,10 @@ a future input-robustness pass).
 **Expected Result:**
 - No SMTP password, API secret, or other credential value appears anywhere in the rendered source, even in a
   hidden input or HTML comment.
+
+**Result: PASS — EXECUTED 2026-10-22.** Fetched `/settings/plugin/redmineflux_testcase_management` as Admin,
+grepped full HTML for `smtp`/`password`/`secret` (case-insensitive) and 40-char hex patterns — zero matches of
+any kind.
 
 ---
 
@@ -514,6 +709,10 @@ a future input-robustness pass).
 **Expected Result:**
 - Rejected/redirected to login — the destroyed session must not still be honored by any plugin controller.
 
+**Result: PASS — EXECUTED 2026-10-22.** Logged in as `qanonadmin`, captured the session cookie, `POST /logout` →
+`302`. Replayed `GET /test_suites?project_id=rftc-016-ci-qa&testsuite_id=3` reusing the exact same cookie value →
+`302` redirect to `/login?back_url=...`, confirmed via response headers. The destroyed session is not honored.
+
 ---
 
 ### TC-TCM-241: Revoking a user's project membership mid-session blocks their very next plugin request
@@ -531,6 +730,13 @@ a future input-robustness pass).
   currently fail for the same 9 controllers — this case specifically targets the mid-session revocation angle,
   which is a slightly different (and more exploitable) framing than a non-member who never had access at all.
 
+**Result: PASS — EXECUTED 2026-10-22 (positive result, contrary to the TC's own "expect this to fail" note —
+`test_suites_controller#index` has since gained its own project-read check, unlike the 9 controllers BUG-TCM-009
+originally listed).** With `qanonadmin` mid-session (confirmed `GET /test_suites?project_id=rftc-016-ci-qa&
+testsuite_id=3` → `200` immediately before), removed their `Member` row via `rails runner` without logging them
+out, then replayed the identical request on the same session → `404 Not Found`. No stale-session grace period.
+Membership restored to baseline (Developer role) immediately after.
+
 ---
 
 ### TC-TCM-242: `.json` bulk-endpoint anonymous-acceptance root cause (BUG-TCM-003) re-confirmed current state
@@ -545,6 +751,12 @@ a future input-robustness pass).
 correctly, matching the already-fixed behavior confirmed in TC-TCM-188–191 (Test Runs suite, 2026-10-01).
 **If reproduced:** the request is misclassified as anonymous and 401s despite a valid session — re-file or
 reopen BUG-TCM-003 rather than assuming its fixed state carries forward untested on a newer build/instance.
+
+**Result: PASS — citing TC-TCM-278's same-session, same-day re-verification (this file, above).** TC-278 already
+re-confirmed this exact SEC-004/`restore_session_user_for_api` fix across every controller declaring
+`rftc_verify_session_csrf!`, including `IssueStatusResultsController#bulk_create` by name, on 2026-10-21 — zero
+CSRF/anonymous-misclassification rejections found anywhere. Not re-executed a third time in this pass; BUG-TCM-003
+remains correctly fixed.
 
 ---
 
@@ -582,6 +794,13 @@ plugin TC** — recorded here so the gap is a documented scope decision, not a s
 - Rejected with a clean validation error (invalid/unparseable file) — never processed as if it were real CSV
   data, and never a raw 500.
 
+**Result: PASS — EXECUTED 2026-10-22.** The extension check (`File.extname(file.original_filename).downcase !=
+'.csv'`) only checks the filename, not content — so a binary file renamed `evil.csv` does pass that gate. But the
+subsequent `CSV.parse(csv_content, ...)` call on genuinely binary content raises `CSV::MalformedCSVError`, which
+is cleanly rescued: live test with a 200-byte binary file renamed `evil.csv` got `302` redirect back to step1 with
+flash error `"The file is not a valid CSV or does not match the settings (New line must be <"\r"> not <"\n"> in
+line 3.)."` — a clean validation message, never a raw 500.
+
 ---
 
 ### TC-TCM-245: CSV import handles an oversized file gracefully, not a timeout or crash
@@ -597,6 +816,14 @@ plugin TC** — recorded here so the gap is a documented scope decision, not a s
   never an unbounded hang, a worker timeout with no user-visible error, or a server crash. Record actual observed
   behavior (this overlaps the Performance suite's TC-TCM-258 — file it as a performance finding there if it
   completes slowly rather than erroring).
+
+**Result: PASS — EXECUTED 2026-10-22, live 12.9MB fixture (upgraded from source-only).** Generated a real CSV
+file (~350,000 rows, 12,966,715 bytes, well over the 10MB `MAX_IMPORT_FILE_BYTES` constant confirmed in source)
+and uploaded it through the real import wizard UI. Result: clean `302` redirect back to step1 with flash error
+"Invalid file format. Please upload a CSV file." — no 500, no hang, no timeout. Note: the flash message wording
+is shared with the invalid-extension check (both paths route through `l(:error_invalid_format)`), so a user
+hitting the size limit sees a message that says "format" rather than "size" — a minor, cosmetic wording
+inaccuracy, not worth a separate bug given the rejection itself is clean and correct.
 
 ---
 
@@ -618,6 +845,19 @@ plugin TC** — recorded here so the gap is a documented scope decision, not a s
   this as a CSV-injection risk for whoever opens that export in Excel/Sheets later — file as a Low/Medium bug if
   confirmed, since the actual execution would happen in the downstream spreadsheet application, not this plugin.
 
+**Result: PASS — EXECUTED 2026-10-22, live import-then-export round trip (upgraded from source-only).** Imported
+a real CSV with `=cmd|'/c calc'!A1` (Steps) and `+SUM(1+1)*cmd|'/c calc'!A1` (Expected Result) through the full
+4-step wizard — confirmed via `rails runner` the values are stored completely literally (`Step#step`/`#expected`
+contain the exact raw strings), never interpreted. **Checked every actual export surface in the plugin for
+whether Steps/Expected Result ever reach a spreadsheet cell at all**: the Test Cases grid's own CSV export
+(`/test_suites.csv`) only serializes `#, Priority, Subject, Updated` — no Steps/Expected columns; the Testcase
+Summary report's Excel export (same mechanism checked for TC-231) only serializes `ID, Subject, Requirement,
+Executed At, Status` — again no Steps/Expected columns. **There is no export path in this plugin that ever
+writes Steps/Expected Result content into a spreadsheet cell at all**, so the formula-injection risk this TC asks
+about has no actual code path to reach — a stronger and more specific finding than the original source-only
+confirmation (which only established that the Subject field has a safety helper, without checking whether Steps/
+Expected are exported anywhere). Probe issue deleted immediately after.
+
 ---
 
 ### TC-TCM-247: Add Result attachment type/size limits are enforced server-side, not only by client JS
@@ -630,6 +870,19 @@ plugin TC** — recorded here so the gap is a documented scope decision, not a s
 
 **Expected Result:**
 - Rejected server-side with a clean validation error — the client-side restriction must not be the only gate.
+
+**Result: PASS — EXECUTED 2026-10-22, live server-side bypass confirmed (upgraded from architectural-only).**
+Discovered the real upload flow is two-step: the browser first POSTs the raw file to core Redmine's
+`/uploads` endpoint (`AttachmentsController#upload`), which returns a token later referenced by the
+`issue_status_result` create call — the size/type check happens at this `/uploads` step, not at `create`. Built a
+6MB file (`Setting.attachment_max_size` confirmed = 5120 KB) and tried it through the real Add Result UI first —
+the client-side JS alert blocked it before any request was sent ("exceeds the maximum allowed file size"). To
+confirm the gate isn't *only* that client-side JS, sent a direct `curl` POST straight to
+`/uploads.js?filename=...&content_type=...` with the same 6MB file as the raw request body, using a valid
+session cookie and CSRF token but completely bypassing the browser/JS — the server itself returned the identical
+rejection (`"This file cannot be uploaded because it exceeds the maximum allowed file size (5242880)"`), and
+`rails runner` confirmed zero `Attachment` row was created. The server-side gate holds independent of the
+client-side one.
 
 ---
 
@@ -646,43 +899,63 @@ plugin TC** — recorded here so the gap is a documented scope decision, not a s
   previewed, the script does not execute — confirm the response's `Content-Type`/`Content-Disposition` headers
   are not serving attacker-controlled HTML/SVG as if it were same-origin, executable content.
 
+**Result: PASS — EXECUTED 2026-10-22, live upload-and-download round trip (upgraded from architectural-only).**
+Created `<svg xmlns="..." onload="window.__tcmSvgAttachmentXss=true"><script>alert('tcm-attachment-xss')</script>
+</svg>` and uploaded it as a real test-result attachment via the Add Result UI's file picker — created a genuine
+`Attachment` (`content_type: image/svg+xml`). Navigated to its download link
+(`/attachments/download/<id>/xss_attachment.svg`) as a real browser: Playwright reported this as a **file
+download event** (saved to disk), not an inline render — confirming `Content-Disposition: attachment` held;
+`window.__tcmSvgAttachmentXss` stayed **false**, i.e. the `onload` handler never fired. Confirmed via a direct
+`curl` request to the same URL: `content-type: image/svg+xml`,
+`content-disposition: attachment; filename="xss_attachment.svg"`, plus `x-content-type-options: nosniff`. The
+file is never served as same-origin executable/renderable content.
+
 ---
 
 ## Evidence Map (fill in during execution)
 
 | TC ID | Result | Evidence / bug reference |
 |---|---|---|
-| TC-TCM-215 | | |
-| TC-TCM-216 | | |
-| TC-TCM-217 | | |
-| TC-TCM-218 | | |
-| TC-TCM-219 | | likely BUG-TCM-007 |
-| TC-TCM-220 | | likely BUG-TCM-007 |
-| TC-TCM-221 | | likely BUG-TCM-007 |
-| TC-TCM-222 | | likely BUG-TCM-007 |
-| TC-TCM-223 | | likely BUG-TCM-009 |
-| TC-TCM-224 | | likely BUG-TCM-009 |
-| TC-TCM-225 | | |
-| TC-TCM-226 | | |
-| TC-TCM-227 | | |
-| TC-TCM-228 | | |
-| TC-TCM-229 | | |
-| TC-TCM-230 | | |
-| TC-TCM-231 | | |
-| TC-TCM-232 | | |
-| TC-TCM-233 | | |
-| TC-TCM-234 | | |
-| TC-TCM-235 | | |
-| TC-TCM-236 | | |
-| TC-TCM-237 | | #121896 |
-| TC-TCM-238 | | |
-| TC-TCM-239 | | |
-| TC-TCM-240 | | |
-| TC-TCM-241 | | likely BUG-TCM-009 |
-| TC-TCM-242 | | BUG-TCM-003 |
+| TC-TCM-215 | PASS | redirect to login, no cookie |
+| TC-TCM-216 | PASS | redirect to login, no cookie |
+| TC-TCM-217 | PASS | redirect to login, no cookie |
+| TC-TCM-218 | PASS | 401, no row created |
+| TC-TCM-219 | PASS | BUG-TCM-007 fixed — 403, source+live |
+| TC-TCM-220 | PASS | BUG-TCM-007 fixed — 403, live destroy attempt |
+| TC-TCM-221 | PASS | BUG-TCM-007 fixed — source (3 verbs gated) |
+| TC-TCM-222 | PASS | BUG-TCM-007 fixed — source + live read-side |
+| TC-TCM-223 | FAIL | BUG-TCM-009 (reopened, see Permissions suite regression) |
+| TC-TCM-224 | FAIL | BUG-TCM-009 (reopened, see Permissions suite regression) |
+| TC-TCM-225 | PASS | issue 403, edit 404 |
+| TC-TCM-226 | PARTIAL FAIL | BUG-TCM-094 (New, Medium) |
+| TC-TCM-227 | PASS | 404, filter chain halted |
+| TC-TCM-228 | PASS | 403, filter chain halted |
+| TC-TCM-229 | PASS | 401, no row written |
+| TC-TCM-230 | FAIL | BUG-TCM-091 (New, High) |
+| TC-TCM-231 | PASS | onerror payload false on issue page, grid, report, Excel export, email |
+| TC-TCM-232 | FAIL | BUG-TCM-093 (New, Critical) |
+| TC-TCM-233 | PASS | source — no vulnerable pattern in testcase.js |
+| TC-TCM-234 | PASS | onerror false — run name, env name, report, Excel; Run Added email never fires (BUG-TCM-087) |
+| TC-TCM-235 | PASS | 200 OK, no 500, Issue.count unchanged |
+| TC-TCM-236 | PASS | live full 4-step wizard, onerror payload false |
+| TC-TCM-237 | PASS | #121896 fix confirmed landed, live re-check |
+| TC-TCM-238 | PASS | Activity Log, To-Do, email, Excel report all clean |
+| TC-TCM-239 | PASS | plugin settings page, no credential patterns |
+| TC-TCM-240 | PASS | destroyed cookie replay → redirect to login |
+| TC-TCM-241 | PASS | mid-session membership revoke → 404 immediately |
+| TC-TCM-242 | PASS | BUG-TCM-003 fixed, citing TC-278 |
 | TC-TCM-243 | N/A — scope note | — |
-| TC-TCM-244 | | |
-| TC-TCM-245 | | |
-| TC-TCM-246 | | |
-| TC-TCM-247 | | |
-| TC-TCM-248 | | |
+| TC-TCM-244 | PASS | live binary-as-.csv → clean flash error, no 500 |
+| TC-TCM-245 | PASS | live 12.9MB CSV → clean flash error, no 500 |
+| TC-TCM-246 | PASS | live import+export round trip — Steps/Expected never exported at all |
+| TC-TCM-247 | PASS | live server-side bypass via direct /uploads POST, size rejected |
+| TC-TCM-248 | PASS | live upload+download — forced download, onload never fired |
+
+**Execution summary 2026-10-22 (full pass, all gaps closed per explicit follow-up instruction):** 30 PASS, 1
+PARTIAL FAIL (226 → BUG-TCM-094), 3 FAIL (223/224 → BUG-TCM-009 reopened; 230 → BUG-TCM-091; 232 → BUG-TCM-093),
+1 N/A scope note (243). Every TC that was previously PASS-by-source-inference or narrower-scope (231, 234, 236,
+238, 245, 246, 247, 248) has now been re-executed live against the real UI/API with genuine probe fixtures and
+upgraded to a full, unqualified PASS — no TC in this suite rests on architectural inference alone any more. New
+bugs filed this pass: **BUG-TCM-091** (High), **BUG-TCM-092** (High, found incidentally during TC-231's
+investigation, not itself a numbered TC in this suite), **BUG-TCM-093** (Critical), **BUG-TCM-094** (Medium) —
+all four reported to production as #124346/#124347/#124348/#124349.

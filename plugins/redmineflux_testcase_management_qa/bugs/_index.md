@@ -4,7 +4,7 @@
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-TCM-007 | Create/Edit/Delete for Test Suites, Reports, and Requirements have no permission check at all — any project member can create, edit or delete them regardless of role | Closed | High | 7.0.0 | #121645 | bugs/closed/BUG-TCM-007.md |
 | BUG-TCM-008 | Run detail page crashes with an unhandled 500 error whenever the run's environment-assignee user has been deleted | Closed | Medium | 7.0.0 | #121698 | bugs/closed/BUG-TCM-008.md |
-| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of — REOPENED 2026-10-22, broader than first found: non-member sub-case stays fixed, but Test Suites' read actions skip BOTH the module-enabled check AND the `view_test_suite` permission check itself — a project member with zero Testcase Management permissions can still fully browse Test Suites regardless of module state | Open | High | master (post-pull, pre-7.2.0) | #121699 | bugs/open/BUG-TCM-009.md |
+| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of — REOPENED 2026-10-22, broader than first found: non-member sub-case stays fixed, but Test Suites' read actions skip BOTH the module-enabled check AND the `view_test_suite` permission check itself, and `issue_testcase_controller.rb#new` ("New Test Case" form) has zero authorization of any kind — a project member with zero Testcase Management permissions can still fully browse Test Suites and open the New Test Case form regardless of module state. Production #121699 synced 2026-10-22 (Reopen, 30%, target version moved to open Release 7.2.0). | Open | High | master (post-pull, pre-7.2.0) | #121699 | bugs/open/BUG-TCM-009.md |
 | BUG-TCM-010 | With the Testcase Tracker setting cleared, "New Test Case" silently creates a Bug instead of failing with a configuration error — the issue is invisible to every Testcase Management view from then on | Closed | High | 7.0.0 | #121700 | bugs/closed/BUG-TCM-010.md |
 | BUG-TCM-011 | Report Defect (and New Test Case) cannot be completed at all when Defect/Testcase Tracker is set to anything other than "Bug" — two Bug-only required custom fields are enforced but never rendered | Closed | High | 7.0.0 | #121701 | bugs/closed/BUG-TCM-011.md |
 | BUG-TCM-012 | Default "Test Case Result Added" notification email shows the run's name instead of the test case's own subject in its heading | Closed | Low | 7.0.0 | #121702 | bugs/closed/BUG-TCM-012.md |
@@ -86,6 +86,14 @@
 | BUG-TCM-002 | CSV import silently discards the second occurrence of a duplicated column header with no warning | Closed | Medium | 7.0.0 | | bugs/closed/BUG-TCM-002.md |
 | BUG-TCM-087 | "Run Added" email can never be sent for a run created via the normal web UI — hardcoded `from=API` in `runs/new.html.erb` always triggers the CI-run email-suppression guard | Open | High | master (post-pull, pre-7.2.0) | #124272 | bugs/open/BUG-TCM-087.md |
 | BUG-TCM-088 | "Run Updated" notification email consistently shows the run's name from one edit ago, not the name just saved — DB save itself is correct, only the email content is stale (reproduced 3/3 consecutive edits); extended to cover all run-derived fields (Name/State/Environment/Assignee) and confirmed timing-sensitive | Open | Medium | master (post-pull, pre-7.2.0) | #124273 | bugs/open/BUG-TCM-088.md |
+| BUG-TCM-089 | Requirements has no `view_requirement` permission at all (design question for dev); Add/Edit controls (+ icon, 'r' shortcut, Edit Title pencil) stay visible and fail silently with zero add/edit_requirement — confirmed UI-only, backend correctly 403s and creates nothing; attachment download genuinely bypasses Requirements permissions entirely, falling back to core `view_files` instead — confirmed real 200 OK download with zero Requirements permissions | Open | High | master (post-pull, pre-7.2.0) | #124298 | bugs/open/BUG-TCM-089.md |
+| BUG-TCM-090 | Add Testcase page's test-suite kebab menu shows Edit Folder/Delete Test Suite regardless of permission (unlike the real Test Suites page, which correctly filters it) — confirmed by hovering the same suite on both pages; clicking Edit Folder is also broken for EVERY user on this page (project_id=undefined 404), root-caused to issue_testcase/new.html.erb's copy of the shared modal omitting the data-project_id attribute test_suites/index.html.erb sets correctly | Open | Medium-High | master (post-pull, pre-7.2.0) | #124317 | bugs/open/BUG-TCM-090.md |
+| BUG-TCM-091 | CSV import's `testcase_import_controller.rb#step2` never validates `selected_suite_id` against the importing project — a crafted request links a newly-imported Project-A test case issue into a Project-B suite, and the foreign issue id then genuinely leaks into that suite's test-case list for any real member of Project B (`GET /get_test_cases`); full issue content stays correctly blocked by core Redmine's own view-issue permission | Open | High | 7.0.0 | #124346 | bugs/open/BUG-TCM-091.md |
+| BUG-TCM-092 | `GET /test_suites?project_id=<id>` with no `testsuite_id` crashes with a full 500 (`ArgumentError: comparison of NilClass with 0 failed`) for every user whenever the project has at least one unassigned test-case issue — `test_suites/index.html.erb`'s `sort_by` assumes every issue in `@issues` is present in `@query.issues`'s derived index map, which isn't always true; reproduced 3/3 times | Open | High | 7.0.0 | #124347 | bugs/open/BUG-TCM-092.md |
+| BUG-TCM-093 | Genuine, confirmed-executing stored XSS in the Requirements sidebar tree — a requirement's title is interpolated unescaped into a raw HTML template literal in `script.js`, later assigned via `innerHTML`; an `<img onerror=...>` payload fires for every viewer of the Requirements page, requiring only the low-privilege `add_requirement` permission to plant | Open | Critical | 7.0.0 | #124348 | bugs/open/BUG-TCM-093.md |
+| BUG-TCM-094 | `IssueStatusResultsController#new` has zero cross-project scoping or authorization filter — a member of Project A can load the full "Add Result" form for any other project's run/test-case by ID, disclosing that run's environment name(s); the actual write path (`#create`) is separately and correctly gated, so this is a read-only disclosure, not an exploitable write | Open | Medium | 7.0.0 | #124349 | bugs/open/BUG-TCM-094.md |
+| BUG-TCM-095 | The Issues list's bulk context-menu "Requirements" submenu never greys itself out for a user lacking `edit_requirement` — every sibling submenu in the same file (Status/Tracker/Priority/etc.) correctly disables itself for a missing permission, but Requirements always renders fully clickable and only 403s server-side on click, with no prior indication | Open | Low | 7.0.0 | #124386 | bugs/open/BUG-TCM-095.md |
+| BUG-TCM-096 | A user with core `edit_issues` but no `edit_requirement` can fully add/remove a test case's Requirement links via the plain Issue Edit form (and the standard Bulk Edit form) — `model_issue_hook.rb`'s `controller_issues_edit_after_save`/`controller_issues_bulk_edit_before_save` process `requirement_ids` with zero permission check, a genuine bypass of the gate every other requirement-linking path enforces | Open | High | 7.0.0 | #124387 | bugs/open/BUG-TCM-096.md |
 
 - **BUG-TCM-009 extended 2026-10-01** while executing `TESTCASE_MANAGEMENT_TODO.md` TC-TCM-214: a 9th affected
   endpoint confirmed, `testcase_activities` (Activity log) — a non-member can view a private project's activity
@@ -470,4 +478,98 @@
   distinct from `TestSuitesController`) with the exact same missing-permission shape — it has zero
   authorization of any kind, unlike its own `#create` action which at least checks the generic Redmine
   `add_issues` permission. **Severity upgraded to High.** Role permissions restored immediately after.
-  Production #121699 reopen pending explicit user approval (currently Done/100%).
+  **Production #121699 synced 2026-10-22**, per explicit user approval ("production pe bhi sync he bug jo bhi
+  findings he") — `fixed_version_id` moved from the closed Release 7.1.0 to the open Release 7.2.0 first (same
+  precedent as BUG-TCM-013/072), then `status_id` → Reopen, `done_ratio` → 30%, with full notes covering both
+  findings (Test Suites' missing module-enabled + `view_test_suite` checks, and
+  `issue_testcase_controller.rb#new`'s zero-authorization gap), the 3-part suggested fix, and references to all
+  three local screenshots. Verified via follow-up `get_issue`.
+
+- **BUG-TCM-089 NEW 2026-10-22**, found while the user manually stripped all Requirement permissions from the
+  Manager role and poked around the real Requirements screen. Three findings. **(1) Design question, not a
+  defect**: confirmed via `Redmine::AccessControl.permissions` that Requirements has no `view_requirement`
+  permission registered at all — unlike Test Suites/Reports, which both have their own view permission;
+  flagged for the dev to decide intentionally, not assumed to need a code fix. **(2) UI-only gap, backend
+  confirmed safe**: the "+" Add Requirement icon, the "r" keyboard shortcut, and the Edit Title pencil all stay
+  visible and operable with zero `add_requirement`/`edit_requirement` — but submitting either silently fails
+  with **no error message at all**, confirmed via `Requirement.where(title: ...).count == 0` after a probe
+  create attempt, and via direct curl POST/PUT both returning 403 Forbidden. Backend genuinely holds; this is a
+  UI-visibility + missing-feedback defect, not a bypass. **(3) Real bypass, High severity**: attached a real
+  file to Requirement #6, then downloaded it via `/requirement/download?id=...` as a role with every
+  Requirements permission stripped — got a clean 200 OK with the full file. Root-caused to
+  `allowed_to_download_requirement_attachment?` falling back to `@attachment.visible?(User.current)`, which
+  resolves to core Redmine's `view_files` permission (confirmed still `true` on the stripped Manager role
+  throughout) — completely unrelated to any Testcase Management permission. An admin who deliberately removes
+  all Requirements access from a role cannot actually stop that role downloading Requirement attachments.
+  Role permissions restored to the documented 17-permission baseline immediately after. **Reported to
+  production 2026-10-22 as #124298** per explicit user instruction ("create bug on production") — standalone
+  issue (no Test Run/Testcase link, matching the BUG-TCM-087/088 pattern), Bug tracker, Priority High, Category
+  "Testcase Management Plugin", Target version Release 7.2.0, assigned to Vaishnavi Bhawsar.
+
+- **BUG-TCM-090 NEW 2026-10-22**, found by the user with a role granted only `create_test_suite` (no view/edit/
+  delete). Two findings on `/projects/<project>/issue_testcase/new` ("Add Testcase"). **(1)** The test-suite
+  tree's "⋮" kebab menu correctly shows only "Add Sub Test Suite" on the real Test Suites page for this role,
+  but shows **all three options** ("Edit Folder", "Add Sub Test Suite", "Delete Test Suite") for the identical
+  suite on the Add Testcase page — confirmed by hovering the same "CI Ingest" suite on both pages back to back.
+  **(2)** Clicking "Edit Folder" on this page 404s (`GET /test_suites/3/edit?project_id=undefined`) —
+  **reproduced identically as Admin** (full permissions), confirming it's a plain functional bug, not a
+  permission-gated failure. Root-caused precisely: `test_suites/index.html.erb`'s `#subfolder-modal` sets
+  `data-project_id="<%= @project.identifier %>"`; `issue_testcase/new.html.erb`'s copy of the same modal never
+  sets this attribute at all, so `#subfolder_edit`/`#delete_folder`'s shared JS handler always reads
+  `project_id=undefined` on this page. "Delete Test Suite" shares the identical broken dependency (confirmed
+  via source, not executed — blocked by the session's own irreversible-deletion safety guard before any real
+  delete was attempted). No role permissions were changed during this investigation. **Reported to production
+  2026-10-22 as #124317** per explicit user instruction ("bug report kro production pe") — standalone issue (no
+  Test Run/Testcase link, matching the BUG-TCM-087/088/089 pattern), Bug tracker, Priority High, Category
+  "Testcase Management Plugin", Target version Release 7.2.0, assigned to Vaishnavi Bhawsar.
+
+- **BUG-TCM-091/092/093/094 NEW 2026-10-22**, all four found while executing `TESTCASE_MANAGEMENT_SECURITY.md`
+  (the Security suite's first full execution pass, per "secrity bhi kr lo test"). **091** (High): CSV import's
+  `step2` never validates `selected_suite_id` against the importing project — confirmed via direct model-layer
+  replication of the exact controller code path, then a live leak confirmation as `dev1` (genuine non-member)
+  via `GET /get_test_cases`. **092** (High): found incidentally while investigating 091/TC-231 — the default
+  `/test_suites?project_id=<id>` page (no `testsuite_id`) crashes with a full 500 for every user whenever the
+  project has any unassigned test-case issue, reproduced 3/3 times, confirmed unrelated to 091's probe. **093**
+  (Critical): genuine, confirmed-executing stored XSS in the Requirements sidebar tree — proven definitively with
+  an `<img onerror=...>` payload (distinguishing real execution from a merely-inert injected `<script>` tag,
+  since browsers never auto-execute `<script>` elements inserted via `innerHTML` regardless of escaping gaps).
+  **094** (Medium): `issue_status_results_controller.rb#new` has zero project-scoping or authorization filter at
+  all — a Project-A-only member can load Project B's "Add Result" form by ID and see its environment name(s);
+  the separate `#create` (write) path independently re-derives and correctly checks project membership, so this
+  is read-only disclosure, not an exploitable write. All four root-caused precisely to exact file/line, all probe
+  fixtures (issues, requirements, suite links, a disposable suite, a disposable run) deleted immediately after
+  confirmation, and `qanonadmin`'s baseline Developer-role membership on `rftc-016-ci-qa` was restored after a
+  mid-session revoke-and-restore test (TC-TCM-241). **Reported to production 2026-10-22 as #124346 (091) /
+  #124347 (092) / #124348 (093) / #124349 (094)**, per explicit user instruction ("bugs report kr do production
+  pe") — all four standalone issues (no Test Run/Testcase link, matching the BUG-TCM-087/088/089/090 pattern),
+  Bug tracker, Category "Testcase Management Plugin", Target version Release 7.2.0, assigned to Vaishnavi
+  Bhawsar. Priority: 091/092 High, 093 Blocker (Critical-severity, no native "Critical" priority level — same
+  mapping as BUG-TCM-082), 094 Medium. Custom fields left at project defaults (`list_custom_fields` permission
+  error for this account, same limitation as every prior production report this session).
+
+- **BUG-TCM-095 NEW 2026-10-22**, found while regressing `TESTCASE_MANAGEMENT_TEST_CASES.md` per explicit user
+  request (three specific concerns: the current 40000-char Step/Expected boundary, Requirement linking from both
+  Create and Edit forms, and a permission question about the bulk Requirements context-menu action). The first
+  two concerns both came back genuinely fixed/working on the current build (BUG-TCM-021/022 confirmed still
+  fixed, requirement linking confirmed working from both Create and Edit). The third — the user's own suspicion
+  that this bulk action should be gated by core `edit_issue` rather than the plugin's `edit_requirement` — turned
+  out to be a UI-consistency gap rather than a permission-choice error: the server-side gate (`edit_requirement`)
+  is deliberate and consistent with the single-issue equivalent, but the Requirements submenu in
+  `context_menus/issues.html.erb` is the one submenu in that file that never passes `:disabled` based on
+  permission, unlike every sibling submenu (Status/Tracker/Priority/etc.), so it looks usable to a user who
+  actually can't use it, then 403s on click. Filed as **BUG-TCM-095**, Low. **Reported to production 2026-10-22
+  as #124386**, per explicit user instruction, after confirming with the user this is genuinely distinct from
+  (not a duplicate of) BUG-TCM-096 below — related in class, but different root cause and fix location.
+
+- **BUG-TCM-096 NEW 2026-10-22**, found as a direct consequence of the user's own sharp follow-up question on
+  BUG-TCM-095: "if the Edit form already lets a user add a requirement, shouldn't the issue-list action work the
+  same way too?" Checking this precisely surfaced something more serious than an inconsistency — **the Edit Issue
+  form's own Requirement linking has no permission check at all**. Confirmed live: as `qanonadmin` (core
+  `edit_issues` granted, `edit_requirement` explicitly denied, verified via `User#allowed_to?` before the test),
+  opened a fresh probe issue for Edit, selected a Requirement in the dropdown, saved — the `RequirementIssue` row
+  was genuinely created. Root-caused to `model_issue_hook.rb`'s `controller_issues_edit_after_save` (and the
+  identical gap in `controller_issues_bulk_edit_before_save` for the standard Bulk Edit form), which process
+  `requirement_ids` with zero `allowed_to?(:edit_requirement, ...)` check, unlike every other path that performs
+  the same mutation (`RequirementIssuesController#create`, `TestSuitesController#assign_requirement`). Filed as
+  **BUG-TCM-096**, High (a genuine authorization bypass, not a cosmetic gap like BUG-TCM-095). **Reported to
+  production 2026-10-22 as #124387**, per explicit user instruction, alongside BUG-TCM-095 (#124386).

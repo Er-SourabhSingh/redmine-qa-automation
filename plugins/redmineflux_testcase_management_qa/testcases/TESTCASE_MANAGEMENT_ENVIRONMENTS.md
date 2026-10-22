@@ -1,7 +1,14 @@
 # Test Cases — Redmineflux Testcase Management — Environments
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 1 and the vendor KB "Environment Management" section.
-> **Status: executed 2026-10-01.**
+> **Status: executed 2026-10-01** against a different, older instance/project (`test-project`/
+> `tcm-permissions-private-test`), same stale-instance pattern already caught in
+> `TESTCASE_MANAGEMENT_TEST_SUITES.md`. **REGRESSED 2026-10-22 against the current build** (Docker
+> `localhost:3000`, project `rftc-016-ci-qa`) as part of the CLAUDE.md §27 full-plugin regression. All 8 TCs
+> (038–045) re-executed live via Playwright + `rails runner`. All PASS, no new bugs — **BUG-TCM-020 (environment
+> rename leaving a stale name on existing runs) is now confirmed genuinely fixed**: a renamed environment's new
+> name now shows correctly everywhere on an already-created run's own page too, not just the Environment list and
+> new-run forms.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -35,6 +42,10 @@ environment list.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Created `ENV-A` with component "Hardware" via Environment → Add Environment. "Environment was successfully created." shown, new row appears in the list with the exact name and component entered.
 
+**REGRESSED 2026-10-22 — PASS.** Created `ENV-A-REGRESS` with component "Hardware" via the current build's Add
+Environment modal. Confirmed via `rails runner`: `TestcaseEnvironment#name == "ENV-A-REGRESS"`,
+`#components == "Hardware"`, correctly scoped to `rftc-016-ci-qa` (`project_id: 2`).
+
 ---
 
 ### TC-TCM-039: A created environment is selectable on a run
@@ -50,6 +61,10 @@ environment list.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Opened Runs & Results → Add Run; the Environment combobox offers `ENV-A` alongside the pre-existing `fdsgsdf`/`chrome`/`edge` options, confirmed selectable.
 
+**REGRESSED 2026-10-22 — PASS.** Opened Add Run on the current build; the Environment dropdown offers
+`ENV-A-REGRESS` alongside the pre-existing `test`/`test1`/`TC-TCM-293-manage-environment-positive-leg` options,
+confirmed selectable.
+
 ---
 
 ### TC-TCM-040: Environment name is mandatory
@@ -63,6 +78,10 @@ environment list.
 - Creation is refused with a visible validation message; nothing is created.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Left Name blank, selected a component, clicked Create. Server returned 422; "Name cannot be blank" shown inline on the form; the environment list was unchanged (no new row).
+
+**REGRESSED 2026-10-22 — PASS.** Left both Name and Components blank, clicked Create: server returned `422`,
+and the form showed both **"Name cannot be blank"** and **"Components cannot be blank"** inline (confirmed via
+screenshot) — Components turns out to be mandatory too on this build, same enforcement style as Name.
 
 ---
 
@@ -78,6 +97,9 @@ environment list.
 - Record which. Silently creating an indistinguishable duplicate that then makes run results ambiguous is a defect.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Attempted to create a second environment also named `ENV-A`. Server refused with "Name has already been taken" shown inline; only one `ENV-A` row exists. The safer of the two acceptable behaviors.
+
+**REGRESSED 2026-10-22 — PASS.** Attempted to create a second environment also named `ENV-A-REGRESS`: refused
+with "Name has already been taken" shown inline; confirmed via `rails runner` only 1 row exists with that name.
 
 ---
 
@@ -95,6 +117,13 @@ environment list.
 
 **Status:** **EXECUTED 2026-10-01 — FAIL.** Created run #25 (`TC-TCM-042 Env Rename Run`) against `ENV-A`, recorded one Passed result on it. Renamed the environment to `ENV-A-RENAMED`. The rename genuinely persisted (Environment list and a fresh Add Run form's dropdown both correctly show `ENV-A-RENAMED`), and the existing result itself is **not lost** (still shows "Passed (1)"). But run #25's own page — environment tab/filter, the "Environment : ENV-A" summary line, and every link's query string on that page — still shows the **old** name `ENV-A` throughout, not the new one. Filed as **BUG-TCM-020**.
 
+**REGRESSED 2026-10-22 — PASS, BUG-TCM-020 confirmed genuinely fixed.** Created run #76
+(`TC-TCM-042-env-rename-run`) against `ENV-A-REGRESS`, recorded one Passed result on it. Renamed the environment
+to `ENV-A-REGRESS-RENAMED`. Confirmed: the rename persisted (`TestcaseEnvironment#name` updated), the existing
+result is intact (run page still shows "Passed"), **and** run #76's own page now shows the **new** name
+`ENV-A-REGRESS-RENAMED` everywhere (confirmed via a page-text scan — zero mentions of the old name anywhere,
+2 mentions of the new name). The stale-old-name display bug no longer reproduces.
+
 ---
 
 ### TC-TCM-043: Delete an unused environment
@@ -108,6 +137,10 @@ environment list.
 - It is removed from the list and no longer offered on the run form.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Created `ENV-DELETE-UNUSED`, assigned to nothing, deleted via the environment row's delete action with confirmation ("Are you sure you want to delete this environment? This action cannot be undone."). "Environment was successfully deleted." shown; row gone from the list; confirmed gone from a fresh Add Run form's Environment dropdown too.
+
+**REGRESSED 2026-10-22 — PASS.** Created `ENV-DELETE-UNUSED-REGRESS`, assigned to nothing, deleted via the row's
+delete icon — same confirmation text ("Are you sure you want to delete this environment? This action cannot be
+undone."). Confirmed via `rails runner`: the row no longer exists.
 
 ---
 
@@ -127,6 +160,14 @@ environment list.
 
 **Status:** **EXECUTED 2026-10-01 — PASS (second acceptable behavior).** Used run #25 (`TC-TCM-042 Env Rename Run`, already assigned to `ENV-A-RENAMED` from TC-042) with 2 recorded results (Passed, Skipped). Deleted the environment — same generic "Are you sure... cannot be undone" confirmation as the unused-environment case (TC-043), no special in-use warning, deletion succeeded immediately. Checked all three dependent views afterward: the run's own page still renders fully with both results intact ("Passed (1)", "Skipped (1)", no 500/blank); a freshly-generated Testcase Summary report (covering all runs) includes a complete, correctly-populated section for this run with no error. Per this TC's own framing, this is the acceptable "succeeds, no dangling references" behavior — not a defect. (The environment *name* shown on these dependent views is the old, stale one — that is the separately-confirmed `BUG-TCM-020`, not a new finding here.)
 
+**REGRESSED 2026-10-22 — PASS (second acceptable behavior, same as original).** Reused run #76
+(`ENV-A-REGRESS-RENAMED` from TC-042) with its 1 recorded Passed result. Deleted the environment — same generic
+confirmation, no in-use warning, deletion succeeded immediately. Checked both dependent views: run #76's own page
+still renders fully with the result intact ("Passed" still shown, no 500); a freshly-generated Testcase Summary
+report (`TC044-env-delete-report-probe`, id 34) scoped to run #76 renders with no error. No dangling-reference
+crash on either surface — and since BUG-TCM-020 is now fixed (TC-042), there's no stale-name side issue here
+either this time.
+
 ---
 
 ### TC-TCM-045: Environments are project-scoped
@@ -144,22 +185,34 @@ environment list.
 
 **Status:** **EXECUTED 2026-10-01 — PASS.** Used `test-project`'s own environments (`fdsgsdf`/`chrome`/`edge`) as Project A and `tcm-permissions-private-test` (TestCases module enabled, confirmed via its own nav) as Project B. Project B's Environment list shows "No data" and its Add Run form's Environment dropdown offers only the placeholder "Select an environment" — zero leakage, and both views agree with each other (no list/selector mismatch).
 
+**REGRESSED 2026-10-22 — PASS.** Confirmed via `rails runner`: `rftc-016-ci-qa` (Project A, numeric id 2) has 3
+environments (`test`, `test1`, `TC-TCM-293-manage-environment-positive-leg`); `rftc-038-multisuite-qa` (Project B,
+numeric id 3) has **zero** — no overlap in either direction. (Note: `TestcaseEnvironment.project_id` stores the
+project's numeric id, unlike `Testsuite.project_id` which stores the string identifier — a model-specific
+convention difference worth remembering for any future direct DB query against either table.)
+
 ---
 
 ## Evidence Map
 
-| TC range | Area | Bug reference |
+| TC ID | Result | Evidence |
 |---|---|---|
-| TC-TCM-038 – 108 | Environment CRUD and run integration | BUG-TCM-020 |
+| TC-TCM-038 | PASS | environment created with name + component |
+| TC-TCM-039 | PASS | offered and selectable on Add Run |
+| TC-TCM-040 | PASS | 422, "Name cannot be blank" + "Components cannot be blank" |
+| TC-TCM-041 | PASS | duplicate refused, only 1 row exists |
+| TC-TCM-042 | PASS | BUG-TCM-020 fixed — new name shows on existing run's own page |
+| TC-TCM-043 | PASS | confirmation shown, row deleted |
+| TC-TCM-044 | PASS | run + report both render fine after deleting an in-use environment |
+| TC-TCM-045 | PASS | zero environment overlap between Project A and Project B |
+
+**Execution summary 2026-10-22:** 8/8 PASS. No new bugs. **BUG-TCM-020 (environment rename leaving a stale name
+on existing runs) confirmed genuinely fixed** — this suite's original 2026-10-01 pass had found it as the one
+FAIL; on the current build the same rename-then-check-existing-run-page flow now shows the correct, new name
+throughout. All fixtures (`ENV-A-REGRESS`/`ENV-A-REGRESS-RENAMED`, `ENV-DELETE-UNUSED-REGRESS`, run #76, report
+#34) are disposable test artifacts, left in place as evidence, consistent with this suite's own established
+convention.
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-042 and TC-TCM-044 are the highest-risk cases here — both probe whether recorded results survive changes
   to the environment they are attached to.
-- **Suite executed 2026-10-01 — 7 PASS, 1 FAIL.** TC-TCM-042 (rename) found **BUG-TCM-020**: an already-created
-  run keeps showing the environment's *old* name everywhere on its own page (filter tab, summary line, link query
-  strings) after a rename, even though the Environment list and new-run forms correctly show the new name and the
-  recorded result itself is not lost. TC-TCM-044 (delete an in-use environment) is a related but separately-PASSing
-  case: deletion succeeds with no block, and every dependent view (run, grid, a generated Testcase Summary report)
-  still renders fully with no dangling reference or crash — satisfying the TC's own "succeeds + renders correctly"
-  acceptable outcome, independent of BUG-TCM-020's stale-name issue. All fixtures (`ENV-A`/`ENV-A-RENAMED`,
-  `ENV-DELETE-UNUSED`, run #25, report #13) are disposable test artifacts, left in place as evidence.

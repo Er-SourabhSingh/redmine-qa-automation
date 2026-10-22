@@ -115,6 +115,76 @@
 
 ## Methodology Lessons
 
+- **`TestcaseEnvironment.project_id` stores the project's NUMERIC id, not the string identifier** —
+  the opposite convention from `Testsuite.project_id`, which stores the string identifier (e.g.
+  `"rftc-016-ci-qa"`). Querying `TestcaseEnvironment.where(project_id: 'rftc-016-ci-qa')` silently returns
+  nothing; use the numeric project id instead. Worth double-checking this per-model convention before any direct
+  console/DB query against a table that wasn't already confirmed this session.
+- **The Test Suite Add and Edit modals use two DIFFERENT element ids for the Name field** —
+  `testsuite_name` (Add) vs `testsuite_names`, plural (Edit). Querying `#testsuite_name` while the Edit modal is
+  open resolves to the Add modal's hidden/stale instance (value always empty), making a correctly-working field
+  look broken. Always confirm which modal is actually open and check for sibling elements sharing a similar id
+  before concluding a field isn't populating.
+- **The Test Suite tree's issue-count badge lives in a sibling `<span class="rf-ts-suite-count-badge">`, not
+  inside the suite-name `<a>` itself.** Querying just the link's own `textContent` (e.g. `.testsuite-name a`)
+  will never see the count even when it's rendering correctly — query the parent `.testsuite-name` span instead.
+  Also: the setting's real stored value must be the exact string `'true'` (checked via `== 'true'` in the views),
+  not `'1'` or any other truthy value — setting it to `'1'` looks like it should work but silently does nothing.
+- **The hidden `#parent-id-field` (and similar AJAX-populated hidden fields in this plugin's modals) can read as
+  empty if checked in the very same synchronous turn as the click that opens the modal** — a brief wait (or
+  reading the value in a later, separate check) shows it correctly populated. Don't conclude a pre-fill is broken
+  from an immediate same-tick read; this was initially mistaken for a live reproduction of the (actually fixed)
+  BUG-TCM-018 pattern during the 2026-10-22 Test Suites regression, before a second check with a short wait
+  showed the real, correct value.
+- **Redmine's real attachment upload flow is two-step, not a single multipart POST on the final form** — the
+  browser first POSTs the raw file to core `/uploads` (or `/uploads.js`), which returns a token; the later form
+  submission (e.g. `issue_status_results#create`) only references that token plus a filename/description, never
+  re-sending the file bytes. A direct curl POST to the final endpoint with a top-level `attachments[dummy][file]`
+  multipart field (guessing the shape) gets silently ignored — no error, no attachment, because the controller
+  never looks at that shape at all. To genuinely test attachment size/type limits server-side, POST straight to
+  `/uploads`/`/uploads.js` instead, bypassing the browser's client-side JS check at that exact step.
+- **Before concluding a CSV-formula-injection (or similar export-path) finding from a single safety-helper
+  reference, check whether the field in question is exported anywhere at all.** `RftcOutputSafetyHelper`'s
+  `excel_safe`/`excel_safe_row` is real and does protect Subject/run-name/description cells, but neither of this
+  plugin's actual export surfaces (`/test_suites.csv`, the Testcase Summary Excel export) ever serializes
+  Steps/Expected Result into a cell in the first place — the stronger, more specific finding for TC-TCM-246 was
+  "there is no export path for this data at all," not just "the helper that protects other fields exists."
+- **A PASS recorded from source/architectural inference should be clearly labeled as such and revisited with a
+  live check when the user asks "did you actually run this" — don't let the label alone stand in for evidence.**
+  This session's Security suite had 8 TCs (231, 234, 236, 238, 245, 246, 247, 248) that were initially recorded
+  as PASS from source reading or extension-by-analogy from a sibling TC; a direct user follow-up ("poora
+  regression ho gaya?") correctly caught that these weren't equivalent to the live-executed TCs around them, and
+  every one of them was then closed with a genuine probe fixture and real request/response evidence.
+- **For a curl-based CSRF-protected POST/PUT/DELETE, fetch the token and make the request in the exact same
+  Bash call, from the exact same cookie jar, every time** — refetching the token via a separate prior call (even
+  moments earlier) repeatedly produced a generic Redmine 422 CSRF-error page instead of the app's own
+  authorization response, which looks like "request rejected" but is actually just a stale/mismatched-session
+  tooling artifact, not a real finding. Found repeatedly during the Security suite (TC-219, TC-229, TC-244) —
+  always do `curl -c jar -b jar <page-for-token>` immediately followed by the real request using that same `jar`
+  in one call, and sanity-check the response body isn't the generic `422 - Redmine` CSRF page before trusting a
+  rejection as a genuine authorization result.
+- **An `Accept: */*` curl request can silently skip a view's own `<% if request.format == :html %>` guard**,
+  rendering a near-empty page (just the base layout, no actual form/content) with a clean `200 OK` — easy to
+  mistake for "nothing leaked" when the real issue is the test methodology, not the app. Found investigating
+  BUG-TCM-094 (`issue_status_results#new`): a bare `Accept: */*` GET returned 200 with no form fields at all; the
+  identical request with an explicit `Accept: text/html` header rendered the full form, hidden fields and all.
+  Always set `Accept: text/html` explicitly when curl-testing an HTML-rendering endpoint for a potential leak —
+  a clean-looking response under the wrong Accept header is not evidence of anything.
+- **The "genuine execution" onerror-payload methodology (established for BUG-TCM-093) is reusable and should be
+  the default XSS-confirmation technique going forward**, not just a one-off for that bug: create the probe with
+  `<img src=x onerror="window.__someUniqueFlag=true">`, view the page via Playwright, then
+  `page.evaluate(() => window.__someUniqueFlag === true)`. A `false` result is a genuinely strong PASS (not just
+  "didn't see an alert"); a plain `<script>` tag check alone is insufficient either way, since browsers never
+  auto-execute a `<script>` element inserted via `innerHTML`/`.html()` regardless of whether escaping is actually
+  broken. Used this pass to confirm PASS on Test Case Subject (TC-231), Run name (TC-234), and the FAIL on
+  Requirement title (BUG-TCM-093).
+- **A controller action can have a correctly-scoped write path (`#create`) while its own sibling read/form-load
+  action (`#new`) has zero scoping at all** — don't assume a controller is uniformly safe (or uniformly unsafe)
+  just because you've checked one of its actions. BUG-TCM-094 is exactly this split: `IssueStatusResultsController
+  #create` correctly re-derives `@project` from the run's own `project_id` and checks `execute_testcase`, but
+  `#new` loads `@run`/`@issue` by bare `.find(params[...])` with no project check and no `before_action` at all.
+  Check every action's own `before_action` list individually rather than inferring from the controller's general
+  reputation.
 - **For Permissions-suite "leg C" (direct endpoint) checks, `curl` with real per-user session cookies is the
   right tool, not Playwright** — the TC methodology itself says "request the URL directly," which is a raw
   HTTP status check, not a UI interaction. Use `rails runner` to reset a test user's password to a known value
@@ -153,6 +223,100 @@
   page has more than one widget/code path serving a conceptually similar feature (two mention dropdowns, two
   export buttons, two chart renderers), verify each one independently — a retest that only exercises one path
   can wrongly confirm "fixed" for the whole feature.**
+- **A control staying visible/operable client-side with zero permission is NOT automatically a security bug —
+  verify the backend independently before assuming a bypass.** BUG-TCM-089's Add/Edit Requirement controls
+  stayed fully visible and clickable with zero `add_requirement`/`edit_requirement`, which looked identical in
+  shape to BUG-TCM-007/009's real bypasses. But two independent backend checks (a DB row-count check after a
+  probe submit, and direct curl POST/PUT both returning 403) confirmed the backend genuinely refuses both —
+  this is a UI-visibility + missing-error-feedback defect, a real but much lower-severity class than a true
+  authorization bypass. Always check Leg C (the actual backend/endpoint) before classifying a Leg B finding's
+  severity, even when the UI symptom looks the same.
+- **An attachment/file-download endpoint can fall back to a completely different, unrelated core Redmine
+  permission than the feature's own permission model — always check what `.visible?` actually resolves to.**
+  BUG-TCM-089 Finding 3: `requirement.rb`'s `authorize_attachment_download` checks
+  `@attachment.visible?(User.current) || allowed_to_manage_requirement?(@project)` — the first half silently
+  falls back to core Redmine's generic `view_files` permission (confirmed still `true` on a role with every
+  Testcase Management permission stripped), completely bypassing this plugin's own permission model. When a
+  controller mixes `Attachment#visible?`/similar core helpers with plugin-specific permission checks via `||`,
+  test the core-permission branch explicitly — it can quietly defeat the plugin's own access control.
+- **A `rails runner` call via `docker exec` on this stack needs `-e SECRET_KEY_BASE=<value>` explicitly set** —
+  the container's own `REDMINE_SECRET_KEY_BASE` env var is read by the entrypoint script, not by Rails' boot
+  process directly when invoked via a bare `docker exec ... rails runner`, so omitting it causes an immediate
+  `ArgumentError: Missing secret_key_base` crash before any code runs. Grab the value via
+  `docker exec <container> printenv | grep -i secret` once, then pass it with every subsequent `-e` call.
+- **A UI widget that correctly filters by permission on one page is NOT guaranteed to do so everywhere it's
+  embedded — check every page that reuses the same component, not just the "main" one.** BUG-TCM-090: the
+  test-suite tree's kebab menu correctly hides Edit Folder/Delete Test Suite on `/test_suites` for a role
+  without those permissions, but the identical widget on `/projects/<id>/issue_testcase/new` ("Add Testcase")
+  shows all three options unconditionally — the permission-filtering logic simply isn't applied to this page's
+  copy of the same partial. When a plugin reuses a sidebar/tree/menu component across multiple controller
+  actions, test the permission behavior on each entry point separately; a passing regression on the "obvious"
+  page says nothing about a secondary one.
+- **A broken feature found via a denied-permission UI gap can turn out to be broken for EVERYONE, not just the
+  denied role — always retest as a fully-permitted user (e.g. Admin) before concluding severity/scope.**
+  BUG-TCM-090 Finding 2: Edit Folder's `project_id=undefined` 404 was first noticed while testing a stripped
+  role, but reproduced identically as Admin — the real root cause was a missing `data-project_id` HTML
+  attribute on one view's copy of a shared modal, unrelated to permissions at all. Misdiagnosing this as
+  "another missing permission check" would have under-stated it (it affects 100% of users on this page, not
+  just denied ones) and over-stated it as a security bug when it's a plain functional defect.
+- **The plugin's own `init.rb` is the authoritative source for its registered permission list — not
+  `docs/*_REQUIREMENTS.md`'s own matrix, which can quietly drift stale.** Found 2026-10-22: `REQUIREMENTS.md`'s
+  Permissions Matrix listed only 16 permissions; `init.rb`'s `project_module :testcase_management do ... end`
+  block actually registers 19 (`view_test_suite`, `manage_environment`, and a `public: true` `test_suites`
+  permission were all missing from the doc). When auditing "does this permission exist/what does it gate,"
+  grep `init.rb` directly rather than trusting a doc's own matrix.
+- **A permission can be correctly enforced on one access surface (e.g. an MCP/API controller) while a sibling
+  browser controller checking the exact same permission name never enforces it at all — these are two
+  independent code paths, test both.** `view_test_suite` is correctly checked by
+  `apis/mcp_testcase_controller.rb#list_test_suites`/`#get_test_suite` (confirmed live via a real API-key
+  toggle test, 403→200) — this is the same permission BUG-TCM-009 found completely unchecked on
+  `test_suites_controller.rb`'s browser pages. A fix landing on one surface (here, the MCP API path, fixed as
+  BUG-CRX-024 during separate Crux-plugin testing) says nothing about whether the sibling surface was ever
+  touched.
+- **A `public: true` Redmine permission is not a bug when it renders for every role — it's by design, and
+  cannot even be restricted via the role-edit form (no checkbox exists for it at all).** The plugin's
+  `test_suites` permission (distinct from `view_test_suite`) is declared `public: true`, scoped only to
+  `test_suites#releases` (Overview dashboard) and `testcase_help#index` (Help page) — confirm a `public: true`
+  declaration in `init.rb` before treating "this page has no visible permission checkbox" as a gap.
+- **A regression summary's own banner text can quietly understate its scope — re-read each TC's own last-dated
+  evidence line, don't trust the summary's phrasing.** The 2026-10-22 top-banner said "BUG-TCM-007 (Test Suite/
+  Report/Requirement create+edit+delete) confirmed fixed," which reads as if the whole Permissions suite had
+  been refreshed — but Test Run Management, Test Execution, and View Report (TC-TCM-052-062) were still dated
+  2026-09-30 on the OLD instance underneath, untouched this cycle. The user caught this by directly asking "have
+  you tested the rest too" — a lesson to proactively grep every TC's own dated evidence line for staleness
+  before claiming a suite is "regressed," not just read the summary paragraph.
+- **A denied write that returns a 500/422 instead of a clean 403 is still a correctly-enforced permission —
+  verify via a DB row count, not the HTTP status code alone.** `create_run` (denied) returned 500,
+  `execute_testcase`'s result-create (denied) returned 422 — both looked alarming at a glance, but
+  `Model.where(...).exists?`/`.count` before and after confirmed neither write actually happened. Flag the
+  ungraceful status code as a minor robustness note, but don't escalate it to a security finding without first
+  checking whether data actually changed.
+- **A Rails UJS `data-remote` link's `onclick` handler can resist a Playwright synthetic click/dispatchEvent
+  even though a real mouse click works — don't force it, fall back to the equivalent Admin-console action.**
+  Hit this on `#confirmDelete`/`#delete_run_action_*` buttons inside this plugin's modals: Playwright's element
+  actionability check reported "not visible" despite the button being visually present in a screenshot, and a
+  manually dispatched `MouseEvent('click')` didn't trigger the real jQuery/UJS handler either. Rather than
+  burning more turns fighting the DOM, fell back to the Admin-equivalent `Model.find(id).destroy` via `rails
+  runner` — which is exactly what the UI's own remote link invokes server-side, so it's a faithful substitute
+  for confirming cascade/permission behavior, just not a literal click-path reproduction.
+- **A disposable-looking fixture isn't always disposable — check how many real records reference it before
+  deleting it to close out a TC.** Nearly deleted Requirement #3/#6 on `rftc-016-ci-qa` to complete
+  TC-TCM-073, until checking `RequirementIssue.where(requirement_id: ...)` showed they're linked to 2 and 8
+  real test cases respectively (active RTM fixtures referenced by multiple other TCs/bug writeups this
+  session) — not the kind of single-purpose probe (like a freshly-created run or requirement) that's safe to
+  delete unilaterally. When a TC's own setup step is "delete something," confirm it's genuinely disposable
+  before proceeding, and ask first if it might be shared.
+- **The "Bulk Delete Runs" context menu is a right-click (contextmenu), not a left-click, and only appears
+  once at least one row checkbox is checked — don't assume it's hidden just because a left-click/hover on the
+  header checkbox reveals nothing.** `#bulk-delete-option` lives inside a `.custom-context-menu` bound to
+  `contextmenu` on a checked row's checkbox. Useful pattern: checkboxes themselves are NOT permission-gated
+  (any project member can tick them), but the context-menu option that triggers the actual bulk-delete is —
+  confirmed by checking `el.offsetParent !== null` after the same right-click action for a granted vs. a
+  denied role.
+- **`bulk_delete_run`'s route resolves `@project` via `Project.find_by(id: params[:project_id])` — numeric id
+  only, unlike most of this plugin's other endpoints which accept the string identifier too.** Sending the
+  identifier (`rftc-016-ci-qa`) 404s with "project not found," which looks like a permission refusal but isn't
+  — always use the numeric project id when hand-testing this specific action directly.
 
 ## Confirmed Working
 

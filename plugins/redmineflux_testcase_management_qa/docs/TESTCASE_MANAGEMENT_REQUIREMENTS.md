@@ -64,9 +64,17 @@ are installed.** A large class of apparent "bugs" on these instances is really a
 
 Permissions are granted per Redmine role under the plugin's own permission groups.
 
+> **Corrected 2026-10-22** — this matrix previously listed only 16 permissions. Confirmed via source
+> (`init.rb`'s `project_module :testcase_management do ... end` block) that the plugin actually registers
+> **19** permissions across these same 6 groups; `View Test Suite`, `Manage Environment`, and the public
+> `Test Suites` permission were missing below. Also note: two core Redmine permissions (`Add issues`,
+> `Import issues`) are silently reused by features in this module (New Test Case button, CSV Testcase Import)
+> even though they live outside this plugin's own permission groups — see the note after the table.
+
 | Permission group | Permission | Admin | Manager | Developer | QA | Client | Non-member |
 |---|---|---|---|---|---|---|---|
-| Test Suite Management | Create Test Suite | ✔ | ✔ | — | ✔ | ✘ | ✘ |
+| Test Suite Management | **View Test Suite** | ✔ | ✔ | — | ✔ | ✘ | ✘ |
+| | Create Test Suite | ✔ | ✔ | — | ✔ | ✘ | ✘ |
 | | Edit Test Suite | ✔ | ✔ | — | ✔ | ✘ | ✘ |
 | | Delete Test Suite | ✔ | ✔ | ✘ | — | ✘ | ✘ |
 | Test Run Management | Create Run | ✔ | ✔ | — | ✔ | ✘ | ✘ |
@@ -82,10 +90,18 @@ Permissions are granted per Redmine role under the plugin's own permission group
 | Requirement Management | Add Requirement | ✔ | ✔ | — | ✔ | ✘ | ✘ |
 | | Edit Requirement | ✔ | ✔ | — | ✔ | ✘ | ✘ |
 | | Delete Requirement | ✔ | ✔ | ✘ | — | ✘ | ✘ |
+| **Environment** | **Manage Environment** | ✔ | ✔ | — | ✔ | ✘ | ✘ |
+| *(public, not role-assignable)* | **Test Suites** *(gates only the Overview dashboard + Help page)* | public | public | public | public | public | public |
 
 ✔ = expected granted · ✘ = expected denied · — = **not yet confirmed on a live instance; verify before asserting
 in a bug.** The KB lists the permission names but does not prescribe a role mapping — the columns above are this
 project's intended baseline and must be established by executing `TESTCASE_MANAGEMENT_PERMISSIONS.md`.
+
+**Note — two core Redmine permissions are reused by this plugin, outside its own permission groups above:**
+`Add issues` gates both the "New Test Case" button (`issue_testcase_controller.rb#create`) and CSV Testcase
+Import (`testcase_import_controller.rb`, all steps) — there is no dedicated Testcase-Management permission for
+either feature. `Import issues` (despite its name) is never checked anywhere in this plugin at all — granting
+or denying it has zero effect on CSV import. See `TESTCASE_MANAGEMENT_PERMISSIONS.md` TC-TCM-292.
 
 ## Configuration (Administration → Plugins → Testcase Management → Configure)
 

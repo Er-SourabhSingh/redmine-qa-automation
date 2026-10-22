@@ -3,13 +3,21 @@
 > **REOPENED — 2026-10-22.** Test Suites' read actions (`index`/`releases`/`chart_data`) are missing **two**
 > separate checks: the `module_enabled?` check the other 8 sibling endpoints correctly have (found first via
 > TC-TCM-077), and — found directly by the user testing the actual role — the `view_test_suite` permission
-> check itself, which neither of this controller's candidate authorization helpers ever verifies at all. A
-> project member with zero Testcase Management permissions can still fully browse Test Suites regardless of
-> module state. Severity upgraded to **High**. See "Reopened" section below. Production #121699 reopen pending
-> explicit user approval (currently Done/100%).
+> check itself, which neither of this controller's candidate authorization helpers ever verifies at all. The
+> same gap also affects `issue_testcase_controller.rb#new` ("New Test Case" form,
+> `/projects/<id>/issue_testcase/new`), confirmed to have zero authorization at all. A project member with zero
+> Testcase Management permissions can still fully browse Test Suites and open the New Test Case form regardless
+> of module state. Severity upgraded to **High**. See "Reopened" section below.
+>
+> **Production synced 2026-10-22.** #121699 reopened on production (status Reopen, done ratio 30%, target
+> version moved from the closed "Release 7.1.0 [07-10-2026]" to the open "Release 7.2.0 [21-10-2026]" first, per
+> the standard reopen precedent) with full notes covering both findings (Test Suites' `rftc_project_readable?`
+> gap and `issue_testcase_controller.rb#new`'s zero-authorization gap), the suggested 3-part fix, and references
+> to all three local screenshots. See "Production history" below.
 
-> **Previously CLOSED — 2026-10-07.** Production #121699 (https://flux.zehntech.com/issues/121699) is **Done**, 100% done.
+> **Previously CLOSED — 2026-10-07.** Production #121699 (https://flux.zehntech.com/issues/121699) was **Done**, 100% done.
 > Closed on production by Sourabh Singh after retest — see "Production history" below. Local file synced from production on 2026-10-08.
+> Reopened again 2026-10-22, see above.
 
 - Bug ID: BUG-TCM-009
 - Production Redmine Issue ID: #121699
@@ -442,3 +450,18 @@ check itself (found by the user directly testing the role). Severity: **High** (
 the module-disabled precondition, a project member simply not being granted `view_test_suite` on their role is
 an entirely ordinary, common admin configuration, not an edge case; this makes the practical exposure much
 wider than originally scoped.
+
+### 2026-10-22 — Production synced (Sourabh Singh)
+
+Reopened #121699 on production per explicit user approval ("production pe bhi sync he bug jo bhi findings he").
+
+- `fixed_version_id` changed first from the closed "Testcase Management plugin Release 7.1.0 [07-10-2026]" (id
+  2066) to the open "Testcase Management plugin Release 7.2.0 [21-10-2026]" (id 2067) — required before
+  `status_id` could be set to Reopen, per the same precedent used for BUG-TCM-013/072.
+- `status_id` set to 9 (Reopen), `done_ratio` set to 30%.
+- Notes added covering both findings in full: Test Suites' `rftc_project_readable?` gap (missing both
+  module-enabled and `view_test_suite` checks) and `issue_testcase_controller.rb#new`'s zero-authorization gap,
+  the 3-part suggested fix, and references to all three local screenshots
+  (`module-disabled-test-suites-still-renders.png`, `test-suites-no-view-permission.png`,
+  `issue-testcase-new-no-permission-check.png`).
+- Verified via follow-up `get_issue`: status Reopen, done ratio 30%, Target version Release 7.2.0, notes present.

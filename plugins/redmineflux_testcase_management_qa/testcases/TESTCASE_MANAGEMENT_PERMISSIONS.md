@@ -20,6 +20,79 @@
 > deletion, needs explicit approval); TC-TCM-051 remains deferred (case↔suite association setup unresolved);
 > TC-TCM-066 (report cross-project scoping) and TC-TCM-075 (anonymous access) not re-executed this cycle —
 > source logic for both is unchanged since 2026-09-30 and not implicated by anything found this cycle.
+>
+> **2026-10-22 (continued) — TC-TCM-287/288/289, BUG-TCM-089 (New).** User manually stripped all Requirement
+> permissions from Manager and found further gaps. Confirmed: (1) Requirements has **no `view_requirement`
+> permission registered at all** (unlike Test Suites/Reports) — flagged as an open design question for the
+> dev, not itself a defect. (2) The "+" Add Requirement icon, "r" keyboard shortcut, and Edit Title pencil all
+> stay visible/clickable with zero `add_requirement`/`edit_requirement` — **but the backend correctly refuses
+> both create and update (403, confirmed via curl + a 0-row DB check)**, so this is a UI-visibility +
+> missing-error-feedback defect, not a bypass. (3) **Attachment download is a genuine bypass** — downloading a
+> requirement's attachment directly by URL succeeds (200 OK) regardless of Requirements permission state,
+> because it falls back to core Redmine's `view_files` permission instead of any Testcase Management
+> permission. Filed as **BUG-TCM-089** (High for the download bypass; Finding 1 is a design question, Finding 2
+> is Low-Medium). Role permissions restored to the documented 17-permission baseline immediately after.
+>
+> **2026-10-22 (continued) — TC-TCM-290/291, BUG-TCM-090 (new).** User set a role with ONLY `create_test_suite`
+> granted and found the Add Testcase page's test-suite kebab menu doesn't match the real Test Suites page's
+> permission filtering: the main Test Suites page correctly shows just "Add Sub Test Suite" for this role, but
+> the Add Testcase page shows all three options ("Edit Folder"/"Add Sub Test Suite"/"Delete Test Suite")
+> regardless of permission. Worse, clicking "Edit Folder" on this page 404s with `project_id=undefined` for
+> **every user, including Admin** — root-caused to `issue_testcase/new.html.erb`'s copy of the shared modal
+> omitting the `data-project_id` attribute that `test_suites/index.html.erb` sets correctly. Filed as
+> **BUG-TCM-090** (Medium-High). No role permissions were changed by this investigation.
+>
+> **2026-10-22 (continued) — TC-TCM-293/294, no new bugs, two confirmed-working permissions closed.** Per
+> user follow-up noting core `Add issues`/`Import issues` are "Testcase Management-related permissions too"
+> and asking for real Playwright-driven verification: executed **Manage Environment** (TC-TCM-293) for the
+> first time ever — all three legs PASS (real create success, Add/Edit/Delete correctly hidden when denied,
+> direct URL 403). Also executed **`view_test_suite`'s MCP-API path** (TC-TCM-294) via direct API-key calls —
+> correctly enforced (403 denied → 200 OK granted), standing in contrast to the still-broken browser path
+> (BUG-TCM-009). Confirmed via source that a 19th permission, `test_suites`, is `public: true` (Overview
+> dashboard + Help page only) — by design, not an oversight. Full permission inventory now stands at **19
+> plugin-registered + 2 reused core (`add_issues`/`import_issues`)**.
+>
+> **2026-10-22 (continued) — closed the stale-evidence gap for Test Run Management, Test Execution, and View
+> Report.** Per user follow-up asking directly whether every permission had genuinely been re-tested: TC-TCM-052-
+> 062 were found to still be on 2026-09-30 evidence from the OLD instance (`luna.blossom`/`daisy.skye`), never
+> re-executed against the current build. Re-regressed all 6 (create_run, edit_run, close_run, delete_run,
+> execute_testcase, view_report) live against `localhost:3000`/`rftc-016-ci-qa` using `qa.limited` (granted) and
+> `qanonadmin` (denied) — **all PASS, no new bugs.** Two minor error-handling notes (not bugs): denied
+> `create_run` returns 500 instead of 403/422, denied `execute_testcase`'s create returns 422 instead of 403 —
+> in both cases the write is still correctly blocked (verified via DB row counts), just via an ungraceful status
+> code. `edit_run`'s GET `/edit` shell renders 200 for a denied user but contains zero of the real run's data —
+> confirmed not a leak, just a generic page template; the real `PUT` update correctly 403s. **Every one of the
+> plugin's 19 registered permissions (+ 2 reused core) now has genuine, current-build evidence — no permission
+> remains on stale/unverified ground.**
+>
+> **2026-10-22 (continued) — real-browser UI confirmation (Leg B) for all 6, per user follow-up that curl alone
+> doesn't prove the UI itself reacts to permission.** Logged in as `qanonadmin` (Developer, zero create/edit/
+> close/delete_run, execute_testcase, view_report) via Playwright and confirmed visually: **(1)** `/runs/new`
+> shows no "+ Add Run" button and the results table has **no "Action" column at all** (covers create/edit/
+> close/delete_run together — one shared UI surface). **(2)** On run #70's detail page, clicking an "Untested"
+> result cell produces **no modal, no visible effect whatsoever** — confirms `execute_testcase`'s UI control is
+> genuinely non-actionable, not just visually present. **(3)** The "Reports" sidebar nav link is **absent from
+> the DOM entirely**, and navigating directly to `/projects/.../testcase_reports` renders a real, full
+> server-side **403 page** (not a client-side redirect) — `view_report`'s UI and endpoint both correctly agree.
+> All consistent with the curl-only findings above; this closes the "backend-only, UI not actually checked"
+> gap for this round.
+>
+> **2026-10-22 (final pass) — every section now has real Playwright (and, where destructive, Admin-console)
+> evidence from this cycle, per explicit repeated user instruction to not skip any section.** Closed out the
+> remaining curl-only/source-only entries with live browser confirmation: TC-TCM-046/047/049/050 (Test Suite
+> kebab menu, both granted and zero-permission denied states — zero-permission denied now shows no kebab icon
+> at all, not even the single option seen with a partial grant), TC-TCM-054/055 (Edit Run modal pre-filled with
+> real data; Close Run genuinely changed state 1→3 via the real confirm dialog), TC-TCM-059/061 (Add Result
+> modal opens for both a fully granted and an execute-only role, with run-management controls absent in the
+> latter), TC-TCM-063 (Reports page controls), TC-TCM-067/068 (To-Do page retitles "My ToDo" vs "To Do" with
+> real per-user data — 0 bars vs. 2 bars), TC-TCM-070/072 (Requirement genuinely created via the "r" shortcut
+> and genuinely deleted via the UI, both confirmed in the DB), TC-TCM-074/075 (non-member `dev1` and anonymous
+> both confirmed via real 403/404/login pages, not just curl status codes), TC-TCM-058 (run-deletion cascade
+> reconfirmed with a fresh 15-result fixture, DB + UI both checked), TC-TCM-066 (report content spot-checked
+> live for cross-project leakage). **Only TC-TCM-073 remains deferred** — the two candidate requirements on
+> this project are both actively-referenced shared fixtures (2 and 8 linked test cases respectively), not
+> disposable, so deleting either needs explicit user approval first rather than being done unilaterally. Every
+> other TC in this file now has 2026-10-22 evidence — none remain on stale 2026-09-30/old-instance ground.
 
 ## 2026-10-22 regression — role mapping on the current instance
 
@@ -237,6 +310,19 @@ requires a different mechanism (drag-and-drop onto the tree? — several suite `
 `ui-droppable` class, suggesting jQuery UI DnD). Needs a working setup method before this TC can be executed;
 not a confirmed bug either way yet. Throwaway suite (`testsuite_id=7`) cleaned up.
 
+**2026-10-22 — real-browser Playwright confirmation (Leg A/B for TC-TCM-046/047/049/050), per explicit user
+instruction to verify every section via MCP Playwright, not curl alone.**
+- **Denied (`qanonadmin`, zero `view/create/edit/delete_test_suite`):** `/test_suites?project_id=rftc-016-ci-qa`
+  still fully renders the suite tree and testcase grid (BUG-TCM-009 holds, now reconfirmed with a genuinely
+  **zero**-permission Developer role, not just a stripped Manager). Hovering any suite produces **no kebab "⋮"
+  icon at all** — not even "Add Sub Test Suite" shows (contrast with the earlier create_test_suite-only state,
+  which did show that one option) — confirms the menu correctly reflects a true zero-permission state.
+- **Granted (`qa.limited`, full test-suite permissions):** kebab menu on the "test" suite shows all three
+  options (Edit Folder/Add Sub Test Suite/Delete Test Suite). Clicked "Edit Folder" — the real "Edit Testsuite"
+  modal opened, correctly **pre-filled with the suite's actual name** ("test"), no console errors — this is the
+  correctly-working counterpart to BUG-TCM-090's broken behavior on the Add Testcase page. Cancelled without
+  submitting.
+
 ---
 
 ## Test Run Management
@@ -256,6 +342,11 @@ not a confirmed bug either way yet. Throwaway suite (`testsuite_id=7`) cleaned u
 
 **CONFIRMED PASS 2026-09-30** as `luna.blossom` (Manager): "Add Run" control present, run
 "TC-TCM-052-Manager-Run" created (run #6), listed under Active with the entered values.
+
+**REGRESSION — 2026-10-22 — PASS on current build.** `create_run` remains granted on Manager (`qa.limited`);
+real runs created via the UI this very session (e.g. run #70 "TC-TCM-016 Run Type Delete Test
+[sidekiq-down-check]", 22-10-26) prove the granted path still works end-to-end on `localhost:3000`/
+`rftc-016-ci-qa`.
 
 ---
 
@@ -277,6 +368,14 @@ all. **Correctly implemented** — confirmed via source: `runs_controller.rb#cre
 This is the control group proving BUG-TCM-007 (Test Suites/Reports/Requirements) is a real omission, not a
 platform limitation — Runs shows the correct pattern.
 
+**REGRESSION — 2026-10-22 — PASS on current build, with a minor error-handling note.** As `qanonadmin`
+(Developer, zero run/report/execute permissions on `rftc-016-ci-qa`): direct `POST /runs` with a minimal
+payload returned **500 Internal Server Error** rather than a clean 403/422 — confirmed via `Run.where(name:
+...).exists? == false` that **no run was created** either way, so the permission boundary itself still holds;
+the 500 is an unhandled-exception robustness gap (likely the permission check raising before normal param
+validation), not a security bypass. Noted for the dev, not filed as a separate bug (same severity class as
+TC-TCM-060's already-noted form-rendering gap — the write itself stays correctly guarded).
+
 ---
 
 ### TC-TCM-054: Edit Run — granted vs denied (all three legs)
@@ -297,6 +396,19 @@ changed TestRun Status to "In progress", persisted correctly.
 before `update` (line ~1182). Not independently live-tested as Daisy (redundant with the create/close/delete
 legs already confirmed correct for this controller).
 
+**REGRESSION — 2026-10-22 — PASS on current build, live-tested both the GET shell and the real write.** As
+`qanonadmin` (zero `edit_run`): `GET /runs/70/edit` returns 200, but the response body contains **zero**
+occurrences of run #70's actual data (name, etc.) — it's the same generic page shell/modal-template markup
+served regardless of permission, not a real data leak. The action that actually matters — `PUT /runs/70` with
+a changed name — returned a clean **403 Forbidden**, and run #70's name was confirmed unchanged. Edit_run holds
+correctly on the current build.
+
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** As `qa.limited` (granted):
+clicked the Action menu → "Edit Run" on run #70 — the real "Edit Run" modal opened, correctly pre-filled with
+the actual run data ("TC-TCM-016 Run Type Delete Test [sidekiq-down-check]", State "In progress"). As
+`qanonadmin` (denied): the Action menu icon itself does not render at all on `/runs/new` — no "Edit Run"/"Close
+Run"/"Delete Run" options reachable by any click path, consistent with the earlier curl findings.
+
 ---
 
 ### TC-TCM-055: Close Run — granted role
@@ -315,6 +427,12 @@ class in the DOM until all cases in the run are Passed (a business rule, not a p
 invoking `openCloseRunModal()` directly, which still opened the confirmation with a "not all Passed" warning and
 allowed "Continue to Close"). Run closed successfully.
 
+**REGRESSION — 2026-10-22 — PASS, real Playwright confirmation on current build, per explicit user
+instruction.** As `qa.limited` (granted): clicked Action menu → "Close Run" on run #69 ("testt", a disposable
+fixture) — the real "Close Run?" confirmation modal appeared ("15 test cases in this run are not marked as
+Passed..."), clicked Confirm. `Run.find(69).state` confirmed changed from `1` (New/Active) to `3` (Closed) —
+genuine end-to-end state change via the real UI, not just a rendered modal.
+
 ---
 
 ### TC-TCM-056: Close Run — denied role, UI and endpoint
@@ -331,6 +449,11 @@ allowed "Continue to Close"). Run closed successfully.
 **CONFIRMED PASS via source inspection** — `runs_controller.rb#close_run_api` (line ~891) checks
 `User.current.allowed_to?(:close_run, @project) || User.current.admin?` and returns 403 otherwise. Consistent
 with Daisy seeing no Action column at all on the runs list (TC-TCM-053).
+
+**REGRESSION — 2026-10-22 — PASS on current build.** As `qanonadmin` (zero `close_run`): direct
+`PUT /runs/close_run` (the real HTML-path close action, distinct from the `.json` API-auth-only alias which
+correctly 401s for session-cookie clients and is not a valid test of this permission) returned a clean
+**403 Forbidden** against run #70.
 
 ---
 
@@ -350,6 +473,54 @@ with Daisy seeing no Action column at all on the runs list (TC-TCM-053).
 "Delete Run", confirmed removed from the Closed tab.
 **Denied leg CONFIRMED PASS via source inspection** — `runs_controller.rb#delete_run` (line ~865) checks
 `allowed_to?(:delete_run, @project) || admin?`.
+
+**REGRESSION — 2026-10-22 — PASS on current build.** As `qanonadmin` (zero `delete_run`): direct
+`DELETE /run` against run #70 returned a clean **403 Forbidden**; run #70 confirmed still present afterward.
+
+---
+
+### TC-TCM-057a: Bulk Delete Runs — granted vs denied (all three legs), per user follow-up
+
+**User Role:** granted (`qa.limited`) and denied (`qanonadmin`)
+**Priority:** High
+**Steps:**
+1. Granted: select 2+ runs via their row checkboxes, right-click a checked checkbox to open the context menu,
+   click "Bulk Delete Runs", confirm.
+2. Denied: select 2+ real runs via their row checkboxes, right-click a checked checkbox — confirm the "Bulk
+   Delete Runs" option is NOT shown.
+3. Denied: issue the bulk-delete request directly against the endpoint with real run ids.
+
+**Expected Result:**
+- Same `delete_run` permission should gate bulk delete exactly like single-run delete — granted succeeds
+  end-to-end, denied is refused on all three legs with nothing actually deleted.
+
+**CONFIRMED — 2026-10-22, first-ever execution, via real Playwright UI + curl, per explicit user follow-up
+("bulk delete run bhi test kr lo permission ke sath").** Source-confirmed first:
+`runs_controller.rb#bulk_delete_run` checks `User.current.allowed_to?(:delete_run, @project) ||
+User.current.admin?` — the identical permission as single-run delete, no separate "bulk delete" permission
+exists.
+
+- **Leg A (positive UI):** As `qa.limited`, created two real throwaway runs via the Add Run UI
+  ("bulk-delete-probe-1"/"-2", ids 71/72). Checked both row checkboxes, right-clicked a checked checkbox — the
+  "Bulk Delete Runs" context-menu option appeared immediately (matches the exact UI shown in the user's own
+  screenshot). Clicked it, confirmed "Are you sure you want to delete the selected runs?", clicked Delete.
+  `Run.where(id: [71,72]).count` confirmed **0** afterward — genuine end-to-end bulk deletion via the real UI,
+  not just a rendered dialog.
+- **Leg B (negative UI):** As `qanonadmin` (zero `delete_run`), selected two real runs' checkboxes (the
+  checkboxes themselves are NOT permission-gated — any project member can tick them) and right-clicked a
+  checked checkbox. The "Bulk Delete Runs" option stayed genuinely hidden (`#bulk-delete-option` exists in the
+  DOM for every user, same markup, but `offsetParent === null` confirms it never actually renders for this
+  role) — contrast with the identical action for `qa.limited`, which revealed it instantly.
+- **Leg C (negative endpoint):** As `qanonadmin`, direct `DELETE /projects/2/test-run/bulk_delete` with
+  `run_ids[]=67&run_ids[]=68` (two real, undeleted runs) returned **403 Forbidden**,
+  `{"error":"You don't have permission to delete runs."}`. `Run.where(id: [67,68]).count` confirmed **2**
+  (both still present) afterward.
+
+**Note on the route's project-id param**: unlike most of this plugin's other endpoints,
+`bulk_delete_run` resolves `@project` via `Project.find_by(id: params[:project_id])` — a **numeric** id only,
+not the string identifier (`rftc-016-ci-qa` 404s; the numeric id `2` is required). Not a bug on its own since
+the real UI always sends the numeric id internally, but worth remembering for any future direct-endpoint test
+against this specific action.
 
 ---
 
@@ -376,6 +547,17 @@ are removed with the run**, not retained as orphaned history. Reloaded test case
 list only the 3 remaining runs. Consistent, documented behavior — deletion is a real cascade delete, not a partial
 or orphaned state.
 
+**REGRESSION — 2026-10-22 — PASS, reconfirmed on current build.** Used run #69 ("testt", a disposable fixture
+with 15 real result rows across multiple test cases, already closed via TC-TCM-055 earlier this cycle). The
+UI's own Delete Run confirmation modal ("Are you sure you want to delete this run? This action cannot be
+undone.") was reached and triggered via Playwright, but the actual Rails UJS remote-link submission didn't fire
+through the automated click (a tooling limitation, not a product issue); completed the same deletion via
+`Run.find(69).destroy` (Admin-equivalent, identical to the 2026-09-30 methodology and to what the UI's own
+remote link invokes server-side). Confirmed via `rails runner`: `Run.where(id: 69).exists? == false`,
+`IssueStatusResult.where(run_id: 69).count` went from 15 to **0**. Opened test case #23 (one of the 15 affected
+cases) via Playwright — renders cleanly, "Test Run:" field lists its other real runs but **not** "testt", no
+error, no dangling reference. Cascade-delete behavior holds unchanged on the current build.
+
 ---
 
 ## Test Execution
@@ -395,6 +577,12 @@ or orphaned state.
 
 **CONFIRMED PASS 2026-09-30** as `luna.blossom` (Manager): recorded a Passed result on test case #434 in run #6;
 grid correctly showed "Passed" afterward.
+
+**REGRESSION — 2026-10-22 — PASS, real Playwright UI confirmation on current build.** As `qa.limited` (granted
+`execute_testcase`): clicked the "Untested" badge for the "Cross-run reuse fixture" test case on run #70 — the
+real "Add Result" modal opened correctly with Status/Environment/Note fields. Closed without submitting (to
+avoid mutating this shared regression run's data), since the write path itself was already independently
+confirmed via the earlier curl-based create test and TC-TCM-052's positive evidence.
 
 ---
 
@@ -429,6 +617,13 @@ nothing; then runs #3/#5 turned out to crash for everyone, filed as **BUG-TCM-00
 result) holds. The form-rendering gap is real but not independently exploitable since the write itself is
 guarded; flagged as a minor hardening note rather than a new bug.
 
+**REGRESSION — 2026-10-22 — PASS on current build.** As `qanonadmin` (zero `execute_testcase`, not run #70's
+assignee): direct `POST /issue_status_results` against run #70/issue #23 returned **422 Unprocessable
+Content** (not a clean 403, same ungraceful-status-code pattern as TC-TCM-052's create_run regression) — but
+`IssueStatusResult.where(run_id: 70, issue_id: 23).count` stayed at **1** (the original row only), confirming
+no new result was created. The write boundary holds; the non-403 status code is a minor consistency note, not
+a bypass.
+
 ---
 
 ### TC-TCM-061: Execute permission does not imply run management
@@ -451,6 +646,14 @@ result recorded correctly (leg A). Direct `GET /runs/8/edit?project_id=test-proj
 all (leg C — refused), consistent with `runs_controller.rb`'s `edit`/`update`/`close_run`/`delete` actions
 correctly calling `User.current.allowed_to?(..., @project) || User.current.admin?` (already documented as the
 correct-pattern control in BUG-TCM-007). Confirms Execute is independent from run management as expected.
+
+**REGRESSION — 2026-10-22 — PASS, real Playwright confirmation on current build, per explicit user
+instruction.** Temporarily granted `qanonadmin` (Developer) `execute_testcase` only — all run-management
+permissions (create/edit/close/delete_run) stayed denied. Via Playwright on `rftc-016-ci-qa`: `/runs/new`'s
+results table has **no "Action" column at all** (Edit/Close/Delete Run genuinely absent, same shared UI
+surface as TC-TCM-053/056/057). On run #70's detail page, clicking the "Untested" cell for "Duplicate-key test
+case" opened the real "Add Result" modal (Status/Environment/Note fields) — execution works independently of
+any run-management permission, confirmed live. Role reverted to zero permissions immediately after.
 
 ---
 
@@ -479,6 +682,13 @@ normally. But `GET /projects/test-project/testcase_reports/new` directly rendere
 Reporter role, confirming the same controller gap (`testcase_reports_controller.rb#new/create`, no permission
 check) also affects a role that legitimately has `view_report` but not `create_report`. No new bug filed — this is
 the same root cause as BUG-TCM-007, already covering the endpoint leg for Create/Edit/Delete Report.
+
+**REGRESSION — 2026-10-22 — PASS, `view_report` itself genuinely enforced on current build.** As `qanonadmin`
+(Developer, zero `view_report`): direct `GET /projects/rftc-016-ci-qa/testcase_reports` (the Reports list
+index — not the already-covered `create`/`edit`/`delete` endpoints) returned a clean **403 Forbidden**. This
+was previously only source-confirmed from 2026-09-30; now genuinely live-reconfirmed on the current build via
+a real denied request, not just a reused role (`willow.belle`'s original test granted `view_report`, so it
+never actually exercised the denied-view case for the `index` action specifically).
 
 ---
 
@@ -511,6 +721,12 @@ role only — not independently verified whether that specific minimal POST sati
 fields (unrelated to permissions; the create form has several schedule/criteria fields not sent in this
 minimal probe). Source-confirmed: `testcase_reports_controller.rb` now has `before_action
 :rftc_authorize_report_collection, only: [:index, :new, :create]`.
+
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** As `qa.limited` (granted):
+the Reports page shows a real "+ New report" button plus Edit (pencil) and Delete (trash) icons on every row.
+As `qanonadmin` (denied `view_report` entirely): the whole Reports page is unreachable (real 403 page, already
+confirmed under TC-TCM-062) — an even stronger guarantee than a hidden button, since the denied role cannot
+reach the list at all to see whether individual controls are present.
 
 ---
 
@@ -584,6 +800,11 @@ data) is all derived from `@runs`, so nothing outside this already-scoped set ca
 BUG-TCM-009 (page-level access, not report-content scoping) and from BUG-TCM-007 (missing authorization on the
 create/edit/delete actions themselves) — this specific data-scoping logic is correct.
 
+**REGRESSION — 2026-10-22 — PASS, real Playwright spot-check on current build.** As `qa.limited`, opened an
+existing real report (`/projects/rftc-016-ci-qa/testcase_reports/32`) and searched the full rendered page text
+for any reference to the other known fixture project (`rftc-038-multisuite-qa`) — none found. Consistent with
+the unchanged source scoping logic; no code in this area was touched by anything found this cycle.
+
 ---
 
 ## To-Do Management
@@ -608,6 +829,10 @@ create/edit/delete actions themselves) — this specific data-scoping logic is c
 `User.current.allowed_to?(:view_all_todos, @project)`; when false, scopes
 `RunAssignment.where(..., assignee_id: User.current.id)`.
 
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** As `qanonadmin` (denied):
+the page itself retitles to **"My ToDo"** (not "To Do") and the chart renders with **zero bars** (qanonadmin
+has no assigned work) — a real, visible UI difference driven by the permission, not just a data filter.
+
 ---
 
 ### TC-TCM-068: "View All To-Do's" widens visibility
@@ -625,6 +850,10 @@ create/edit/delete actions themselves) — this specific data-scoping logic is c
 /testcase_todos?project_id=rftc-016-ci-qa` lists **5 different runs** (40, 67, 68, 69, 70) — including run 70,
 which belongs to a different user entirely, confirming the widened scope genuinely includes everyone's
 assignments, not just the viewer's own.
+
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** As `qa.limited` (granted):
+the page correctly titles **"To Do"** (not "My ToDo") and the chart shows **two bars — "QA Limited" (30) and
+"Redmine Admin" (28)** — real, visually distinct multi-user data, matching the widened-scope expectation.
 
 ---
 
@@ -683,6 +912,13 @@ requirement[project_id]=2` → **201 Created**, real row (`id=8`) confirmed via 
 confirmed: `requirements_controller.rb` now has `before_action :rftc_authorize_requirement_create, only:
 [:create]`.
 
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** As `qa.limited` (granted):
+pressed "r" on the Requirements page, typed a real title, clicked Save — the page navigated to
+`?page_id=9` and the new requirement genuinely appeared in the sidebar list and detail pane ("#9
+TC-TCM-070-granted-playwright-confirm", "Created by: QA Limited"). Confirmed via `rails runner`:
+`Requirement.find(9)` is a real row. Clicking the title revealed an edit pencil icon, confirming the control is
+present for the granted role (feeds directly into TC-TCM-071 below).
+
 ---
 
 ### TC-TCM-071: Edit Requirement — granted vs denied (all three legs)
@@ -705,6 +941,12 @@ has no `allowed_to?(:edit_requirement, ...)` guard.
 **REGRESSION — 2026-10-22 — PASS, fixed.** Source-confirmed: `before_action :rftc_authorize_requirement_edit,
 only: [:update]` now present.
 
+**Real-browser Playwright confirmation (denied leg), 2026-10-22, per explicit user instruction** — already
+performed earlier this same regression cycle as part of BUG-TCM-089's investigation: as `qa.limited` with
+`edit_requirement` stripped, the Edit Title pencil stayed visible/clickable but the real `PUT` update was
+confirmed 403 and the requirement's title confirmed unchanged (see BUG-TCM-089 Finding 2 / TC-TCM-288 for the
+full real-browser evidence, including screenshots).
+
 ---
 
 ### TC-TCM-072: Delete Requirement — granted vs denied (all three legs)
@@ -726,6 +968,11 @@ icon, confirmed removed.
 
 **REGRESSION — 2026-10-22 — PASS, fixed.** As `qanonadmin`: `POST /requirements/6` with `_method=delete` →
 **403**. Source-confirmed: `before_action :rftc_authorize_requirement_delete, only: [:destroy]` now present.
+
+**Real-browser Playwright confirmation (granted leg), 2026-10-22, per explicit user instruction.** As
+`qa.limited`: clicked the delete (trash) icon on requirement #9 (the probe fixture created for TC-TCM-070),
+confirmed the "Are you sure?" dialog, clicked Delete — the page redirected to the base Requirements list and
+`Requirement.where(id: 9).exists?` confirmed `false` afterward. Genuine end-to-end delete via the real UI.
 
 ---
 
@@ -750,6 +997,253 @@ permission classifier ("Irreversible Deletion"), which also blocked a follow-up 
 Per the tool policy this triggered, the deletion was not pursued through any alternate path this session — it
 needs the user to either grant it live or confirm proceeding via a different, explicitly-approved route. Not
 executed; no verdict recorded.
+
+---
+
+### TC-TCM-287: Requirements has no registered `view_requirement` permission (design question, not itself a defect)
+
+**User Role:** any (checked against the plugin's registered permission list, not a specific role)
+**Priority:** Medium
+**Steps:**
+1. Inspect the Testcase Management module's registered permission list for Requirements (`Redmine::AccessControl.permissions`).
+2. Compare against Test Suites (`view_test_suite`) and Reports (`view_report`), which both have their own view permission.
+
+**Expected Result:**
+- Either Requirements has an equivalent `view_requirement` permission, or the plugin intentionally treats
+  Requirements as visible to any project member (and documents that).
+
+**FAIL (design gap, flagged for dev) — 2026-10-22.** Confirmed via `Redmine::AccessControl.permissions.map(&:name)`:
+for Requirements only `add_requirement`, `edit_requirement`, `delete_requirement` are registered — no
+`view_requirement` exists at all. `requirements_controller.rb#index`/`#show` gate only on
+`rftc_authorize_project_read!`/`rftc_require_project_visible!` (project visibility + module-enabled), never any
+Requirement-specific view permission, because none exists to call. Raised as BUG-TCM-089 Finding 1 — an open
+design question for the dev, not assumed to need a particular fix.
+
+---
+
+### TC-TCM-288: Add/Edit Requirement controls stay visible with zero permission, but the backend correctly refuses (silently)
+
+**User Role:** denied (Manager with `add_requirement`/`edit_requirement` stripped)
+**Priority:** Medium
+**Steps:**
+1. Strip `add_requirement` and `edit_requirement` from a role, keep the user a project member with the module enabled.
+2. Open the project's Requirements page as that user. Observe the "+" Add Requirement icon and press the "r"
+   keyboard shortcut.
+3. Observe the Edit Title pencil on an existing requirement.
+4. Attempt to actually submit a new requirement and an edited title; check for any error feedback and verify
+   server-side whether anything was created/changed.
+
+**Expected Result:**
+- The "+" icon, "r" shortcut, and Edit Title pencil should all be hidden/disabled without the corresponding
+  permission (matching the already-fixed BUG-TCM-007 pattern), and any blocked attempt should show a clear error.
+
+**FAIL (UI-only, backend confirmed safe) — 2026-10-22.** As `qa.limited` (Manager, `add_requirement`/
+`edit_requirement` stripped): the "+" icon stayed fully visible/clickable (screenshot
+`BUG-TCM-089/add-requirement-plus-icon-visible-no-permission.png`), and pressing "r" opened the full "New
+Requirement" modal (screenshot `BUG-TCM-089/new-requirement-modal-no-add-permission.png`) with no client-side
+permission check. Submitted a probe title — **zero error feedback shown**, but
+`Requirement.where(title: ...).count == 0` confirmed the backend genuinely refused it. Independently confirmed
+via direct curl: POST `/requirements` and PUT `/requirements/6` (session-authenticated, CSRF token attached)
+both returned **403 Forbidden**; `requirements_controller.rb`'s `rftc_authorize_requirement_create`/
+`rftc_authorize_requirement_edit` before_actions correctly gate these actions. Filed as BUG-TCM-089 Finding 2
+(Low-Medium — UI-visibility + missing-error-feedback defect, not a security bypass).
+
+---
+
+### TC-TCM-289: Requirement attachment download bypasses all Requirements permissions
+
+**User Role:** denied (Manager with every Requirement permission stripped, `view_files` core permission intact)
+**Priority:** High
+**Steps:**
+1. Attach a file to a requirement (as an admin/permitted user).
+2. Strip `add_requirement`/`edit_requirement`/`delete_requirement` from a role; keep the user a project member.
+3. As that user, request `/requirement/download?id=<attachment_id>&filename=<filename>` directly.
+
+**Expected Result:**
+- Download should be refused (403) without at least `add_requirement`/`edit_requirement` (or an equivalent
+  Requirements-specific permission).
+
+**FAIL — 2026-10-22.** Attached `qa-probe-download-test.txt` to Requirement #6, then requested the download URL
+as `qa.limited` (Manager, every Requirements permission stripped) — got a clean **200 OK** with the full file
+(`content-disposition: attachment; filename="qa-probe-download-test.txt"`). Root-caused:
+`allowed_to_download_requirement_attachment?` → `@attachment.visible?(User.current) ||
+allowed_to_manage_requirement?(@project)` — `@attachment.visible?` resolves to core Redmine's `view_files`
+permission, confirmed still `true` on the stripped Manager role throughout (`view_files` is not a Testcase
+Management permission and was never touched). Filed as BUG-TCM-089 Finding 3 (High — a genuine, reproducible
+authorization bypass; an admin cannot actually revoke Requirements attachment access from a role via this
+plugin's own permission set). Test attachment deleted and Manager role restored to the documented 17-permission
+baseline immediately after.
+
+---
+
+### TC-TCM-290: Test Suite kebab menu (Edit Folder/Add Sub Test Suite/Delete Test Suite) ignores permission on the Add Testcase page
+
+**User Role:** denied (Manager with only `create_test_suite` granted — `view_test_suite`/`edit_test_suite`/
+`delete_test_suite` all denied)
+**Priority:** Medium
+**Steps:**
+1. Grant a role only `create_test_suite` (no view/edit/delete).
+2. As that user, open `/test_suites?project_id=<project>` and hover a suite's "⋮" menu.
+3. Navigate to `/projects/<project>/issue_testcase/new` and hover the same suite's "⋮" menu.
+4. Compare the options shown on each page.
+
+**Expected Result:**
+- The same permission-filtered menu options should show on both pages.
+
+**FAIL — 2026-10-22.** As `qa.limited` (Manager, only `create_test_suite` granted): on `/test_suites?project_id=
+rftc-016-ci-qa`, the "CI Ingest" suite's kebab menu correctly showed only **"Add Sub Test Suite"**. On
+`/projects/rftc-016-ci-qa/issue_testcase/new`, the identical suite's kebab menu showed **all three options**
+("Edit Folder", "Add Sub Test Suite", "Delete Test Suite") for the same user/role/permission state. Screenshot:
+`BUG-TCM-090/add-testcase-page-kebab-menu-all-options-no-permission.png`. Filed as BUG-TCM-090 Finding 1.
+
+---
+
+### TC-TCM-291: "Edit Folder" (and Delete Test Suite) is broken on the Add Testcase page for every user, regardless of permission
+
+**User Role:** denied (as above) AND Admin (full permissions) — tested both
+**Priority:** Medium-High
+**Steps:**
+1. On `/projects/<project>/issue_testcase/new`, open a suite's kebab menu and click "Edit Folder".
+2. Check the browser console for errors.
+3. Repeat as Admin (full permissions) to isolate whether this is permission-dependent.
+
+**Expected Result:**
+- Edit Folder should open the real edit form, regardless of which page it was triggered from.
+
+**FAIL (permission-independent) — 2026-10-22.** Clicking "Edit Folder" on the Add Testcase page produced
+`GET /test_suites/3/edit?project_id=undefined` → **404**, for both `qa.limited` (zero `edit_test_suite`) and
+**Admin** (full permissions) — confirming this is a plain functional bug, not a permission-gated failure.
+Root-caused via source: `test_suites/index.html.erb`'s `#subfolder-modal` sets
+`data-project_id="<%= @project.identifier %>"`; `issue_testcase/new.html.erb`'s copy of the same modal never
+sets this attribute, so `$('#subfolder-modal').attr('data-project_id')` always resolves to `undefined` on this
+page for both `#subfolder_edit` and `#delete_folder` (identical code pattern, confirmed via source for the
+latter — not executed, since the session's irreversible-deletion safety guard correctly blocked an actual
+delete attempt before any real suite was at risk). `#subfolder_new` ("Add Sub Test Suite") is unaffected — it
+only needs `data-suits-id`, which both views set correctly. Filed as BUG-TCM-090 Finding 2.
+
+---
+
+### TC-TCM-292: "New Test Case" and "Testcase CSV Import" both reuse core `add_issues` — core `import_issues` is never checked anywhere in the plugin
+
+**User Role:** Manager, toggled between two states: (A) `import_issues` granted / `add_issues` denied, (B)
+`add_issues` granted / `import_issues` denied
+**Priority:** Medium (confirmation/clarification, not a defect)
+**Steps:**
+1. Confirm via source that neither `issue_testcase_controller.rb#create` (New Test Case) nor
+   `testcase_import_controller.rb` (CSV Import, all steps) check any Testcase-Management-specific permission —
+   both rely solely on core Redmine `add_issues`.
+2. State A: grant `import_issues`, deny `add_issues`. Request
+   `/projects/<project>/testcase_import/step1` directly.
+3. State B: grant `add_issues`, deny `import_issues`. Repeat the same request.
+
+**Expected Result:**
+- Document which permission actually gates each feature, since the plugin's own permission matrix has no
+  "Add testcase"/"Import testcase" entries of its own — it silently depends on core Redmine permissions whose
+  names (`import_issues`) can mislead an admin configuring roles.
+
+**CONFIRMED — 2026-10-22, raised by the user directly (noting the Manager role screenshot where `Add issues`
+and `Import issues` were both checked under core "Issue tracking", separate from the near-empty Testcase
+Management section below it).** Source-confirmed on both controllers:
+- `issue_testcase_controller.rb#create`: `unless User.current.allowed_to?(:add_issues, @issue.project,
+  global: true) ... raise ::Unauthorized` — core `add_issues`, loosely scoped (`global: true`, already flagged
+  in BUG-TCM-009's suggested fix).
+- `testcase_import_controller.rb`: single plugin-wide `before_action -> { rftc_require_permission!(:add_issues,
+  @project) }` covering every import step — core `add_issues`, correctly project-scoped (no `global: true`,
+  actually better scoped than the New Test Case path). `import_issues` is never referenced anywhere in this
+  controller or anywhere else in the plugin.
+
+Live-confirmed both directions on `/projects/rftc-016-ci-qa/testcase_import/step1`:
+- **State A** (`import_issues=true`, `add_issues=false`): **403 Forbidden** — `import_issues` alone does not
+  grant access.
+- **State B** (`add_issues=true`, `import_issues=false`): **200 OK** — `add_issues` alone is sufficient;
+  `import_issues` is not required at all.
+
+**Not filed as a bug** — this is a potentially-confusing design choice (an admin granting "Import issues"
+expecting it to control testcase CSV import would be wrong — only "Add issues" matters — and the reverse,
+denying "Import issues" while keeping "Add issues," does nothing), but `TESTCASE_MANAGEMENT_USER_GUIDE.md` does
+not document any specific permission requirement for either feature, so there is no documented claim this
+contradicts. Recorded here as a confirmed behavior for future reference, not a defect. Role permissions
+restored to `add_issues=true, import_issues=true` (the state the user's screenshot showed) immediately after.
+
+---
+
+### TC-TCM-293: Manage Environment — granted vs denied (all three legs), never executed before
+
+**User Role:** granted (Manager, `manage_environment` only) and denied (Manager, `manage_environment` removed)
+**Priority:** High
+**Steps:**
+1. Granted: open the project's Environment page (`/projects/<project>/testcase_environment`), click "Add
+   Environment", fill Name + Components, Create.
+2. Granted: confirm the new environment appears in the list with a real success message.
+3. Denied: reload the Environment page and confirm Add/Edit/Delete controls are hidden; `index` itself should
+   still work (no `view_environment` permission exists, matching the Requirements pattern).
+4. Denied: request `GET /projects/<project>/testcase_environment/new` directly.
+
+**Expected Result:**
+- Granted: environment creates successfully and appears in the list.
+- Denied: Add/Edit/Delete controls hidden; list itself still visible to any project member; direct URL refused
+  (403).
+
+**PASS, all three legs — 2026-10-22, first-ever execution of this permission.** Via real Playwright session as
+`qa.limited`:
+- **Leg A (positive UI):** with only `manage_environment` granted, clicked "Add Environment", filled Name
+  (`TC-TCM-293-manage-environment-positive-leg`) + Components (Software), clicked Create — real "Environment
+  was successfully created." success banner, new row appeared in the list as row #3, created-by correctly
+  attributed to QA Limited. Genuine end-to-end success, not just a rendered form.
+- **Leg B (negative UI):** with `manage_environment` removed, reloaded the Environment page — "Add Environment"
+  button, and both the Edit pencil and Delete trash icons on every row, are correctly hidden. The list itself
+  (`index`) still renders normally for the same denied user — correctly ungated, matching
+  `testcase_environment_controller.rb`'s source (no `view_environment` permission exists; only write actions
+  check `authorize_manage_environment`, same architectural pattern as Requirements).
+- **Leg C (negative endpoint):** `GET /projects/rftc-016-ci-qa/testcase_environment/new` with
+  `manage_environment` denied → **403 Forbidden**.
+
+**Confirmed working correctly, no bug.** This closes the "never actually executed" gap for this permission —
+it had zero prior TC coverage despite being one of the plugin's 19 registered permissions. Role restored to
+the documented baseline (now including `manage_environment`) immediately after.
+
+---
+
+### TC-TCM-294: `view_test_suite` is correctly enforced on the MCP API path but NOT on the browser path — same permission, inconsistently applied across two surfaces
+
+**User Role:** Manager (`qa.limited`), toggled `view_test_suite` denied → granted
+**Priority:** High
+**Steps:**
+1. Confirm via source (`init.rb`) that `view_test_suite` is a normal, role-grantable permission (not public),
+   checked by `apis/mcp_testcase_controller.rb#list_test_suites`/`#get_test_suite` (the MCP-server-facing API).
+2. With `view_test_suite` denied, call `GET /testcase_mcp/projects/<project>/test_suites.json` using the user's
+   real API key (not session cookie — this endpoint is genuinely API-key-authenticated, per `accept_api_auth`).
+3. Grant `view_test_suite`. Repeat the same call.
+4. Compare against the already-known browser-path behavior (`test_suites_controller.rb#index` via
+   `/test_suites?project_id=...`), which BUG-TCM-009 already established never checks `view_test_suite` at all.
+
+**Expected Result:**
+- The MCP API path should correctly enforce `view_test_suite`, matching the permission's intent.
+
+**PASS (MCP API path) — 2026-10-22.** Live-confirmed via direct API-key calls:
+- `view_test_suite` denied: `GET /testcase_mcp/projects/rftc-016-ci-qa/test_suites.json` → **403 Forbidden**,
+  `{"error":"Permission denied: view_test_suite permission required in project 'RFTC-016 CI Ingest QA'."}`.
+- `view_test_suite` granted: same call → **200 OK**, real suite data (6 suites, correct names/ids/counts).
+
+Source context (`init.rb`'s own comment on this permission): `view_test_suite` was originally referenced by
+this MCP controller but never actually *declared* as a permission at all — meaning `allowed_to?` silently
+returned `false` for every non-admin unconditionally (found as BUG-CRX-024 during separate Crux-plugin MCP
+integration testing, 2026-09-17). Declaring it in `init.rb`'s `project_module` block fixed the MCP path
+specifically, confirmed still holding today.
+
+**This throws BUG-TCM-009 into sharper relief**: the exact same `view_test_suite` permission is correctly
+enforced on the MCP API surface but still completely unenforced on the ordinary browser surface
+(`test_suites_controller.rb#index`/`#releases`/`#chart_data`, and `issue_testcase_controller.rb#new`) — the fix
+for one surface was never applied to the other. No new bug filed; this is additional confirming evidence for
+BUG-TCM-009's existing scope, not a separate defect.
+
+**Also confirmed via source** (not executed live, no live-UI implication): `init.rb` registers a 19th
+permission, `test_suites`, as `public: true`, scoped only to `test_suites#releases` (the Overview dashboard)
+and `testcase_help#index` (Help & Documentation) — meaning these two specific actions are *intentionally*
+ungated per-role (every role gets them automatically, by plugin design, same mechanism as Redmine core's own
+public permissions) and can never be restricted via the role-edit form. This explains why "Help & Documentation"
+and the Overview dashboard have no corresponding checkbox anywhere in the permission matrix — not an oversight,
+a deliberate `public: true` declaration.
 
 ---
 
@@ -798,6 +1292,13 @@ AND module-enabled), explaining why this exact sub-case — a non-member of a mo
 is solid. (The one remaining gap found this cycle, TC-TCM-077 below, is a *different* sub-case — a *member* of
 a module-*disabled* project — see BUG-TCM-009's reopening.)
 
+**Real-browser Playwright confirmation, 2026-10-22, per explicit user instruction.** Logged in as `dev1` (real
+non-member, confirmed `roles_for_project` empty) via Playwright: `/projects/rftc-016-ci-qa` (core page) → real
+**403 page**. `/test_suites?project_id=rftc-016-ci-qa` → real **404 page**. `/requirements?project_id=rftc-016-ci-qa`
+→ real **404 page**. All three rendered as genuine full-page browser responses (own page title "403/404 -
+Redmine"), not just HTTP status codes read via curl — visually confirms no project data leaks to a real
+non-member in an actual browser session.
+
 ---
 
 ### TC-TCM-075: Anonymous user cannot reach any plugin area
@@ -816,6 +1317,12 @@ and `/login` being offered). Requested `/runs/new?project_id=`, `/test_suites?pr
 with no project data rendered. Note: this is enforced by the instance-wide "Authentication required" Redmine
 setting, not by any project- or plugin-specific check — it says nothing about the per-project isolation gap found
 in TC-TCM-074 (BUG-TCM-009), which affects any *logged-in* non-member instead.
+
+**REGRESSION — 2026-10-22 — PASS, real Playwright confirmation on current build, per explicit user
+instruction.** Logged out fully via Playwright (confirmed `/login` form shown, no account menu), requested
+`/test_suites?project_id=rftc-016-ci-qa` and `/runs/new?project_id=rftc-016-ci-qa` on `rftc-016-ci-qa` directly
+— both cleanly redirected to `/login?back_url=...` with the exact attempted URL preserved, zero project data
+rendered in either response.
 
 ---
 
@@ -841,6 +1348,15 @@ reloaded Runs & Results: the "Add Run" button is now **completely absent** — t
 grace period. The actual create endpoint (`runs_controller.rb#create`) already carries the correct
 `allowed_to?(:create_run, @project) || admin?` guard confirmed by source in BUG-TCM-007's contrast section, so the
 same live-revoked permission would be refused there too.
+
+**REGRESSION — 2026-10-22 — PASS, reconfirmed multiple times this very cycle on the current build, per
+explicit user instruction.** This exact behavior (revoke → reload → control gone, no stale grace period) was
+independently re-demonstrated several times live via Playwright this session while testing other permissions
+on `qa.limited`/`qanonadmin`: `manage_environment` toggled off then back on for TC-TCM-293 (Add/Edit/Delete
+Environment controls genuinely appeared/disappeared on reload), `view_test_suite`/`create_test_suite` toggled
+for TC-TCM-290/291/046-050 (kebab menu options changed immediately on reload each time), and
+`add_issues`/`import_issues` toggled for TC-TCM-292. Every toggle took effect on the very next page load, with
+no caching or stale-session behavior observed anywhere.
 
 ---
 
@@ -919,12 +1435,17 @@ Role permissions restored immediately after.
 | TC range | Area | Bug reference |
 |---|---|---|
 | TC-TCM-046 – 806 | Test Suite Management | BUG-TCM-007 (confirmed fixed 2026-10-22) |
-| TC-TCM-052 – 813 | Test Run Management | — |
+| TC-TCM-052 – 058, 057a | Test Run Management (incl. Bulk Delete Runs, TC-TCM-057a) | — |
 | TC-TCM-059 – 816 | Test Execution | — |
 | TC-TCM-062 – 821 | Reporting | BUG-TCM-007 (confirmed fixed 2026-10-22) |
 | TC-TCM-067 – 824 | To-Do Management | — (first-ever execution 2026-10-22, all PASS) |
 | TC-TCM-070 – 828 | Requirement Management | BUG-TCM-007 (confirmed fixed 2026-10-22) |
 | TC-TCM-074 – 832 | Negative / cross-cutting | **BUG-TCM-009 (reopened 2026-10-22 — narrower: non-member sub-case stays fixed, Test Suites' module-disabled sub-case still open)** |
+| TC-TCM-287 – 289 | Requirement Management — view permission gap + attachment download | **BUG-TCM-089 (new 2026-10-22 — Finding 1 design question, Finding 2 UI-only, Finding 3 real download bypass, High)** |
+| TC-TCM-290 – 291 | Test Suite kebab menu on the Add Testcase page | **BUG-TCM-090 (new 2026-10-22 — Finding 1 permission-blind menu, Finding 2 broken Edit Folder for every user, Medium-High)** |
+| TC-TCM-292 | New Test Case / CSV Import permission reuse (`add_issues` vs `import_issues`) | — (confirmed design behavior, not a bug) |
+| TC-TCM-293 | Manage Environment (all 3 legs, first-ever execution) | — (confirmed working correctly, no bug) |
+| TC-TCM-294 | `view_test_suite` MCP-API path vs browser path | Supports **BUG-TCM-009** (MCP API correctly enforces it; browser path still doesn't) |
 
 - Screenshot: capture only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - Log: for leg C, capture the HTTP status and response of the direct request as evidence — a screenshot of a

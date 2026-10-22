@@ -441,4 +441,5 @@
   `document.querySelector('.tribute-container ul').innerHTML` showing genuine `<img src=x onerror=...>` elements
   for issues #35 and #2063. Only visible in `RFTC-016 CI Ingest QA` because that's the one project containing
   the crafted XSS-payload test fixtures — the sink itself is universal, not project-scoped. Moved back to
-  `bugs/open/`; production #124008 (currently Done/100%) reopen is pending explicit user approval.
+  `bugs/open/`. **Production #124008 reopened 2026-10-22, per explicit user approval** — moved Done/100% →
+  Reopen/30%, with a full note explaining the second, never-patched Tribute.js rendering path.

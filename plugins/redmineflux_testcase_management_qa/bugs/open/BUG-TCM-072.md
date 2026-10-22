@@ -1,7 +1,7 @@
 # BUG-TCM-072
 
 - Bug ID: BUG-TCM-072
-- Production Redmine Issue ID: #124008 (https://flux.zehntech.com/issues/124008) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Security / Defect Severity High-severity / Defect priority High. Linked to production Testcase #124006 ("Requirements page issue-mention dropdown must not execute injected HTML/script from any test case subject (XSS)") in Run #612, environment Win + Chrome + Ver6, suite #443 (RFTC-011 — UI Modernization Wave 0). **REOPENED 2026-10-22 locally; production reopen pending explicit user approval (currently Done/100% on #124008).**
+- Production Redmine Issue ID: #124008 (https://flux.zehntech.com/issues/124008) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Security / Defect Severity High-severity / Defect priority High. Linked to production Testcase #124006 ("Requirements page issue-mention dropdown must not execute injected HTML/script from any test case subject (XSS)") in Run #612, environment Win + Chrome + Ver6, suite #443 (RFTC-011 — UI Modernization Wave 0). **REOPENED 2026-10-22, both locally and on production** — per explicit user approval, #124008 moved Done/100% → Reopen/30%, with a full note explaining the second, never-patched Tribute.js rendering path.
 - Title: Requirements page's issue-mention dropdown executes injected HTML/script from any test case subject in the project — fires automatically on page load, no user interaction required
 - Redmine version: 6.x (Docker `localhost:3000`, Postgres)
 - Plugin name: redmineflux_testcase_management

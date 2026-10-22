@@ -1,8 +1,9 @@
 # Test Cases — Redmineflux Testcase Management — Configuration, Notifications & Prerequisites
 
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
-> **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 TCs genuinely re-executed this
-> cycle, not just claimed).** Exceptions: TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the
+> **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed
+> this cycle, not just claimed, plus 7 new TCs — TC-TCM-280–286 — added 2026-10-22 to formally cover
+> user-directed scenarios that previously only existed as narrative notes).** Exceptions: TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the
 > cadence-timing half of TC-TCM-014 (Email Reminder — the mail-sending mechanism AND the UI-configured
 > schedule-time gating are both now verified; only the exact real-world 24h interval remains unverified
 > without a multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite) still reference their original
@@ -626,6 +627,170 @@ a genuinely separate, correctly-gated state from physical deletion.
 
 ---
 
+## Functional Cases — Notification robustness (added 2026-10-22, user-directed scenarios)
+
+> These 7 TCs formalize scenarios the user explicitly asked to verify this session, which had no corresponding
+> test case before now (findings had only been appended as narrative notes under the nearest existing TC).
+> IDs continue the plugin-wide `TC-TCM-*` sequence from its prior max (279).
+
+### TC-TCM-280: Inactive (not Active, not deleted) Run Email Template is ignored, default used
+
+**User Role:** Admin
+**Priority:** Medium
+**Steps:**
+1. Create a new Run Email Template with a distinctive marker in its Subject/Body, leaving **Active Template**
+   unchecked; save.
+2. Trigger a "Run Updated" notification (edit any watched run).
+3. Check the delivered email's subject/body.
+
+**Expected Result:**
+- The inactive template's marker must NOT appear anywhere in the delivered email — the system must fall back
+  to the default built-in subject/body, exactly as if no custom template existed.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Created "TC-TCM-INACTIVE Run Template Test" (Subject
+`[INACTIVE-SHOULD-NOT-BE-USED] {run_name}`, Body marker `INACTIVE-TEMPLATE-MARKER-xyz9`), Active Template left
+unchecked. Edited run #70 to trigger "Run Updated" — delivered email's subject read **"Run Updated: TC-TCM-016
+Run Type Delete Test [inactive-template-check]"** (the default format), not the inactive marker. Confirms an
+inactive-but-present Run Email Template is correctly ignored.
+
+---
+
+### TC-TCM-281: Inactive (not Active, not deleted) Testcase Email Template is ignored, default used
+
+**User Role:** Admin
+**Priority:** Medium
+**Steps:**
+1. Create a new Testcase Email Template with a distinctive marker, leaving **Active Template** unchecked; save.
+2. Record a result on a watched test case (Testcase Result Added notification).
+3. Check the delivered email's subject/body.
+
+**Expected Result:**
+- The inactive template's marker must NOT appear — default built-in subject/body used instead.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Created "TC-TCM-INACTIVE Testcase Template Test" (Subject
+`[INACTIVE-SHOULD-NOT-BE-USED] {issue_subject}`, Body marker `INACTIVE-TESTCASE-TEMPLATE-MARKER-qx7`), Active
+Template left unchecked (also the only Testcase Email Template on the instance at the time, isolating the
+check cleanly). Recorded a Passed result on test case #28 (run #68) — delivered email subject read **"Test
+Case Result Added: Duplicate-key test case"** (default format), not the inactive marker. Confirms the same
+fallback behavior holds for Testcase Email Templates.
+
+---
+
+### TC-TCM-282: Disabled (Enabled=No) Run Type is excluded from Add Run, but not deleted
+
+**User Role:** Admin
+**Priority:** Medium
+**Steps:**
+1. Uncheck **Enabled** on an existing run type via the real Edit Run Type modal (do not delete it); save.
+2. Check the admin Run Types list.
+3. Open **Add Run** and inspect the Run Type dropdown.
+
+**Expected Result:**
+- The admin list still shows the run type (Enabled=No), not deleted.
+- The Add Run dropdown no longer offers it for selection.
+- Existing runs/history already using it are undisturbed.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Unchecked Enabled on "Performance" via the real Edit Run Type modal —
+admin list immediately shows it with Enabled=No, still present. Add Run's Run Type dropdown correctly lists
+only the 6 remaining enabled types, excluding "Performance." Distinct, correctly-gated state from physical
+deletion (already covered by TC-TCM-016).
+
+---
+
+### TC-TCM-283: Notification Enabled/Disabled toggle actually gates email delivery, not just exists
+
+**User Role:** Admin
+**Priority:** High
+**Steps:**
+1. In Administration → Settings → Notifications, uncheck a notification event (e.g. "Run updated"); save.
+2. Trigger that event (edit a run).
+3. Check the mailbox — expect no email.
+4. Re-check the event, save, trigger again — expect email resumes.
+
+**Expected Result:**
+- Disabling the checkbox must genuinely suppress the email (not just hide a UI element), and re-enabling must
+  genuinely resume it.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Disabled "Run updated" (confirmed via `rails runner`:
+`Setting.notified_events` no longer includes it), edited run #70 — **no email arrived** (Mailpit total
+unchanged). `docker logs` confirmed the `MailDeliveryJob` still runs (mailer method executes) but its internal
+`return unless Setting.notified_events.include?('run_updated')` guard stops it before `mail(...)`. Re-enabled
+and edited again — email resumed correctly. (This same investigation also surfaced **BUG-TCM-088** — see
+TC-TCM-012 — a separate content-staleness defect found while verifying this toggle, not a failure of the
+toggle itself.)
+
+---
+
+### TC-TCM-284: Email Reminder Frequency's UI-configured schedule time actually gates the scheduler
+
+**User Role:** Admin
+**Priority:** Medium
+**Steps:**
+1. In the plugin Configuration tab, set **Email Reminder Frequency for Due Runs** to "Every day" and type a
+   specific schedule time (e.g. `09:30`); Apply.
+2. Confirm the setting persisted.
+3. Simulate the scheduler firing at a time that does NOT match the configured time — expect no reminders.
+4. Simulate it firing at the exact configured time — expect real reminders to go out.
+
+**Expected Result:**
+- The scheduler must only fire at the specific time configured through the UI, not at arbitrary times, and
+  must genuinely deliver when the time matches.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Set the real UI field to `09:30`, Apply — confirmed via `rails runner`
+that `Setting.plugin_redmineflux_testcase_management['everyday_schedule_time'] == '09:30'`. Called
+`ReminderWorker#schedule_daily_reminder` with a non-matching simulated time (10:15) — zero new emails (Mailpit
+total unchanged at 166). Called it again with the exact configured time (09:30) — a real batch of reminder
+emails delivered (total jumped to 198). Proves the full chain: UI field → saved setting → the scheduler's own
+`current_time.hour == scheduled_time.hour && current_time.min == scheduled_time.min` gate.
+
+---
+
+### TC-TCM-285: Overdue/daily reminder email recipient scope is Assignee-only, not Author/Watchers
+
+**User Role:** Admin
+**Priority:** Low (confirmed intended design, not a defect)
+**Steps:**
+1. Set up a run where Author, Assignee, and a Watcher are three different people.
+2. Make the run overdue.
+3. Trigger the overdue reminder.
+4. Check who actually receives the email.
+
+**Expected Result:**
+- Documented/confirmed expected behavior for this build: only the Assignee receives the reminder. (If this
+  were ever expected to also include Author/Watchers, that would be a defect — confirmed with the user it is
+  not.)
+
+**CONFIRMED LIVE — 2026-10-22 — PASS, confirmed intended by explicit user instruction.** Set run #70 with
+Author=Redmine Admin, Assignee=QA NonAdmin, Watcher=qa.limited (three different people), made it overdue,
+called `RunMailer.overdue_reminder_email` directly. **Only the Assignee (`qanonadmin@example.com`) received
+the email** — confirmed via Mailpit's `To:` field (exactly one recipient). Source-confirmed
+(`reminder_worker.rb`'s `send_daily_reminder`/`send_overdue_run_reminders`, `run_mailer.rb`'s
+`reminder_email`/`overdue_reminder_email`) — both call `mail(to: @assignee.mail)` only, no `cc:`, no
+author/watcher lookup anywhere. User explicitly confirmed this is the intended design ("assignee ko hi jata he
+... ussi ko yehi functionality he") — not filed as a bug.
+
+---
+
+### TC-TCM-286: Closed runs are excluded from overdue reminders
+
+**User Role:** Admin
+**Priority:** Medium
+**Steps:**
+1. Mark a run both overdue (due date in the past) AND closed (`is_closed=true`).
+2. Trigger the overdue reminder job.
+3. Confirm the closed run does not generate a reminder email.
+
+**Expected Result:**
+- A closed run must never trigger an overdue reminder, regardless of its due date.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Marked run #70 overdue (due date in the past) and closed
+(`is_closed=true`), called `ReminderWorker#send_overdue_run_reminders` live. The run never appeared in the
+mailer-job enqueue log, and no email was delivered to its assignee. Source-confirmed both
+`send_daily_reminder`/`send_overdue_run_reminders` filter on `is_closed: false` only. Restored run #70 to
+`is_closed=false` immediately after.
+
+---
+
 ## Functional Cases — Installation prerequisites
 
 > These verify that a documented prerequisite actually gates the feature it is supposed to. They exist so that an
@@ -728,6 +893,7 @@ redmine6-sidekiq-1`) immediately after, confirmed `Up` again.
 | TC-TCM-008 – 914 | Email templates and notifications | **BUG-TCM-012 (fixed), BUG-TCM-013 (reopened 2026-10-22), BUG-TCM-087 (new 2026-10-22), BUG-TCM-088 (new 2026-10-22)** |
 | TC-TCM-015 – 916 | Run types | — |
 | TC-TCM-017 – 920 | Installation prerequisites | **BUG-TCM-005** (prod #120588) |
+| TC-TCM-280 – 286 | Notification robustness (inactive templates, disabled run type, toggle gating, schedule-time gating, reminder recipient scope, closed-run exclusion) | **BUG-TCM-088** (found while executing TC-TCM-283) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - **Restore every setting changed by this suite** before running any other suite.

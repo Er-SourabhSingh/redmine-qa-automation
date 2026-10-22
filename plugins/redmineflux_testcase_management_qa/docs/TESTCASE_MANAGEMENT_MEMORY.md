@@ -115,6 +115,16 @@
 
 ## Confirmed Working
 
+- **"Inactive but not deleted" is a genuinely separate state from "deleted" for Run Email Templates, Testcase
+  Email Templates, and Run Types — and all three handle it correctly.** Found 2026-10-22 after the user caught
+  that only full deletion had been tested for these three entities, never unchecking Active/Enabled while leaving
+  the record in place. An inactive (Active Template unchecked) email template is correctly ignored at send time —
+  the system falls back to the default built-in subject/body, same as if no template existed at all, verified via
+  real delivered-email content for both Run Email Templates and Testcase Email Templates. A disabled (Enabled
+  unchecked) run type stays visible in the admin list with Enabled=No but is correctly excluded from the Add
+  Run dropdown, without disturbing existing runs/history that reference it. **Lesson: "deleted" and "exists but
+  inactive/disabled" are not interchangeable test scenarios for any toggleable entity — a CRUD pass alone
+  (Create/Read/Update/Delete) does not cover the inactive-but-present state unless a test explicitly targets it.**
 - CSV import — **full suite re-verified 2026-09-11, 16/16 TCs PASS** (see the Regression Run table at the bottom of `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md`): legacy single `Steps`/`Expected` columns, 0–50 step range, varying step counts per row (1/3/7/15/30 with no cross-contamination), non-sequential step numbering (preview shows 1/3/5, saved case renumbers 1/2/3), unicode/emoji/embedded-newline content round-tripping exactly, the 2000 vs 2001-char boundary, oversized-text rejection with a precise error, 100×3-step bulk import in ~0.5 s, header-only and empty-file handling, and whole-column-family-absent handling in both directions.
 - CSV import fixtures live in `automation/testdata/csv-test-data/` (17 files, numbered, with a `README.md` mapping each to its purpose and expected outcome) — **not** in `automation/uploads/` as the older TC file's Evidence Map used to claim. Use these for any CSV import regression; they cover every TC in the suite.
 - Single-test-case **Add Result** inside a run (`POST /issue_status_results`, format JS) — saves correctly as the logged-in user. Verified 2026-09-11 on `localhost:3010`, run #4.

@@ -255,6 +255,15 @@ to display". Note: "Run Added" itself could not be exercised for this macro chec
 (the create path never emails at all) — macro substitution was instead confirmed via the "Run Updated" path,
 which uses the identical template/macro-substitution code and is unaffected by that bug.
 
+**INACTIVE-but-not-deleted template check — 2026-10-22 — PASS.** Created a second Run Email Template ("TC-TCM-
+INACTIVE Run Template Test", Subject `[INACTIVE-SHOULD-NOT-BE-USED] {run_name}`, Body marker `INACTIVE-TEMPLATE-
+MARKER-xyz9`) deliberately leaving **Active Template unchecked**, Create — it appears in the list with its Status
+checkbox unchecked (present, not deleted). Edited run #70 via the real Edit Run UI flow to trigger a "Run
+Updated" email. Delivered email Subject was **"Run Updated: TC-TCM-016 Run Type Delete Test [inactive-template-
+check]"** — the plugin's own default built-in format — not the inactive template's `[INACTIVE-SHOULD-NOT-BE-
+USED]` text. Confirms an inactive-but-present Run Email Template is correctly ignored and the system falls back
+to the default, distinct from the full-deletion case already covered above.
+
 ---
 
 ### TC-TCM-009: Customise the Testcase Email Template
@@ -292,6 +301,17 @@ correctly fell back to the **default** built-in subject/body ("Test Case Result 
 confirming the default-fallback path still works once no Active template exists. **BUG-TCM-013's duplicate-
 delivery symptom reproduced again** on this same submission (2 identical emails, same evidence pattern as
 TC-TCM-013's own entry) — not a new finding, just further confirms it isn't isolated to one specific template.
+
+**INACTIVE-but-not-deleted template check — 2026-10-22 — PASS.** Created a second Testcase Email Template
+("TC-TCM-INACTIVE Testcase Template Test", Subject `[INACTIVE-SHOULD-NOT-BE-USED] {issue_subject}`, Body marker
+`INACTIVE-TESTCASE-TEMPLATE-MARKER-qx7`) deliberately leaving **Active Template unchecked** — confirmed in the
+list as id 4 with its Status checkbox unchecked (present, not deleted; it was also the only Testcase Email
+Template on the instance at the time, so this isolates the inactive-fallback behaviour cleanly). Recorded a
+Passed result on test case #28 (run #68) via the real result-column "Untested" link → Add Result popup. Delivered
+email Subject was **"Test Case Result Added: Duplicate-key test case"** — the default built-in format — not the
+inactive template's `[INACTIVE-SHOULD-NOT-BE-USED]` text. Confirms an inactive-but-present Testcase Email
+Template is correctly ignored and the system falls back to the default, same behaviour as the Run Email Template
+case above.
 
 ---
 
@@ -475,6 +495,14 @@ Regression Run Type [edited]", deleted that run type via the real confirmation m
 you sure you want to delete this run type? This action cannot be undone."). Run #70's Run Type column in the
 list is cleanly blank; opening `/runs/70?project_id=rftc-016-ci-qa` directly renders completely normally — no
 500, no dangling reference. Same graceful-blank behavior confirmed on this build.
+
+**Enabled=No (disabled-but-not-deleted) check — 2026-10-22 — PASS.** Distinct from full deletion above: edited
+the existing "Performance" run type via the real Edit Run Type modal and unchecked **Enabled** (left the record
+otherwise intact), Update. Admin list immediately shows "Performance" with Enabled = **No**, still present (not
+removed). Opened **Add Run** in `rftc-016-ci-qa`: the Run Type dropdown now lists only the 6 remaining enabled
+types (Functional, Regression, Smoke, Integration, Security, User Acceptance) — "Performance" is correctly
+excluded from selection while existing runs/history referencing it are left undisturbed. Confirms Enabled=No is
+a genuinely separate, correctly-gated state from physical deletion.
 
 ---
 

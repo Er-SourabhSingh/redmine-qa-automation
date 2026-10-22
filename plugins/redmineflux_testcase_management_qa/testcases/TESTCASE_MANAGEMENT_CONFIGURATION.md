@@ -243,6 +243,18 @@ assigned to `luna.blossom` (real checkable mailbox `qa@test.local`). Checked Rou
 reads exactly **"TCTCM008-MARKER-9f3a Run: TC-TCM-008-011 Email notification test"** — marker present, `{run_name}`
 placeholder correctly substituted with the real run name. Template is genuinely used, not ignored.
 
+**REGRESSION + full CRUD — 2026-10-22 — PASS.** Re-ran against `localhost:3000`, project `rftc-016-ci-qa`.
+**Create**: new Run Email Template with marker `TCTCM008-MARKER-9f3a` plus `{run_name}`/`{project_name}`/
+`{run_state}` macros, Active checked — created cleanly (id visible in list, Status checkbox checked).
+**Read**: Edit form reloads with the exact saved values. **Macro substitution confirmed via "Run Updated"**
+(editing run #68 triggered a real delivered email: *"TCTCM008-MARKER-9f3a Run: TC-TCM-008 Regression Run v2
+[edited] Project: RFTC-016 CI Ingest QA State: New"* — all 3 macros correctly substituted). **Update**:
+changed Subject to add `[edited]` marker, Update — list immediately reflects the new subject. **Delete**:
+confirmed via the real "Delete Email Template?" confirmation modal — template removed, list back to "No data
+to display". Note: "Run Added" itself could not be exercised for this macro check because of BUG-TCM-087
+(the create path never emails at all) — macro substitution was instead confirmed via the "Run Updated" path,
+which uses the identical template/macro-substitution code and is unaffected by that bug.
+
 ---
 
 ### TC-TCM-009: Customise the Testcase Email Template
@@ -263,6 +275,23 @@ placeholders, activated it. Submitted a result for test case #435. Delivered ema
 macros correctly substituted with the real test case subject and result status. Template mechanism itself works
 correctly. **But the email arrived twice** (2 identical copies), same as TC-TCM-013 below — filed as BUG-TCM-013
 (applies to both the default and custom template paths, since both go through the same mailer call site).
+
+**REGRESSION + full CRUD — 2026-10-22 — PASS on mechanism/CRUD, BUG-TCM-013 still reproduces (see TC-TCM-013).**
+Re-ran against `localhost:3000`. **Create**: new Testcase Email Template using ALL 9 available macros
+(`{author_name}`, `{project_name}`, `{issue_id}`, `{issue_subject}`, `{issue_priority}`, `{issue_url}`,
+`{environment}`, `{result}`, `{result_notes}`) plus a Footer field, marker `TCTCM009-REGRESSION2-MARKER-7bq2`,
+Active checked. Recorded a Passed result with a note on test case #26 — delivered email confirmed **every
+single macro substituted correctly**: Author=Redmine Admin, Project=RFTC-016 CI Ingest QA, Issue=26,
+Subject=Checkout flow renders correctly, Priority=Normal, URL=the real run URL, Env=test, Result=Passed,
+Notes=the real note text (appears as its own paragraph since the note itself is stored as HTML — not a bug),
+Footer="Footer-marker-7bq2-end" also appended correctly. Subject line macros (`{result}`/`{issue_subject}`)
+also confirmed in the email's actual Subject header. **Read**: Edit form reloads with the exact saved values.
+**Update**: changed Subject to add `-EDITED`, Update — list immediately reflects the new subject. **Delete**:
+confirmed via the real confirmation modal — removed, list back to "No data to display"; next result recorded
+correctly fell back to the **default** built-in subject/body ("Test Case Result Added: <issue subject>"),
+confirming the default-fallback path still works once no Active template exists. **BUG-TCM-013's duplicate-
+delivery symptom reproduced again** on this same submission (2 identical emails, same evidence pattern as
+TC-TCM-013's own entry) — not a new finding, just further confirms it isn't isolated to one specific template.
 
 ---
 

@@ -316,6 +316,19 @@ GET /testcase_activities?project_id=rftc-016-ci-qa     -> 404  (correctly blocke
 Only Test Suites (both the plain listing and the `/releases` dashboard variant, same `TestSuitesController`)
 still renders fully with the module disabled. Module re-enabled immediately after, confirmed restored.
 
+### Live UI confirmation (real browser, not just curl)
+
+Per user follow-up question ("tumne permission ke bina dekha ui se" — did you check this via the actual UI,
+not just raw requests), repeated the check through a real Playwright browser session as `qa.limited` (a
+genuine project member) with the module disabled:
+- The project's top navigation correctly no longer shows the **TestCases** tab at all (leg B — module-gating
+  for the tab itself still works correctly).
+- But directly navigating to `http://localhost:3000/test_suites?project_id=rftc-016-ci-qa` renders the
+  **entire normal Test Suites page** — real suite tree ("CI Ingest", "CI Ingest Sub-Suite", "U21 Brand New
+  Suite", "Edge2 Brand New Suite"), a real "Testcase Summary" grid with real test case rows (subjects, dates),
+  and a fully-functional "+ New Test Case" button — visually indistinguishable from the module being enabled.
+  Screenshot: `screenshots/BUG-TCM-009/module-disabled-test-suites-still-renders.png`.
+
 ### Root cause (precise, source-confirmed)
 
 `app/controllers/concerns/rftc_access_control.rb` has **two** similarly-named but different helpers:

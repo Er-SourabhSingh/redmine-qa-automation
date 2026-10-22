@@ -878,6 +878,14 @@ re-verify). **Reopened BUG-TCM-009** with this narrower scope — the non-member
 stays genuinely fixed; only this module-disabled sub-case, and only for Test Suites, remains open. Module
 re-enabled and restored immediately after.
 
+**Live UI confirmation (real browser)** — per follow-up question on whether this was checked via the actual
+UI and not just raw curl requests: repeated the check through a real Playwright session as `qa.limited` with
+the module disabled. The **TestCases** top-nav tab correctly disappears (leg B holds). But navigating directly
+to `/test_suites?project_id=rftc-016-ci-qa` renders the complete, normal page — real suite tree ("CI Ingest",
+"CI Ingest Sub-Suite", "U21 Brand New Suite", "Edge2 Brand New Suite"), a real Testcase Summary grid with real
+rows, and a working "+ New Test Case" button — visually indistinguishable from the module being enabled.
+Screenshot: `screenshots/BUG-TCM-009/module-disabled-test-suites-still-renders.png`.
+
 ---
 
 ## Evidence Map

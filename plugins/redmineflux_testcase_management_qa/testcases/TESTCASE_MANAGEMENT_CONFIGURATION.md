@@ -166,12 +166,18 @@ from cart`, `2093: Boundary...`), confirming the linking query's Testcase-tracke
 build. This project currently has **zero issues on the Feature tracker** (`Issue.where(tracker_id: 2).count ==
 0`), so the Feature-tracker half of the OR-query couldn't be observed populating a real row — not re-verified
 by direct observation this cycle, only by source re-read (`requirements_controller.rb`'s query is unchanged).
-**Incidental side-confirmation**: item `35: Remove item from cart` (whose real subject contains the
-`<img src=x onerror=alert('export-xss')>` payload) rendered as safe, escaped plain text in the dropdown with no
-alert firing — reconfirms BUG-TCM-072 (mention-dropdown XSS) stays fixed on this build, matching the
-2026-10-21 finding exactly. (A duplicate browser tab briefly showed a stale un-escaped alert from leftover
-page state before this check — not a live reproduction; the single, current tab's dropdown was consistently
-escaped across repeated checks.)
+**CORRECTION — 2026-10-22 (same session, caught by the user):** the "stale tab artifact" explanation above was
+**wrong**. The alert was real and reproducible every time — the accessibility-tree snapshot used to check the
+dropdown's content doesn't reflect raw HTML (an `<img onerror>` element still shows as plain descriptive text
+in the a11y tree even though it executed), so the escaped-looking snapshot masked a genuine live XSS. Direct
+DOM inspection (`document.querySelector('.tribute-container ul').innerHTML`) confirms the Requirements page's
+`#`-mention dropdown is a **separate, never-patched Tribute.js widget** distinct from the already-fixed
+`#user-list`/`createIssues()` path — it still renders raw, unescaped subjects as live `<img src=x
+onerror=alert(...)>` markup. **BUG-TCM-072 REOPENED** with full root cause — see the bug file. Only visible in
+this project because it's the one containing the crafted XSS-payload test fixtures (#35, #2063), not because
+the sink itself is project-scoped. **Lesson: never trust an accessibility-tree snapshot to rule out XSS —
+always inspect `element.innerHTML` directly, and take any real alert dialog at face value instead of
+explaining it away as a tooling artifact.**
 
 ---
 

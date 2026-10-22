@@ -113,6 +113,25 @@
     ambiguous suite membership — both PASS). The "user builds their own suite tree from scratch, then CI runs
     against it" angle is a separate, not-yet-covered scenario explicitly saved for a **later** session.
 
+## Methodology Lessons
+
+- **Never trust an accessibility-tree snapshot to rule out XSS — always check `element.innerHTML` directly.**
+  2026-10-22: dismissed a real `alert('export-xss')` from the Requirements page's `#`-mention dropdown as a
+  "stale duplicate-tab artifact" because the Playwright accessibility snapshot showed the dangerous item as
+  plain, escaped-looking text. It wasn't an artifact — an `<img src=x onerror=...>` element still renders as
+  descriptive text in the a11y tree even after its `onerror` has already fired, so the snapshot is not evidence
+  of safe escaping. The user caught this by reproducing the exact same alert live. **Lesson: when a real browser
+  alert/dialog fires during testing, investigate it as a genuine finding first — only rule it out with direct
+  DOM inspection (`el.innerHTML`, `el.querySelector('img')`), never by inference from an accessibility snapshot
+  or by assuming "it's just a leftover tab."**
+- **A single fix for one rendering path of a feature does not mean every rendering path for the same data is
+  fixed.** BUG-TCM-072's original fix patched `createIssues()`/`#user-list` (confirmed still correct), but the
+  same page wires up a second, completely independent Tribute.js widget (`mentionIssue`) for the exact same
+  `#`-trigger use case, fed by different code (`getAllIssues()`) that was never touched by the fix. **When a
+  page has more than one widget/code path serving a conceptually similar feature (two mention dropdowns, two
+  export buttons, two chart renderers), verify each one independently — a retest that only exercises one path
+  can wrongly confirm "fixed" for the whole feature.**
+
 ## Confirmed Working
 
 - **Daily/overdue run reminder emails (`ReminderWorker`) intentionally go ONLY to the per-environment Assignee,

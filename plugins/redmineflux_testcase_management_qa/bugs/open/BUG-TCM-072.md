@@ -1,7 +1,7 @@
 # BUG-TCM-072
 
 - Bug ID: BUG-TCM-072
-- Production Redmine Issue ID: #124008 (https://flux.zehntech.com/issues/124008) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Security / Defect Severity High-severity / Defect priority High. Linked to production Testcase #124006 ("Requirements page issue-mention dropdown must not execute injected HTML/script from any test case subject (XSS)") in Run #612, environment Win + Chrome + Ver6, suite #443 (RFTC-011 — UI Modernization Wave 0).
+- Production Redmine Issue ID: #124008 (https://flux.zehntech.com/issues/124008) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Security / Defect Severity High-severity / Defect priority High. Linked to production Testcase #124006 ("Requirements page issue-mention dropdown must not execute injected HTML/script from any test case subject (XSS)") in Run #612, environment Win + Chrome + Ver6, suite #443 (RFTC-011 — UI Modernization Wave 0). **REOPENED 2026-10-22 locally; production reopen pending explicit user approval (currently Done/100% on #124008).**
 - Title: Requirements page's issue-mention dropdown executes injected HTML/script from any test case subject in the project — fires automatically on page load, no user interaction required
 - Redmine version: 6.x (Docker `localhost:3000`, Postgres)
 - Plugin name: redmineflux_testcase_management
@@ -103,3 +103,80 @@ stack was restarted. Navigated to `/requirements?project_id=2` — **no `alert()
 
 Both entries are now HTML-escaped text, not live markup — confirmed **zero** live `<img>` elements anywhere
 inside `#user-list` (`el.querySelector('img')` → `null`). **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+
+## REOPENED — 2026-10-22 — second, never-patched rendering path found, genuinely still exploitable
+
+**Found live by the user** while using the Requirements page normally (typed `#` into a requirement's content
+editor in project `RFTC-016 CI Ingest QA`) — a real `alert('export-xss')` dialog fired, screenshotted. The
+2026-10-21 "FIXED" verdict above was correct for the ONE element it checked (`#user-list`, fed by
+`createIssues()`) but **missed a second, completely separate dropdown on the exact same page that was never
+patched**.
+
+### Root cause (confirmed via source read + live DOM inspection)
+
+`script.js` wires up **two independent** issue-mention UIs on the Requirements page's content editor:
+
+1. `createIssues(data)` → `#user-list` — the one BUG-TCM-072's original fix patched. **Still correctly
+   escapes** (`escapeHtml(data[i].subject)` now present, confirmed live: `&lt;img src=x
+   onerror=alert('export-xss')&gt;` renders as inert text).
+2. **A completely separate Tribute.js instance**, never touched by the fix:
+   ```js
+   const mentionIssue = new Tribute({
+     collection: [{ trigger: "#", values: [] }],
+     lookup: "key",
+   });
+   mentionIssue.attach(document.getElementById("contentEditor"));
+   ```
+   populated in `getAllIssues()` with **raw, unescaped** subjects:
+   ```js
+   let issue = {
+     key: `${data[i]?.id} : ${data[i]?.subject} `,   // <-- raw subject, no escaping
+     issue: true,
+     issueId: `${data[i]?.id}: ${data[i]?.subject} `,
+     value: `${url}/issues/${data[i]?.id}`,
+   };
+   ```
+   No custom `menuItemTemplate` is provided to this Tribute instance, so it falls back to the bundled
+   library's own default (`editorMention.js`, the vendored Tribute.js build):
+   ```js
+   defaultMenuItemTemplate: function (e) { return e.string; }
+   ```
+   whose return value is inserted via a direct, unescaped assignment — `r.innerHTML =
+   this.current.collection.menuItemTemplate(e)` — every time the `#`-trigger menu renders or re-filters.
+   Since `e.string` is built from the raw `key` (`"<id> : <subject> "`), any HTML-tag-shaped subject becomes
+   live markup the instant the menu paints — **no selection/click required**, matching the exact "fires with
+   zero interaction beyond the trigger" severity of the original finding.
+
+### Live reproduction (this session, single real keystroke, no `.fill()` ambiguity)
+
+1. Opened `/requirements?project_id=rftc-016-ci-qa&page_id=3`, focused the content editor, pressed `#` once
+   (real keyboard event, not a programmatic value-set).
+2. A genuine `alert('export-xss')` dialog fired (screenshot: the user's own capture, reproduced independently
+   here).
+3. Direct DOM inspection, `document.querySelector('.tribute-container ul').innerHTML`:
+   ```html
+   <li data-index="2" class="">2063 : <img src="x" onerror="alert('export-xss')"> export check </li>
+   ...
+   <li data-index="12" class="">35 : <img src="x" onerror="alert('export-xss')"> Remove item from cart </li>
+   ```
+   Both `<img>` tags are genuinely live elements (not escaped entities) inside Tribute's own menu container —
+   a completely different DOM subtree from the correctly-fixed `#user-list`.
+4. Confirmed **in the same page load**, `#user-list`'s own content is still correctly escaped — proving this
+   is not a regression of the original fix, but a second, always-present sink the original fix never reached.
+
+### Why the user only sees this in `RFTC-016 CI Ingest QA`
+
+`getAllIssues()` scopes its fetch to the current project (`GET /requirement/testcases?project_id=<id>`). The
+vulnerability itself is **not** project-specific — it exists in `script.js` for every project — but this
+particular project happens to contain the deliberately-crafted QA fixture test cases (`#35`, `#2063`) whose
+*subjects* literally contain `<img src=x onerror=alert('export-xss')>`, created earlier in this QA cycle as
+XSS test fixtures. Any other project would trigger the identical code path harmlessly, simply because none of
+its issue subjects currently contain HTML-tag-shaped text — the sink is universal, the visible symptom is
+data-dependent.
+
+### Verdict
+
+**Reopened.** The original assertion ("Requirements page's issue-mention dropdown executes injected
+HTML/script from any test case subject") is still literally true today via this second widget — not a
+duplicate finding, the same bug with an incomplete fix. Severity unchanged: **High** (genuine, reproducible,
+near-zero-interaction stored/DOM XSS). Moved back to `bugs/open/`.

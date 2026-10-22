@@ -64,7 +64,7 @@
 | BUG-TCM-069 | CI ingest's `on_unmatched: "skip"` option is accepted but never implemented — identical response to `"report"` | Closed | Medium | master (pre-7.2.0) | #123980 | bugs/closed/BUG-TCM-069.md |
 | BUG-TCM-070 | Most Failed Tests report's bar chart executes injected HTML/script from a test case subject — ApexCharts renders xaxis.categories labels as HTML, not plain SVG text (confirmed reproducible XSS, alert() genuinely fires) | Closed | High | master (pre-7.2.0) | #123985 | bugs/closed/BUG-TCM-070.md |
 | BUG-TCM-071 | Most Failed Tests report's Excel export doesn't recognize the report type at all — produces a 5-row "Unknown Report Type" error sheet instead of ranked data (HTML/PDF exports of the same report are correct); retested 2026-10-21 (second pass) after the dev's fix — sheet title cosmetic gap also fixed, confirmed FIXED (fully) | Closed | High | master (post-pull, pre-7.2.0) | #123986 | bugs/closed/BUG-TCM-071.md |
-| BUG-TCM-072 | Requirements page's issue-mention dropdown executes injected HTML/script from any test case subject in the project — fires automatically on page load, no interaction required (`script.js`'s `createIssues()`, unescaped `.innerHTML`) | Closed | High | master (pre-7.2.0) | #124008 | bugs/closed/BUG-TCM-072.md |
+| BUG-TCM-072 | Requirements page's issue-mention dropdown executes injected HTML/script from any test case subject — REOPENED 2026-10-22, found live by the user: the original fix only patched `createIssues()`/`#user-list`; a second, never-touched Tribute.js-native mention popup (`mentionIssue` instance, no custom `menuItemTemplate`) still renders raw subjects as live HTML, confirmed via real alert + DOM inspection of `.tribute-container ul` | Open | High | master (post-pull, pre-7.2.0) | #124008 | bugs/open/BUG-TCM-072.md |
 | BUG-TCM-073 | Test-Suite tree's search button is still `<span role="button" tabindex="-1">`, not keyboard-reachable — the last of 7 original fake-submit instances, every other one already fixed this release (rftc-011 Waves 2/5/6) | Closed | Low | master (pre-7.2.0) | #124009 | bugs/closed/BUG-TCM-073.md |
 | BUG-TCM-074 | Requirement content is silently discarded on save (original view-triggered-save cause fixed; reopen-scenario save-race also fixed and confirmed clean across 3 independent retests covering every editor tool, linking, unlinking, rename, and delete) | Closed | Critical | 7.1.0 | #124053 | bugs/closed/BUG-TCM-074.md |
 | BUG-TCM-075 | PDF export of Testcase Reports drops the "Run Name (Environment)" heading shown correctly on the live page and in HTML/Excel exports — fully missing for Testcase Summary/Activity Summary/Overdue Run Summary, environment suffix only missing for Defect Summary; Tester Scorecard unaffected (originally found on a different Docker instance, `localhost:3015`/`C:\crux-redmine`; retested 2026-10-21 against `localhost:3000` instead since the defect is not environment-specific — both Testcase Summary and Defect Summary PDFs now show the correct heading) | Closed | Medium | 7.1.0 | #124054 | bugs/closed/BUG-TCM-075.md |
@@ -430,3 +430,15 @@
   priority High/High-severity/High; Medium → priority Medium/Medium-severity/Medium; Defect Type Functional for
   both). Created as **standalone bug issues via `redmineflux_core_create_issue`** — per explicit user instruction
   ("inko run me nhi dalna he"), neither was linked to a production Test Run or Test Case.
+
+- **BUG-TCM-072 REOPENED 2026-10-22**, found live by the user while normally using the Requirements page (typed
+  `#` in a requirement's content editor, a real `alert('export-xss')` fired). Root-caused to a **second,
+  completely separate mention-dropdown** on the same page that the original 2026-10-21 fix never touched: the
+  fix correctly patched `createIssues()`/`#user-list` (confirmed still escaping correctly), but `script.js` also
+  wires up an independent Tribute.js instance (`mentionIssue`, triggered on `#`) populated with raw, unescaped
+  issue subjects and no custom `menuItemTemplate` override — so it falls back to the vendored Tribute library's
+  own default template (`return e.string`), inserted via unescaped `innerHTML`. Confirmed live via
+  `document.querySelector('.tribute-container ul').innerHTML` showing genuine `<img src=x onerror=...>` elements
+  for issues #35 and #2063. Only visible in `RFTC-016 CI Ingest QA` because that's the one project containing
+  the crafted XSS-payload test fixtures — the sink itself is universal, not project-scoped. Moved back to
+  `bugs/open/`; production #124008 (currently Done/100%) reopen is pending explicit user approval.

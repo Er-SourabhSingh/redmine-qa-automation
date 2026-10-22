@@ -647,3 +647,16 @@
     a local file's own claimed count, especially for scenarios recovered after the fact (via log forensics)
     rather than executed in the normal write-local-then-create-production-then-execute order.** Created all 4
     (#124252/124253/124249/124250), added to suite #449, recorded Passed in Run #612.
+
+- **(2026-10-22) BUG-TCM-083 and BUG-TCM-086 both retested and CONFIRMED FIXED** after the dev's fix pull,
+  restarting `redmine6-redmine-1`/`redmine6-sidekiq-1` first. Confirmed both fix commits via `git log`/`git
+  show` before retesting live (not just trusting the commit message): `6d0055e` for 083 (removed the
+  duplicate `document.title` line from `_suite_tree.html.erb`), `ad6437c` for 086 (added
+  `rftc_authorize_project_read!` + scoped `@run` to its project in `get_testcases`, explicitly citing
+  #124227 in the commit message). Live-retested both with the exact same reproduction steps/personas used
+  to find them originally — `document.title` single-prefixed now; `dev1` (non-member) correctly 404s on
+  both project-id URL variants while `qa.limited` (real member) still gets 200, confirming the fix has zero
+  regression for legitimate access. `bugs/open/` is empty again — per CLAUDE.md §27 this re-triggers the
+  full-plugin regression requirement before `STATUS.md` can read `Complete`; only a scoped regression (Run
+  Execution view + Import Wizard) was done this session, the full exhaustive one is still outstanding for a
+  future session.

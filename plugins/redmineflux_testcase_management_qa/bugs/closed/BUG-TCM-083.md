@@ -110,3 +110,14 @@ automation TC; should be added once this is fixed.
 
 Reported 2026-10-21 as issue #124202 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.
 Linked to production Testcase #124004 in Run #612 via `report_defect`.
+
+## Retest — 2026-10-22 (FIXED)
+
+Restarted `redmine6-redmine-1`/`redmine6-sidekiq-1` after the user pulled updated plugin code. Confirmed via
+`git log` the dev's fix commit `6d0055e` ("Fix import wizard page title repeating itself") is present — it
+removes the duplicate `document.title = ...` line from `_suite_tree.html.erb:35`, keeping only the single copy
+in `step1.html.erb`, exactly as suggested.
+
+Live-verified via Playwright against `http://localhost:3000/projects/rftc-016-ci-qa/testcase_import/step1`:
+`document.title` now reads `"Redmineflux Testcase - RFTC-016 CI Ingest QA - Redmine"` — a single prefix, no
+duplication. **CONFIRMED FIXED.**

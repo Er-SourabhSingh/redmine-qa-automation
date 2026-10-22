@@ -149,3 +149,23 @@ approval ("okay create bug on production"). Linked to production Testcase #12422
 `RFTC-043 Security Discovery Testing` (#453) — nested under parent suite #6 "Testcase plugin" — and all
 22 corresponding testcases (RFTC042-1..11 incl. 7a, RFTC043-1..10) were created and executed in the same
 session, mirroring both local external-spec testcase files in full.
+
+## Retest — 2026-10-22 (FIXED)
+
+Restarted `redmine6-redmine-1`/`redmine6-sidekiq-1` after the user pulled updated plugin code. Confirmed via
+`git log`/`git show` the dev's fix commit `ad6437c` ("Fix cross-project data leak in the run execution
+test-cases API") — it adds `get_testcases` to the `find_project` before_action list, gates the action on
+`rftc_authorize_project_read!(@project)` (mirroring the sibling action's own fix), and scopes `@run` to
+`Run.find_by(id: run_id, project_id: @project.id)` instead of loading it by raw id alone. The commit message
+explicitly cites this issue (#124227).
+
+Live-verified via direct `httpx` calls using the same 3 personas from the original discovery:
+- `dev1` (non-member of project 2) requesting `GET /projects/2/runs/5/test-cases.json` → now **404
+  "Unauthorized access"** (was 200 with real data).
+- `dev1` requesting the same run via `GET /projects/3/runs/5/test-cases.json` (their own project, foreign
+  run) → now **404 "Run with ID 5 not found"** (the run is correctly no longer resolvable outside its own
+  project).
+- `qa.limited` (real Manager member of project 2) requesting `GET /projects/2/runs/5/test-cases.json` → still
+  **200 with the full real data** — confirms the fix did not break legitimate access for an actual member.
+
+**CONFIRMED FIXED, clean fix, no regression for legitimate users.**

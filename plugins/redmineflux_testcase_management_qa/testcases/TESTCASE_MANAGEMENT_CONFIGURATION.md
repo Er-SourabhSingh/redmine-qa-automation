@@ -1,8 +1,11 @@
 # Test Cases — Redmineflux Testcase Management — Configuration, Notifications & Prerequisites
 
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
-> **Status: authored 2026-09-14.** TC-TCM-923 – 926 already carry partial live evidence from the 2026-09-14
-> session; the rest are not yet executed.
+> **Status: authored 2026-09-14, fully executed as of 2026-10-22.** All 20 TCs now carry live execution
+> evidence except TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the cadence-timing half of
+> TC-TCM-014 (Email Reminder — the mail-sending mechanism itself is now verified, only the exact scheduling
+> interval remains unverified without a real multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite)
+> still reference their original 2026-09-14/2026-09-30 evidence, not re-executed this cycle.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -46,6 +49,12 @@ redirected cleanly to the Test Suites list. Rails console confirmed the created 
 500. Root-caused to `issue_testcase_controller.rb#new`'s `||` fallback resolving a blank setting to
 "project's first tracker" instead of the error path the controller already has elsewhere. Setting restored to `4`
 (Test case) immediately after, verified via Rails console. Full write-up: `bugs/open/BUG-TCM-010.md`.
+
+**REGRESSION — 2026-10-22 — PASS, BUG-TCM-010 stays fixed.** Re-ran against `localhost:3000`, project
+`rftc-016-ci-qa`. Cleared Testcase Tracker (confirmed `[""]` via `rails runner`), then opened
+`/projects/rftc-016-ci-qa/issue_testcase/new` — now returns a clean **422** with the message *"No tracker is
+associated to this project. Please check the Project settings."* No silent misfile. Setting restored to `4`
+immediately after.
 
 ---
 
@@ -146,6 +155,13 @@ Tracker = Support (side-observed during TC-TCM-003) and Defect Tracker = Test ca
 tracker-general defect, not specific to one tracker choice. All tracker settings restored to baseline
 (Testcase=Test case, Defect=Bug, Feature=Feature) immediately after, verified via Rails console.
 
+**REGRESSION — 2026-10-22 — PASS, BUG-TCM-011 stays fixed.** Re-ran against `localhost:3000`, project
+`rftc-016-ci-qa`: set Testcase Tracker = Defect Tracker = "Testcase", then used the real **Report Defect**
+flow on a Failed result (test case #23, run #5) — the Add Defect form rendered no inaccessible-but-required
+custom fields this time (this instance doesn't carry the old ad-hoc "Qa Bug-Only" fixture fields at all), and
+after filling Subject, **Create succeeded cleanly** — defect #2095 created and auto-linked into the Add Result
+form's Defects field. All tracker settings restored to baseline immediately after.
+
 ---
 
 ## Functional Cases — Display settings
@@ -168,6 +184,13 @@ tracker-general defect, not specific to one tracker choice. All tracker settings
 suite tree: "workload" (baseline 53 cases) rendered with no count suffix at all — clean, correct. Re-enabled the
 setting, restored to baseline.
 
+**REGRESSION — 2026-10-22 — PASS, checked in BOTH places this setting actually renders.** Re-ran against
+`localhost:3000`, project `rftc-016-ci-qa`. Enabled the setting and confirmed accurate counts in **two**
+locations: (1) the **Test Cases section's own suite tree** (`CI Ingest` → 13, `CI Ingest Sub-Suite` → 2,
+`U21 Brand New Suite` → 1, `Edge2 Brand New Suite` → 1) and (2) the **New Test Case ("Add Testcase") form's
+own left-side suite-picker panel**, which independently renders the identical counts for the same suites.
+Disabled again — counts cleanly absent from both locations. Restored to baseline.
+
 ---
 
 ### TC-TCM-007: Hide default status field on issue details page
@@ -187,6 +210,10 @@ on issue details page"** (`#settings_hide_testcase_execution`). Enabled it, relo
 "Testcase Execution" section (Run/Environment/Result) is cleanly absent from the page — not merely the status
 field, the whole execution block. Disabled it again, section reappeared. Correct, working behavior; the TC's
 "default status field" framing doesn't match what this setting actually controls.
+
+**REGRESSION — 2026-10-22 — PASS.** Re-ran against `localhost:3000`, test case #23 ("test_login_valid").
+Enabled "Hide Testcase Execution section on issue details page" — the "Testcase Execution" heading/section is
+cleanly absent from the page. Disabled it — the section reappears. Restored to baseline.
 
 ---
 
@@ -273,6 +300,17 @@ given the mechanism is already directly verified by inspection.
 - A "Run Added" email arrives naming the run, with links resolving to the correct host.
 - Verify **Settings → General → Host name and path** first, per root `MEMORY.md`.
 
+**CONFIRMED LIVE — 2026-10-22 — FAIL — BUG-TCM-087 (High).** Enabled `run_added` in Administration → Settings
+→ Notifications; confirmed a real, Active custom Run Email Template existed. Created a new run via the normal
+**Runs & Results → Add Run** web form, twice — once assigned to the creator (admin, run #67), once assigned to
+a completely different real user with a checkable mailbox (`qa.limited`, run #68). **No "Run Added" email
+arrived in either case.** Root-caused via `docker logs`: the create request's own parameters always include
+`"from"=>"API"`, because `app/views/runs/new.html.erb:254` hardcodes
+`<%= hidden_field_tag 'from', 'API' %>` unconditionally on the standard web form. `run.rb`'s
+`send_notification_on_create` has `return if from == 'API'` — a guard meant only for CI/`bootstrap_run`-created
+runs (rftc-009) — so it fires for every single web-UI-created run too, meaning `RunMailer.run_added` is never
+even invoked for the normal human creation path. Filed as BUG-TCM-087, not yet reported to production.
+
 ---
 
 ### TC-TCM-012: Run Updated notification
@@ -284,6 +322,14 @@ given the mechanism is already directly verified by inspection.
 
 **Expected Result:**
 - A "Run Updated" email arrives reflecting the change.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS.** Edited run #68 (assigned to `qa.limited`) via the real **Edit Run**
+UI action (action-menu → Edit Run → change Name → Update) — unlike Add Run, the edit path does **not** carry
+the `from=API` marker. A real email was delivered to both the assignee (`qa.limited@test.local`) and the admin
+account, using the Active custom Run Email Template's subject/body with `{run_name}`/`{project_name}`/
+`{run_state}` macros correctly substituted (the subject still literally read "Run Added" only because that is
+the literal text this session typed into the custom template earlier for TC-TCM-008 — not a dynamic label bug).
+No duplicate delivery observed for this notification path.
 
 ---
 
@@ -305,6 +351,17 @@ naming the case (subject line correct), status (Passed), and environment (chrome
 **the email arrived twice** — 2 identical copies for one single result submission, with only one DB row created
 (BUG-TCM-013). Both bugs confirmed independently reproducible with a second test case (#435) under TC-TCM-009.
 
+**REGRESSION — 2026-10-22 — BUG-TCM-012 stays fixed, BUG-TCM-013 REOPENED.** Recorded a Passed result on test
+case #23 ("test_login_valid", run #68) as admin, assigned to a different real user (`qa.limited`). Email
+content now correctly names the test case itself (not the run) — BUG-TCM-012 stays fixed. **But the duplicate-
+delivery symptom genuinely reproduced again** — Mailpit's total message count jumped by 2 for this single
+submission, and both stored messages independently list the identical pair of recipients (ruling out a
+Mailpit per-recipient display artifact). `docker logs` confirmed only **one** `ActionMailer::MailDeliveryJob`
+was ever enqueued/performed (the 2026-10-06 cache-guard fix correctly prevents a double enqueue), yet both
+Mailpit entries share the identical Message-ID — pointing to the duplication happening at the SMTP transport
+layer, a different failure mode than the existing fix addresses. Production #121703 reopened (Reopen, 30%)
+with this evidence.
+
 ---
 
 ### TC-TCM-014: Email Reminder Frequency for overdue notifications
@@ -323,6 +380,19 @@ naming the case (subject line correct), status (Passed), and environment (chrome
 **DEFERRED — 2026-09-30.** Requires waiting for a real scheduled interval (shortest available is "Every day") to
 observe cadence — not practical within a single session without either waiting 24h or finding the underlying
 scheduled-job trigger to force-run out of cycle (not located this session). Not executed.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS (deferral resolved).** The 2026-09-30 blocker was about observing the
+*scheduling cadence itself*, which still can't be forced out-of-cycle without waiting a real day — but the
+actual mail-sending logic is cleanly separable from that scheduling wrapper: `ReminderWorker` exposes
+`#send_daily_reminder` and `#send_overdue_run_reminders(current_time)` as plain methods independent of the
+time-gated `#schedule_daily_reminder`/`#schedule_weekly_reminder` wrappers that only invoke them at the
+configured minute. Called both directly via `rails runner` (`ReminderWorker.new.send_daily_reminder` and
+`.send_overdue_run_reminders(Time.current)`) — real `ActionMailer::MailDeliveryJob`s were enqueued and
+performed, and Mailpit confirmed genuine, correctly-worded reminder emails arrived (e.g. "RFTC-016 CI Ingest
+QA - Jenkins CI Build 2 Reminder" — "Dear Redmine Admin, This is a gentle reminder regarding your assignment to
+the test run..."). This verifies the mail-sending mechanism itself works; the cadence-timing half of this TC
+(does it fire at exactly the configured interval, not more often) remains unverified without a real multi-day
+wait, which is a narrower, lower-risk residual gap than the original full deferral.
 
 ---
 
@@ -448,7 +518,7 @@ risk; a dedicated isolated instance would be safer for this specific TC.
 |---|---|---|
 | TC-TCM-001 – 905 | Tracker configuration | **BUG-TCM-010, BUG-TCM-011** |
 | TC-TCM-006 – 907 | Display settings | — |
-| TC-TCM-008 – 914 | Email templates and notifications | **BUG-TCM-012, BUG-TCM-013** |
+| TC-TCM-008 – 914 | Email templates and notifications | **BUG-TCM-012 (fixed), BUG-TCM-013 (reopened 2026-10-22), BUG-TCM-087 (new 2026-10-22)** |
 | TC-TCM-015 – 916 | Run types | — |
 | TC-TCM-017 – 920 | Installation prerequisites | **BUG-TCM-005** (prod #120588) |
 

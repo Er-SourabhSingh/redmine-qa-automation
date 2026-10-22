@@ -115,6 +115,12 @@
 
 ## Confirmed Working
 
+- **Daily/overdue run reminder emails (`ReminderWorker`) intentionally go ONLY to the per-environment Assignee,
+  never to the run's Author or Watchers** — confirmed 2026-10-22 both live (Mailpit `To:` field with 3 distinct
+  people in each role) and via source (`reminder_worker.rb`'s `send_daily_reminder`/`send_overdue_run_reminders`
+  only ever call `mail(to: @assignee.mail)`, no `cc:`, no author/watcher lookup anywhere). **Per explicit user
+  confirmation this is the intended design** — the reminder exists specifically for the person who needs to act
+  on the run, not as a broadcast — do not re-flag this as a bug in a future session.
 - **Disabling a notification event in Administration → Settings → Notifications genuinely suppresses the
   email** (confirmed for "Run updated" via `docker logs`: the `MailDeliveryJob` still runs — the mailer method
   executes — but an internal `return unless Setting.notified_events.include?(...)` guard stops it before

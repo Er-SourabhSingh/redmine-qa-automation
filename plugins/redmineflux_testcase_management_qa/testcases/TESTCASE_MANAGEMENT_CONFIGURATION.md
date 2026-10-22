@@ -474,6 +474,18 @@ the test run..."). This verifies the mail-sending mechanism itself works; the ca
 (does it fire at exactly the configured interval, not more often) remains unverified without a real multi-day
 wait, which is a narrower, lower-risk residual gap than the original full deferral.
 
+**Recipient-scope check — 2026-10-22 — PASS, confirmed as intended, not a bug.** Per user question, explicitly
+tested whether the overdue/daily reminder email goes to the Author and Watchers too, not just the Assignee.
+Set up run #70 with three different people in each role (Author=Redmine Admin, Assignee=QA NonAdmin,
+Watcher=qa.limited), made it overdue, and called `RunMailer.overdue_reminder_email` directly. **Only the
+Assignee (`qanonadmin@example.com`) received the email** — confirmed via Mailpit's `To:` field showing exactly
+one recipient, nothing to the Author or Watcher. Source read (`reminder_worker.rb`'s
+`send_daily_reminder`/`send_overdue_run_reminders`, `run_mailer.rb`'s `reminder_email`/`overdue_reminder_email`)
+confirms this is by design: both methods iterate only `run.run_assignments` and call `mail(to: @assignee.mail)`
+with no `cc:` and no author/watcher lookup anywhere in the code path. **Per explicit user confirmation, this is
+the intended functionality — the reminder is specifically for the person assigned to do the work, not a
+broadcast notification** — not filed as a bug.
+
 ---
 
 ## Functional Cases — Run types

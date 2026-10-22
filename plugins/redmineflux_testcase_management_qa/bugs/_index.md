@@ -8,7 +8,7 @@
 | BUG-TCM-010 | With the Testcase Tracker setting cleared, "New Test Case" silently creates a Bug instead of failing with a configuration error — the issue is invisible to every Testcase Management view from then on | Closed | High | 7.0.0 | #121700 | bugs/closed/BUG-TCM-010.md |
 | BUG-TCM-011 | Report Defect (and New Test Case) cannot be completed at all when Defect/Testcase Tracker is set to anything other than "Bug" — two Bug-only required custom fields are enforced but never rendered | Closed | High | 7.0.0 | #121701 | bugs/closed/BUG-TCM-011.md |
 | BUG-TCM-012 | Default "Test Case Result Added" notification email shows the run's name instead of the test case's own subject in its heading | Closed | Low | 7.0.0 | #121702 | bugs/closed/BUG-TCM-012.md |
-| BUG-TCM-013 | Adding a single test result sends the "Test Case Result Added" notification email twice | Closed | Medium | 7.0.0 | #121703 | bugs/closed/BUG-TCM-013.md |
+| BUG-TCM-013 | Adding a single test result sends the "Test Case Result Added" notification email twice — REOPENED 2026-10-22, genuinely reproduced live (the 2026-10-06 closure was code-read only); narrowed root cause to the SMTP transport layer (identical Message-ID on both copies, only 1 MailDeliveryJob ever enqueued — the existing cache-guard fix holds but addresses a different failure mode) | Open | Medium | master (post-7.1.0, pre-7.2.0) | #121703 | bugs/open/BUG-TCM-013.md |
 | BUG-TCM-014 | The Defects field on a Failed/Blocked Add Result form cannot find or link any existing defect — search always returns "No results found," for every query including blank | Closed | High | 7.0.0 | #121836 | bugs/closed/BUG-TCM-014.md |
 | BUG-TCM-015 | "Attach files" to an execution result — documented in the User Guide's own Add Result steps — has no corresponding control anywhere on the Add Result form, for any status | Closed | Medium | 7.0.0 | #121838 | bugs/closed/BUG-TCM-015.md |
 | BUG-TCM-017 | Test Suite Create and Edit modals have no Description field at all, despite the User Guide documenting one; leftover JS throws a console error on every modal open | Closed | Low | 7.0.0 | #121839 | bugs/closed/BUG-TCM-017.md |
@@ -383,3 +383,27 @@
   regression. Spot-checked the Run Execution view (`/runs/5`) renders its test-case grid correctly for the
   legitimate admin session. **Both CONFIRMED FIXED**, moved to `bugs/closed/`, production issues #124202 and
   #124227 synced to Done/100%. **`bugs/open/` is completely empty again.**
+
+- **Full-plugin regression continued, 2026-10-22 — `TESTCASE_MANAGEMENT_CONFIGURATION.md` suite.** Per user
+  instruction to start the post-fix-pull §27 regression from the Configuration suite: re-verified TC-TCM-001
+  (blank tracker → clean error, BUG-TCM-010 stays fixed), TC-TCM-005 (same tracker for Testcase+Defect →
+  Report Defect completes cleanly, BUG-TCM-011 stays fixed), TC-TCM-006 (Show Testcase Count — verified in
+  BOTH the Test Cases section tree AND the New Test Case form's suite picker, both PASS), TC-TCM-007 (Hide
+  Testcase Execution section — PASS both directions), TC-TCM-014 (Email Reminder — previously deferred as
+  "needs 24h wait," now PASS by directly invoking `ReminderWorker`'s real send methods via `rails runner`,
+  confirmed real reminder emails in Mailpit).
+  - **Found BUG-TCM-087 (High, new):** "Run Added" email can never be sent for a run created via the normal
+    web UI — `app/views/runs/new.html.erb:254` hardcodes `hidden_field_tag 'from', 'API'` unconditionally,
+    which `run.rb`'s CI-run-suppression guard (`return if from == 'API'`) treats as "don't email," for every
+    single web-created run, 100% of the time. Confirmed independently with two different assignees (self and
+    a different real user) to rule out self-notification suppression. Filed, not yet reported to production.
+  - **"Run Updated" and "Testcase Result Added" emails both confirmed genuinely working** (unlike "Run
+    Added") — editing a run and recording a result both triggered real, correctly-templated emails in
+    Mailpit.
+  - **BUG-TCM-013 REOPENED** — "Testcase Result Added" duplicate-email genuinely reproduced live (the
+    2026-10-06 closure had been code-read only, never live-retested). Root cause narrowed via
+    `docker logs`: only ONE `MailDeliveryJob` was ever enqueued/performed (the existing cache-guard fix
+    correctly prevents a double enqueue), yet Mailpit received 2 messages with the IDENTICAL Message-ID —
+    pointing to the duplication happening at the SMTP transport layer, a different failure mode than the
+    existing fix addresses. Production #121703 reopened (Reopen, 30%) with full evidence; local file moved
+    back to `bugs/open/`.

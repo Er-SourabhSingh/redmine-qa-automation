@@ -1,7 +1,10 @@
 # BUG-TCM-013
 
-> **CLOSED — 2026-10-06.** Production #121703 (https://flux.zehntech.com/issues/121703) is **Done**, 100% done.
-> Closed on production by Sourabh Singh after retest — see "Production history" below. Local file synced from production on 2026-10-08.
+> **REOPENED — 2026-10-22.** Production #121703 (https://flux.zehntech.com/issues/121703) moved back to
+> **Reopen**, 30% done. The 2026-10-06 closure was based on a **code read of the fix commit, not a live
+> reproduction attempt**. A genuine live regression retest today (as part of the post-fix-pull full-plugin
+> regression) reproduced the duplicate-email symptom again, with evidence narrowing the root cause more
+> precisely than before — see "Retest — 2026-10-22 (REOPENED)" below. Moved back to `bugs/open/`.
 
 - Bug ID: BUG-TCM-013
 - Production Redmine Issue ID: #121703
@@ -113,3 +116,47 @@ For QA:
 ### 2026-10-06 13:31 UTC — Sourabh Singh
 
 Retested 2026-10-06 against master 67631e0 — confirmed fixed via code read (commit 3400fdd). A Rails.cache "tcm_result_mail_sent:<result_id>" guard with unless_exist:true now wraps the RunMailer.testcase_result_added call, preventing a duplicate send for the same result row.
+
+## Retest — 2026-10-22 (REOPENED — genuinely still reproduces, root cause narrowed)
+
+Live-retested on master (post-7.1.0, pre-7.2.0), `localhost:3000`, as part of the post-fix-pull full-plugin
+regression. Recorded a single Passed result on test case #23 ("test_login_valid"), as admin, on a run (#68)
+assigned to a different real user (`qa.limited`, mailbox `qa.limited@test.local`) — the exact "user other
+than the recipient" scenario this bug's own Steps to reproduce specify.
+
+**Reproduced again**: the recipient's mailbox (checked via Mailpit) received **2 identical copies** of
+"Test Case Result Added: test_login_valid" for this single submission (message count went from 35 to 37).
+
+**But this time with a more precise root cause**, confirmed via `docker logs redmine6-redmine-1`:
+
+```
+Started POST "/issue_status_results?project_id=rftc-016-ci-qa" ...
+[ActiveJob] Enqueued ActionMailer::MailDeliveryJob (Job ID: a0d07048-...) to Async(mailers) with
+  arguments: "RunMailer", "testcase_result_added", "deliver_now", {...}
+[ActiveJob] [ActionMailer::MailDeliveryJob] [a0d07048-...] Performing ...
+[ActiveJob] [ActionMailer::MailDeliveryJob] [a0d07048-...] Rendered layout layouts/mailer.html.erb (Duration: 30.0ms)
+[ActiveJob] [ActionMailer::MailDeliveryJob] [a0d07048-...] Performed ... in 242.19ms
+```
+
+Only **one** `MailDeliveryJob` was ever enqueued and performed (single Job ID, single "Rendered layout"
+line) — confirming the 2026-10-06 fix's cache guard (`Rails.cache.write(cache_key, true, unless_exist:
+true)`) genuinely works as designed and correctly prevents a second controller-level enqueue. Separately
+confirmed the guard mechanism itself is sound: `Rails.cache` in this environment is a real
+`ActiveSupport::Cache::FileStore` (not a no-op `NullStore`), and a direct `unless_exist: true` write-twice
+test in a `rails runner` session correctly returned `true` then `false`.
+
+**So the duplicate is NOT a second application-level enqueue** — the existing fix's own guard holds. Both
+Mailpit-captured messages carry the **identical Message-ID**, which points to the duplication happening at
+the **SMTP transport layer itself** (the one rendered email being transmitted twice over the wire), not at
+the Rails/ActiveJob layer the 2026-10-06 fix addresses. This matches this bug's own original alternate
+hypothesis ("a slow/ambiguous SMTP response...triggering a resend") almost exactly — just one layer lower
+than where the fix was applied. **The 2026-10-06 fix solves a different failure mode (double enqueue) than
+the one actually causing the live duplicate delivery.**
+
+**Recommendation for the dev team**: investigate the SMTP delivery settings (timeout/retry configuration)
+and whether `net-smtp`/the `mail` gem is retrying a slow-acking SMTP connection, causing the identical
+rendered message to be transmitted twice at the transport layer. The existing controller-level cache guard
+should be kept (it is a correct, working safety net for the enqueue path) but does not fix this.
+
+Reopened production #121703 (Reopen, 30%) with this full evidence. Local file moved back to
+`bugs/open/BUG-TCM-013.md`.

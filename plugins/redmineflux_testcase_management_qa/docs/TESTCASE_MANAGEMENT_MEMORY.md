@@ -660,3 +660,35 @@
   full-plugin regression requirement before `STATUS.md` can read `Complete`; only a scoped regression (Run
   Execution view + Import Wizard) was done this session, the full exhaustive one is still outstanding for a
   future session.
+
+- **(2026-10-22) Full-plugin regression, Configuration suite — found a genuine new bug (BUG-TCM-087) and
+  reopened an old one (BUG-TCM-013) that had only ever been closed via code-read, never live-retested.**
+  - **BUG-TCM-087**: `runs/new.html.erb:254` has an unconditional `hidden_field_tag 'from', 'API'` — every
+    web-UI "Add Run" submission carries this, which `run.rb`'s CI-suppression guard treats as "this is a
+    bot-created run, don't email anyone." Result: the "Run Added" notification is 100%-reproducibly dead for
+    the ordinary human-driven creation path, confirmed with two different assignees to rule out
+    self-notification suppression. **Lesson: a hardcoded form field meant for one code path (CI
+    bootstrap/API) can silently poison an unrelated path (the human web form) if both end up checking the
+    exact same marker value — always check whether a guard condition is actually scoped to the thing it's
+    supposed to gate, not just present somewhere in the request.**
+  - **BUG-TCM-013 reopening — a great example of why "closed via code-read" isn't the same as "closed via
+    live-retest."** The dev's 2026-10-06 fix (a `Rails.cache` enqueue-guard) is real and does work — directly
+    verified the cache store is a genuine `FileStore` (not a no-op) and that `unless_exist: true` correctly
+    returns `false` on a repeat write. But live-reproducing the exact original steps still produced 2
+    identical emails. `docker logs` showed only ONE `MailDeliveryJob` ever ran — so the duplicate isn't
+    happening at the enqueue layer the fix guards; both Mailpit copies share an IDENTICAL Message-ID, pointing
+    to the actual duplication happening at the SMTP transport layer (the same rendered message transmitted
+    twice over the wire), one layer below where the fix was applied. **Lesson: when a bug's own root-cause
+    write-up says "not fully isolated, most likely X" and the eventual fix only addresses one plausible layer
+    of X, a closure based on reading that fix's code is not the same as confirming the actual live symptom is
+    gone — this is exactly the gap a §27 full-plugin regression exists to catch.**
+  - **TC-TCM-014 (Email Reminder) resolved its old "needs 24h wait" deferral**: the actual mail-sending logic
+    lives in `ReminderWorker#send_daily_reminder`/`#send_overdue_run_reminders`, separable from the
+    time-gated `schedule_daily_reminder`/`schedule_weekly_reminder` wrapper methods that only fire at the
+    configured minute. Calling the send methods directly via `rails runner` exercises the real mail logic
+    without waiting for the scheduled time — a reusable pattern for any similarly time-gated scheduled-job
+    feature.
+  - **TC-TCM-006 (Show Testcase Count) must be checked in BOTH places it renders** — the Test Cases section's
+    own suite tree AND the New Test Case ("Add Testcase") form's left-side suite-picker panel both show the
+    same count data from the same setting; checking only one is an incomplete regression for this TC (caught
+    by the user after the first pass only covered the Test Cases section).

@@ -115,6 +115,16 @@
 
 ## Confirmed Working
 
+- **Disabling a notification event in Administration → Settings → Notifications genuinely suppresses the
+  email** (confirmed for "Run updated" via `docker logs`: the `MailDeliveryJob` still runs — the mailer method
+  executes — but an internal `return unless Setting.notified_events.include?(...)` guard stops it before
+  `mail(...)` is called, so no SMTP send happens). Re-enabling it resumes delivery correctly. **However, found
+  2026-10-22 (BUG-TCM-088)**: when the SAME run is edited multiple times in quick succession, each "Run Updated"
+  email consistently shows the run's name from the PREVIOUS edit, not the one just saved, even though the DB
+  save itself (`Run.find(id).name`) is always correct. Reproduced 3/3 consecutive edits. **Lesson: when testing
+  a notification email's content after a rename/edit, always do at least 2-3 edits in a row and check each
+  email against the DB's CURRENT state at that moment — a single edit can look correct by coincidence (e.g. if
+  it's the run's first-ever edit) while still having this one-edit-behind staleness.**
 - **"Inactive but not deleted" is a genuinely separate state from "deleted" for Run Email Templates, Testcase
   Email Templates, and Run Types — and all three handle it correctly.** Found 2026-10-22 after the user caught
   that only full deletion had been tested for these three entities, never unchecking Active/Enabled while leaving

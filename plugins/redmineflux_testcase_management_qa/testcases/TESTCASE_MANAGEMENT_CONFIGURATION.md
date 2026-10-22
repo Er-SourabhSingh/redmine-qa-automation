@@ -380,6 +380,20 @@ account, using the Active custom Run Email Template's subject/body with `{run_na
 the literal text this session typed into the custom template earlier for TC-TCM-008 — not a dynamic label bug).
 No duplicate delivery observed for this notification path.
 
+**Notification Enabled/Disabled toggle check — 2026-10-22 — PASS on suppression, FAIL on content —
+BUG-TCM-088 (Medium).** Per user request to verify the "Run added"/"Run updated"/"Testcase result added"
+checkboxes in Administration → Settings → Notifications actually gate email delivery, not just exist.
+**Disabling "Run updated"** (unchecked, Save — confirmed via `rails runner`: `Setting.notified_events` no
+longer includes `run_updated`) then editing run #70 via the real Edit Run UI: **no email arrived** (Mailpit
+total unchanged) — confirmed via `docker logs` the `MailDeliveryJob` still runs (the mailer method executes)
+but its internal `return unless Setting.notified_events.include?('run_updated')` guard correctly stops it
+before `mail(...)` is called. **Re-enabling it** and editing the run again: email resumed correctly. **But
+editing the SAME run a third time in a row** (3 consecutive real Edit-Run saves) revealed a separate, genuine
+defect: **each edit's "Run Updated" email consistently showed the run's name from the PREVIOUS edit, not the
+name just saved** — confirmed via `Run.find(70).name` via `rails runner` that the database value was correct
+every time; only the email content was one edit behind, reproduced 3/3 times. Filed as **BUG-TCM-088**. Distinct
+from BUG-TCM-012 (already-fixed hardcoded-label issue) and BUG-TCM-013 (duplicate delivery, not stale content).
+
 ---
 
 ### TC-TCM-013: Test Case Result Added notification

@@ -84,6 +84,7 @@
 | BUG-TCM-006 | Failed PDF generation still sends an email whose body promises an attachment that is not there, with nothing surfaced in the UI | Closed | Medium | 6.1.3 | #120658 | bugs/closed/BUG-TCM-006.md |
 | BUG-TCM-001 | CSV import silently drops the value of a step column whose header has leading/trailing whitespace | Closed | Medium | 7.0.0 | | bugs/closed/BUG-TCM-001.md |
 | BUG-TCM-002 | CSV import silently discards the second occurrence of a duplicated column header with no warning | Closed | Medium | 7.0.0 | | bugs/closed/BUG-TCM-002.md |
+| BUG-TCM-088 | "Run Updated" notification email consistently shows the run's name from one edit ago, not the name just saved — DB save itself is correct, only the email content is stale (reproduced 3/3 consecutive edits) | Open | Medium | master (post-pull, pre-7.2.0) | | bugs/open/BUG-TCM-088.md |
 
 - **BUG-TCM-009 extended 2026-10-01** while executing `TESTCASE_MANAGEMENT_TODO.md` TC-TCM-214: a 9th affected
   endpoint confirmed, `testcase_activities` (Activity log) — a non-member can view a private project's activity
@@ -407,3 +408,12 @@
     pointing to the duplication happening at the SMTP transport layer, a different failure mode than the
     existing fix addresses. Production #121703 reopened (Reopen, 30%) with full evidence; local file moved
     back to `bugs/open/`.
+
+- **BUG-TCM-088 (Medium) found 2026-10-22**, while testing the notification Enabled/Disabled toggle at the
+  user's explicit request (`settings?tab=notifications`): disabling "Run updated" correctly suppresses the email
+  (confirmed via `docker logs` — the job still runs but the mailer's internal guard returns before `mail(...)`).
+  Re-enabling it and editing the same run again correctly resumes delivery — **but 3 consecutive real edits in a
+  row each produced an email showing the PREVIOUS edit's run name, not the name just saved**, even though
+  `Run.find(70).name` confirmed the DB save itself was correct every time. Not a duplicate-delivery issue
+  (distinct from BUG-TCM-013) and not the already-fixed hardcoded-label issue (BUG-TCM-012) — this is specifically
+  about which version of the run's data the email renders. Not yet reported to production.

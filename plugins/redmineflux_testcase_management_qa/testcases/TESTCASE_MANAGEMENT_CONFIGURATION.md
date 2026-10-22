@@ -1,13 +1,16 @@
 # Test Cases — Redmineflux Testcase Management — Configuration, Notifications & Prerequisites
 
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
-> **Status: authored 2026-09-14, fully executed as of 2026-10-22.** All 20 TCs now carry live execution
-> evidence except TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the cadence-timing half of
-> TC-TCM-014 (Email Reminder — the mail-sending mechanism itself is now verified, only the exact scheduling
-> interval remains unverified without a real multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite)
-> still reference their original 2026-09-14/2026-09-30 evidence, not re-executed this cycle. TC-TCM-012 (Run
-> Updated notification) is PASS on mechanism but carries an open defect on content accuracy — see
-> **BUG-TCM-088**.
+> **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 TCs genuinely re-executed this
+> cycle, not just claimed).** Exceptions: TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the
+> cadence-timing half of TC-TCM-014 (Email Reminder — the mail-sending mechanism AND the UI-configured
+> schedule-time gating are both now verified; only the exact real-world 24h interval remains unverified
+> without a multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite) still reference their original
+> 2026-09-14/2026-09-30 evidence, not re-executed this cycle (BUG-TCM-005, the only defect either ever found,
+> stays closed). TC-TCM-012 (Run Updated notification) is PASS on mechanism but carries an open defect on
+> content accuracy — see **BUG-TCM-088**. TC-TCM-004 and TC-TCM-018 both carry a **corrected-premise** finding
+> (not a bug) — the TC's original wording didn't match this plugin's actual architecture; the real underlying
+> mechanism was verified instead and passes.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -80,6 +83,24 @@ configured tracker no longer points at it. This is a clean contrast with TC-TCM-
 setting silently misfiles new data with zero warning) — a *valid-but-different* tracker instead produces an
 explicit, non-destructive message. Setting restored to T1 (`4`) immediately after, verified via Rails console.
 
+**REGRESSION — 2026-10-22 — PASS (same assertion, different tracker-availability scenario).** Re-ran live
+against `localhost:3000`, project `rftc-016-ci-qa`. This instance only has 4 trackers total (Bug/Feature/
+Support/Testcase), all 4 enabled on this project, so the original 2026-09-30 "tracker not enabled" banner
+scenario cannot be reproduced here without creating a brand-new tracker — instead switched Testcase Tracker
+to **"Bug"** (id=1), a *different but valid, already-enabled* tracker, via the real Configuration UI, Apply.
+Behavior was still explicit and non-destructive: the Testcase Summary grid (`test_suites/index.html.erb`) did
+not show the "tracker not enabled" banner (correctly, since Bug *is* enabled) — instead it correctly re-filtered
+to show Bug-tracker issues, with zero old Testcase-tracker data silently mixed in. The existing test case
+**#23 ("test_login_valid")** remained fully intact and reachable at `/issues/23`, rendering with the title
+**"Testcase #23: test_login_valid"** — confirming the plugin's "Testcase #N" page-title logic still recognizes
+it correctly even while the tracker setting points elsewhere (title logic keys off the issue's own actual
+tracker, not the current live setting). Source-confirmed the banner condition (`text_tracker_not_enabled`) is
+specifically `!@project.trackers.exists?(id: configured_tracker)` — i.e. it only fires when the configured
+tracker ID isn't enabled on *this* project at all, not for every "valid-but-different" tracker choice; the
+2026-09-30 evidence's scenario (tracker "test", not enabled) and this session's scenario (tracker "Bug",
+enabled) are both legitimate sub-cases of the same TC, and both confirm non-destructive behavior. Setting
+restored to Testcase (`4`) immediately after, verified via `rails runner`.
+
 ---
 
 ### TC-TCM-003: Defect Tracker drives the Report Bug flow
@@ -107,6 +128,13 @@ fixtures from earlier QA sessions (a field literally named "Bug-Only") rather th
 was not pursued as a filed bug — but a future session validating this TC on a cleaner instance should watch for
 the same symptom, since if it reproduces there it would be a real cross-tracker defect.
 
+**REGRESSION — 2026-10-22 — PASS.** Re-ran live against `localhost:3000`, project `rftc-016-ci-qa`. Confirmed
+Defect Tracker = Bug (id=1). As Admin: on run #68, failed test case #34 ("Add item to cart") via the real Add
+Result modal (Status → Failed), clicked **Report Defect**, filled Subject "TC-TCM-003 Regression Defect Tracker
+Test", clicked **Create**. Confirmed via `rails runner` the new issue (**#2097**) has `tracker.name == "Bug"`,
+matching the configured Defect Tracker. The defect auto-populated into the Add Result form's "Defects*" field;
+submitted the result (Status=Failed, Environment=test). Core assertion holds on this build.
+
 ---
 
 ### TC-TCM-004: Feature Tracker drives requirements
@@ -129,6 +157,21 @@ the Testcase Tracker, whose issues are offered when linking issues to a requirem
 `Issue.where(project_id: project.id, tracker_id: [tracker, feature_tracker])`. Both configured trackers are
 correctly included in that query — the setting works as intended for its real purpose (requirement↔issue linking
 scope), just not the "requirement's own tracker" framing the TC description assumed.
+
+**REGRESSION — 2026-10-22 — PASS (source logic unchanged, live-confirmed the mention-linking mechanism).**
+Re-ran live against `localhost:3000`, project `rftc-016-ci-qa` (Testcase Tracker=4, Feature Tracker=2). Opened
+an existing requirement (#6, "requirement 2") and typed `#` into its content editor to trigger the issue-mention
+dropdown — it correctly populated with Testcase-tracker issues (e.g. `23: test_login_valid`, `35: Remove item
+from cart`, `2093: Boundary...`), confirming the linking query's Testcase-tracker half still works on this
+build. This project currently has **zero issues on the Feature tracker** (`Issue.where(tracker_id: 2).count ==
+0`), so the Feature-tracker half of the OR-query couldn't be observed populating a real row — not re-verified
+by direct observation this cycle, only by source re-read (`requirements_controller.rb`'s query is unchanged).
+**Incidental side-confirmation**: item `35: Remove item from cart` (whose real subject contains the
+`<img src=x onerror=alert('export-xss')>` payload) rendered as safe, escaped plain text in the dropdown with no
+alert firing — reconfirms BUG-TCM-072 (mention-dropdown XSS) stays fixed on this build, matching the
+2026-10-21 finding exactly. (A duplicate browser tab briefly showed a stale un-escaped alert from leftover
+page state before this check — not a live reproduction; the single, current tab's dropdown was consistently
+escaped across repeated checks.)
 
 ---
 
@@ -474,6 +517,22 @@ the test run..."). This verifies the mail-sending mechanism itself works; the ca
 (does it fire at exactly the configured interval, not more often) remains unverified without a real multi-day
 wait, which is a narrower, lower-risk residual gap than the original full deferral.
 
+**UI-driven schedule-time gating check — 2026-10-22 — PASS (closes the remaining gap).** Per user question
+("tumne mcp playwright ke through check kiya tha... time dal ke"), confirmed the above pass had bypassed the
+actual Settings UI entirely by calling `ReminderWorker` methods directly — it never verified the configured
+time value itself is honored. Re-tested properly: via the real Configuration tab UI, set **Email Reminder
+Frequency for Due Runs** to "Every day" (already selected) and typed `09:30` into its schedule-time field,
+clicked **Apply**. Confirmed via `rails runner` the setting persisted exactly as saved:
+`Setting.plugin_redmineflux_testcase_management['everyday_schedule_time'] == '09:30'`. Then called
+`ReminderWorker#schedule_daily_reminder` directly with two different simulated times to isolate the gating
+logic itself (not just whether the mailer works): passing a **non-matching** time (10:15) produced **zero**
+new emails (Mailpit total unchanged at 166); passing the **exact configured** time (09:30) produced a real
+batch of reminder emails (total jumped to 198). This proves the full chain end-to-end — UI field → saved
+setting → the scheduler's `current_time.hour == scheduled_time.hour && current_time.min == scheduled_time.min`
+gate — not just that the mailer logic works in isolation. The only remaining unverified piece is the real
+24-hour wall-clock wait to see `ReminderWorker.perform_at` actually re-fire itself at the next scheduled time,
+which is a much narrower and lower-risk gap than before.
+
 **Recipient-scope check — 2026-10-22 — PASS, confirmed as intended, not a bug.** Per user question, explicitly
 tested whether the overdue/daily reminder email goes to the Author and Watchers too, not just the Assignee.
 Set up run #70 with three different people in each role (Author=Redmine Admin, Assignee=QA NonAdmin,
@@ -596,6 +655,24 @@ risk; a dedicated isolated instance would be safer for this specific TC.
 - **No email of any kind is sent** while Sidekiq is down, in any format.
 - **CONFIRMED 2026-09-14:** Sidekiq was found stopped on `redmine-docker-6` at session start; only Puma restarts
   with that container. Always check before testing email.
+
+**REGRESSION — 2026-10-22 — CORRECTED PREMISE, genuinely live-tested for the first time.** The 2026-09-14
+"evidence" above was only an incidental observation (Sidekiq happened to be stopped already), never an actual
+controlled test of the TC's own assertion. Ran the real experiment on `localhost:3000`: `docker stop
+redmine6-sidekiq-1`, confirmed via `docker ps` the container was down, then edited run #70 via the real Edit
+Run UI to trigger a "Run Updated" notification. **The email was still delivered** — Mailpit's total jumped
+200→201, and `docker logs redmine6-redmine-1` showed the job went `to Async(mailers)` (Rails' own in-process
+ActiveJob `:async` adapter), fully independent of the separate Sidekiq container. Confirmed via
+`config/environments/*.rb` that no `queue_adapter` is configured for production (defaults to `:async`) —
+**Sidekiq on this build is used only by `ReminderWorker`'s own explicit `include Sidekiq::Worker` /
+`perform_at` scheduling, not by any of the regular Run Added/Updated/Testcase Result Added notifications.**
+This TC's premise ("Sidekiq down ⇒ no email of any kind") does **not hold** for this architecture — it would
+only hold for the daily/weekly reminder's own scheduled firing (`ReminderWorker.perform_at`), which genuinely
+does depend on Sidekiq being up to dequeue it, not for the ordinary notification emails this TC's steps
+actually exercise ("create a run ... email a report"). Not a bug — notifications correctly keep working; the
+TC description's mental model of the mail pipeline was simply wrong for this plugin's actual architecture,
+the same kind of corrected-premise finding as TC-TCM-004. Restarted Sidekiq (`docker start
+redmine6-sidekiq-1`) immediately after, confirmed `Up` again.
 
 ---
 

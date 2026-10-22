@@ -121,6 +121,14 @@
   only ever call `mail(to: @assignee.mail)`, no `cc:`, no author/watcher lookup anywhere). **Per explicit user
   confirmation this is the intended design** — the reminder exists specifically for the person who needs to act
   on the run, not as a broadcast — do not re-flag this as a bug in a future session.
+- **All routine notification emails (Run Added/Updated, Testcase Result Added) run on Rails' own in-process
+  ActiveJob `:async` adapter, NOT on the separate Sidekiq container** — confirmed 2026-10-22 by stopping
+  `redmine6-sidekiq-1` entirely and triggering a "Run Updated" email, which still delivered (`docker logs`
+  showed `to Async(mailers)`). `Sidekiq::Worker` is only used by `ReminderWorker`'s own `perform_at`
+  scheduling (the daily/weekly reminder's self-rescheduling loop), not by the regular mailer calls. **When
+  testing "does stopping Sidekiq break notifications," it doesn't — only the reminder's own scheduled
+  re-trigger would be affected, not the ordinary notification paths.** This corrected TC-TCM-018's original
+  premise.
 - **Closed runs are correctly excluded from overdue reminders** — confirmed 2026-10-22 live (marked a run both
   overdue and closed, triggered `send_overdue_run_reminders`, the run never appeared in the job queue and no
   email was sent) and via source (`reminder_worker.rb` filters on `is_closed: false`). No gap here.

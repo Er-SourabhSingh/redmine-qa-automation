@@ -121,6 +121,9 @@
   only ever call `mail(to: @assignee.mail)`, no `cc:`, no author/watcher lookup anywhere). **Per explicit user
   confirmation this is the intended design** — the reminder exists specifically for the person who needs to act
   on the run, not as a broadcast — do not re-flag this as a bug in a future session.
+- **Closed runs are correctly excluded from overdue reminders** — confirmed 2026-10-22 live (marked a run both
+  overdue and closed, triggered `send_overdue_run_reminders`, the run never appeared in the job queue and no
+  email was sent) and via source (`reminder_worker.rb` filters on `is_closed: false`). No gap here.
 - **Disabling a notification event in Administration → Settings → Notifications genuinely suppresses the
   email** (confirmed for "Run updated" via `docker logs`: the `MailDeliveryJob` still runs — the mailer method
   executes — but an internal `return unless Setting.notified_events.include?(...)` guard stops it before

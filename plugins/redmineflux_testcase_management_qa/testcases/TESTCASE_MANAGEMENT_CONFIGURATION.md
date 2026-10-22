@@ -486,6 +486,14 @@ with no `cc:` and no author/watcher lookup anywhere in the code path. **Per expl
 the intended functionality — the reminder is specifically for the person assigned to do the work, not a
 broadcast notification** — not filed as a bug.
 
+**Closed-run exclusion check — 2026-10-22 — PASS.** Per user question, verified a closed run never receives an
+overdue reminder even if its due date has passed. Marked run #70 both overdue (`due_date` in the past) AND
+closed (`is_closed=true`), then called `ReminderWorker#send_overdue_run_reminders` live. The run was correctly
+**excluded entirely** — it never appeared in the mailer-job enqueue log, and no email was delivered to its
+assignee. Confirmed via source: both `send_daily_reminder` and `send_overdue_run_reminders`
+(`reminder_worker.rb`) query/filter on `is_closed: false` only, so a closed run is never a candidate in the
+first place. Restored run #70 to `is_closed=false` immediately after.
+
 ---
 
 ## Functional Cases — Run types

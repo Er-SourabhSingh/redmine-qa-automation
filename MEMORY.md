@@ -10,6 +10,21 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 - Never hardcode users, passwords, or environment values.
 - Stop execution immediately if authentication fails.
 - Capture screenshot, logs, and network evidence on every bug found.
+- **Update the result file in the same turn you get the result — never batch it for "later."** The instant
+  a testcase is executed (PASS/FAIL/BLOCKED) or a bug is retested (confirmed fixed / still broken /
+  reopened), immediately write that result into the right file before moving to the next thing:
+  - **Testcase execution** → add/update the `CONFIRMED LIVE — <date> — <result>` (or `REGRESSION — <date> —
+    <result>`) block directly under that TC's own entry in `testcases/<PREFIX>_<suite-name>.md`. If a TC in
+    that file has steps/expected-result text but no actual execution evidence yet (check for this
+    explicitly — it's an easy thing to miss, as happened with TC-TCM-011/012 here), that counts as "not yet
+    tested" even if it looks finished, and needs filling in the next time it's touched.
+  - **Bug retest** → update the bug's own `.md` file (in `bugs/open/` or `bugs/closed/`) with a dated
+    `## Retest — <date> (FIXED / STILL BROKEN / REOPENED)` section in the same turn, not just the
+    `bugs/_index.md` row.
+  - This applies to every plugin, not just the one being worked on right now — the point of this rule is to
+    not rely on memory to reconstruct "what did we actually test today" when writing a report or doing a
+    session handoff. A result that only exists in the conversation and never lands in the file is as good as
+    not having been tested at all.
 
 ## Email Testing Preconditions
 

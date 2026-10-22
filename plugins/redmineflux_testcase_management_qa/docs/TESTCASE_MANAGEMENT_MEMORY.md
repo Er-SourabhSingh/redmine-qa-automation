@@ -124,7 +124,13 @@
   save itself (`Run.find(id).name`) is always correct. Reproduced 3/3 consecutive edits. **Lesson: when testing
   a notification email's content after a rename/edit, always do at least 2-3 edits in a row and check each
   email against the DB's CURRENT state at that moment — a single edit can look correct by coincidence (e.g. if
-  it's the run's first-ever edit) while still having this one-edit-behind staleness.**
+  it's the run's first-ever edit) while still having this one-edit-behind staleness.** **Further narrowed
+  2026-10-22**: the staleness is timing-sensitive — an edit ~6 minutes after the prior one rendered perfectly,
+  while an edit ~15 seconds after the prior one reproduced it across Name, State, Environment and Assignee
+  (everything read off the `run` object at render time), while the separately-computed "Changes:" diff line
+  (built fresh from controller-local hashes, not re-read from `run`) stayed correct every time. Narrows the
+  likely cause to a transient read-after-write visibility gap specific to the `run` object's own re-fetch, not
+  the mailer's placeholder logic.
 - **"Inactive but not deleted" is a genuinely separate state from "deleted" for Run Email Templates, Testcase
   Email Templates, and Run Types — and all three handle it correctly.** Found 2026-10-22 after the user caught
   that only full deletion had been tested for these three entities, never unchecking Active/Enabled while leaving

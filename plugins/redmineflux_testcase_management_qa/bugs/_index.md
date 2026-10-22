@@ -416,4 +416,9 @@
   row each produced an email showing the PREVIOUS edit's run name, not the name just saved**, even though
   `Run.find(70).name` confirmed the DB save itself was correct every time. Not a duplicate-delivery issue
   (distinct from BUG-TCM-013) and not the already-fixed hardcoded-label issue (BUG-TCM-012) — this is specifically
-  about which version of the run's data the email renders. Not yet reported to production.
+  about which version of the run's data the email renders. **Extended per follow-up ("assignee or environment
+  bhi")**: a multi-field edit (Name/Status/Run Type/Due Date/Assignee) ~6 min after the prior edit rendered
+  entirely correctly, but an immediate follow-up edit ~15 seconds later reproduced the staleness across Name,
+  State, Environment AND Assignee in the email's summary box — while the separately-computed "Changes:" diff
+  line stayed correct. Confirms the bug is timing-sensitive (rapid repeat edits) and affects every field read
+  off the `run` object, not just name. Not yet reported to production.

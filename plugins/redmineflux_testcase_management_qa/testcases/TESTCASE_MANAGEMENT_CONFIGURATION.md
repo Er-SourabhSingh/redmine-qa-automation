@@ -393,6 +393,16 @@ defect: **each edit's "Run Updated" email consistently showed the run's name fro
 name just saved** — confirmed via `Run.find(70).name` via `rails runner` that the database value was correct
 every time; only the email content was one edit behind, reproduced 3/3 times. Filed as **BUG-TCM-088**. Distinct
 from BUG-TCM-012 (already-fixed hardcoded-label issue) and BUG-TCM-013 (duplicate delivery, not stale content).
+**Extended per user follow-up ("assignee or environment bhi") to cover every field, not just Name**: an edit
+changing Name+Status+Run Type+Due Date+Assignee all at once, ~6 min after the prior edit, rendered **entirely
+correctly** (name, State, Environment, Assignee, and the "Changes:" diff line all current) — proving the bug
+is not constant. Immediately following up with a SECOND edit ~15 seconds later (rename + Assignee change)
+reproduced the staleness again, but with more precision: the email's **Subject/summary-box Name, State,
+Environment, Assignee** all showed the *previous* edit's values, while the **"Changes:" diff line** (built from
+the controller's own freshly-computed `assignee_changes`/`environment_changes` hashes, not re-read from `run`)
+was correctly current. So the bug affects anything read off the `run` object at render time, not just name,
+and is timing-sensitive (reproduces on quick repeat edits, not on edits minutes apart) rather than a flat
+always-stale rule.
 
 ---
 

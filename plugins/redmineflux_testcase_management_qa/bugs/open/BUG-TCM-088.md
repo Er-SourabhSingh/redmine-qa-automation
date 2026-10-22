@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-TCM-088
 - Production Redmine Issue ID: <!-- not yet reported -->
-- Title: "Run Updated" notification email shows the run's name from one edit ago, not the name just saved
+- Title: "Run Updated" notification email shows stale (one-edit-behind) values for every Run-derived field — name, State, Environment, Assignee — when the same run is edited again in quick succession; only the separately-computed "Changes:" diff line stays current
 - Redmine version: master (post-pull, pre-7.2.0)
 - Plugin name: redmineflux_testcase_management
 - Plugin version: 7.2.0
@@ -49,8 +49,35 @@
   mailer's own placeholder logic. Root cause not fully pinned to an exact line; evidence above establishes the
   symptom is real and consistently reproducible.
 - Distinct from BUG-TCM-013 (duplicate delivery) and BUG-TCM-012 (fixed — body previously showed the run's old
-  name in a different, already-fixed way) — this is specifically about the *version* of the name used, not
+  name in a different, already-fixed way) — this is specifically about the *version* of the data used, not
   duplicate sends or hardcoded labels.
+
+**Extended investigation — scope is every Run-derived field, not just name, and the staleness is
+timing-sensitive:**
+
+- Edited run #70 changing Name, Status, Run Type, Due Date and Assignee all at once, ~6 minutes after the
+  previous edit: this email was **entirely correct** — correct name, correct State ("In progress"), correct
+  Environment, correct Assignee, and the "Changes:" line correctly described "Assignee of environment test:
+  changed from Redmine Admin to QA Limited". This shows the bug is not permanent/always-on.
+- Immediately after (within ~15 seconds), edited run #70 again — renamed to `[rapid-followup-probe]` and
+  changed Assignee from QA Limited to QA NonAdmin. `rails runner` confirmed the DB was correct instantly
+  (`name` = `[rapid-followup-probe]`, assignee = QA NonAdmin). But the resulting email:
+  - **Subject/heading**: `TC-TCM-016 Run Type Delete Test [multi-field-probe]` — the *previous* edit's name,
+    not `[rapid-followup-probe]`.
+  - **Summary box "Assignee:"**: `QA Limited` — the *previous* edit's assignee, not the just-saved `QA
+    NonAdmin`.
+  - **"Changes:" diff line**: `Assignee of environment test: changed from QA Limited to QA NonAdmin` — this
+    one is CORRECT, reflecting the real change just made.
+  - This proves the staleness is isolated to whatever reads directly off the `run`/`@run` object at render
+    time (name, state, environment/assignee via `run.run_assignments`) — the separately-computed
+    `assignee_changes`/`environment_changes` hashes passed explicitly as controller-computed arguments are NOT
+    stale, since those are plain Ruby hashes built fresh in the current request, not re-fetched via the run
+    object.
+- **This strongly suggests the staleness is timing/race-condition-sensitive** (reproduces when the same run is
+  edited again within seconds of a prior edit; does not reproduce when edits are minutes apart) rather than a
+  flat "always one behind" rule — consistent with a transient caching/visibility artifact (e.g. a
+  connection-level or query-level cache not yet invalidated) rather than a logic bug in the mailer's own
+  placeholder code.
 
 ## Evidence
 
@@ -59,6 +86,8 @@
 ![Run Updated email showing the stale, one-edit-behind name](../../screenshots/BUG-TCM-088/run-updated-email-stale-name.png)
 
 ![Run #70's actual current name in the list, confirming the DB save is correct](../../screenshots/BUG-TCM-088/run-70-actual-current-name.png)
+
+![Rapid follow-up edit: stale Name + stale Assignee in the summary box, but a correct "Changes:" diff line](../../screenshots/BUG-TCM-088/rapid-edit-multi-field-stale.png)
 
 ### Console / log
 

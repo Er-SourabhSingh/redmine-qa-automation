@@ -24,7 +24,7 @@
 | 14 | Activity log | Features List #14 | TC-TCM-211–214 | All resolved — suite marked complete 2026-10-01 (TC-214 FAIL, extends BUG-TCM-009) | Covered |
 | 15 | Roles & permissions (16 perms / 6 groups) | Features List #15 | TC-TCM-046–077 | Checkpoint 2026-09-30; 5 deferred (TC-TCM-051/067/068/069/073); BUG-TCM-007 (High), BUG-TCM-009 (High) found | Partial |
 | 16 | Plugin configuration (trackers, toggles, run types) | Features List #16 | TC-TCM-001–007, 015–016 | Checkpoint 2026-09-30; BUG-TCM-010 (High), BUG-TCM-011 (High) found | Covered (with 2 open bugs) |
-| 17 | Email notifications (Run Added/Updated/Result Added) | Features List #17 | TC-TCM-008–014 | TC-TCM-011 and TC-TCM-012 (Run Added / Run Updated) have **no recorded evidence at all** — only TC-TCM-013 (Result Added, BUG-TCM-012/013) and TC-TCM-008–010 were actually executed 2026-09-30; TC-TCM-014 deferred | **Partial — real gap**: Run Added/Run Updated notifications untested despite the feature reading as "checkpoint-complete" |
+| 17 | Email notifications (Run Added/Updated/Result Added) | Features List #17 | TC-TCM-008–014 | **Executed 2026-10-22** (previously the real gap flagged below — now closed). TC-TCM-011 (Run Added) FAIL — **BUG-TCM-087** (High, open, hardcoded `from=API` kills every web-created run's email). TC-TCM-012 (Run Updated) PASS on mechanism, FAIL on content accuracy — **BUG-TCM-088** (Medium, open, email can render one edit behind on Name/State/Environment/Assignee when the same run is edited again within seconds). TC-TCM-013 (Result Added) PASS on mechanism — **BUG-TCM-013** (Medium, reopened, duplicate delivery at the SMTP layer). TC-TCM-008–010 PASS, full CRUD + macro substitution + inactive-template fallback all confirmed. TC-TCM-014 cadence-timing half still deferred (mechanism itself verified). | **Covered (3 open bugs: BUG-TCM-087, 088, 013)** |
 | 18 | Installation prerequisites (Redis/Node/Puppeteer/Sidekiq) | Features List #18 | TC-TCM-017–020 | TC-018/019 executed 2026-09-14 (019 → BUG-TCM-005/006, now closed); TC-020 likely covered same date; TC-017 (Redis stopped) deferred 2026-09-30 (shared-instance risk) | Partial |
 | 19 | Security testing (cross-cutting, `SENIOR_QA_STANDARDS.md` §28) | `TESTCASE_MANAGEMENT_SCOPE.md` | TC-TCM-215–248, 278 | Authored 2026-10-06, not yet executed (215–248). Several cases re-confirm already-filed bugs (BUG-TCM-003, 007, 009, #121896) — expect those to reproduce until the underlying fix lands. TC-TCM-278 (new, 2026-10-21) EXECUTED — PASS: client-reported (lnastev) CSRF/API-key false-422 on `test_suites.json` confirmed fixed. | Covered (authored, execution pending; 1 TC executed) |
 | 20 | Performance testing (cross-cutting, `SENIOR_QA_STANDARDS.md` §29) | `TESTCASE_MANAGEMENT_SCOPE.md` | TC-TCM-249–268 | Authored 2026-10-06, not yet executed — needs large-data fixtures seeded first (see suite's own Fixtures section) | Covered (authored, execution pending) |
@@ -35,9 +35,10 @@
    three suites (`REPORTS.md`, `TODO.md`) are now executed; `REPORTS.md` was the plugin's last fully-unexecuted
    suite, run via the new automation-first Playwright spec (CLAUDE.md §13). **BUG-TCM-028 (open) is the one
    remaining blocker to `Complete` per `bugs/open/` being non-empty — see row 9.**
-2. **TC-TCM-011 / TC-TCM-012 (row 17)** — the Run Added / Run Updated notification tests were never actually
-   executed; this was found only by building this matrix, not by the Features List's own tracking. Execute both
-   before trusting Feature #17 as checkpoint-complete.
+2. ~~**TC-TCM-011 / TC-TCM-012 (row 17)**~~ — **closed 2026-10-22.** Both executed for the first time; found
+   BUG-TCM-087 (TC-TCM-011, Run Added dead for web-created runs) and BUG-TCM-088 (TC-TCM-012, Run Updated email
+   content can be one edit behind). Both bugs open and must be fixed/closed before `STATUS.md` can read
+   `Complete` (CLAUDE.md §10/§27).
 3. **TC-TCM-187 (row 6)** — genuinely blocked by tooling (needs two independent browser contexts), not deferred by
    choice. Needs either a manual two-session execution or an accepted permanent exemption.
 4. ~~**Security / Performance / Code Quality** (`SENIOR_QA_STANDARDS.md` §28–§30) have no row here yet~~ —

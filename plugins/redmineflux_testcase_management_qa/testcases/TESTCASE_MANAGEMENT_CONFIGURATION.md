@@ -5,7 +5,9 @@
 > evidence except TC-TCM-017 (Redis-stop, deferred — shared-instance risk) and the cadence-timing half of
 > TC-TCM-014 (Email Reminder — the mail-sending mechanism itself is now verified, only the exact scheduling
 > interval remains unverified without a real multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite)
-> still reference their original 2026-09-14/2026-09-30 evidence, not re-executed this cycle.
+> still reference their original 2026-09-14/2026-09-30 evidence, not re-executed this cycle. TC-TCM-012 (Run
+> Updated notification) is PASS on mechanism but carries an open defect on content accuracy — see
+> **BUG-TCM-088**.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -372,6 +374,11 @@ even invoked for the normal human creation path. Filed as BUG-TCM-087, not yet r
 **Expected Result:**
 - A "Run Updated" email arrives reflecting the change.
 
+**Final Result (2026-10-22): PASS on mechanism, FAIL on content accuracy — BUG-TCM-088 (Medium, open).** The
+notification itself reliably fires and the Enabled/Disabled toggle correctly gates it, but the email's own
+content (Name/State/Environment/Assignee) can render one edit behind the actual save when the same run is
+edited again within seconds — see the dated entries below for full evidence.
+
 **CONFIRMED LIVE — 2026-10-22 — PASS.** Edited run #68 (assigned to `qa.limited`) via the real **Edit Run**
 UI action (action-menu → Edit Run → change Name → Update) — unlike Add Run, the edit path does **not** carry
 the `from=API` marker. A real email was delivered to both the assignee (`qa.limited@test.local`) and the admin
@@ -611,7 +618,7 @@ risk; a dedicated isolated instance would be safer for this specific TC.
 |---|---|---|
 | TC-TCM-001 – 905 | Tracker configuration | **BUG-TCM-010, BUG-TCM-011** |
 | TC-TCM-006 – 907 | Display settings | — |
-| TC-TCM-008 – 914 | Email templates and notifications | **BUG-TCM-012 (fixed), BUG-TCM-013 (reopened 2026-10-22), BUG-TCM-087 (new 2026-10-22)** |
+| TC-TCM-008 – 914 | Email templates and notifications | **BUG-TCM-012 (fixed), BUG-TCM-013 (reopened 2026-10-22), BUG-TCM-087 (new 2026-10-22), BUG-TCM-088 (new 2026-10-22)** |
 | TC-TCM-015 – 916 | Run types | — |
 | TC-TCM-017 – 920 | Installation prerequisites | **BUG-TCM-005** (prod #120588) |
 

@@ -222,6 +222,28 @@
   Worth periodically checking the plugin's actual navigation/sidebar for pages that were never formally
   documented, rather than assuming `FEATURES_LIST.md` is exhaustive.
 
+- **(2026-10-23) The original V1 7.1.0 external release cycle demo environment (`localhost:3015`/`alpha-web`) no
+  longer exists** — port 3015 now serves an unrelated Crux-plugin Docker stack (`crux-redmine6-redmine-1`),
+  confirmed via `docker ps -a` and a 404 on `/projects/alpha-web`. A rerun against `localhost:3000` required
+  building a fresh `alpha-web`-equivalent fixture project (id=5) from scratch — project, 4 roles, 4 users, suites —
+  matching `V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`'s exact preconditions. See
+  `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md` for the fixture spec and partial results (5 of 202 cases
+  genuinely executed before stopping on budget grounds).
+- **(2026-10-23) This instance's actual global "Reporter" role (id=5) already has the FULL Testcase Management
+  permission set** (`view_test_suite`, `create_run`, `execute_testcase`, `view_report`, etc.) — it does NOT match
+  the zero-TCM-permissions assumption the V1 file's "Reporter" fixture role requires. Deliberately did not mutate
+  the shared global Reporter role (other plugins/suites in this repo may depend on its current permission set);
+  created a separate dedicated role "V1 Reporter (no TCM)" (id=8, `view_issues` only) instead, scoped to the V1
+  fixture project only.
+- **(2026-10-23) `TestSuitesController#destroy` (bound to the `testsuite_delete` route) requires NESTED params**
+  — `params[:test_suite][:id]`/`params[:test_suite][:project_id]`, not flat top-level `?id=`/`?project_id=` query
+  params — confirmed by reading the controller source (`test_suites_controller.rb:673`) and by grepping every
+  plugin JS asset for a `testsuite_delete` caller (zero matches — the real UI form auto-nests via `form_for`). A
+  flat-param curl call crashes with a `NoMethodError` 500 that looks like a product bug but is a pure
+  request-shape mistake; the correctly-nested call returns an HTTP 404 on the DELETE response itself (an unusual
+  but apparently harmless response-code quirk for this JSON route — the actual deletion still succeeds, confirmed
+  via a follow-up `GET /test_suites.json`) rather than a conventional 200/302.
+
 ## Methodology Lessons
 
 - **`TestcaseEnvironment.project_id` stores the project's NUMERIC id, not the string identifier** —

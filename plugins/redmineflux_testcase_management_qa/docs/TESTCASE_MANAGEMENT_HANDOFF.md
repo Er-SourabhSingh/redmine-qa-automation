@@ -1,5 +1,28 @@
 # Handoff — Redmineflux Testcase Management
 
+## UPDATE 2026-10-23 (latest of latest, V1 rerun) — V1 7.1.0 external cycle rerun started, fixture rebuilt, 5/202 cases executed, PARTIAL (stopped on budget grounds)
+
+Per explicit instruction to execute all 202 cases in `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`: the original
+`localhost:3015`/`alpha-web` demo environment this file was written against no longer exists (port 3015 now runs
+an unrelated Crux-plugin stack). Built a fresh `alpha-web`-equivalent fixture on `localhost:3000` — project id=5,
+4 roles (Manager/Developer reused as-is, "QA Engineer" id=7 and "V1 Reporter (no TCM)" id=8 newly created to match
+the file's exact permission preconditions — the real global Reporter role already has full TCM permissions on this
+instance, so a dedicated role was used instead of mutating shared state), 4 users with API keys, 3 suite fixtures.
+
+Executed only the **SUITE area** (5 of 12 cases: TC-SUITE-01-01, 01-02, 02-01, 02-02, 03-01 — all PASS) before
+making an explicit, directive-sanctioned decision to stop and report an honest partial result rather than rush
+the remaining ~197 cases without real verification. No new bugs found (one apparent 500 on suite delete was
+root-caused to an incorrect flat-param curl call on my own part, not a product defect — see plugin memory).
+
+Full details, fixture credentials, and the exact resume point (TC-SUITE-03-02) are in
+`reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md`. **This does NOT touch or renumber any `TC-TCM-NNN` case** — the V1
+file uses its own independent `TC-<AREA>-NN-N` ID scheme and is tracked entirely separately per CLAUDE.md's scope
+note for this file.
+
+**Next session start point:** resume at TC-SUITE-03-02 (delete blocked when descendant suite has a run) using the
+already-built `alpha-web` fixture (project id=5, suites 88/89, 4 users/roles) — no fixture setup needed, continue
+case-by-case through SUITE, then CASE/RUN/EXEC/DEFECT/REPORT/PERM/SAFE/API/COMPAT in file order.
+
 ## UPDATE 2026-10-23 (latest of latest) — Reports suite: 8 report types created, all 3 download formats content-verified, 3 new bugs found, BUG-TCM-075 confirmed fixed
 
 Per the user's detailed instruction to test every report type's email delivery (PDF/HTML), download (PDF/HTML/

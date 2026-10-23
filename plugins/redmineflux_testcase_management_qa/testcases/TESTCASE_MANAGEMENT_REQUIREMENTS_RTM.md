@@ -1,7 +1,21 @@
 # Test Cases — Redmineflux Testcase Management — Requirements & Traceability Matrix
 
 > Source: vendor KB "Requirements & Configuration" and "Access traceability matrix".
-> **Status: executed 2026-10-01.**
+> **Status: executed 2026-10-01; re-regressed and extended 2026-10-23** with full editor block-type coverage
+> (all 12 EditorJS tools via the real block-menu, not just the subset exercised by the original BUG-TCM-074
+> retest), attachment/image upload-download round-trip, Share/Export/Save toolbar buttons, and the Requirements
+> page's own content search — per explicit user request to check every editor feature, attachment, search,
+> download and share functionality thoroughly. Found 2 new bugs (BUG-TCM-099, BUG-TCM-100); also caught and
+> discarded 3 false-alarm findings during testing after verifying against the real cause (see TC-TCM-303/307).
+> **Further extended 2026-10-23 (same day)** per direct user follow-up on requirement↔testcase linking/unlinking
+> specifically: tested all 3 real linking surfaces (Edit form, Testcase-grid right-click context menu,
+> requirement-page `#`-mention) for both link and unlink, confirmed the right-click menu is assign-only (no
+> unlink option exists there at all), reconfirmed BUG-TCM-027 (Edit-form unlink) with cleaner evidence, and
+> verified the RTM's own counts (Total Defects Found, Total Linked Testcases) against the real underlying data —
+> both accurate, including correctly excluding 2 dangling `RequirementIssue` rows pointing to already-deleted
+> test cases (a minor data-hygiene observation, not a bug). Re-confirmed explicitly, per direct user question,
+> that the RTM itself never shows Run membership for a linked test case (only the separate Requirement Coverage
+> report does).
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -425,6 +439,340 @@ mention and an attachment) was unaffected both times, confirmed on reload after 
 
 ---
 
+## Functional Cases — Toolbar (Search, Share, Export, Save) and full block-type coverage
+
+---
+
+### TC-TCM-303: Every content-editor block type inserts correctly via the real "+" block-type menu and persists across reload
+
+**User Role:** Administrator
+**Priority:** Critical
+**Steps:**
+1. Create a fresh requirement.
+2. Using the real "+" plus-button → block-type popover (not a scripted/API insertion), add one of each: Text
+   (paragraph), Heading, List, Code, Quote, Delimiter, Table, Image (upload), Attachment (upload), Raw HTML,
+   Warning, Checklist.
+3. Save, reload the page, and verify every block is present with its content intact, in order.
+
+**Expected Result:**
+- All 12 block types insert without error and persist unchanged after reload.
+
+**Status: EXECUTED 2026-10-23 — PASS, with an important test-methodology correction recorded.** All 12 block
+types (Text, Heading, List, Code, Quote, Delimiter, Table, Image, Attachment, Raw HTML, Warning, Checklist)
+inserted and persisted correctly across reload, confirmed via direct DOM inspection of the saved page content
+(`document.querySelectorAll('.ce-block')`) both before and after a hard reload.
+
+**Correction during testing**: an initial pass appeared to show Code/Quote/Delimiter/Table/Image block insertion
+throwing a JS error (`TypeError: Cannot read properties of undefined (reading 'holder')`) and failing to insert
+— investigated before concluding a defect, and found the root cause was in the **test script itself**: the
+popover-selection helper used `document.querySelector('.ce-popover, .ce-popover--opened')`, which always returns
+the *first* `.ce-popover` element in the DOM (one exists per block, mostly closed/invisible) rather than the one
+actually open for the currently-focused block. Clicking an item inside a stale, zero-size, invisible popover
+instance produced the error and no real insertion. Corrected by always locating the popover whose
+`offsetParent !== null` (genuinely visible) before clicking an item — after that fix, every block type inserted
+cleanly with zero console errors. This is recorded here as a methodology lesson (also in
+`TESTCASE_MANAGEMENT_MEMORY.md`), not a product defect — nothing was actually broken once tested correctly.
+
+**Also corrected**: the Image block initially appeared to show "Select an Image" (empty) after reload via a
+crude `textContent` check — but `<img>` elements have no text content, so that check was meaningless. Direct
+inspection of the `<img src>` attribute, plus a byte-for-byte MD5 comparison of the downloaded file against the
+original upload, confirmed the image persisted **perfectly**, byte-identical.
+
+**Visual-render gap caught by the user, 2026-10-23 (same day), and corrected**: the MD5/`src` check above proves
+the file round-trips correctly, but does not prove the image is actually *visible* on the page. The user
+directly spotted, from a full-page screenshot, that no image rendered at all between the Table and Attachment
+blocks. Investigated: the original test upload was a 1×1 pixel PNG (70 bytes, built as a minimal valid file for
+the upload test) — it loaded correctly (`complete: true`, correct `src`) but rendered at genuinely **1×1 CSS
+pixels** (`naturalWidth`/`naturalHeight`/bounding-rect all `1`), invisible to the eye even though nothing was
+actually broken. Re-tested with a real, visible 100×100 PNG: it renders correctly and visibly after a fresh
+reload (confirmed via a full-page screenshot, not just a DOM query). **Not a product defect** — the original
+"byte-identical" PASS was correct but incomplete, since byte/DOM-level checks alone can't catch "is this
+file too small to see." Recorded as a testing lesson: when confirming an uploaded image persists, also take a
+real screenshot and/or check `naturalWidth`/`naturalHeight` are non-trivial, not just the `src` attribute and a
+hash match.
+
+---
+
+### TC-TCM-304: Inline paragraph formatting (Bold, Italic, Highlight, Underline, Strikethrough, Link) applies correctly; Highlight's visual style does not survive reload
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. In a paragraph block, select text and apply each inline tool from the selection toolbar: Bold, Italic,
+   Highlight (background-color marker), Underline, Strikethrough, Link.
+2. Save, reload, and inspect the saved HTML.
+
+**Expected Result:**
+- All 6 formats apply without error. Ideally all 6 persist identically across reload.
+
+**Status: EXECUTED 2026-10-23 — PASS for 5 of 6, 1 observation recorded (not filed as a clean bug).** All 6
+tools applied correctly and nested properly in the live DOM (confirmed
+`<s><u><b><i style="background-color:...">...<a href>...</i></b></u></s>`). After reload, Bold/Italic/
+Underline/Strikethrough/Link all persisted correctly, but the **Highlight tool's `style="background-color:..."`
+attribute was stripped** — the `<i>` tag itself survived (since Italic was also applied), but its highlight
+color was gone. This is very likely a deliberate side effect of this plugin's own prior output-safety/XSS
+hardening (rftc-013, SEC-002–004 — stripping arbitrary inline `style` attributes is a reasonable anti-XSS
+measure), not a new regression — but the practical effect is that the Highlight tool is functionally broken:
+it visually applies in the editor but can never actually be saved. Recorded as an observation in
+`TESTCASE_MANAGEMENT_MEMORY.md` for a developer to judge whether this tradeoff is intentional.
+
+---
+
+### TC-TCM-305: Attachment upload and download round-trip correctly
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. Add an Attachment block, upload a real file.
+2. Save, reload, and download the file via its link.
+
+**Expected Result:**
+- The attachment persists and downloads as the exact original file, unchanged.
+
+**Status: EXECUTED 2026-10-23 — PASS.** Uploaded `tc176-sample-attachment.txt` via the real file-chooser flow;
+persisted correctly across reload with its title/size (`0.1KB`) shown, and its download link
+(`/requirement/download?id=4&filename=tc176-sample-attachment.txt`) served a 200 OK response.
+
+---
+
+### TC-TCM-306: Image upload and download round-trip byte-identically
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. Add an Image block, upload a real image file.
+2. Save, reload, and download the image via its rendered `<img src>` URL.
+3. Compare the downloaded bytes against the original upload.
+
+**Expected Result:**
+- The image persists and downloads byte-identical to the original upload.
+
+**Status: EXECUTED 2026-10-23 — PASS.** Uploaded a 70-byte PNG; after reload, the `<img>` tag's `src` correctly
+pointed to `/requirement/download?id=5&filename=qa-test-image.png`; downloaded file's MD5
+(`f829b914fc47cfc9c0747c119c27cf1b`) matched the original upload's MD5 exactly.
+
+---
+
+### TC-TCM-307: Requirements content search matches body content correctly, but does not match on requirement title
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. Click the Search icon on the Requirements page's toolbar to open the search panel.
+2. Search a term known to exist only in a requirement's **body content** (e.g. a distinctive word from a
+   paragraph block).
+3. Search a term known to exist only in a requirement's **title**, not its body.
+
+**Expected Result:**
+- Content-text search returns the correct matching requirement(s). (Title-matching behavior should be
+  explicit — record whichever way it actually works.)
+
+**Status: EXECUTED 2026-10-23 — PASS for content search; title search confirmed absent (feature gap, not a
+regression, recorded as an observation).** Searching `sadfsdf` (body text of `REQ-RFTC011-4 Multi-defect RTM
+check`) correctly returned exactly that requirement, both via the real UI (real keystrokes) and via a direct
+`curl` call to the underlying `content_search_knowledgebase_testcase` endpoint. Searching `Multi-defect` (an
+exact substring of that same requirement's **title**, not present in its body text) returned **zero** results
+both via the UI and via direct `curl` — confirming the search indexes/matches body content only, never the
+title. Not filed as a bug (no indication this was ever intended to cover titles), but recorded as a minor,
+worth-knowing gap in `TESTCASE_MANAGEMENT_MEMORY.md`.
+
+**Methodology note**: an initial pass showed "0 search results" even for the correct body-content term, which
+looked like a broken search — investigated before concluding anything, and found the test script's `.fill()`
+call doesn't trigger the live-search component's real keystroke/debounce listener. Retyping with genuine
+keyboard events (`pressSequentially`) produced the correct "1 search results" with the right requirement listed
+and clickable, navigating correctly to it. The search feature itself was never broken.
+
+---
+
+### TC-TCM-308: Share, Export (PDF), and Save toolbar buttons all work correctly
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. On a requirement's detail page, click Share, Export, and Save in turn and verify each one's actual effect.
+
+**Expected Result:**
+- Share copies a usable link; Export downloads a PDF matching the on-screen content; Save persists the current
+  state.
+
+**Status: EXECUTED 2026-10-23 — PASS (functionally), 1 code-quality defect found (BUG-TCM-100).** Share
+(`#share-btn`) correctly copies the requirement's direct URL to the clipboard (confirmed via
+`navigator.clipboard.readText()`), though it gives no visible on-screen confirmation (no toast) — a minor UX
+gap, not filed as a bug. Export (`#export-btn`) downloaded a real PDF
+(`REQ-RFTC011-4 Multi-defect RTM check.pdf`) whose content matched the on-screen requirement text exactly
+(verified by reading the PDF). Save (`#save-draft`) correctly persists edits (confirmed throughout TC-303/304's
+testing — every edit auto-saved and/or explicit-saved correctly). **Found BUG-TCM-100**: the Save button and a
+Close button both carry `alt="share-icon"` in their `<img>` tag — identical to the real Share button's
+accessible name, confirmed via direct DOM inspection (`save-icon-....svg` and `close_icon-....svg` assets both
+mislabeled). Filed as a Low-severity code-quality/accessibility defect, not a functional break.
+
+---
+
+### TC-TCM-309: Pressing Escape throws a console error from the plugin's onboarding-tour script, even when no tour is active
+
+**User Role:** Administrator
+**Priority:** Low
+**Steps:**
+1. On any Testcase Management page, without opening the onboarding tour, press Escape.
+2. Check the browser console.
+
+**Expected Result:**
+- No JS error, since no tour is active to tear down.
+
+**Status: EXECUTED 2026-10-23 — FAIL, filed as BUG-TCM-099 (Low).** Every Escape press (reproduced 2/2)
+throws `TypeError: Cannot read properties of undefined (reading 'wrapper') at ztTour.destroyTour`, called
+unconditionally from the tour script's global `onKeyUp` listener with no guard for "is a tour actually open."
+No visible functional breakage observed alongside it — purely a console-level defect, but real and consistently
+reproducible on an extremely common key.
+
+---
+
+## Functional Cases — Requirement↔Testcase linking from every real entry point, and RTM count accuracy
+
+---
+
+### TC-TCM-310: Link a requirement to a test case via the plain Issue Edit form's own Requirement field (distinct from the context-menu path)
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. Open an existing test case with no requirement link via its own Edit form (not the Testcase Summary grid's
+   right-click context menu, and not the New Test Case creation form).
+2. In the Requirements select2 field, add a requirement and Submit.
+3. Reload the issue and confirm the link.
+
+**Expected Result:**
+- The requirement link is added and persists.
+
+**Status: EXECUTED 2026-10-23 — PASS, after correcting a false-negative first attempt.** This is a genuinely
+distinct linking surface from TC-TCM-115 (whose actual evidence used the right-click context menu, not the Edit
+form, despite its written steps saying "Edit an existing case") and from TC-TCM-114 (the New Test Case creation
+form). Tested directly on a real, previously-unlinked test case (#2140): selected "requirement 2" in the Edit
+form's Requirement select2 field, submitted, and confirmed via direct DB lookup
+(`RequirementIssue.where(issue_id: 2140)`) that the link persisted correctly. **First attempt showed zero
+effect** (DB unchanged, `updated_on` unchanged, no journal entry at all) — investigated before concluding a
+defect, and confirmed the *entire form submission* had silently not gone through that first time (not specific
+to the Requirement field), most likely a stale element reference in the test script rather than a real
+application issue. Redone cleanly with a visible Subject change alongside it to confirm the submission genuinely
+reached the server ("Successful update." flash, subject changed in the DB) — the Requirement link then
+persisted correctly every time.
+
+---
+
+### TC-TCM-311: Unlinking a requirement via the plain Issue Edit form's Requirement field does not persist (BUG-TCM-027, reconfirmed on a clean fixture)
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. On a test case with an existing requirement link (e.g. the one just created in TC-TCM-310), open its Edit
+   form, remove the requirement chip via its own "×" button, and Submit.
+2. Reload and check whether the link is actually gone.
+
+**Expected Result:**
+- The requirement link is removed.
+
+**Status: EXECUTED 2026-10-23 — FAIL, reconfirms the already-open BUG-TCM-027.** Removed the "requirement 2"
+chip from issue #2140's Edit form (confirmed client-side empty via `selectedOptions` before submitting), then
+Submit. The server responded with **"Successful update."**, yet the database shows **zero change at all** —
+`updated_on` timestamp identical to before the submission, and `RequirementIssue.where(issue_id: 2140)` still
+returns `[6]` (the link untouched). This is a cleaner, more direct reproduction than BUG-TCM-027's original
+evidence (a flash message actively claiming success while nothing was actually persisted, not merely "the old
+value is still shown somewhere"). No new bug filed — this is squarely BUG-TCM-027's existing scope.
+
+---
+
+### TC-TCM-312: The Testcase Summary grid's right-click "Requirements" context-menu submenu has no unlink/remove option at all — assign-only by design
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. On the Testcase Summary grid, select a test case that already has a requirement linked.
+2. Right-click to open the context menu and inspect the "Requirements" submenu's full contents.
+
+**Expected Result:**
+- Document whether the submenu offers a way to remove/unlink an existing requirement, or only to add one.
+
+**Status: EXECUTED 2026-10-23 — confirmed assign-only, no bug filed (documents an existing gap, consistent with
+TC-TCM-149/150's "adds rather than replaces" finding).** Right-clicked issue #2115 (already linked to
+`REQ-RFTC011-4 Multi-defect RTM check`). The "Requirements" submenu lists only the 3 existing requirements as
+clickable assign targets (`REQ-RFTC011-4 Multi-defect RTM check`, `requirement 2`, `QA-EDITOR-FULLTEST-REQ`) —
+there is no "Remove requirement" / "Clear requirement" / unlink entry anywhere in the menu. Combined with
+TC-TCM-149/150's finding that this same path only *adds* (never replaces) a requirement, this confirms the
+right-click context-menu surface is **add-only** for requirement linking across the board — the only ways to
+*remove* a link today are the Edit form (broken, BUG-TCM-027) or deleting a `#`-mention from the requirement's
+own content (works, TC-TCM-272).
+
+---
+
+### TC-TCM-313: RTM's "Total Defects Found" count and per-row Defects column are accurate against the real underlying data
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. Open the RTM and note "Total Defects Found."
+2. Independently compute the real distinct defect count linked to this project's requirement-linked test cases
+   (via `ExecutionDefect` → `IssueStatusResult` → issue).
+3. Compare.
+
+**Expected Result:**
+- The two counts match exactly.
+
+**Status: EXECUTED 2026-10-23 — PASS.** RTM showed **"Total Defects Found: 10."** Independently computed via
+`ExecutionDefect.joins(:issue_status_result).where(issue_status_results: {issue_id: <requirement-linked
+testcase ids>}).distinct.pluck(:defect_issue_id)` — exactly **10** distinct defect issues
+(`[25, 29, 30, 31, 37, 2052, 2056, 2064, 2065, 2066]`), matching exactly. Spot-checked one row directly: requirement
+`REQ-RFTC011-4`'s testcase `#24` correctly lists 7 distinct linked defects in its own Defects cell
+(`#25, #29, #30, #31, #37, #2064, #2065, #2066` — 8 shown, all real CI-failure defect issues for that test case).
+
+---
+
+### TC-TCM-314: RTM's "Total Linked Testcases" count correctly excludes dangling links to already-deleted test cases — a related data-hygiene observation, not a bug
+
+**User Role:** Administrator
+**Priority:** Low
+**Steps:**
+1. Compare RTM's "Total Linked Testcases" figure against a raw count of all `RequirementIssue` rows for the
+   project.
+
+**Expected Result:**
+- If a `RequirementIssue` row's target test case has since been deleted, the RTM should not count it (a dangling
+  reference should not inflate the displayed total).
+
+**Status: EXECUTED 2026-10-23 — PASS for the RTM's own display; an underlying data-hygiene gap recorded as an
+observation, not filed as a bug.** RTM displayed **"Total Linked Testcases: 12."** A raw count of
+`RequirementIssue` rows for this project's requirements returned **14** distinct `issue_id` values. Investigated
+the 2-row discrepancy: `Issue.find` for 2 of those 14 ids (`#2121`, `#2124`) returns nothing — **both test cases
+have been deleted, but their `RequirementIssue` join rows were never cleaned up.** The RTM itself handles this
+correctly (its displayed count of 12 already excludes these 2 dangling rows, and they don't appear in the
+table), so this is **not a defect in the RTM** — but it confirms `RequirementIssue` rows for a deleted test case
+are left behind as orphaned data, the same general pattern already documented for `ExecutionDefect` in
+BUG-TCM-061 (orphan rows after a *defect* is deleted). Recorded in `TESTCASE_MANAGEMENT_MEMORY.md` as a
+worth-knowing data-hygiene pattern, not filed as a new bug since nothing user-visible is actually broken by it.
+
+---
+
+### TC-TCM-315: RTM itself never shows whether a linked test case belongs to any Run — reiterating TC-TCM-123's finding, explicitly re-checked per direct user question
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. For a requirement's linked test case that is known to belong to at least one Run, check whether the RTM
+   itself displays that fact anywhere (not the separate Requirement Coverage report).
+
+**Expected Result:**
+- Document explicitly whether the RTM shows Run membership for its linked test cases.
+
+**Status: RE-CONFIRMED 2026-10-23 — same finding as TC-TCM-123/126, explicitly re-verified because the user
+directly asked whether the RTM shows "if that testcase is in any run."** The RTM's table has exactly 3 columns —
+Requirement, Testcases, Defects — confirmed again via the current page's live structure. There is no Run column,
+no per-testcase run badge, and no aggregate run-coverage figure anywhere on this page. Run/execution-status
+information is only available via the separate **Requirement Coverage report** (one of the 6 report types),
+exactly as already documented on TC-TCM-123. Not a new gap — reiterated here because the user asked specifically
+about it in this session, to make the answer explicit and current rather than relying on a 2026-10-01 finding
+alone.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |
@@ -432,7 +780,11 @@ mention and an attachment) was unaffected both times, confirmed on reload after 
 | TC-TCM-112 – 121 | Requirement CRUD and linking | BUG-TCM-021, BUG-TCM-022, BUG-TCM-027 |
 | TC-TCM-122 – 127 | Traceability matrix | — |
 | TC-TCM-269 – 273 | Requirement content editor round-trip persistence, link/unlink/rename | BUG-TCM-074 |
+| TC-TCM-303 – 309 | Full editor block-type coverage, inline formatting, attachment/image upload-download, search, Share/Export/Save toolbar, tour-script console error | BUG-TCM-099, BUG-TCM-100 |
+| TC-TCM-310 – 315 | Requirement↔testcase linking from every real entry point (Edit form, right-click context menu, requirement-page mention), RTM count accuracy (defects, linked-testcase total), RTM's lack of a Run column | BUG-TCM-027 (reconfirmed) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-120, 269 and 270 are the highest-value cases — data-loss semantics, the content editor's core save
-  guarantee, and the save-race regression target respectively.
+  guarantee, and the save-race regression target respectively. TC-TCM-303 (all 12 block types via the real
+  block-menu) is the highest-value case added 2026-10-23 — the broadest single check of the content editor's
+  actual feature surface.

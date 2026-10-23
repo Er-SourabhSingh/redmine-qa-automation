@@ -465,3 +465,13 @@ Reopened #121699 on production per explicit user approval ("production pe bhi sy
   (`module-disabled-test-suites-still-renders.png`, `test-suites-no-view-permission.png`,
   `issue-testcase-new-no-permission-check.png`).
 - Verified via follow-up `get_issue`: status Reopen, done ratio 30%, Target version Release 7.2.0, notes present.
+
+### 2026-10-23 — To-Do and Activity instances re-confirmed still fixed (unaffected by the reopened scope)
+
+While regressing `TESTCASE_MANAGEMENT_TODO.md`, re-tested the `testcase_todos` and `testcase_activities`
+instances of this bug directly (not the reopened Test-Suites/`issue_testcase#new` scope above): logged in as a
+genuine non-member (`qa.limited`, zero membership on private project `bug-121896-retest`) and requested both
+`/testcase_todos?project_id=bug-121896-retest` and `/testcase_activities?project_id=bug-121896-retest` directly
+— both correctly return **404 Not Found**. Her own project's equivalents (`rftc-016-ci-qa`) both still render
+normally (200). These two instances remain genuinely fixed; the reopened scope is isolated to Test Suites and
+`issue_testcase_controller.rb#new` as documented above.

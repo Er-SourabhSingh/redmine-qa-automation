@@ -113,6 +113,115 @@
     ambiguous suite membership — both PASS). The "user builds their own suite tree from scratch, then CI runs
     against it" angle is a separate, not-yet-covered scenario explicitly saved for a **later** session.
 
+- **(2026-10-23) The plugin now has 8 Testcase Report types, not 6** — the "Select type" dropdown also offers
+  **Slow Tests** and **Most Failed Tests**, which had bug history (BUG-TCM-068/070/071/076/077/081) but zero
+  creation test cases in `TESTCASE_MANAGEMENT_REPORTS.md` until TC-TCM-316/317 were added this session. If a
+  future session's report-type count/list looks stale against the live "Select type" dropdown, re-check it rather
+  than trusting an older TC range.
+- **(2026-10-23) Report download content-verification method, reusable for any future report regression:** HTML
+  via `grep` on the downloaded file for expected content strings; PDF via `pdftotext -layout report.pdf -`
+  (confirmed present at `/ucrt64/bin/pdftotext` in this repo's Git-Bash environment) to extract and inspect text;
+  Excel via `unzip` into a scratch dir and reading `xl/worksheets/sheet1.xml` directly (these exports use inline
+  strings, not `sharedStrings.xml`) — `grep`/`cat` that file rather than opening the `.xlsx` in a spreadsheet app.
+- **(2026-10-23) `pdftotext -layout`'s column-reconstruction heuristic can look garbled on a long multi-table PDF
+  even when the PDF itself renders fine** — before filing a PDF bug from `-layout` output alone, cross-check with
+  plain `pdftotext` (no flag); if the plain-text version shows the same data cleanly in stream order, treat the
+  `-layout` garbling as a text-extraction artifact, not a confirmed rendering defect, unless a real PDF-to-image
+  tool (`pdftoppm` or similar — not available in this environment as of 2026-10-23) can visually confirm otherwise.
+- **(2026-10-23) The three per-format report-export code paths (HTML/PDF/Excel) are NOT one shared renderer with
+  three output adapters — they can and do diverge independently per report type.** Confirmed by this session's
+  regression: Requirement Coverage's Excel export is completely broken (BUG-TCM-106, "Unknown Report Type") while
+  its HTML and PDF both work; conversely Slow Tests' PDF export is completely broken (BUG-TCM-107, drops the whole
+  body) while its HTML and Excel both work. **Always verify all 3 download formats independently for every report
+  type** — a passing HTML/PDF check says nothing about Excel, and vice versa.
+
+- **(2026-10-23) "Include all test run" is not scoped to the project — it resolves to every run visible to
+  `@report.runs`, which in this build means all runs in the project (41, in `rftc-016-ci-qa`), not just the ones
+  a tester has in mind.** This matters for any report-type test that iterates per-run logic: a crash or data gap
+  that only shows up under "Include all" (like BUG-TCM-108) can be invisible when the same report type was
+  earlier tested with "Only the following test runs" scoped narrowly — always test at least one report of each
+  type under the actual default ("Include all"), not just a convenient narrow scope, or a scope-dependent defect
+  gets missed entirely.
+- **(2026-10-23) Deleting a test case that's part of an active run (allowed by this plugin, confirmed harmless
+  for the run grid/dashboard per TC-TCM-138) can still leave a dangling `RunIssue` row behind with `issue_id=0`.**
+  This orphaned row is invisible in normal UI use but will crash any report-generation code path that assumes
+  every `RunIssue` has a live matching issue (see BUG-TCM-108's root cause). If a report crash ever looks like
+  "undefined method for nil" deep in a loop over `run.run_issues`, check for `issue_id=0`/orphaned join rows
+  before assuming it's a one-off.
+- **(2026-10-23) Mailpit's REST API (`http://localhost:8025/api/v1/...`) is the fastest way to verify email
+  content in this environment — faster than driving the web UI.** `GET /api/v1/messages?limit=N` lists recent
+  messages with a text `Snippet` (good for a quick content spot-check across many emails at once);
+  `GET /api/v1/search?query=<text>` finds/counts messages matching a term (useful to prove an email did **not**
+  arrive, as in BUG-TCM-108 — a `count:0` search result is solid evidence of non-delivery); `GET
+  /api/v1/message/<id>` returns the full JSON including the `Text`/`HTML` body; `GET
+  /api/v1/message/<id>/part/<PartID>` downloads a specific attachment's raw bytes (works with `curl -o` — confirm
+  a PDF attachment is real via `file`/`pdftotext`, not just that `Attachments: 1` was reported).
+- **(2026-10-23) When filling the report-creation form via `browser_evaluate` instead of clicking through the UI,
+  the recipient-email field is a `<textarea id="testcase_report_email_message">` despite Rails naming it
+  `email_message` — it is NOT the report's Description textarea and NOT a message body.** Its placeholder
+  (`person1@example.com`) is the only hint; the actual `<select>` for report type uses real option values, not the
+  dropdown's visible label text (`testcase`/`summary`/`activity`/`tester_scorecard`/`requirement`/`overdue_run`/
+  `slow_test`/`most_failed` — note `summary` = Defect Summary and `requirement` = Requirement Coverage, not an
+  obvious mapping from the label alone; this same `requirement` key is also the literal string that BUG-TCM-106's
+  Excel-export error message complains about not recognizing, which is a nice independent confirmation of that
+  bug's root cause).
+
+- **(2026-10-23) Sidekiq's built-in scheduled-job poller (`sidekiq/scheduled.rb`) is silently dead on this
+  environment, every single boot, since at least 2026-10-22** — a `connection_pool`/`sidekiq` gem version
+  mismatch (`sidekiq 7.3.9` calling `TimedStack#pop` with an argument `connection_pool 3.0.2` doesn't accept)
+  crashes the poller thread with `report_on_exception: true`, so the main Sidekiq process stays "up and healthy"
+  while never actually delivering anything from the scheduled set again. This means **no `perform_at`/
+  `perform_in` job and no `Sidekiq::Scheduler` cron entry will ever fire on this instance** until the gem
+  versions are fixed — confirmed by the plugin's own `ReminderWorker` cron job (registered every minute) not
+  having run once in 2+ hours, and independently by a scheduled report never delivering. **Before trusting any
+  future "scheduled"/"recurring"/"cron" feature test on this instance, check `docker logs <sidekiq-container> |
+  grep ArgumentError` for this exact crash first** — a schedule recording correctly in the UI tells you nothing
+  about whether it will ever actually fire here. See BUG-TCM-111.
+- **(2026-10-23) When a user interrupts a tool call and says to double-check a finding, actually go find the
+  alternate path they're hinting at — don't just re-assert the same conclusion with more confidence.** Asked
+  whether cancelling a schedule might work via deleting the *parent report* instead of the broken Scheduled
+  Reports Delete icon; this was a reasonable alternate hypothesis worth ruling out, and doing so (confirming no
+  parent report row exists until a schedule actually fires) made the eventual bug report stronger, not weaker.
+  Confirmed this is the right instinct: the user then asked "is this really a bug?" as a second, independent
+  check before approving the production report — both checks held up, and reporting proceeded only afterward.
+- **(2026-10-23) Production issue subjects for this plugin must literally start with `BUG-TCM-NNN: ` as the
+  first token of the subject line** (confirmed against existing production issues, e.g. `#120588 BUG-TCM-005:
+  ...`), not just mention the bug ID inside the description. A `[Testcase Management] ...`-style subject prefix
+  used for 5 issues this session (#124772–#124776) and found missing on 2 earlier-session issues (#124423,
+  #124424) was corrected via `redmineflux_core_update_issue` after the user caught it. Always use the
+  `BUG-TCM-NNN: <title>` format for every future production report on this plugin, and double-check the subject
+  (not just the description) before calling `redmineflux_core_create_issue`.
+
+- **(2026-10-23) `rftc-perf-500`'s Testsuite rows have a QA-fixture data defect, not a product one: `project_id`
+  is stored as the project's numeric id (4) instead of its string identifier, unlike every normally-created
+  suite.** This project's 500+ test cases/50+ suites were seeded directly via a `rails runner` script for
+  `TESTCASE_MANAGEMENT_PERFORMANCE.md`, and that script apparently used `project_id: project.id` where it should
+  have used `project_id: project.identifier` (confirmed: `Testsuite.where(project_id: project.id)` returns 51
+  rows for this project, while `Testsuite.where(project_id: project.identifier)` returns 0 — every other
+  project's suites are the other way around). This breaks any UI flow that looks up suites by identifier for
+  this project specifically — e.g. creating a Run with "Include all test run" or the "Select cases" picker both
+  return zero suites and the run never saves (422, `@run.errors` shows "Testsuite is not selected"). **Do not use
+  `rftc-perf-500` for any test that needs to create a Run through the normal suite-selection UI** — reuse its
+  existing run (#81) for read-only checks only, or build a fresh project instead. Not worth fixing the seed data
+  retroactively unless a future session specifically needs working Run creation in this project.
+
+- **(2026-10-23) A synthetic `element.value = 'x'; element.dispatchEvent(new Event('change', {bubbles:true}))`
+  does NOT reliably trigger every page's real jQuery `.change()` handler — even though it looks like a normal DOM
+  event dispatch.** Confirmed on the Project Overview dashboard's dimension `<select>`
+  (`testcase_chart.js`'s `$("#div_dimention_graph").change(...)`): the synthetic approach produced
+  `dimensions=null`/`dimensions=` in the actual outgoing request, which looked exactly like a real "dropdown
+  doesn't update the backend" bug — until redone with a genuine Playwright `browser_select_option` (a real
+  user-level interaction), which correctly sent `dimensions=by_activity`/`by_result`/`by_defects` every time.
+  **Always re-verify a suspicious "the change didn't take effect" finding with a real `select_option`/click
+  before concluding it's a product bug** — this is the same lesson as the earlier `.fill()` vs real-keystrokes
+  gotcha (Requirements search box), just for `<select>` elements instead of text inputs.
+- **(2026-10-23) The Project Overview dashboard (`/test_suites/releases?project_id=<id>`, titled "Test Case
+  Management" on the page, the module's own landing page) had ZERO test coverage anywhere in this repo** —
+  absent from `FEATURES_LIST.md`, the User Guide, and every `testcases/` file — until found and fully tested this
+  session per direct user request. Now covered by `testcases/TESTCASE_MANAGEMENT_OVERVIEW.md` (TC-TCM-321–328).
+  Worth periodically checking the plugin's actual navigation/sidebar for pages that were never formally
+  documented, rather than assuming `FEATURES_LIST.md` is exhaustive.
+
 ## Methodology Lessons
 
 - **`TestcaseEnvironment.project_id` stores the project's NUMERIC id, not the string identifier** —
@@ -317,6 +426,33 @@
   only, unlike most of this plugin's other endpoints which accept the string identifier too.** Sending the
   identifier (`rftc-016-ci-qa`) 404s with "project not found," which looks like a permission refusal but isn't
   — always use the numeric project id when hand-testing this specific action directly.
+- **A Run's suite/case counts are built from `run_issues` — one row per (issue, testsuite) pair, not per issue.**
+  `RunsController#create`'s "Include all test run" path and `handle_test_suite_ids` both do
+  `IssueTestSuite.where(testsuite_id: ...).each { |its| run.run_issues.build(issue_id: its.issue_id, testsuite_id:
+  its.testsuite_id) }`. If an issue belongs to two suites covered by the same run, it gets two `RunIssue` rows and
+  (via `Run#create_issue_status_results`'s `run_issues.map`) two separate `IssueStatusResult` rows — confirmed via
+  `rails runner` (`run.run_issues.where(issue_id: X).count` => 2) and live in the UI (the case shows as a separate
+  "Untested" row under each suite tab). This is BUG-TCM-097's root cause — check `run_issues.distinct.count(:issue_id)`
+  vs `run_issues.count` whenever a run's totals look larger than the project's actual distinct test-case count.
+- **The suite-switcher dropdown's "Passed/Failed/to run" badges do not respect the Environment selector at all** —
+  switching environments changes the donut chart and results grid correctly but leaves every suite's dropdown badge
+  identical, because the badge reads a raw, non-deduplicated, environment-unfiltered count rather than the same
+  query the grid/donut use (BUG-TCM-098). When sanity-checking a run's numbers, always cross-check the dropdown
+  badge against `Showing N test cases` + the donut `Total` for the *same* suite + environment pairing — they can
+  legitimately disagree right now.
+- **Legitimate multi-environment behavior, not to be confused with BUG-TCM-097/098**: a run with multiple
+  `run_assignments` (environments) is *supposed* to produce one independent, separately-markable result row per
+  (issue, environment) — e.g. a case can genuinely be Passed on "Chrome" and Failed on "Firefox" in the same run.
+  When investigating a "why does this test case have 2 rows" finding, always check first whether it's 2 different
+  environments (expected) or the same environment appearing twice (the real bug, BUG-TCM-097's signature).
+- **BUG-TCM-097/098 re-verified 2026-10-23 on a completely clean, isolated fixture** (2 brand-new suites, a
+  brand-new test case, a brand-new run with 2 environments) to rule out any contamination from older session data
+  — both bugs reproduced identically on fresh data, confirming they are genuine, not artifacts of a messy test
+  project. Also confirmed opening **Edit Run and saving with zero changes does not cause or fix BUG-TCM-098's
+  stale badge** — the dropdown badge mismatch is a persistent per-page-load miscalculation, not an edit/save
+  side-effect. And confirmed BUG-TCM-097's real consequence directly: marking the shared test case **Passed**
+  under one suite's tab left it **Untested** under the other suite's tab in the same run/environment — a genuine
+  contradictory-status defect, which is why the bug was upgraded Medium→High.
 
 ## Confirmed Working
 
@@ -432,6 +568,90 @@
 
 ## Recurring Issues
 
+- **Before calling any suite "regressed," check `git log` on its own controllers/models/views since the last
+  real pass — don't assume stale evidence is still good just because nothing obviously broke.** Found 2026-10-23
+  on `TESTCASE_MANAGEMENT_TEST_RUNS.md`: an initial pass filled one missing TC and re-verified 3 explicitly-
+  blocked ones, then reported the whole suite as "regressed" — but ~36 of 40 TCs were still sitting on
+  2026-10-01 evidence. The user caught this by asking directly. A `git log` check (the same technique already
+  used successfully on `TESTCASE_MANAGEMENT_CSV_IMPORT.md`) showed dozens of commits had touched exactly what
+  this suite tests since 2026-10-01 (a Run Results page redesign, a bulk-update-on-already-executed-case fix, a
+  closed-run 500 fix) — the opposite of CSV_IMPORT's zero-relevant-commits case. **The lesson isn't "always
+  re-click everything" or "the git-log check is unnecessary" — it's that the git-log check has to actually gate
+  the decision**: zero relevant commits justifies a narrow spot-check (as it correctly did for CSV_IMPORT);
+  substantial relevant commits means the narrow spot-check was never justified in the first place, and claiming
+  "regressed" without doing the fuller pass first is the actual mistake, not skipping the check.
+- **EditorJS test-automation gotcha, found 2026-10-23 while thoroughly testing the Requirements page's content
+  editor.** `document.querySelector('.ce-popover, .ce-popover--opened')` always returns the DOM's *first*
+  `.ce-popover` element — one exists per block (mostly closed/invisible), not necessarily the one actually open
+  for the currently-focused block. Clicking a `.ce-popover__item` inside a stale, zero-size, invisible popover
+  silently fails (no real block insertion) and can even throw a `TypeError` from EditorJS's own insert path —
+  this produced a convincing false alarm that Code/Quote/Delimiter/Table/Image block types were all broken.
+  **Always filter for `offsetParent !== null` (or an equivalent visibility check) before clicking a popover
+  item.** Likewise, checking a block's persistence via `textContent` is meaningless for `<img>`-based blocks
+  (Image tool) — check the actual `src` attribute, ideally with a byte-level (MD5) comparison against the
+  original upload. And `.fill()` on a live-search input does not reliably trigger the component's real keystroke/
+  debounce listener — use `pressSequentially`/`slowly: true` real keystrokes when testing search-as-you-type
+  features, not `.fill()`. **One more, caught by the user from a screenshot, not by this suite's own checks**: a
+  byte-identical MD5 + correct `src` attribute does NOT prove an uploaded image is actually *visible* — the
+  original test upload was a 1×1 pixel PNG, which loaded and round-tripped perfectly but rendered too small to
+  see. Always also check `naturalWidth`/`naturalHeight` are non-trivial (or just take a real screenshot) when
+  confirming an image upload test, not only the file hash.
+- **Highlight/marker inline tool doesn't survive reload** (found 2026-10-23): selecting text and applying the
+  paragraph toolbar's highlight/marker tool sets an inline `style="background-color:..."` attribute live in the
+  editor, but that `style` attribute is gone after the page is saved and reloaded — only Bold/Italic/Underline/
+  Strikethrough/Link persist. Very likely a side effect of this plugin's own prior XSS/output-safety hardening
+  (rftc-013, SEC-002–004 — arbitrary inline `style` attributes are a known CSS-based attack vector), not a new
+  regression, but it means the Highlight tool is currently unusable (applies, never saves). Not filed as a bug —
+  flagged here for a developer to judge whether the tradeoff is intentional.
+- **The 3 real requirement↔testcase linking surfaces behave differently — know which one you're testing**
+  (confirmed 2026-10-23). (1) Plain Issue **Edit form**'s Requirement select2 field: **adding** a link works
+  correctly; **removing** one does not persist at all despite the server returning "Successful update." (open
+  bug, BUG-TCM-027). (2) Testcase-grid **right-click context menu**'s Requirements submenu: **add-only** — it
+  has no remove/unlink option anywhere, and (per TC-TCM-149/150) even adding via it never replaces an existing
+  link, only appends. (3) The requirement's own content, via a `#`-mention: the only surface where **both** link
+  and unlink actually work correctly (TC-TCM-271/272). When a TC's title says "via the Edit form" but its
+  evidence was actually gathered through the context menu (or vice versa), don't assume they're interchangeable
+  — they have different bugs.
+- **`RequirementIssue` rows are not cleaned up when the linked test case is deleted** (found 2026-10-23): 2 of
+  this project's `RequirementIssue` rows (for deleted test cases #2121, #2124) are dangling — the issues no
+  longer exist, but the join rows do. The RTM itself handles this gracefully (its own counts/table correctly
+  exclude them), so this isn't user-visible breakage, but it's the same orphan-row pattern already documented
+  for `ExecutionDefect` in BUG-TCM-061 (that one for deleted *defects*, this one for deleted *test cases*). Not
+  filed as a new bug; worth checking if a cleanup/cascade is ever added for one, whether the other needs it too.
+- **Requirements content search indexes body text only, never the title** (found 2026-10-23): confirmed via the
+  `content_search_knowledgebase_testcase` endpoint directly — a search term that's an exact substring of a
+  requirement's title but absent from its body content returns zero results, while the same term present in body
+  content is found correctly. A minor, worth-knowing feature boundary, not treated as a defect.
+- **Performance watch-list, established 2026-10-23 (`TESTCASE_MANAGEMENT_PERFORMANCE.md`, 500-case fixture
+  project `rftc-perf-500`).** Two pages measured notably slower than everything else in the suite, though neither
+  failed outright (no timeout/crash) and neither showed N+1-style disproportionate scaling: **Run detail page**
+  (`/runs/:id`) — 1.7–2.0s at 500 linked cases vs 91ms on a 1-case run (~19–20x for 500x data, sub-linear);
+  **Testcase Summary report render** (`/testcase_reports/:id`) — 6.4–8.0s at 500 cases, and already slow even on a
+  small project (2.6s baseline). Re-measure both on the next performance pass to catch a real regression early;
+  neither is filed as a bug today. By contrast, the suite grid (`/test_suites/:id`), suite tree, Reports list,
+  RTM, and subject search all stayed well under 500ms even at 500+ cases/100+ requirements — no N+1 pattern found
+  anywhere checked this pass.
+- **CSV import's final commit step is a foreground, tab-bound AJAX flow, not a background Sidekiq job** (found
+  2026-10-23 while executing TC-TCM-258 at 1000-row scale) — the page explicitly warns "keep this tab open...
+  closing or navigating away will stop the import," with a live progress counter. A very large production
+  migration (10,000+ rows) would need the browser tab open for the whole duration. Not a bug, but worth knowing
+  before anyone attempts a big unattended CSV migration.
+- **Bulk Update Result correctly no-ops a case already at the target status**, rather than writing a redundant
+  duplicate result row (found 2026-10-23 investigating what first looked like a partial-apply bug in TC-TCM-257 —
+  80 of 100 selected cases got new rows, 20 didn't; verified the 20 already had the target status before
+  concluding anything, rather than filing on the first signal). **Lesson, not just a product fact**: when a bulk
+  operation looks like it silently skipped some rows, pull the *actual* rendered page's row IDs (direct
+  authenticated request, not a guessed sort order) before diffing against what got updated — a wrong assumption
+  about sort order very nearly produced a false bug report here.
+- **`RunIssue` is keyed per (issue, run, testsuite), not per (issue, run) — this one modeling gap now has two
+  confirmed, independent symptoms (BUG-TCM-097, found/extended 2026-10-23).** Symptom 1: a run's suite tabs can
+  show genuinely contradictory statuses (Passed under one suite, Untested under another) for the same test case,
+  since `RunsController` builds one `RunIssue`/`IssueStatusResult` per (issue, testsuite) pair. Symptom 2: the
+  issue detail page's own "Test Run:" field (`app/views/issues/_steps_list.html.erb`,
+  `@issue.runs.map(&:name).join(', ')`) repeats one run's name once per duplicate `RunIssue` row, since
+  `has_many :runs, through: :run_issues` has no `.distinct`. **When checking any plugin feature that walks
+  `issue.runs`, `run.run_issues`, or `IssueStatusResult` for an issue that might be linked to a run via more than
+  one suite, check for this same dedup gap before assuming a fresh defect** — it's one root cause, not two.
 - **Test Suite Management, Reporting, and Requirement Management controllers have zero authorization checks on
   create/edit/delete** (`test_suites_controller.rb`, `testcase_reports_controller.rb`,
   `requirements_controller.rb` — BUG-TCM-007, found 2026-09-30). Any logged-in project member can create/edit/
@@ -499,6 +719,79 @@
 
 - **(2026-10-08) A Forge cloud instance (`https://flux-ffpwq4t9a49.forge.zehntech.com/`, project `agileboard`) surfaced two new defects not seen on any prior Docker instance — both since confirmed FIXED on a later Forge rotation.** Editing a Test Suite ("Edit Folder") fired `GET /test_suites/<id>/edit.json?project_id=agileboard` → **403 Forbidden**, console flooded with "API request failed error" (`testcase-73520250.js:3495`); same signature independently on the Requirements page. Resembled the `.json`-suffixed-route-breaks-session-auth family (BUG-TCM-003). **Filed as BUG-TCM-062 (High, prod #122902).** Separately, clicking the "+" (Add Requirement) icon threw an uncaught `TypeError: Cannot read properties of undefined (reading 'add_requirement')` from `script-89236efc.js:1789` via an unguarded `<svg>` onclick handler — same shape as closed BUG-TCM-030. **Filed as BUG-TCM-063 (Medium, prod #122903).**
   **Retested 2026-10-08 on a different Forge instance (`https://flux-fvqoa5yw149.forge.zehntech.com/`, plugin confirmed v7.1.0), this time via Playwright MCP (portable Node.js + `@playwright/mcp` installed into `.tools/` this session — see root `.mcp.json`):** `/test_suites/1/edit` now returns a plain `200` (no `.json` suffix at all) and the Edit modal populates correctly; Requirements page loads clean; the "+" icon now opens the inline form with zero console errors and the new requirement saves successfully. **Both confirmed FIXED** — moved to `bugs/closed/`, production synced Done/100%. Note the fix was verified on a *different* Forge rotation than the one that found the bugs — consistent with this plugin's recurring pattern of Forge instances running inconsistent builds (see also DEF-IMPORT-001/DEF-PERM-006/DEF-QUAL-010 cross-environment discrepancies, a separate external QA cycle's bugs, not this repo's own).
+- **A Select2/multi-select's auto-highlighted search match is not the same as a committed selection — found 2026-10-23 setting a Blocked result's Defects* field on run #83, case #26.** Typing a defect's numeric ID into the Defects* search box with real keystrokes correctly filtered to one match, and the Playwright accessibility snapshot showed that option as `[selected]` purely from keyboard/ARIA state. Clicking Submit at that point fired **zero network requests** and instead showed a client-side "Please select an item in the list." validation popup — the underlying multi-select had never actually registered a choice. Explicitly clicking the option (so it turns into a visible, removable chip in the field) fixed it, and Submit then genuinely posted. **When automating any Select2-style searchable multi-select in this plugin (Defects* field, requirement-mention pickers, etc.), always explicitly click the matched option — never rely on an auto-highlighted match plus Enter/Submit, even when the accessibility tree reports it as selected.**
+- **BUG-TCM-097's root cause (one `RunIssue` per issue+testsuite, not per issue+run) also affects the "Include all test run" creation path, not just a manually-selected multi-suite run** (confirmed 2026-10-23, run #83): "Include all" correctly pulled every one of the project's 29 real suite-linked issues with zero missing/extra, but produced 34 `RunIssue` rows because 4 of those issues belong to more than one suite — same downstream `IssueStatusResult` duplication (68 rows instead of the expected 58) as every other BUG-TCM-097 manifestation. This is a genuine repeat of an already-open root cause, not a new finding, so it was folded into BUG-TCM-097's existing file rather than filed separately.
+- **Environment correction, found 2026-10-23: this Docker instance's real mailbox is Mailpit (`localhost:8025`),
+  reachable as a plain web UI, not Roundcube — and `daisy.skye` (the watcher account several earlier memory
+  entries reference) no longer exists on this instance.** Confirmed via DB: only `qa.limited` (id 7) and `dev1`
+  (id 8) have `@test.local` mailboxes. Likewise, run #22 is no longer "TC-TCM-164 Watcher Notification Run" — it's
+  been reused for an unrelated fixture ("Edge5 Suffix Test #5"), and had zero watchers. **Treat any memory
+  reference to a specific run ID, watcher user, or mailbox tool as liable to have drifted if this instance was
+  reset/reseeded since — verify via DB (`User.where`, `Run.find(id).watcher_users`) before relying on it, rather
+  than assuming a prior session's fixture still exists.** Also found `testcase_result_added` had reverted to
+  disabled in `Setting.notified_events` (had been enabled in an earlier session) — re-enable it before testing
+  that notification if a check for it comes back empty-handed; don't assume delivery is broken before checking
+  the setting itself.
+- **Sidekiq runs in its own dedicated container on this instance (`redmine6-sidekiq-1`), not as a process inside
+  the Redmine app container** — `docker stop/start redmine6-sidekiq-1`, not `kill -9 <pid>` inside the Redmine
+  container as an earlier memory entry assumed (that was true on a different, now-defunct instance). Confirmed
+  the same underlying fact still holds though: `testcase_result_added` email delivery is NOT gated by Sidekiq in
+  this environment (arrives immediately even with the Sidekiq container fully stopped) — likely synchronous
+  ActionMailer delivery, not an ActiveJob-backed async queue.
+- **BUG-TCM-103 (new, Medium, found 2026-10-23): the Run result filter's "latest status" subquery is correctly
+  scoped to the current environment/testsuite, but its re-join back onto `issue_status_results` only matches on
+  `issue_id` + `created_at` — with no repeated environment/testsuite_id check.** When two different environments'
+  results for the same case share an identical `created_at` (very plausible — e.g. seeded in the same
+  transaction, or two quick real submits landing in the same second), the join pulls in the WRONG environment's
+  `case_status_id`, so a case Untested in the viewed environment can incorrectly appear under a "Failed" filter
+  because it's Failed in a different environment. Reproduced live and via an isolated `rails runner` query
+  (bypassing the browser entirely) to rule out any UI artifact. The sibling "With/Without Defects" filter on the
+  same page does NOT have this gap — its `ExecutionDefect` join correctly re-checks environment/testsuite_id
+  (that filter was itself fixed for an analogous issue under BUG-TCM-060). **When testing any filter that
+  computes "latest result" via a subquery + join, check whether the join itself re-applies every scope the
+  subquery used — a join on `issue_id + created_at` alone is a known failure mode in this codebase now.**
+- **BUG-TCM-104 (new, High, found 2026-10-23): a test case's genuinely first-ever execution is misattributed in
+  the Results & Comments view to whoever created the Run, not whoever actually recorded the result.** Root cause:
+  creating a Run auto-seeds one baseline `IssueStatusResult` row per (issue, environment) with `added_by` = the
+  run's creator (already-documented, non-bug mechanism). On that row's first real execution, the SAME row is
+  found and updated in place (`case_status_id`/`updated_by`/`updated_at` change) rather than a new row being
+  inserted — so `added_by`/`created_at` stay frozen at run-creation identity/time forever, and the Results &
+  Comments view reads `added_by`/`created_at` (never `updated_by`/`updated_at`). Confirmed by genuinely logging
+  in as a second real user (`qa.limited` — had to reset her password to the shared QA convention `12345678`
+  first, it had drifted) and recording a brand-new case's first result: UI showed "Added by Redmine Admin",
+  DB showed `added_by: 1 (admin), updated_by: 7 (qa.limited)`. **Re-executions after the first one are
+  unaffected** (confirmed: TC-TCM-178's own re-execution sequence on an already-executed case showed correct
+  attribution) — the gap is specifically in the untested→first-result transition. **When verifying any
+  attribution/audit-trail claim in this plugin (execution history author, notification email "added by" text),
+  deliberately test it on a case's FIRST execution, not a case that's already been executed before** — the two
+  paths behave differently and only the first one has this bug.
+- **`qa.limited`'s password had drifted from the shared QA convention (`12345678`) and had to be reset via rails
+  console to log in as a genuine second user** (same pattern as the earlier `daisy.skye` mailbox password drift) —
+  if a login attempt for any of this project's seed/persona users fails with "Invalid user or password," check
+  whether its password simply needs resetting to the shared convention before assuming a different problem.
+- **BUG-TCM-102 (new, Medium, found 2026-10-23): a defect's own detail page "Test Run:" field only ever shows the
+  single run it was first linked from, and never updates when the same defect is later linked to a second,
+  different run — unlike the sibling "Environment:" field a few lines below on the same page, which correctly
+  aggregates every distinct environment across all linked executions via the `ExecutionDefect` join.** Confirmed
+  via DB inspection: a defect with 4 `ExecutionDefect` rows spanning 2 distinct runs still showed only the first
+  run's name, directly contradicted by the Related Issues panel's own "2 runs" badge a few lines below on the
+  same page. Root-caused to `app/views/issues/_steps_list.html.erb`'s defect-tracker branch reading the stale
+  scalar `@issue.run.name` instead of the same `ExecutionDefect`-join aggregation the Environment field already
+  uses (that fix even has its own explanatory comment in the file, right next to the still-broken Test Run
+  field). **This is the third known location of the exact same bug class** — BUG-TCM-050 (closed, `runs_helper.rb`
+  / `testcase_reports_controller.rb`) and BUG-TCM-058 (closed, `issues_helper_patch.rb`'s Relations-section Run
+  column) were the first two. **When checking any plugin view that reads a defect/testcase issue's `run`/`run_id`
+  scalar association to display "which run(s) is this linked to," always check whether it should instead go
+  through `ExecutionDefect`/`IssueStatusResult` — a stale scalar is a known recurring pattern in this codebase,
+  not a one-off.** Separately, explicitly confirmed (per the same user question) that a **closed** defect's ID
+  correctly renders with a strikethrough in both the Run's "Linked defects" panel and the grid's own "Defect ID's"
+  column — this part works correctly; it was only missed on a first visual pass at full-page screenshot resolution
+  (the line is thin) and confirmed present via DOM inspection (`style="text-decoration: line-through;"`).
+  Likewise confirmed the Overview dashboard's "TOTAL DEFECTS" column counts **distinct** defects per run, not raw
+  linkage rows — 3 `ExecutionDefect` rows for the same defect within run #83 still correctly shows `1`, per
+  `test_suites_helper.rb#total_defect_count`'s own `.distinct.count(:defect_issue_id)`, already fixed under closed
+  BUG-TCM-057 (same bug class as BUG-TCM-050/058/102, this one location already correctly fixed).
+- **BUG-TCM-101 (new, Low, found 2026-10-23): switching the Run or Environment dropdown in a test case's own "Testcase Execution" section (issue detail page) throws a reproducible console `TypeError: Cannot read properties of null (reading 'innerHTML')` at `request.onreadystatechange`, every time, on every issue checked (#24 and #26, 3 reproductions total).** The Result value itself always updates correctly immediately afterward — confirmed by cross-checking against both a grid-set result (Failed/Blocked on #24/#26) and an earlier bulk-updated result, every time matching the run grid/DB exactly. This is a console-only defect; it does not affect data correctness. When testing this section going forward, expect the console error on every switch and don't mistake it for a data problem — check the Result value separately each time.
 
 ## Environment Notes
 

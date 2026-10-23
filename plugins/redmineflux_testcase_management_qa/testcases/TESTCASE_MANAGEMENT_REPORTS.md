@@ -2,8 +2,12 @@
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >
-> **Status: authored 2026-09-14.** TC-TCM-098 – 526 already carry live evidence from the 2026-09-14 session
-> (BUG-TCM-005); the rest are not yet executed.
+> **Status: authored 2026-09-14, fully regressed 2026-10-23.** TC-TCM-098 – 526 carry live evidence from the
+> 2026-09-14 session (BUG-TCM-005). Every TC in this suite (TC-TCM-078–111, 274, 316–317) was regressed against
+> build HEAD `d4f960b` on 2026-10-23 (report creation + all 3 download formats + HTML/PDF emailing + scheduling +
+> full CRUD, for all 8 report types) — see inline "RETESTED 2026-10-23" notes and the Evidence Map below. This
+> suite is now the plugin's most heavily-populated single source of 2026-10-23 defects: 7 open bugs
+> (BUG-TCM-105–111, including the Critical BUG-TCM-111) found this pass, plus BUG-TCM-075 confirmed fixed.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -49,6 +53,22 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 **Expected Result:**
 - Defects raised from executions are summarised; counts match the defects actually linked to results.
+
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, report #137, defect #3642, BUG-TCM-097's run #83):**
+**FAIL — new bug, filed as BUG-TCM-105 (High).** When a defect is linked to more than one test case within the
+same environment, the report shows only 1 row for that defect in that environment (losing the extra linked
+testcase entirely) and that row's "Testcase ID" column always shows the **first-ever-linked** testcase (24)
+instead of the one actually relevant to the environment section being rendered — confirmed wrong for the "test1"
+environment section, which should show 23, not 24. Reproduced identically across all 3 download formats
+(HTML/PDF/Excel). Root cause confirmed in `app/controllers/testcase_reports_controller.rb`'s Excel-export code:
+`IssueRelation.where(relation_type: 'defect', issue_to_id: issue.id).first` is not scoped by run or environment,
+so it always returns the same first-created relation regardless of which environment table is being rendered. See
+`bugs/open/BUG-TCM-105.md`.
+**Separately, BUG-TCM-097 (duplicate RunIssue rows) propagates into this report type too** (not a new bug —
+logged as an extension of BUG-TCM-097, not filed separately): the same inflated-count pattern already tracked on
+the Run page and issue detail page also inflates Testcase Summary (#136), Activity Summary (#138), Tester
+Scorecard (#139, "33 testcases" instead of the real count), and Requirement Coverage (#140, 5+ identical repeated
+rows for the same requirement/testcase pair).
 
 ---
 
@@ -132,6 +152,42 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
+### TC-TCM-316: Create a Slow Tests report
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. **Select Type** = `Slow Tests`; **Create**; open it.
+
+**Expected Result:**
+- Test cases are ranked by execution-time percentile (p95) against the configured slow-test threshold; cases with
+  no recorded timing data are reported separately as "No timing data yet", not silently omitted.
+
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`):** PASS on live page and HTML download — report #142
+correctly showed "Slow-test threshold: 5.0 s" and "No timing data yet: 28" (this instance records no per-step
+timing, so every case falls in the no-data bucket — expected for this environment). Excel download also correct
+(same threshold/no-data text, plus the full `Rank/Test Case/Samples/Avg/Max/p95/Flag` column header row). **PDF
+download is broken: see BUG-TCM-107.**
+
+---
+
+### TC-TCM-317: Create a Most Failed Tests report
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. **Select Type** = `Most Failed Tests`; **Create**; open it.
+
+**Expected Result:**
+- Test cases are ranked by failure count/rate across executed runs; the "Failing Runs" list stays legible (no
+  column overflow) in every download format.
+
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`):** PASS across all three download formats (HTML/PDF/Excel,
+report #143) — content matched the live page exactly, and the "Failing Runs" column spillover previously tracked
+under BUG-TCM-076/077/081 does not reproduce on this build (consistent with fix commit `a48b2a4`, 2026-10-21).
+
+---
+
 ### TC-TCM-086: Report name is mandatory
 
 **User Role:** QA
@@ -169,6 +225,11 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 **Expected Result:**
 - The new name and description persist in the list and on the report detail.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`) — PASS.** Edited report #136's Name (added `-EDITED`
+suffix) and Description (real rich-text content via the Quill editor); both persisted correctly — confirmed via
+direct DB read (`name`/`description` columns both show the new values) and on the report's own detail page and
+the list view.
+
 ---
 
 ### TC-TCM-089: Delete a report
@@ -181,6 +242,9 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 **Expected Result:**
 - The report is removed from the list.
 
+**RETESTED 2026-10-23 — PASS.** Deleted report #136 (the one just edited in TC-TCM-088) via the bin icon +
+confirmation; correctly removed from the list and confirmed `nil` via a direct DB lookup afterward.
+
 ---
 
 ### TC-TCM-090: Cancelling report deletion does not delete
@@ -192,6 +256,9 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 **Expected Result:**
 - The report is still listed.
+
+**RETESTED 2026-10-23 — PASS.** Opened the delete confirmation for report #136, clicked Cancel instead of
+Delete; the report remained listed, unaffected, confirmed by reloading the list.
 
 ---
 
@@ -226,6 +293,14 @@ Activity Summary, Tester Scorecard, Requirement Coverage, Overdue Run Summary) a
 Reports Regression Run`, environment `Win + Chrome`). All produced correctly-populated HTML matching the live
 page's data, charts, and the `Run Name (Environment)` heading.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, run #83):** PASS across all **8** report types (the
+original pass only covered 6 — Slow Tests and Most Failed Tests are new since then, see TC-TCM-316/317). HTML
+downloads for reports #136–143 all grep-matched their live-page figures exactly, including the BUG-TCM-097
+duplicate-row inflation propagating identically into both the live page and the HTML download (expected —
+confirms the export reads the same inflated dataset, not a separate export-only bug). One escaping check added
+this pass: a testcase titled `<img src=x onerror=alert('export-xss')> export check` renders fully HTML-escaped
+(`&lt;img ...`) in both the live page and the downloaded HTML — no stored-XSS risk in the report HTML export.
+
 ---
 
 ### TC-TCM-093: Download report as PDF (in-app, client-side)
@@ -250,6 +325,21 @@ Activity Summary and Overdue Run Summary (the latter also losing its "Overdue by
 separate table columns there, not this heading). See the dedicated assertion in TC-TCM-274 and
 `bugs/open/BUG-TCM-075.md` for full per-report-type evidence.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, run #83, reports #136/#138/#140/#141 re-checked via
+`pdftotext -layout`):** BUG-TCM-075's heading/environment-suffix drop is **now FIXED** for Testcase Summary,
+Activity Summary, Defect Summary and Overdue Run Summary — headings and "Overdue by N days" text all present and
+correct, consistent with fix commit `a48b2a4` (2026-10-21, "Fix a PDF-email regression and three residual pieces
+from earlier fixes"). Moving BUG-TCM-075 to `bugs/closed/`.
+**New PDF-only defect found this pass, filed as BUG-TCM-107 (Medium):** the Slow Tests report's PDF download
+(#142) drops its entire body below the report-name heading — no column headers, no "Slow-test threshold" line, no
+"No timing data yet: N" text — while the same report's HTML and Excel downloads both render that content
+correctly. See `bugs/open/BUG-TCM-107.md`.
+**Ambiguous, not filed:** the Overdue Run Summary PDF's row/column text, extracted via `pdftotext -layout`, looks
+column-misaligned on a 29-row table; plain `pdftotext` (no `-layout`) shows the same data cleanly in stream order,
+so this is more likely a text-extraction heuristic limitation than a real rendering defect. No PDF-to-image tool
+(`pdftoppm` etc.) was available this session to visually confirm either way — flagged for a future session with
+one available, not filed as a bug.
+
 ---
 
 ### TC-TCM-094: Download report as Excel
@@ -269,6 +359,21 @@ no `sharedStrings.xml`) — every report's heading/Run/Environment data is prese
 affected by BUG-TCM-075 at all. One pre-existing cosmetic naming inconsistency noted (not a defect): Requirement
 Coverage's Excel downloads as `requirement_coverage.xlsx` instead of the `report_<id>.xlsx` pattern every other
 report type uses.
+
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, run #83, all 8 report types, reports #136–143):**
+Excel content verified by unzipping each `.xlsx` and reading `xl/worksheets/sheet1.xml` directly.
+- Testcase Summary (#136), Defect Summary (#137, see BUG-TCM-105 for its own data-accuracy bug), Tester Scorecard
+  (#139), Overdue Run Summary (#141), Slow Tests (#142), Most Failed Tests (#143): all PASS — data matches the
+  live page exactly.
+- **Requirement Coverage (#140): FAIL — new bug, filed as BUG-TCM-106 (High).** The Excel download's entire sheet
+  body is replaced with `Unknown Report Type` / `The report type 'requirement' is not recognized.` — a total data
+  loss for this report type's Excel export, while its HTML and PDF exports both render the real coverage table
+  correctly. See `bugs/open/BUG-TCM-106.md`.
+- **Activity Summary (#138): a real but lower-severity content gap, noted but not filed as a separate bug** — the
+  Excel export carries the full per-run issue tables (matches HTML/live for every row), but drops the "Overall
+  Pass/Fail %" and "Requirement Coverage %" summary blocks that both HTML and the live page show above those
+  tables. Recorded here for visibility in case a future session wants to raise it formally; not blocking because
+  the underlying row data is otherwise complete and correct.
 
 ---
 
@@ -355,6 +460,18 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
   content is the rendered report.
 - **CONFIRMED PASS 2026-09-14** on `localhost:3012` across all six report types (14–25 KB attachments).
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, Mailpit `localhost:8025`, mailbox `qa.limited@test.local`,
+run #83/project `rftc-016-ci-qa`):** emailed all **8** report types as HTML — Testcase Summary, Defect Summary,
+Activity Summary, Requirement Coverage, Overdue Run Summary, Slow Tests, Most Failed Tests all arrived correctly
+(`multipart/mixed`, 1 attachment each, confirmed via the Mailpit API). **Tester Scorecard under "Include all test
+run" FAILED — no email ever arrived**, filed as **BUG-TCM-108 (High)**: the background mailer job crashes with the
+same `NoMethodError` that crashes the report's own `show` page under that scope (see TC-TCM-274a below / bug file
+for full root cause). Retested Tester Scorecard scoped to a single run instead — email arrived correctly. Separate
+**cosmetic bug found in all 8 emails' body text**, filed as **BUG-TCM-109 (Low)**: the "Report Type:" line reads
+"Default Text" instead of the real type name for Slow Tests and Most Failed Tests specifically (root-caused to a
+`report_type_texts` lookup hash in `run_mailer.rb` never updated for these two newer types) — the other 6 types'
+emails show the correct type name.
+
 ---
 
 ### TC-TCM-099: Emailed HTML attachment content matches the in-app report
@@ -390,6 +507,15 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
   installation, not a code defect — hence this TC's precondition.
 - Note the precondition is load-bearing: run this on a server without Node.js/Puppeteer and it will fail for
   environment reasons. Check `node -v` and the **Sidekiq worker's** `PUPPETEER_EXECUTABLE_PATH` first.
+
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, Mailpit, run #83):** emailed all 8 report types as PDF —
+**7 arrived correctly** (Testcase Summary spot-checked in full: downloaded the real attachment via the Mailpit
+API, confirmed `PDF document, version 1.4, 8 page(s)`, valid `%PDF-1.4` header and `%%EOF` trailer, 1,399,933
+bytes, `pdftotext` extraction showing correct report data). Tester Scorecard under "Include all test run" again
+failed to send (BUG-TCM-108, same as the HTML retest above); scoped to run 83 only instead, its PDF email
+delivered correctly. Same BUG-TCM-109 "Report Type: Default Text" cosmetic defect reproduces in the PDF emails'
+body text for Slow Tests/Most Failed Tests too (format-independent, as expected since it's the email body, not
+the attachment, that's affected).
 
 ---
 
@@ -455,6 +581,14 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 - **CONFIRMED 2026-09-14:** HTML succeeded for all six; PDF failed for all six pre-install (BUG-TCM-005, since
   fixed by completing Installation step 6). All six share the single `send_report` method, so the format branch —
   not the report type — decides the outcome.
+
+**RETESTED 2026-10-23, now 8 report types — assumption partially FALSIFIED.** Report type now *does* affect
+emailing behaviour in two ways this TC's original premise didn't anticipate: (1) **Tester Scorecard under
+"Include all test run" cannot be emailed at all** regardless of format (BUG-TCM-108) — a report-type ×
+Advanced-Options-scope interaction, not a format difference; (2) the email body's "Report Type:" label is wrong
+specifically for Slow Tests/Most Failed Tests, in both formats (BUG-TCM-109). The *attachment itself* still
+behaves consistently per-format for every type that can be created at all — that narrower claim holds — but
+"report type never affects emailing" as originally stated is no longer accurate. See BUG-TCM-108/109.
 
 ---
 
@@ -525,6 +659,15 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 **Expected Result:**
 - The schedule is listed with the correct interval and time; the email arrives at that time.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`):** PASS for the listing half — scheduled for 11:20 UTC,
+`Scheduled Reports` correctly showed "Daily at 11:20:00 / Daily". **FAIL for delivery — filed as BUG-TCM-111
+(Critical)**: the email never arrived, even 6+ minutes past the scheduled time (confirmed via a Mailpit API
+search returning 0 results). Root-caused to Sidekiq's own core scheduled-job poller thread crashing at every
+boot (`ArgumentError` in `connection_pool`, a version mismatch baked into this build's `Gemfile.lock`) —
+independently confirmed by the plugin's own `ReminderWorker` cron job (meant to run every minute) not having run
+once in over 2 hours. See `bugs/open/BUG-TCM-111.md` for full evidence; this affects every scheduled report,
+regardless of interval or format, project-wide.
+
 ---
 
 ### TC-TCM-108: Schedule a weekly report on a chosen weekday
@@ -536,6 +679,12 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 
 **Expected Result:**
 - The schedule records the correct weekday and time and is displayed accurately.
+
+**RETESTED 2026-10-23:** PASS for listing — scheduled "Every week" / Wednesday / 14:30; `Scheduled Reports`
+correctly showed "Weekly on Wednesday at 14:30:00 / Weekly". Delivery itself not separately waited for (next
+Wednesday is days away) but affected by the same BUG-TCM-111 poller crash as TC-TCM-107 — there is no reason to
+expect this interval to behave differently; the crash is in the shared scheduled-job poller, not interval-specific
+logic.
 
 ---
 
@@ -550,6 +699,11 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 - The schedule records the correct day and time.
 - Check behaviour for day 29–31 in short months and record it.
 
+**RETESTED 2026-10-23:** PASS for listing — scheduled "Every month" / day 29 / 09:00; `Scheduled Reports`
+correctly showed "Monthly on the 29th at 09:00:00 / Monthly", accepted without error (day 29 exists in every
+month, so this doesn't exercise the short-month edge case; day 30/31 in February would be the sharper test —
+deferred, not yet executed). Same BUG-TCM-111 delivery-poller crash applies here too.
+
 ---
 
 ### TC-TCM-110: Cancel a scheduled report
@@ -562,6 +716,15 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 
 **Expected Result:**
 - The schedule is removed from the list and no further emails arrive.
+
+**RETESTED 2026-10-23 — FAIL, filed as BUG-TCM-110 (High).** Clicking the Scheduled Reports section's own Delete
+icon and confirming always ends in a full 404 page, for every user including Administrator — the schedule is
+never removed. Server log shows the request correctly reaches `TestcaseReportsController#cancel_scheduling` as a
+real DELETE, but `rftc_authorize_report_schedule` halts the chain with a 404, root-caused to that filter looking
+up the project via `Project.find_by(id: params[:project_id])` — the wrong lookup for a string-identifier project
+— instead of falling back to `identifier:` like its sibling method 3 lines away in the same file correctly does.
+Reproduced twice. No workaround exists (a schedule-only report has no row in the main Reports table to delete
+instead). See `bugs/open/BUG-TCM-110.md`.
 
 ---
 
@@ -576,16 +739,44 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 **Expected Result:**
 - Delivery matches the scheduled **UTC** time as labelled in the form, not the local timezone.
 
+**PARTIALLY RETESTED 2026-10-23 — storage is correct, delivery itself can't be verified (BUG-TCM-111 blocks all
+delivery).** Confirmed via direct DB inspection (`ScheduledReport.scheduled_time`) that entering `11:20` in the
+form stores exactly `Fri, 23 Oct 2026 11:20:00 UTC` — correctly interpreted as UTC with no timezone drift, and
+Sidekiq's own `ScheduledSet` entry shows the identical `at=2026-10-23 11:20:00 UTC`. So the **storage/labelling**
+half of this TC genuinely passes. The **delivery-timing** half cannot be verified at all right now — no
+scheduled report ever delivers, in any timezone, per BUG-TCM-111 — so "does delivery match UTC" is currently
+unanswerable and should be re-run once that bug is fixed.
+
 ---
 
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-078 – 097 | Report creation, viewing, download | BUG-TCM-075 (TC-TCM-093) |
-| TC-TCM-098 – 106 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-100 |
-| TC-TCM-107 – 111 | Scheduling | — |
-| TC-TCM-274 | PDF Run Name/Environment heading parity | BUG-TCM-075 |
+| TC-TCM-078 – 097 | Report creation, viewing, download | BUG-TCM-075 (closed 2026-10-23, see TC-TCM-093), BUG-TCM-105, BUG-TCM-106, BUG-TCM-107, BUG-TCM-108, BUG-TCM-097 (extension, not a new bug) |
+| TC-TCM-098 – 106 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-100; BUG-TCM-108 (TC-TCM-098/100), BUG-TCM-109 (TC-TCM-098/100/102) — new 2026-10-23 |
+| TC-TCM-107 – 111 | Scheduling | BUG-TCM-110 (TC-TCM-110), BUG-TCM-111 (TC-TCM-107/108/109/111) — new 2026-10-23 |
+| TC-TCM-274 | PDF Run Name/Environment heading parity | BUG-TCM-075 (now fixed) |
+| TC-TCM-316 – 317 | Slow Tests / Most Failed Tests creation (new 2026-10-23 — these two report types existed but had no creation TC) | BUG-TCM-107 (TC-TCM-316) |
+| TC-TCM-088 – 090 | CRUD (Edit/Delete/Cancel delete) | None — all 3 PASS, zero new bugs, 2026-10-23 |
+
+**2026-10-23 regression session (run #83, reports #136–143, all 8 report types, all 3 download formats each, plus
+emailing all 8 types in both HTML and PDF):** confirmed BUG-TCM-075 fixed, found 6 new bugs — BUG-TCM-105 (Defect
+Summary wrong/missing Testcase ID), BUG-TCM-106 (Requirement Coverage Excel export totally broken), BUG-TCM-107
+(Slow Tests PDF export drops its body), BUG-TCM-108 (Tester Scorecard report crashes with a 500 and silently
+fails to email under the default "Include all test run" scope), BUG-TCM-109 (emailed Slow Tests/Most Failed
+Tests show "Report Type: Default Text" instead of their real name) — confirmed BUG-TCM-097 propagates into 4 more
+report types (not separately filed), and added the 2 missing creation TCs for Slow Tests/Most Failed Tests.
+**Scheduling (TC-TCM-107–111) also regressed 2026-10-23**: scheduling records correctly (interval/weekday/day/
+time all accurate, UTC storage confirmed correct via DB), but cancelling a schedule always 404s — BUG-TCM-110
+(High) — and, far more seriously, scheduled reports never actually deliver at all, ever, on this build —
+BUG-TCM-111 (Critical), root-caused to Sidekiq's own core scheduled-job poller crashing at every boot on a
+`connection_pool`/`sidekiq` gem version mismatch, independently confirmed by the plugin's own every-minute
+`ReminderWorker` cron job not having run once in 2+ hours. **CRUD (TC-TCM-088–090) was also completed the same
+session — Edit, Delete, and Cancel deletion all PASS, zero new bugs** (edited report #136's Name/Description,
+both persisted correctly incl. real rich-text content; deleted it, confirmed removed from list and DB; separately
+confirmed Cancel on the delete popup leaves the report untouched) — **making this the first complete, suite-wide
+2026-10-23 regression of `TESTCASE_MANAGEMENT_REPORTS.md`, with every TC now carrying current-build evidence.**
 
 - Existing evidence for TC-TCM-098/523/525: `screenshots/BUG-TCM-005/` and
   `logs/BUG-TCM-005-pdf-attachment-evidence.log`.

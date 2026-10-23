@@ -2,7 +2,10 @@
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 4 and the vendor KB "Test Case Management" section.
 > CSV import is covered separately in `TESTCASE_MANAGEMENT_CSV_IMPORT.md`.
-> **Status: authored 2026-09-14, not yet executed.**
+> **Status: fully regressed against the current build as of 2026-10-23** (all 24 original TCs + TC-295–298 added
+> this cycle). All PASS except TC-TCM-140 (deliberately deferred to `TESTCASE_MANAGEMENT_TODO.md`) and TC-TCM-151
+> (FAIL, filed BUG-TCM-097, upgraded to High). BUG-TCM-021, 022, 024, 025, 026 all reconfirmed genuinely fixed;
+> BUG-TCM-095, 096, 097, 098 found/confirmed this cycle.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -91,6 +94,15 @@ failed-validation re-render, and that first failure is unavoidable (BUG-TCM-011)
 to successfully save a test case with any step content at all**, let alone five ordered ones. Not re-attempted
 individually — same root cause as TC-128.
 
+**REGRESSED 2026-10-23 — PASS, BUG-TCM-021/011 both confirmed genuinely fixed.** Created `TC-TCM-129-five-ordered-steps`
+(#2125) via the current build's "New Test Case" form as `qa.limited`: clicked **New Step** five times, filled five
+distinct Step/Expected pairs in order (One…Five), submitted directly on the first attempt (no validation failure,
+no Bug-tracker custom fields blocking it this time — confirms BUG-TCM-011 is gone for the Testcase tracker too).
+Confirmed via `rails runner` (`i.steps`) the five `Step` rows were created in exactly the entered order (ids
+20–24, strictly increasing `created_at`, content One→Five in sequence) and the issue's own rendered page shows
+them numbered **Step 1** through **Step 5** in that same order, each with its correct Expected Result. All five
+pairs stored and numbered 1–5 in entry order, as this TC's expected result requires.
+
 ---
 
 ### TC-TCM-130: Subject is mandatory
@@ -105,6 +117,9 @@ individually — same root cause as TC-128.
 
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Submitted with Subject empty: error list includes "Subject cannot be
 blank," form stays on the create page, nothing created.
+
+**REGRESSED 2026-10-23 — PASS.** Re-confirmed on the current build: submitting the New Test Case form with Subject
+left blank shows "Subject cannot be blank," form stays on the create page, nothing created.
 
 ---
 
@@ -123,6 +138,10 @@ blank," form stays on the create page, nothing created.
 (`QA-TRACKER-CHECK-CLEAN`, created earlier this session with no steps added) opens cleanly with no "Step" section
 rendered at all, no error, no broken layout.
 
+**REGRESSED 2026-10-23 — PASS.** Created `TC-TCM-131-no-steps-regress` (#2131) with Subject filled, zero steps
+added. Confirmed via `rails runner` (`i.steps.count == 0`, correct Testcase tracker) and the rendered issue page
+shows no "Step" section at all, no error, clean layout.
+
 ---
 
 ### TC-TCM-132: Remove a step during authoring
@@ -138,6 +157,12 @@ rendered at all, no error, no broken layout.
 **ATTEMPTED LIVE — 2026-10-01 — BLOCKED by BUG-TCM-021/BUG-TCM-011.** Same root cause as TC-129: no step content
 survives to a saved test case at all currently, so removing one of three steps can't be meaningfully tested.
 
+**REGRESSED 2026-10-23 — PASS.** Created `TC-TCM-132-delete-middle-step` (#2126) as `qa.limited`: added three steps
+(A, B "to be deleted", C), used the real **Delete** link on the middle row (B), confirmed via the app's own "Remove
+Step?" modal, then saved. Confirmed via `rails runner` and the rendered issue page: exactly two steps remain (A,
+C), correct content, renumbered contiguously **Step 1** / **Step 2** with no gap — matches this TC's expected
+result exactly.
+
 ---
 
 ### TC-TCM-133: Reorder steps
@@ -152,6 +177,12 @@ survives to a saved test case at all currently, so removing one of three steps c
 
 **ATTEMPTED LIVE — 2026-10-01 — BLOCKED by BUG-TCM-021/BUG-TCM-011.** Same root cause as TC-129.
 
+**REGRESSED 2026-10-23 — PASS.** Created `TC-TCM-133-reorder-steps` (#2127) as `qa.limited`: added three steps
+(ONE, TWO, THREE in that order), then real-dragged Step 3's "Move" handle (sort-handle icon) up above Step 1's
+handle via Playwright's native drag (`dragTo`) — confirmed the in-page order updated live to THREE, ONE, TWO
+before saving. Saved; confirmed via `rails runner` and the rendered issue page that the new order (THREE, ONE,
+TWO) persisted exactly and is renumbered **Step 1 / Step 2 / Step 3** accordingly.
+
 ---
 
 ### TC-TCM-134: Step content preserves special characters and unicode
@@ -165,6 +196,19 @@ survives to a saved test case at all currently, so removing one of three steps c
 - Content round-trips exactly, with no HTML-escaping artefacts shown to the user and no truncation.
 
 **ATTEMPTED LIVE — 2026-10-01 — BLOCKED by BUG-TCM-021/BUG-TCM-011.** Same root cause as TC-129.
+
+**REGRESSED 2026-10-23 — PASS, with one structural caveat on the newline portion.** Created
+`TC-TCM-134-special-chars-unicode` (#2128) with a Step/Expected pair containing `< > & " '`, an emoji (😀, a real
+astral-plane codepoint), and an attempted embedded newline. Confirmed via `rails runner` the stored DB value is
+byte-for-byte exact (`< > & " ' 😀 line1line2`) and the rendered issue page shows it correctly single-escaped
+(`&lt; &gt; &amp; " ' 😀`, no double-encoding artifact like `&amp;amp;`), with no truncation. **Caveat (not a
+defect):** both Step and Expected Result are rendered as single-line `<input type="text">` elements, not
+`<textarea>` — the DOM itself strips an embedded `\n` from `.value` before it's ever submitted, so "line1\nline2"
+became "line1line2" with the newline silently dropped. This is standard single-line-input behavior, not
+app-specific mangling or truncation; a genuine multi-line step isn't achievable through this control at all, which
+is a reasonable, intentional field design (steps are meant to be short instructions) rather than a round-trip bug.
+All other content — HTML-special characters and unicode/emoji — round-trips exactly as this TC's expected result
+requires.
 
 ---
 
@@ -218,6 +262,12 @@ in (same as the New Test Case flow) and resubmitted. **Final result — all thre
 via a fresh reload: Subject → `QA-TC-136-EDITED-SUBJECT`, Priority → `Urgent`, the one existing step's Expected
 Result → `EDITED expected result text` (its own unchanged Step text was left untouched, confirmed intact).
 
+**REGRESSED 2026-10-23 — PASS.** Used issue #2125 (`TC-TCM-129-five-ordered-steps`, current-build fixture with 5
+steps). Opened the real inline Edit form, changed Subject → `TC-TCM-129-five-ordered-steps-EDITED`, Priority →
+`High`, and Step 1's Expected Result → `Expected One EDITED`. Submitted; confirmed via `rails runner`: Subject and
+Priority both persisted exactly, Step 1's Expected updated to the new text, and Steps 2–5 (description and
+expected) remained completely untouched.
+
 ---
 
 ### TC-TCM-137: Delete a test case
@@ -232,6 +282,10 @@ Result → `EDITED expected result text` (its own unchanged Step text was left u
 
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Deleted case #1521 (`test2`, not used in any run) via Actions → Delete
 issue → confirmed the native dialog. `GET /issues/1521` now returns 404 — genuinely deleted, not just hidden.
+
+**REGRESSED 2026-10-23 — PASS.** Confirmed via `rails runner` that issue #2131 (`TC-TCM-131-no-steps-regress`) had
+zero `RunIssue` rows (not used in any run), then deleted it via Actions → Delete issue, accepted the native confirm
+dialog. Confirmed via `rails runner`: `Issue.exists?(2131)` now `false` — genuinely deleted.
 
 ---
 
@@ -253,6 +307,12 @@ confirmation about run impact — but every dependent view renders cleanly after
 dropped from 17 to 16 rows with no broken/blank row, and the dashboard summary recalculated correctly against the
 new total ("10 of 16 tested, 62.50%"). No 500, no orphaned reference anywhere checked.
 
+**REGRESSED 2026-10-23 — PASS.** Deleted issue #2130 (`dfgsdfg`), the sole test case in Run #80's suite `t3`, with
+2 recorded `IssueStatusResult` rows. Delete **not blocked** — succeeds via Actions → Delete issue. Confirmed via
+`rails runner`: `Issue.exists?(2130)` → `false`, and the run's `RunIssue` rows cascaded cleanly to 0 (no orphaned
+references). Re-opened the run's suite `t3` tab afterward: renders cleanly as "No data to display" — no 500, no
+broken row.
+
 ---
 
 ### TC-TCM-139: Test case respects Redmine issue permissions
@@ -270,6 +330,13 @@ permission on the Testcase tracker) and navigated directly to `/issues/449/edit`
 no full edit form rendered — only a Notes-only panel (Notes/Edit/Preview + Files + Cancel), with none of the
 field-editing controls (no Priority, Subject, custom fields, etc.) present at all. Test cases correctly inherit
 standard Redmine issue permission scoping.
+
+**REGRESSED 2026-10-23 — PASS.** `harmony.rose` no longer exists on this instance; created a temporary
+view-only role ("QA Read Only (temp)": `view_issues`/`view_test_suites`/`view_requirement` only, no
+`edit_issues`) and added `dev1` (a genuine non-member otherwise) as a project member with it. Logged in as
+`dev1`: no "Edit" link visible anywhere on issue #2125's page, and a direct `GET /issues/2125/edit` returns a real
+**403 Forbidden**. Both legs correctly restricted. Temp role and membership removed immediately after, restoring
+`dev1` to its original non-member baseline.
 
 ---
 
@@ -317,6 +384,13 @@ Execution" section from issue #456's detail page while the standard "Status:" fi
 unaffected (confirming this setting is correctly scoped and doesn't touch Status). Disabled again to restore
 baseline, confirmed Testcase Execution reappeared.
 
+**REGRESSED 2026-10-23 — PASS.** As Admin, toggled `settings[hide_testcase_execution]` on
+`/settings/plugin/redmineflux_testcase_management`. Confirmed the "Testcase Execution" section (Run/Environment/
+Result block) only renders on an issue that actually has a recorded run result — tested on #2129, which has a real
+Passed result. Enabled: section genuinely absent from the page (confirmed via a direct text search for
+"Testcase Execution"), Status field still visible. Disabled: section reappears correctly. Setting restored to its
+disabled baseline after the test.
+
 ---
 
 ### TC-TCM-142: Test case appears in Redmine's own issue list
@@ -333,6 +407,10 @@ baseline, confirmed Testcase Execution reappeared.
 tracking summary (`/projects/test-project/issues?set_filter=1&tracker_id=4`): test cases list as ordinary issues
 with Tracker, Status, Priority, Subject and Updated columns all correctly populated — no special-casing or
 missing data.
+
+**REGRESSED 2026-10-23 — PASS.** `/projects/rftc-016-ci-qa/issues?set_filter=1&tracker_id=4` correctly lists every
+test case as an ordinary issue, Tracker/Status/Priority/Subject/Updated columns all populated, including the
+current-build fixture `TC-TCM-129-five-ordered-steps-EDITED`.
 
 ---
 
@@ -351,6 +429,12 @@ search ("Verify empty wishlist shows appropriate message") correctly returned 3 
 search ("wishlist") correctly returned 12 matches. A non-matching nonsense term correctly returned 0 rows. But
 searching by a real case's exact ID (`437`, with or without `#`) returned **0 rows** both times, despite the
 search box's own label explicitly promising "Search by subject **or ID**." Filed **BUG-TCM-024** (Medium).
+
+**REGRESSED 2026-10-23 — PASS, BUG-TCM-024 confirmed genuinely fixed (already closed in `bugs/closed/`).**
+Full-subject search (`TC-TCM-129-five-ordered-steps-EDITED`) → 1 match. Partial-subject search (`steps`) → 2
+matches (both current-build fixtures containing that word). Non-matching nonsense term (`xyznonexistent`) → "No
+data to display," 0 rows. **ID search (`2125`) now correctly returns 1 match — the right issue
+(`TC-TCM-129-five-ordered-steps-EDITED`)** — the exact case that previously returned 0 rows. Fix confirmed holding.
 
 ---
 
@@ -551,6 +635,16 @@ grid** after a cache-busted reload, reproduced twice identically. The issue itse
 satisfying half the expectation, but the removal itself silently never happens despite a success response. Filed
 **BUG-TCM-026**.
 
+**REGRESSED 2026-10-23 — PASS on a clean single-suite fixture; interesting edge-case note on a multi-suite one.**
+Created `TC-TCM-148-remove-from-suite-regress` (#2132) directly inside suite 5 (single membership). Removed it via
+Actions → Remove Testcase → Confirm Removal: confirmed via `rails runner` the `IssueTestSuite` link is genuinely
+gone (`[]`), the issue itself survives, and the suite's grid correctly no longer lists it — BUG-TCM-026's fix
+holds for the normal case. **Side observation**: attempting the same action first on issue #2129 (a test case
+genuinely linked to *two* suites, from this session's BUG-TCM-097 fixture) appeared to have no effect — the
+suite-A link remained after "removing" it. Not re-filed as a new bug on its own (too entangled with BUG-TCM-097's
+already-reported root cause to isolate cleanly), but worth noting as a further symptom of that same underlying
+multi-suite data-model gap, not a regression of BUG-TCM-026 itself.
+
 ---
 
 ### TC-TCM-149: Bulk-assign a requirement to multiple test cases
@@ -665,14 +759,100 @@ case to even one suite (drag-and-drop broken, no add-existing action, no Suite f
 ever end up in the single suite it was created under. Multi-suite membership therefore cannot be tested at all
 under the current state.
 
+**REGRESSED 2026-10-23 — FAIL, filed as BUG-TCM-097 (Medium).** With BUG-TCM-025 now fixed, re-checked whether
+multi-suite membership is genuinely supported end-to-end. The data model itself does support it
+(`Testsuite has_many :issues, through: :issue_test_suites` — a real many-to-many): added issue #2125 to both suite
+3 and suite 5 directly, and confirmed it correctly appears on both suites' own pages, no refusal. But a **Run**
+covering both suites mishandles it: `RunsController` builds one `RunIssue` (and later one `IssueStatusResult`)
+per **(issue, suite)** pair rather than per issue, so the test case gets **two independent, separately-markable
+result rows** in the same run — one per suite tab — and the run's own "All Suites in Run" total counts 25 when
+only 20 distinct issues exist (5 test cases in this project are in two suites each). This is exactly the "double
+counting" failure mode this TC's expected result calls out as a defect. Filed **BUG-TCM-097**. Probe run and
+multi-suite membership rows deleted after confirmation.
+
+---
+
+### TC-TCM-299: Issues list's "Add filter" — TestSuite filter
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. Open the project's standard Issues list, filtered to the Testcase tracker.
+2. Use "Add filter" → **TestSuite**, select a specific suite, Apply.
+
+**Expected Result:**
+- Only test cases genuinely belonging to that suite are returned — no more, no fewer.
+
+**EXECUTED 2026-10-23 — PASS, confirmed live.** Found while answering a direct user question about whether this
+plugin-added filter works. Filtered to suite `BUG97-Reverify-Suite-A` (id 33): returned exactly 1 result (issue
+#2129), matching the suite's real, current membership via `IssueTestSuite` — confirmed via `rails runner`.
+
+---
+
+### TC-TCM-300: Issues list's "Add filter" — Run filter
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. Open the Issues list filtered to the Testcase tracker.
+2. Use "Add filter" → **Run**, select a specific run, Apply.
+
+**Expected Result:**
+- Only test cases genuinely assigned to that run are returned.
+
+**EXECUTED 2026-10-23 — PASS, confirmed live.** Filtered to run `BUG97-Reverify-2env-run` (id 78, from this
+session's BUG-TCM-097 fixture): returned exactly 1 result (issue #2129), the only test case this run covers —
+confirmed via `rails runner` (`run.run_issues`).
+
+---
+
+### TC-TCM-301: Issues list's "Add filter" — Requirement filter
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. Open the Issues list filtered to the Testcase tracker.
+2. Use "Add filter" → **Requirement**, select a specific requirement, Apply.
+
+**Expected Result:**
+- Only test cases genuinely linked to that requirement are returned, with no duplicates even if a case's link row
+  has been touched more than once.
+
+**EXECUTED 2026-10-23 — PASS, confirmed live.** Filtered to requirement id 3
+(`REQ-RFTC011-4 Multi-defect RTM check`): returned exactly 4 results (issues #24, #2063, #2115, #2116) — matching
+`RequirementIssue.where(requirement_id: 3)`'s real membership one-for-one (a 5th stale link to a deleted issue,
+#2121, correctly does not appear since that issue no longer exists).
+
+---
+
+### TC-TCM-302: Issues list's "Add filter" — Defects filter
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. Open the Issues list filtered to the Testcase tracker.
+2. Use "Add filter" → **Defects**, select a specific defect, Apply.
+
+**Expected Result:**
+- Only test cases genuinely linked to that defect are returned — and each matching test case appears **once**,
+  even if it has more than one recorded result row connected to the same defect.
+
+**EXECUTED 2026-10-23 — PASS, confirmed live.** Filtered to defect id 25: returned exactly 1 result (issue #24),
+correctly de-duplicated — issue #24 actually has **two** separate `IssueStatusResult` rows both linked to defect
+#25 (`ExecutionDefect` ids 8 and 9), but the filter correctly shows the issue once, not twice. This filter's own
+de-duplication-by-issue behavior is a useful contrast to BUG-TCM-097/098's "All Suites in Run" gap, which does not
+de-duplicate in the equivalent situation.
+
 ---
 
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-128 – 316 | Authoring, editing, deletion | — |
-| TC-TCM-144 – 324 | Suite organisation, requirement assignment | — |
+| TC-TCM-128–143 | Authoring, editing, deletion | BUG-TCM-021, 022, 024 (all closed, fix reconfirmed 2026-10-22/23) |
+| TC-TCM-144–151, 295–298 | Suite organisation, requirement assignment | BUG-TCM-025, 026 (closed, fix reconfirmed); BUG-TCM-095, 096, 097, 098 (open, found/confirmed 2026-10-22/23) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-138, 321 and 324 are the highest-risk cases — they probe data loss and double counting.
+- TC-TCM-138 and TC-TCM-151 are the highest-risk cases in this file — they probe data loss and double counting.
+  TC-TCM-138 PASS (deletion cascades cleanly); TC-TCM-151 FAIL (BUG-TCM-097, double counting/contradictory status
+  confirmed).

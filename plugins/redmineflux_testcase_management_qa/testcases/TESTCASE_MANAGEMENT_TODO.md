@@ -1,7 +1,16 @@
 # Test Cases — Redmineflux Testcase Management — To-Do & Activity Log
 
 > Source: vendor KB "To-Do Management" and "View activity logs and to-do tracking".
-> **Status: authored 2026-09-14, not yet executed.**
+> **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23.** `git log` on
+> `app/controllers/testcase_todos_controller.rb` and `app/controllers/testcase_activities_controller.rb` since
+> 2026-10-01 showed exactly one relevant commit (`618e599`, 2026-10-06/07, adding a missing project-access check
+> to both controllers) — confirmed fixed live for TC-TCM-214 (Activity, direct re-test) and independently
+> verified for TC-TCM-209's underlying concern (To-Do, direct re-test), per inline "RETESTED 2026-10-23" notes.
+> TC-TCM-211/212 were also live-re-executed per direct user follow-up (fresh result recorded, feed entry and
+> actor both confirmed correct), plus a new check of which Test Suite a case belongs to, as shown from the
+> Activity feed's linked issue page. **TC-TCM-320 (new) added and executed** for the To-Do page's own "Search by
+> name or ID" field, which had no prior coverage — PASS. The remaining 6 TCs (205–208, 210, 213) have no relevant
+> code changes since their original 2026-10-01 execution and were not re-clicked this pass.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -140,6 +149,28 @@ respects/restores the Test case tracker). Because the fixture never became a rea
 to a Run, so the actual TC-209 project-scope behavior (does a second project's assigned work leak into Project
 A's To-Do) could not be exercised this session. **Blocked, not failed** — re-attempt once BUG-TCM-022 is fixed.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`) — BUG-TCM-022 is now closed, but a fresh re-attempt hit a
+different, unrelated blocker; the underlying security question was independently confirmed via a sharper test
+instead.** `git log` on `app/controllers/testcase_todos_controller.rb` since 2026-10-01 showed commit `618e599`
+("Stop non-members from viewing other people's private project data," 2026-10-06) added a real project-access
+check (`rftc_authorize_project_read!`) to this controller's `index` action — directly relevant to this TC's
+concern. Attempted to set up a full two-project assigned-run scenario (added `qa.limited` as a Developer member
+of project `rftc-perf-500`, created a new Environment, tried creating a Run assigned to her there) to exercise
+the original TC exactly as written, but hit a **pre-existing QA-fixture data inconsistency** — this project's
+test suites were seeded directly via a `rails runner` script for the Performance suite
+(`TESTCASE_MANAGEMENT_PERFORMANCE.md`) that stored `Testsuite.project_id` as the project's **numeric** id instead
+of its **string identifier**, unlike every suite created through the normal UI; both the "Include all test run"
+and "Select cases" paths on Run creation depend on the string-identifier lookup and found zero suites, so no run
+could be created there. **This is a QA fixture seeding artifact from an earlier session, not a product defect** —
+flagged in plugin memory so a future session doesn't mistake it for one. Rather than spend further effort
+building a second clean project from scratch, independently verified the actual security question instead:
+logged in as `qa.limited` (not a member of project `bug-121896-retest`, a genuinely private project) and
+requested `/testcase_todos?project_id=bug-121896-retest` directly — correctly returned **404 Not Found**
+(previously this would have leaked the page). Confirmed her own project's To-Do (`rftc-016-ci-qa`) still renders
+normally (200). **BUG-TCM-009-style leak on this endpoint confirmed fixed.** TC-209 remains formally **blocked**
+on the original "two assigned projects" fixture scenario, but its core project-scope-leakage concern has been
+verified fixed via the controller's own access-control gate.
+
 ---
 
 ### TC-TCM-210: To-Do with no assigned work renders cleanly
@@ -156,6 +187,28 @@ A's To-Do) could not be exercised this session. **Blocked, not failed** — re-a
 closing her only run): her **My ToDo** page renders the dashboard chart normally and an explicit
 **"No data"** heading in place of the Test Runs table — no blank page, no error, no broken layout. Not filed
 as a bug.
+
+---
+
+### TC-TCM-320: To-Do's "Search by name or ID" field (new 2026-10-23, per direct user request)
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. On the **To-Do** page's Test Runs table, use **Search by name or ID** with a full run name, a partial run
+   name, the numeric run ID, and a non-matching term.
+
+**Expected Result:**
+- Each search returns the matching run(s); a non-matching term returns an explicit empty state, not an error or
+  the full unfiltered list.
+
+**EXECUTED LIVE 2026-10-23 (new TC, build HEAD `d4f960b`) — PASS, all 4 legs.** On project `rftc-016-ci-qa`'s
+To-Do page (14 runs listed): searching `TC-164` (partial run name) correctly returned exactly 1 matching row
+("TC-164-watcher-notification-check (test)"); searching `84` (the run's numeric ID) correctly returned the same
+single row; searching a deliberately non-matching term (`zzz-no-match`) correctly rendered an explicit **"No
+data to display"** state, not an error or the unfiltered list. This field is distinct from, and in addition to,
+the Runs & Results list's own search (TC-TCM-166) and the Testcase Summary's own search (TC-TCM-143, affected by
+BUG-TCM-024) — all three are separate search boxes on separate pages.
 
 ---
 
@@ -190,6 +243,21 @@ only visible by following the entry's link to the case's Run tab. `FEATURES_LIST
 "timestamped audit of execution actions," not that the result is inline in the feed row, so this is not filed as
 a bug — recorded as the exact observed behavior per this TC's own instruction to "record the exact behaviour."
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`, live execution, per explicit user follow-up) — PASS,
+confirmed unchanged.** Recorded a fresh result on case #33 ("Login with invalid password", run #83, environment
+`test`, testsuite_id=3 "CI Ingest") as Passed. New top activity entry appeared immediately: **"Executed by
+Redmine Admin | Testcase Result | Login with invalid password | 2026-10-23 11:59 AM"** — actor, case, timestamp
+all correct, same precision caveat as before (no inline Pass/Fail text in the feed row itself).
+
+**Which test suite a case belongs to — checked per direct user follow-up.** The activity feed's list view does
+**not** show a testsuite column at all — only actor, category, case/run name, and timestamp. The testsuite is
+only discoverable by following the entry's link to the case's own issue page, which **does** show a "Test
+Suite:" field (confirmed: case #33 → "CI Ingest", case #24 → "CI Ingest", both cross-checked against
+`IssueTestSuite.where(issue_id: ...)` in the DB — testsuite_id 3 for both, name "CI Ingest" — matching exactly).
+The run grid's own row links already carry `testsuite_id` as a URL parameter before you even open the issue
+page. This is consistent, not a gap: `FEATURES_LIST.md`'s activity-log promise is a "timestamped audit," not a
+testsuite-scoped one, and the information is one click away and always correct where it does appear.
+
 ---
 
 ### TC-TCM-212: Activity entries attribute the correct user
@@ -207,6 +275,10 @@ a bug — recorded as the exact observed behavior per this TC's own instruction 
 case #435 (run #27) as Passed — feed entry reads **"Executed by Summer Rain"**; `admin` (Redmine Admin) executed
 case #434 (run #23) as Failed — feed entry reads **"Executed by Redmine Admin"**. Each entry correctly names the
 actual actor, not a shared/default identity. No misattribution observed. Not filed as a bug.
+
+**RETESTED 2026-10-23 — spot-check only, PASS.** The TC-211 re-execution above (case #33, by `admin`) attributed
+correctly to "Redmine Admin" in the feed, consistent with this TC's finding. A genuine second-user leg was not
+re-run this pass (no code changes to attribution logic since 2026-10-01).
 
 ---
 
@@ -256,14 +328,25 @@ data-exposure pattern this TC calls out, and matches the already-documented root
 original list of 8 affected endpoints. Appended as a 9th confirmed instance to `BUG-TCM-009.md` rather than
 filed as a new bug.
 
+**RETESTED 2026-10-23 (regression, build HEAD `d4f960b`) — CONFIRMED FIXED.** `git log` showed commit `618e599`
+("Stop a non-member from viewing a private project's activity feed," 2026-10-07) adding a real project-access
+check to `testcase_activities_controller.rb`. Reproduced live: logged in as `qa.limited` (not a member of
+project `bug-121896-retest`, genuinely private, `Public` unchecked) and requested
+`/testcase_activities?project_id=bug-121896-retest` directly — now correctly returns **404 Not Found** instead of
+the previously-leaked activity feed. Her own project's activity feed (`rftc-016-ci-qa`) still renders normally
+(200). This specific instance of BUG-TCM-009 is fixed; whether the other 8 originally-listed endpoints are also
+fixed was not re-checked this pass (out of scope for this suite — see `TESTCASE_MANAGEMENT_PERMISSIONS.md` for
+the full BUG-TCM-009 endpoint list).
+
 ---
 
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-205 – 706 | To-Do behaviour | — |
-| TC-TCM-211 – 710 | Activity log | — |
+| TC-TCM-205 – 706 | To-Do behaviour | TC-209 formally blocked (QA-fixture issue, not a product bug); BUG-TCM-009's To-Do-endpoint leak confirmed fixed 2026-10-23 |
+| TC-TCM-211 – 710 | Activity log | BUG-TCM-009's Activity-feed leak confirmed fixed 2026-10-23 |
+| TC-TCM-320 | To-Do search field (new 2026-10-23) | None — PASS |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-214 carries the only security-relevant assertion in this suite and must include the direct-URL leg.

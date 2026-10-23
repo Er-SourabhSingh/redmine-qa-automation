@@ -216,6 +216,12 @@ was retested directly against the already-running `localhost:3000` stack (projec
   layout, table columns not a heading) and Requirement Coverage has no such heading at all.
 - **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
 
+## Re-confirmed fixed — 2026-10-23 (full-plugin regression, build HEAD `d4f960b`, run #83)
+
+Re-checked as part of the Reports-suite regression pass (reports #136/#138/#140/#141, `rftc-016-ci-qa` project):
+Testcase Summary, Activity Summary, Defect Summary and Overdue Run Summary PDFs all show the correct heading and
+(for Overdue Run Summary) the "Overdue by N days" text. Still FIXED — no regression.
+
 ## Production report
 
 Reported 2026-10-20 as issue #124054 on `ztflux`, via `redmineflux_core_create_issue`

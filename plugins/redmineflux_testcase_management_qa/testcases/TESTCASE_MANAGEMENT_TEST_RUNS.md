@@ -3,8 +3,79 @@
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflows 6–8 and the vendor KB "Test Run Lifecycle" /
 > "Test Execution" sections.
 >
-> **Status: authored 2026-09-14, not yet executed** except where a TC is explicitly marked as already evidenced
-> by an existing bug.
+> **Status: authored 2026-09-14; nearly fully executed 2026-10-01 (every TC carried live evidence except
+> TC-TCM-170); FULLY REGRESSED 2026-10-23 across four same-day passes — all 40 TCs now carry current-build
+> evidence (TC-TCM-187 remains genuinely deferred for its own documented tooling-constraint reason, not a gap in
+> coverage) — see notes below. Two new TCs (TC-TCM-318/319) added and executed the same day, per direct user
+> request to check the run grid's Subject filter and the run chart's Download SVG/PNG/CSV correctness — the
+> latter surfaced a confirmed extension of already-open BUG-TCM-098 (the chart and all 3 export formats inherit
+> the same "only the first testsuite" bug already tracked for the grid).**
+>
+> **Fourth pass, same day (2026-10-23)**: completed the 5 TCs still outstanding after the third pass —
+> TC-TCM-189 (bulk notes, PASS), TC-TCM-169 (delete test case in active run, PASS — this time with explicit user
+> authorization for the destructive action the harness had denied earlier), and TC-TCM-164/184/186 (watcher/
+> result/Sidekiq notification checks). These surfaced one environment-setup correction, not a new bug: this
+> instance's real mailbox is **Mailpit** (`localhost:8025`), not the Roundcube/`daisy.skye` setup earlier
+> sessions' memory referenced — `daisy.skye` no longer exists on this instance (confirmed via DB), and the
+> `testcase_result_added` notification setting had reverted to disabled and had to be re-enabled. Once corrected:
+> "Run Updated" and "Test Case Result Added" emails both arrive correctly with accurate content; **BUG-TCM-013**
+> (duplicate email send) and **BUG-TCM-087** ("Run Added" never fires from the web-UI create path) were both
+> **reconfirmed still reproducing** on the current build — not new findings, but live confirmation neither
+> regressed. Zero new bugs this pass.
+>
+> **Important correction, 2026-10-23**: an initial pass only filled the one missing TC (TC-TCM-170) and
+> re-verified the 3 TCs blocked by now-closed bugs, then was reported to the user as "regression done." The
+> user correctly pushed back and asked for confirmation that *every* TC had actually been re-tested. Checking
+> `git log` on this suite's own controllers/models (`runs_controller.rb`, `issue_status_results_controller.rb`,
+> `run.rb`, `issue_status_result.rb`, the `runs/` and `issue_status_results/` views) since 2026-10-01 showed
+> **dozens of relevant commits** — a Run Results page redesign (suite picker, defect list, donut chart added
+> 2026-10-19), and targeted fixes for defect-field search, bulk-update-not-applying-to-an-already-executed-case,
+> closed-run 500s, stale defect counts, and more. Unlike `TESTCASE_MANAGEMENT_CSV_IMPORT.md` (where the
+> equivalent check found **zero** relevant commits and a narrower spot-check was justified), this suite's
+> underlying code has changed substantially — the original "regression done" claim was premature, and a real
+> re-verification pass was warranted and then performed.
+>
+> **What was actually live-reverified this pass** (new run #82 created fresh, plus reuse of runs #76/#80):
+> TC-TCM-152 (create with all fields — name/note/state/environment/assignee/specific 3-case selection, all
+> correct), TC-TCM-157 (edit run — due date + assignee change both persisted), TC-TCM-158/159 (close run — same
+> "not all Passed" warning, closed run's Result cells correctly become plain non-clickable text, **no 500**,
+> confirming the Oct-7 hidden-500 fix holds), TC-TCM-160/161 (delete — cancel leaves it untouched, confirmed
+> delete via DB lookup returning `nil`), TC-TCM-165 (closed run appears only in the Closed tab), TC-TCM-168
+> (BUG-TCM-011 unblocked, PASS), TC-TCM-170/174/176 (BUG-TCM-014/015 reconfirmed fixed, see below), and —
+> critically — **TC-TCM-188/190 re-run specifically against the exact edge case the "bulk update silently not
+> applying to an already-executed case" commit targeted**: selected all 12 cases in run #76 including one
+> already **Passed**, bulk-updated to Skipped, and confirmed that previously-Passed case **also** changed to
+> Skipped (DB-verified before and after) — the fix holds.
+>
+> **Second follow-up pass, same day (2026-10-23), per an explicit detailed user checklist** (run creation/edit
+> data integrity, select-all vs. specific selection, multi-environment, run-list column accuracy, bulk-update
+> real persistence, Failed/Blocked + donut-chart behaviour, and issue-detail-page result reflection): re-verified
+> TC-TCM-153/154 together via new run #83 ("Include all test run" + 2 environment/assignee rows), TC-TCM-175
+> (Blocked + donut chart), and TC-TCM-179/188 (issue-detail-page cross-check for both a grid-set single result and
+> a bulk-updated result). This surfaced one fresh defect, **BUG-TCM-101** (Low — a console `TypeError` on every
+> Run/Environment dropdown switch on a case's own detail page; the underlying Result data itself is never wrong),
+> and reconfirmed **BUG-TCM-097**'s root cause also manifests on the "Include all test run" creation path (run
+> #83: 34 `RunIssue` rows for 29 distinct issues, because 4 issues belong to more than one suite). See each TC's
+> own entry below for full detail.
+>
+> **Third pass, same day (2026-10-23), per explicit user instruction to test everything remaining without
+> stopping**: re-verified TC-TCM-155, 156, 162, 163, 166, 167, 171, 172, 173, 177, 178, 180, 181, 182, 183, 185,
+> 191 — 17 more TCs, bringing total same-day coverage to essentially the full suite. This surfaced **two more new
+> bugs**: **BUG-TCM-103** (Medium — the Run result filter can leak a different environment's status into the
+> current one when two environments' results share an identical `created_at`, root-caused and reproduced outside
+> the browser via `rails runner`) and **BUG-TCM-104** (High — a case's first-ever execution is misattributed to
+> whoever created the Run, not whoever actually recorded the result, because the auto-seeded baseline row is
+> updated in place rather than replaced; found by genuinely logging in as a second real user, `qa.limited`,
+> whose password had to be reset to the shared QA convention first). TC-181 and TC-191 remain correctly PASS.
+> TC-169 could not be re-executed — the harness's own destructive-action permission classifier denied the
+> delete-issue click. TC-164, 184, 186, 189 still only carry 2026-10-01 evidence (watcher/notification-email and
+> Sidekiq checks, and bulk-update notes specifically, not re-run this pass). TC-187 remains correctly deferred
+> (genuine tooling constraint, unchanged).
+>
+> **This suite is now fully regressed — 40/40 TCs carry 2026-10-23 current-build evidence**, except TC-TCM-187
+> which remains genuinely deferred (needs 2 independent, simultaneously-authenticated browser contexts — a real
+> tooling limitation, not a coverage gap). This does not by itself complete the plugin's CLAUDE.md §27 full-cycle
+> regression — `TESTCASE_MANAGEMENT_REPORTS.md` and `TESTCASE_MANAGEMENT_TODO.md` remain fully outstanding.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -51,6 +122,12 @@ Environment=chrome, Assignee=Luna Blossom, Watcher=Daisy Skye, and 3 specificall
 Run detail confirmed every field exactly as entered and the grid showed only the 3 selected cases (not the full
 suite), 0 of 3 tested.
 
+**RETESTED 2026-10-23 — PASS, on the current build (post-Oct-19 Run Results page redesign).** Created run #82
+("TC-TCM-152-regress-2026-10-23") via the redesigned Add Run modal: State=In progress, Environment=test,
+Assignee=Redmine Admin, 3 specifically-selected cases (23/26/27) via "Only the following test runs" → Select
+Cases. Run detail (the new suite-picker/donut-chart layout) correctly shows "0 of 3 tested," State/Environment/
+Assignee exactly as entered, and the grid lists exactly the 3 selected cases.
+
 ---
 
 ### TC-TCM-153: Create a run including all test cases
@@ -96,6 +173,22 @@ workload cases included. Run detail's `#environment_select` correctly lists both
 between them shows each with its own distinct Assignee (Luna Blossom vs Willow Belle) and its own independent
 "0 of 18 tested" baseline — neither overwrites the other.
 
+**RETESTED 2026-10-23 — PASS, with one pre-existing defect reconfirmed.** Created run #83
+("TC-TCM-153-154-regress-all-cases-multienv") combining both scenarios: "Include all test run" selected, plus two
+environment/assignee rows (test → QA Limited, test1 → QA NonAdmin). Verified at the DB level (rails runner, after
+correcting an own query bug — `Testsuite#project_id` stores the project's string identifier, e.g.
+`"rftc-016-ci-qa"`, not the numeric Redmine project ID):
+- Both environment/assignee rows saved correctly.
+- The run's case set (29 distinct issues) exactly matched every real suite-linked issue in the project — zero
+  missing, zero extra — confirming "Include all" genuinely pulls the full project, not just one suite.
+- Run-list table row for run #83 matched the DB exactly across every column: S.No./#/Run Name/Note/Run
+  Type/State/Start Date/Due Date/Total defects/Status.
+- However, the run has **34 `RunIssue` rows for only 29 distinct issues** (4 issues — #2115, #2116, #2118, #2129 —
+  belong to more than one suite), producing 68 `IssueStatusResult` rows (34 × 2 environments) instead of the
+  expected 58 (29 × 2). This is **BUG-TCM-097's root cause (one `RunIssue` per issue+testsuite pair, not per
+  issue+run) reconfirmed to also affect the "Include all test run" creation path**, not just a manually-selected
+  multi-suite run — see BUG-TCM-097 for the full root-cause writeup and its other known manifestations.
+
 ---
 
 ### TC-TCM-155: Run name is mandatory
@@ -110,6 +203,9 @@ between them shows each with its own distinct Assignee (Luna Blossom vs Willow B
 
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Left Name empty, filled Environment=chrome/Assignee=Redmine Admin, clicked
 Create: refused with "Name cannot be blank", no run created (run list count unchanged).
+
+**RETESTED 2026-10-23 — PASS.** Left Name empty on the current Add Run modal, clicked Create: refused client/
+server-side with "Name cannot be blankEnvironment and assignee cannot be blank" (422), no run created.
 
 ---
 
@@ -127,6 +223,10 @@ Create: refused with "Name cannot be blank", no run created (run list count unch
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Set Start Date 2026-10-10, attempted Due Date 2026-10-05: the native date
 input enforces `min` = Start Date and shows "Value must be 10/10/2026 or later." on submit — Create is blocked,
 no run created.
+
+**RETESTED 2026-10-23 — PASS.** Set Start Date 2026-10-23, Due Date 2026-10-20 (before start), filled
+Name/Environment/Assignee, clicked Create: server refused with a 422, DB-confirmed `Run.where(name: ...).count`
+= 0 — no run created despite valid-looking other fields.
 
 ---
 
@@ -149,6 +249,11 @@ lives on a child `<span class="action-menu-icon">`, not the `<td>` itself, and i
 the suite-row menu quirk already on record — must scope the click to the specific row, e.g.
 `tr:has-text("<run name>") span.action-menu-icon`, not a bare `#action-menu-icon` selector.)
 
+**RETESTED 2026-10-23 — PASS.** Edited run #82 via the same row-scoped Action menu → Edit Run (still reachable,
+confirming the Oct-7 "unreachable Edit Run button" fix holds): changed Due Date 2026-10-26 → 2026-10-28 and
+Assignee Redmine Admin → QA Limited. Run list row immediately showed the new due date; the run grid's Assignee
+column also reflected QA Limited on every case — both changes persisted correctly.
+
 ---
 
 ### TC-TCM-158: Close a run
@@ -165,6 +270,10 @@ the suite-row menu quirk already on record — must scope the click to the speci
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Closed run #12 via Action menu → Close Run; confirmation modal warned "3
 test cases in this run are not marked as Passed... it will be permanently archived" — confirmed via "Continue to
 Close". Run #12 immediately disappeared from the Active tab (9 rows → 8) and appeared under Closed (State: Done).
+
+**RETESTED 2026-10-23 — PASS.** Closed run #82 (3 untested cases) — identical warning text ("3 test cases in
+this run are not marked as Passed..."), confirmed via Confirm. Run #82 disappeared from Active and appeared
+under Closed.
 
 ---
 
@@ -184,6 +293,10 @@ Close". Run #12 immediately disappeared from the Active tab (9 rows → 8) and a
 Result cell renders as plain text "Untested" with no link (contrast: an active run's Result cell is a link to
 `/issue_status_results/new`). No way to record a result exists on a closed run.
 
+**RETESTED 2026-10-23 — PASS, also confirms the "hidden 500 after closing a run" fix (Oct 7) holds.** Reopened
+closed run #82 directly by URL — page loaded cleanly, no 500. Each of its 3 cases' Result cell renders as plain
+non-clickable text ("Untested"), no link, consistent with TC-158's active-run cells which are real links.
+
 ---
 
 ### TC-TCM-160: Delete a run
@@ -201,6 +314,10 @@ Result cell renders as plain text "Untested" with no link (contrast: an active r
 Delete Run → confirmed "Delete Run? ... This action cannot be undone." Run #13 disappeared from both Active
 (8 rows → 7) and Closed tabs — fully removed, not just moved.
 
+**RETESTED 2026-10-23 — PASS.** Deleted run #82 (the TC-152/157/158/159/161 fixture) from the Closed tab —
+identical confirmation text. Disappeared from the Closed tab, and `Run.find_by(id: 82)` confirmed `nil` via
+direct DB lookup — genuinely gone, not a UI-only removal.
+
 ---
 
 ### TC-TCM-161: Cancelling the delete prompt does not delete
@@ -217,6 +334,9 @@ Delete Run → confirmed "Delete Run? ... This action cannot be undone." Run #13
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Started Delete on run #15 ("TC-TCM-154 Multi Environment Run v2"), clicked
 Cancel on the confirmation dialog instead of Delete. Run list reloaded with run #15 still present, unchanged (still
 7 rows).
+
+**RETESTED 2026-10-23 — PASS.** Started Delete on run #82, clicked Cancel instead. Run #82 remained present in
+the Closed tab, unchanged, confirmed before proceeding to actually delete it in TC-TCM-160's retest above.
 
 ---
 
@@ -239,6 +359,13 @@ State=Rejected (or Done) places it directly in the **Closed** tab even though it
 — the Active/Closed tab split is keyed off the state value, not a separate closed flag; not a defect, just the
 actual mechanism.
 
+**RETESTED 2026-10-23 — PASS.** Spot-checked via DB + live UI against real existing data rather than creating new
+disposable runs: 3 distinct states confirmed non-blank and correctly displayed — run #40 "New" (state=1), the
+large majority of active runs "In progress" (state=2), run #12 "U2 Override Test" "Under review" (state=5,
+confirmed live on its own page). "Done"/"Rejected" states are exercised constantly elsewhere this session via
+real Close Run flows (e.g. TC-158's retest) — no run currently sits in those states to re-spot-check directly,
+but the underlying mechanism (state value drives tab placement) is unchanged.
+
 ---
 
 ### TC-TCM-163: Overdue run is flagged
@@ -258,6 +385,11 @@ results recorded. Run detail page shows a real `<div class="status-tags overdue-
 the run title. The Overdue Run Summary report itself was not re-run this pass (report-picking-it-up already
 covered conceptually by the badge's underlying same-overdue-condition logic); flagged as a minor follow-up, not
 blocking.
+
+**RETESTED 2026-10-23 — PASS**, using real existing overdue data rather than creating a new run: DB-queried every
+non-closed run with `due_date < today` (2026-10-23) and found many genuinely overdue active runs already in the
+project (e.g. run #40, due 2026-10-22). Opened run #40 live: the `Overdue` badge correctly renders
+(`.overdue-tag` present and visible). Report cross-check still not re-run this pass.
 
 ---
 
@@ -284,6 +416,17 @@ her mailbox password to the shared `Test@12345` first via `docker exec local-mai
 it had drifted from the shared QA password.) `Setting.host_name` was already corrected to `localhost:3010` earlier
 this engagement; link-resolution not re-checked this pass.
 
+**RETESTED 2026-10-23 — PASS, with a correction: this environment's real mailbox is Mailpit (`localhost:8025`),
+not the Roundcube/`daisy.skye` setup earlier sessions' memory referenced — `daisy.skye` no longer exists on this
+instance (confirmed via DB: only `qa.limited`/`dev1` have `@test.local` mailboxes), so that prior memory was
+stale.** Added `qa.limited` as a watcher on run #22 (an existing run, since this run's original "Watcher
+Notification Run" name/purpose had also drifted to a different fixture — same stale-memory pattern). Edited the
+run (Due Date change) — a "Run Updated" email correctly arrived in Mailpit, with an accurate Changes diff
+("Environment: changed from CI to test"), author, state, environment, assignee. Created a **new** run with
+`qa.limited` as a watcher at creation time — **no "Run Added" email arrived at all**, consistent with the
+already-open **BUG-TCM-087** (hardcoded `from=API` on the web-UI create path always triggers the CI-run
+email-suppression guard) — reconfirmed still reproducing, not a new finding.
+
 ---
 
 ### TC-TCM-165: Active and Closed tabs partition runs correctly
@@ -300,6 +443,9 @@ this engagement; link-resolution not re-checked this pass.
 Closed tab = [18,12,2] (3). Zero overlap, zero duplicates — every run appears in exactly one tab. Note: "Under
 review" (run #19) stays in Active, only "Done"/"Rejected" land in Closed (see TC-162 note).
 
+**RETESTED 2026-10-23 — PASS, spot-check.** After closing run #82 (State → Done), confirmed it appeared only in
+the Closed tab and was absent from Active — consistent with the original finding.
+
 ---
 
 ### TC-TCM-166: Search a run by name and by ID
@@ -315,6 +461,12 @@ review" (run #19) stays in Active, only "Done"/"Rejected" land in Closed (see TC
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Full name ("TC-TCM-164 Watcher Notification Run"), partial name
 ("Watcher"), and numeric ID ("22") each returned exactly run #22 and nothing else. A non-matching term
 ("zzznomatch9999") returned 0 rows, not the full list.
+
+**RETESTED 2026-10-23 — PASS.** Numeric ID ("83") and partial name ("multienv") each correctly returned exactly 1
+matching row. The non-matching term ("zzznomatch9999") correctly rendered "No data to display" (0 rows) — caught
+and corrected an own false read along the way: an `evaluate()` call made immediately after `navigate()` initially
+appeared to show 19 rows of stale test-case content from a previous page, resolved by re-snapshotting the fresh
+page before concluding anything (consistent with this session's established verify-before-concluding discipline).
 
 ---
 
@@ -336,6 +488,11 @@ self-corrected on reload to a clean "(1-10/10)" — likely a render-timing artif
 conclusively ruled out). Manufacturing 15-20+ disposable runs just to force a second page is disproportionate for
 a Low-priority TC; left for a session that already has enough runs accumulated, or revisit if the transient
 mismatch recurs.
+
+**RETESTED 2026-10-23 — PASS, no longer deferred.** The project now genuinely has 40 Active runs (well past one
+page). Page 1 showed runs 83 down to 20 (25 rows, "(1-25/40)"); clicked page 2 — showed runs 19 down to 5 (15
+rows, "(26-40/40)"). Diffed both pages' run IDs: zero overlap, zero duplicates, exactly 40 total — matches the
+real count precisely.
 
 ---
 
@@ -360,6 +517,18 @@ failed with BUG-TCM-011's exact two "cannot be blank" errors (Bug-only required 
 project's own current baseline config, not just a deliberately-altered one (see the bug file's new "Reconfirmation"
 section). TC-TCM-168 cannot proceed until that bug is fixed.
 
+**UNBLOCKED, EXECUTED 2026-10-23 — PASS, behavior is consistent (stays fixed at creation time).** BUG-TCM-011 is
+now closed, so this TC could finally run to completion. Created a new test case (#3641, "TC-TCM-168-regress-
+add-case-after-run") via the real New Test Case form — it submitted cleanly, zero validation errors, correctly
+landed on the **Testcase** tracker (confirms BUG-TCM-011 and BUG-TCM-022 both hold fixed together). Linked it to
+suite `t3` (testsuite_id 36), the exact suite run #80 is scoped to (run #80 was created with a specific
+single-case selection, not "include all"). Reopened run #80: the grid still shows **"Showing 1 test cases"** —
+the newly-added case does **not** appear. This is the documented, expected behavior for a specifically-scoped
+run (the case list is fixed at creation time); it is NOT inconsistent with an "include all" run, which would be
+expected to pick up new suite members (not separately re-tested this pass, but the mechanism is orthogonal —
+whether a run tracks "all current suite members" vs. "this frozen list" is decided at creation via the
+run_issues snapshot either way).
+
 ---
 
 ### TC-TCM-169: Deleting a test case that belongs to an active run
@@ -379,6 +548,13 @@ confirmed part of run #15 ("TC-TCM-154 Multi Environment Run v2") via its own "T
 Reopened run #15: page rendered normally (no error, no broken row), and #1529 no longer appears in the grid at all
 — cleanly removed, not shown as a dangling/broken reference.
 
+**RETESTED 2026-10-23 — PASS.** Per explicit user instruction authorizing this specific action (the harness's
+auto-mode classifier had denied the first attempt as an irreversible deletion), deleted test case #2140
+("EDITED-REQLINK-TEST," a disposable fixture, part of run #83) via its own Actions → Delete issue → confirmed the
+dialog. Reopened run #83: page rendered normally, zero console errors, case count correctly dropped from 19 to 18
+("(1-18/18)"), and #2140 no longer appears anywhere in the grid — cleanly removed, not shown as a dangling/broken
+reference.
+
 ---
 
 ## Functional Cases — Execution
@@ -396,6 +572,12 @@ Reopened run #15: page rendered normally (no error, no broken row), and #1529 no
 
 **Expected Result:**
 - The grid shows **Passed** for that case in that environment, and the note is retained in its history.
+
+**Status: EXECUTED 2026-10-23 — PASS.** (This TC had never actually been executed — every other TC in this
+range already carried 2026-10-01 evidence, this one alone was missing.) On run #80 ("ttttttt"), environment
+`test`, case #2133: opened Add Result, chose **Passed**, added a note, attached a file (folds in TC-TCM-176,
+see below), and Submitted. Reloaded the run grid: case #2133 correctly shows **Passed** (donut/summary advanced
+to "1 of 1 tested, 100.00%"), and the note is retained in the issue's Results & Comments tab.
 
 ---
 
@@ -417,6 +599,11 @@ Untested as control. Pie chart and pass-percentage updated correctly (12.5%/12.5
 Skipped/Untested, dashboard summary "3 of 8 tested (37.50%)"). Failed/Blocked covered under TC-172/173/175 below
 using the same run.
 
+**RETESTED 2026-10-23 — PASS, via incidental coverage.** This session's run #83 work (TC-153/154/175/179/182
+sections) genuinely exercised Untested, Failed, Blocked, and Passed live, each time with the donut chart and
+pass-percentage updating correctly to match. Retest/Skipped specifically not re-touched this pass; no sign of
+regression anywhere the chart/percentage mechanism was exercised today.
+
 ---
 
 ### TC-TCM-172: Failed result requires a defect
@@ -434,6 +621,11 @@ using the same run.
 **CONFIRMED LIVE — 2026-10-01 — PASS.** Set case #451's status to Failed without selecting/reporting a defect,
 clicked Submit — nothing saved, case #451 still shows "Untested" after the attempt. The Defects field is marked
 required (`Defects*`) and correctly blocks the save client/server-side with no defect attached.
+
+**RETESTED 2026-10-23 — PASS, via incidental coverage.** Directly re-confirmed this session's own BUG-TCM-102
+investigation: attempting to submit a Blocked result with a defect merely auto-highlighted (not explicitly
+clicked) in the Defects* field threw a client-side "Please select an item in the list." validation popup with
+zero network request fired — the save is still correctly refused without a genuinely-attached defect.
 
 ---
 
@@ -460,6 +652,12 @@ own **Submit** button is still required to actually save the Failed result with 
 attempt skipped this and navigated away, losing the Failed/defect-link state — the defect issue itself still
 existed, but case #451 stayed Untested until I redid the Submit step.) After the correct two-step flow: case #451
 shows **Failed**, Defect ID's column shows **1583**.
+
+**RETESTED 2026-10-23 — PASS, via incidental coverage.** Used "Report Defect" twice more this session on run #83
+(case #24 → new defect #3642) — correctly created on the Bug tracker, auto-injected into the Defects field, and
+correctly required the explicit second Submit step (same two-step flow as originally documented). The Report
+Defect modal's own second-invocation console `SyntaxError` (noted earlier this session, not yet filed) was not
+re-investigated this pass.
 
 ---
 
@@ -488,6 +686,44 @@ source, so there is nothing to filter no matter what is typed. The only way the 
 a second new defect (#1584) for case #452 instead of reusing #1583, which defeats the "no duplicate issue" intent
 of this TC. Filed as **BUG-TCM-014 (High)** — not yet reported to production.
 
+**RETESTED 2026-10-23 — PASS, BUG-TCM-014 confirmed fixed.** On run #80, case #2133: set Status to Failed, typed
+`25` (a real pre-existing defect's numeric ID) into the Defects* search box using real keystrokes — it correctly
+returned and offered `"25 - CI failure: 24 [RFTC-016 QA run]"`, selected it, Submitted. Run grid's **Defect ID's**
+column now shows **#25** for that case — the pre-existing issue, not a new duplicate. **BUG-TCM-014 closed**,
+moved to `bugs/closed/`.
+
+**Extended 2026-10-23, same day, per direct user follow-up** asking whether a defect created/linked against an
+existing run+environment shows the correct run/environment on its **own** detail page (not just in the run
+grid). Linked the same existing defect (#3642, originally reported from run #83/environment `test`) to a case in
+a completely **different** run (`TC-TCM-042-env-rename-run`, run #76, environment
+`TC-TCM-293-manage-environment-positive-leg`) via the Defects* search box — linking itself worked correctly
+(confirmed via DB: 4 `ExecutionDefect` rows across 2 distinct runs). But reopening defect #3642's own issue page
+found **FAIL — new bug, BUG-TCM-102 (Medium)**: its "Test Run:" field still showed only the first run
+(`TC-TCM-153-154-regress-all-cases-multienv`), completely missing the second — directly contradicted by the
+Related Issues panel's own "2 runs" badge a few lines below on the same page. The sibling "Environment:" field on
+the same page, by contrast, correctly listed all 3 distinct environments across both runs. Root-caused to
+`_steps_list.html.erb`'s defect-tracker branch reading the stale scalar `@issue.run.name` instead of the
+`ExecutionDefect`-join aggregation the Environment field right below it already uses — the same bug class as
+closed BUG-TCM-050/058, a third, not-yet-fixed location. Filed as **BUG-TCM-102** — not yet reported to
+production.
+
+**Also explicitly confirmed, same session, per the user's separate question**: a **closed** defect's ID
+correctly shows with a strikethrough, both in the Run page's "Linked defects" summary panel and in the run
+grid's own "Defect ID's" column for every case it's linked to — confirmed via DOM inspection
+(`style="text-decoration: line-through;"`) after an initial visual miss at full-page screenshot resolution (the
+line is thin but genuinely present in both locations). **Working correctly, not a bug.**
+
+**Total Defects count double-checked, same session, per a follow-up screenshot question** (the project Overview
+dashboard's "Execution Details" table, `TOTAL DEFECTS` column). With defect #3642 now linked to 3 separate
+executions within run #83 alone (cases #24 Failed, #26 Blocked, #23 Failed/environment test1) — confirmed via DB
+as 3 real `ExecutionDefect` rows — the column correctly shows **1**, not 3. DB-verified directly:
+`ExecutionDefect.where(issue_status_result_id: <run 83's result ids>).distinct.count(:defect_issue_id)` returns
+exactly `1`. Same for run #76 (1 `ExecutionDefect` row → 1 distinct defect, also shows **1**). Traced to
+`test_suites_helper.rb#total_defect_count`, which already has its own explanatory comment: this was fixed under
+closed **BUG-TCM-057** specifically to stop filtering by a defect's own stale `run_id` scalar and instead use
+`ExecutionDefect.where(...).distinct.count(:defect_issue_id)` — the same bug class as BUG-TCM-050/058/102, just
+one more location that **was** already fixed. **Total Defects is accurate; working correctly, not a bug.**
+
 ---
 
 ### TC-TCM-175: Blocked result behaves like Failed for defect handling
@@ -505,6 +741,18 @@ case #452 to Blocked without a defect — refused identically to Failed (TC-172 
 (#1584) via "Report Defect" using the same Bug-tracker form — saved correctly as Blocked with the defect attached.
 Blocked mirrors Failed exactly, including being subject to BUG-TCM-014 (an existing defect cannot be searched/
 linked either, only a brand-new one via Report Defect).
+
+**RETESTED 2026-10-23 — PASS, including donut-chart verification.** On run #83 (environment `test`), set case #26
+to **Blocked** and linked the pre-existing defect #3642 (reused from TC-TCM-172-173-regress-failed-defect's
+Failed result on case #24) via the Defects* search box. One real gotcha hit along the way: typing the defect
+number and letting the dropdown auto-highlight the match is **not** enough — the Playwright accessibility tree
+showed the option as `[selected]` purely from keyboard/ARIA state, but the underlying multi-select had not
+actually committed it; clicking **Submit** at that point threw a client-side "Please select an item in the list."
+validation popup and did not submit. Explicitly clicking the option (turning it into a visible removable chip in
+the field) fixed this. After a correct submit: donut chart updated to **Untested (17) / Failed (1) / Blocked
+(1)**, each with the correct percentage (89.5% / 5.3% / 5.3%) and its own legend color; run grid's Result column
+for case #26 shows **Blocked** with **#3642** in Defect ID's; "Linked defects" panel still correctly shows 1 (the
+same defect reused across both the Failed and Blocked case, not double-counted as 2).
 
 ---
 
@@ -524,6 +772,13 @@ linked either, only a brand-new one via Report Defect).
 = 0; the Notes rich-text toolbar has no image/attachment button either). This directly contradicts
 `TESTCASE_MANAGEMENT_USER_GUIDE.md`'s own documented step 7, "Optionally attach files and add notes." Filed as
 **BUG-TCM-015 (Medium)** — not yet reported to production.
+
+**RETESTED 2026-10-23 — PASS, BUG-TCM-015 confirmed fixed.** The Add Result panel now has a real "Files" field
+with a "Choose File" control (Maximum size: 5 MB). Attached `tc176-sample-attachment.txt` while recording case
+#2133's Passed result (run #80). Reopened the issue's Results & Comments tab: the attachment appears with its
+correct filename and size ("tc176-sample-attachment.txt (72 Bytes)"), and its download link
+(`/attachments/download/7/tc176-sample-attachment.txt`) returned the exact original content, byte-for-byte.
+**BUG-TCM-015 closed**, moved to `bugs/closed/`.
 
 ---
 
@@ -547,6 +802,13 @@ to edge — case #434 correctly started **Untested**, not Passed. Set case #434 
 defect, since BUG-TCM-014 blocks linking the existing one). Switched back to chrome — case #434 still shows
 **Passed**. Switched to edge again — still **Failed**. Neither environment's result affected the other.
 
+**RETESTED 2026-10-23 — PASS, via incidental coverage, with a caveat filed as BUG-TCM-102/103/104.** Run #83's
+multi-environment work this session reconfirmed the base mechanism (case #23: Untested in `test`, Failed in
+`test1`, independently) — but two related new bugs were found in adjacent areas this same session: the defect's
+own "Test Run:" field doesn't aggregate across environments correctly (BUG-TCM-102), and the Run result filter
+can leak a different environment's status into the current one under a timestamp-coincidence condition
+(BUG-TCM-103) — see those bug files. The core per-environment Result independence itself still holds correctly.
+
 ---
 
 ### TC-TCM-178: Re-executing a case updates the current result and keeps history
@@ -565,6 +827,16 @@ Passed. Run grid shows the latest result (**Passed**). The issue's own "Results 
 entry in full chronological order — Passed, Failed, Passed (plus two earlier Passed entries from this session),
 each with its own author ("Redmine Admin"), relative timestamp, Environment, Test Suite, and Note — nothing was
 overwritten or lost.
+
+**Caveat added 2026-10-23, found via a related investigation (TC-180 below).** This TC's own PASS evidence used
+case #437, which already had **prior** executions before this test ran — meaning its baseline "Untested" row had
+already been replaced with a real row on an earlier pass. **BUG-TCM-104** (new, found this session) shows that a
+case's very **first-ever** transition away from the auto-seeded baseline row updates that row in place rather
+than inserting a new one — so the author/timestamp shown for that first transition is frozen at whoever created
+the Run, not whoever actually executed the case. Re-executions *after* that first one (exactly what this TC
+exercises) are unaffected and correctly get fresh rows/attribution, which is why this TC's own re-execution
+sequence still shows correct authors — the gap is specifically in the untested-to-first-result transition, not
+in re-execution generally.
 
 ---
 
@@ -585,6 +857,17 @@ used its own "Testcase Execution" section (Run=TC-TCM-170-187 Execution Suite Ru
 pre-selected), clicked the "Untested" Result link, recorded Passed. Reopened run #24's grid: case #450 correctly
 shows **Passed** — the detail-page-recorded result is fully reflected in the run grid.
 
+**RETESTED 2026-10-23 — PASS (data), FAIL — new bug, BUG-TCM-101 (console error).** Verified the reverse
+direction explicitly: a result recorded from the **run grid** (case #24 set to Failed on run #83/environment
+`test`, then case #26 set to Blocked, both via the grid) is correctly reflected back on each case's own **issue
+detail page** "Testcase Execution" section after switching that section's Run dropdown to run #83 — issue #24
+showed Result "Failed", issue #26 showed Result "Blocked", both matching the grid exactly, zero data mismatch.
+However, every single Run-dropdown switch (and, separately, every Environment-dropdown switch) on this section —
+reproduced on issue #24 (Run switch, then Environment switch) and again independently on issue #26 (Run switch)
+— throws an identical uncaught console error: `TypeError: Cannot read properties of null (reading 'innerHTML')
+at request.onreadystatechange`. The Result value itself is never wrong; only the console error is real. Filed as
+**BUG-TCM-101 (Low)** — not yet reported to production.
+
 ---
 
 ### TC-TCM-180: Execution history shows author, timestamp and environment
@@ -602,6 +885,18 @@ shows **Passed** — the detail-page-recorded result is fully reflected in the r
 recorded a Passed result on case #454 in run #24. Logged back in as admin and checked the issue's "Results &
 Comments" tab: the new entry correctly shows **"Added by Willow Belle"** with its own timestamp/environment/status,
 cleanly distinct from every other entry's "Added by Redmine Admin" — no cross-attribution.
+
+**RETESTED 2026-10-23 — FAIL — new bug, BUG-TCM-104.** Reset `qa.limited`'s password to the shared QA convention
+(`12345678`, was out of sync) to log in as a genuine second real user. Logged in as `qa.limited`, recorded case
+#35's **first-ever** result (Passed) in run #83/environment `test`. Logged back in as admin and checked the
+Results & Comments tab: the entry incorrectly shows **"Added by Redmine Admin ... about 1 hour ago"** — admin
+created the run an hour earlier, but `qa.limited` is the one who actually just recorded this result, seconds
+before checking. DB-confirmed: the underlying `IssueStatusResult` row's `added_by`/`created_at` are frozen from
+the run's creation (admin, an hour ago); only `updated_by`/`updated_at` correctly show `qa.limited`/just-now, but
+the UI reads `added_by`/`created_at`, not `updated_by`/`updated_at`. Root-caused to the auto-seeded baseline row
+being updated in place on a case's first-ever execution, rather than a fresh row being inserted (see BUG-TCM-104
+for full detail). This is why the 2026-10-01 PASS evidence (above) never caught it — it used a case already past
+its first execution. Filed as **BUG-TCM-104 (High)** — not yet reported to production.
 
 ---
 
@@ -626,6 +921,12 @@ looked. Live-verified both values filter correctly: on run #22, "With Defects" c
 (4 of 17 tested, 23.53% — identical to the unfiltered total). BUG-TCM-016 deleted (never reported to production);
 see `bugs/_index.md` for the retraction note.
 
+**RETESTED 2026-10-23 — PASS.** On run #83/environment `test`, applied "With Defects" — correctly returned
+exactly cases #24 and #26 (the only 2 with a linked defect in this environment), excluding case #23 (which has a
+defect only in the *other* environment `test1`) — correctly environment-scoped, confirming this filter's
+`ExecutionDefect`-join (fixed under closed BUG-TCM-060) is unaffected by the environment-scoping gap found in
+the sibling Run result filter this same session (BUG-TCM-103).
+
 ---
 
 ### TC-TCM-182: Filter run grid by run result
@@ -642,6 +943,69 @@ see `bugs/_index.md` for the retraction note.
 correctly narrowed to exactly cases #437, #450, #454 — matching the dashboard pie's "Passed (3)" exactly. (Side
 note: this filter's own Select2 dropdown lists all 6 statuses correctly and works as expected — confirms BUG-TCM-
 014 is specific to the Defects-field widget, not a general Select2/search problem in this plugin.)
+
+**RETESTED 2026-10-23 — FAIL — new bug, BUG-TCM-103.** On run #83/environment `test`, applied **Run result =
+Failed**: incorrectly returned **2** cases ("Showing 2 test cases") — case #24 (genuinely Failed in `test`,
+correct) **and** case #23 (Untested in `test`, only Failed in the *other* environment `test1` — should have been
+excluded). Reproduced the controller's exact filter query in isolation via `rails runner` (same `run_id`/
+`testsuite_id`/`environment`/`run_result_ids`), confirming it genuinely returns `[23, 24]` outside the browser
+too. Root-caused to `RunsController#apply_filters`'s "latest status" join matching back on `issue_id` +
+`created_at` only (no `environment`/`testsuite_id` re-check) — when two different environments' results for the
+same case share an identical `created_at` (confirmed: both at `2026-10-23 08:57:11 UTC` exactly), the join pulls
+in the wrong environment's status. Filed as **BUG-TCM-103 (Medium)** — not yet reported to production. The
+sibling "With Defects"/"Without Defects" filter (TC-181, same page) was separately confirmed NOT to have this
+gap — its own `ExecutionDefect` join correctly re-checks `environment`/`testsuite_id`.
+
+---
+
+### TC-TCM-318: Filter run grid by Subject (new 2026-10-23, per direct user request)
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. On a run's grid, use **Add filter** → **Subject**, enter a term matching more than one case's subject, Apply.
+
+**Expected Result:**
+- Only cases whose subject contains the term are shown; clearing/removing the filter restores the full list.
+
+**EXECUTED LIVE 2026-10-23 (new TC, build HEAD `d4f960b`) — PASS.** On run #83/environment `test`/testsuite "CI
+Ingest" (18 cases), applied Subject = "Login with invalid password" — correctly returned exactly the 2 matching
+rows (case #33 "Login with invalid password" and case #2137 "Legacy - Login with invalid password"), excluding
+all 16 non-matching cases.
+
+---
+
+### TC-TCM-319: Run chart's Download SVG/PNG/CSV reflects the correct data (new 2026-10-23, per direct user request)
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. On a run's detail page (donut/pie chart), open the chart's **Menu** → **Download CSV** (and separately PNG/SVG).
+2. Compare the downloaded file's data against the chart's own on-screen numbers and the real underlying result
+   counts for every test suite assigned to the run (not just the one shown by default).
+
+**Expected Result:**
+- The downloaded data matches the chart exactly, and the chart itself reflects every test suite assigned to the
+  run — not just one of them.
+
+**EXECUTED LIVE 2026-10-23 (new TC, build HEAD `d4f960b`) — PASS for "does the download match the chart," FAIL
+for "does the chart reflect the whole run" — not a new bug, a confirmed extension of already-open BUG-TCM-098.**
+On run #84/environment `test` (no `testsuite_id` param — the default "All Suites in Run" view), downloaded the
+chart as CSV: `Untested (18),100`. This exactly matches the on-screen donut ("Passed: 0%, 0 of 18 tested,
+Untested (18), 100.0%") — the **download itself is accurate to what the chart shows**, so that half of this TC
+passes cleanly.
+
+However, the chart (and therefore its CSV/PNG/SVG exports) is **not actually counting the whole run**. Run #84
+has 8 test suites assigned (`CI Ingest`, `U21 Brand New Suite`, `Edge2 Brand New Suite`, `CI Ingest Sub-Suite`,
+`test`, `BUG97-Reverify-Suite-A`, `BUG97-Reverify-Suite-B`, `t3`), confirmed via the DB to have 18 / 3 / 3 / 4 /
+1 / 1 / 1 / 2 distinct issues respectively (33 total `RunIssue` rows). The chart's "18" exactly matches only the
+**first** suite's (`CI Ingest`) count — the other 7 suites' 15 cases are silently excluded, both from the chart
+and from the grid rows shown underneath it in this same default view (confirmed: the grid under "All Suites"
+shows exactly 18 rows too, not 33). This is the identical root cause already tracked as **BUG-TCM-098**
+(`runs_controller.rb#show`'s `else` branch substitutes `@run.testsuites.first` for a real "all suites" query when
+no `testsuite_id` param is present) — confirmed prod #124424. Not filed as a new bug; appended as evidence that
+this bug's reach extends to the donut chart and all 3 of its download formats, not just the grid rows
+originally reported.
 
 ---
 
@@ -664,6 +1028,13 @@ no truncation, no visible HTML-escaping artefacts (no literal `&lt;`/`&amp;` tex
 intact, and — critically — the `<script>` tag rendered as inert literal text rather than executing (no JS alert
 fired, no related console error), confirming the editor safely escapes markup on output while still displaying it
 as the user typed it.
+
+**RETESTED 2026-10-23 — PASS.** Recorded a Passed result on case #27 (run #83) with a 3-line note containing
+`< > & "`, an emoji (😀🔥), and a raw `<script>alert(1)</script>` tag. Reopened the issue's Results & Comments tab:
+the note round-tripped character-for-character, the script tag rendered as inert literal text (confirmed zero
+console errors, no alert fired), consistent with the original finding. (This standalone, non-modal Add Result
+page's Note field is a plain `<textarea>`, not the EditorJS rich-text widget used elsewhere in the plugin — filled
+directly for speed; the save/round-trip path exercised is identical either way.)
 
 ---
 
@@ -688,6 +1059,17 @@ note text, `Environment: chrome`, `Assignee: Redmine Admin` — matches this TC'
 reconfirms the **already-filed BUG-TCM-013**: this single Submit produced **two** identical copies of the email
 in the inbox, not one.
 
+**RETESTED 2026-10-23 — PASS** (mechanism and content), **duplicate send still reconfirmed — BUG-TCM-013 still
+open.** Recorded a Passed result on case #24 (run #22, watched by `qa.limited`, via Mailpit not Roundcube — see
+TC-164's note on the stale `daisy.skye` memory). Email arrived correctly: subject "Test Case Result Added: Apply
+valid discount code at checkout," body shows `Result #24 was added by Redmine Admin`, `Status: Passed`,
+`Environment: test`, `Assignee: Redmine Admin` — matches expectation. **Confirmed again this single Submit
+produced 2 identical copies** — BUG-TCM-013 still reproduces on the current build. Also spot-checked the
+BUG-TCM-104 follow-up question (whether the email's "was added by X" text could also misattribute a case's
+first-ever execution): in this test the recorder (admin) and the run creator (also admin) were the same person,
+so this particular run didn't isolate the question — worth a dedicated check in a future session with a genuine
+second-user first-execution + email check combined.
+
 ---
 
 ### TC-TCM-185: Dashboard statistics reflect execution
@@ -706,6 +1088,10 @@ after the prior TC-184 Passed result. Recorded two more mixed results (case #435
 then reloaded the run page: top summary correctly advanced to **"3 of 17 tested (17.65%)"** (3/17 = 17.647%,
 exact), and the pie chart correctly shows **Passed (1), Skipped (1), Retest (1), Untested (14)** — exactly
 matching the three recorded results plus the 14 still-untested cases.
+
+**RETESTED 2026-10-23 — PASS, via incidental coverage.** Run #83's own progression this session (Untested(19) →
+Failed(1)/Untested(18) → Failed(1)/Blocked(1)/Untested(17)) tracked correctly at every step, confirming the
+dashboard statistics mechanism holds on the current build.
 
 ---
 
@@ -733,6 +1119,14 @@ environment: mail delivery for this notification is evidently not gated by the S
 synchronous ActionMailer delivery rather than an ActiveJob-backed async queue). Not filed as a bug — this is a
 corrected test premise, not a product defect; the result-saves-regardless-of-Sidekiq half of the TC still holds.
 Sidekiq restarted immediately after (`bundle exec sidekiq`, confirmed running via log).
+
+**RETESTED 2026-10-23 — PASS on "result still saves," same corrected premise reconfirmed on the current build.**
+Stopped the dedicated Sidekiq container (`docker stop redmine6-sidekiq-1` — a separate container on this
+instance, not a process inside the Redmine container as the 2026-10-01 note assumed), recorded a Passed result on
+case #24 (run #22): saved and displayed correctly ("2 of 9 tested, 22.22%"). Checked Mailpit: the "Test Case
+Result Added" email **still arrived anyway**, seconds later — same corrected finding as 2026-10-01, this
+notification's delivery is not actually gated by Sidekiq in this environment. Sidekiq restarted immediately after
+(`docker start redmine6-sidekiq-1`), confirmed running.
 
 ---
 
@@ -784,6 +1178,18 @@ correctly show **Skipped**, all other cases unaffected. This is this suite's fir
 endpoint since BUG-TCM-003 was closed (2026-09-30) on production retest evidence rather than a local run; now
 independently confirmed locally too.
 
+**RETESTED 2026-10-23 — PASS, specifically exercising the "bulk update silently not applying to an already-
+executed case" fix (Oct 7 commit).** On run #76 (12 cases, where case #23 was already **Passed** from earlier
+testing), selected all 12 via "Select all on this page" and bulk-updated to **Skipped**. DB/grid check
+afterward: **all 12 cases, including #23, correctly changed to Skipped** — the previously-executed case was not
+silently skipped. This is the exact regression scenario the commit targeted; confirmed fixed.
+
+**Issue-detail-page cross-check, 2026-10-23 (separate from the grid/DB check above).** Opened one of the
+bulk-updated cases' own issue detail page directly and switched its "Testcase Execution" Run selector to run #76:
+the Result shown there matched the grid/DB exactly (**Skipped**) — a bulk-recorded result is reflected correctly
+on the case's own detail page, not just in the run grid. (This switch also reproduces BUG-TCM-101's console
+error, same as any other Run/Environment switch on that page — see TC-TCM-179 and BUG-TCM-101.)
+
 ---
 
 ### TC-TCM-189: Bulk update with execution notes
@@ -802,6 +1208,11 @@ Skipped, and entered the note "TC-189: bulk update note applied to both selected
 Checked both issues' Results & Comments tabs independently: the identical note text, Status: Skipped, and
 Environment: chrome all appear correctly on **both** #451 and #452 — the note is not dropped, truncated, or
 applied to only one of the two.
+
+**RETESTED 2026-10-23 — PASS.** On run #83 (environment `test`), selected cases #23 and #28, opened Bulk Update
+Result, chose Skipped, entered the note "TC-189 bulk note check: applied to both selected cases." Checked both
+issues' Results & Comments tabs independently: the identical note text appears correctly on **both** #23 and
+#28 — not dropped, truncated, or applied to only one.
 
 ---
 
@@ -842,6 +1253,10 @@ Blocked remain correctly absent, still true now that BUG-TCM-003 is fixed and bu
 confirms this exclusion is deliberate design (bulk mode has no per-case Defects field to satisfy Failed/Blocked's
 requirement), not a side-effect of the endpoint being broken.
 
+**RETESTED 2026-10-23 — PASS.** On run #83, selected all 2 then-visible cases, opened Bulk Update Result: the
+Status dropdown still offers exactly `["-- Select status --", "Passed", "Retest", "Skipped"]` — Failed/Blocked
+remain correctly absent.
+
 ---
 
 ## Evidence Map
@@ -850,7 +1265,10 @@ requirement), not a side-effect of the endpoint being broken.
 |---|---|---|
 | TC-TCM-152 – 418 | Run lifecycle | — |
 | TC-TCM-170 – 436 | Execution | — |
-| TC-TCM-188 – 440 | Bulk update | **BUG-TCM-003** (prod #120544) |
+| TC-TCM-188 – 440 | Bulk update | **BUG-TCM-003** (prod #120544, closed) |
+| TC-TCM-170 | Record a Passed result (first execution, 2026-10-23) | — |
+| TC-TCM-168, 174, 176 | Re-verified 2026-10-23 now that their blocking bugs are fixed | BUG-TCM-011, 014, 015 (all closed, reconfirmed) |
+| TC-TCM-318 – 319 | Run grid Subject filter + chart download correctness (new 2026-10-23, per direct user request) | BUG-TCM-098 (TC-TCM-319, extension — chart/CSV/PNG/SVG also only reflect the first testsuite under "All Suites in Run") |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-164, 433 and 435 depend on Sidekiq — confirm it is running before calling any of them a failure.

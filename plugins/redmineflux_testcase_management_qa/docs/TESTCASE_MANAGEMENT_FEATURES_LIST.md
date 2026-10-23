@@ -26,6 +26,7 @@
 | 16 | Plugin configuration | Tracker selection (Testcase/Defect/Feature); display toggles; email reminder frequency; Run and Testcase email template customisation; run types. | TC-TCM-001 – TC-TCM-007, TC-TCM-015 – TC-TCM-016 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
 | 17 | Email notifications | Run Added, Run Updated, Test Case Result Added. | TC-TCM-008 – TC-TCM-014 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
 | 18 | Installation prerequisites | Redis, Node.js + Puppeteer + Chromium, Sidekiq — each gates a user-visible feature. | TC-TCM-017 – TC-TCM-020 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
+| 19 | Project Overview dashboard | The module's landing page (`/test_suites/releases`): a chart with 3 selectable dimensions (Activity/Defects/Result), a date-range picker, copy-to-clipboard and SVG/PNG/CSV download, an Execution Details table (Run ID + Total Defects redirects), and Test Runs/To-Do summary panels (View All + item redirects). **Added 2026-10-23 — this feature had no entry here, in the User Guide, or in any testcase file until found and added per direct user request.** | TC-TCM-321 – TC-TCM-328 (`TESTCASE_MANAGEMENT_OVERVIEW.md`) |
 
 ## Notes
 

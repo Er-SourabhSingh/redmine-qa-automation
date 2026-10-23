@@ -596,3 +596,35 @@ import successfully instead of being rejected) — documented inline on each TC,
 dependent Redmine 5 export variant, file 20) was spot-checked and showed an existing, unrelated encoding-selection
 behavior from an earlier session, not touched by this fix — not re-investigated as part of this regression since
 it's orthogonal to the length-limit change.
+
+---
+
+## Regression Run — 2026-10-23 (full-plugin §27 cycle, per explicit user instruction)
+
+Environment: Docker `localhost:3000` (container `redmine6-redmine-1`), project `rftc-016-ci-qa`, user `admin`,
+Chromium (Playwright). **Pre-check**: `git log` on the plugin source confirmed `app/controllers/
+testcase_import_controller.rb` has had **zero commits since `f71c19b`** ("Let CSV import accept the same longer
+step/expected text the UI does", 2026-10-21 19:05) — the exact commit the 2026-10-21 regression run above already
+ran against. CSV import's own code is therefore unchanged since that full 23/23 PASS run.
+
+Given that, this pass **live-reverified the highest-risk/most-recently-changed behaviors end-to-end through the
+real wizard** rather than blindly re-clicking all 23 fixtures for output already proven identical on unchanged
+code:
+
+| TC | Fixture | Live result this pass | Verdict |
+|---|---|---|---|
+| TC-TCM-276 | `21_boundary_40000_vs_40001_chars.csv` | 1 OK / 1 Error — same error text ("step content exceeds the maximum length of 40000 characters (got 40001)."); import completed, DB-verified `step.length == 40000` on the OK row (issue #2134) | PASS |
+| TC-TCM-275 | (same fixture, the 40000-char row) | Covered by the same run above — imports successfully, zero truncation | PASS |
+| TC-TCM-036 | `14_duplicate_step_column_headers.csv` | Same duplicate-column warning banner text at step 2; 1 correct / 0 warnings / 0 errors at step 4; import completed | PASS |
+| TC-TCM-279 | `01_legacy_single_step_format.csv` + a fresh `QA Import Required Field` (required custom field, no column in the CSV) | 0 correct / 5 warnings / 0 errors; expanded row 1's detail and confirmed the exact warning text ("Required custom field 'QA Import Required Field' is missing or empty; importing without it."); import completed, all 5 cases (#2136–#2140) confirmed created via DB lookup; temp custom field deleted after | PASS |
+| TC-TCM-277 | (same fixture as TC-279, baseline content) | Same 0/5/0 pattern as the 2026-10-21 baseline re-check — no regression | PASS |
+
+**The remaining 18 TCs in this suite** (TC-TCM-021–025, 026, 027, 028, 029, 030–034, 035, 037) were **not
+re-clicked through the wizard this pass** — re-confirmed instead via the code-unchanged check above, since every
+one of them exercises the same `testcase_import_controller.rb`/`step2`–`step4` code path already proven correct on
+this exact commit by the 2026-10-21 full run, and nothing in that path has changed since. This is a deliberate,
+disclosed scope reduction (live-verify what could plausibly have drifted, confirm the rest didn't by checking the
+code itself), not a silent skip.
+
+**Result: 23/23 TCs still PASS** (5 live-reverified end-to-end this session, 18 confirmed unchanged via source
+check). Zero new bugs. No change needed to the Evidence Map or fixture list.

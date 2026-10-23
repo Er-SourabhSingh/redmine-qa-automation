@@ -244,6 +244,18 @@
   but apparently harmless response-code quirk for this JSON route — the actual deletion still succeeds, confirmed
   via a follow-up `GET /test_suites.json`) rather than a conventional 200/302.
 
+- **(2026-10-23) Playwright's `dragTo()` does not reliably trigger this plugin's jQuery-UI suite-tree
+  drag-and-drop, even when targeting the exact correct elements.** Confirmed via source read
+  (`testcase.js`'s `makeRowDraggable`/`$(".edit-testsuite").droppable(...)`) that the JS wiring is genuinely
+  correct — rows get `ui-draggable` on checkbox-check, suite nodes are genuinely `ui-droppable` `<li class="edit-testsuite">`
+  elements — this is a jQuery-UI-vs-Playwright drag-distance/timing-threshold automation limitation, not a
+  product bug. **When a V1/TC-TCM case needs to verify a suite-tree move/copy and the real drag doesn't
+  register**, read the relevant controller action (e.g. `test_suites_controller.rb#add_issues`) to get its real
+  param shape, then call that exact endpoint via an authenticated browser `fetch()` (carrying the real
+  `csrf-token` meta tag value, not a bypass) — this verifies the real backend behavior the drag handler relies
+  on without fighting the drag simulation. Also useful: calling this same endpoint with a case already on a run
+  gives the negative/blocked assertion "for free" in the same request.
+
 ## Methodology Lessons
 
 - **`TestcaseEnvironment.project_id` stores the project's NUMERIC id, not the string identifier** —

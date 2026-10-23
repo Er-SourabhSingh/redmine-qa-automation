@@ -1,5 +1,47 @@
 # Handoff — Redmineflux Testcase Management
 
+## CURRENT STATE SUMMARY (read this first — updated 2026-10-23, end of day)
+
+> Everything below this block is the full chronological session log (useful for history/context). This block
+> alone answers "what's regressed so far" and "what's left" without reading the whole file.
+
+### TC-TCM-NNN suites (this plugin's own 320+ test cases) — ALL 8 SUITES FULLY REGRESSED TODAY
+
+| Suite file | Status |
+|---|---|
+| `TESTCASE_MANAGEMENT_TEST_CASES.md` | ✅ Fully regressed (24/24 + 4 new) |
+| `TESTCASE_MANAGEMENT_CSV_IMPORT.md` | ✅ Fully regressed (23/23) |
+| `TESTCASE_MANAGEMENT_PERFORMANCE.md` | ✅ Executed for the first time (15/20, 5 deferred with recorded reasons) |
+| `TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md` | ✅ Fully regressed |
+| `TESTCASE_MANAGEMENT_TEST_RUNS.md` | ✅ Fully regressed (40/40 + 3 new) |
+| `TESTCASE_MANAGEMENT_REPORTS.md` | ✅ Fully regressed — download (all 3 formats), email delivery, scheduling, full CRUD all covered |
+| `TESTCASE_MANAGEMENT_TODO.md` | ✅ Fully regressed |
+| `TESTCASE_MANAGEMENT_OVERVIEW.md` | ✅ New suite authored + fully executed (zero prior coverage existed) |
+
+**Every suite in this plugin now carries 2026-10-23 evidence.** This completes the "regress everything" pass, but
+**`STATUS.md` cannot move to `Complete`** until: (1) all **28 currently-open bugs** (see `bugs/_index.md`,
+including the Critical BUG-TCM-111) are fixed and moved to `bugs/closed/`, and (2) a final full-plugin §27
+regression is re-run clean after those fixes. Until then, status stays `In Progress`.
+
+**Next regression work on this plugin (TC-TCM-NNN) = retesting bugs as they get fixed**, not re-running untouched
+suites — there is nothing left to regress for the first time. When bugs start getting closed, retest each one
+(§26 scope) and once `bugs/open/` is empty, run the full §27 final regression before declaring `Complete`.
+
+### V1 7.1.0 External Release Cycle (separate file, separate ID scheme — `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`)
+
+- **SUITE area: 12/12 PASS, complete.** Zero new bugs.
+- **NOT started (190 of 202 remaining):** CASE (14), RUN (41), EXEC (33), DEFECT (29), REPORT (10), PERM (11),
+  SAFE (10), API (28), and 9 of COMPAT (5 are explicitly out-of-scope per the file itself — need separate
+  Redmine 5.x/7.x instances not present here).
+- **Next session start point for V1: resume at TC-CASE-01-01.** Fixture already built and reusable — project
+  `alpha-web` (id=5), suites 88/89/91, 4 roles, 4 users/API keys — no setup needed, continue case-by-case through
+  CASE → RUN → EXEC → DEFECT → REPORT → PERM → SAFE → API → COMPAT, in file order.
+- Full fixture credentials and per-case results are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md`.
+- **Execute this directly, not via a background Agent/fork** — per explicit user instruction after two
+  background-agent attempts got stuck on long Sidekiq waits and had to be killed.
+
+---
+
 ## UPDATE 2026-10-23 (latest of latest, V1 rerun) — V1 7.1.0 external cycle rerun started, fixture rebuilt, 5/202 cases executed, PARTIAL (stopped on budget grounds)
 
 Per explicit instruction to execute all 202 cases in `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`: the original

@@ -83,3 +83,42 @@ established. **PASS**, feature still works end-to-end on the current build.
 
 **Verdict:** No regression. The one commit touching this feature's code path was already found, fixed, and
 retested via BUG-TCM-086; this session's own live check confirms the display layer is unaffected.
+
+## Full Re-Execution — 2026-10-24 (continued, same day) — all 23 cases literally re-run, not risk-based
+
+Per explicit user follow-up ("sare testcase test kro dobara... ye feature still working he na"), every one of this
+file's 23 cases was individually re-driven live against `localhost:3000` (project `alpha-web`, id=5) this pass —
+API cases via `curl` with real API keys (`qa.manager`, `qa.engineer`, `reporter`, `qa.limited`, admin), UI cases
+via Playwright. Real executions/defects used throughout (IDs 6397, 6060, 6056, 6074, 6075, 6418, 6462, 6463;
+defects 3664/3665/3683), not synthetic placeholders.
+
+| Case | Fresh result |
+|---|---|
+| F1 (link single) | **PASS** — unlinked exec 6397 first (clean slate), re-linked to defect 3665: `201`, `defect_ids` recomputed to `3665`, `IssueRelation` created |
+| F2 (bulk-link same defect) | **PASS** — linked 6074 (Failed) + 6075 (Blocked) to the same defect: `201`, reverse view lists all linked executions across 2 runs |
+| F4 (all-or-nothing) | **PASS** — batch with 1 valid (6060) + 1 Passed (6056): `422`, DB-confirmed the valid one was NOT committed either |
+| F5 (duplicate no-op) | **PASS** — re-linking 6397→3665 returned the same `link_id: 112`, no second row |
+| F6 (reject Passed) | **PASS** — linking 6056 (Passed) alone: `422` |
+| F7 (unlink) | **PASS** — unlinked 6397 from 3665: `200`, confirmed clean |
+| F10 (bulk_create legacy path) | **PASS** — `bulk_create` with `defect_ids` on a fresh result (issue 3660, run 104): join row + `IssueRelation` both auto-created |
+| F11 (reverse view, indexed join) | **PASS** — `GET /defects/3665/executions.json` correctly lists all linked executions with full context |
+| F14 (report_defect, different controller) | **PASS** — `POST /testcase_mcp/report_defect.json` created defect #3683 and it appeared in `/defects/3683/executions.json` immediately, zero extra action |
+| F3a (anonymous) | **PASS** — no credentials: `401` |
+| F3b (no `:execute_testcase`) | **PASS** — as `reporter`: `403`, and the error message is now correctly **"You do not have permission to link defects in this project"** (BUG-TCM-045's fix re-confirmed — no longer the misleading "not the assignee" text) |
+| F8 (IDOR, cross-project execution) | **PASS** — foreign execution id: `422` "Execution not found in this project" |
+| F9 (defect not visible) | **PASS** — cross-project `defect_issue_id`: `422` "defect issue was not found, is not visible to you, or is in another project" |
+| F12 (reverse view visibility) | **PASS** — as `qa.limited` (not a member of `alpha-web`): `403` "Unauthorized access", zero data |
+| F15 (project-move leak) | **PASS** — moved defect 3665 to project 2 temporarily: reverse view returned `executions: []` (stale-project rows dropped); restored to project 5 immediately after |
+| Edge1 (empty ids) | **PASS** — `422` "No executions selected" |
+| Edge4 (self-link) | **PASS** — `422` "A test case cannot be linked as its own defect" |
+| Edge5 (SQLi-shaped) | **PASS** — `422`, safely coerced, no injection |
+| Edge9 (501-id batch) | **PASS** — `422` "Too many executions in one request (maximum is 500)" |
+| U7/U17 (destroy with join) | **PASS** — destroyed execution 6418 (had a join to defect 3674, no sibling link): no FK error, join cascaded, `IssueRelation` removed |
+| UI1 (reverse panel on defect issue page) | **SUPERSEDED, not a fail.** The panel is **gone** — confirmed via `git log`: commit `c4abf28` ("Simplify defect display: just the ID in the run grid, no reverse panel on the defect"), dated **2026-10-06, the same day as this file's original test run** — the view-hook comment itself states *"the 'Linked Test Executions' reverse panel on a defect's own issue page is removed by product decision — the Run execution grid's own Defect ID's column (and Add Result) are the one place this relationship is shown."* Live-confirmed `/issues/3683` has no such panel anywhere on the page. This is a deliberate, same-day architecture simplification the original 2026-10-06 PASS predates, not a regression. |
+| UI2 (Link defect picker + bulk-link in Run view) | **PASS** — opened the real "Add Result" modal (not the bare form route) for execution 6075: the modal correctly shows a **"Defects*"** multi-select (select2, pre-populated with the execution's existing linked defects as removable chips) plus a **"Report Defect"** link — exactly the consolidated design the 2026-10-08 retest described |
+| UI3 (Defect ID's column) | **PASS** — Run #104's grid shows `#3664, #3665, #3673, #3683` in the Defect ID's column for issue 3660, and the run header shows `Linked defects (4)` listing all four by number and subject — matches the live link state exactly |
+
+**Final tally: 23/23 cases re-confirmed working as designed.** Zero regressions. One case (UI1) updates from "PASS"
+to "superseded by a same-day deliberate product change" — the underlying capability (defect↔execution visibility)
+still exists, just relocated to the Run grid instead of the defect's own issue page, and that relocated location
+was independently re-verified this same pass (UI2/UI3).

@@ -1,5 +1,36 @@
 # Handoff — Redmineflux Testcase Management
 
+## NEXT SESSION START POINT (2026-10-24, stopped on budget — read this first)
+
+**In progress: a full LITERAL re-execution (not risk-based) of all 11 `RFTC-*_EXTERNAL_SPEC_*.md` files**, per
+explicit user instruction ("sare testcase test kro dobara... ye feature still working he na"). Stopped mid-file
+on explicit user instruction ("baki hum kal karenge, hamare paas enough limit nahi hai").
+
+**Status:**
+- **RFTC-008** (23/23 cases) — ✅ **COMPLETE**. See `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md`'s "Full
+  Re-Execution — 2026-10-24" section. One notable finding: UI1 (the defect-issue-page reverse panel) is gone —
+  not a regression, a deliberate same-day (2026-10-06) product simplification (commit `c4abf28`), superseded by
+  the Run grid's Defect ID's column + Add Result's defect picker (both independently re-confirmed working).
+- **RFTC-009** (46 scenarios) — ⏳ **38/46 done**, see `reports/RFTC-009_EXTERNAL_SPEC_RESULTS.md`'s "Full
+  Re-Execution (Regression) — 2026-10-24, IN PROGRESS" section. **Resume with: Struct3 (sub-suite independence —
+  was about to create a probe sub-suite + testcase when the session was stopped, nothing committed from that
+  half-done step), U22 (email-suppression guard), F11 (code-grep for stray `skip_before_action`), Doc1
+  (Swagger/API.md), Test17 (DoS cap: exactly 2000 succeeds, 2001 rejected), F14 (concurrent-race, no duplicate
+  run).** All 38 done so far are PASS, zero new bugs; one self-caught test-setup mistake (Test13 initially run
+  against the wrong project since admin had since become a member there from unrelated earlier testing — redone
+  correctly against `alpha-web` where admin is genuinely a non-member).
+- **RFTC-011, 016, 017, 020, 021, 038, 042, 043, 044** — **not yet started for literal re-execution.** These 9
+  files currently only carry the earlier *risk-based* `## Regression — 2026-10-24` sections (git-log-driven,
+  live-verified only the areas touched by real commits) from earlier the same day — still valid, but not the
+  literal case-by-case re-click the user is now asking for. Resume there once RFTC-009 is finished.
+
+**Fixtures left in place from today's RFTC-008/009 work** (harmless probe data in already-messy shared projects,
+not cleaned up to save time): probe defects/executions in `alpha-web` (id=5) from RFTC-008 (defect #3683, runs
+104/108 touched), ~25 probe runs (ids 121–143) and 2 probe suites (ids 99/101) in `rftc-016-ci-qa` (id=2) from
+RFTC-009, plus a leftover suite `RFTC-regression-suite-probe` (id=98) from an earlier API-auth check the same day.
+
+---
+
 ## CURRENT STATE SUMMARY (read this first — updated 2026-10-24)
 
 > Everything below this block is the full chronological session log (useful for history/context). This block

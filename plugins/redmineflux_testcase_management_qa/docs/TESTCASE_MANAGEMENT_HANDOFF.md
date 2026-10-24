@@ -29,28 +29,77 @@ suites — there is nothing left to regress for the first time. When bugs start 
 
 ### V1 7.1.0 External Release Cycle (separate file, separate ID scheme — `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`)
 
-- **COMPLETE — 202/202 cases executed 2026-10-24.** 188 PASS, 10 FAIL, 4 BLOCKED. Every case's result is
-  recorded inline in the testcase file itself.
+- **COMPLETE — 202/202 cases executed 2026-10-24.** Final tally: **190 PASS, 10 FAIL, 2 BLOCKED.** Every case's
+  result is recorded inline in the testcase file itself.
 - **6 new bugs filed:** BUG-TCM-112 (Medium), BUG-TCM-113 (High), BUG-TCM-114 (High), BUG-TCM-115 (Medium),
-  BUG-TCM-116 (Low), **BUG-TCM-117 (High, added later same day)** — see the "UPDATE 2026-10-24" entries below
-  for detail on each.
+  BUG-TCM-116 (Low), **BUG-TCM-117 (High)** — see the "UPDATE 2026-10-24" entries below for detail on each.
 - **A real Redmine 5.1 Docker instance was built this session** (`C:\redmine v5` on the host, sibling to the
   existing `C:\redmine v6`, same Dockerfile/compose pattern, `REDMINE_TAG=5.1-bookworm`) specifically to clear
   TC-COMPAT-01-02/02-02/04-02 — but the plugin **cannot install on Redmine 5.1 at all** (BUG-TCM-117: the
   Gemfile's dev/test-only `mutant` gem needs Ruby >= 3.3, Redmine 5.1 ships Ruby 3.2.11, and this is not
-  bypassable without editing the Gemfile). TC-COMPAT-01-02 is now a genuine **FAIL** (not blocked); 02-02 and
-  04-02 are still **BLOCKED**, but for the confirmed reason that the app never boots, not "no instance available."
-  The containers were stopped/removed after confirming the failure (crash-looping, no further info to gain); the
-  compose files are left on disk at `C:\redmine v5` in case BUG-TCM-117 gets fixed upstream and someone wants to
-  re-run these later without rebuilding from scratch.
-- **Redmine 7.0 has no official Docker image yet** (Docker Hub's `redmine` repo only goes up to `6.1.x`) — a
-  7.x instance genuinely cannot be built right now. TC-COMPAT-01-03 and 04-03 remain BLOCKED on that basis (not
-  attempted).
-- **Nothing left to resume on the V1 cycle** unless: reporting BUG-TCM-112–117 to production, retesting
-  BUG-TCM-110/111/117 once fixed upstream, or building a Redmine 7.x instance once Docker Hub actually publishes
-  one.
+  bypassable without editing the Gemfile). TC-COMPAT-01-02 is now a genuine **FAIL** (not blocked); **02-02 and
+  04-02 are the 2 cases that stay BLOCKED**, but for the confirmed reason that the app never boots, not "no
+  instance available." The containers were stopped/removed after confirming the failure; the compose files are
+  left on disk at `C:\redmine v5` in case BUG-TCM-117 gets fixed upstream and someone wants to re-run these later.
+- **A real Redmine 7.0 Docker instance was also built this session** (`C:\redmine v7`, same pattern,
+  `REDMINE_TAG=7.0-bookworm`) — an earlier Docker Hub query had wrongly concluded no 7.0 image existed (a
+  `?name=bookworm`-filtered query silently truncated the tag list); a follow-up unfiltered query found
+  `7.0-bookworm`/`7.0.0-2-bookworm` genuinely published. `bundle install` completed cleanly on 7.0 (Ruby 4.0.9
+  satisfies `mutant`'s `>= 3.3` requirement — BUG-TCM-117 does **not** reproduce on 7.0). **TC-COMPAT-01-03 PASS**
+  (Redmine 7.0.2.stable confirmed, 0 migration errors, plugin listed at v7.2.0) and **TC-COMPAT-04-03 PASS** (the
+  shared `>= 5` `User.has_many :run_assignments` `before_initialize` wiring in `init.rb:147-155` holds unmodified
+  on Rails 8.1 — verified via `rails runner` and the run's show page, both directions of the association resolve
+  cleanly, no boot/request errors). No new bugs found on 7.0. The `redmine7-*` containers are left **running**
+  (not stopped) for now; compose files on disk at `C:\redmine v7`.
+- **Nothing left to resume on the V1 cycle** except: reporting BUG-TCM-112–117 to production, and retesting
+  BUG-TCM-110/111/117 once fixed upstream. The 2 remaining BLOCKED cases (TC-COMPAT-02-02, TC-COMPAT-04-02) can
+  only clear once BUG-TCM-117 is fixed upstream and Redmine 5.1 actually boots — there is no further environment
+  work to do on them.
 - Full fixture credentials are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md` (fixture spec only — per-case
   results now live in the testcase file, not that report).
+
+---
+
+## UPDATE 2026-10-24 (same day, continued further) — Built a real Redmine 7.0 instance; cleared the last 2 BLOCKED COMPAT cases, both PASS
+
+Per direct user instruction to also build the Redmine 7.x Docker image and test against it. The prior entry below
+said no Redmine 7.0 image existed, based on a Docker Hub tag query filtered with `?name=bookworm` — re-querying
+*without* that filter (on the same direct instruction) showed this was a false negative: `7.0-bookworm` and
+`7.0.0-bookworm` through `7.0.2-bookworm` are genuinely published. **Lesson applied going forward: never conclude
+"doesn't exist" from a filtered/paginated query without a follow-up unfiltered one.**
+
+Created `C:\redmine v7` (same Dockerfile/compose pattern as `C:\redmine v5`/`v6`, `REDMINE_TAG=7.0-bookworm`,
+plugin bind-mounted unmodified). Built the image (~130s), started the stack — db/redis healthy immediately, and
+unlike Redmine 5.1, `bundle install` completed with **zero errors**: this image's Ruby 4.0.9 satisfies `mutant
+~> 0.17`'s `Ruby >= 3.3` floor, so BUG-TCM-117 is confirmed Ruby-version-specific (does not affect 7.0). Container
+reached `running healthy`; boot log clean (no LoadError/NoMethodError/FATAL).
+
+**TC-COMPAT-01-03 (install + migrate on Redmine 7.x) — PASS.** Logged in as admin (forced password change on first
+boot), confirmed Administration → Information shows "Redmine 7.0.2.stable" with "All database migrations have been
+run," and confirmed Administration → Plugins lists "Redmineflux Testcase Management Plugin" at version **7.2.0**,
+matching `init.rb`.
+
+**TC-COMPAT-04-03 (`User.has_many :run_assignments` `before_initialize` wiring on 7.x) — PASS.** This fresh install
+had zero default data seeded (no trackers, issue statuses, or priorities — unlike the pre-provisioned 6.x demo),
+so built the minimal fixture by hand: a `Bug` tracker + `New` status + `Normal` priority, the plugin's own
+Configuration page (tracker/defect-tracker/feature-tracker settings — unset by default, which is why
+`/projects/.../issue_testcase/new` 500'd on first attempt with `Setting.plugin_redmineflux_testcase_management
+['tracker'].first` raising `NoMethodError` on `nil` — not a 7.0 bug, just unconfigured plugin settings on a brand
+new instance), a project with the `testcase_management` module, a test suite, and one test case (issue #1). The UI
+"Add Run" panel renders with CSS `display:none` behind a client-side JS toggle that a raw Playwright `.click()`
+couldn't reliably trigger in this harness (unrelated to the association wiring under test), so verified the actual
+model layer directly via `bundle exec rails runner` instead: `Run.create!(..., run_assignments_attributes: [...])`
+succeeds, `User#run_assignments` responds `true` and returns the created row, `Run#run_assignments.count == 1`
+both directions, no association error. Confirmed visually too — the run's show page (`/runs/1`) renders
+**"Environment : Production"** / **"Assignee : Redmine Admin"** correctly, HTTP 200, clean request log. Confirms
+the shared `>= 5` branch (`init.rb:147-155`) holds unmodified on Rails 8.1, the newest tested major.
+
+No new bugs found on Redmine 7.0. **V1 file tally now final: 190 PASS / 10 FAIL / 2 BLOCKED** — the 2 remaining
+BLOCKED cases (TC-COMPAT-02-02, TC-COMPAT-04-02) require a *booting* Redmine 5.x instance, which BUG-TCM-117
+confirms doesn't exist for this plugin version; they can only clear once that bug is fixed upstream. Left the
+`redmine7-*` containers running (not stopped) in case of a quick follow-up; compose files on disk at
+`C:\redmine v7`. Updated the testcase file, this handoff (CURRENT STATE SUMMARY + this entry + Run History row),
+TIME_LOG.md.
 
 ---
 
@@ -2224,6 +2273,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 7.0 instance built, last 2 BLOCKED COMPAT cases cleared, both PASS) | Redmine 7.0.2.stable (Docker, newly built) | Docker, host folder `C:\redmine v7` | Claude (Docker/Playwright + `rails runner`) | Per user instruction to also build the Redmine 7.x image and test it (an earlier filtered Docker Hub query had wrongly concluded no 7.0 image existed; an unfiltered re-query found `7.0-bookworm`/`7.0.0-2-bookworm` genuinely published). Built `C:\redmine v7` (same pattern as v5/v6). `bundle install` succeeded with zero errors on this image's Ruby 4.0.9 (BUG-TCM-117 does not reproduce on 7.0). **TC-COMPAT-01-03 PASS** (Redmine 7.0.2.stable confirmed, 0 migration errors, plugin listed at v7.2.0). **TC-COMPAT-04-03 PASS** (built a minimal fixture by hand on this unseeded fresh install — tracker/status/priority/plugin config/project/suite/test case/run — then verified the `User.has_many :run_assignments` `>= 5` `before_initialize` wiring via `rails runner` and the run's show page; both directions of the association resolve cleanly, no errors). No new bugs. V1 file tally now final: **190 PASS / 10 FAIL / 2 BLOCKED** (TC-COMPAT-02-02/04-02 remain blocked pending a fix to BUG-TCM-117 upstream). |
 | 2026-10-24 (V1 7.1.0 external cycle rerun — COMPLETE) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `alpha-web` (id=5) | Claude (Playwright MCP + curl/API-key + `rails runner`) | Completed the V1 rerun of `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` (202 cases) that the 2026-10-23 session left at 5/202. All 202 cases now have an inline result in that file: 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x instance). Filed 5 new bugs: BUG-TCM-112 (Medium, suite-copy leaves clone linked to both suites), BUG-TCM-113 (High, milestone permissions enforced but never declared in init.rb), BUG-TCM-114 (High, export_pdf1 500s on every call, pdf_path NameError), BUG-TCM-115 (Medium, bulk_testcase_create silent no-op on tracker/project mismatch), BUG-TCM-116 (Low, orphaned issue_status_results row after test-case delete). Confirmed BUG-TCM-110/111 still reproduce (scheduled-report cancel 404, scheduled email never fires). This file does not touch TC-TCM-NNN suites/fixtures — tracked entirely separately per CLAUDE.md's scope note. |
 | 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 5.1 instance built, BUG-TCM-117 found) | Redmine 5.1-bookworm (Docker, newly built) | Docker, host folder `C:\redmine v5` | Claude (Docker/Playwright) | Per user request to clear the 5 BLOCKED COMPAT cases: confirmed no Redmine 7.0 Docker image exists yet (Docker Hub tops out at 6.1.x), user approved building only a Redmine 5.1 instance. Built `C:\redmine v5` (same Dockerfile/compose pattern as the working `C:\redmine v6`, `REDMINE_TAG=5.1-bookworm`, plugin bind-mounted unmodified). The plugin cannot install on it at all — `bundle install` crash-loops on the dev/test-only `mutant ~> 0.17` gem requiring Ruby >= 3.3 (Redmine 5.1 ships Ruby 3.2.11), confirmed not bypassable via `--without`/`bundle lock` in 3 independent ways. Filed **BUG-TCM-117** (High). TC-COMPAT-01-02 updated from BLOCKED to a genuine **FAIL**; TC-COMPAT-02-02/04-02 stay BLOCKED but for the confirmed reason (app never boots), not "no instance." Stopped/removed the containers after confirming the failure; compose files left on disk for a future retry once fixed upstream. V1 file tally now 188 PASS / 10 FAIL / 4 BLOCKED. |
 | 2026-10-23 (new suite: TESTCASE_MANAGEMENT_OVERVIEW.md, the Overview dashboard had zero prior coverage) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (Playwright MCP + `rails runner`) | Authored and executed TC-TCM-321-328 for the project's Overview/landing dashboard (chart dimensions, date range, copy/download, Execution Details redirects, Test Runs/To-Do panel redirects) — confirmed via grep this page had zero coverage anywhere in the repo. All 8 TCs PASS, zero new bugs. One wording observation recorded (not filed): "By Unknown User" for a blank Run#assignee_id. One self-caught false positive: a synthetic dispatchEvent test of the dimension dropdown looked like a bug (dimensions=null in the request) until redone with a real selectOption, which worked correctly. Updated FEATURES_LIST.md, traceability matrix, plugin memory, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. |

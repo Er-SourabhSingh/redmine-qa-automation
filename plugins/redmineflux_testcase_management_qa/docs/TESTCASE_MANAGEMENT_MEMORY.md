@@ -229,10 +229,39 @@
   lock` + `set --local without` all independently fail to bypass this — Bundler resolves every group's gems
   before group-exclusion applies, so one dev-only gem's Ruby floor blocks the whole install. **If anyone asks to
   spin up a Redmine 5.x instance for this plugin again, don't bother retrying `--without` tricks — it won't
-  work until the Gemfile itself is fixed upstream.** Docker Hub also has no Redmine 7.0 image yet (tops out at
-  `6.1.x-bookworm` as of 2026-10-24) — a 7.x instance can't be built at all right now, check Docker Hub tags
-  before promising one. The working 5.1 setup (that fails at the bundle step) is preserved at `C:\redmine v5`
-  on the host (sibling to the working `C:\redmine v6`) in case it's worth retrying later.
+  work until the Gemfile itself is fixed upstream.** The working 5.1 setup (that fails at the bundle step) is
+  preserved at `C:\redmine v5` on the host (sibling to the working `C:\redmine v6`) in case it's worth retrying
+  later.
+- **(2026-10-24) CORRECTION — a Redmine 7.0 Docker image DOES exist; don't trust a filtered Docker Hub tag
+  query.** An earlier note here (and an earlier same-day finding) claimed "Docker Hub has no Redmine 7.0 image,
+  tops out at 6.1.x" — that was wrong, caused by querying Docker Hub's tags API with a `?name=bookworm` filter
+  alongside `page_size=100`, which silently truncated the results before reaching 7.0. A follow-up **unfiltered**
+  query found `7.0-bookworm` and `7.0.0-bookworm` through `7.0.2-bookworm` genuinely published. **Always re-verify
+  a "tag/image doesn't exist" conclusion with an unfiltered query before reporting it as fact.** Built
+  `C:\redmine v7` (`redmine:7.0-bookworm`, Ruby 4.0.9, Rails 8.1.4) the same way as v5/v6 — `bundle install`
+  succeeds cleanly on it since Ruby 4.0.9 satisfies `mutant`'s `>= 3.3` floor, so BUG-TCM-117 is confirmed
+  Ruby-version-specific and does not affect 7.0. TC-COMPAT-01-03 and TC-COMPAT-04-03 both PASS on this instance.
+  Separately: `TESTCASE_MANAGEMENT_MEMORY.md`'s own older entries (below, ~line 866/878) reference a pre-existing
+  `localhost:3010` = Redmine 7.0.0 instance from an earlier cycle — checked this session, **no longer reachable**
+  (connection refused), confirming it's gone and the fresh `C:\redmine v7` build was the right call, not
+  redundant.
+- **(2026-10-24) A brand-new Redmine install via the official Docker image seeds ZERO default data** — no
+  trackers, issue statuses, or priorities exist until created by hand (unlike the long-lived `localhost:3000`/
+  `:3010`/etc. demo instances, which already have Bug/Feature/Support, New/In Progress/etc., and Low/Normal/
+  High pre-seeded from whenever they were first set up). Also, this plugin's own tracker/defect-tracker/
+  feature-tracker settings (`/settings/plugin/redmineflux_testcase_management`) are **unset by default** — hitting
+  `/projects/:id/issue_testcase/new` before configuring them raises `NoMethodError` on
+  `Setting.plugin_redmineflux_testcase_management['tracker'].first` being called on `nil`. This is expected
+  first-boot behavior, not a product bug — any fresh/minimal Redmine instance needs: a tracker, an issue status,
+  an issue priority, and the plugin's own Configuration page filled in, all created in that order, before a test
+  case or run can be created at all.
+- **(2026-10-24) `docker compose exec` does NOT inherit `SECRET_KEY_BASE`** even though the container's actual
+  `rails server` process has it — the official Redmine entrypoint script (`/docker-entrypoint.sh`) only `export`s
+  `SECRET_KEY_BASE` (translated from `REDMINE_SECRET_KEY_BASE`) within its own shell before `exec`'ing the `CMD`;
+  that export never persists to the container's environment for a later `docker compose exec` session. Any
+  `rails runner`/`rails console` run via `exec` on these containers needs `-e SECRET_KEY_BASE=<same value as
+  .env>` passed explicitly, or it fails immediately with `ArgumentError: Missing secret_key_base for 'production'
+  environment`.
 - **(2026-10-24) V1 7.1.0 rerun complete (202/202 cases), 5 new bugs, 2 key non-obvious findings worth
   remembering:**
   - `create_milestone`/`edit_milestone`/`delete_milestone` are referenced by `rftc_require_permission!` in both

@@ -1,6 +1,6 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATE SUMMARY (read this first — updated 2026-10-23, end of day)
+## CURRENT STATE SUMMARY (read this first — updated 2026-10-24)
 
 > Everything below this block is the full chronological session log (useful for history/context). This block
 > alone answers "what's regressed so far" and "what's left" without reading the whole file.
@@ -29,18 +29,90 @@ suites — there is nothing left to regress for the first time. When bugs start 
 
 ### V1 7.1.0 External Release Cycle (separate file, separate ID scheme — `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`)
 
-- **SUITE area: 12/12 PASS, complete.** Zero new bugs.
-- **NOT started (190 of 202 remaining):** CASE (14), RUN (41), EXEC (33), DEFECT (29), REPORT (10), PERM (11),
-  SAFE (10), API (28), and 9 of COMPAT (5 are explicitly out-of-scope per the file itself — need separate
-  Redmine 5.x/7.x instances not present here).
-- **Next session start point for V1: resume at TC-CASE-01-01.** Fixture already built and reusable — project
-  `alpha-web` (id=5), suites 88/89/91, 4 roles, 4 users/API keys — no setup needed, continue case-by-case through
-  CASE → RUN → EXEC → DEFECT → REPORT → PERM → SAFE → API → COMPAT, in file order.
-- Full fixture credentials and per-case results are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md`.
-- **Execute this directly, not via a background Agent/fork** — per explicit user instruction after two
-  background-agent attempts got stuck on long Sidekiq waits and had to be killed.
+- **COMPLETE — 202/202 cases executed 2026-10-24.** 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x
+  instance not present here — TC-COMPAT-01-02, 01-03, 02-02, 04-02, 04-03). Every case's result is recorded
+  inline in the testcase file itself.
+- **5 new bugs filed:** BUG-TCM-112 (Medium), BUG-TCM-113 (High), BUG-TCM-114 (High), BUG-TCM-115 (Medium),
+  BUG-TCM-116 (Low) — see the "UPDATE 2026-10-24" entry immediately below for detail on each.
+- **Nothing left to resume on the V1 cycle** unless: reporting BUG-TCM-112–116 to production, retesting
+  BUG-TCM-110/111 once fixed upstream, or standing up a Redmine 5.x/7.x instance to clear the 5 BLOCKED cases.
+- Full fixture credentials are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md` (fixture spec only — per-case
+  results now live in the testcase file, not that report).
 
 ---
+
+## UPDATE 2026-10-24 — V1 7.1.0 external cycle rerun COMPLETE: 202/202 cases executed, 5 new bugs filed
+
+Picked up the V1 rerun (`testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`) where the 2026-10-23 session left off
+(5/202 done) and executed every remaining case against the same `alpha-web` fixture (project id=5,
+`localhost:3000`, plugin v7.2.0), using Playwright MCP for UI flows and curl/API-key calls for the API-only
+areas. Every TC now has a `**Result (rerun 2026-10-24...)**` line inline in the testcase file itself (per
+explicit user instruction to update results in that same file as I went) — that file is the authoritative
+per-case record; this entry is the summary.
+
+**Final tally: 202/202 cases have a recorded result.**
+- ✅ PASS: 188
+- ❌ FAIL: 9
+- ⛔ BLOCKED: 5 (need a separate Redmine 5.x or 7.x instance, not available in this environment — TC-COMPAT-01-02,
+  01-03, 02-02, 04-02, 04-03; explicitly marked, not silently skipped)
+
+**By area:** SUITE 12/12, CASE 14/14, RUN 41/41, EXEC 33/33, DEFECT 29/29, REPORT 10/10, PERM 11/11, SAFE 10/10,
+API 28/28, COMPAT 9/14 executable + 5 blocked = 14/14 accounted for.
+
+**New bugs filed this session** (`bugs/open/`, not yet reported to production — none approved/executed via the
+redmineflux MCP this session):
+- **BUG-TCM-112** (Medium) — drag-copying a test case into another suite leaves the clone linked to BOTH the
+  source and target suite (the `after_create` suite-copy hook and `copy_issues`'s own target-link don't know
+  about each other). Found via TC-CASE-03-01.
+- **BUG-TCM-113** (High) — `create_milestone`/`edit_milestone`/`delete_milestone` are enforced in code
+  (`rftc_require_permission!`) but never declared in `init.rb` — no non-admin role can ever hold them, so only
+  `admin` can use milestones at all. Found via TC-PERM-02-1 / TC-PERM-04-2 / TC-REPORT-07-01 (three test cases
+  converged on the same root cause).
+- **BUG-TCM-114** (High) — `export_pdf1` (the real server-side Grover PDF export action) 500s on every call:
+  `NameError: undefined local variable 'pdf_path'` one line before the variable it should have used
+  (`file_path`) is actually computed. The separately-routed `export` action also 500s (no matching controller
+  method exists at all). Found via TC-SAFE-04-1 / TC-REPORT-02-01. The SSRF-sanitizer itself
+  (`rftc_sanitize_for_pdf`) was verified correct directly via `rails runner` — it's just never reached.
+- **BUG-TCM-115** (Medium) — `bulk_testcase_create` returns `200 {"success":true,"test_cases":[]}` with no
+  error when the (instance-wide) testcase tracker isn't enabled on the target project — silent no-op. Found via
+  TC-API-03-02.
+- **BUG-TCM-116** (Low) — deleting a test case on an active run leaves its `issue_status_results` row behind as
+  an orphan (run_issues correctly cascades, issue_status_results doesn't). Found via TC-CASE-04-02.
+
+**Spec-drift FAILs (test's literal expected value no longer matches current behavior — not filed as defects):**
+TC-CASE-02-02 (step length cap is now 40000 chars, not 2000), TC-EXEC-05-04 (single `create` now also transitions
+a seeded Untested row in place, same as `bulk_create`), TC-REPORT-05-01 (scheduled-report cancel 404s — this
+**is** a real bug but was already filed as **BUG-TCM-110**, not re-filed), TC-SAFE-07-2 (the documented six-view
+API-key-in-URL residual no longer reproduces — a positive fix beyond what's currently documented, not a new
+vulnerability).
+
+**Fixture changes made this session** (all under project `alpha-web`, id=5, same fixture the 2026-10-23 session
+built): ~60 new test cases/issues (#3656-#3681+), ~15 new runs (#104-#119), suites 92/93/96/97 added/renamed, 2
+new environments ("Chrome on Windows 11" in a 2nd project, "Safari on macOS"), 2 new roles (`V1 Developer
+(delete)` id 9, `V1 Exec-only (no add_issues)` id 10, `V1 CreateRun NoSuite` id 11), new users `qa.execonly`,
+`qa.nosuite` (ids 13/14), 2 new throwaway projects (`no-tcm`, `no-tracker-proj`, `compat-fresh`), 1 email
+template (`V1 XSS Template`, id 5), 1 run type (`Hotfix Verification`, id 10, since deleted to test
+TC-RUN-02-04). None of this touches the plugin's own `TC-TCM-NNN` suites or their fixtures.
+
+**Environment notes for whoever continues:**
+- Playwright MCP's browser repeatedly got stuck mid-session after certain actions (especially after a raw mouse
+  drag sequence) — `page.fill`/`page.click` would hang for the full 30s timeout with no response. The fix each
+  time was `browser_close` then re-navigate/re-login from scratch; `browser_run_code_unsafe` with
+  `form.requestSubmit()` instead of `.click()` was also more reliable than clicking for form submits throughout
+  this session.
+- This Docker image has no `node`/Chromium, so Grover (server PDF) always fails even before BUG-TCM-114's crash
+  — the mailer's documented HTML-fallback attachment is what actually gets sent for an "email as PDF" report.
+- Sidekiq's scheduled-job poller is broken per existing BUG-TCM-111 (confirmed again this session: a
+  scheduled-for-later report's email never arrived even after restarting Sidekiq; only a `schedule_now` report's
+  email arrived).
+- `qa.engineer` (role id 7) already has `add_issues` from the original 2026-10-23 fixture, which means
+  TC-API-02-02 (edit_testcase) needed `qa.manager` instead — `edit_own_issues` ≠ `edit_issues`, this is correct
+  Redmine-core behavior, not a bug.
+
+**Next session start point:** the V1 rerun is complete; nothing left to resume there. If more V1-cycle work is
+wanted, it would be: (a) get write-approval and report BUG-TCM-112 through 116 to production per
+`REDMINEFLUX-MCP-SETUP.md` §4, (b) retest BUG-TCM-110/111 once they're fixed upstream (both block real scheduled-
+report functionality), or (c) stand up a Redmine 5.x and 7.x instance to clear the 5 BLOCKED COMPAT cases.
 
 ## UPDATE 2026-10-23 (latest of latest, V1 rerun) — V1 7.1.0 external cycle rerun started, fixture rebuilt, 5/202 cases executed, PARTIAL (stopped on budget grounds)
 
@@ -2105,6 +2177,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-24 (V1 7.1.0 external cycle rerun — COMPLETE) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `alpha-web` (id=5) | Claude (Playwright MCP + curl/API-key + `rails runner`) | Completed the V1 rerun of `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` (202 cases) that the 2026-10-23 session left at 5/202. All 202 cases now have an inline result in that file: 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x instance). Filed 5 new bugs: BUG-TCM-112 (Medium, suite-copy leaves clone linked to both suites), BUG-TCM-113 (High, milestone permissions enforced but never declared in init.rb), BUG-TCM-114 (High, export_pdf1 500s on every call, pdf_path NameError), BUG-TCM-115 (Medium, bulk_testcase_create silent no-op on tracker/project mismatch), BUG-TCM-116 (Low, orphaned issue_status_results row after test-case delete). Confirmed BUG-TCM-110/111 still reproduce (scheduled-report cancel 404, scheduled email never fires). This file does not touch TC-TCM-NNN suites/fixtures — tracked entirely separately per CLAUDE.md's scope note. |
 | 2026-10-23 (new suite: TESTCASE_MANAGEMENT_OVERVIEW.md, the Overview dashboard had zero prior coverage) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (Playwright MCP + `rails runner`) | Authored and executed TC-TCM-321-328 for the project's Overview/landing dashboard (chart dimensions, date range, copy/download, Execution Details redirects, Test Runs/To-Do panel redirects) — confirmed via grep this page had zero coverage anywhere in the repo. All 8 TCs PASS, zero new bugs. One wording observation recorded (not filed): "By Unknown User" for a blank Run#assignee_id. One self-caught false positive: a synthetic dispatchEvent test of the dimension dropdown looked like a bug (dimensions=null in the request) until redone with a real selectOption, which worked correctly. Updated FEATURES_LIST.md, traceability matrix, plugin memory, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. |
 | 2026-10-23 (search-field + chart-download coverage check, per direct user follow-up) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (Playwright MCP + `rails runner`) | Added and executed TC-TCM-318 (Run grid Subject filter, PASS) and TC-TCM-320 (To-Do search field, PASS) closing 2 coverage gaps. Added TC-TCM-319 (Run chart Download SVG/PNG/CSV) — download matches the chart, but the chart only reflects the run's first test suite under "All Suites in Run" (confirmed: run #84 has 8 suites, chart shows only the first's 18 of 33 total cases) — not a new bug, extension of already-open BUG-TCM-098. Updated TEST_RUNS.md, TODO.md, BUG-TCM-098.md, traceability matrix, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. Zero new bugs. |
 | 2026-10-23 (TODO suite regressed — plugin's last remaining suite now covered) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, projects `rftc-016-ci-qa` + `bug-121896-retest` + `rftc-perf-500` | Claude (Playwright MCP + `rails runner` + `git log`) | TC-214 (Activity log cross-project leak) confirmed FIXED via a genuine non-member direct-URL re-test. TC-209 (To-Do cross-project leak) — its blocker BUG-TCM-022 is now closed, but a fresh fixture attempt hit an unrelated QA-fixture data defect in `rftc-perf-500` (documented in memory, not a product bug); the underlying security concern was independently confirmed fixed via the same non-member re-test approach. Reconfirmation note added to BUG-TCM-009.md. Remaining 8 TCs unchanged (zero relevant commits since 2026-10-01). Zero new bugs. Updated suite file, BUG-TCM-009.md, plugin memory, traceability matrix, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. **Every suite in this plugin now has current-build evidence.** |

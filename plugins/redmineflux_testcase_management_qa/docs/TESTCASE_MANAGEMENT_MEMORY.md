@@ -222,6 +222,29 @@
   Worth periodically checking the plugin's actual navigation/sidebar for pages that were never formally
   documented, rather than assuming `FEATURES_LIST.md` is exhaustive.
 
+- **(2026-10-24) V1 7.1.0 rerun complete (202/202 cases), 5 new bugs, 2 key non-obvious findings worth
+  remembering:**
+  - `create_milestone`/`edit_milestone`/`delete_milestone` are referenced by `rftc_require_permission!` in both
+    `TestcaseMilestonesController` and the MCP admin-config controller, but **are never declared in `init.rb`** —
+    no role, however configured, can ever be granted them. Only a site Administrator can create/edit/delete a
+    milestone on this build. Filed as BUG-TCM-113. Check this before assuming any "QA Manager can't do X"
+    permission result is a test-setup mistake — for milestones specifically, it's the product.
+  - `GET /testcase_reports/:id/export_pdf1` (the real server-side Grover PDF export) 500s on **every single
+    call** with `NameError: undefined local variable 'pdf_path'` (referenced one line before `file_path` — the
+    variable that should have been used — is actually computed). The separately-routed `export` action has no
+    matching controller method at all and also 500s. Filed as BUG-TCM-114. The `rftc_sanitize_for_pdf` SSRF
+    mitigation itself is correct (verified via `rails runner`) — it's simply unreachable through any real request.
+    Don't try to verify SSRF/PDF-export live through the UI on this build; use `rails runner` against the
+    sanitizer helper directly instead, same approach used this session.
+  - Playwright MCP's browser got stuck (page.fill/page.click hanging the full 30s timeout) multiple times this
+    session, especially right after a raw `page.mouse` drag sequence. Fix: `browser_close` then re-navigate/
+    re-login from a fresh page — don't keep retrying `.click()` on a stuck session. Preferring
+    `element.form.requestSubmit()` via `browser_run_code_unsafe` over `.click()` for form submits avoided most of
+    these hangs in the first place.
+  - This Docker image has no `node`/Chromium installed, so Grover always fails regardless of BUG-TCM-114 — an
+    "email as PDF" report's mail always arrives with the documented HTML fallback attachment instead. Don't
+    mistake this for a fresh PDF-generation bug; check `docker logs redmine6-sidekiq-1` for "No such file or
+    directory - node" to confirm it's the known environment gap (see `bugs/_duplicates.md`'s BUG-TCM-005 entry).
 - **(2026-10-23) The original V1 7.1.0 external release cycle demo environment (`localhost:3015`/`alpha-web`) no
   longer exists** — port 3015 now serves an unrelated Crux-plugin Docker stack (`crux-redmine6-redmine-1`),
   confirmed via `docker ps -a` and a 404 on `/projects/alpha-web`. A rerun against `localhost:3000` required

@@ -232,6 +232,14 @@
   work until the Gemfile itself is fixed upstream.** The working 5.1 setup (that fails at the bundle step) is
   preserved at `C:\redmine v5` on the host (sibling to the working `C:\redmine v6`) in case it's worth retrying
   later.
+- **(2026-10-24) No Redmine 5.x Docker tag has Ruby >= 3.3 — checked every base-OS variant, not just bookworm.**
+  Before suggesting a different 5.x image might sidestep BUG-TCM-117, pulled and inspected `redmine:5.1-trixie`
+  (the newest base-OS variant on Docker Hub, Debian 13) directly: still `RUBY_VERSION=3.2.11` even at
+  `REDMINE_VERSION=5.1.12`. Every published 5.0.x/5.1.x tag (bookworm, alpine, trixie alike) ships Ruby 3.2.x —
+  the official image's Ruby version is pinned per Redmine minor release, not something a different base-image
+  flavor changes. **TC-COMPAT-02-02 and TC-COMPAT-04-02 cannot be unblocked by trying a different 5.x Docker
+  tag — don't spend time on that again.** They stay BLOCKED until BUG-TCM-117 is fixed upstream (the Gemfile's
+  `mutant` gem itself needs relaxing/moving), full stop — it is a plugin-code limitation, not an environment gap.
 - **(2026-10-24) CORRECTION — a Redmine 7.0 Docker image DOES exist; don't trust a filtered Docker Hub tag
   query.** An earlier note here (and an earlier same-day finding) claimed "Docker Hub has no Redmine 7.0 image,
   tops out at 6.1.x" — that was wrong, caused by querying Docker Hub's tags API with a `?name=bookworm` filter

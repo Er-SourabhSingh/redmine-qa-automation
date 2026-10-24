@@ -29,15 +29,62 @@ suites — there is nothing left to regress for the first time. When bugs start 
 
 ### V1 7.1.0 External Release Cycle (separate file, separate ID scheme — `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`)
 
-- **COMPLETE — 202/202 cases executed 2026-10-24.** 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x
-  instance not present here — TC-COMPAT-01-02, 01-03, 02-02, 04-02, 04-03). Every case's result is recorded
-  inline in the testcase file itself.
-- **5 new bugs filed:** BUG-TCM-112 (Medium), BUG-TCM-113 (High), BUG-TCM-114 (High), BUG-TCM-115 (Medium),
-  BUG-TCM-116 (Low) — see the "UPDATE 2026-10-24" entry immediately below for detail on each.
-- **Nothing left to resume on the V1 cycle** unless: reporting BUG-TCM-112–116 to production, retesting
-  BUG-TCM-110/111 once fixed upstream, or standing up a Redmine 5.x/7.x instance to clear the 5 BLOCKED cases.
+- **COMPLETE — 202/202 cases executed 2026-10-24.** 188 PASS, 10 FAIL, 4 BLOCKED. Every case's result is
+  recorded inline in the testcase file itself.
+- **6 new bugs filed:** BUG-TCM-112 (Medium), BUG-TCM-113 (High), BUG-TCM-114 (High), BUG-TCM-115 (Medium),
+  BUG-TCM-116 (Low), **BUG-TCM-117 (High, added later same day)** — see the "UPDATE 2026-10-24" entries below
+  for detail on each.
+- **A real Redmine 5.1 Docker instance was built this session** (`C:\redmine v5` on the host, sibling to the
+  existing `C:\redmine v6`, same Dockerfile/compose pattern, `REDMINE_TAG=5.1-bookworm`) specifically to clear
+  TC-COMPAT-01-02/02-02/04-02 — but the plugin **cannot install on Redmine 5.1 at all** (BUG-TCM-117: the
+  Gemfile's dev/test-only `mutant` gem needs Ruby >= 3.3, Redmine 5.1 ships Ruby 3.2.11, and this is not
+  bypassable without editing the Gemfile). TC-COMPAT-01-02 is now a genuine **FAIL** (not blocked); 02-02 and
+  04-02 are still **BLOCKED**, but for the confirmed reason that the app never boots, not "no instance available."
+  The containers were stopped/removed after confirming the failure (crash-looping, no further info to gain); the
+  compose files are left on disk at `C:\redmine v5` in case BUG-TCM-117 gets fixed upstream and someone wants to
+  re-run these later without rebuilding from scratch.
+- **Redmine 7.0 has no official Docker image yet** (Docker Hub's `redmine` repo only goes up to `6.1.x`) — a
+  7.x instance genuinely cannot be built right now. TC-COMPAT-01-03 and 04-03 remain BLOCKED on that basis (not
+  attempted).
+- **Nothing left to resume on the V1 cycle** unless: reporting BUG-TCM-112–117 to production, retesting
+  BUG-TCM-110/111/117 once fixed upstream, or building a Redmine 7.x instance once Docker Hub actually publishes
+  one.
 - Full fixture credentials are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md` (fixture spec only — per-case
   results now live in the testcase file, not that report).
+
+---
+
+## UPDATE 2026-10-24 (same day, continued) — Built a real Redmine 5.1 instance; plugin cannot install on it (BUG-TCM-117); TC-COMPAT-01-02 flips BLOCKED→FAIL
+
+Per direct user request to build containers for the 5 BLOCKED COMPAT cases, checked Docker Hub first:
+**Redmine 7.0 has no published image** (the official `redmine` repo tops out at `6.1.x-bookworm`), so a 7.x
+instance genuinely cannot be built today — confirmed with the user before proceeding, who approved building only
+the 5.1 instance.
+
+Created `C:\redmine v5` (sibling to the existing `C:\redmine v6` the `localhost:3000` demo runs from), copying its
+exact Dockerfile/docker-compose pattern with `REDMINE_TAG=5.1-bookworm` and the plugin directory bind-mounted
+completely unmodified (same copy used on 6.x). Built the image, started the stack — **the Redmine container never
+finishes booting**: `bundle install` crash-loops on `Could not find compatible versions ... mutant >= 0.16.0
+depends on Ruby >= 3.3 ... Ruby >= 3.3 is required. So, because current Ruby version is = 3.2.11, version solving
+has failed.` (`mutant` is the plugin's own dev/test-only gem, pinned to `~> 0.17`).
+
+Spent real effort confirming this isn't a config mistake before filing it: `bundle config without 'development
+test'` is already correctly set by the base image (verified via `bundle config list` inside the actual failing
+container); explicitly passing `bundle install --without development test`; and `bundle config set --local
+without ... && bundle lock && bundle install` — all three independently still hit the identical resolver failure.
+Root cause: Bundler resolves the full dependency graph across every group before group-exclusion is ever applied,
+so a dev/test-only gem's Ruby-version floor blocks installation of the ENTIRE Gemfile, including production
+gems — not bypassable short of editing the Gemfile itself (which the product's own "no manual per-version edits"
+claim says should never be necessary).
+
+**Filed BUG-TCM-117 (High).** Updated three V1 results: **TC-COMPAT-01-02 flips from BLOCKED to a genuine FAIL**
+(the install step itself is the test, and it failed, with full evidence — this is more informative than "no
+instance available"); TC-COMPAT-02-02 and TC-COMPAT-04-02 stay BLOCKED but now for the confirmed reason "app
+never boots due to BUG-TCM-117," not "no instance." Stopped and removed the redmine5 containers after confirming
+the failure (crash-looping, nothing further to learn); left the compose files on disk at `C:\redmine v5` for
+whoever retries this once BUG-TCM-117 is fixed upstream. V1 file tally updated: 188 PASS / 10 FAIL / 4 BLOCKED
+(TC-COMPAT-01-03/04-03 remain blocked on the separate, unrelated "no Redmine 7.0 image exists yet" basis).
+Updated `bugs/_index.md`, this handoff, plugin memory, STATUS.md, TIME_LOG.md.
 
 ---
 
@@ -2178,6 +2225,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-10-24 (V1 7.1.0 external cycle rerun — COMPLETE) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `alpha-web` (id=5) | Claude (Playwright MCP + curl/API-key + `rails runner`) | Completed the V1 rerun of `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` (202 cases) that the 2026-10-23 session left at 5/202. All 202 cases now have an inline result in that file: 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x instance). Filed 5 new bugs: BUG-TCM-112 (Medium, suite-copy leaves clone linked to both suites), BUG-TCM-113 (High, milestone permissions enforced but never declared in init.rb), BUG-TCM-114 (High, export_pdf1 500s on every call, pdf_path NameError), BUG-TCM-115 (Medium, bulk_testcase_create silent no-op on tracker/project mismatch), BUG-TCM-116 (Low, orphaned issue_status_results row after test-case delete). Confirmed BUG-TCM-110/111 still reproduce (scheduled-report cancel 404, scheduled email never fires). This file does not touch TC-TCM-NNN suites/fixtures — tracked entirely separately per CLAUDE.md's scope note. |
+| 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 5.1 instance built, BUG-TCM-117 found) | Redmine 5.1-bookworm (Docker, newly built) | Docker, host folder `C:\redmine v5` | Claude (Docker/Playwright) | Per user request to clear the 5 BLOCKED COMPAT cases: confirmed no Redmine 7.0 Docker image exists yet (Docker Hub tops out at 6.1.x), user approved building only a Redmine 5.1 instance. Built `C:\redmine v5` (same Dockerfile/compose pattern as the working `C:\redmine v6`, `REDMINE_TAG=5.1-bookworm`, plugin bind-mounted unmodified). The plugin cannot install on it at all — `bundle install` crash-loops on the dev/test-only `mutant ~> 0.17` gem requiring Ruby >= 3.3 (Redmine 5.1 ships Ruby 3.2.11), confirmed not bypassable via `--without`/`bundle lock` in 3 independent ways. Filed **BUG-TCM-117** (High). TC-COMPAT-01-02 updated from BLOCKED to a genuine **FAIL**; TC-COMPAT-02-02/04-02 stay BLOCKED but for the confirmed reason (app never boots), not "no instance." Stopped/removed the containers after confirming the failure; compose files left on disk for a future retry once fixed upstream. V1 file tally now 188 PASS / 10 FAIL / 4 BLOCKED. |
 | 2026-10-23 (new suite: TESTCASE_MANAGEMENT_OVERVIEW.md, the Overview dashboard had zero prior coverage) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (Playwright MCP + `rails runner`) | Authored and executed TC-TCM-321-328 for the project's Overview/landing dashboard (chart dimensions, date range, copy/download, Execution Details redirects, Test Runs/To-Do panel redirects) — confirmed via grep this page had zero coverage anywhere in the repo. All 8 TCs PASS, zero new bugs. One wording observation recorded (not filed): "By Unknown User" for a blank Run#assignee_id. One self-caught false positive: a synthetic dispatchEvent test of the dimension dropdown looked like a bug (dimensions=null in the request) until redone with a real selectOption, which worked correctly. Updated FEATURES_LIST.md, traceability matrix, plugin memory, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. |
 | 2026-10-23 (search-field + chart-download coverage check, per direct user follow-up) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (Playwright MCP + `rails runner`) | Added and executed TC-TCM-318 (Run grid Subject filter, PASS) and TC-TCM-320 (To-Do search field, PASS) closing 2 coverage gaps. Added TC-TCM-319 (Run chart Download SVG/PNG/CSV) — download matches the chart, but the chart only reflects the run's first test suite under "All Suites in Run" (confirmed: run #84 has 8 suites, chart shows only the first's 18 of 33 total cases) — not a new bug, extension of already-open BUG-TCM-098. Updated TEST_RUNS.md, TODO.md, BUG-TCM-098.md, traceability matrix, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. Zero new bugs. |
 | 2026-10-23 (TODO suite regressed — plugin's last remaining suite now covered) | master (post-pull, pre-7.2.0) | Docker `localhost:3000`, projects `rftc-016-ci-qa` + `bug-121896-retest` + `rftc-perf-500` | Claude (Playwright MCP + `rails runner` + `git log`) | TC-214 (Activity log cross-project leak) confirmed FIXED via a genuine non-member direct-URL re-test. TC-209 (To-Do cross-project leak) — its blocker BUG-TCM-022 is now closed, but a fresh fixture attempt hit an unrelated QA-fixture data defect in `rftc-perf-500` (documented in memory, not a product bug); the underlying security concern was independently confirmed fixed via the same non-member re-test approach. Reconfirmation note added to BUG-TCM-009.md. Remaining 8 TCs unchanged (zero relevant commits since 2026-10-01). Zero new bugs. Updated suite file, BUG-TCM-009.md, plugin memory, traceability matrix, bugs/_index.md, STATUS.md, this handoff, TIME_LOG.md. **Every suite in this plugin now has current-build evidence.** |

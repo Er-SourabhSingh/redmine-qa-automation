@@ -222,6 +222,17 @@
   Worth periodically checking the plugin's actual navigation/sidebar for pages that were never formally
   documented, rather than assuming `FEATURES_LIST.md` is exhaustive.
 
+- **(2026-10-24) The plugin cannot install on Redmine 5.1 at all (BUG-TCM-117).** A fresh `redmine:5.1-bookworm`
+  container (Ruby 3.2.11) with this plugin bind-mounted unmodified never finishes booting — `bundle install`
+  crash-loops because the Gemfile's dev/test-only `mutant ~> 0.17` gem needs Ruby >= 3.3. Confirmed `bundle
+  config without 'development test'` (already set by the base image), the `--without` CLI flag, and `bundle
+  lock` + `set --local without` all independently fail to bypass this — Bundler resolves every group's gems
+  before group-exclusion applies, so one dev-only gem's Ruby floor blocks the whole install. **If anyone asks to
+  spin up a Redmine 5.x instance for this plugin again, don't bother retrying `--without` tricks — it won't
+  work until the Gemfile itself is fixed upstream.** Docker Hub also has no Redmine 7.0 image yet (tops out at
+  `6.1.x-bookworm` as of 2026-10-24) — a 7.x instance can't be built at all right now, check Docker Hub tags
+  before promising one. The working 5.1 setup (that fails at the bundle step) is preserved at `C:\redmine v5`
+  on the host (sibling to the working `C:\redmine v6`) in case it's worth retrying later.
 - **(2026-10-24) V1 7.1.0 rerun complete (202/202 cases), 5 new bugs, 2 key non-obvious findings worth
   remembering:**
   - `create_milestone`/`edit_milestone`/`delete_milestone` are referenced by `rftc_require_permission!` in both

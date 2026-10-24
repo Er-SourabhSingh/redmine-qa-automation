@@ -270,6 +270,21 @@
   `rails runner`/`rails console` run via `exec` on these containers needs `-e SECRET_KEY_BASE=<same value as
   .env>` passed explicitly, or it fails immediately with `ArgumentError: Missing secret_key_base for 'production'
   environment`.
+- **(2026-10-24) RFTC-\*_EXTERNAL_SPEC_\*.md regression done risk-based via `git log`, not by re-clicking ~200
+  original scenarios.** For an already-thoroughly-tested external spec file, the efficient and honest regression
+  method is: diff the product repo's `git log` between the file's last-execution date and today, map any relevant
+  commit to the file(s) it could affect, then live-verify only those specific claims — cross-reference everything
+  else against `bugs/_index.md`'s already-closed/open status instead of re-deriving it. This surfaced 3 things a
+  blind re-click would likely have missed or gotten wrong: (1) `export_pdf1` (PDF download, every report type) is
+  now completely broken plugin-wide — **BUG-TCM-114** — which would have silently invalidated RFTC-020/021's old
+  "PDF exports are fully correct" claims if not caught; (2) `c8ec3c4` built out Quality HQ's Most Failed/Slow
+  Tests sections (previously "Not yet available") with **no corresponding bug or spec update** — found purely by
+  reading `git log`, not from any ticket; (3) BUG-TCM-072 has **two separate XSS vectors** in the same
+  Requirements-page mention feature — the first (zero-interaction, `createIssues()`) is fixed, the second
+  (Tribute.js's own native popup, needs the user to type `#`) is not — confirmed by actually typing `#` into a
+  real content editor and watching `alert()` fire, not just reading the bug file's age and assuming it's stale.
+  **When a bug's title says "reopened" or references two mechanisms, verify BOTH independently — a passive
+  page-load check only re-confirms the first one.**
 - **(2026-10-24) V1 7.1.0 rerun complete (202/202 cases), 5 new bugs, 2 key non-obvious findings worth
   remembering:**
   - `create_milestone`/`edit_milestone`/`delete_milestone` are referenced by `rftc_require_permission!` in both

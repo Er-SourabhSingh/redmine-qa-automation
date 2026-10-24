@@ -209,3 +209,23 @@ This file, together with the corrected `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNE
 rftc-042 and rftc-043 (#121885/#121886) honest, evidence-based coverage: substantial real tooling exists
 for both, several pieces have been independently re-verified live in this session, and the remaining gaps
 are specific and named rather than papered over.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. The DAST authz-matrix generator this file's RFTC043-9
+case exercises found a genuine cross-project IDOR (`RunsController#get_testcases`) — filed as **BUG-TCM-086**,
+now **Closed, confirmed FIXED** (retested 2026-10-22, `bugs/closed/BUG-TCM-086.md`; also independently
+re-confirmed again this session, see `RFTC-008_EXTERNAL_SPEC_DEFECT_EXECUTION_LINKING.md`'s own 2026-10-24
+regression note for the same live check). RFTC043-9 is therefore now a genuine PASS, not the FAIL it was
+recorded as at the time this file's own Coverage Summary above was written.
+
+Two more real findings this DAST tooling surfaced in the same 3-persona roster exercise remain **open** and were
+not regressed/fixed by any commit since: **BUG-TCM-091** (High — CSV import's `step2` doesn't validate
+`selected_suite_id` against the importing project, a cross-project suite-link leak) and **BUG-TCM-094** (Medium —
+`IssueStatusResultsController#new` has no cross-project scoping, a read-only run/environment-name disclosure).
+Both still open per `bugs/_index.md`, correctly so — no fix commit found for either in the product repo's recent
+history.
+
+**Verdict:** RFTC043-9 upgrades FAIL→PASS (its finding is now fixed). The remaining two tooling-discovered
+findings (BUG-TCM-091/094) are unrelated defects, not a regression of this file's own scenarios, and correctly
+remain open.

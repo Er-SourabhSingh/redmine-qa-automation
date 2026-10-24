@@ -269,3 +269,26 @@ intentionally-honoured `0` case), cross-environment/cross-run sample pooling, an
 (`bulk_create` + single `create`) — all behave exactly per the 370-line source spec. The one defect
 (**BUG-TCM-068**) is isolated to the Excel export path only; HTML and PDF exports are fully correct, and the
 report's live on-screen rendering, metric math, and threshold logic are all solid.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. **BUG-TCM-068** (Excel export empty) is Closed, confirmed
+FIXED (`bugs/closed/BUG-TCM-068.md`) — RFTC020-17 (XLSX formula-injection escape, previously blocked on this bug)
+is now unblocked for a future pass, not re-executed this session.
+
+Two related report-export fixes landed since last execution (2026-10-19): `9122be8` "Fix four report-export bugs"
+(2026-10-21, PDF charts/headings + email data) and its follow-ups — retested as **BUG-TCM-076/078/081**, all
+Closed/confirmed FIXED.
+
+**However — a NEW, unrelated regression now blocks PDF export entirely, found this same day during an earlier
+part of this session's own V1-cycle testing: BUG-TCM-114 (High, currently OPEN)** — `export_pdf1` 500s on
+**every** call, for every report type, with a `NameError` (`pdf_path` referenced one line before it's assigned).
+Live-reconfirmed this pass: `GET /testcase_reports/:id/export_pdf1` → `HTTP 500` on this exact build. This
+**supersedes** this file's earlier "PDF exports are fully correct" statement above — that was true as of
+2026-10-19/21 (before BUG-TCM-114 was introduced/found), it is **not** true right now. HTML (the report's own
+`show` page, confirmed `200` live) and Excel (confirmed via a live download, correct headers/filename) are
+**unaffected** — only the dedicated PDF-download action is broken.
+
+**Verdict:** Partial regression. Excel/HTML export paths and all prior fixes hold; PDF export is currently fully
+broken plugin-wide (not specific to this report type) via already-tracked BUG-TCM-114 — no new bug filed here,
+cross-referenced instead. Re-test PDF-specific claims in this file once BUG-TCM-114 is fixed.

@@ -721,3 +721,27 @@ endpoint has now been executed — this endpoint is exhaustively verified agains
 and BUG-TCM-069 as the two known outstanding issues. (Separately, this same session's exploratory testing around
 user deletion surfaced a real, unrelated defect — `BUG-TCM-064`, reported to production as #123501 — in the
 Testcase Reports feature, not in this endpoint.)
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. Both findings above are now closed:
+
+- **BUG-TCM-067** (wrong "not the assignee" message) — Closed, retested 2026-10-21, confirmed FIXED
+  (`bugs/closed/BUG-TCM-067.md`).
+- **BUG-TCM-069** (`on_unmatched: "skip"` not implemented) — Closed, confirmed FIXED (`bugs/closed/BUG-TCM-069.md`).
+
+Two commits landed since this file's last execution (2026-10-15) that touch code this endpoint shares: `ad6437c`
+"Fix cross-project data leak in the run execution test-cases API" (2026-10-21, same run-execution-grid path —
+independently retested as **BUG-TCM-086**, confirmed FIXED 2026-10-22) and `440da6a` "Close a CSRF gap in two API
+endpoints" (2026-10-21, explicitly covers both `bootstrap_run` **and** `ingest_results` in `Apis::CiTestRunController`
+— the exact controller this file's own `RFTC016-*` cases exercise).
+
+**Live spot-check performed this pass:** `POST /testcase_ci/ingest_results.json` via genuine API-key auth (the
+real CI-client pattern) — request passed authentication/CSRF cleanly and reached real business-logic validation
+(`422`, "environment must match one of the run's configured environments" — a correct rejection of a probe payload
+with a mismatched environment, not an auth failure). Confirms the CSRF fix did not break the endpoint's real
+auth path for genuine clients, consistent with the identical check already done for its sibling `bootstrap_run`
+action (see `reports/RFTC-009_EXTERNAL_SPEC_RESULTS.md`'s own 2026-10-24 regression section).
+
+**Verdict:** No regression. Both prior findings remain fixed; the shared-controller CSRF fix does not break
+genuine CI-client ingest calls.

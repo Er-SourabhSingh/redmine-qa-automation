@@ -227,3 +227,29 @@ its UI control), and the ranked table's own escaping are all correct. Of the two
 chart partial's interaction with the ApexCharts library on the live page (does not propagate into the HTML or PDF
 exports); the other is isolated to the Excel exporter never having been wired up for this report type at all
 (HTML and PDF both work correctly, including correctly escaping the same XSS-shaped payload as inert text).
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. Both findings above are Closed, confirmed FIXED:
+
+- **BUG-TCM-070** (ApexCharts bar-chart XSS) — `bugs/closed/BUG-TCM-070.md`.
+- **BUG-TCM-071** (Excel export "Unknown Report Type") — `bugs/closed/BUG-TCM-071.md`, including the sheet-title
+  cosmetic follow-up.
+
+Also relevant and already independently retested: **BUG-TCM-077** (emailed report always said "No failing test
+cases" — Closed, `bugs/closed/BUG-TCM-077.md`) and **BUG-TCM-078** (emailed PDF/HTML menu-leak + missing chart +
+mojibake — Closed, `bugs/closed/BUG-TCM-078.md`). Two related items remain genuinely **open**: **BUG-TCM-109**
+(Low — emailed report shows "Report Type: Default Text" instead of "Most Failed Tests") and the **new** BUG-TCM-114
+below — neither regressed, both correctly still tracked open.
+
+**Live spot-checks performed this pass** (report #160, "Most Failed Tests", project `rftc-016-ci-qa`):
+
+| Check | Result |
+|---|---|
+| Live page (`show`) renders the ranked table + ApexCharts bar chart with real data, no XSS fired | **PASS** — confirms BUG-TCM-070 fix holds |
+| Excel export downloads a real, named file (not a 5-row "Unknown Report Type" sheet) | **PASS** — confirms BUG-TCM-071 fix holds |
+| PDF export (`GET /testcase_reports/160/export_pdf1`) | **FAIL — `HTTP 500`.** This is **BUG-TCM-114** (High, filed earlier the same day during this session's V1-cycle testing, currently **open**), not a new finding specific to this report — `export_pdf1` 500s identically for every report type on this build (`pdf_path` referenced before assignment). Cross-referenced, not re-filed. |
+
+**Verdict:** Partial regression, same root cause as RFTC-020's. Chart/Excel/live-page correctness all hold; PDF
+download is currently broken for this report type too, via the same plugin-wide BUG-TCM-114. HTML/Excel exports
+and the live page are the reliable formats on this build until that bug is fixed.

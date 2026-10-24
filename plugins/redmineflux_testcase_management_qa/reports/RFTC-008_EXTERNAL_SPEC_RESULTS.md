@@ -65,3 +65,21 @@ to link."* This retest verifies that consolidated design actually works end-to-e
 **Revised bottom line:** BUG-TCM-044 and BUG-TCM-045 are both fixed and confirmed working via the real UI (not
 just the API). The original "no usable UI" / release-blocking assessment from 2026-10-06 no longer applies.
 Full detail posted to #121875's production journal (2026-10-08 entry).
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0 (master, post-7.2.0 version bump + today's Redmine 7.0
+Docker compat work). Scope: confirm the core many-to-one linking feature still holds after real intervening
+code churn, not a full re-walk of all 22 original cases.
+
+Relevant commit since last execution: `ad6437c` "Fix cross-project data leak in the run execution test-cases
+API" (2026-10-21) — touches the same `RunsController`/run-execution-grid code path this feature's UI lives on.
+That fix was independently found and retested as **BUG-TCM-086** (confirmed FIXED 2026-10-22, see
+`bugs/closed/BUG-TCM-086.md`) during the plugin's own TC-TCM-NNN suite regression — not re-litigated here.
+
+**Live spot-check performed this pass:** `GET /runs/83?project_id=rftc-016-ci-qa` — the run grid's "Defect ID's"
+column and the run header's "Linked defects (1): 3642" both render correctly, exactly the shape BUG-TCM-044's fix
+established. **PASS**, feature still works end-to-end on the current build.
+
+**Verdict:** No regression. The one commit touching this feature's code path was already found, fixed, and
+retested via BUG-TCM-086; this session's own live check confirms the display layer is unaffected.

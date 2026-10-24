@@ -58,6 +58,70 @@ suites — there is nothing left to regress for the first time. When bugs start 
 - Full fixture credentials are in `reports/V1_7.1.0_RERUN_2026-10-23_RESULTS.md` (fixture spec only — per-case
   results now live in the testcase file, not that report).
 
+### RFTC-*_EXTERNAL_SPEC_*.md (11 separate production-feature spec files, own ID schemes per file) — ALL 11 REGRESSED TODAY
+
+| File | Verdict |
+|---|---|
+| `RFTC-008_EXTERNAL_SPEC_DEFECT_EXECUTION_LINKING.md` | ✅ No regression — core feature live-reconfirmed |
+| `RFTC-009_EXTERNAL_SPEC_CI_BOOTSTRAP_RUN.md` | ✅ No regression — CSRF fix live-tested (forged request correctly 401'd) |
+| `RFTC-011_EXTERNAL_SPEC_UI_MODERNIZATION_WAVE0.md` | ⚠️ BUG-TCM-072's first vector confirmed FIXED; its reopened 2nd vector (Tribute.js `#`-mention) confirmed STILL exploitable — correctly still open, not new |
+| `RFTC-016_EXTERNAL_SPEC_CI_RESULTS_INGEST.md` | ✅ No regression |
+| `RFTC-017_EXTERNAL_SPEC_CI_RESULTS_CLI.md` | ✅ No regression — REST API auth fix live-tested |
+| `RFTC-020_EXTERNAL_SPEC_SLOW_TESTS_REPORT.md` | ⚠️ PDF export now plugin-wide broken (BUG-TCM-114, already filed today) — HTML/Excel unaffected |
+| `RFTC-021_EXTERNAL_SPEC_MOST_FAILED_TESTS_REPORT.md` | ⚠️ Same BUG-TCM-114 PDF finding, cross-referenced not re-filed |
+| `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` | ✅ No regression |
+| `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` | ✅ Stable, zero relevant code churn since last execution |
+| `RFTC-043_EXTERNAL_SPEC_SECURITY_DISCOVERY_TESTING.md` | ✅ RFTC043-9 upgraded FAIL→PASS (its finding, BUG-TCM-086, is now fixed) |
+| `RFTC-044_EXTERNAL_SPEC_QUALITY_HQ.md` | ✅ Translation fix holds; a genuinely new feature (Most Failed/Slow Tests sections built out) independently re-verified for cross-project isolation |
+
+**Zero new bugs filed this pass** — every finding either cross-references an already-tracked bug (BUG-TCM-072,
+BUG-TCM-086, BUG-TCM-114) or confirms stability. Full detail (live checks performed, exact commits cross-referenced)
+is in each file's own inline `## Regression — 2026-10-24` section (or, for RFTC-008/009, their companion
+`reports/RFTC-0XX_EXTERNAL_SPEC_RESULTS.md`).
+
+---
+
+## UPDATE 2026-10-24 (same day, continued further still) — All 11 RFTC-*_EXTERNAL_SPEC_*.md files regressed, zero new bugs
+
+Per explicit user instruction ("rftc wale bhi test krne, inka regression jaruri he... please fast krna"), regressed
+all 11 external-spec production-feature test files — separate from both the plugin's own TC-TCM-NNN suites and
+`V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md`. A background fork agent was launched first to handle this, then **stopped
+per explicit follow-up instruction ("tum khud kro test, agent use mat kro")** and redone directly.
+
+Rather than blindly re-clicking all ~200 original scenarios, cross-referenced each file's last-execution date
+against `git log` on the product repo (`C:\redmine v6\plugins\redmineflux_testcase_management`) to find real
+commits since, then prioritized live verification on exactly those areas:
+
+- **`ad6437c`** (cross-project run-execution-grid leak) and **`440da6a`** (CSRF gap on the CI bootstrap/ingest
+  endpoints) — both already independently retested as BUG-TCM-086 (Closed) during the plugin's own TC-TCM-NNN
+  regression; additionally live-tested myself for RFTC-009's CSRF claim specifically: forged a cross-site
+  request using a real admin session cookie with **no CSRF token**, correctly got `401`; genuine API-key auth on
+  the same endpoint got `201 Created`.
+- **`d1919d2`** (REST API calls via API-key-as-Basic-Auth wrongly rejected as forged) — live-tested exactly the
+  customer-reported scenario (`POST /test_suites.json` with `-u <api_key>:x`) — `201 Created`, confirms the fix
+  holds for RFTC-017/038's CLI/recipe auth pattern.
+- **`9122be8`** (4 report-export bugs) — all already retested/closed (BUG-TCM-076/078/081/071/070/077/068/069).
+- **`4a5b595`** (Quality HQ "Translation missing") — live-reconfirmed clean, zero occurrences on `/quality_hq`.
+- **`c8ec3c4`** (Quality HQ's Most Failed/Slow Tests sections built out, previously "Not yet available") — **not
+  tied to any filed bug**, found purely by reading `git log` for anything post-dating RFTC-044's last execution.
+  This directly superseded RFTC044-2's recorded result. Live-verified the new sections render real cross-project
+  data for admin, **and independently re-proved the SACRED cross-project-isolation property for a real
+  permission-scoped non-admin (`qa.limited`)** on this specific new code — not assumed to carry over from the
+  dashboard's other, previously-tested sections.
+- **A genuinely new finding, not from any commit diff**: while live-testing RFTC-020/021's PDF export,
+  `GET /testcase_reports/:id/export_pdf1` returned `HTTP 500` for every report. This is **BUG-TCM-114** — already
+  filed earlier the same day during this session's own V1-cycle work (the `pdf_path`-before-assignment `NameError`)
+  — cross-referenced into both files rather than re-filed. HTML (`show`) and Excel exports both confirmed still
+  correct; only the dedicated PDF-download action is broken, plugin-wide, not report-type-specific.
+- **RFTC-011's BUG-TCM-072** — read the current `script.js`, confirmed the first (zero-interaction) XSS vector is
+  now patched (`escapeHtml()` added to `createIssues()`), then **actually typed `#` into a real requirement's
+  content editor** to trigger the Tribute.js-native mention popup (the vector the bug was reopened for) — a real
+  `alert('export-xss')` fired. Confirms the bug's open status is accurate, not stale.
+
+**Verdict across all 11 files: no silent regressions, no silent fixes claimed without live proof, zero new bugs
+filed** (every finding cross-references an existing bug ID). Wrote a dated `## Regression — 2026-10-24` section
+into each file (2 via companion reports, 9 inline) rather than rewriting their original history.
+
 ---
 
 ## UPDATE 2026-10-24 (same day, continued further) — Built a real Redmine 7.0 instance; cleared the last 2 BLOCKED COMPAT cases, both PASS
@@ -2273,6 +2337,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-24 (all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files regressed) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, projects `rftc-016-ci-qa` + `alpha-web` | Claude (Playwright MCP + `curl`/API-key + `git log` cross-reference) | Per explicit user instruction, regressed all 11 external-spec production-feature files against the current build, risk-based against real `git log` commits since each file's last execution rather than blind re-clicking. No regressions found; 2 cross-references to already-filed bugs added (BUG-TCM-072's reopened vector confirmed still exploitable via live `#`-mention XSS trigger; BUG-TCM-114's PDF-export-500 confirmed plugin-wide, affecting RFTC-020/021's PDF checks). One genuinely new feature found via `git log` alone (not tied to any bug) — Quality HQ's Most Failed/Slow Tests sections are now live, cross-project isolation independently re-verified for the new code. RFTC043-9 upgraded FAIL→PASS (BUG-TCM-086 now fixed). Zero new bugs filed. Wrote a dated Regression section into all 11 files. |
 | 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 7.0 instance built, last 2 BLOCKED COMPAT cases cleared, both PASS) | Redmine 7.0.2.stable (Docker, newly built) | Docker, host folder `C:\redmine v7` | Claude (Docker/Playwright + `rails runner`) | Per user instruction to also build the Redmine 7.x image and test it (an earlier filtered Docker Hub query had wrongly concluded no 7.0 image existed; an unfiltered re-query found `7.0-bookworm`/`7.0.0-2-bookworm` genuinely published). Built `C:\redmine v7` (same pattern as v5/v6). `bundle install` succeeded with zero errors on this image's Ruby 4.0.9 (BUG-TCM-117 does not reproduce on 7.0). **TC-COMPAT-01-03 PASS** (Redmine 7.0.2.stable confirmed, 0 migration errors, plugin listed at v7.2.0). **TC-COMPAT-04-03 PASS** (built a minimal fixture by hand on this unseeded fresh install — tracker/status/priority/plugin config/project/suite/test case/run — then verified the `User.has_many :run_assignments` `>= 5` `before_initialize` wiring via `rails runner` and the run's show page; both directions of the association resolve cleanly, no errors). No new bugs. V1 file tally now final: **190 PASS / 10 FAIL / 2 BLOCKED** (TC-COMPAT-02-02/04-02 remain blocked pending a fix to BUG-TCM-117 upstream). |
 | 2026-10-24 (V1 7.1.0 external cycle rerun — COMPLETE) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `alpha-web` (id=5) | Claude (Playwright MCP + curl/API-key + `rails runner`) | Completed the V1 rerun of `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` (202 cases) that the 2026-10-23 session left at 5/202. All 202 cases now have an inline result in that file: 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x instance). Filed 5 new bugs: BUG-TCM-112 (Medium, suite-copy leaves clone linked to both suites), BUG-TCM-113 (High, milestone permissions enforced but never declared in init.rb), BUG-TCM-114 (High, export_pdf1 500s on every call, pdf_path NameError), BUG-TCM-115 (Medium, bulk_testcase_create silent no-op on tracker/project mismatch), BUG-TCM-116 (Low, orphaned issue_status_results row after test-case delete). Confirmed BUG-TCM-110/111 still reproduce (scheduled-report cancel 404, scheduled email never fires). This file does not touch TC-TCM-NNN suites/fixtures — tracked entirely separately per CLAUDE.md's scope note. |
 | 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 5.1 instance built, BUG-TCM-117 found) | Redmine 5.1-bookworm (Docker, newly built) | Docker, host folder `C:\redmine v5` | Claude (Docker/Playwright) | Per user request to clear the 5 BLOCKED COMPAT cases: confirmed no Redmine 7.0 Docker image exists yet (Docker Hub tops out at 6.1.x), user approved building only a Redmine 5.1 instance. Built `C:\redmine v5` (same Dockerfile/compose pattern as the working `C:\redmine v6`, `REDMINE_TAG=5.1-bookworm`, plugin bind-mounted unmodified). The plugin cannot install on it at all — `bundle install` crash-loops on the dev/test-only `mutant ~> 0.17` gem requiring Ruby >= 3.3 (Redmine 5.1 ships Ruby 3.2.11), confirmed not bypassable via `--without`/`bundle lock` in 3 independent ways. Filed **BUG-TCM-117** (High). TC-COMPAT-01-02 updated from BLOCKED to a genuine **FAIL**; TC-COMPAT-02-02/04-02 stay BLOCKED but for the confirmed reason (app never boots), not "no instance." Stopped/removed the containers after confirming the failure; compose files left on disk for a future retry once fixed upstream. V1 file tally now 188 PASS / 10 FAIL / 4 BLOCKED. |

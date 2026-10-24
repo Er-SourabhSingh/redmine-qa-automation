@@ -42,3 +42,24 @@ This feature is solid end-to-end, including the one piece that genuinely mattere
 views" per its own spec (CI pipelines don't use a UI) — so there is no equivalent UI-integration gap to find
 here. No new bugs specific to this feature; one additional occurrence of the already-filed BUG-TCM-045 was
 folded in rather than duplicated.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. A CSRF fix landed in this exact controller since the
+last execution — `440da6a` "Close a CSRF gap in two API endpoints found while auditing the last fix" (2026-10-21),
+which explicitly names "the CI 'bootstrap a run' endpoint" as one of the two. This was never filed as a QA bug
+(found/fixed by the dev directly) and had not been independently re-verified by QA until now — live-tested
+directly rather than just cross-referenced.
+
+**Live tests performed this pass (via `curl` against `POST /testcase_ci/bootstrap_run.json`):**
+
+| Check | Result |
+|---|---|
+| Genuine API-key auth (`-u <api_key>:x`, the real CI client pattern) creates a run | **PASS** — `201 Created`, run id 120, correct suites/environment/assignee-default payload shape, matching the spec's documented response exactly |
+| No auth at all | **PASS** — `401 Unauthorized` |
+| **Forged cross-site request**: a genuine admin session cookie (lifted from an authenticated browser tab) replayed with a spoofed `Origin: http://evil.example.com` header and **no CSRF token** | **PASS** — `401 Unauthorized`, correctly rejected. This is the exact attack `440da6a`'s own commit message describes testing before/after; confirmed still closed on the current build. |
+
+**Verdict:** No regression. The CSRF fix holds under a genuine forged-request simulation, and legitimate CI-client
+auth (the feature's actual real-world use case) is unaffected. Probe run #120 created during this check was left
+in place (DB delete via API 403'd — the run-destroy endpoint correctly requires more than API-key auth for a
+destructive action — not re-attempted via UI to avoid burning more time on a disposable fixture row).

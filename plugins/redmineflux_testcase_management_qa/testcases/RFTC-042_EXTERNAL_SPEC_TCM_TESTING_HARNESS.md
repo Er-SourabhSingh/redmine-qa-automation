@@ -327,3 +327,16 @@ closed** on this session's own live-run evidence. What remains open and honestly
 per-PR `prosopite` N+1 gate (absent), mutation testing (still can't run standalone, not re-attempted via
 the container's full Rails boot this session), and the browser/load/chaos layers plus the 3 middle
 security personas (not exercised this session, out of scope for a shared instance).
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. `BUG-TCM-085` remains Closed (`bugs/closed/BUG-TCM-085.md`,
+resolved locally, not reported to production). Checked `git log` on the plugin's product repo since this file's
+last execution (2026-10-21/22): no commits touched the harness tooling itself (`harness/`, test fixtures, CI
+tooling) — every intervening commit is a plugin controller/view/asset change (CSRF/API-auth fixes, report-export
+fixes, UI fixes), none of which this file's own scope (the dev-facing testing harness, not the plugin's runtime
+behavior) exercises. Not re-run live this pass — redoing the full harness run would require re-provisioning the
+same 3-persona credential/project roster used 2026-10-21, at a cost disproportionate to the zero relevant code
+churn found.
+
+**Verdict:** No regression (no relevant code change to regress against). Stable since last execution.

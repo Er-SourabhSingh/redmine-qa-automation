@@ -184,3 +184,33 @@ moot, not unresolved), and the `coverage_pct` nil-vs-zero contract. Every Gate-1
 is observable via black-box UI testing (as opposed to requiring Rails-console query-count instrumentation or a
 10+-project cold-cache scenario) now has independent confirmation, not just a re-statement of the spec's own
 claims.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. Two directly relevant commits landed since last
+execution (2026-10-19):
+
+- **`4a5b595`** "Fix the Quality HQ dashboard showing raw 'Translation missing' text" (2026-10-21) — this exact
+  page had every tile/heading/badge broken with literal `Translation missing: en.label_qhq_...` strings (filed
+  as **BUG-TCM-082**, Critical, since re-reopened-and-fixed alongside BUG-TCM-067 — both Closed,
+  `bugs/closed/BUG-TCM-082.md`). **Live-reconfirmed this pass:** loaded `/quality_hq` as admin, scanned the full
+  response text — zero occurrences of "translation missing" anywhere on the page. **PASS, fix holds.**
+- **`c8ec3c4`** "Build out Quality HQ's Most Failed Tests and Slow Tests sections (previously 'Not yet
+  available')" — **this directly invalidates RFTC044-2's recorded result above**, which documented "Not yet
+  available" as the correct, expected behavior for these two sections. That was accurate as of 2026-10-19; it no
+  longer is. Re-tested live:
+
+| Check | Result |
+|---|---|
+| Admin's `/quality_hq` — Most Failed Tests section | **Now shows real, ranked cross-project data** (e.g. rank 1: `RFTC-038 Multi-Suite CI QA #2072`, 14/14 failures, 100%) instead of the placeholder |
+| Admin's `/quality_hq` — Slow Tests section | **Now shows real ranked data** (sample counts, avg/max/P95 timings, Slow flags) instead of the placeholder |
+| **SACRED re-check**: same two sections, logged in as `qa.limited` (Manager on `RFTC-016 CI Ingest QA` only) | **PASS — isolation holds.** Both sections show **only** `RFTC-016 CI Ingest QA`'s own rows; zero rows from `RFTC-038 Multi-Suite CI QA` or any other project leaked through for this permission-scoped non-admin user. The exact cross-project-isolation property RFTC044-6 established for the dashboard's tiles/table extends correctly to these two newly-wired sections too — not assumed, independently re-verified for this specific new code. |
+
+**Flaky-trend detection** (the 4th originally-placeholder section) still shows "Not yet available" — unchanged,
+still explicitly unimplemented.
+
+**Verdict:** RFTC044-2's result is **superseded, not a regression** — the underlying behavior intentionally
+changed (a real feature shipped) and was re-verified correctly, including re-proving the SACRED isolation
+property against the new code rather than assuming it carried over. Recommend renumbering/updating RFTC044-2's
+own "Expected/Actual Result" text in a future edit to reflect the new behavior as the baseline, rather than
+leaving the superseded 2026-10-19 wording as the file's primary record for that case.

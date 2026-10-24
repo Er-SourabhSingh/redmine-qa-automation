@@ -461,3 +461,23 @@ total: **36/36 scenarios executed against the full source spec (42 pytest + 14 +
 one real defect found (`BUG-TCM-065`) was narrow, cosmetic, and has since been fixed and closed. Remaining
 untested items (a from-scratch clean-venv install, the exact `--no-defect` flag behavior, and the live `:3091`
 `make smoke` integration gate) are documented above as genuine but low-risk gaps, not deferred without reason.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. `BUG-TCM-065` remains Closed/confirmed-fixed
+(`bugs/closed/BUG-TCM-065.md`), no change.
+
+A directly relevant fix landed since last execution (2026-10-15): `d1919d2` "Fix REST API calls being wrongly
+rejected as a forged request" (2026-10-21) — the exact customer-reported scenario the commit message describes
+(API key passed as the HTTP Basic auth username, the CLI's own real-world auth pattern, was being wrongly
+treated as an unverified browser call and 403'd) is precisely what this CLI tool relies on for every API call it
+makes.
+
+**Live spot-check performed this pass:** `POST /test_suites.json?project_id=2` with `-u <api_key>:x` (the exact
+auth shape `d1919d2`'s commit message names) — **`201 Created`**, test suite created successfully, no
+"Invalid form authenticity token" rejection. Confirms the CLI's underlying REST-API auth path works correctly on
+the current build; the bug this fix addresses would have broken every CLI command that creates a resource
+(`bootstrap`, `submit`) had it still been present.
+
+**Verdict:** No regression. The REST API auth fix is additive/corrective for exactly this tool's use pattern,
+not a risk to it.

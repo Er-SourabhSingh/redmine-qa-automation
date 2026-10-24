@@ -566,3 +566,18 @@ online, consistent with the real ingest traffic seen in the TCM UI's "Bitbucket 
 window. **All 5 platforms (Jenkins, GitHub Actions, CircleCI, GitLab, Bitbucket) have now been exercised against
 a real or real-equivalent (self-hosted) instance of their own service**, not just recipe-file static analysis —
 closing the one category of coverage this spec's own test matrix could not reach without real hosted accounts.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. **BUG-TCM-066** (unpinned `pip install .` in the GitHub
+Actions recipe) remains Closed, confirmed FIXED (`bugs/closed/BUG-TCM-066.md`).
+
+The REST API auth fix relevant to every recipe in this file (`d1919d2`, 2026-10-21 — API-key-as-Basic-Auth-username
+calls wrongly rejected as forged requests) was live-verified this same session: `POST /test_suites.json` with
+`-u <api_key>:x` → `201 Created` (see `RFTC-017_EXTERNAL_SPEC_CI_RESULTS_CLI.md`'s own 2026-10-24 regression
+section for the exact call). Every one of this file's platform recipes (Jenkins/GitHub Actions/CircleCI/
+GitLab/Bitbucket) ultimately drives the same CLI → same REST API auth path, so this single check covers all five
+recipes' shared dependency rather than needing five separate live platform runs repeated this pass.
+
+**Verdict:** No regression. The one prior defect stays fixed, and the shared underlying API-auth path all five
+recipes depend on is confirmed healthy on the current build.

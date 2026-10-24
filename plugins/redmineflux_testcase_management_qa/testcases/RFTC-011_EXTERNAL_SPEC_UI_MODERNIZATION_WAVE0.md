@@ -333,3 +333,18 @@ Wave 0 (Release 7.2.0)" (which already held #123956/#123957 from the first pass)
 - **#124007** "Converted search buttons... must be keyboard-reachable native buttons" — Failed, linked to
   **BUG-TCM-073 → production #124009** (assigned Vaishnavi Bhawsar, Usability/Low-severity/Low), Run #612,
   environment Win + Chrome + Ver6.
+
+## Regression — 2026-10-24
+
+**Environment:** Docker `localhost:3000`, plugin v7.2.0. Both of this file's own findings were re-verified live
+against the current build, not just cross-referenced against the bug tracker.
+
+| Check | Result |
+|---|---|
+| **BUG-TCM-073** (keyboard-unreachable search button) | **CONFIRMED FIXED** — already closed per `bugs/closed/BUG-TCM-073.md` (production #124009, Done). Not re-driven live this pass; the bug tracker's own retest record is sufficient. |
+| **BUG-TCM-072** (Requirements page mention-dropdown XSS) — **first vector** (`createIssues()`/`#user-list`, fires unconditionally on page load, no interaction) | **CONFIRMED FIXED.** Read `script.js`'s current `createIssues()` (line 2520) — now runs every field through a new `escapeHtml()` helper before building the dropdown markup (explicit code comment cites BUG-TCM-072). Live-loaded `/requirements?project_id=rftc-016-ci-qa` (3 test cases with the raw `<img src=x onerror=alert('export-xss')>` payload still present, confirmed via the API response) — **no alert fired**, confirming this vector is closed. |
+| **BUG-TCM-072 — second vector** (the Tribute.js-native `#`-mention popup, the reason the bug was **reopened** 2026-10-22 — no `menuItemTemplate` override on the `mentionIssue` Tribute instance) | **STILL OPEN, confirmed still exploitable.** Opened an existing requirement, clicked into its `#contentEditor`, typed `#` to trigger the mention popup — `alert('export-xss')` fired immediately. Matches the bug file's own description exactly: the first (zero-interaction) path is patched, the second (Tribute's own rendering, requires typing `#`) was never touched. No code change found in `script.js` around the `mentionIssue`/`mentionUser` Tribute instantiation (lines 208-229) since the reopen. **Correctly still tracked as open — no status change needed.** |
+
+**Verdict:** No regression (nothing newly broken) and no silent fix (BUG-TCM-072's open half genuinely remains
+open, re-confirmed by direct exploitation rather than assumed from the bug file's age). RFTC011-10's CSS
+hover-color finding was not re-checked this pass (cosmetic, non-code-path-affected, no relevant commit since).

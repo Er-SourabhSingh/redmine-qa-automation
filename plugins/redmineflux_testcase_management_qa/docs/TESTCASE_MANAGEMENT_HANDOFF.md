@@ -2,10 +2,14 @@
 
 ## NEXT SESSION START POINT (updated 2026-10-25 — read this first)
 
-**In progress: a full LITERAL re-execution (not risk-based) of all 11 `RFTC-*_EXTERNAL_SPEC_*.md` files**, per
+**COMPLETE: the full LITERAL re-execution (not risk-based) of all 11 `RFTC-*_EXTERNAL_SPEC_*.md` files**, per
 explicit user instruction ("sare testcase test kro dobara... ye feature still working he na"), with results
 written **inline into the testcase files themselves** (dated `**Regression Result (...)**` lines under each case
-heading), per explicit user clarification that the companion `reports/` write-up alone wasn't enough.
+heading), per explicit user clarification that the companion `reports/` write-up alone wasn't enough. All 11
+files (008/009/011/016/017/020/021/038/042/043/044) now carry inline per-case regression results. **Nothing left
+to resume on this specific task** — see the per-file summary below for what each file found. Next session should
+check with the user for the next priority (retesting newly-fixed bugs, reporting open bugs to production, or a
+different plugin/task).
 
 **Status:**
 - **RFTC-008** (23/23 cases) — ✅ **COMPLETE, fully inline.** Every case has a dated `Regression Result` line in
@@ -74,15 +78,27 @@ heading), per explicit user clarification that the companion `reports/` write-up
   to 6; the 2 CVEs unrelated to the Rails bump (rubyzip, sidekiq-cron) are still correctly caught, confirming the
   tool still works. RFTC043-9 (live DAST sweep) reconfirmed stable without a full persona-key re-run: BUG-TCM-086
   confirmed still closed, BUG-TCM-091/094 confirmed still correctly open via direct bug-file/index checks.
-- **RFTC-044 — next up, last file for literal re-execution.** Currently only carries the earlier *risk-based*
-  `## Regression — 2026-10-24` section (git-log-driven, live-verified only the areas touched by real commits) —
-  still valid, but not the literal case-by-case re-click with inline per-case results the user wants. **Resume
-  here next**, following the exact pattern established in RFTC-008/009/011/016/017/020/021/038/042/043: re-drive
-  every case live (curl for API-shaped specs, Playwright for UI ones), write a dated `**Regression Result
-  (...)**` line directly under each case's existing `**Actual Result**` in the testcase file itself (not just a
-  summary section), file any new bug found exactly like BUG-TCM-118/119 were, and honestly defer (don't skip
-  silently) any case whose required infra no longer exists. **This is the last of the 11 RFTC files — once done,
-  the full literal re-execution pass across all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files is complete.**
+- **RFTC-044** (11/11 cases) — ✅ **COMPLETE, fully inline, zero new bugs. This was the last of the 11 RFTC
+  files — the full literal re-execution pass is now done.** Admin's dashboard now tracks 6 projects (fixture set
+  grew across this session). SACRED cross-project isolation (RFTC044-6) re-proven against a richer case than the
+  original — `qa.limited` now has 2 project memberships (not 1), and still correctly shows only 1 project
+  tracked, confirming the gate is genuinely `:view_report`, not bare membership. XSS escaping (RFTC044-8)
+  re-tested with a fresh payload on `Compat Fresh Project`, reverted after. `EnabledModule` intersection
+  (RFTC044-9) reconfirmed via a naturally-occurring no-module project instead of toggling one manually.
+  `coverage_pct` nil-vs-zero (RFTC044-10) re-verified against `Compat Fresh Project` since `RFTC-016` itself
+  gained real requirements during this session's own earlier testing. Health band formula (RFTC044-11) holds
+  across a larger, more varied data set.
+
+### Summary across all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files (literal re-execution complete 2026-10-25)
+
+Zero plugin regressions found across 200+ re-driven scenarios. 2 new bugs filed this cycle: **BUG-TCM-118**
+(Medium, CI bootstrap duplicate-run-name race, intermittent) and **BUG-TCM-119** (Low, CLI mapping-file crash on
+malformed value shape). Multiple previously-filed bugs reconfirmed fixed: BUG-TCM-065/067/068/069/070/071/073/
+082/086. One finding reversed (RFTC016-43 — code now matches docs, not a regression). One dependency-hygiene
+observation (RFTC042-5's `urllib3` CVEs, vuln-DB drift) and one genuine dependency improvement (RFTC043-2's CVE
+count dropping 81→6 via a Rails version bump) both noted, not filed. 5 scenarios in RFTC-038 honestly deferred
+since their external CI infra (Jenkins/GitHub Actions/CircleCI/GitLab/Bitbucket) no longer exists on this host.
+2 scenarios in RFTC-017 remain deferred (need a genuinely plugin-less server, none available).
 
 **Fixtures left in place** (harmless probe data in already-messy shared projects, not cleaned up to save time):
 probe defects/executions in `alpha-web` (id=5) from RFTC-008 (defect #3683, runs 104/108 touched); in
@@ -2430,6 +2446,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-25 (RFTC-044 literal re-execution, 11/11, zero new bugs — LAST of the 11 RFTC files, full pass complete) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, projects `rftc-016-ci-qa`/`compat-fresh`/`no-tcm`/`rftc-perf-500` | Claude (Playwright MCP + `httpx` via `page.request`) | Completed the final RFTC file. Admin's dashboard now tracks 6 projects (fixture growth across this session). Re-proved SACRED cross-project isolation (RFTC044-6) against a richer case than the original write-up — `qa.limited` gained a second project membership (Developer on `RFTC Performance 500`) since 2026-10-19, and still correctly shows only 1 project tracked, confirming the gate is genuinely `:view_report` permission, not bare membership. Re-tested XSS escaping (RFTC044-8) with a fresh `<script>` payload on `Compat Fresh Project`'s name, confirmed 3/3 occurrences entity-escaped in the raw HTTP response, reverted the name after. Reconfirmed the `EnabledModule` intersection (RFTC044-9) via a naturally-occurring no-module project (`No TCM Project`) instead of manually toggling one. Re-verified `coverage_pct` nil-vs-zero (RFTC044-10) against `Compat Fresh Project` since `RFTC-016` itself gained real requirements during this session's earlier RFTC-011 work. Health band formula (RFTC044-11) holds across the larger, more varied real data set. Zero new bugs. **This completes the full literal re-execution pass across all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files** (008/009/011/016/017/020/021/038/042/043/044) — see the handoff's own cross-file summary above for the cycle's full tally. Updated the testcase file (11 inline Regression Result lines + coverage summary), this handoff, STATUS.md, TIME_LOG.md. |
 | 2026-10-25 (RFTC-043 literal re-execution, 10/10, zero new bugs, 1 dependency improvement found) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `rftc-016-ci-qa` | Claude (brakeman + bundler-audit reinstalled fresh inside `redmine6-redmine-1`) | Continued the literal RFTC re-execution. Reinstalled `brakeman`/`bundler-audit` gems (don't survive container restart) and re-ran both live against today's code: brakeman identical to the 2026-10-15 baseline (14 warnings, 1 parse error). bundler-audit found the CVE count dropped from 81 to 6 — this instance's `Gemfile.lock` now pins `rails (7.2.3.2)` vs. the baseline's 7.2.2.1, a genuine dependency-version improvement, not a regression; the 2 CVEs unrelated to the Rails bump (rubyzip CVE-2026-85396 High, sidekiq-cron CVE-2025-67202 Medium) are still correctly caught, confirming the tool isn't silently suppressing anything. Cross-referenced RFTC043-4's fuzz/property tests to the identical re-run already done in RFTC-042's own pass today (no duplicate work). Re-verified RFTC043-9's live-DAST-sweep closure state directly via bug files/index rather than re-running the full persona-key sweep: BUG-TCM-086 confirmed still closed, BUG-TCM-091/094 confirmed still correctly open. Zero new bugs. Updated the testcase file (10 inline Regression Result lines + coverage summary), this handoff, STATUS.md, TIME_LOG.md. 1 RFTC file (044) remains — the last of the 11. |
 | 2026-10-25 (RFTC-042 literal re-execution, 11/11, zero plugin bugs, 1 dependency-hygiene note) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `rftc-016-ci-qa`; host checkout `C:\redmine v6\plugins\redmineflux-tcm-ci` | Claude (`redmine6-redmine-1` pytest + real `harness/run.py` execution) | Continued the literal RFTC re-execution. Re-confirmed the harness tree, `feature-matrix.yml`, and `flaky.yml` all unchanged. Reinstalled `hypothesis` (pip packages don't survive container restart) and re-ran the security fuzz/property suite — 17/18 PASS, identical known brittle assertion. Bootstrapped a fresh run (#174, since the original run #5 no longer resolves) and re-ran the full `harness/run.py --layers api,cli,security --no-dogfood` live against the real plugin — identical shape to the original: api 9/9, cli 2/5 (same 3 known harness-repo test-code staleness causes), security 5/8 (same 3 persona-key skips). `pip-audit` re-run and now flags `urllib3` CVEs disclosed since the original scan date — vulnerability-database drift, not a version regression, noted as a dependency-hygiene item for the dev team, not filed as a BUG-TCM (harness repo's own tooling, not the plugin). Zero plugin regressions. Updated the testcase file (11 inline Regression Result lines + coverage summary), this handoff, STATUS.md, TIME_LOG.md. 2 RFTC files (043/044) remain. |
 | 2026-10-25 (RFTC-038 literal re-execution, 20/25, 5 honestly deferred — infra gone, zero new bugs) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, projects `rftc-016-ci-qa`; host checkout `C:\redmine v6\plugins\redmineflux-tcm-ci` | Claude (`bash scripts/lint_recipes.sh` + real CLI calls inside `redmine6-redmine-1`) | Continued the literal RFTC re-execution directly. Re-ran the recipe repo's own lint script (4 sections, all PASS, BUG-TCM-066 reconfirmed fixed), validated all 8 recipe YAML files parse, and re-drove 13 live CLI exit-code/edge-case scenarios (connection failure exit 3, server-rejected submit exit 1 with a real 422, unmatched-warn exit 0 vs. --strict exit 4, missing API key exit 2, debug-level output never leaking the real key, environment mismatch 422, a real bootstrap call creating run #173, a malformed run_id JSON guard failing closed even with jq itself unavailable) against the real live plugin — 20/20 re-executed scenarios PASS. The remaining 5 (Jenkins e2e pipeline; GitHub Actions/CircleCI/GitLab/Bitbucket real hosted-platform runs) depend on external CI containers from the original 2026-10-15/19/20 sessions that no longer exist on this host — honestly marked DEFERRED, not re-asserted from stale evidence, with the shared plugin-side dependency (API-key auth, bootstrap/ingest, submit's 422 rules) independently reconfirmed healthy via the 20 live checks instead. Zero new bugs. 3 RFTC files (042/043/044) remain. |

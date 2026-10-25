@@ -42,6 +42,8 @@ pass rate, Health = Failing` — hand-verified against the real execution data a
 sessions (5 passed / 10 total = 50%, matches). The other project (`BUG-121896 Retest`, no executions) correctly
 shows `No data` rather than a crash or a fabricated 0%.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **PASS, still correct on real, now much larger, data.** As admin, `/quality_hq` now shows `6 Projects Tracked` (the fixture set has grown since the original 2-project baseline, across this session's extensive RFTC testing), `127 Active Runs`, `60% Overall Pass Rate`, `230 Total Failing`, `77 Overdue Runs`. `RFTC-016 CI Ingest QA`'s own row (`83 active, 72 passed, 30 failed, 7 blocked, 64% pass rate, Critical`) hand-cross-checked against qa.limited's own single-project view below — identical numbers. `Compat Fresh Project` (zero executions) correctly shows `No data`, not a crash or a fabricated 0%.
+
 ---
 
 ### RFTC044-2: Unfinished sub-reports render an honest "Not yet available" placeholder, not fake or broken data
@@ -57,6 +59,8 @@ defect — `RFTC-021`'s own Most Failed Tests report (the standalone one, not th
 functional, so the underlying metric exists; it's only this specific dashboard's own integration of it that's
 deferred.
 
+**Regression Result (2026-10-25):** ⚠️ **SUPERSEDED, already recorded in the file's own "Regression — 2026-10-24" section below — not re-flagged as a new finding here.** Most Failed Tests and Slow Tests now show real ranked data (confirmed again this pass, see RFTC044-6's regression result for the qa.limited isolation re-check against this same new data). Flaky Tests still correctly shows "This metric isn't available yet." placeholder — unchanged.
+
 ---
 
 ### RFTC044-3 (SACRED/negative): Non-admin user — menu item hidden
@@ -66,6 +70,8 @@ deferred.
 **Expected Result:** "Quality HQ" does not appear in the menu at all.
 **Actual Result:** PASS. Confirmed via DOM text scrape of the top nav — `Quality HQ` absent for this user, while
 present for admin on the same instance.
+
+**Regression Result (2026-10-25, re-tested with `qanonadmin`, a genuinely zero-membership non-admin):** ✅ **PASS.** Logged in and inspected the top nav via a real page snapshot — only Home/My page/Projects/Help present, no "Quality HQ" item, while admin's own nav on the same instance shows it.
 
 ---
 
@@ -77,6 +83,8 @@ they're blocked with a proper 'not allowed' message rather than being let in by 
 **Expected Result:** HTTP 403, a clean "not authorized" page — never a 500, never the real dashboard content.
 **Actual Result:** PASS. `HTTP 403`, body: `"403 / You are not authorized to access this page."` — clean,
 correct denial.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Navigated to `/quality_hq` directly as `qanonadmin` — real HTTP 403, Redmine's own clean "403 - Redmine" error page, not a crash and not the real dashboard content.
 
 ---
 
@@ -95,6 +103,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Expected Result:** Per spec Objectives/Permissions, "Quality HQ" appears in the nav and `/quality_hq` returns 200 for any `:view_report` holder, admin or not.
 **Actual Result:** PASS. "Quality HQ" was visible in `qa.limited`'s top nav (confirmed via DOM), and clicking it rendered the full dashboard (200, not a 403) — settling the first pass's open question in favor of the spec's actual documented gate, not the narrower "admin sees" reading of the dev's own prose summary.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Logged in as `qa.limited` — "Quality HQ" still present in the top nav, `/quality_hq` still rendered the full dashboard (200). Note: `qa.limited`'s own memberships have grown since the original write-up — now Manager on `RFTC-016 CI Ingest QA` **and** Developer on `RFTC Performance 500` (added in a later session's performance-testing work) — see RFTC044-6's regression result for how this affects the isolation check specifically.
+
 ---
 
 ### RFTC044-6 (spec Functional 2, SACRED holdout, SEC-001 — the single most important test in the spec): Cross-project isolation — the limited user sees ONLY their one permitted project, zero data from the other
@@ -103,6 +113,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Steps:** As `qa.limited` (permitted on `RFTC-016 CI Ingest QA` only; `BUG-121896 Retest` has real TCM data and is a different project the admin can see), loaded `/quality_hq` and inspected every number and name on the page.
 **Expected Result:** `Projects Tracked == 1`; only `RFTC-016 CI Ingest QA`'s row appears; `BUG-121896 Retest`'s name, run counts, and pass/fail numbers appear **nowhere** — not in the tiles, not in the table.
 **Actual Result:** **PASS.** `1 Projects Tracked`, `28 Active Runs`, `67% Overall Pass Rate` — exactly `RFTC-016`'s own numbers (confirmed identical to what the same project shows in the admin's 2-project view below), with a single table row for `RFTC-016 CI Ingest QA`. `BUG-121896 Retest` does not appear anywhere in the rendered page. The isolation boundary (`Project.allowed_to(User.current, :view_report)`) holds for a real, permission-scoped non-admin user — not just in theory.
+
+**Regression Result (2026-10-25, methodology note: `qa.limited` now has 2 memberships, not 1, since the original write-up):** ✅ **PASS — isolation holds exactly, including the 2-membership case.** `qa.limited` now shows `1 Projects Tracked` (not 2, despite having a real Developer membership on `RFTC Performance 500` too) — the second project correctly does not appear, confirming the gate is genuinely `:view_report`, not bare project membership (Developer's default role permissions don't include `:view_report`, so this is the gate correctly excluding a project the user can see issues in but isn't permission-scoped for this specific report). The one visible row (`RFTC-016 CI Ingest QA`: 83 active runs, 72 passed, 30 failed, 7 blocked, 64% pass rate, Critical) is byte-for-byte identical to that project's own row in admin's 6-project view above — confirming correct, unfiltered per-project data for the one project the user IS scoped to. Zero rows from any of the other 5 projects (`Alpha Web Platform`, `BUG-121896 Retest`, `Compat Fresh Project`, `RFTC Performance 500`, `RFTC-038 Multi-Suite CI QA`) appear anywhere — not in the tiles, not in the table, not in the Most Failed Tests/Slow Tests sections (both show only `RFTC-016` rows). The isolation boundary holds exactly as designed, now proven against a richer, more realistic multi-project fixture set than the original 2-project test.
 
 ---
 
@@ -113,6 +125,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Expected Result:** Either the endpoint exists and is session-authenticated + re-authorizes the target project (spec's sacred holdout tests 7/13), or it was legitimately cut from v1 (the spec explicitly allows this: *"If honouring that constraint is awkward, cut the endpoint from v1"*).
 **Actual Result:** `404 Not Found` — the route does not exist in this build. This is the **permitted** outcome per the spec's own fallback clause, not a gap: with no endpoint, there is no `.json`-API-format session-auth-bypass surface (Gate 2 HIGH finding #2) to begin with. Functional tests 7/13 are therefore **moot for this release**, not failing — re-test them if/when the endpoint is added in a future version.
 
+**Regression Result (2026-10-25):** ✅ **PASS, still absent.** `GET /quality_hq/project/1/rollup` still returns `404`. Functional 7/13 remain correctly moot.
+
 ---
 
 ### RFTC044-8 (spec Functional 10, SEC-002): A project name containing `<script>` renders escaped, not executed — no `raw`/`html_safe` sink
@@ -121,6 +135,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Steps:** Temporarily renamed `BUG-121896 Retest` to `<script>alert('qhq-xss')</script> Retest` (admin), reloaded `/quality_hq`, inspected the **raw HTTP response body** (not just the accessibility tree, which would show the same text whether escaped or not) for the literal markup; reverted the name immediately after.
 **Expected Result:** The name renders as inert, HTML-entity-escaped text in the per-project table; no `<script>` tag executes.
 **Actual Result:** PASS. Raw response showed `<a href="/projects/bug-121896-retest/testcase_reports">&lt;script&gt;alert(&#39;qhq-xss&#39;)&lt;/script&gt; Retest</a>` — correctly entity-escaped (`&lt;`/`&gt;`/`&#39;`), no live tag, no dialog fired on page load. Also incidentally confirmed the spec's **global-context CSS requirement**: the raw response explicitly includes `<link rel="stylesheet" href=".../rf_testcase_management_variables-...css">` and `_components-...css` via an explicit `stylesheet_link_tag` in the view, exactly as Implementation Notes "Top-menu CSS in a global context" requires (the per-project view-hook does not fire on this global page, so the view must `stylesheet_link_tag` itself — confirmed present, not silently missing per the spec's own cited LESSON-062 risk class).
+
+**Regression Result (2026-10-25, fresh payload `<script>alert('qhq-xss-2')</script> Retest2` on `Compat Fresh Project`, reverted immediately after):** ✅ **PASS.** Checked the raw HTTP response body directly (via `page.request.get`, not the accessibility tree) for all 3 occurrences of the renamed project on the page (jump-menu dropdown, recently-used list, main table row) — every one correctly entity-escaped (`&lt;script&gt;alert(&#39;qhq-xss-2&#39;)&lt;/script&gt; Retest2`), zero raw `<script>` tag anywhere, `hasRawScript: false`. Also re-confirmed the global-context CSS requirement: both `rf_testcase_management_variables-*.css` and `_components-*.css` `<link>` tags still present in the raw response. Project name reverted to `Compat Fresh Project` immediately after, confirmed via page title.
 
 ---
 
@@ -131,6 +147,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Expected Result:** With the module disabled, `BUG-121896 Retest` disappears from the admin's own dashboard too (admin sees all **TCM-enabled** projects, not literally all projects) — `Projects Tracked` drops from 2 to 1.
 **Actual Result:** PASS. `Projects Tracked` dropped to `1` with the module disabled, and the table showed only `RFTC-016 CI Ingest QA` — confirming the admin branch genuinely intersects `EnabledModule.where(name: 'testcase_management')` rather than reducing over every project the admin can technically open. Module re-enabled afterward; state fully restored (confirmed `2 Projects Tracked` again).
 
+**Regression Result (2026-10-25, lighter re-verification — did not re-toggle a module this pass):** ✅ **PASS, confirmed via a naturally-occurring case instead of a manual toggle.** This fixture set now includes `No TCM Project` (id 6) — a project whose own navigation tabs (Overview/Activity/Issues/Settings only, no "TestCases" tab, confirmed via a real page load) show the Redmineflux Testcase Management module is genuinely disabled there. Admin's own `/quality_hq` dashboard correctly excludes this project entirely (6 Projects Tracked = the other 6 projects that DO have the module enabled, `No TCM Project` and `No Tracker Project` both absent) — reconfirming the admin branch still intersects `EnabledModule` rather than aggregating `Project.all`, without needing to mutate a project's module state this pass.
+
 ---
 
 ### RFTC044-10 (spec Unit 14 / Data Model "coverage_pct nil not 0"): A project with zero requirements shows "No data" for coverage, never a misleading 0%
@@ -140,6 +158,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Expected Result:** `coverage_pct == nil` → rendered "No data", never `0%` (which would misleadingly read as "0% covered" rather than "nothing to cover").
 **Actual Result:** PASS — the column reads "No data" for a genuinely requirement-less project, matching the pinned `nil`-not-`0` contract. (The separate bottom-of-page "Requirement Coverage" **section** is the still-unwired placeholder from RFTC044-2 — a different thing from this per-project **column**, which is core rollup functionality per the spec, not one of the capability-gated sibling metrics.)
 
+**Regression Result (2026-10-25, methodology correction — `RFTC-016 CI Ingest QA` itself now has 3 real requirements, created during this session's own RFTC-011 requirement-linking tests, so it no longer serves as the zero-requirements case):** ✅ **PASS, re-verified against a genuinely requirement-less project instead.** `Compat Fresh Project` has zero requirements (confirmed via `GET /requirements.json?project_id=compat-fresh` → `[]`) and its own row shows "No data" for Coverage (and for Pass Rate/Health too, since it also has zero runs) — matching the pinned `nil`-not-`0%` contract exactly. `RFTC-016`'s own column now correctly shows a real `0%` (it has requirements but 0% are covered) rather than "No data" — this is the correct, different outcome for a project that genuinely has requirements but no coverage yet, not a regression of the nil-vs-zero distinction itself.
+
 ---
 
 ### RFTC044-11 (spec Implementation Notes "Health band — a transparent, testable formula"): The red/amber/green threshold empirically matches the pinned formula
@@ -148,6 +168,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 **Steps:** Observed `RFTC-016 CI Ingest QA`'s real pass rate (67%) against its rendered health tag.
 **Expected Result:** Per the pinned formula, `:red` when `pass_rate < 70`.
 **Actual Result:** PASS — 67% rendered as `Failing` (the danger/red status tag), consistent with the `< 70 → red` band boundary, not a fixed `<50` or some other unstated cutoff.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** `RFTC-016 CI Ingest QA`'s current real pass rate is `64%` (data has grown/shifted since the original 67%) and it renders as `Critical` — still consistent with the `< 70 → red/critical` band boundary. `RFTC-038 Multi-Suite CI QA` at `75%` renders `At Risk` (amber), and `RFTC Performance 500`/`Alpha Web Platform` both at `<50%` also render `Critical` — the formula holds across the now-larger, more varied real data set, not just the original single data point.
 
 ---
 
@@ -214,3 +236,39 @@ changed (a real feature shipped) and was re-verified correctly, including re-pro
 property against the new code rather than assuming it carried over. Recommend renumbering/updating RFTC044-2's
 own "Expected/Actual Result" text in a future edit to reflect the new behavior as the baseline, rather than
 leaving the superseded 2026-10-19 wording as the file's primary record for that case.
+
+## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
+
+**Literal, case-by-case re-execution of all 11 RFTC044 scenarios** — see each case's own inline
+`**Regression Result (2026-10-25...)**` line. **11/11 confirmed still working, zero new bugs.** This is the
+**last of the 11 RFTC-\*_EXTERNAL_SPEC_\*.md files** — the full literal re-execution pass across all 11 files
+is now complete.
+
+| Case | Scenario | Result |
+|---|---|---|
+| RFTC044-1 | Admin dashboard, real aggregated data | ✅ PASS, now 6 projects tracked |
+| RFTC044-2 | Honest placeholders | ✅ Superseded (Most Failed/Slow now real, Flaky still placeholder) |
+| RFTC044-3 | Non-admin menu hidden | ✅ PASS |
+| RFTC044-4 | Non-admin direct URL → 403 | ✅ PASS |
+| RFTC044-5 | `:view_report`-holder sees dashboard | ✅ PASS |
+| RFTC044-6 | SACRED cross-project isolation | ✅ PASS, now proven against a 2-membership user correctly showing only 1 project |
+| RFTC044-7 | `project_rollup` endpoint absent | ✅ PASS, still 404 |
+| RFTC044-8 | XSS escaping + global-context CSS | ✅ PASS, fresh payload tested and reverted |
+| RFTC044-9 | Admin branch intersects `EnabledModule` | ✅ PASS, reconfirmed via a naturally-occurring no-module project |
+| RFTC044-10 | `coverage_pct` nil-not-zero | ✅ PASS, re-verified against a genuinely requirement-less project |
+| RFTC044-11 | Health band formula | ✅ PASS, holds across a larger, more varied data set |
+
+No new defects found in this pass. Two methodology notes, not regressions: `qa.limited` has gained a second
+project membership since the original write-up (handled correctly by RFTC044-5/6's results above), and
+`RFTC-016 CI Ingest QA` itself gained real requirements during this session's own earlier RFTC-011 testing, so
+RFTC044-10 was re-verified against `Compat Fresh Project` instead to keep testing the genuine zero-requirements
+case.
+
+**This completes the literal, case-by-case re-execution pass across all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files**
+(008/009/011/016/017/020/021/038/042/043/044), per the user's standing instruction to regress every RFTC file
+with inline dated results. Summary across all 11: zero plugin regressions found; 2 new bugs filed this cycle
+(BUG-TCM-118 Medium, BUG-TCM-119 Low); multiple previously-filed bugs reconfirmed fixed (BUG-TCM-065/067/068/
+069/070/071/073/082/086); 1 finding reversed (RFTC016-43, code now matches docs); 1 dependency-hygiene
+observation (RFTC042-5's `urllib3` CVE drift) and 1 genuine dependency improvement (RFTC043-2's CVE count drop
+via a Rails version bump) both noted; 5 scenarios in RFTC-038 honestly deferred since their external CI infra no
+longer exists on this host.

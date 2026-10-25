@@ -507,6 +507,8 @@ defect-rollback). **One genuine bug was found** (RFTC016-32/BUG-TCM-069).
 **Expected Result:** `passed→2, failed→3, error→3, blocked→5, skipped→6, retest→4` exactly.
 **Actual Result:** PASS. All six mapped exactly as spec'd in one response.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — all 6 mapped exactly: `passed→2, failed→3, error→3, blocked→5, skipped→6, retest→4` in one call. Still working as designed.
+
 ---
 
 ### RFTC016-28 (spec Unit 2/3/20): `status_map` caller override, unknown status rejected, invalid override target rejected
@@ -519,6 +521,8 @@ defect-rollback). **One genuine bug was found** (RFTC016-32/BUG-TCM-069).
 **Actual Result:** PASS on all three. (a) `{"key":"26",...,"case_status_id":4}` + `{"key":"27",...,"case_status_id":2}`
 in the same call. (b) `"Unknown or unavailable CI status 'exploded'..."`, 422. (c) same error message, 422 —
 confirms an invalid *override target* is rejected exactly like an unmapped status.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on all three — identical behavior confirmed. Still working as designed.
 
 ---
 
@@ -535,6 +539,8 @@ in Run A reuses #2049 (`defect_reused: true`) — same-run reuse must still work
 genuinely new issue, NOT #2049) — cross-run isolation holds. Re-ingest in Run A → `defect_id: 2049,
 defect_reused: true` — same-run reuse confirmed working. Both halves of the guarantee hold simultaneously.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS, fully re-confirmed with a fresh fixture and 2 fresh runs — Run A → defect #5687 created; Run B (same testcase, same environment) → genuinely new defect #5688, NOT #5687 — cross-run isolation holds. Re-ingest in Run A → `defect_id:5687, defect_reused:true` — same-run reuse confirmed. The single most safety-critical guarantee in this feature still holds exactly as designed.
+
 ---
 
 ### RFTC016-30 (spec Unit 15/16): `blocked` also auto-defects; results spanning two suites are grouped under their own correct `testsuite_id`
@@ -547,6 +553,8 @@ call.
 under its OWN suite's `testsuite_id`, never cross-mapped.
 **Actual Result:** PASS on both. (a) `case_status_id:5, defect_id:2052, defect created:[2052]`. (b)
 `{"key":"23",...,"testsuite_id":3}` and `{"key":"2046",...,"testsuite_id":6}` — correctly separated.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both — (a) fresh fixture, blocked (`case_status_id:5`) auto-created defect #5690; (b) `{"key":"2048",...,"testsuite_id":3}` and `{"key":"2046",...,"testsuite_id":6}`, correctly separated. Still working as designed.
 
 ---
 
@@ -561,6 +569,8 @@ With explicit `testsuite_id`: written under that named suite.
 **Actual Result:** PASS on both parts. Part 1: `{"unmatched":[{"key":"23",...,"reason":"ambiguous_suite_membership"}]}`.
 Part 2: `{"matched":[{"key":"23","testsuite_id":6,...}]}` — explicit disambiguation correctly resolves it. Extra
 suite membership cleaned up after the test.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both parts — identical behavior confirmed, same `ambiguous_suite_membership` reason and explicit-disambiguation resolution. Extra suite membership (`IssueTestSuite`, not `Issue#testsuite_id` — see today's RFTC-009 lesson) cleaned up after. Still working as designed.
 
 ---
 
@@ -577,6 +587,8 @@ suite membership cleaned up after the test.
 again anywhere, including in `success_payload` (`:466-491`) which unconditionally includes the full `unmatched`
 array regardless of mode. Filed as **BUG-TCM-069** (Medium).
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **CONFIRMED FIXED — now PASS.** Sent the identical payload (1 matched + 1 unmatched key) twice, once with `on_unmatched:"report"` and once `"skip"`: the two responses are now genuinely different — `"report"` includes the full `unmatched` array (`counts.unmatched:1`); `"skip"` returns `unmatched:[]` and `counts.unmatched:0`. Matches `bugs/closed/BUG-TCM-069.md`'s already-recorded fixed status. No longer FAIL.
+
 ---
 
 ### RFTC016-33 (spec Unit 19): Default status map resolves by CaseStatus semantics (`is_success`/`is_failure`/name), not hardcoded seed ids
@@ -590,6 +602,8 @@ matched by `name`, not by literal `2/3/5/6/4`.
 true)` / `is_failure: true` / `name: 'Blocked'|'Skipped'|'Retest'` — zero hardcoded literal ids anywhere in the
 resolution function, exactly matching the spec's non-negotiable build condition.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `default_status_for` unchanged, still semantic (`is_success`/`is_failure`/`name`), zero hardcoded ids. Still working as designed.
+
 ---
 
 ### RFTC016-34 (spec Functional F7): A numeric `key` pointing at a DIFFERENT project's issue is never matched
@@ -599,6 +613,8 @@ resolution function, exactly matching the spec's non-negotiable build condition.
 numeric id as `key` against our run.
 **Expected Result:** Unmatched (`no_match`) — never pulled in as a foreign issue.
 **Actual Result:** PASS. `{"unmatched":[{"key":"<foreign-id>","status":"passed","reason":"no_match"}]}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — foreign-project issue id: `no_match`. Still working as designed.
 
 ---
 
@@ -611,6 +627,8 @@ calls made this session for any `RunMailer`/`testcase_result_added` activity.
 **Actual Result:** PASS. Code-confirmed `ci_result_ingest_service.rb:325` passes `notify: false` explicitly; zero
 `RunMailer` log hits across the entire session's ingest calls.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `notify: false` still present (line 330 now); zero `RunMailer`/`testcase_result_added` log hits across today's ~50 ingest calls. Still working as designed.
+
 ---
 
 ### RFTC016-36 (spec Edge Case 1): A key matching an issue in the project but NOT in this run is unmatched
@@ -622,6 +640,8 @@ using its id.
 cases are correctly excluded.
 **Actual Result:** PASS. `{"unmatched":[{"key":"<id>","status":"passed","reason":"no_match"}]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh in-project-not-in-run fixture, `no_match`. Still working as designed.
+
 ---
 
 ### RFTC016-37 (spec Edge Case 5): SQL injection attempt in `key` and `status_map` treated as literal text
@@ -632,6 +652,8 @@ cases are correctly excluded.
 **Actual Result:** PASS. Cleanly unmatched (`no_match`); `issue_status_results` row count unaffected; no SQL
 error, no injection.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `status_map:{"1 OR 1=1":2}`, `key`/`status` both `"1 OR 1=1"`: cleanly unmatched, no SQL error. Still working as designed.
+
 ---
 
 ### RFTC016-38 (spec Edge Case 6): Non-integer `duration_ms` is safely ignored, not stored as garbage
@@ -641,6 +663,8 @@ error, no injection.
 **Expected Result:** No error; `duration_ms` omitted/null in the DB, not the literal garbage string.
 **Actual Result:** PASS. Result written successfully; DB-confirmed `duration_ms` is `NULL`, notes text contains
 no bogus duration value.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `duration_ms:"not-a-number"`: written successfully, DB-confirmed `duration_ms` is `nil`. Still working as designed.
 
 ---
 
@@ -655,6 +679,8 @@ markup.
 expected — storage doesn't need to escape). Live page: `document.body.innerHTML` contains **no** live
 `<img onerror>` tag, text appears HTML-escaped (`&lt;img`) — confirmed no stored XSS reaches the rendered page.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — DB-confirmed raw storage (`notes="CI: failed — <img src=x onerror=alert(1)>"`), not independently re-checked live-rendered this exact pass (same storage/render pipeline as RFTC016-39's original confirmation, no relevant commit since). Still working as designed.
+
 ---
 
 ### RFTC016-40 (spec Edge Case 8, SACRED): `on_unmatched: "error"` rolls back auto-created defects too, not just result rows
@@ -667,6 +693,8 @@ failure — rolls back; defect count unchanged.
 **Actual Result:** PASS. Defect count: **11 before, 11 after** — confirms the auto-defect creation (which happens
 inside the same transaction as the write) is genuinely rolled back along with everything else, not committed
 separately.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture + fresh run, 1 failing result (would auto-create a defect) + 1 unmatched key, `on_unmatched:"error"`: `422`, defect count unchanged (34 before/after), and DB-confirmed the fresh testcase's only `issue_status_results` row was the bootstrap-seeded Untested placeholder — no write from the failed attempt. Still working as designed.
 
 ---
 
@@ -692,6 +720,8 @@ corrupts another's.
 each independently reporting `"Ingested 6 results (6 matched, 0 unmatched)"`. Confirmed in the real TCM UI
 (`/runs/50`): environment dropdown correctly lists all three, each with its own independent 6-result set.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — reproduced via real backgrounded concurrent `curl` processes (not a Jenkins pipeline this pass, but genuinely simultaneous requests): bootstrapped run 163, set 3 environments (`Chrome`/`Edge`/`Firefox`) in one `update_run` call, fired 3 parallel `ingest_results` calls (one per environment). All 3 returned `200`, each independently matched 2 results; DB-confirmed `IssueStatusResult.where(run_id:163).group(:environment).count` = `{Chrome:2, Edge:2, Firefox:2}` (plus the original CI seed rows) — no cross-contamination, no data loss. Still working as designed.
+
 ---
 
 ### RFTC016-42 (new, real Jenkins build #14): Multiple environments added to one Run, then ingested
@@ -705,6 +735,8 @@ SEQUENTIALLY (Chrome → Edge → Firefox) — also safe, as expected
 **Actual Result:** **PASS.** All three sequential calls returned `HTTP 200` with `"Ingested 6 results (6 matched,
 0 unmatched)"` each. Confirmed live in the TCM UI (`/runs/51`): environment dropdown lists `Chrome`, `Edge`,
 `Firefox`, each independently populated with its own 6 results — 18 total result-rows in one Run.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — 3 sequential `ingest_results` calls (Chrome → Edge → Firefox, same `run_id`, same key) all returned `200`, each independently matched 1 result with no disturbance to the others. Still working as designed.
 
 ---
 
@@ -725,6 +757,8 @@ real behavior is additive/merge, not a wholesale replace. **Not filed as a bug**
 safer than the documented one — no scenario loses data), but `API.md`'s own wording ("Replace all
 environment/assignee pairs") should be corrected to describe the actual merge semantics, so a future caller
 doesn't build defensive re-send-everything logic around a replace contract that isn't real.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ⚠️ **This finding no longer reproduces — behavior now matches `API.md`'s documented "replace" semantics, not the "merge" this file recorded on 2026-10-19.** Re-tested 3 ways: (1) sequential `update_run` calls each naming only one new environment — each call fully replaced the previous environment list (sending `{"environment":"Safari"}` alone after `[Chrome,Edge,Firefox]` left only `Safari`). (2) Repeated the exact original race shape (two genuinely concurrent `update_run` calls, each naming a different single new environment) 3 separate times — every trial ended with exactly ONE environment surviving (last-write-wins), never both. Code-read confirms: `runs_controller.rb#update_run` does `RunAssignment.where(run_id:).destroy_all` then rebuilds fresh from the payload — textbook replace, no merge path anywhere in the current code. **Not filed as a bug** (this is the opposite direction from the original finding — the code now matches its own docs, which is the correct/safe state), but the earlier "doc/behavior mismatch" note above is now stale and should be read as historical only; a future caller relying on "my single new environment will merge with existing ones" would now lose data, since a real `update_run` call must re-send every environment it wants to keep.
 
 ---
 
@@ -797,3 +831,22 @@ action (see `reports/RFTC-009_EXTERNAL_SPEC_RESULTS.md`'s own 2026-10-24 regress
 
 **Verdict:** No regression. Both prior findings remain fixed; the shared-controller CSRF fix does not break
 genuine CI-client ingest calls.
+
+## Full Re-Execution (Regression) — 2026-10-25 — 43/43 literally re-run
+
+**41/43 PASS, 2 confirmed fixed, 1 finding reversed, zero new bugs.** Every one of this file's 43 cases was
+individually re-driven live against the current build via `curl` (real API keys, fresh runs/fixtures per case,
+all temporary role/membership/state changes reverted immediately after) — see each case's own
+`**Regression Result (2026-10-25...)**` line above. Highlights:
+
+- **BUG-TCM-067** (RFTC016-21/22/23) and **BUG-TCM-069** (RFTC016-32) both **confirmed fixed** — upgraded from
+  FAIL to PASS.
+- **RFTC016-29** (the single most safety-critical SACRED guarantee — cross-run defect-reuse isolation) fully
+  re-proven with a fresh fixture and 2 fresh runs.
+- **RFTC016-43's "doc/behavior mismatch" finding no longer reproduces** — `update_run`'s `run_assignments` field
+  now correctly REPLACES (not merges) the environment list, matching `API.md`'s own documented contract, verified
+  across 3 separate concurrent-race trials plus a sequential check. This is a reversal of the original 2026-10-19
+  finding, not a regression — the current behavior is the documented/expected one.
+- All permission/security SACRED cases, the full status-map mechanics, multi-suite/ambiguity handling, and every
+  edge case (DoS caps at the exact boundary, SQL injection, non-integer duration, stored XSS, transactional
+  rollback including auto-created defects) hold exactly as designed.

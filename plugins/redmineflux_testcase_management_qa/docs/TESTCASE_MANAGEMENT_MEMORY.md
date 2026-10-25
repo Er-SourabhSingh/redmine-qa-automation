@@ -1391,3 +1391,22 @@
   - **`TESTCASE_MANAGEMENT_CONFIGURATION.md` is now the first suite fully regressed this cycle** — useful
     reference point for how thorough a §27 regression pass should be per suite (every TC gets a dated
     execution block, not just the ones that changed).
+
+- **(2026-10-25) RFTC-020/021 literal re-execution — Manager role is not a safe stand-in for Reporter when
+  testing private-issue visibility.** RFTC021-7 initially used `qa.limited` (Manager role) to confirm a private
+  fixture issue stays hidden from a non-privileged user — it didn't; Redmine grants Manager-role members
+  private-issue visibility by default, independent of the plugin. This looked like a regression until the test
+  was redone with a genuine Reporter-role user (`qanonadmin`, whose stored password had drifted and needed a
+  one-time `rails runner` reset: `u.password = ...; u.password_confirmation = ...; u.must_change_passwd = false;
+  u.save!`), which correctly could not see the fixture. **Lesson: before treating a visibility/permission test as
+  failed, confirm the persona actually lacks the capability being tested — a role's name (e.g. "Manager") does
+  not reliably imply "low privilege," check Redmine's own role permission matrix first.**
+  - Both RFTC-020 (Slow Tests Report, 17/17) and RFTC-021 (Most Failed Tests Report, 10/10) are now fully,
+    literally re-executed with inline dated Regression Result lines. BUG-TCM-068/070/071 all reconfirmed fixed
+    by downloading and directly inspecting the exported `.xlsx` (`unzip -p file.xlsx xl/worksheets/sheet1.xml`,
+    data stored as `inlineStr`) rather than trusting the download succeeded — this is the only way to catch an
+    exporter that downloads a file but puts wrong/placeholder content in it.
+  - XLSX formula-injection (`=HYPERLINK(...)`-style subjects) is inherently neutralized in both report types by
+    column construction, not input sanitization — every Test Case cell is always prefixed with `#<issue id> `,
+    so the literal first character of the cell can never be `=`/`+`/`-`/`@`. Worth remembering before filing a
+    new formula-injection finding against either report's export — check the column's prefix convention first.

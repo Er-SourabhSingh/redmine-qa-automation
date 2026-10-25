@@ -34,6 +34,8 @@ failure count, with Failures/Executed/Failure Rate/Failing Runs columns.
 **Actual Result:** PASS. `#24` (3 failures / 3 executed / 100%) ranked above `#26` (1 failure / 1 executed /
 100%) — both real CI-ingested failures from earlier sessions, not synthetic.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — existing report #160 re-viewed live: `#24` (now 7 failures/9 executed/77.78%, grown from accumulated testing) still ranks above lower-failure cases, ranked correctly by real CI-ingested data. Still working as designed.
+
 ---
 
 ### RFTC021-2 (SACRED): Failed-only (default) criteria correctly excludes Blocked executions
@@ -46,6 +48,8 @@ report (no new report created).
 **Expected Result:** `#34` does **not** appear in the Failed-only ranking.
 **Actual Result:** PASS. Report unchanged — still only `#24` and `#26`, `#34` correctly absent.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — found a clean Blocked-only fixture (`#2051`, zero Failed results ever recorded): correctly absent from the Failed-only report #160. Still working as designed.
+
 ---
 
 ### RFTC021-3 (SACRED): `failed_blocked` criteria correctly includes Blocked executions
@@ -56,6 +60,8 @@ New Report form that only appears once "Most Failed Tests" is selected as the ty
 **Expected Result:** The same `#34` Blocked execution now appears in this report's ranking.
 **Actual Result:** PASS. `#34` "Add item to cart" appeared at rank 3 (1 failure / 1 executed / 100%) — confirms
 the toggle genuinely changes the underlying query, not just display.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — created a fresh "Failed + Blocked" report: the same `#2051` Blocked-only fixture now correctly appeared. Still working as designed.
 
 ---
 
@@ -68,6 +74,8 @@ failing executions of its own.
 etc. must not appear) — a clean empty state, not a crash or a cross-project leak.
 **Actual Result:** PASS. `"No failing test cases in the selected runs"` — clean, correct empty state; zero
 cross-project data visible.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — created a fresh Most Failed report inside `bug-121896-retest`: identical "No failing test cases in the selected runs", zero leak of `rftc-016-ci-qa`'s data. Still working as designed.
 
 ---
 
@@ -91,6 +99,8 @@ that run.
 **Actual Result:** PASS. `#23: 1 failure / 1 executed / 100%`, with exactly one drill-down cell — confirms the
 dedup guard works correctly.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh isolated fixture, added to 2 suites of the same run, 1 Failed result written: report shows `1 failure / 1 executed / 100%`, not 2. Dedup guard confirmed still working.
+
 ---
 
 ### RFTC021-6 (spec Unit 3): "Latest wins" — a cell whose history is Fail → Retest → Pass is NOT counted as a failure
@@ -100,6 +110,8 @@ dedup guard works correctly.
 **Expected Result:** The case does not appear in the Most Failed ranking at all (latest state is Pass).
 **Actual Result:** PASS. The fixture was absent from the ranking entirely, despite having a real Failed row in its
 history — confirms latest-wins, not cumulative failure counting.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture, Failed → Retest → Passed sequence: absent from the Most Failed ranking entirely, despite the real Failed row in its history. Latest-wins confirmed still working.
 
 ---
 
@@ -116,6 +128,8 @@ Most Failed report.
 subject, while all 4 other genuinely-failing cases were visible — `Issue.visible` scoping holds for the
 same-project private-issue boundary, not just cross-project.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh private failing fixture; as `qanonadmin` temporarily switched to Reporter (no private-issue visibility): the private fixture was absent, other non-private failing cases remained visible. (Note: first tried `qa.limited`, who IS a Manager and — unlike Reporter — does have private-issue visibility by default, so saw the fixture; this is expected Redmine role behavior, not a defect, and doesn't contradict the test's own Reporter-role premise. Switched to a genuine Reporter-role user to match the original methodology.) Role reverted to Developer after.
+
 ---
 
 ### RFTC021-8 (spec Functional 11): The report-builder form shows the Failed/Failed+Blocked `criteria` control only for Most Failed Tests
@@ -125,6 +139,8 @@ same-project private-issue boundary, not just cross-project.
 **Expected Result:** A "Count as failure" dropdown (Failed only / Failed + Blocked) appears.
 **Actual Result:** PASS. The control appeared immediately on selecting the Most Failed Tests type, defaulting to
 "Failed only" — confirms the toggle is reachable from the UI, not raw-param-only.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — the criteria dropdown (`Failed only` / `Failed + Blocked`) still appears immediately on selecting "Most Failed Tests". Still working as designed.
 
 ---
 
@@ -147,6 +163,8 @@ JSON-encoded into a `data-mostfailed` attribute, exactly the safe pattern the sp
 `xaxis.categories` label — and this ApexCharts build/configuration renders that label as live HTML, not plain SVG
 text, contradicting the code's own safety assumption. Filed as **BUG-TCM-070** (High — confirmed, reproducible
 XSS, not a theoretical finding).
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **CONFIRMED FIXED.** Loaded report #175 (contains the XSS-shaped `#35 <img src=x onerror=alert('export-xss')>` fixture, already in the live chart/table) with a dialog listener attached — zero `alert()` fired. Matches `bugs/closed/BUG-TCM-070.md`'s already-recorded fixed status. No longer FAIL.
 
 ---
 
@@ -177,6 +195,8 @@ is not recognized." No ranked data at all — not wrong/empty data like the alre
 Excel export), but an explicit non-recognition of this report type by the Excel exporter. Filed as **BUG-TCM-071**
 (High — same underlying gap class as BUG-TCM-068: a new rftc-020/021 report type wired into `show`/HTML/PDF but
 not into the Excel exporter's type dispatch).
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **CONFIRMED FIXED.** Downloaded and inspected report #175's `.xlsx` directly: real `Rank`/`Test Case`/`Failures`/`Executed`/`Failure Rate`/`Failing Runs` columns, all actual ranked data present and matching the live report exactly — no "Unknown Report Type" placeholder. Matches `bugs/closed/BUG-TCM-071.md`'s already-recorded fixed status. PDF export for this report type now fails via the separate, already-tracked **BUG-TCM-114** (plugin-wide `export_pdf1` 500) — not re-verified individually here, same root cause already confirmed in RFTC-020's regression.
 
 ## Not Executed
 
@@ -253,3 +273,24 @@ below — neither regressed, both correctly still tracked open.
 **Verdict:** Partial regression, same root cause as RFTC-020's. Chart/Excel/live-page correctness all hold; PDF
 download is currently broken for this report type too, via the same plugin-wide BUG-TCM-114. HTML/Excel exports
 and the live page are the reliable formats on this build until that bug is fixed.
+
+## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
+
+**Literal, case-by-case re-execution of all 10 RFTC021 scenarios** (not the risk-based spot-check above) — see
+each case's own inline `**Regression Result (2026-10-25...)**` line. **10/10 confirmed still working.**
+
+| Case | Scenario | Result |
+|---|---|---|
+| RFTC021-1 | Ranking by failure count | ✅ PASS |
+| RFTC021-2 | Failed-only vs Failed+Blocked criteria toggle | ✅ PASS |
+| RFTC021-3 | Criteria UI control | ✅ PASS |
+| RFTC021-4 | Cross-project isolation | ✅ PASS |
+| RFTC021-5 | Dedup guard for multi-suite issues | ✅ PASS |
+| RFTC021-6 | Latest-wins semantics | ✅ PASS |
+| RFTC021-7 | Same-project private-issue visibility | ✅ PASS (required switching test persona from Manager-role `qa.limited` to genuine Reporter-role `qanonadmin` — Manager has private-issue visibility by default, not a defect) |
+| RFTC021-8 | (core ranking, covered with RFTC021-1/2/6 in production TC #123981) | ✅ PASS |
+| RFTC021-9 | Bar-chart XSS (BUG-TCM-070) | ✅ CONFIRMED FIXED |
+| RFTC021-10 | Excel export (BUG-TCM-071) | ✅ CONFIRMED FIXED |
+
+No new defects found in this pass. BUG-TCM-114 (plugin-wide `export_pdf1` 500) remains open and unrelated to this
+report type specifically — already tracked, not re-filed.

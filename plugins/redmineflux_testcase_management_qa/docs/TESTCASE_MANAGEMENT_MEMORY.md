@@ -4,6 +4,19 @@
 
 ## Known Quirks
 
+- **(2026-10-25) The `redmineflux-tcm-ci` CLI's mapping file "cases" values must be objects
+  `{testcase_id, testsuite_id}`, not bare strings/ids.** `{"cases": {"key": "23"}}` crashes with an unhandled
+  `TypeError` deep in `junit_to_tcm.py#resolve_rows` (`case["testcase_id"]` on a string) — confirmed real and now
+  filed as **BUG-TCM-119**. The correct shape is `{"cases": {"key": {"testcase_id": 23, "testsuite_id": 3}}}`.
+  Check `tests/test_config_precedence.py`'s own mapping fixtures for the canonical shape before hand-writing one.
+- **(2026-10-25) A pip-installed CLI tool inside a Docker container does not survive a container restart/rebuild**
+  — `redmineflux-tcm` had to be fully reinstalled (`apt-get install python3-pip python3-venv`, then
+  `pip install -e . --break-system-packages` from `/usr/src/redmine/plugins/redmineflux-tcm-ci`) from scratch this
+  session even though it was installed in an earlier session; the repo itself is bind-mounted and persists, but
+  the Python package install (under `/usr/local/lib/python3.11/...`) is container-filesystem state, not
+  host-persisted. Budget ~2 minutes for this reinstall whenever picking rftc-017 testing back up after any
+  container restart.
+
 - **(2026-10-25) A test case's real suite membership is the `IssueTestSuite` join table, NOT `Issue#testsuite_id`.**
   `Issue#testsuite_id` is a denormalized column that several views read, but `CiRunBootstrapService` (and likely
   other suite-scoped queries) resolve suite membership via `IssueTestSuite.where(issue_id:, testsuite_id:)`

@@ -21,13 +21,31 @@ heading), per explicit user clarification that the companion `reports/` write-up
   `Run#name`'s own uniqueness validation having a narrower TOCTOU window than the `RecordNotUnique` rescue meant
   to catch it (see `bugs/open/BUG-TCM-118.md`). Also fixed a methodology gap live during Struct3 (a test case's
   real suite membership is the separate `IssueTestSuite` join table, not `Issue#testsuite_id` directly).
-- **RFTC-011, 016, 017, 020, 021, 038, 042, 043, 044 — next up, not yet started for literal re-execution.** These
-  9 files currently only carry the earlier *risk-based* `## Regression — 2026-10-24` sections (git-log-driven,
+- **RFTC-011** (16/16 cases) — ✅ **COMPLETE, fully inline, zero new bugs.** BUG-TCM-073 confirmed fixed (was
+  FAIL, now PASS); BUG-TCM-072 correctly split (zero-interaction vector fixed, the reopened Tribute.js `#`-mention
+  vector still exploitable — verified by actually typing `#` and triggering a real `alert()`); a `role="button"`
+  grep-count change (1→2) investigated and found to be an unrelated new icon-button pattern, not a regression.
+- **RFTC-016** (43/43 cases) — ✅ **COMPLETE, fully inline, zero new bugs.** BUG-TCM-067 and BUG-TCM-069 both
+  confirmed fixed. RFTC016-29 (cross-run defect-reuse isolation, the single most safety-critical SACRED guarantee
+  in this feature) fully re-proven with a fresh fixture and 2 fresh runs. **RFTC016-43's original "update_run
+  merges rather than replaces" finding no longer reproduces** — the endpoint now correctly implements replace
+  semantics matching `API.md`, verified across 3 separate concurrent-race trials — a reversal of the original
+  finding, not a regression.
+- **RFTC-017** (26/28 cases) — ✅ **mostly complete, fully inline, 1 new bug.** Reinstalled the CLI fresh and
+  re-ran its shipped pytest suite: **now 42/42 PASS** (was 40/42 — confirms BUG-TCM-065 fixed). Found a new gap
+  while reproducing RFTC017-21: a malformed mapping-file `cases` **value** shape (bare string instead of
+  `{testcase_id, testsuite_id}`) crashes with a raw unhandled `TypeError` traceback instead of the clean "Input
+  error" message every other mapping-file problem produces — filed as **BUG-TCM-119** (Low, open). **2 cases
+  (RFTC017-12/17, exit 10 against a genuinely plugin-less server) deferred** — the original disposable instance
+  no longer exists, and a candidate replacement (`crux-redmine6-redmine-1`) turned out to also have this plugin
+  installed. Resume these if a disposable plugin-less instance becomes available.
+- **RFTC-020, 021, 038, 042, 043, 044 — next up, not yet started for literal re-execution.** These 6 files
+  currently only carry the earlier *risk-based* `## Regression — 2026-10-24` sections (git-log-driven,
   live-verified only the areas touched by real commits) — still valid, but not the literal case-by-case re-click
-  with inline per-case results the user now wants. **Resume here next**, following the exact pattern established
-  in RFTC-008/009: re-drive every case live (curl for API-shaped specs, Playwright for UI ones), write a dated
-  `**Regression Result (...)**` line directly under each case's existing `**Actual Result**` in the testcase file
-  itself (not just a summary section), file any new bug found exactly like BUG-TCM-118 was.
+  with inline per-case results the user wants. **Resume here next**, following the exact pattern established in
+  RFTC-008/009/011/016/017: re-drive every case live (curl for API-shaped specs, Playwright for UI ones), write a
+  dated `**Regression Result (...)**` line directly under each case's existing `**Actual Result**` in the
+  testcase file itself (not just a summary section), file any new bug found exactly like BUG-TCM-118/119 were.
 
 **Fixtures left in place** (harmless probe data in already-messy shared projects, not cleaned up to save time):
 probe defects/executions in `alpha-web` (id=5) from RFTC-008 (defect #3683, runs 104/108 touched); in

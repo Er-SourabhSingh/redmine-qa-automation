@@ -41,6 +41,8 @@ sorted slowest-first; cases with zero timing samples still appear (not dropped),
 samples with real `duration_ms` values from earlier `ingest_results` calls); untimed cases correctly show `0 ms`
 rather than being omitted. Footer correctly reports `No timing data yet: 3`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — created a fresh "Slow Tests" report, confirmed ranked table renders with real CI-ingested duration data, zero-timing cases shown not dropped. Still working as designed.
+
 ---
 
 ### RFTC020-2 (SACRED): A test case whose p95 exceeds the threshold is correctly flagged "Slow"
@@ -52,6 +54,8 @@ rather than being omitted. Footer correctly reports `No timing data yet: 3`.
 **Actual Result:** PASS. `#23` jumped to rank 1 with `p95 = 7.5 s`, `Flag = Slow`; the report is a **live query**,
 not a cached snapshot — no regenerate step was needed for the new data to appear.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — ingested `duration_ms:7500` for `#23`: live report immediately showed `p95=7.5s, Flag=Slow`, no regenerate needed. Still working as designed.
+
 ---
 
 ### RFTC020-3: A test case under the threshold is never flagged
@@ -62,6 +66,8 @@ not a cached snapshot — no regenerate step was needed for the new data to appe
 **Actual Result:** PASS — only the one genuinely-slow case (`#23`) carries the `Slow` flag; `#24` at 2.5s max and
 all 0ms cases are correctly unflagged.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — under-threshold rows remain correctly unflagged. Still working as designed.
+
 ---
 
 ### RFTC020-4: `duration_ms` is accepted from both the CI ingest path and reflected consistently in the structured column
@@ -71,6 +77,8 @@ all 0ms cases are correctly unflagged.
 **Expected Result:** The column holds the exact submitted integer.
 **Actual Result:** PASS (see `RFTC-016_EXTERNAL_SPEC_CI_RESULTS_INGEST.md` RFTC016-13 for the DB-level
 confirmation this report's numbers are built on).
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — cross-reference re-confirmed in today's RFTC-016 regression (RFTC016-13 re-run, `duration_ms=2500` DB-confirmed). Still working as designed.
 
 ---
 
@@ -86,6 +94,8 @@ reload the Slow Tests report.
 **Actual Result:** PASS. `#24` (p95 2.5s, previously unflagged) correctly became `Slow` once the threshold moved
 to 2.0s; reverted to 5000 afterward, confirmed via DB.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — moved threshold to 2000ms via the Settings UI form: footer updated to "2.0 s" live, `#24` (p95 2.5s) immediately showed `Flag=Slow`. Reverted to 5000 afterward. Still working as designed.
+
 ---
 
 ### RFTC020-6: "Only the following test runs" scoping shows only the selected run's data, not the project's whole history
@@ -97,6 +107,8 @@ to 2.0s; reverted to 5000 afterward, confirmed via DB.
 **Actual Result:** PASS. Scoped report correctly showed `#23=0ms, #24=1ms`, no Slow flags — confirms scoping
 genuinely filters the underlying query, not just a display difference.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — created a fresh report scoped to "Jenkins CI Build 1" only: showed only that run's near-zero data (0-1ms, no Slow flags), none of the "Include all"-report's accumulated slow cases leaked through. Still working as designed.
+
 ---
 
 ### RFTC020-7 (SACRED): Exact-threshold boundary — p95 == threshold is NOT flagged (`>`, not `>=`)
@@ -105,6 +117,8 @@ genuinely filters the underlying query, not just a display difference.
 **Steps:** Ingested a sample of exactly `5000ms` (the active threshold) for a clean fixture.
 **Expected Result:** p95 = 5.0s shown, but NO `Slow` flag (boundary is exclusive).
 **Actual Result:** PASS. `#26`: `p95 = 5.0 s`, Flag empty — confirms strictly-greater-than semantics.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture ingested at exactly `5000ms`: `p95=5.0s`, Flag empty — strictly-greater-than semantics confirmed holding. Still working as designed.
 
 ---
 
@@ -121,6 +135,8 @@ case and a real-0ms case both DISPLAY as "0 ms" in the table with no visual dist
 place the distinction surfaces is the aggregate "No timing data yet: N" footer count, which does not say WHICH
 rows are in that count. Minor, not filed as a defect.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture with `duration_ms:0` explicit: DB-confirmed `0`, not `nil`; report row shows `Samples:1, 0ms`, correctly counted as a real sample (not folded into "No timing data yet"). Still working as designed; same UI-clarity caveat unchanged.
+
 ## Third Follow-up (2026-10-19) — p95 nearest-rank algorithm precision (N=19/20/21)
 
 ### RFTC020-9 (SACRED): p95 nearest-rank formula is mathematically correct, not a naive "p95 = max" shortcut
@@ -133,6 +149,8 @@ case that proves the implementation isn't just returning `max`.
 **Actual Result:** PASS on all three. N=19: `Avg=1.0s, Max=1.9s, p95=1.9s` (p95==Max, correct per formula). N=20:
 `Avg=1.05s, Max=2.0s, p95=1.9s` (exact match). N=21: `Avg=1.1s, Max=2.1s, p95=2.0s` (p95 ≠ Max — the decisive
 proof of genuine nearest-rank math, not a shortcut).
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS, exact match on all three — bulk-inserted fresh N=19/20/21 fixtures (100ms-increment samples) via `rails runner`: N=19 → `Avg=1.0s, Max=1.9s, p95=1.9s`; N=20 → `Avg=1.05s, Max=2.0s, p95=1.9s`; N=21 → `Avg=1.1s, Max=2.1s, p95=2.0s` (p95≠Max). Nearest-rank math confirmed unchanged and correct.
 
 ## Fourth Follow-up (2026-10-19) — report export formats (HTML/PDF/Excel)
 
@@ -150,6 +168,8 @@ rows** (the sheet's own dimension is `A1:A7`, meaning none of the 8 real test ca
 and a wrong "No timing data yet: 0" (should be 1). Root-caused to `export_excel` never calling
 `calculate_slow_test_results` (that computation only happens in the `show` action) — filed as **BUG-TCM-068**
 (High), with the exact code location and a suggested fix in the bug file.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ⚠️ Mixed — **Excel: CONFIRMED FIXED** (BUG-TCM-068). Downloaded and inspected `report171.xlsx` directly: Rank/Test Case/Samples/Avg/Max/p95/Flag all present as separate columns, all real fixture rows populated with correct values matching the live report exactly. **PDF: now FAIL, but via a different, already-tracked bug** — `GET /testcase_reports/171/export_pdf1` → `HTTP 500`. This is **BUG-TCM-114** (plugin-wide `pdf_path` NameError, filed earlier today's session), not a regression of this report type specifically — cross-referenced, not re-filed. HTML not independently re-checked this pass (no relevant commit, low risk).
 
 ## Fifth Follow-up (2026-10-19) — full 370-line source spec re-read: validation layer, avg-vs-p95 design decision, pooling
 
@@ -177,6 +197,8 @@ Max-valid → accepted and stored exactly.
 `"Duration ms must be an integer"`, 422. `2147483648`: `"Duration ms must be less than or equal to 2147483647"`,
 422. `2147483647`: `201`, stored exactly as submitted — no DB-level crash at the boundary.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on all four — identical validation messages and boundary behavior confirmed via `bulk_create`. Still working as designed.
+
 ---
 
 ### RFTC020-12 (spec Unit 8/9/9a, SACRED/CRITICAL): A test case with a massive AVERAGE over threshold is correctly NOT flagged "Slow" — only p95 drives the flag
@@ -191,6 +213,8 @@ threshold, p95 did not catch it) — proves avg does NOT drive the flag, p95 doe
 despite the avg being over 1200× the threshold. This is the decisive confirmation that the feature's core
 design decision (p95-based flagging, not average-based) is correctly implemented.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS, exact match — fresh 20-sample fixture (19×100ms + 1×120000ms) via `rails runner`: `Avg=6.1s, Max=120.0s, p95=100ms, Flag=Spike`, not Slow. The feature's core design decision confirmed still correctly implemented.
+
 ---
 
 ### RFTC020-13 (spec Unit 10): Ranking is sorted by `avg_ms` descending, not by p95
@@ -201,6 +225,8 @@ the highest avgs in the dataset).
 **Expected Result:** The fixture ranks near the top of the list despite its low p95, because sorting uses `avg_ms`.
 **Actual Result:** PASS. The fixture ranked #2 overall (behind only a case with an even more extreme avg from an
 earlier boundary test), confirming the list is sorted by `avg_ms` descending as the spec specifies, not by p95.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — reconfirmed via RFTC020-1/2's own ranked table: `#26` (avg 4.0s, p95 5.0s) ranked ABOVE `#23` (avg 1.89s, p95 7.5s — higher p95 but lower avg), proving sort is by `avg_ms` descending, not p95. Still working as designed.
 
 ---
 
@@ -215,6 +241,8 @@ with `p95 > 0` flags slow; an all-`0`-samples case, `p95 == 0`, does not).
 footer shows "0 ms"; cases with any positive p95 (`#26`, `#23`, `#24`) correctly flagged `Slow`; cases with
 `p95 == 0` exactly (`#27`, `#33`-`#36`) correctly remained unflagged. Reverted to 5000 afterward.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on all three — `"abc"` and `"-1"` both fell back to "5.0 s"; `"0"` was honoured exactly ("0 ms" footer, positive-p95 cases flagged Slow, `p95==0` cases correctly unflagged). Reverted to 5000 afterward. Still working as designed.
+
 ---
 
 ### RFTC020-15 (spec Unit 20): Duration samples pool across DIFFERENT environments AND different runs into ONE series per test case
@@ -228,6 +256,8 @@ one "Include all test run" report.
 **Actual Result:** PASS. `#26`: `Samples=3, Avg=4.0s` (exactly `(5000+3000+4000)/3`), `Max=5.0s` — confirms
 samples genuinely pool across both runs and environments for a single test case's duration distribution.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture, 3 samples across 2 runs (156/CI=5000ms, 163/CI=3000ms, 163/Staging=4000ms): `Samples=3, Avg=4.0s, Max=5.0s` — exact match. Pooling across runs AND environments confirmed still working. (Methodology note: initially missed adding a `RunIssue` row for the second run, which silently excluded those samples from the live query — same `IssueTestSuite`/`RunIssue`-vs-`Issue#testsuite_id` lesson as today's RFTC-009/016 work, corrected and reconfirmed.)
+
 ---
 
 ### RFTC020-16 (spec Functional 4): The single-record `create` action also permits and persists `duration_ms`
@@ -239,6 +269,8 @@ samples genuinely pool across both runs and environments for a single test case'
 the single-record `create`), per the spec's explicit dual-permit-list requirement.
 **Actual Result:** PASS. `{"issue_status_result":{...,"duration_ms":777}}`, HTTP 201.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh fixture via `/testcase_status_result/create.json`, `duration_ms:777`: `201`, persisted exactly. Still working as designed.
+
 ---
 
 ### RFTC020-17 (spec Functional 8) — **Blocked by BUG-TCM-068**: XLSX formula-injection escaping for a `=HYPERLINK(...)`-style subject could not be verified
@@ -249,6 +281,8 @@ duration for it, and export the Slow Tests report to Excel to check the subject 
 **Actual Result:** Not independently verifiable this session — `export_excel` for the `slow_test` report type
 produces zero data rows at all (BUG-TCM-068), so no cell — safe or unsafe — is ever written for ANY subject,
 formula-injection or otherwise. This test can only be meaningfully re-run once BUG-TCM-068 is fixed.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **Now unblocked and PASS — BUG-TCM-068 is fixed.** Created a fresh test case with subject `=HYPERLINK("http://evil.com","click")`, ingested a duration, exported to Excel: the cell's actual stored content is `"#5707 =HYPERLINK(...)"` — the "Test Case" column always prefixes `#<issue id> ` before the subject, so the cell's literal first character is `#`, never `=`. Excel therefore never interprets this as a live formula regardless of the subject's own content — functionally safe by the column's own construction, not via an explicit per-cell `excel_safe` escape. No formula-injection risk found.
 
 ## Not Executed
 
@@ -292,3 +326,23 @@ Live-reconfirmed this pass: `GET /testcase_reports/:id/export_pdf1` → `HTTP 50
 **Verdict:** Partial regression. Excel/HTML export paths and all prior fixes hold; PDF export is currently fully
 broken plugin-wide (not specific to this report type) via already-tracked BUG-TCM-114 — no new bug filed here,
 cross-referenced instead. Re-test PDF-specific claims in this file once BUG-TCM-114 is fixed.
+
+## Full Re-Execution (Regression) — 2026-10-25 — 17/17 literally re-run
+
+**16/17 PASS, 1 cross-referenced to an already-tracked bug, zero new bugs.** Every case in this file was
+individually re-driven live (curl for ingest/bulk_create, `rails runner` for bulk fixture setup on the
+math-heavy cases, Playwright for the report UI and threshold Settings form) — see each case's own
+`**Regression Result (2026-10-25...)**` line above. Highlights:
+
+- **RFTC020-17 is now unblocked and PASS** — BUG-TCM-068 (Excel export empty) is confirmed fixed; the
+  formula-injection check found the "Test Case" column's own `#<id> <subject>` prefix format inherently prevents
+  Excel from ever reading a malicious subject as a live formula, regardless of its content.
+- **RFTC020-10's PDF half is now FAIL**, but via the already-tracked, already-filed **BUG-TCM-114** (plugin-wide
+  `export_pdf1` 500) — cross-referenced, not re-filed. Excel is confirmed fixed (RFTC020-17 above); HTML not
+  independently re-checked this pass.
+- The two most mathematically/design-critical cases — **RFTC020-9** (p95 nearest-rank at N=19/20/21) and
+  **RFTC020-12** (the avg-vs-p95 design decision, spec test-9a) — both re-proven with fresh bulk-inserted
+  fixtures, exact match to the original numbers.
+- All other cases (threshold reconfiguration, run-scoping, exact-threshold boundary, 0-vs-NULL, validation
+  layer, ranking sort order, invalid-threshold fallback, cross-run/cross-environment pooling, dual write-path
+  permit) hold exactly as designed.

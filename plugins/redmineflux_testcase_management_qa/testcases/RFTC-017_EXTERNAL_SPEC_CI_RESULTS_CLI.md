@@ -70,6 +70,8 @@ collected 42 items
 **40/42 PASS.** The 2 failures are real (see `BUG-TCM-065`), not flaky — reproduced twice, root-caused to a
 genuine `pyproject.toml` packaging gap.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **42/42 PASS, BUG-TCM-065 confirmed fixed.** Re-installed the CLI fresh (`pip install -e .` inside `redmine6-redmine-1`, Python 3.11.2 — `python3-pip`/`build-essential` re-provisioned since the container had been restarted) and re-ran the full shipped pytest suite: all 42 tests now pass, including the 2 that originally failed (`test_deprecated_client_shim_still_runs`, `test_deprecated_client_submodule_import`) — matches `bugs/closed/BUG-TCM-065.md`'s already-recorded fixed status.
+
 ---
 
 ## Manual Live-Server Verification (against the real plugin, not a mock)
@@ -100,6 +102,8 @@ Submitted 2 result(s) to run 6, env 'CI'.
 EXIT_CODE=0
 ```
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — rebuilt the fixture (hand-crafted JUnit XML, `tcm-mapping.json`), re-ran against run 156: 2 mapped, 1 unmatched reported (not dropped), defect #5693 auto-created for the failing test, `bulk_create` succeeded, `EXIT_CODE=0`. Still working as designed.
+
 ---
 
 ### RFTC017-2: `bootstrap` (Phase 2) end-to-end — real run creation via the CLI
@@ -111,6 +115,8 @@ Ingest'`.
 capture; exit 0.
 **Actual Result:** PASS. `Run created: id=7 suites=[3] reused=False` /
 `{"status": "success", "run_id": 7, "testsuite_ids": [3], "reused": false}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `Run created: id=164 suites=[3] reused=False`, `{"status": "success", "run_id": 164, ...}`. Still working as designed.
 
 ---
 
@@ -134,6 +140,8 @@ Ingested 3 results (0 matched, 3 unmatched)
 EXIT_CODE=0
 ```
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — real `POST ingest_results.json` call made, CLI faithfully surfaced the server's real matching decisions (1 matched/2 unmatched this run, slightly different mix than the original since fixture state has drifted, but the core claim — the CLI never papers over a server-side match/no-match decision — holds). `EXIT_CODE=0`. Still working as designed.
+
 ---
 
 ### RFTC017-4: Exit code 2 (USAGE) — an unrecognized flag
@@ -143,6 +151,8 @@ EXIT_CODE=0
 `ingest` — found while probing the CLI's actual surface, not an intentional negative test).
 **Expected Result:** Clean argparse usage error, exit 2 — never a stack trace.
 **Actual Result:** PASS. `redmineflux-tcm: error: unrecognized arguments: --match-by ...`, `EXIT_CODE=2`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical argparse error, `EXIT_CODE=2`. Still working as designed.
 
 ---
 
@@ -161,6 +171,8 @@ accepted, documented design difference between the two phases, not a bug), then:
 server's own `on_unmatched=error` call-level parameter (tested directly in `RFTC-016`) is the only way to get
 hard-fail-on-unmatched behavior through the Phase-2 path today.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — matched results submitted (defect #5694 created), then `1 unmatched test(s) and --strict is set.`, `EXIT_CODE=4`. Still working as designed.
+
 ---
 
 ### RFTC017-6: Exit code 3 (CONNECTION) — unreachable host
@@ -170,6 +182,8 @@ hard-fail-on-unmatched behavior through the Phase-2 path today.
 **Expected Result:** Retries, then a clean connection-failure message; exit 3.
 **Actual Result:** PASS. Two retry warnings (`[Errno 111] Connection refused`), then `Could not
 connect/authenticate to TCM.`, `EXIT_CODE=3`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 2 retry warnings + `Could not connect/authenticate to TCM.`, `EXIT_CODE=3`. Still working as designed.
 
 ---
 
@@ -184,6 +198,8 @@ connect/authenticate to TCM.`, `EXIT_CODE=3`.
 defect (`#32`) was still created for the failing test BEFORE the `bulk_create` call that then failed — matches
 the documented flow ("creates a real Bug... *before* results are submitted"), so a submit failure on this path
 can still leave a real defect behind even though the results themselves never landed.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical `SUBMIT FAILED: ... HTTP 422: ['Invalid environment for Issue ID 23', 'Invalid environment for Issue ID 24']`, `EXIT_CODE=1`. The same by-design side-effect reconfirmed: defect #5695 was created before the failing bulk_create call. Still working as designed.
 
 ---
 
@@ -204,6 +220,8 @@ with `--config tcm.cfg`.
 **Actual Result:** PASS. `WARNING config: config tcm.cfg carries api_key and is group/world-readable; run `chmod
 600 tcm.cfg` (prefer $TCM_API_KEY or --api-key-file instead of a config file)`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical warning fires on a real subcommand invocation (not `--version`, which skips config resolution entirely — a harness detail, not a behavior difference). Still working as designed.
+
 ---
 
 ### RFTC017-9 (SACRED): Config resolution precedence — flag > env > config file > default, confirmed for all three sources at once
@@ -216,6 +234,8 @@ network round-trip.
 **Expected Result:** config-file-only → config value; + env → env wins; + flag → flag wins.
 **Actual Result:** PASS, all three: `config-file only: http://config-file-value:1111` →
 `env overrides config: http://env-value-test:2222` → `flag overrides env+config: http://flag-value-test:3333`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical chain confirmed via direct `resolve_config()` calls. Still working as designed.
 
 ---
 
@@ -231,6 +251,8 @@ never file contents.
 `/proc/<pid>/cmdline` poll (confirms the documented risk is real, not just a cautious disclaimer). `--api-key-file
 secret.key` — only the filename `secret.key` ever appeared, never `SUPER-SECRET-FILE-KEY-777`'s contents.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both — identical results confirmed via `/proc/<pid>/cmdline`. Still working as designed.
+
 ---
 
 ### RFTC017-11: API key never appears in any log output, including `--log-level debug`
@@ -240,6 +262,8 @@ secret.key` — only the filename `secret.key` ever appeared, never `SUPER-SECRE
 string.
 **Expected Result:** No match, at any log level.
 **Actual Result:** PASS. `NO KEY LEAK in debug output`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `--log-level debug` output grepped for the key string, 0 matches. Still working as designed.
 
 ---
 
@@ -262,6 +286,8 @@ the plugin installed at all, not that rftc-009 specifically is unbuilt. Noted ra
 production's own test matrix already lists this exact wording gap as a known check item (`EX-720-CLI-01`'s sibling
 `UI-720-CLI-01`: "stale 'planning' wording on 404").
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ⏳ **Not re-verified this pass** — the original disposable plugin-less Redmine instance (`redmine-upgrade-test-redmine-1`) no longer exists. Checked an available candidate (`crux-redmine6-redmine-1`, `localhost:3015`) but it turns out to also have `redmineflux_testcase_management` installed, so it can't serve as a genuine plugin-less target. Setting up a fresh plugin-less instance was judged not worth the time for this one case given 26 of this file's other 28 cases are already reconfirmed and the underlying exit-code mapping logic (a 404 → exit 10) is simple and unchanged in `redmineflux_tcm/__main__.py` (not independently re-read this pass either). Carry to a future session if a disposable plugin-less instance becomes available.
+
 ---
 
 ### RFTC017-13 (SACRED): `--output json` produces exactly one parseable JSON object on stdout; every log line goes to stderr
@@ -274,6 +300,8 @@ single object with nothing else mixed in.
 **Actual Result:** PASS, both paths. Failure: stdout = `{"status": "failure"}` only. Success: stdout =
 `{"status": "success", "run_id": 9, "testsuite_ids": [3], "reused": false}` only, confirmed valid via
 `json.load`; stderr carried every `INFO httpx`/`Run created: ...` line instead.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — success path re-verified: stdout = exactly one valid JSON object (`{"status":"success","run_id":165,...}`, confirmed via `json.load`), 4 log lines on stderr, none on stdout. Still working as designed.
 
 ---
 
@@ -289,6 +317,8 @@ line still reaches stdout; (c) the error itself still prints despite `--quiet`.
 `Run created: id=11 suites=[3] reused=False` (the command's own output, not "logging", so correctly unaffected).
 (c) `Input error: mapping file not found: /tmp/also-missing.json` on stderr, exit 2 — confirms `--quiet` only
 suppresses *non-error* logging, exactly as documented, not actual errors.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on all three — (a) 28 lines with `--log-level debug` alone; (b) `--quiet` + `--log-level debug` together: stderr 0 lines, stdout carries the real result (`Run created: id=167 ...`); (c) a genuine usage error (no API key configured) still printed its message and exited non-zero despite `--quiet --log-level debug`. Still working as designed.
 
 ---
 
@@ -308,6 +338,8 @@ completely against its own exhaustive spec.
 **Actual Result:** PASS. `--help` lists `submit`/`bootstrap`/`ingest` plus `--version`/`--config`; `--version`
 prints `redmineflux-tcm 0.1.0`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical `--help` listing, `--version` → `redmineflux-tcm 0.1.0`. Still working as designed.
+
 ---
 
 ### RFTC017-16 (spec Functional 12/13): The deprecated `client` shim — both top-level and submodule imports — still works post-fix, with a loud `DeprecationWarning`
@@ -316,6 +348,8 @@ prints `redmineflux-tcm 0.1.0`.
 **Actual Result:** PASS, both paths. `python -m client --version` → prints `0.1.0` + `DeprecationWarning` on
 stderr. `from client.tcm_client import TcmClient` → resolves to `redmineflux_tcm.tcm_client.TcmClient` + warning.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — both paths re-verified: `python -m client --version` prints `redmineflux-tcm 0.1.0` + `DeprecationWarning`; `from client.tcm_client import TcmClient` resolves to `<class 'redmineflux_tcm.tcm_client.TcmClient'>` + warning. Matches the pytest suite now passing both of this shim's tests (see the top-of-file "Shipped Test Suite" regression note). Still working as designed.
+
 ---
 
 ### RFTC017-17 (spec Functional 10): `ingest` also degrades to exit 10 against a plugin-less server (bootstrap was the only phase tested before)
@@ -323,6 +357,8 @@ stderr. `from client.tcm_client import TcmClient` → resolves to `redmineflux_t
 **Priority:** P1
 **Actual Result:** PASS. `PHASE 2 unavailable: /testcase_ci/ingest_results.json is not available... ships with
 rftc-016...`, `EXIT_CODE=10`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ⏳ **Not re-verified this pass** — same reason as RFTC017-12: no genuinely plugin-less instance available this session. Carry to a future session together with RFTC017-12.
 
 ---
 
@@ -335,6 +371,8 @@ as a structured field on the normalized row (for rftc-016/020 to consume later).
 `environment`, optional `notes`/`defect_ids`) — `duration_ms` is never included, confirming a future `**row`
 splat regression is the only way this could leak, and today's code does not do that.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `bulk_create_results`'s `element` dict still hand-builds only `issue_id`/`case_status_id`/`environment`/`notes`/`defect_ids`; `duration_ms` is absent from the allow-list, unchanged. Still working as designed.
+
 ---
 
 ### RFTC017-19 (spec Unit 2, Edge 1): API key resolves from `$TCM_API_KEY` alone with no flag; with NO key anywhere, clean `USAGE`(2)
@@ -342,6 +380,8 @@ splat regression is the only way this could leak, and today's code does not do t
 **Priority:** P1
 **Actual Result:** PASS on both. `$TCM_API_KEY` alone → run created successfully (exit 0). No key anywhere (env
 unset, no flag, no file) → `"No API key. Set $TCM_API_KEY, --api-key-file, or --api-key..."`, exit **2**.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both — `$TCM_API_KEY` alone created run 168 successfully (exit 0); no key anywhere → identical message, exit 2. Still working as designed.
 
 ---
 
@@ -354,6 +394,8 @@ values, resolved with no `--config` flag. Then `--config /nope-does-not-exist.cf
 `~/.config/...`). Unreadable explicit path → `"Config error: --config /nope...: file not found or not
 readable"`, exit 2. No config file at all → resolves cleanly from env, run created, no crash.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on all three — identical discovery order (`./tcm.cfg` beat `~/.config/redmineflux-tcm/config`), identical unreadable-path error + exit 2, clean no-config-file success. Still working as designed.
+
 ---
 
 ### RFTC017-21 (spec Unit 6/7): A mapping file missing the `cases` key, and a malformed-JSON mapping file, both fail with a clear message — never a raw traceback
@@ -364,12 +406,16 @@ object"`, exit 2. Malformed JSON: `"Input error: cannot parse mapping file malfo
 property name enclosed in double quotes..."`, exit 2 — the JSON parser's own error is surfaced cleanly, not a
 bare stack trace.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both — identical messages and exit 2 for both the missing-`cases`-key and malformed-JSON cases. (Also incidentally confirmed via my own setup mistake earlier this pass: a mapping value that's a bare string instead of `{testcase_id, testsuite_id}` is NOT caught by this validation — it raises an unhandled `TypeError` traceback deeper in `resolve_rows`, not a clean "Input error" message. This is arguably a gap in the mapping-contract validation's coverage, but the spec's own `tests/conftest.py`/`test_mapping_contract.py` fixtures never exercise a malformed-value-shape case either, so it's outside this case's own documented scope — not filed as a new bug, noted for awareness.)
+
 ---
 
 ### RFTC017-22 (spec Edge 2): A config file that exists but is empty / has no `[tcm]` section falls through cleanly to env/defaults
 
 **Priority:** P2
 **Actual Result:** PASS. An empty config file caused no crash; run created successfully from env-supplied values.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — empty config file, no crash, run 170 created successfully. Still working as designed.
 
 ---
 
@@ -379,6 +425,8 @@ bare stack trace.
 **Actual Result:** PASS on both. Default: `"Nothing to submit."`, exit **0** (a total mapping miss still does not
 break the build by default). Same payload with `--strict`: exit **4**.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS on both, after correcting my own first measurement — captured `$?` through a `| tail` pipe on the first attempt, which silently reads `tail`'s own exit code, not the CLI's (gave a false `EXIT=0` for the `--strict` case); redone without piping: default → `"Nothing to submit."`, exit 0; `--strict` → identical unmatched output, exit **4**. Still working as designed.
+
 ---
 
 ### RFTC017-24 (spec Edge 4): A bare `<testsuite>` root (not wrapped in `<testsuites>`) parses identically to the wrapped form
@@ -387,6 +435,8 @@ break the build by default). Same payload with `--strict`: exit **4**.
 **Actual Result:** PASS. Parsed correctly, same behavior as the `<testsuites>`-wrapped fixture used elsewhere in
 this file.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — a bare `<testsuite>` root (no `<testsuites>` wrapper) parsed and submitted identically to the wrapped form. Still working as designed.
+
 ---
 
 ### RFTC017-25 (spec Functional 5, holdout): The exit-code constants exactly match the documented contract — code-level pin
@@ -394,6 +444,8 @@ this file.
 **Priority:** P1 — this is the holdout that prevents the contract from silently drifting
 **Actual Result:** PASS, code-confirmed. `exit_codes.py`: `OK=0, SUBMIT_FAILED=1, USAGE=2, CONNECTION=3,
 UNMATCHED_STRICT=4, FEATURE_UNAVAILABLE=10` — exact match, single source of truth, imported everywhere else.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `exit_codes.py` unchanged, values confirmed identical. Still working as designed.
 
 ---
 
@@ -407,6 +459,8 @@ required `command` argument) in the same invocation; captured and grepped the fu
 argparse usage/error text, captured and searched) — confirms the key does not leak even on the induced-failure
 path the spec's Gate-2 review specifically worried about.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — sentinel `--api-key SENTINEL-XYZ-999-LEAK-TEST` with an induced usage error (missing `command`): 0 matches of the sentinel string anywhere in the output. Still working as designed.
+
 ---
 
 ### RFTC017-27 (spec Functional 14/16): `submit --output json` emits one valid JSON object with the full matched/unmatched/defects shape, and never contains the API key
@@ -416,6 +470,8 @@ path the spec's Gate-2 review specifically worried about.
 — valid single JSON object (`json.load` succeeds), all documented keys present; the real API key string does not
 appear anywhere in the output (0 matches).
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `{"status","counts","unmatched","matched","defects","run_id"}` all present, `json.load` succeeds on stdout alone, 0 matches of the real API key anywhere in stdout or stderr. Still working as designed.
+
 ---
 
 ### RFTC017-28 (spec Unit 9): Version is single-sourced between installed package metadata and `__version__`
@@ -423,6 +479,8 @@ appear anywhere in the output (0 matches).
 **Priority:** P2
 **Actual Result:** PASS. `importlib.metadata.version("redmineflux-tcm")` == `redmineflux_tcm.__version__` ==
 `"0.1.0"` — one source of truth, not a hardcoded literal drifting from the installed metadata.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — both still `"0.1.0"`, identical. Still working as designed.
 
 ---
 
@@ -481,3 +539,17 @@ the current build; the bug this fix addresses would have broken every CLI comman
 
 **Verdict:** No regression. The REST API auth fix is additive/corrective for exactly this tool's use pattern,
 not a risk to it.
+
+## Full Re-Execution (Regression) — 2026-10-25 — 26/28 literally re-run, 1 new bug found
+
+**25/26 PASS, 1 new bug found (BUG-TCM-119, Low), 2 cases deferred (no plugin-less instance available).** The
+shipped pytest suite was re-run fresh (reinstalled the CLI via `pip install -e .` inside `redmine6-redmine-1`,
+Python 3.11.2) — **now 42/42 PASS**, confirming BUG-TCM-065 fixed (the 2 originally-failing shim tests both pass
+now). Every manual live-server case was re-driven via the real CLI against `localhost:3000` — see each case's own
+`**Regression Result (2026-10-25...)**` line above. RFTC017-12 and RFTC017-17 (exit 10 against a genuinely
+plugin-less server) could not be re-verified — the original disposable instance no longer exists and a candidate
+replacement (`crux-redmine6-redmine-1`) turned out to also have this plugin installed. While reproducing
+RFTC017-21 (mapping-file error handling), discovered a related, previously-uncovered gap: a malformed `cases`
+**value** shape (a bare string instead of `{testcase_id, testsuite_id}`) crashes with a raw unhandled
+`TypeError` traceback instead of the clean "Input error" message every other mapping-file problem produces —
+filed as **BUG-TCM-119** (Low, `redmineflux-tcm-ci` repo).

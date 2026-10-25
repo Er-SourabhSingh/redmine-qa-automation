@@ -197,7 +197,26 @@ relation, tagged with the real Run name and Environment.
 platform, running real tests, against the real unmodified plugin, producing a real defect with a real stack
 trace — with zero manual steps between "push" and "defect filed."
 
-**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred, not silently skipped.** `docker ps -a` confirms the Jenkins container this case depends on (brought up specifically for this session on 2026-10-15) is gone — only `redmine6-redmine-1`/`redmine6-sidekiq-1`/`redmine6-mailpit-1`/`redmine6-redis-1`/`redmine6-db-1` remain running, no Jenkins instance to re-trigger a real pipeline against. The underlying shared dependency this case actually exercises (bootstrap → ingest against the live plugin, with a real auto-created defect) **was** re-verified directly this pass via the CLI itself (see RFTC038-11/13 below — a real `bootstrap` call created run #173, and a real `submit --no-defect` against case #24 correctly got the server's 422 rule) — so the plugin-side half of this case's guarantee is confirmed current. What's not re-confirmed is Jenkins's own orchestration of that same flow specifically. Resume by rebuilding the Jenkins harness (`jenkins/docker-compose.jenkins.yml`) if a full Jenkins-triggered re-run is needed.
+**Regression Result (2026-10-25, first attempt):** ⚠️ Initially deferred — the Jenkins container from 2026-10-15 was gone (`docker ps -a` confirmed). The plugin-side half of this case's guarantee was separately re-verified via the CLI directly (RFTC038-11/13 below).
+
+**Follow-up, same day — fully re-executed for real, per explicit user instruction to complete every deferred item.** Rebuilt the Jenkins harness from scratch: `docker compose -f jenkins/docker-compose.jenkins.yml up -d --build` with the real admin API key (read from `.secrets/tcm-api-key.txt`, never printed). Found and fixed a stale config left over from an earlier session: `jenkins.yaml`'s pipeline `environment{}` block had `TCM_BASE_URL` pointed at a long-dead Cloudflare tunnel URL (`https://applying-theme-mentor-drill.trycloudflare.com`) instead of `http://host.docker.internal:3000` — corrected it, then discovered the JCasC job definition is baked into the Docker image at **build** time (`Dockerfile`'s `COPY jenkins.yaml ...`), not read live from the bind mount, so a plain `docker restart` kept using the stale baked-in copy; a full `--build` was needed to pick up the fix. Verified all 6 of the original `demo-project` pytest fixtures (`test_login_valid`→#23, `test_login_invalid_password`→#33, `test_add_item_to_cart`→#34, `test_remove_item_from_cart`→#35, `test_apply_discount_code`→#24, `test_password_reset_email`→#36) are all still present with matching Automation Keys and still members of run-eligible suite 3, via direct API checks.
+
+Triggered the real pipeline via Jenkins' own REST API (crumb-authenticated POST, run from inside the Jenkins container itself since the host's git-bash shell has no `python3`):
+
+```
+== TCM CI pipeline ==
+   base_url : http://host.docker.internal:3000
+-- bootstrap run --
+Run created: id=8 suites=[3] reused=True
+-- pytest (demo-project) --
+....Fs    [100%]  (1 failed, 4 passed, 1 skipped)
+-- ingest results (--auto-defect) --
+Ingested 6 results (5 matched, 1 unmatched)
+TCM RUN URL: http://host.docker.internal:3000/runs/8?project_id=rftc-016-ci-qa
+Finished: SUCCESS
+```
+
+**PASS, in full, cross-checked live in the TCM UI/API** (`/issues/5697.json`): the failing test (`test_apply_discount_code`) auto-created a real new defect **#5697**, subject `[CI] Failed: test_apply_discount_code`, description `CI: failed — assert 100.0 == 90.0 — trace`, correctly linked to testcase #24 — this is a genuinely new, freshly-created defect from this exact run, not a stale one from the original 2026-10-15 session. **5 of 6 results matched** — the 6th (`test_login_valid`) correctly came back `UNMATCHED`, investigated and confirmed **not a bug**: this long-lived shared project now also has issue **#28** ("Duplicate-key test case", an unrelated fixture from an earlier RFTC-016 duplicate-automation-key test) sharing the exact same `test_login_valid` Automation Key — `ingest`'s own ambiguous-key handling correctly refuses to guess between the two rather than silently picking one, exactly the safe behavior this fixture was presumably built to exercise in the first place. **This reproduces the original RFTC038-6 evidence class in full on a rebuilt harness** — a real CI platform, running real tests, against the real unmodified plugin, producing a real defect with a real stack trace, zero manual steps between "push" and "defect filed."
 
 ---
 
@@ -642,13 +661,11 @@ recipes depend on is confirmed healthy on the current build.
 
 ## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
 
-**Literal, case-by-case re-execution** of every scenario this file's own infra still permits. **20/25 scenarios
-genuinely re-driven live this pass — 20/20 PASS, zero new bugs.** 5 scenarios (RFTC038-6, 22, 23, 24, 25) depend
-on external CI infra (Jenkins, GitHub Actions, CircleCI, GitLab CE, Bitbucket runners) that no longer exists on
-this host (`docker ps -a` confirms only the `redmine6-*`/`crux-redmine6-*` stacks remain) — **honestly deferred,
-not silently skipped**, each with its own inline note above explaining exactly what would need to be rebuilt to
-re-trigger it, and what partial evidence (the shared plugin-side API path) was independently re-confirmed in its
-place.
+**Literal, case-by-case re-execution** of every scenario this file's own infra still permits. **21/25 scenarios
+genuinely re-driven live this pass — 21/21 PASS, zero new bugs.** 4 scenarios (RFTC038-22/23/24/25) depend on real
+external hosted-CI accounts (GitHub Actions, CircleCI, GitLab.com/self-hosted, Bitbucket) — see those cases' own
+follow-up notes below for the same-day attempt to close them too. RFTC038-6 (Jenkins) was initially deferred
+(infra gone) but **rebuilt and re-executed for real in a same-day follow-up** — see its own inline result above.
 
 | Case | Scenario | Result |
 |---|---|---|
@@ -657,7 +674,7 @@ place.
 | RFTC038-3 | CLI install pinned (lint section 3, BUG-TCM-066) | ✅ CONFIRMED FIXED |
 | RFTC038-4 | All 8 recipe YAML files parse | ✅ PASS |
 | RFTC038-5 | Exit-code case mapping, all 4 platforms | ✅ PASS (full transcription this time) |
-| RFTC038-6 | Jenkins real e2e pipeline | ⚠️ DEFERRED — infra gone |
+| RFTC038-6 | Jenkins real e2e pipeline | ✅ PASS — rebuilt harness, real run #8, real defect #5697 |
 | RFTC038-7 | Env-var contract | ✅ PASS |
 | RFTC038-8 | Infra-failure distinction | ✅ PASS |
 | RFTC038-9 | PHASE-2 exit-10 fail-loud | ✅ PASS |

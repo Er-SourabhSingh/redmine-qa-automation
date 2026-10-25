@@ -1410,3 +1410,53 @@
     column construction, not input sanitization — every Test Case cell is always prefixed with `#<issue id> `,
     so the literal first character of the cell can never be `=`/`+`/`-`/`@`. Worth remembering before filing a
     new formula-injection finding against either report's export — check the column's prefix convention first.
+
+- **(2026-10-25) Closing the harness's last 3 deferred gaps — deep infrastructure lessons, not product findings.**
+  - **A Docker image's official entrypoint only writes `config/database.yml`'s block for whatever `RAILS_ENV` it
+    booted with.** This `redmine6-redmine-1` container only ever had a `production:` key — forcing `RAILS_ENV=test`
+    without adding a `test:` key errors cleanly (it does NOT silently fall back to reusing the production DB). To
+    run anything that needs `RAILS_ENV=test` (mutation testing, a real Minitest run) safely against a long-lived,
+    fixture-rich shared instance, build a genuinely separate database (`CREATE DATABASE redmine_test`) and point a
+    new `test:` block at it, then run both `bin/rails db:migrate` and `bin/rails redmine:plugins:migrate` under
+    that env — never reuse the live DB for a test run on an instance this session's fixtures depend on.
+  - **`Bundler.setup` (triggered by `config/environment.rb`) prunes `$LOAD_PATH` to only the gems resolved in
+    `Gemfile.lock`.** A plain `gem install somegem` is invisible to anything required after that point, even
+    though `gem list` shows it installed — manually appending `-I` paths as a workaround works for simple cases
+    but WILL eventually hit real Ruby/gem load-order conflicts that only Bundler's own activation order avoids
+    (hit this exactly once: `CGI::Escape` "overtaken by" `CGI::Util`, a Ruby 3.3 stdlib/gem race that only cleared
+    once the gem was activated via a real `bundle install`, not `-I`). The correct fix for "I need one more gem
+    the official Gemfile doesn't declare" without touching the tracked Gemfile: a scratch file
+    `eval_gemfile "<real Gemfile path>"` + the extra `gem "..."` line, then `BUNDLE_GEMFILE=<scratch path> bundle
+    install --local` (or without `--local` once the base image is confirmed to have the gem's exact pinned
+    version — a mismatched version, e.g. `simplecov` 1.3.2 vs. the Gemfile.lock's pinned 0.22.0, breaks resolution
+    even with everything else present).
+  - **A git-bash `BUNDLE_GEMFILE=/tmp/foo.gemfile` env var passed to `docker exec` gets silently mangled into a
+    Windows path** (`C:\Users\...\foo.gemfile`), the same class of bug as the known `docker exec ... ls
+    /usr/src/redmine/...` path-mangling gotcha — fix is the same double-slash escape (`//tmp/foo.gemfile`) or
+    using `sh -c` with the path pre-escaped, not just quoting it.
+  - **An official Redmine Docker image can be built with BOTH `development` AND `test` Gemfile groups excluded**
+    (`bundle config` showed `without "development:test"` already set) — this explains why `capybara`,
+    `selenium-webdriver`, `mocha`, `rails-dom-testing`, and the whole RuboCop/`bundle-audit`/`debug` dev-group
+    chain were never on disk despite being fully resolved in `Gemfile.lock`. `mutant`'s own Minitest integration
+    hardcodes a glob (`./{test,minitest}/**/{test_*,*_test}.rb`) that requires **every** test file in the repo,
+    including system tests that need the full Capybara/Selenium stack — there is no way to scope it to just the
+    2 files `.mutant.yml` actually targets; the entire `:test` group has to be genuinely installed.
+  - **`mutant` 0.17+ requires an explicit `--usage opensource`/`--usage commercial` flag, and `opensource` usage
+    is contractually invalid on a private/commercial codebase** (mutant's own error message says so). This is a
+    licensing/procurement decision, not a technical one — do not specify either usage type without the user's
+    explicit sign-off, since `opensource` would misrepresent the codebase and `commercial` implies a paid license
+    the team may not hold. The environment (isolated `redmine_test` DB, full gem graph, scratch mutant Gemfile)
+    is now fully prepared and left in place for a future session with a real license to just run the command.
+  - **A Jenkins/JCasC job's pipeline script (the `jobs:` DSL block in `jenkins.yaml`) is baked into the Docker
+    image at BUILD time** (`Dockerfile`'s `COPY jenkins.yaml /usr/share/jenkins/ref/casc/...`), not read live from
+    a bind-mounted copy of the same file — editing the live-mounted `jenkins.yaml` and `docker restart`-ing does
+    NOT pick up the change; a full `docker compose up -d --build` is required. Also: once a JCasC-provisioned job
+    already exists in the persisted `jenkins_home` volume, neither a restart nor `/configuration-as-code/reload`
+    re-applies DSL changes to it — delete the job first (`POST /job/<name>/doDelete`) if you need the DSL
+    re-applied after an edit, don't assume reload alone is enough.
+  - **A long-lived shared TCM project can accumulate fixtures from unrelated earlier sessions that collide with a
+    later session's own fixture reuse** — the Jenkins e2e demo's `test_login_valid` pytest case came back
+    `UNMATCHED` on a real re-run not because of a bug, but because an unrelated earlier RFTC-016
+    duplicate-automation-key test fixture (`#28`) happens to share the exact same Automation Key value. Before
+    treating an unexpected `UNMATCHED`/ambiguous result as a regression, check for an automation-key collision
+    across the *whole* project, not just the run's own issue set.

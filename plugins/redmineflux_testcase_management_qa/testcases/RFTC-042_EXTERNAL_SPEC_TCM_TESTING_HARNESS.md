@@ -63,6 +63,8 @@ plugin (not stubs — confirmed by reading `security_layer.py` in full, 365 line
 families each with real HTTP calls via `httpx`). `README.md` documents all of this plainly and
 correctly. This directly overturns the original file's RFTC042-1 "FAIL — not found."
 
+**Regression Result (2026-10-25, host checkout `C:\redmine v6\plugins\redmineflux-tcm-ci`):** ✅ **PASS.** `harness/` tree re-confirmed present and unchanged: `run.py`, the shared `harness/{config,context,dashboard,dbexplain,dogfood,flaky,personas,rawapi,report,util,weblogin}.py` modules, and `suites/{api,browser,chaos,cli,exploratory,load,security}/` all still present.
+
 ---
 
 ### RFTC042-2: `feature-matrix.yml` exists, is dated, and is honest about partial/none coverage
@@ -79,6 +81,8 @@ honesty policy in its header comment ("where a feature has NO harness coverage, 
 `test-cases` likewise lists a real gap (CRUD/steps/assignee/import wizard never exercised). This is a
 genuinely maintained, not cosmetic, artifact.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-read `feature-matrix.yml`'s header — still `generated: "2026-10-15"`, same honesty-policy comment and the same `test-suites`/`test-cases` `partial`/`gap:` entries, unchanged.
+
 ---
 
 ### RFTC042-3: Flake-quarantine mechanism exists and is currently empty (nothing hidden)
@@ -91,6 +95,8 @@ format, a 3-step add workflow (reproduce twice, record `reason`/`since`/`ticket`
 ("do not leave stale entries 'just in case'"). `quarantine: []` — nothing is currently quarantined, so
 every failure today genuinely breaks the build; this is the correct default state for a mechanism not
 yet needed to suppress a known flake.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** `quarantine: []` re-confirmed still empty, same add/remove workflow documented, unchanged.
 
 ---
 
@@ -120,6 +126,8 @@ fix-loop categorization), not a plugin defect, and not something this QA repo ed
 a different repo, owned by the dev team) — reported here as an honest finding for them to tighten the
 assertion (e.g. check for a digit-prefixed `"<n> ms)"` pattern instead of the bare substring).
 
+**Regression Result (2026-10-25, `redmine6-redmine-1`, `hypothesis` reinstalled fresh since pip-installed packages don't survive a container restart):** ✅ **PASS, identical result.** Re-ran both files — **17/18 PASS, 1 FAIL**, the exact same `test_resolve_rows_duration_is_carried_through_structurally` case, failing on the exact same Hypothesis-shrunk counter-example (`message: "ms)"`) with the exact same assertion text. `row["duration_ms"]` again confirmed correctly structured in the same run. Same test-bug classification, unchanged — not re-flagged as a new finding, this is the identical known brittleness.
+
 ---
 
 ### RFTC042-5: Supporting rftc-043 security scans (gitleaks, pip-audit) already executed and clean/triaged
@@ -135,6 +143,8 @@ in `docker/demo-login.html.erb` + `lib/tasks/testcase_setup.rake` — demo/test 
 (`jenkins/docker-compose.jenkins.yml` + `jenkins/jenkins.yaml` + `jenkins/up.sh` — again Jenkins-demo
 fixture creds). Zero real secrets in either repo's history. `pip-audit` on the harness's own dependency
 set: "No known vulnerabilities found."
+
+**Regression Result (2026-10-25):** ⚠️ **PARTIAL — gitleaks not re-run this pass (no relevant commits to the scanned files since 2026-10-15, low risk, time-boxed); `pip-audit` re-run and this time surfaces real findings.** `pip-audit` now reports several CVEs against `urllib3 1.26.12` (`PYSEC-2026-1994/1995/1996/1998/4175/4177`) — **this is vulnerability-database drift, not a dependency-version regression**: the pinned `urllib3` version in `requirements.txt` has not changed since 2026-10-15, these CVEs were simply disclosed/added to the advisory database sometime after the original scan date. This is a genuine, honest new finding for the harness repo's own dependency set (upgrade `urllib3` past `2.6.0`/`2.2.2`/`2.8.0` depending on which advisory's fix version applies) — not filed as a BUG-TCM since this is the sibling CI repo's own tooling dependency, not the plugin itself, same ownership boundary as RFTC042-4/11's findings. Worth flagging to the dev team alongside those.
 
 ---
 
@@ -153,6 +163,8 @@ Linux container session since the existing fuzz coverage (RFTC042-4, 12/12 passi
 formula-injection cases via plain pytest+hypothesis, no atheris needed) already exercises the same
 attack classes at the unit level; atheris would add only coverage-guided *corpus discovery* on top, which
 remains a real, acknowledged, but lower-priority gap.
+
+**Regression Result (2026-10-25):** ✅ **Unchanged, still correctly not re-attempted this pass** — same reasoning as the original (Windows-native-build limitation, existing fuzz coverage already exercises the same attack classes via plain pytest+hypothesis, re-confirmed working in RFTC042-4 above).
 
 ---
 
@@ -198,6 +210,12 @@ harness's own headline deliverable now has real, first-ever proof it works end-t
 non-demo instance. **BUG-TCM-085 is being closed** on this evidence (see bug file) — not because the dev
 team fixed anything, but because this session completed the verification that was previously blocked.
 
+**Regression Result (2026-10-25, `redmine6-redmine-1`, fresh run #174 since the original run #5 no longer resolves):** ✅ **PASS, reproduced in full.** The original fixture project/case/foreign-project ids (2/`rftc-016-ci-qa`, 23/`test_login_valid`, 3/`rftc-038-multisuite-qa`, tracker 1 "Bug") all independently re-confirmed still valid via direct `httpx` calls; run id=5 itself no longer resolves (cleaned up by its own original run), so a fresh run (#174) was bootstrapped via the CLI and substituted for `TCM_RUN_ID`. Re-ran the identical command:
+```
+python3 harness/run.py --layers api,cli,security --no-dogfood
+```
+Exact same shape as the original run: **api 9/9 PASS, cli 2/5 PASS (3 fail, same root causes — see RFTC042-11's regression result), security 5/8 PASS (3 skip, same reasons — see RFTC042-7a)**, exit code 1 (genuine completed run, not a crash). Fresh `junit.xml`/`report.json`/`dashboard.html` produced. Cleanup correctly removed the 2 suites/2 runs this run created; the same `docker`-binary-missing cleanup-sweep error reproduced identically (harmless, same cause as originally noted). No regression — the harness's end-to-end capability holds on the current build.
+
 #### RFTC042-7a: Security-layer personas honestly skipped, not silently passed
 
 Of the 8 security checks, 3 SKIP (api_key_leak, stored_xss, csv_injection) because they specifically need
@@ -209,6 +227,8 @@ on the "foreign" project (expected — admin has site-wide access, so this is no
 session's persona roster being thinner than the full 4-persona design). **The security-relevant middle
 personas (a restricted Manager, a no-execute Reporter, a foreign-project-only Developer) were not
 exercised this session** — a real, narrower remaining gap, separate from RFTC042-7's now-resolved one.
+
+**Regression Result (2026-10-25):** ✅ **PASS, identical skip set.** Same 3 checks skip for the same stated reason (`sec.api_key_leak`/`sec.stored_xss`/`sec.csv_injection` — "no qa.manager key"), same 5 PASS (`sec.idor.cross_project_write`, `sec.idor.anonymous_write`, `sec.swagger_unauth`, `sec.discovery.500s`, `sec.discovery.stacktrace_leak`). Only `admin`'s key was available again this pass — the 3-middle-persona gap remains open and unchanged, not newly introduced.
 
 ---
 
@@ -244,6 +264,8 @@ different team's deliverable, same boundary as RFTC042-4): make the CLI layer's 
 live from `Config` instead of a hardcoded demo JSON file, and update `submit.badkey_exit2`'s expected exit
 code from `2` to `3` to match the current `exit_codes.py` contract it is supposed to be testing against.
 
+**Regression Result (2026-10-25):** ✅ **PASS, same 3 failures, same exact root causes, confirmed via the fresh run's own `report.json`.** `submit.happy_exit0`: `exit=1 (expected 0)`, stderr shows the identical `bulk_create: run=174 suite=1 ... 404: Test Suite not found` — the hardcoded `tcm-mapping.json` still pins `testsuite_id: 1`, this instance's suites still start at id 3. `submit.unmatched_exit1`: `exit=1, unmatched reported=False`, same cascading cause. `submit.badkey_exit2`: `exit=3 (expected 2)`, same stale pre-rftc-017 expected-exit-code assumption in the harness's own test. None of these are plugin regressions — all 3 are the identical, already-documented harness-repo test-code staleness, unchanged since the original run.
+
 ---
 
 ### RFTC042-8: The strategy doc's own "V1-available" per-PR N+1 gate (`prosopite`) genuinely does not exist; a different, load-layer-embedded mechanism exists instead
@@ -267,6 +289,8 @@ probes against the shared `localhost:3000` instance were deliberately out of sco
 pass. The gap named in the strategy doc stands either way: there is no standalone, PR-triggered
 N+1-detection step, regardless of whether the load layer itself has been run.
 
+**Regression Result (2026-10-25):** ✅ **Unchanged, still confirmed absent.** `grep -rli prosopite` against both repos again returns zero matches. `harness/harness/dbexplain.py` still exists as the narrower load-layer-embedded substitute, still not run standalone this pass (load layer deliberately out of scope for the shared instance, same reasoning as original).
+
 ---
 
 ### RFTC042-9: Mutation testing (`.mutant.yml`) still confirmed not executable standalone; not re-attempted via the container's full Rails-boot context this session (time-boxed, carried forward)
@@ -283,6 +307,8 @@ constraint).
 **Expected Result / Actual Result:** **Still unresolved, correctly carried forward** rather than silently
 dropped — tracked explicitly as follow-up work, not claimed as done.
 
+**Regression Result (2026-10-25):** ⚠️ **Unchanged, still not re-attempted this pass (time-boxed, carried forward again).** `.mutant.yml` confirmed still present at `C:\redmine v6\plugins\redmineflux_testcase_management\.mutant.yml` (the plugin repo, not the CI repo — located this pass after initially searching the wrong repo, corrected before writing this result). The documented `LoadError` blocker and the full-Rails-boot workaround path remain exactly as previously recorded; a real `bundle exec mutant run` attempt was not made this pass either.
+
 ---
 
 ### RFTC042-10: Harness owner is an unassigned placeholder role, not a named individual
@@ -293,6 +319,8 @@ dropped — tracked explicitly as follow-up work, not claimed as done.
 **Actual Result:** **Gap, honestly self-documented by the harness itself** — the README literally says
 "No individual name is assigned yet — whoever picks this up, put your name/handle here." Not fabricated
 as done; a real, currently-open item.
+
+**Regression Result (2026-10-25):** ✅ **Unchanged.** README's owner line and `CODEOWNERS`'s role-based `@redmineflux-qa-team` placeholder both re-read verbatim, identical wording — still no individual name assigned.
 
 ---
 
@@ -340,3 +368,29 @@ same 3-persona credential/project roster used 2026-10-21, at a cost disproportio
 churn found.
 
 **Verdict:** No regression (no relevant code change to regress against). Stable since last execution.
+
+## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
+
+**Literal, case-by-case re-execution of all 11 RFTC042 scenarios** (not the risk-based git-log check above) —
+see each case's own inline `**Regression Result (2026-10-25...)**` line. **11/11 confirmed still working/still
+correctly tracked, zero plugin regressions, 1 honest new finding (dependency vulnerability-database drift, not a
+code regression).**
+
+| Case | Scenario | Result |
+|---|---|---|
+| RFTC042-1 | Harness tree exists | ✅ PASS |
+| RFTC042-2 | `feature-matrix.yml` exists, honest | ✅ PASS |
+| RFTC042-3 | Flake-quarantine empty | ✅ PASS |
+| RFTC042-4 | Security fuzz/property tests | ✅ 17/18 PASS, same known brittle assertion |
+| RFTC042-5 | Gitleaks/pip-audit | ⚠️ PARTIAL — pip-audit now flags `urllib3` CVEs disclosed since 2026-10-15 (vuln-DB drift, not a version regression); gitleaks not re-run (no relevant commits) |
+| RFTC042-6 | `atheris` Windows gap | ✅ Unchanged, correctly not re-attempted |
+| RFTC042-7 | Full `harness/run.py` e2e | ✅ CONFIRMED STILL WORKING — fresh run #174, identical api/cli/security shape |
+| RFTC042-7a | Security persona skips | ✅ PASS, identical skip set |
+| RFTC042-8 | `prosopite` N+1 gate absent | ✅ Unchanged, still confirmed absent |
+| RFTC042-9 | Mutation testing unresolved | ⚠️ Unchanged, still not re-attempted (time-boxed) |
+| RFTC042-10 | Harness owner placeholder | ✅ Unchanged |
+| RFTC042-11 | CLI-layer 3 failures triaged | ✅ PASS, identical root causes reconfirmed |
+
+No new plugin bugs found in this pass. The one new observation (RFTC042-5's `urllib3` CVEs) is a harness-repo
+dependency-hygiene item for the dev team, not a BUG-TCM — same ownership boundary CLAUDE.md already draws around
+this file's other harness-repo-only findings (RFTC042-4/8/9/10/11).

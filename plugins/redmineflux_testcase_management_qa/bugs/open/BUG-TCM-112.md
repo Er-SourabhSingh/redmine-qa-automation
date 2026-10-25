@@ -1,7 +1,7 @@
 # BUG-TCM-112
 
 - Bug ID: BUG-TCM-112
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125090
 - Title: Drag-copying a test case into another suite leaves the clone linked to BOTH the source and target suite, not just the target
 - Severity: Medium
 - Redmine version: 6.0.11.stable (Docker)

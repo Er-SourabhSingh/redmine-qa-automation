@@ -1,7 +1,7 @@
 # BUG-TCM-119
 
 - Bug ID: BUG-TCM-119
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125097
 - Title: `redmineflux-tcm submit` crashes with a raw unhandled `TypeError` traceback on a malformed mapping file (a `cases` entry that's a string instead of `{testcase_id, testsuite_id}`), instead of the clean "Input error" message every other mapping-file problem produces
 - Severity: Low
 - Redmine version: N/A (CLI tool, rftc-017 — `redmineflux-tcm-ci` repo, package `redmineflux_tcm`)

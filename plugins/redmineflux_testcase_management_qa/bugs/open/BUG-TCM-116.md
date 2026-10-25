@@ -1,7 +1,7 @@
 # BUG-TCM-116
 
 - Bug ID: BUG-TCM-116
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125094
 - Title: Deleting a test case that is on an active run leaves its `issue_status_results` execution row behind as an orphan
 - Severity: Low
 - Redmine version: 6.0.11.stable (Docker)

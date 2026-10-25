@@ -1,7 +1,7 @@
 # BUG-TCM-118
 
 - Bug ID: BUG-TCM-118
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125096
 - Title: CI bootstrap race-condition protection is incomplete — a concurrent duplicate-name request can get a plain `422 "Name has already been taken"` instead of the documented graceful `reused: true` resolution
 - Severity: Medium
 - Redmine version: 6.0.11.stable (Docker)

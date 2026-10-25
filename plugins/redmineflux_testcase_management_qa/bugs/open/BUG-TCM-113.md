@@ -1,7 +1,7 @@
 # BUG-TCM-113
 
 - Bug ID: BUG-TCM-113
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125091
 - Title: `create_milestone`/`edit_milestone`/`delete_milestone` permissions are enforced in code but never declared in `init.rb`, so no non-admin role can ever be granted them
 - Severity: High
 - Redmine version: 6.0.11.stable (Docker)

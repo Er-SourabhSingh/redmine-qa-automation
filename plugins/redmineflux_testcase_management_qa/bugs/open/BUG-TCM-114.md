@@ -1,7 +1,7 @@
 # BUG-TCM-114
 
 - Bug ID: BUG-TCM-114
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125092
 - Title: Server-side PDF export (`export_pdf1`) 500s on every call with a `NameError` — `pdf_path` is referenced before it is defined
 - Severity: High
 - Redmine version: 6.0.11.stable (Docker)

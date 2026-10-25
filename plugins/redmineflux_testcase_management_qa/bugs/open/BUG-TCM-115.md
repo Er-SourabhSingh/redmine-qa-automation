@@ -1,7 +1,7 @@
 # BUG-TCM-115
 
 - Bug ID: BUG-TCM-115
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125093
 - Title: `bulk_testcase_create` silently reports success with zero test cases created when the (global) testcase tracker isn't enabled on the target project, instead of returning an error
 - Severity: Medium
 - Redmine version: 6.0.11.stable (Docker)

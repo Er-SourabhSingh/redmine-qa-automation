@@ -1,7 +1,7 @@
 # BUG-TCM-117
 
 - Bug ID: BUG-TCM-117
-- Production Redmine Issue ID: <!-- fill after MCP report_defect is approved and executed -->
+- Production Redmine Issue ID: 125095
 - Title: Plugin cannot install on Redmine 5.1 at all — the Gemfile's dev/test-only `mutant` gem requires Ruby >= 3.3, which breaks `bundle install` dependency resolution for every group, not just dev/test
 - Severity: High
 - Redmine version: 5.1 (official `redmine:5.1-bookworm` Docker image, Ruby 3.2.11)

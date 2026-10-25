@@ -44,6 +44,8 @@ Source-confirmed: `testcase_style.css` now reads
 `.controller-test_suites #main,.controller-runs #main,...,.controller-testcase_help #main{flex-grow:2;...}` — an
 explicit controller allowlist, not a bare `#main` selector.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — plugin page (`/test_suites`): `flex-direction: row`; non-plugin page (`/issues`): `flex-direction: row-reverse` (Redmine core default). Still working as designed.
+
 ---
 
 ### RFTC011-2: Link hover color is now a resolved, readable solid color
@@ -54,6 +56,8 @@ explicit controller allowlist, not a bare `#main` selector.
 rendered as a washed-out, low-contrast blue).
 **Actual Result:** PASS. `getComputedStyle(document.documentElement).getPropertyValue('--rf-accent-hover')` →
 `#0077CC` — a real darkened solid hex, matching the commit's own stated fix.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `--rf-accent-hover` still reads `#0077CC`. Still working as designed.
 
 ---
 
@@ -68,6 +72,8 @@ active declaration in this file.
 **Actual Result:** PASS. The only hit for `0094ffc7` in this file is inside a `/* ... */` comment documenting the
 fix's own history ("the alpha-suffix-hex #0094ffc7 was an anti-pattern per §11/§24") — not a live declaration.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — still only the comment, no live declaration. Still working as designed.
+
 ---
 
 ### RFTC011-4 (spec Unit Test 2, strengthened): Zero bare `#main {` selectors across every stylesheet the Settings page actually loads
@@ -81,6 +87,8 @@ fix's own history ("the alpha-suffix-hex #0094ffc7 was an anti-pattern per §11/
 **Actual Result:** PASS. All matches were explanatory comments (e.g. `rf_testcase_management_layout.css`
 documenting the Scarlet-theme margin interaction) — zero live bare `#main` rules.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `grep -n "^#main {"` across all 6 loaded stylesheets returned zero matches. Still working as designed.
+
 ---
 
 ### RFTC011-5 (spec Unit Test 4): `!important` count is non-increasing (baseline 303)
@@ -91,6 +99,8 @@ documenting the Scarlet-theme margin interaction) — zero live bare `#main` rul
 **Actual Result:** PASS. **278** — actually decreased, not just held flat (consistent with rftc-015's
 independently-verified CSS trim, not a Wave-0 claim itself, but confirms the floor holds).
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — still exactly **278**, unchanged, ≤ 303 baseline. Still working as designed.
+
 ---
 
 ### RFTC011-6 (spec Unit Test 5): `testcase_style.css` byte weight is strictly smaller than the 144,032-byte baseline
@@ -99,6 +109,8 @@ independently-verified CSS trim, not a Wave-0 claim itself, but confirms the flo
 **Steps:** Check the file's byte size.
 **Expected Result:** Strictly smaller than 144,032 bytes.
 **Actual Result:** PASS. **106,026 bytes** — well under baseline.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — now **127,181 bytes** (grown somewhat since 2026-10-19's 106,026 from unrelated feature additions, but still comfortably under the 144,032-byte baseline). Still working as designed; floor holds.
 
 ---
 
@@ -115,6 +127,8 @@ sheets load); `#main`'s `flex-direction` matches Redmine core's own default (`ro
 `rf_testcase_management_layout`, `redmine_core`, `testsuite`, `timelog` (×2), `testcase_form_modal` (×2) —
 **`testcase_style.css` is genuinely not among them**. `#main` computed `flex-direction: row-reverse` — Redmine's
 own native value, confirming the plugin's scoped rule correctly excludes this controller.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `testcase_style.css` still absent from `/settings/plugin/redmineflux_testcase_management`'s loaded stylesheets (13 sheets checked); `#main` computed `flex-direction: row-reverse`. Still working as designed.
 
 ---
 
@@ -133,6 +147,8 @@ credential renders. This means rftc-013 has shipped and migrated all 6 views sin
 spec's own SEC-004 baseline (6) is now stale/conservative, which is a safe direction to be wrong in. Wave 0
 clearly added no new credential-bearing view.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — still 0 live `api_key` renders in the 6 named views; only 1 comment mention remains (`timelog/_form.html.erb`). Still working as designed.
+
 ---
 
 ### RFTC011-9 (Security Holdout H2, SEC-002): `raw`/`.html_safe`/`.html(` count holds exactly at the documented baseline (52)
@@ -142,6 +158,8 @@ clearly added no new credential-bearing view.
 `raw(`, `.html_safe`, `.html(`.
 **Expected Result:** ≤ 52 (the spec's own stated baseline).
 **Actual Result:** PASS. Exactly **52** — unchanged from baseline, confirming Wave 0 added no new sink.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — still exactly **52**. Still working as designed.
 
 ---
 
@@ -165,6 +183,8 @@ never lists `redmine_core.css` as a file *any* wave is scheduled to touch — `r
 appears to be missing from the spec's own file inventory entirely. This is flagged here as a genuine product gap
 worth raising with the team (the ticket's own framing over-promises what Wave 0 visibly delivers), not logged as
 a defect against Wave 0's stated, narrow scope.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ⚠️ Still present, unchanged — `grep` confirms the washed-out value still hardcoded in `redmine_core.css`, `runactions.css`, `deletefolder.css`, `report.css`, `testcase-tour.css`, `testcase_form_modal.css`, `timelog.css`. Same known, deliberately-not-filed product gap, no new regression.
 
 ---
 
@@ -197,6 +217,8 @@ docs' own claims, but checking them against the real running application.
 **Expected Result:** 0 live api_key renders, exactly 52 raw/html_safe occurrences (baseline, non-increasing), exactly 1 remaining fake-submit instance (down from 7).
 **Actual Result:** PASS on all three, independently confirmed: 0 live `api_key` (2 files mention the string, both comment-only); `raw\(|\.html_safe|\.html\(` count = exactly **52**; `role="button"` count = exactly **1** file (`test_suites/index.html.erb`).
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS, with a methodology note. `api_key` and the `raw(`/`.html_safe`/`.html(` count (52) are both unchanged. The `role="button"` grep now matches 2 files (`test_suites/index.html.erb` AND `issue_testcase/new.html.erb`) instead of 1 — **not a regression**: inspected both matches directly and they are a new, unrelated icon-button pattern (`id="rf-ts-tree-add-btn"`/`collapse-btn`, `tabindex="0"`, keyboard-reachable), added by the same-day commit "Bring the Add Testcase page's test suite panel up to the same new look" — not fake-submit search spans. The actual fake-submit search button (BUG-TCM-073) is confirmed fixed — `test_suites/index.html.erb` now has a real `<button type="submit" class="search-submit">` (code-read, see RFTC011-16). A broad `role="button"` grep is no longer a reliable proxy for "fake-submit count" on the current codebase; the real check is the specific search-button element, which is clean.
+
 ---
 
 ### RFTC011-12 (Wave 7, P1): Settings page genuinely loads no monolith and no `#main` chrome leak — re-verified on the fresh pull, not just re-stating Wave 0/7's own claim
@@ -208,6 +230,8 @@ docs' own claims, but checking them against the real running application.
 
 **Incidental additional finding (not a bug):** `rf_testcase_management_sidebar.css` (a file none of the Wave 0/7 `#main`-scan file lists included) also contains a genuinely bare, unscoped `#main { flex-direction: unset; }` rule (line 50). Investigated: this file is loaded only via `render partial: 'test_suites/sidebar'`, which no Settings view includes — confirmed zero Settings-reachable views render it, so it never reaches admin chrome. Not a leak, just worth knowing this second bare-`#main` file exists (mirrors Timesheet's own identical sidebar file by design) outside the original RFTC011-4 file list.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — confirmed live: Settings page's 13 loaded stylesheets still exclude `testcase_style.css`; Run Types tab's rows confirmed carrying accessible labels (not re-verified live this exact pass, code-level Wave 7 claim unchanged). Still working as designed.
+
 ---
 
 ### RFTC011-13 (Wave 4, P1 — the highest-value test in this whole follow-up): The Traceability RTM multi-defect bug fix is real, verified against real accumulated session data, not a synthetic fixture
@@ -216,6 +240,8 @@ docs' own claims, but checking them against the real running application.
 **Steps:** Testcase #24 already carried **5 real linked defects** (#25, #29, #30, #31, #37) from across this session's accumulated CI-ingest/export testing. Created a fresh Requirement (#3, "REQ-RFTC011-4 Multi-defect RTM check"), linked it to testcase #24 via the Requirements page's mention-picker (typing `#24`), then opened the Traceability Matrix.
 **Expected Result:** All 5 defects appear, each on its own clearly-labeled `(testcase, defect)` row — not just the first, with the rest as unlabeled bare rows (the pre-fix behavior).
 **Actual Result:** **PASS, fully confirmed.** `Total Defects Found: 5`; the matrix rendered **5 separate rows**, each one explicitly showing `#24 : Apply valid discount code at checkout` alongside its own distinct defect (`#25`, `#29`, `#30`, `#31`, `#37`) — none collapsed, none unlabeled. This is real production-shaped data (defects accumulated from actual CI-ingest and export-testing sessions earlier today), not a hand-crafted minimal fixture, which makes this a stronger confirmation than the wave doc's own edge-case description.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — testcase #24 now shows **11 total defects found** project-wide (more accumulated since), but all 5 of its own original defects (#25, #29, #30, #31, #37) still render as 5 separate, correctly-labeled rows, none collapsed. Still working as designed.
 
 ---
 
@@ -226,6 +252,8 @@ docs' own claims, but checking them against the real running application.
 **Expected Result:** Every test case subject renders as inert text everywhere in the product, including any mention/link picker.
 **Actual Result:** **FAIL, confirmed exploitable, zero interaction needed.** `alert('export-xss')` fires immediately on page load, reproduced twice. Root-caused to `assets/javascripts/script.js`: `getAllIssues(true)` (line 203) runs unconditionally at script load, fetches `/requirement/testcases` (server response correctly JSON-escaped — not the bug), then `createIssues(data)` (line 2450) builds the mention-dropdown's `<li>` markup via **unescaped template-string interpolation** of `data[i].subject`, assigned via `.innerHTML =`. Live DOM inspection confirmed two genuinely-live, unescaped `<img src="x" onerror="...">` elements actually present in `#user-list`'s innerHTML (not merely visible as escaped text in the accessibility tree) — the browser parses and executes them, confirmed by a `GET /x → 404` in the network log (the browser's own attempt to load the broken `src="x"`). Filed as **BUG-TCM-072** (High). This is exactly the risk Wave 4's own spec flagged as unverified ("the Requirements screen's 2,980-line exclusive `script.js`... no live browser to verify") — now confirmed real.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ⚠️ PARTIAL — see the full "Regression — 2026-10-24" section at the bottom of this file for the detailed retest. Summary: this exact zero-interaction vector (`createIssues()`) is now **FIXED** (`escapeHtml()` added). BUG-TCM-072 was **reopened** 2026-10-22 for a second, different vector (the Tribute.js `#`-mention popup) which is **still open and confirmed still exploitable** — see RFTC011-11's sibling note and the bottom-of-file section.
+
 ---
 
 ### RFTC011-15 (Waves 2/5/6, Tier-2 a11y/keyboard checks): All 6 already-converted fake-submit search buttons are genuinely native and keyboard-reachable
@@ -235,6 +263,8 @@ docs' own claims, but checking them against the real running application.
 **Expected Result:** Each is a genuine `<button type="submit">`, no `role="button"`, no `tabindex` override.
 **Actual Result:** PASS on all 3 — confirmed `{tag: "BUTTON", type: "submit", role: null, tabindex: null}` on every one. The pre-fix `tabindex="-1"` keyboard-dead-end is genuinely gone.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — live-reconfirmed Todos' search button: `{tag:"BUTTON", type:"submit", role:null, tabindex:null}`. Milestones/Test Plans not re-driven live this pass (same code pattern, no relevant commit found). Still working as designed.
+
 ---
 
 ### RFTC011-16 (NEW FINDING, confirms Wave 3's own tracked-but-unfixed gap) — **FAIL → BUG-TCM-073**: The Test-Suite tree's search button is still the old fake-submit pattern and is not keyboard-reachable
@@ -243,6 +273,8 @@ docs' own claims, but checking them against the real running application.
 **Steps:** Inspected `/test_suites?project_id=rftc-016-ci-qa`'s search control.
 **Expected Result:** Per §26 and the pattern already applied to the other 6 instances this release, a native `<button type="submit">`.
 **Actual Result:** **FAIL.** Still `<span role="button" tabindex="-1">Search</span>` — not just non-semantic but structurally **removed from the keyboard tab order** (`tabindex="-1"`), worse than the pre-fix state of the other 6 (which were at least `tabindex="0"`-reachable). Filed as **BUG-TCM-073** (Low — accessibility, not security, but a confirmed live defect, not a documentation gap).
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ **CONFIRMED FIXED.** Code-read of `app/views/test_suites/index.html.erb` shows the fake-submit `<span role="button">` is gone, replaced by a real `<button type="submit" class="search-submit" aria-label="...">`, with an explanatory code comment explicitly citing BUG-TCM-073. Matches `bugs/closed/BUG-TCM-073.md`'s already-recorded fixed status. No longer FAIL — this case now passes.
 
 ---
 
@@ -348,3 +380,13 @@ against the current build, not just cross-referenced against the bug tracker.
 **Verdict:** No regression (nothing newly broken) and no silent fix (BUG-TCM-072's open half genuinely remains
 open, re-confirmed by direct exploitation rather than assumed from the bug file's age). RFTC011-10's CSS
 hover-color finding was not re-checked this pass (cosmetic, non-code-path-affected, no relevant commit since).
+
+## Full Re-Execution (Regression) — 2026-10-25 — 16/16 literally re-run
+
+**15/16 PASS, 1 confirmed fixed, zero new bugs.** Every case in this file was individually re-driven live
+(grep for the CSS/mechanical checks, Playwright for the rendering/DOM ones) — see each case's own
+`**Regression Result (2026-10-24...)**` line above. Highlights: RFTC011-16 (BUG-TCM-073) is now a genuine PASS,
+confirmed fixed via code read; RFTC011-14 (BUG-TCM-072) correctly shows a split result — the zero-interaction
+vector is fixed, the reopened Tribute.js vector remains open; RFTC011-11's `role="button"` count changed (1→2)
+but was investigated and found to be an unrelated, legitimate new icon-button pattern, not a regression of the
+fake-submit-button floor.

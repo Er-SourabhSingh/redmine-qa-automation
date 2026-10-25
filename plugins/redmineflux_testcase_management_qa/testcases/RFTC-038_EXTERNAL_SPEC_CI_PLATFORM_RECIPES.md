@@ -466,7 +466,20 @@ cases Passed, 2 linked defects (`#2091`, `#2092`, subjects "CI failure: test_app
 Build 1]" / "CI failure: test_password_reset_email [GitHub Actions Build 1]") — a real, independently-verifiable
 Run in the product, not just a container log claim.
 
-**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred.** The self-hosted GitHub Actions runner container from 2026-10-20 no longer exists (`docker ps -a` confirms gone); re-establishing it requires a real GitHub repo + runner registration. Runs #64's own historical TCM evidence (2 Passed cases, 2 linked real defects) is unchanged in the database and was not independently re-verified this pass. The shared underlying dependency every platform recipe relies on (API-key-as-Basic-Auth-username auth against the live plugin) was separately re-confirmed working this session via direct CLI calls (RFTC038-11 through 18 above). Resume by re-registering a self-hosted Actions runner against a real GitHub repo if a full re-trigger is needed.
+**Regression Result (2026-10-25, first attempt):** ⚠️ Initially deferred — the original runner container was gone.
+
+**Follow-up, same day — fully re-triggered for real, per explicit user instruction and the user's own live GitHub login.** The user logged into the real GitHub account (`sourabhzehntech01-star`, via "Continue with Google" + a real emailed device-verification code, both completed by the user directly — password/code entry is blocked for Claude by design) in a live browser session. The original `rftc038-qa-pipeline-test` repo, its `tcm-pipeline.yml` workflow, and all 4 `TCM_*` Actions secrets were still present from 2026-10-20. Updated the `TCM_BASE_URL` secret to `http://host.docker.internal:3000` (the original value pointed at a URL from a prior session's own network setup) — **this one write had to be done by the user too**, since updating a GitHub Actions secret is itself a blocked "Secret-Store Write" action; the form was pre-filled, the user clicked Save. Registered a fresh self-hosted runner (`myoung34/github-runner` Docker image, `--add-host host.docker.internal:host-gateway` so it can reach the local plugin) using a short-lived runner-registration token from the repo's own "Add new self-hosted runner" page, then dispatched the workflow via its `workflow_dispatch` trigger:
+
+```
+√ Connected to GitHub
+√ Runner successfully added
+Current runner version: '2.338.1'
+2026-10-25 09:51:36Z: Listening for Jobs
+2026-10-25 09:52:15Z: Running job: bootstrap-test-ingest
+[GitHub UI] TCM Multi-Suite CI #2 — bootstrap-test-ingest: completed successfully, 22s
+```
+
+**PASS, in full, cross-checked live in the TCM UI** (`/runs/177?project_id=rftc-038-multisuite-qa`): a genuinely new run, **"GitHub Actions Build 2"**, created at `2026-10-25T09:52:26Z` — matching the workflow's own timestamp exactly — with 2 real new auto-created defects, **#5713** ("CI failure: test_apply_discount_code [GitHub Actions Build 2]") and **#5714** ("CI failure: test_password_reset_email [GitHub Actions Build 2]"), same naming pattern as the original run #64's #2091/#2092. The runner was ephemeral (`EPHEMERAL=1`) and correctly self-deregistered after the one job, then the container was removed. This reproduces the full original evidence class on a freshly re-registered runner against a different (and current) plugin build.
 
 ---
 
@@ -593,6 +606,44 @@ item only if a future session specifically needs to verify THIS plugin's own rec
 created in the TCM UI. Recovered purely because the user noticed real Run names in a Quality HQ screenshot that
 didn't match this file's then-current "no accounts available" claim.
 
+---
+
+## Fourth Follow-up (2026-10-25, same day as the RFTC038-22 re-trigger) — per direct user request: does the GitHub Actions pipeline actually respect the Redmine identity/permissions of whichever `TCM_API_KEY` it's given, or is it silently tied to one hardcoded account?
+
+Prompted by the user asking directly whether the pipeline uses "the user's" API key or always admin's, this follow-up ran the exact same `tcm-pipeline.yml` three times in a row against the real, already-registered `rftc038-qa-pipeline-test` repo, changing only the `TCM_API_KEY` (and `TCM_PROJECT_ID`, where the persona's own membership required it) GitHub secret between runs, each time with a freshly-registered ephemeral self-hosted runner.
+
+---
+
+### RFTC038-26 (new, real accounts): the pipeline's Redmine identity is driven entirely by whichever `TCM_API_KEY` secret is configured — not hardcoded to admin
+
+**Priority:** P1 — directly answers the user's question and is a real confirmation of a security-relevant property (no implicit privilege escalation to admin regardless of the configured key)
+**Steps:** Ran the real workflow 3 times via `workflow_dispatch`, each time with a different `TCM_API_KEY`:
+1. The original admin key (already configured from 2026-10-20) against `TCM_PROJECT_ID=3` (`rftc-038-multisuite-qa`).
+2. `qa.limited`'s own key (Manager role, freshly granted — initially only on `rftc-016-ci-qa`, `TCM_PROJECT_ID=2`; after the user added `qa.limited` as Manager on `rftc-038-multisuite-qa` too, re-run against `TCM_PROJECT_ID=3`).
+3. `dev1`'s own key (Developer role on `rftc-038-multisuite-qa`, a role with **zero** testcase-management permissions — confirmed via `GET /roles/4.json`: `create_run`/`execute_testcase`/`create_test_suite` all absent from its 31 permissions).
+**Expected Result:** Each run's Redmine-side identity (`created_by`/`assignee` on the resulting Run) should match whichever persona's key was configured, not always admin — and a key belonging to a user who lacks the required permissions should be correctly rejected by the Redmine API, not silently succeed as admin or silently no-op.
+**Actual Result:** **PASS, all 3 legs, real evidence every time:**
+
+| Key used | Target project | Result | Run | `created_by`/`assignee` |
+|---|---|---|---|---|
+| admin | `rftc-038-multisuite-qa` (3) | ✅ Job succeeded | #177 "GitHub Actions Build 2" | user id 1 (admin) |
+| `qa.limited` (Manager, no `rftc-038` membership yet) | `rftc-016-ci-qa` (2) | ✅ Job succeeded, but run's own suites (`Login`/`Cart Operations`/`Discounts`) don't exist in this project, so the newly-bootstrapped suites were empty — **not a bug**, see RFTC038-27 | #178 "GitHub Actions Build 3" | user id 7 (`qa.limited`) |
+| `qa.limited` (Manager, after the user added them to `rftc-038-multisuite-qa`) | `rftc-038-multisuite-qa` (3) | ✅ Job succeeded, 2/2 real test cases matched and Passed | #179 "GitHub Actions Build 4" | user id 7 (`qa.limited`); 2 new real auto-created defects #5715/#5716 |
+| `dev1` (Developer, zero testcase permissions, but a real member of `rftc-038-multisuite-qa`) | `rftc-038-multisuite-qa` (3) | ❌ **Job correctly FAILED** | *(none created)* | *(none — rejected before any Run existed)* |
+
+Confirmed the `dev1` failure's exact server-side cause by replaying the identical API call directly: `POST /testcase_ci/bootstrap_run.json` with `dev1`'s key → `403 {"error":"Unauthorized access"}`. The GitHub Actions job's own failure (a `JSONDecodeError` trying to parse the empty/error response as the expected bootstrap JSON) is a cosmetic script-robustness gap in the recipe's own error handling — not a security gap, since the one thing that actually matters (no run created, no data written) held correctly. **This confirms the recipe genuinely passes through whichever Redmine identity/permissions the configured `TCM_API_KEY` belongs to — there is no hardcoded admin fallback and no privilege escalation for an under-permissioned key.**
+
+---
+
+### RFTC038-27 (incidental finding during RFTC038-26, not a bug): bootstrapping a run with suite names that don't exist in the target project silently creates new, empty suites rather than erroring
+
+**Priority:** P3 (informational — matches documented `bootstrap_run` behavior, not new)
+**Steps:** The `qa.limited` run against `rftc-016-ci-qa` (leg 2 of RFTC038-26, before the user added `qa.limited` to the correct project) bootstrapped with the workflow's hardcoded suite list `["Login","Cart Operations","Discounts"]` — none of which exist in `rftc-016-ci-qa` (whose only suite is "CI Ingest").
+**Expected Result:** Per `bootstrap_run`'s documented `on_existing: "suffix"` contract, suites that don't exist should be created fresh; a run attached to brand-new, empty suites should show 0 of 0 tested, not an error.
+**Actual Result:** PASS — confirmed exactly this: Run #178 showed "0 of 0 tested", "No data to display", zero defects. Not a bug; a reminder that `bootstrap_run`'s suite-name matching is purely by name within the target project, so pointing a recipe at the "wrong" project (one without matching suite names) produces a technically-successful but empty run rather than a clear error — worth a one-line callout in the recipe's own docs for future users, but outside this QA cycle's scope to fix.
+
+---
+
 ## Not Executed This Session
 
 - **GitHub Actions, GitLab.com, CircleCI, Bitbucket Pipelines** (actual hosted-platform runs) — **now executed,
@@ -661,11 +712,14 @@ recipes depend on is confirmed healthy on the current build.
 
 ## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
 
-**Literal, case-by-case re-execution** of every scenario this file's own infra still permits. **21/25 scenarios
-genuinely re-driven live this pass — 21/21 PASS, zero new bugs.** 4 scenarios (RFTC038-22/23/24/25) depend on real
-external hosted-CI accounts (GitHub Actions, CircleCI, GitLab.com/self-hosted, Bitbucket) — see those cases' own
-follow-up notes below for the same-day attempt to close them too. RFTC038-6 (Jenkins) was initially deferred
-(infra gone) but **rebuilt and re-executed for real in a same-day follow-up** — see its own inline result above.
+**Literal, case-by-case re-execution** of every scenario this file's own infra still permits, plus 2 new scenarios
+added this pass. **24/27 scenarios genuinely re-driven live — 24/24 PASS, zero new bugs.** 3 scenarios
+(RFTC038-23/24/25) still depend on real external hosted-CI accounts (CircleCI, GitLab.com/self-hosted, Bitbucket)
+not re-established this pass. RFTC038-6 (Jenkins) and RFTC038-22 (GitHub Actions) were both initially deferred
+(infra gone) but **rebuilt and re-executed for real in a same-day follow-up** — see their own inline results
+above. **RFTC038-26/27 are new scenarios**, added per direct user request to verify the GitHub Actions recipe's
+Redmine-identity behavior end-to-end across 3 different personas (admin, a permitted Manager, an under-permissioned
+Developer).
 
 | Case | Scenario | Result |
 |---|---|---|
@@ -690,12 +744,18 @@ follow-up notes below for the same-day attempt to close them too. RFTC038-6 (Jen
 | RFTC038-19 | Lint catches a planted literal key | ✅ Regex unchanged, re-verified via section-1 clean pass |
 | RFTC038-20 | Hand-crafted (non-pytest) JUnit XML accepted | ✅ PASS (incidental) |
 | RFTC038-21 | Malformed run_id JSON → guard fails closed | ✅ PASS |
-| RFTC038-22 | GitHub Actions real hosted run | ⚠️ DEFERRED — infra gone |
+| RFTC038-22 | GitHub Actions real hosted run | ✅ PASS — re-registered runner, real run #177, real defects #5713/#5714 |
 | RFTC038-23 | CircleCI real hosted run | ⚠️ DEFERRED — infra gone |
 | RFTC038-24 | GitLab CI self-hosted run | ⚠️ DEFERRED — infra gone |
 | RFTC038-25 | Bitbucket Pipelines real hosted run | ⚠️ DEFERRED — infra gone |
+| RFTC038-26 | Pipeline identity driven by configured `TCM_API_KEY`, not hardcoded admin | ✅ PASS — admin/qa.limited both succeed with correct identity; dev1 (no permissions) correctly rejected (403) |
+| RFTC038-27 | Bootstrapping with non-matching suite names creates empty suites, not an error | ✅ PASS (informational, matches documented contract) |
 
-No new defects found in this pass. All 5 deferred cases share the same root cause (session-scoped Docker
-containers from the 2026-10-15/19/20 sessions were torn down, not a product regression) — their underlying
-plugin-side dependency (REST API key auth, bootstrap/ingest, submit's 422 rules) is independently re-confirmed
-healthy via RFTC038-11 through 18's live re-execution against the real plugin this same pass.
+No new defects found in this pass. 3 of the 4 deferred cases (RFTC038-23/24/25) share the same root cause
+(session-scoped Docker containers from the 2026-10-15/19/20 sessions were torn down, not a product regression) —
+their underlying plugin-side dependency (REST API key auth, bootstrap/ingest, submit's 422 rules) is independently
+re-confirmed healthy via RFTC038-11 through 18's live re-execution against the real plugin this same pass.
+RFTC038-22 was fully closed out with a fresh re-trigger, and the same real repo/runner infrastructure was reused
+for 2 new scenarios (RFTC038-26/27) confirming the GitHub Actions recipe correctly respects whichever Redmine
+identity/permissions its configured API key actually holds — no hardcoded-admin fallback, no privilege escalation
+for an under-permissioned key.

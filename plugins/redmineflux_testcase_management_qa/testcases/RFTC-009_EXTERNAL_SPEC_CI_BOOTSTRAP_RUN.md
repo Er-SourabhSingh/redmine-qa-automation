@@ -58,6 +58,8 @@ same cell must **append** a new row (history preserved), with `TestcaseActivity`
 
 **Actual Result:** PASS. Run #19 created, suite #9 auto-created, all CI defaults applied correctly.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `201`, new suite auto-created, run `state:2`, CI environment default applied. Still working as designed.
+
 ---
 
 ### RFTC009-U4: Suite lookup correctly uses the project IDENTIFIER STRING, not the numeric id (reuse, not duplicate)
@@ -75,6 +77,8 @@ same cell must **append** a new row (history preserved), with `TestcaseActivity`
 **Actual Result:** PASS. `"created":false`; DB-confirmed `Testsuite#project_id == "qa-demo"` (the identifier
 string, not the numeric id) — the identifier-string-aware lookup works.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `created:false`, DB-confirmed `Testsuite#project_id` is the String `"rftc-016-ci-qa"`. Still working as designed.
+
 ---
 
 ### RFTC009-U9: `testcase_selection: "suites"` pulls every case in the named suite as `run_issues`, with seeded results
@@ -89,6 +93,8 @@ string, not the numeric id) — the identifier-string-aware lookup works.
   (assignment × run_issue), with the correct environment.
 
 **Actual Result:** PASS. 6 test cases pulled, 6 Untested results seeded, environment "CI" on each.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — 18 cases pulled, 18 Untested rows seeded, environment `CI`. Still working as designed.
 
 ---
 
@@ -106,6 +112,8 @@ string, not the numeric id) — the identifier-string-aware lookup works.
 
 **Actual Result:** PASS. Response's returned `id` was the SAME id as the originally-seeded row; DB-confirmed row
 count == 1 for that cell.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — the single most important sacred regression, re-verified in full: returned id (6464) identical to the seeded row's id. Still working as designed.
 
 ---
 
@@ -128,6 +136,8 @@ broken
 **Actual Result:** PASS — in full. New row id ≠ original row id; original row's case_status unchanged; exactly 2
 rows total; `TestcaseActivity` confirmed recorded at both submission timestamps.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — new id (6508) ≠ original (6464); original row's status unchanged (still Passed); exactly 2 rows total; `TestcaseActivity` recorded at both submission timestamps (18:45:12 and 18:45:19). Still working as designed.
+
 ---
 
 ### RFTC009-U5/U6/U7: Idempotency — `on_existing: reuse` / `error` / `suffix`
@@ -145,6 +155,8 @@ rows total; `TestcaseActivity` confirmed recorded at both submission timestamps.
 **Actual Result:** PASS on all three. Confirmed via DB exactly one row exists for the base name after the
 `reuse` call; `error` call created nothing; `suffix` call correctly created `"Admin Non-Member Test #2"`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS on all three — `reuse`: same run id reused; `error`: `422` "already exists"; `suffix`: new run `"...#2"`. Also re-verified the suffix-skip edge case separately: 4 consecutive suffix calls produced `#2 → #3 → #4 → #5`, no collision. Still working as designed.
+
 ---
 
 ### RFTC009-Test16: `testcase_selection: "all"` auto-attaches the project's suites
@@ -159,6 +171,8 @@ rows total; `TestcaseActivity` confirmed recorded at both submission timestamps.
   `run_issue` has a valid, non-nil `testsuite_id`.
 
 **Actual Result:** PASS. 6 suites auto-attached (`testsuite_ids: [1,2,3,4,6,8]`), run created successfully.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — all 8 project suites auto-attached (`testsuite_ids: [3,5,6,7,22,33,34,36]`), run created successfully. Still working as designed.
 
 ---
 
@@ -176,6 +190,8 @@ run created in any case.
 greater then start date" [sic, minor typo — "then" should be "than", not filed separately given triviality],
 "run.name is required and cannot be blank."); confirmed zero orphan runs for all three.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — invalid state / due-before-start / blank name all returned clean `422`s with the exact documented messages. Still working as designed.
+
 ---
 
 ### RFTC009-U18 (SACRED): Mass-assignment fully blocked by the pinned permit list
@@ -192,6 +208,8 @@ greater then start date" [sic, minor typo — "then" should be "than", not filed
 
 **Actual Result:** PASS, in full. DB-confirmed every forbidden field was correctly ignored; only the real caller
 was ever used as `created_by`.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — DB-confirmed `created_by` stayed the real caller (not the submitted `999`), `is_closed:false`, `run_type_id:nil` despite forbidden fields in the payload. Still working as designed.
 
 ---
 
@@ -221,6 +239,8 @@ never emits a phantom email); zero mailer activity logged for any CI-path run cr
 **Expected Result:** HTTP 401; no run, no suite created.
 **Actual Result:** PASS.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — no credentials: `401`. Still working as designed.
+
 ---
 
 ### RFTC009-F3: Caller without `:create_run` rejected
@@ -230,6 +250,8 @@ never emits a phantom email); zero mailer activity logged for any CI-path run cr
 **Steps:** `POST bootstrap_run.json` as a project member lacking `:create_run`.
 **Expected Result:** HTTP 403; no run created.
 **Actual Result:** PASS. `{"error":"Unauthorized access"}`; confirmed nothing created.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — non-member: `403` "Unauthorized access." Still working as designed.
 
 ---
 
@@ -243,6 +265,8 @@ never emits a phantom email); zero mailer activity logged for any CI-path run cr
 BUG-TCM-045 — the body says "you are not the assignee," which describes a different check. Folded into that
 existing bug as an additional occurrence, not filed separately.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS, with the BUG-TCM-045 fix now confirmed here too — `403`, and the error message is now the clean **"You do not have the Execute testcase permission for this project"**, no longer "not the assignee." DB-confirmed zero orphan run/suite. Verified via a temporary probe role+membership, both deleted immediately after. Still working as designed, and this occurrence is now fixed too.
+
 ---
 
 ### RFTC009-F4 (SACRED): Caller with `:create_run`+`:execute_testcase` but NOT `:create_test_suite` fails closed when a NEW suite would be created
@@ -255,6 +279,8 @@ existing bug as an additional occurrence, not filed separately.
 `{"status":"error","errors":["Permission denied: create_test_suite is required to create a suite in project 'QA
 Demo'."]}`. Confirmed zero orphan suite or run.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `403` "Permission denied: create_test_suite is required to create a suite in project 'Alpha Web Platform'", DB-confirmed zero orphan suite. Still working as designed.
+
 ---
 
 ### RFTC009-F5: Same user, but the named suite ALREADY EXISTS — no `:create_test_suite` needed
@@ -266,6 +292,8 @@ Demo'."]}`. Confirmed zero orphan suite or run.
 **Actual Result:** PASS. Run #21 created successfully; default assignee correctly defaulted to this user's own
 id.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `201`, run created (no suite-create permission needed for an existing suite). Still working as designed.
+
 ---
 
 ### RFTC009-F6 (SACRED): Explicit non-member `assignee_id` rejected
@@ -276,6 +304,8 @@ id.
 a project member>}]`.
 **Expected Result:** HTTP 422, clear "must be a project member who can execute" message; no run created.
 **Actual Result:** PASS. Clean message, confirmed zero orphan run.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422`, clear "must be a project member who can execute" message. Still working as designed.
 
 ---
 
@@ -294,6 +324,8 @@ a project member>}]`.
 **Actual Result:** PASS on both parts. Part 1 correctly 422'd with the instructive message; part 2 succeeded
 (run #22 created) once a valid member assignee was supplied.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS, after correcting my own first attempt — tried against `rftc-016-ci-qa` first, where `admin` has since become a Manager member from unrelated earlier testing today (not a valid "non-member" scenario any more); re-ran correctly against `alpha-web`, confirmed admin is genuinely NOT a member there: no explicit assignee → `422` instructive message; same call **with** an explicit valid member assignee → `201`. Still working as designed.
+
 ---
 
 ### RFTC009-Test14 (SACRED, IDOR): Cross-project `testcase_ids` rejected
@@ -305,6 +337,8 @@ DIFFERENT project.
 **Expected Result:** HTTP 422; no run created; the foreign id is never pulled in.
 **Actual Result:** PASS. `{"...one or more testcase_ids are not valid test cases in this project (wrong project,
 tracker, visibility, or not in any suite)."}`; confirmed zero orphan run.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422` "not valid test cases in this project." Still working as designed.
 
 ---
 
@@ -345,6 +379,8 @@ longer exists.
 **Expected Result:** All caller values used; no `"CI"` assignment or default dates injected.
 **Actual Result:** PASS. `state: 5`, dates `2026-11-01`/`2026-11-15`, `environment: "Staging"` — none overridden.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `state:5`, custom dates, `environment:"Staging"` — nothing defaulted. Still working as designed.
+
 ---
 
 ### RFTC009-U8: `testcase_selection: "ids"` — each selected id gets a non-nil `testsuite_id`
@@ -354,6 +390,8 @@ longer exists.
 **Expected Result:** Both become `run_issues`, each with a valid (non-nil) `testsuite_id`.
 **Actual Result:** PASS. DB-confirmed: both rows have `testsuite_id = 3`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `testsuite_ids:[3]` correctly resolved for both ids. Still working as designed.
+
 ---
 
 ### RFTC009-U13: A half-made run (new suite + invalid state) rolls back completely — no orphan suite
@@ -362,6 +400,8 @@ longer exists.
 **Steps:** `POST bootstrap_run.json` naming a brand-new suite AND `state: 9` (invalid) in the same call.
 **Expected Result:** No suite created, no run created — the whole transaction rolls back.
 **Actual Result:** PASS. Suite count confirmed 0 before and after; clean 422; zero orphan rows.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422`, DB-confirmed zero orphan suite. Still working as designed.
 
 ---
 
@@ -373,6 +413,8 @@ longer exists.
 **Actual Result:** PASS. `"One or more testcase_ids are not valid test cases in this project (wrong project,
 tracker, visibility, or not in any suite)."`
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422`, same cross-project-style message for a wrong-tracker id. Still working as designed.
+
 ---
 
 ### RFTC009-U19: `state`/dates as JSON strings are coerced, not rejected
@@ -381,6 +423,8 @@ tracker, visibility, or not in any suite)."`
 **Steps:** `run.state: "2"` (quoted string, not integer), string dates.
 **Expected Result:** Coerced to the correct types; run saves (does not fail the integer `inclusion` check).
 **Actual Result:** PASS. `state` saved as integer `2`; run created successfully.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `state` saved as integer `2`, run created successfully. Still working as designed.
 
 ---
 
@@ -392,6 +436,8 @@ tracker, visibility, or not in any suite)."`
 **Actual Result:** PASS. Row confirmed: `action=Created, trackable_type=Testsuite, trackable_id=5, project_id=2`
 — the identifier string (`"rftc-016-ci-qa"`) was correctly resolved back to the numeric project id.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `TestcaseActivity` row confirmed with the correct numeric `project_id`, no 500. Still working as designed.
+
 ---
 
 ### RFTC009-F8: Nonexistent `project_id` returns a clean 404
@@ -400,6 +446,8 @@ tracker, visibility, or not in any suite)."`
 **Steps:** `POST bootstrap_run.json` with `project_id: 999999`.
 **Expected Result:** 404, clear message, no run created.
 **Actual Result:** PASS. `{"error":"Project not found for the given project_id."}`.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `404` "Project not found for the given project_id." Still working as designed.
 
 ---
 
@@ -421,6 +469,8 @@ saying exactly this).
 **Expected Result:** 422 "no test cases selected"; no run.
 **Actual Result:** PASS. `{"status":"error","errors":["No test cases were selected for the run."]}`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422` "No test cases were selected for the run." Still working as designed.
+
 ---
 
 ### RFTC009-Edge2: Two suites in one call — one existing, one new — order preserved
@@ -431,6 +481,8 @@ saying exactly this).
 order preserved.
 **Actual Result:** PASS. `testsuite_ids: [3, 6]`, in the requested order; correct `created` flags on each.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `testsuite_ids:[3,101]` in request order, correct `created` flags. Still working as designed.
+
 ---
 
 ### RFTC009-Edge3: Suite name with whitespace/case variation matches the existing suite
@@ -440,6 +492,8 @@ order preserved.
 **Expected Result:** Matched to the existing suite (stripped + case-insensitive); no duplicate.
 **Actual Result:** PASS. Resolved to the existing suite id 3, `created: false`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `"  ci ingest  "` resolved to the existing suite, no duplicate. Still working as designed.
+
 ---
 
 ### RFTC009-Edge4: Duplicate environments in `run_assignments` rejected
@@ -448,6 +502,8 @@ order preserved.
 **Steps:** `run_assignments: [{environment:"CI",...}, {environment:"CI",...}]` (same environment twice).
 **Expected Result:** 422, clear "environments must be unique" message.
 **Actual Result:** PASS. `{"status":"error","errors":["Environments must be unique"]}`.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422` "Environments must be unique." Still working as designed.
 
 ---
 
@@ -468,6 +524,8 @@ order preserved.
 **Expected Result:** Both results land in one call; no UI step anywhere in the loop.
 **Actual Result:** PASS. Both results written successfully in the same `bulk_create` response.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — both results (Pass + Failed-with-defect) written successfully in one `bulk_create` call. Still working as designed.
+
 ---
 
 ### RFTC009-E4: Bootstrap → (simulated drop) → re-bootstrap (`reuse`) → submit completes with no duplication
@@ -479,6 +537,8 @@ default `on_existing`; then `bulk_create` against the returned run.
 one run row exists for that name.
 **Actual Result:** PASS. `reused: true`, same `run.id = 24`; `bulk_create` succeeded; DB-confirmed exactly 1 run
 row for that name.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — second bootstrap returned `reused:true`, same run id. Still working as designed.
 
 ---
 
@@ -527,6 +587,8 @@ single-environment happy path used throughout the rest of this file.
 rows (27 total, not merged/deduped across environments).
 **Actual Result:** PASS. DB-confirmed: `CI=9, Staging=9, Production=9` — fully independent per-environment seeding.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — created with 3 environments (`CI`/`Staging`/`Production`) in one call, `201`. Still working as designed.
+
 ---
 
 ### RFTC009-Struct2: Multiple suites combined in one call — each suite's cases map to their own correct `testsuite_id`
@@ -537,6 +599,8 @@ respectively), `testcase_selection: "suites"`.
 **Expected Result:** All 3 suites attached; `run_issues` correctly partitioned by suite (9/1/1), no case assigned
 to the wrong `testsuite_id`.
 **Actual Result:** PASS. `testsuite_ids: [3,5,6]`; DB-confirmed row counts per `testsuite_id`: `3→9, 5→1, 6→1`.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — 3 suites attached in one call, 2 pre-existing suites correctly reused (`created:false`). Still working as designed.
 
 ---
 

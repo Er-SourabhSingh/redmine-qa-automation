@@ -56,6 +56,8 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 
 **Actual Result:** PASS. 201; join row created; `defect_ids` recomputed correctly; `IssueRelation` created.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — re-driven live via `curl` (unlinked execution 6397 first for a clean slate, re-linked to defect 3665): `201`, `defect_ids` recomputed to `3665`, `IssueRelation` created. Still working as designed.
+
 ---
 
 ### RFTC008-F2 / U3: Bulk-link many executions to the SAME one defect (the core many-to-one claim)
@@ -75,6 +77,8 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 linked to the same one defect; reverse view correctly lists all 3 with full run/suite/environment/status
 context.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — bulk-linked 2 more executions (6074 Failed, 6075 Blocked) to defect 3665 via `link_defect.json`: `201`; reverse view confirmed all linked executions listed correctly. Still working as designed.
+
 ---
 
 ### RFTC008-F4 (SACRED): Bulk link is all-or-nothing — one invalid row rejects the WHOLE batch
@@ -93,6 +97,8 @@ context.
 **Actual Result:** PASS. 422; confirmed via DB that the otherwise-valid execution has no join row after the
 call — true all-or-nothing, not partial commit.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — batch with 1 valid (6060) + 1 Passed (6056): `422`, DB-confirmed the valid one was also NOT committed. Still working as designed.
+
 ---
 
 ### RFTC008-F5 (SACRED): Duplicate link is a no-op, not an error
@@ -107,6 +113,8 @@ call — true all-or-nothing, not partial commit.
 
 **Actual Result:** PASS. Returned the same `link_id` as the first call; no duplicate row.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — re-linking 6397→3665 returned the same `link_id: 112`, no second row created. Still working as designed.
+
 ---
 
 ### RFTC008-F6 (SACRED): Linking a Passed execution is rejected
@@ -120,6 +128,8 @@ call — true all-or-nothing, not partial commit.
 - HTTP 422 `error_execution_not_failed_or_blocked`-style message; no join row created.
 
 **Actual Result:** PASS. 422, clean error naming the failure/blocked gate requirement.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — linking Passed execution 6056 alone: `422` "A defect can only be linked to a failed or blocked execution." Still working as designed.
 
 ---
 
@@ -136,6 +146,8 @@ call — true all-or-nothing, not partial commit.
   `IssueRelation` testcase→defect is also removed, since no other execution of that testcase still links it.
 
 **Actual Result:** PASS. Join row gone; `defect_ids` recomputed to `""`; `IssueRelation` correctly removed.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — unlinked execution 6397 from defect 3665: `200`, confirmed clean. Still working as designed.
 
 ---
 
@@ -154,6 +166,8 @@ call — true all-or-nothing, not partial commit.
 **Actual Result:** PASS. Join row and `IssueRelation` both created automatically from the legacy `bulk_create`
 path, with zero changes needed to that controller's own calling code.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `bulk_create` with `defect_ids: "3664"` on a fresh result (issue 3660, run 104): join row + `IssueRelation` both auto-created, DB-confirmed. Still working as designed.
+
 ---
 
 ### RFTC008-F11 / U6 (SI-8): Reverse view answers from the indexed join
@@ -170,6 +184,8 @@ path, with zero changes needed to that controller's own calling code.
 **Actual Result:** PASS. Also separately confirmed: a `report_defect` call from a completely different
 controller (`Apis::McpTestcaseController`, earlier in this same session) had already produced a real
 `ExecutionDefect` join row automatically — direct, real-data proof of CRIT-1 (see RFTC008-F14).
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `GET /defects/3665/executions.json` correctly listed all linked executions with full run/suite/environment/status context. Still working as designed.
 
 ---
 
@@ -192,6 +208,8 @@ controller (`Apis::McpTestcaseController`, earlier in this same session) had alr
 `report_defect` during TC-API-07-05): `ExecutionDefect` join row existed and the reverse view listed it
 correctly, with zero extra action taken.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `POST /testcase_mcp/report_defect.json` created a fresh defect (#3683) and it appeared in `/defects/3683/executions.json` immediately, zero extra action needed. Still working as designed.
+
 ---
 
 ## Permission / Security Cases (all SACRED per the spec)
@@ -208,6 +226,8 @@ correctly, with zero extra action taken.
 **Expected Result:** HTTP 401; no join row.
 **Actual Result:** PASS.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — no credentials: `401`. Still working as designed.
+
 ---
 
 ### RFTC008-F3b: Caller without `:execute_testcase` rejected
@@ -222,6 +242,8 @@ correctly, with zero extra action taken.
 reused is `"You cannot create the result because you are not the assignee."` — borrowed from `bulk_create`'s
 assignee-specific denial, misleading since this action performs no assignee check at all.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS, with the BUG-TCM-045 fix now confirmed — as `reporter`: `403`, and the error message is now correctly **"You do not have permission to link defects in this project"**, no longer the misleading "not the assignee" text. Still working as designed, and this specific bug is now fixed.
+
 ---
 
 ### RFTC008-F8 (IDOR): Cross-project execution id rejected
@@ -235,6 +257,8 @@ assignee-specific denial, misleading since this action performs no assignee chec
 join row; no cross-project data leak.
 **Actual Result:** PASS. `{"error":"Execution not found in this project."}`; nothing committed.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — foreign execution id: `422` "Execution not found in this project." Still working as designed.
+
 ---
 
 ### RFTC008-F9: Defect not visible / in another project rejected
@@ -247,6 +271,8 @@ join row; no cross-project data leak.
 **Expected Result:** HTTP 422 `error_defect_not_visible`; no join row.
 **Actual Result:** PASS.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — cross-project `defect_issue_id`: `422` "defect issue was not found, is not visible to you, or is in another project." Still working as designed.
+
 ---
 
 ### RFTC008-F12: `defect_executions` (reverse view) requires visibility to read
@@ -258,6 +284,8 @@ join row; no cross-project data leak.
 
 **Expected Result:** HTTP 403; no execution data returned.
 **Actual Result:** PASS. `{"error":"Unauthorized access"}`; zero data leaked.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — as `qa.limited` (not a member of `alpha-web`): `403` "Unauthorized access", zero data. Still working as designed.
 
 ---
 
@@ -278,6 +306,8 @@ join row; no cross-project data leak.
 **Actual Result:** PASS. Reverse view correctly returned an empty `executions` array after the move — the
 stale-project rows were dropped, not leaked. Defect's project restored afterward.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — moved defect 3665 to project 2 temporarily: reverse view returned `executions: []` (stale-project rows dropped); restored to project 5 immediately after. Still working as designed.
+
 ---
 
 ## Edge Cases
@@ -291,6 +321,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
 **Expected Result:** HTTP 422 "no executions selected"; nothing written.
 **Actual Result:** PASS. `{"error":"No executions selected."}`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422` "No executions selected." Still working as designed.
+
 ---
 
 ### RFTC008-Edge4 (SACRED/SI-12): Self-link rejected
@@ -299,6 +331,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
 **Steps:** `POST link_defect.json` where `defect_issue_id` equals the execution's own testcase issue id.
 **Expected Result:** Rejected with a clear "a test case cannot be its own defect" message; no join row.
 **Actual Result:** PASS.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422` "A test case cannot be linked as its own defect." Still working as designed.
 
 ---
 
@@ -309,6 +343,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
 **Expected Result:** Coerced via `.to_i`/scoped `where(id:)`; treated as a literal; no injection, no crash.
 **Actual Result:** PASS. Clean 422 (defect not found/visible) — the string was safely coerced, no SQL injection.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `422`, safely coerced, no injection. Still working as designed.
+
 ---
 
 ### RFTC008-Edge9 (SI-13, DoS cap): Oversize `execution_ids` batch
@@ -317,6 +353,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
 **Steps:** `POST link_defect.json` with 501 ids (cap is 500, confirmed via `ExecutionDefects::Linker::MAX_BULK`).
 **Expected Result:** HTTP 422 "batch too large" before any DB work; nothing written.
 **Actual Result:** PASS. `{"error":"Too many executions in one request (maximum is 500)."}`.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — 501-id batch: `422` "Too many executions in one request (maximum is 500)." Still working as designed.
 
 ---
 
@@ -332,6 +370,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
   `before_destroy :cleanup_relation_and_csv` removes the now-orphaned `IssueRelation` too.
 
 **Actual Result:** PASS. Destroy succeeded with no FK error; join row gone; `IssueRelation` correctly removed.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — destroyed execution 6418 (had a join to defect 3674, no sibling link): no FK error, join cascaded, `IssueRelation` removed. Still working as designed.
 
 ---
 
@@ -349,6 +389,8 @@ stale-project rows were dropped, not leaked. Defect's project restored afterward
 **Expected Result:** A "Linked Test Executions (N)" panel renders, listing each execution's testcase/run/
 environment/status/date, each clickable.
 **Actual Result:** PASS. Panel renders correctly, exact count, all fields present and correct.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ⚠️ SUPERSEDED, not a fail — the panel is **gone**. Confirmed via `git log`: commit `c4abf28` ("Simplify defect display: just the ID in the run grid, no reverse panel on the defect"), dated **2026-10-06 — the same day as this file's original test run**. The view-hook's own code comment confirms: *"the 'Linked Test Executions' reverse panel on a defect's own issue page is removed by product decision — the Run execution grid's own Defect ID's column (and Add Result) are the one place this relationship is shown."* Live-confirmed `/issues/3683` has no such panel. This is a deliberate, same-day architecture simplification the original PASS predates — not a regression. The capability still exists, relocated to UI2/UI3 (both independently re-confirmed below).
 
 ---
 
@@ -369,6 +411,8 @@ view. The partial files exist on disk but are never rendered by any view or refe
 and the same grep against `assets/javascripts/` (zero matches). The feature is reachable only via the raw JSON
 API today.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — BUG-TCM-044's fix confirmed still holding. Opened the real "Add Result" modal (not the bare form route) for execution 6075: the modal correctly shows a **"Defects*"** multi-select (select2, pre-populated with the execution's existing linked defects as removable chips) plus a **"Report Defect"** link — the consolidated design from the 2026-10-08 retest, still working as designed.
+
 ---
 
 ### RFTC008-UI3: Per-execution "Defect ID's" column reflects a linked defect
@@ -384,3 +428,7 @@ API today.
 unrelated-to-rftc-008 broken helper (`TestcaseReportsController#defect_ids`) requires the defect issue's own
 `run_id`/`environment` columns to match the viewed run, which no defect issue ever has set. Documented as
 context inside BUG-TCM-044 rather than a separate bug, since it predates this feature.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — fix confirmed holding. Run #104's grid shows `#3664, #3665, #3673, #3683` in the Defect ID's column for issue 3660, and the run header shows `Linked defects (4)` listing all four by number and subject — matches the live link state exactly. Still working as designed.
+
+**Final tally (2026-10-24 full re-execution): 23/23 cases re-confirmed working as designed. Zero regressions.** One case (UI1) updates from "PASS" to "superseded by a same-day deliberate product change" — see its own entry above. Full consolidated write-up also in `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md`.

@@ -14,3 +14,9 @@
 > (TC-TCM-100, fixed by completing the install). 006 = a *failed* PDF must not produce an email claiming an
 > attachment (TC-TCM-101, open, needs a code fix). Deciding which applies: if `node`, `npm` and Chromium are
 > present and the Sidekiq worker has `PUPPETEER_EXECUTABLE_PATH` set, it is 006.
+
+> **BUG-TCM-118 is not a duplicate of BUG-TCM-109/110 (other CI/bootstrap-area bugs).** Those are a stale report-
+> type label and a 404 on cancelling a scheduled report — unrelated endpoints and symptoms. BUG-TCM-118 is
+> specifically about `bootstrap_run`'s race-condition resolution for a duplicate run name, only reproducible with
+> genuinely concurrent requests (1-in-5 trials), confirmed via `bugs/_index.md` grep for "race"/"bootstrap_run"/
+> "RecordNotUnique" turning up nothing prior.

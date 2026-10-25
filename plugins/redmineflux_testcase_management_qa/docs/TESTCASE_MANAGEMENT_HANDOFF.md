@@ -1,33 +1,40 @@
 # Handoff — Redmineflux Testcase Management
 
-## NEXT SESSION START POINT (2026-10-24, stopped on budget — read this first)
+## NEXT SESSION START POINT (updated 2026-10-25 — read this first)
 
 **In progress: a full LITERAL re-execution (not risk-based) of all 11 `RFTC-*_EXTERNAL_SPEC_*.md` files**, per
-explicit user instruction ("sare testcase test kro dobara... ye feature still working he na"). Stopped mid-file
-on explicit user instruction ("baki hum kal karenge, hamare paas enough limit nahi hai").
+explicit user instruction ("sare testcase test kro dobara... ye feature still working he na"), with results
+written **inline into the testcase files themselves** (dated `**Regression Result (...)**` lines under each case
+heading), per explicit user clarification that the companion `reports/` write-up alone wasn't enough.
 
 **Status:**
-- **RFTC-008** (23/23 cases) — ✅ **COMPLETE**. See `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md`'s "Full
-  Re-Execution — 2026-10-24" section. One notable finding: UI1 (the defect-issue-page reverse panel) is gone —
-  not a regression, a deliberate same-day (2026-10-06) product simplification (commit `c4abf28`), superseded by
-  the Run grid's Defect ID's column + Add Result's defect picker (both independently re-confirmed working).
-- **RFTC-009** (46 scenarios) — ⏳ **38/46 done**, see `reports/RFTC-009_EXTERNAL_SPEC_RESULTS.md`'s "Full
-  Re-Execution (Regression) — 2026-10-24, IN PROGRESS" section. **Resume with: Struct3 (sub-suite independence —
-  was about to create a probe sub-suite + testcase when the session was stopped, nothing committed from that
-  half-done step), U22 (email-suppression guard), F11 (code-grep for stray `skip_before_action`), Doc1
-  (Swagger/API.md), Test17 (DoS cap: exactly 2000 succeeds, 2001 rejected), F14 (concurrent-race, no duplicate
-  run).** All 38 done so far are PASS, zero new bugs; one self-caught test-setup mistake (Test13 initially run
-  against the wrong project since admin had since become a member there from unrelated earlier testing — redone
-  correctly against `alpha-web` where admin is genuinely a non-member).
-- **RFTC-011, 016, 017, 020, 021, 038, 042, 043, 044** — **not yet started for literal re-execution.** These 9
-  files currently only carry the earlier *risk-based* `## Regression — 2026-10-24` sections (git-log-driven,
-  live-verified only the areas touched by real commits) from earlier the same day — still valid, but not the
-  literal case-by-case re-click the user is now asking for. Resume there once RFTC-009 is finished.
+- **RFTC-008** (23/23 cases) — ✅ **COMPLETE, fully inline.** Every case has a dated `Regression Result` line in
+  `testcases/RFTC-008_EXTERNAL_SPEC_DEFECT_EXECUTION_LINKING.md` itself (not just the companion report). One
+  notable finding: UI1 (the defect-issue-page reverse panel) is gone — not a regression, a deliberate same-day
+  (2026-10-06) product simplification (commit `c4abf28`), superseded by the Run grid's Defect ID's column + Add
+  Result's defect picker (both independently re-confirmed working).
+- **RFTC-009** (46 scenarios) — ✅ **COMPLETE, fully inline, 1 new bug.** Every case has a dated `Regression
+  Result` line in `testcases/RFTC-009_EXTERNAL_SPEC_CI_BOOTSTRAP_RUN.md` itself. 45/46 PASS; **RFTC009-F14 (the
+  concurrent-race SACRED test) re-run 5 times instead of once — 4/5 clean, 1/5 surfaced a genuine intermittent
+  gap, filed as BUG-TCM-118 (Medium, open)**: `bootstrap_run`'s duplicate-run-name race can intermittently return
+  a raw `422 "Name has already been taken"` instead of the documented graceful `reused:true`, root-caused to
+  `Run#name`'s own uniqueness validation having a narrower TOCTOU window than the `RecordNotUnique` rescue meant
+  to catch it (see `bugs/open/BUG-TCM-118.md`). Also fixed a methodology gap live during Struct3 (a test case's
+  real suite membership is the separate `IssueTestSuite` join table, not `Issue#testsuite_id` directly).
+- **RFTC-011, 016, 017, 020, 021, 038, 042, 043, 044 — next up, not yet started for literal re-execution.** These
+  9 files currently only carry the earlier *risk-based* `## Regression — 2026-10-24` sections (git-log-driven,
+  live-verified only the areas touched by real commits) — still valid, but not the literal case-by-case re-click
+  with inline per-case results the user now wants. **Resume here next**, following the exact pattern established
+  in RFTC-008/009: re-drive every case live (curl for API-shaped specs, Playwright for UI ones), write a dated
+  `**Regression Result (...)**` line directly under each case's existing `**Actual Result**` in the testcase file
+  itself (not just a summary section), file any new bug found exactly like BUG-TCM-118 was.
 
-**Fixtures left in place from today's RFTC-008/009 work** (harmless probe data in already-messy shared projects,
-not cleaned up to save time): probe defects/executions in `alpha-web` (id=5) from RFTC-008 (defect #3683, runs
-104/108 touched), ~25 probe runs (ids 121–143) and 2 probe suites (ids 99/101) in `rftc-016-ci-qa` (id=2) from
-RFTC-009, plus a leftover suite `RFTC-regression-suite-probe` (id=98) from an earlier API-auth check the same day.
+**Fixtures left in place** (harmless probe data in already-messy shared projects, not cleaned up to save time):
+probe defects/executions in `alpha-web` (id=5) from RFTC-008 (defect #3683, runs 104/108 touched); in
+`rftc-016-ci-qa` (id=2) from RFTC-009 — ~30 probe runs, 3 probe suites (ids 99/101/102, the last being the
+Struct3 sub-suite with its own 1 probe test case, issue #2095); a leftover suite `RFTC-regression-suite-probe`
+(id=98) from an earlier, unrelated API-auth check the same day. The 2001-issue DoS-cap fixture for Test17 **was**
+cleaned up (bulk-deleted immediately after confirming the cap boundary).
 
 ---
 
@@ -2368,6 +2375,7 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-25 (RFTC-008/009 literal case-by-case re-execution, inline results, 1 new bug) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, projects `rftc-016-ci-qa` + `alpha-web` | Claude (`curl`/API-key + `rails runner`) | Per explicit user follow-up asking for a literal (not risk-based) re-click of every RFTC case with results written inline in the testcase files themselves, not just companion reports: RFTC-008 (23/23 PASS) and RFTC-009 (45/46 PASS) both re-driven live. RFTC009-F14 (concurrent-race SACRED test) run 5 times instead of once — 4/5 clean, 1/5 surfaced a genuine intermittent gap: filed **BUG-TCM-118** (Medium) — `bootstrap_run`'s duplicate-run-name race can return a raw 422 "Name has already been taken" instead of the documented `reused:true`, root-caused to `Run#name`'s uniqueness validation having a narrower race window than the `RecordNotUnique` rescue meant to catch it. Test17's DoS cap re-proven with a fresh bulk-inserted 2001-issue fixture (cleaned up after). Both testcase files now carry a dated `Regression Result` line under every case heading. 9 RFTC files remain for the same literal treatment. |
 | 2026-10-24 (all 11 RFTC-\*_EXTERNAL_SPEC_\*.md files regressed) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, projects `rftc-016-ci-qa` + `alpha-web` | Claude (Playwright MCP + `curl`/API-key + `git log` cross-reference) | Per explicit user instruction, regressed all 11 external-spec production-feature files against the current build, risk-based against real `git log` commits since each file's last execution rather than blind re-clicking. No regressions found; 2 cross-references to already-filed bugs added (BUG-TCM-072's reopened vector confirmed still exploitable via live `#`-mention XSS trigger; BUG-TCM-114's PDF-export-500 confirmed plugin-wide, affecting RFTC-020/021's PDF checks). One genuinely new feature found via `git log` alone (not tied to any bug) — Quality HQ's Most Failed/Slow Tests sections are now live, cross-project isolation independently re-verified for the new code. RFTC043-9 upgraded FAIL→PASS (BUG-TCM-086 now fixed). Zero new bugs filed. Wrote a dated Regression section into all 11 files. |
 | 2026-10-24 (V1 7.1.0 cycle, continued — Redmine 7.0 instance built, last 2 BLOCKED COMPAT cases cleared, both PASS) | Redmine 7.0.2.stable (Docker, newly built) | Docker, host folder `C:\redmine v7` | Claude (Docker/Playwright + `rails runner`) | Per user instruction to also build the Redmine 7.x image and test it (an earlier filtered Docker Hub query had wrongly concluded no 7.0 image existed; an unfiltered re-query found `7.0-bookworm`/`7.0.0-2-bookworm` genuinely published). Built `C:\redmine v7` (same pattern as v5/v6). `bundle install` succeeded with zero errors on this image's Ruby 4.0.9 (BUG-TCM-117 does not reproduce on 7.0). **TC-COMPAT-01-03 PASS** (Redmine 7.0.2.stable confirmed, 0 migration errors, plugin listed at v7.2.0). **TC-COMPAT-04-03 PASS** (built a minimal fixture by hand on this unseeded fresh install — tracker/status/priority/plugin config/project/suite/test case/run — then verified the `User.has_many :run_assignments` `>= 5` `before_initialize` wiring via `rails runner` and the run's show page; both directions of the association resolve cleanly, no errors). No new bugs. V1 file tally now final: **190 PASS / 10 FAIL / 2 BLOCKED** (TC-COMPAT-02-02/04-02 remain blocked pending a fix to BUG-TCM-117 upstream). |
 | 2026-10-24 (V1 7.1.0 external cycle rerun — COMPLETE) | Redmine 6.0.11.stable (Docker) | Docker `localhost:3000`, project `alpha-web` (id=5) | Claude (Playwright MCP + curl/API-key + `rails runner`) | Completed the V1 rerun of `testcases/V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` (202 cases) that the 2026-10-23 session left at 5/202. All 202 cases now have an inline result in that file: 188 PASS, 9 FAIL, 5 BLOCKED (need a separate Redmine 5.x/7.x instance). Filed 5 new bugs: BUG-TCM-112 (Medium, suite-copy leaves clone linked to both suites), BUG-TCM-113 (High, milestone permissions enforced but never declared in init.rb), BUG-TCM-114 (High, export_pdf1 500s on every call, pdf_path NameError), BUG-TCM-115 (Medium, bulk_testcase_create silent no-op on tracker/project mismatch), BUG-TCM-116 (Low, orphaned issue_status_results row after test-case delete). Confirmed BUG-TCM-110/111 still reproduce (scheduled-report cancel 404, scheduled email never fires). This file does not touch TC-TCM-NNN suites/fixtures — tracked entirely separately per CLAUDE.md's scope note. |

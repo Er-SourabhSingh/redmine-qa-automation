@@ -4,6 +4,22 @@
 
 ## Known Quirks
 
+- **(2026-10-25) A test case's real suite membership is the `IssueTestSuite` join table, NOT `Issue#testsuite_id`.**
+  `Issue#testsuite_id` is a denormalized column that several views read, but `CiRunBootstrapService` (and likely
+  other suite-scoped queries) resolve suite membership via `IssueTestSuite.where(issue_id:, testsuite_id:)`
+  instead. Setting only `Issue#testsuite_id` (e.g. via `update_column` when building a test fixture) silently
+  produces zero seeded `run_issues` on bootstrap — looks like the suite is empty even though the issue's own
+  column is set correctly. Always create/update the `IssueTestSuite` row directly when scripting a fixture that
+  needs a test case genuinely "in" a suite, not just the issue's own `testsuite_id` field.
+- **(2026-10-25) A SACRED spec test run only once can miss a real intermittent race.** RFTC009-F14 (concurrent
+  bootstrap race, explicitly marked SACRED) passed cleanly on its original single-trial execution (2026-10-19),
+  but running it 5 times during the 2026-10-25 literal re-execution surfaced a genuine ~1-in-5 failure mode
+  (BUG-TCM-118) — `Run#name`'s own Rails-level uniqueness validation has a narrower TOCTOU window than the
+  `ActiveRecord::RecordNotUnique` rescue the race-protection code relies on, so roughly 20% of genuinely
+  concurrent duplicate-name requests get a confusing validation error instead of the documented graceful
+  `reused:true`. **For any "race condition" / "concurrency" test case, run it several times (3-5), not once** —
+  a TOCTOU window that's only a few milliseconds wide can easily pass on a single trial by luck.
+
 - **The vendor knowledge base is the authoritative spec, not the plugin's bundled docs.** https://www.redmineflux.com/knowledge-base/plugins/testcase-management/ documents installation prerequisites, the full permission list and every UI workflow. The plugin's own bundled `README.md`/`API.md`/etc. are **incomplete** — notably they omit the Node.js/Puppeteer requirement that the KB states plainly. Grepping only the bundled docs produced a wrong claim in BUG-TCM-005 that reached production #120588. **Check the KB before asserting anything is undocumented.**
 - **Installation has three prerequisites that each silently gate a feature:** Redis (step 5), **Node.js + Puppeteer + Chromium (step 6)**, Sidekiq (step 7). Missing step 6 → emailed PDF reports arrive with no attachment. Missing step 7 → no report/notification email at all, in any format. Neither surfaces an error in the UI. Rule out all three before filing an email or PDF bug.
 - **The KB supports Redmine 5.0.x / 6.0.x only.** Both QA instances (6.1.3, 7.0.0) are outside that matrix — state it in any bug filed from them.

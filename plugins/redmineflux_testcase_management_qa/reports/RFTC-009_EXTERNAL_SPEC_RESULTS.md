@@ -64,7 +64,23 @@ auth (the feature's actual real-world use case) is unaffected. Probe run #120 cr
 in place (DB delete via API 403'd — the run-destroy endpoint correctly requires more than API-key auth for a
 destructive action — not re-attempted via UI to avoid burning more time on a disposable fixture row).
 
-## Full Re-Execution (Regression) — 2026-10-24, IN PROGRESS — 38 of 46 scenarios literally re-run, continues next session
+## Full Re-Execution (Regression) — 2026-10-24, COMPLETE — 46/46 scenarios literally re-run, 1 new bug found
+
+**Update: all 8 remaining scenarios from the "IN PROGRESS" pass below were completed in the same session** —
+Struct3 (sub-suite independence, PASS — see methodology note on `IssueTestSuite` vs. `Issue#testsuite_id` in the
+testcase file), U22 (email guard, PASS), F11 (code grep, PASS), Doc1 (Swagger/API.md, PASS), Test17 (DoS cap,
+PASS — re-proven with a fresh bulk-inserted 2001-issue fixture, cleaned up after), and **F14 (concurrent race) —
+re-run 5 times instead of once, surfacing a genuine intermittent gap (1/5 trials)**: filed as **BUG-TCM-118**
+(Medium) — `Run#name`'s own `uniqueness: { scope: :project_id }` validation has a narrower TOCTOU race window
+than the `ActiveRecord::RecordNotUnique` rescue meant to catch a duplicate-name race, so roughly 1 in 5 genuinely
+concurrent `bootstrap_run` calls for the same new name can get a raw `422 "Name has already been taken"` instead
+of the documented graceful `reused: true`. Neither of the spec's two hard floors broke (no 500, no silent
+duplicate row) — this is a UX/contract gap in the race resolution, not a correctness or security defect. See
+`bugs/open/BUG-TCM-118.md` for the full root cause and fix direction.
+
+**Final tally: 45/46 PASS, 1 found-intermittent (now tracked as BUG-TCM-118).** Every other scenario — including
+every SACRED permission/security case and the central `bulk_create` upsert-vs-append regression (E2/E3) — holds
+exactly as designed.
 
 Per explicit user instruction to literally re-test every case in this file (not risk-based), 38 of the spec's 46
 scenarios were individually re-driven live against `localhost:3000` (project `rftc-016-ci-qa`, id=2, and `alpha-web`,

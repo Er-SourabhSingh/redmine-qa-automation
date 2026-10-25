@@ -226,6 +226,8 @@ never emits a phantom email); zero mailer activity logged for any CI-path run cr
 **Actual Result:** PASS. Guard confirmed present and correctly placed on `after_commit`; zero log hits for
 `RunMailer`/`run_added` across all bootstrap calls this session.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `run.rb` still has `after_commit :send_notification_on_create, on: :create` with `return if from == 'API'` inside; zero `RunMailer`/`run_added` log hits across all ~25 `bootstrap_run` calls made during this session's regression. Still working as designed.
+
 ---
 
 ## Permission / Security Cases (all SACRED per the spec)
@@ -359,6 +361,8 @@ lists it under a dedicated "CI" section.
 UI confirmed showing `POST /testcase_ci/bootstrap_run.json` under a "CI" collapsible section with its
 description.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `grep`-confirmed both `swagger.yaml` and `API.md` still document `bootstrap_run`; live `/testcase-api-doc` Swagger UI loads (`200`) and shows the "CI"/bootstrap content. Still working as designed.
+
 ---
 
 ## Gap-Closure Follow-up (2026-10-19) — against the spec's own full Test Cases table
@@ -460,6 +464,8 @@ tracker, visibility, or not in any suite)."`
 **Actual Result:** PASS. Confirmed absent — matches the spec's own documented pattern (and its own code comment
 saying exactly this).
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — `grep`-confirmed: only `accept_api_auth` present, no `skip_before_action`, no `before_action :require_login`, no `protect_from_forgery` override in `ci_test_run_controller.rb`. Still working as designed.
+
 ---
 
 ### RFTC009-Edge1: Empty `testcase_ids` array with `ids` selection
@@ -559,6 +565,8 @@ normally — the cap is inclusive at 2000, exclusive at 2001.
 selection by suite or ids."]}`, confirmed zero orphan run in the DB. Exactly 2000 ids: `201`, run created
 successfully with no errors. All 2001 fixture issues and their suite-membership rows cleaned up after the test.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — bulk-inserted 2001 fresh Testcase-tracker issues (ids 3684–5684, contiguous) + their `IssueTestSuite` membership rows via `insert_all` (fast, avoided 2001 individual `ActiveRecord::create` calls). 2001 ids: `422` "Too many test cases selected (max 2000)." Exactly the first 2000 ids: `201`, run created successfully. All 2001 fixture issues, their `IssueTestSuite` rows, and both probe runs deleted immediately after confirming. Still working as designed, cap boundary unchanged.
+
 ---
 
 ### RFTC009-F14 (SACRED, race): Two genuinely concurrent bootstrap calls with the same run name never produce a duplicate
@@ -570,6 +578,8 @@ successfully with no errors. All 2001 fixture issues and their suite-membership 
 `reused: true` pointing at the winner's id — never a 500, never a silent duplicate.
 **Actual Result:** PASS. Response 1: `201, reused: false, run.id: 25`. Response 2: `201, reused: true, run.id:
 25` (same id). DB-confirmed: exactly one row named `"Race Condition Test"` exists.
+
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ⚠️ **PARTIAL FAIL → BUG-TCM-118 (Medium, new).** Ran 5 real concurrent trials (not just one, as the original 2026-10-19 pass did) — **4/5 resolved exactly as documented** (`201`/`201`, `reused:false`/`reused:true`, same run id). **1/5 failed**: the loser got a raw `422 "Name has already been taken"` instead of the graceful `reused:true` — no 500, no silent duplicate (both spec floors held), but not the documented resolution either. Root-caused via code read: `Run#name`'s own `uniqueness: { scope: :project_id }` validation does its own SELECT-based check *before* `run.save` ever reaches the DB-level unique index, creating a second, narrower TOCTOU window that the `rescue ActiveRecord::RecordNotUnique` in `create_run_with_retry` never catches when the loser fails at the validation step rather than the DB insert step. Filed as **BUG-TCM-118**. This is a genuine, intermittent deviation from the original PASS, not a methodology issue — reproduced with real backgrounded concurrent `curl` processes, not simulated.
 
 ## Structural Coverage (2026-10-19) — multiple suites, sub-suites, multiple environments
 
@@ -617,6 +627,8 @@ contains exactly 1 row (`testsuite_id=7`), not 10 — suite nesting has no effec
 resolution or case scoping, confirming suites are treated as flat, independently-addressable units regardless of
 their `parent_id`.
 
+**Regression Result (2026-10-24, localhost:3000, plugin v7.2.0):** ✅ PASS — created a fresh sub-suite (`RFTC009-Struct3-SubSuite`, id 102, `parent_id: 3`) with its own 1 test case, bootstrapped naming only the sub-suite: `testsuite_ids:[102]` (the sub-suite, not the parent `3`); DB-confirmed `run_issues` for this run is exactly 1 row (`testsuite_id:102`), not the parent's 9. **Methodology note:** initially assigned the test case to the sub-suite via `Issue#testsuite_id` directly (`update_column`), which produced 0 seeded run_issues — the real membership the bootstrap service reads is the separate `IssueTestSuite` join table (`ci_run_bootstrap_service.rb`'s `IssueTestSuite.where(...)`), not the issue's own denormalized column; corrected by creating the `IssueTestSuite` row directly, confirmed working. Still working as designed.
+
 ## Coverage Summary
 
 **Against the spec's own full Test Cases table (22 Unit + 14 Functional + 6 Edge + 4 Integration = 46 scenarios):
@@ -625,3 +637,17 @@ including the two previously-deferred ones: the exact DoS-cap boundary (2000 suc
 orphaned) and a genuine concurrent-request race on the same run name (resolved cleanly via the unique-index
 rescue, no duplicate, no 500). rftc-009 is exhaustively verified against its own spec — not just its headline
 behaviors, and not with any scenario left on the table for practicality reasons.
+
+## Full Re-Execution (Regression) — 2026-10-24 — 46/46 literally re-run
+
+**45/46 PASS, 1 scenario found genuinely intermittent → BUG-TCM-118 (Medium, new).** Every single case in this
+file was individually re-driven live against the current build (`localhost:3000`, plugin v7.2.0), not
+risk-assessed — including the sacred `bulk_create` upsert-vs-append regression (E2/E3, both holding perfectly)
+and the DoS cap (exactly 2000/2001 re-proven with a fresh 2001-issue fixture, bulk-inserted and cleaned up after).
+**RFTC009-F14 (the concurrent-race SACRED test) is the one deviation**: run 5 real concurrent trials instead of
+the original single pair — 4/5 resolved exactly as documented, 1/5 surfaced a genuine, root-caused, intermittent
+gap in the race-condition handling (`Run#name`'s own uniqueness validation has a narrower TOCTOU window than the
+`RecordNotUnique` rescue meant to catch it), filed as **BUG-TCM-118**. Every other scenario, including every
+permission/security SACRED case, confirmed working exactly as designed. Full per-case detail is inline above
+(`**Regression Result (2026-10-24...)**` under each case) and in `reports/RFTC-009_EXTERNAL_SPEC_RESULTS.md`'s
+own "Full Re-Execution" section.

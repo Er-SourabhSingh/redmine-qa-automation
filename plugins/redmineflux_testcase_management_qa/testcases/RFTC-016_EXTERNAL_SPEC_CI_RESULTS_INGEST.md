@@ -89,6 +89,8 @@ key), environment `CI`.
  "defects":{"created":[25],"reused":[]}}
 ```
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — fresh run 156 bootstrapped, same payload shape: `200`, both results matched, failure auto-created defect #5685. Still working as designed.
+
 ---
 
 ### RFTC016-2 (SACRED): Re-ingesting the SAME failure is idempotent — defect reused, not duplicated
@@ -104,6 +106,8 @@ duplicate defect")
 `defects.reused: [25]`.
 **Actual Result:** PASS. Exact same defect #25 reused; zero new defects created.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — re-ingested same key: `defect_reused:true`, same defect #5685 returned, `defects.created:[]`. Still working as designed.
+
 ---
 
 ### RFTC016-3: Unmatched result reported, not silently dropped (default `on_unmatched: report`)
@@ -115,6 +119,8 @@ duplicate defect")
 **Expected Result:** HTTP 200 (a mapping gap is a warning, not a failure, in default mode); the result appears in
 the `unmatched` array with `reason: "no_match"`; `counts.unmatched` reflects it.
 **Actual Result:** PASS. `{"unmatched":[{"key":"test_brand_new_feature","status":"passed","reason":"no_match"}]}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical response shape. Still working as designed.
 
 ---
 
@@ -128,6 +134,8 @@ the `unmatched` array with `reason: "no_match"`; `counts.unmatched` reflects it.
 returned so the caller can see exactly what failed to map; nothing written.
 **Actual Result:** PASS. `{"status":"error","errors":["One or more results did not match a test case
 (on_unmatched=error); nothing was recorded."],"unmatched":[...]}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 422 + message. Still working as designed.
 
 ---
 
@@ -143,6 +151,8 @@ returned so the caller can see exactly what failed to map; nothing written.
 **Actual Result:** PASS. `{"status":"error","errors":["environment must match one of the run's configured
 environments."]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 422 + message. Still working as designed.
+
 ---
 
 ## Permission / Security Cases
@@ -157,6 +167,8 @@ environments."]}`.
 **Actual Result:** PASS. 401, empty body (matches the controller's inline anonymous-reject pattern, identical to
 `bulk_create`).
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `401`. Still working as designed.
+
 ---
 
 ### RFTC016-7 (SACRED/SEC-001): `project_id` is cross-checked against the run's OWN project, never trusted alone
@@ -167,6 +179,8 @@ environments."]}`.
 **Expected Result:** HTTP 422 (not 403/404 — the run and its real project both resolve fine; only the caller's
 cross-check value is wrong); clean message; nothing written.
 **Actual Result:** PASS. `{"error":"The run does not belong to the given project_id."}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 422 + message. Still working as designed.
 
 ---
 
@@ -181,6 +195,8 @@ cross-check value is wrong); clean message; nothing written.
 **Expected Result:** HTTP 422; clean "results cannot be empty" message.
 **Actual Result:** PASS. `{"status":"error","errors":["results cannot be empty."]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 422 + message. Still working as designed.
+
 ---
 
 ### RFTC016-9: Nonexistent `run_id` returns a clean 404, not a 500
@@ -189,6 +205,8 @@ cross-check value is wrong); clean message; nothing written.
 **Steps:** `POST ingest_results.json` with `run_id: 99999` (does not exist).
 **Expected Result:** HTTP 404; clean "run not found" message.
 **Actual Result:** PASS. `{"error":"Run not found for the given run_id."}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical 404 + message. Still working as designed.
 
 ---
 
@@ -209,6 +227,8 @@ deliberately duplicated from `#23`), plus `#29` (a real Bug-tracker issue, for t
 which of the two to write to.
 **Actual Result:** PASS. `{"unmatched":[{"key":"test_login_valid","status":"passed","reason":"ambiguous_key"}]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `#23`/`#28` still both carry `automation_key:test_login_valid` (re-set `#28`'s, which had reverted to blank), `reason:"ambiguous_key"` returned. Still working as designed.
+
 ---
 
 ### RFTC016-11: `match_by: ['subject']` — two test cases sharing the same subject → `ambiguous_subject`
@@ -218,6 +238,8 @@ which of the two to write to.
 status: 'passed'}` where both `#26` and `#27` share that exact subject.
 **Expected Result:** HTTP 200; unmatched with `reason: "ambiguous_subject"`.
 **Actual Result:** PASS. `{"unmatched":[{"key":"Checkout flow renders correctly","status":"passed","reason":"ambiguous_subject"}]}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — identical, `reason:"ambiguous_subject"`. Still working as designed.
 
 ---
 
@@ -229,6 +251,8 @@ checkout', status: 'passed', duration_ms: 2500}` (`#24`'s subject, unique in the
 **Expected Result:** HTTP 200; matched via `subject`, resolves to `#24`.
 **Actual Result:** PASS. `{"matched":[{"key":"Apply valid discount code at checkout","issue_id":24,"matched_by":"subject",...}]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — resolved to `#24` via `subject`, `duration_ms:2500` accepted. Still working as designed.
+
 ---
 
 ### RFTC016-13: `duration_ms` is actually persisted in the structured column, not just in the notes prose (rftc-020 cross-check)
@@ -239,6 +263,8 @@ checkout', status: 'passed', duration_ms: 2500}` (`#24`'s subject, unique in the
 `notes` text.
 **Actual Result:** PASS. `psql`: `id=14, issue_id=24, run_id=6, duration_ms=2500, notes='CI: passed — (2500 ms)'`
 — both the structured column and the notes text agree.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — DB-confirmed `duration_ms=2500, notes="CI: passed — (2500 ms)"`, both agree. Still working as designed.
 
 ---
 
@@ -252,6 +278,8 @@ bypasses the create-or-reuse logic entirely — the writer's own CSV-reconcile b
 id).
 **Actual Result:** PASS. `{"matched":[{"key":"26","issue_id":26,"matched_by":"id","defect_id":29,"defect_reused":null}],"defects":{"created":[],"reused":[]}}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `defect_id:29`, `defects.created/reused` both empty. Still working as designed.
+
 ---
 
 ### RFTC016-15: Caller-supplied `defect_ids` omitted with `auto_defect: false` — a clean PER-ROW error, not a call-level failure
@@ -264,6 +292,8 @@ top-level `errors` array with a clear message; `counts` show nothing recorded fo
 requires a defect. Enable auto_defect or supply defect_ids."}]}` — confirms the service distinguishes row-level
 skips (reported, HTTP 200) from call-level validation failures (HTTP 4xx, nothing written at all).
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `200` overall, per-row error reported for `#28`, nothing written for that row. Still working as designed.
+
 ---
 
 ### RFTC016-16 (SACRED/DoS cap): `MAX_RESULTS` — 1001 results in one call is rejected before any write
@@ -273,6 +303,8 @@ skips (reported, HTTP 200) from call-level validation failures (HTTP 4xx, nothin
 **Expected Result:** HTTP 422; clean "too many results" message; nothing processed.
 **Actual Result:** PASS. `{"status":"error","errors":["Too many results in one request (max 1000). Split the
 payload."]}`.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — generated a fresh 1001-element payload (via Node, since `bash seq` wasn't enough for this large a JSON body), `422` identical message. Still working as designed.
 
 ---
 
@@ -294,6 +326,8 @@ permission scenarios were then executed for real.
 `:execute_testcase` (or admin), not secretly requiring `:create_run` or admin for this endpoint.
 **Actual Result:** PASS. `{"matched":[{"key":"23","issue_id":23,"matched_by":"id","case_status_id":2,...}]}`.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — temporarily enabled `execute_testcase` on Developer, tested as `qanonadmin` (Developer member): `200`, written successfully. Role reverted immediately after. Still working as designed.
+
 ---
 
 ### RFTC016-18 (SACRED): `:add_issues` denied at the exact defect-create point — fails closed, nothing written
@@ -308,6 +342,8 @@ exception is raised mid-transaction) — no `IssueStatusResult` row written for 
 **Actual Result:** PASS. `{"status":"error","errors":["Permission denied: the Add issues permission is required
 to auto-create a defect for a failure in this project."]}`. DB-confirmed: `issue_status_results` for
 `(run_id=6, issue_id=23)` still shows only the one earlier Passed row (id=13) — the denied attempt wrote nothing.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `execute_testcase` kept on, `add_issues` removed from Developer: `403`, identical message. DB-confirmed row count for `(run_id=156, issue_id=23)` unchanged before/after (2). Role fully reverted after. Still working as designed.
 
 Both role changes (Developer: `execute_testcase` on, `add_issues` off) were reverted immediately after, confirmed
 back to the original `execute_testcase=false / add_issues=true(all trackers)` state.
@@ -330,6 +366,8 @@ file). All temporary role/membership/assignment changes were reverted immediatel
 **Expected Result:** Same success response as Basic Auth — the endpoint's `accept_api_auth` should accept either.
 **Actual Result:** PASS. Identical `"status":"success"` response, HTTP 200.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `X-Redmine-API-Key` header auth: `200`, identical success shape. Still working as designed.
+
 ---
 
 ### RFTC016-20: Admin who is NOT a project member still succeeds (global admin bypasses project membership)
@@ -343,6 +381,8 @@ membership is irrelevant for an admin caller.
 **Actual Result:** PASS (as expected) — HTTP 200, succeeded with no membership row at all. Admin membership
 restored immediately after (confirmed identical: project_id=2, role_id=3/Manager).
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — temporarily removed admin's Manager membership on project 2: `200`, succeeded anyway. Membership restored immediately after. Still working as designed.
+
 ---
 
 ### RFTC016-21 (SACRED/negative): Non-admin, non-member (effectively "Non member" role) — denied, but with a misleading message → **BUG-TCM-067**
@@ -354,6 +394,8 @@ reason (missing permission).
 **Actual Result:** FAIL (message-accuracy bug, not a security hole — see BUG-TCM-067). HTTP 403 as expected, but
 `{"error":"You cannot create the result because you are not the assignee."}` — wrong reason given. Filed as
 **BUG-TCM-067** (Low severity — denial itself is correct, only the message text is wrong).
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ **CONFIRMED FIXED — now PASS.** Temporarily removed `qanonadmin`'s project membership to make them genuinely non-member again: `403`, and the message is now the correct **"You do not have the Execute testcase permission for this project"** — no longer "not the assignee." Matches `bugs/closed/BUG-TCM-067.md`'s already-recorded fixed status. No longer FAIL.
 
 ---
 
@@ -368,6 +410,8 @@ part of the gate at all, unlike what the shared error string implies.
 **Actual Result:** PASS. HTTP 200, `"status":"success"` — proves the assignee concept is irrelevant to this
 endpoint's authorization, confirming the root cause behind BUG-TCM-067.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `qanonadmin` as Reporter (not in `run_assignments`): `200`, succeeded. Still working as designed.
+
 ---
 
 ### RFTC016-23 (SACRED/negative): Non-admin member WITHOUT `execute_testcase` (Developer role, default) — denied even when made the run's actual assignee
@@ -381,6 +425,8 @@ assignee must not help.
 **Actual Result:** PASS (denial confirmed correct) — HTTP 403, same `error_permission_create_result` string. This
 is the definitive proof for BUG-TCM-067: the user **was** the assignee and was still denied, so "you are not the
 assignee" is categorically the wrong explanation for any denial on this endpoint.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — made `qanonadmin` (Developer, no `execute_testcase`) a genuine `run_assignments` row for run 156/CI, still: `403`, now with the corrected message (BUG-TCM-067 fixed). Denial-despite-being-assignee confirmed holding. Temp state cleaned up after.
 
 All temporary state (qanonadmin's membership, role, and the extra `run_assignments` row) was deleted immediately
 after RFTC016-23; project 2 and run #5 were confirmed back to their original state (admin-only member, admin-only
@@ -403,6 +449,8 @@ off-by-one that rejects 1000 as well.
 **Actual Result:** PASS. HTTP 200, `"message":"Ingested 1000 results (1000 matched, 0 unmatched)"`. Confirms the
 cap is inclusive at exactly 1000, consistent with RFTC016-16's 1001-rejected result.
 
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — exactly 1000 generated elements: `200`, "Ingested 1000 results (1000 matched, 0 unmatched)". Still working as designed.
+
 ---
 
 ### RFTC016-25: Project visibility (public vs. private) has no effect on this endpoint's authorization
@@ -417,6 +465,8 @@ public should change nothing.
 **Actual Result:** PASS — identical results to the private-project versions: anonymous caller still HTTP 401;
 non-member logged-in user (`qanonadmin`) still HTTP 403 with the same (BUG-TCM-067) message. Project visibility is
 confirmed irrelevant to this endpoint. Reverted `is_public` back to `false` immediately after.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — public project: anonymous still `401`, non-member still `403` with the now-corrected BUG-TCM-067 message. Reverted after. Still working as designed.
 
 ---
 
@@ -434,6 +484,8 @@ or the global setting at all, so it should reject regardless.
 endpoint's own hardcoded anonymous-reject is independent of, and does not get weakened by, the instance-wide
 authentication setting. Both the global setting and project visibility were reverted immediately after
 (`login_required` back to `1`, project 2 back to private) — confirmed via direct DB check.
+
+**Regression Result (2026-10-25, localhost:3000, plugin v7.2.0):** ✅ PASS — `login_required=false` + public project: anonymous caller still `401` (message text changed slightly to a non-empty "You are not authorized to perform this action," but the denial itself is unchanged). Both settings reverted after. Still working as designed.
 
 ---
 

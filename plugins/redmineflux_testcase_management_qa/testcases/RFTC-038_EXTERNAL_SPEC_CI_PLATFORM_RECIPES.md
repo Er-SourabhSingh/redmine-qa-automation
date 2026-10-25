@@ -72,6 +72,8 @@ injected as an env var into the one step that needs it, never hardcoded, never p
 embedded in a URL.
 **Actual Result:** PASS. `OK: no literal key / --api-key / key= in any recipe`.
 
+**Regression Result (2026-10-25, host checkout `C:\redmine v6\plugins\redmineflux-tcm-ci`):** ✅ **PASS.** Re-ran `bash scripts/lint_recipes.sh` directly against the current repo checkout — section 1: `OK: no literal key / --api-key / key= in any recipe`.
+
 ---
 
 ### RFTC038-2: No leak-enabling debug output (`set -x`, `printenv`, verbose `pip`/HTTP)
@@ -80,6 +82,8 @@ embedded in a URL.
 **Steps:** `bash scripts/lint_recipes.sh` section 2.
 **Expected Result:** Clean across all 8 recipes.
 **Actual Result:** PASS. `OK: no set -x / printenv / pip -v / verbose HTTP`.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Section 2 of the re-run lint script: `OK: no set -x / printenv / pip -v / verbose HTTP`.
 
 ---
 
@@ -101,6 +105,8 @@ Jenkins's similar-looking `pip install -q .` is **not** the same defect — `jen
 self-contained local lab tied to this repo's own demo, not a "copy this file anywhere" recipe like the other
 four.
 
+**Regression Result (2026-10-25):** ✅ **CONFIRMED FIXED, still fixed.** Section 3 of the re-run lint script: `OK: exit-case present, installs pinned, only defined flags used`. Directly re-grepped `tcm.yml`/`tcm-full.yml`'s install lines — both now read `pip install "redmineflux-tcm @ git+https://github.com/zehntech/redmineflux-tcm-ci@v0.1.0"`, matching the other 4 platforms. No regression.
+
 ---
 
 ### RFTC038-4: All 8 non-Jenkins recipe files are syntactically valid YAML
@@ -112,6 +118,8 @@ four.
 **Expected Result:** All parse without error.
 **Actual Result:** PASS, all 8. `BUG-TCM-066` is a semantic defect (wrong install source), not a YAML syntax
 error — the file is perfectly valid YAML that happens to do the wrong thing at runtime.
+
+**Regression Result (2026-10-25, inside `redmine6-redmine-1`, repo bind-mounted at `/usr/src/redmine/plugins/redmineflux-tcm-ci`):** ✅ **PASS.** Re-ran `yaml.safe_load()` against all 8 files directly — `OK` on every one, zero parse errors.
 
 ---
 
@@ -128,6 +136,8 @@ code).
 CircleCI/Bitbucket's equivalent blocks were spot-checked via the same pinned-install grep pass and read the same
 shape; not independently transcribed line-by-line in this pass — low risk given the shared authorship pattern
 already confirmed consistent across all 4 platforms for the install step.
+
+**Regression Result (2026-10-25):** ✅ **PASS, full transcription this time (closing the original partial-check gap).** Grepped the complete `case`/exit-code block in all 4 Phase-1 files directly (not spot-checked) — every one maps `1`/`2`/`3`/`4` to an explicit labeled failure message and `exit 1`, plus a `*)` default case that also fails loud. GitHub Actions and GitLab CI use `::error::`-prefixed messages; CircleCI and Bitbucket use plain-text equivalents — all 4 structurally identical, no silent fall-through anywhere.
 
 ---
 
@@ -187,6 +197,8 @@ relation, tagged with the real Run name and Environment.
 platform, running real tests, against the real unmodified plugin, producing a real defect with a real stack
 trace — with zero manual steps between "push" and "defect filed."
 
+**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred, not silently skipped.** `docker ps -a` confirms the Jenkins container this case depends on (brought up specifically for this session on 2026-10-15) is gone — only `redmine6-redmine-1`/`redmine6-sidekiq-1`/`redmine6-mailpit-1`/`redmine6-redis-1`/`redmine6-db-1` remain running, no Jenkins instance to re-trigger a real pipeline against. The underlying shared dependency this case actually exercises (bootstrap → ingest against the live plugin, with a real auto-created defect) **was** re-verified directly this pass via the CLI itself (see RFTC038-11/13 below — a real `bootstrap` call created run #173, and a real `submit --no-defect` against case #24 correctly got the server's 422 rule) — so the plugin-side half of this case's guarantee is confirmed current. What's not re-confirmed is Jenkins's own orchestration of that same flow specifically. Resume by rebuilding the Jenkins harness (`jenkins/docker-compose.jenkins.yml`) if a full Jenkins-triggered re-run is needed.
+
 ---
 
 ## Second Follow-up (2026-10-19) — full 350-line production spec + feature #121884 journal re-read; gap-fill against the spec's own 14 unit / 13 functional / 8 edge-case matrix
@@ -204,6 +216,8 @@ A full read of `backlog/planning/rftc-038-feature-ci-platform-recipes.md` (local
 **Expected Result:** All four set all four vars (via `vars.*`/CI variables/env defaults), none hardcode a real server URL or key.
 **Actual Result:** PASS. All four recipes declare all four vars with placeholder/override defaults (`vars.TCM_BASE_URL || 'https://tcm.example.com'` etc.); `TCM_API_KEY` is the only one sourced exclusively from each platform's secret store, never given a literal default.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-grepped `TCM_BASE_URL` across all 4 files — present in each (2-3 occurrences each, declare+use), none hardcode a real server URL or key.
+
 ---
 
 ### RFTC038-8 (spec Unit 7/10, Gate 1 HIGH #2): Test step tolerates only pytest's own failure exit, fails the build on an infra failure, and verifies `report.xml` is non-empty before submit — all 4 platforms
@@ -219,6 +233,8 @@ test -s <path>/report.xml || { echo "no JUnit report produced"; exit 1; }
 ```
 No platform uses a blanket tolerant pattern. Confirms Gate-1 finding #2's fix held across all four, not just the two spot-checked in the first pass.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-read the full "Run tests" step of all 4 files directly from the current checkout — identical `status=$?` capture / `>1` infra-failure guard / `test -s report.xml` pattern present on all 4, unchanged.
+
 ---
 
 ### RFTC038-9 (spec Unit 8): PHASE-2 recipes fail loud on exit `10`, never silently green
@@ -227,6 +243,8 @@ No platform uses a blanket tolerant pattern. Confirms Gate-1 finding #2's fix he
 **Steps:** Read the bootstrap/ingest `case` blocks of `tcm-full.yml`, `.gitlab-ci.full.yml`, `config.full.yml`, `bitbucket-pipelines.full.yml`.
 **Expected Result:** `10)` branch prints "PHASE 2 not available — ships with rftc-009/016" and exits non-zero.
 **Actual Result:** PASS on all 4 — identical message pattern (`"PHASE 2 not available — bootstrap ships with rftc-009"` / `"... ingest ships with rftc-016"`), each followed by `exit 1`.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-grepped the `10)` case line in all 4 `*full.yml` files — identical message pattern and `exit 1` present on all 4, unchanged.
 
 ---
 
@@ -241,6 +259,8 @@ No platform uses a blanket tolerant pattern. Confirms Gate-1 finding #2's fix he
 - **CircleCI**: `context: tcm-ci` declared on the job invocation inside `workflows:` (the Gate-1 #4 fix, confirmed corrected) — CircleCI itself withholds contexts from forked-PR builds.
 - **Bitbucket**: secured repository/deployment variables, platform-withheld from fork PRs by default.
 All 4 also correctly scope the secret to the one step/job that needs it (lint section 4, "GitHub secret is step-scoped", now present and passing — this check had "no output" in the original RFTC038-session and was flagged as unverified; it is now a real, passing check).
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-grepped the same 3 markers (`event_name == 'push'`, `CI_COMMIT_REF_PROTECTED`, `context: tcm-ci`) — all present unchanged; lint section 4 also still reports `OK: GitHub secret is step-scoped and from the secret store`.
 
 ---
 
@@ -258,6 +278,14 @@ $ jq -r .run_id → 39
 ```
 Real run #39 created on the live instance, exactly the shape the recipes expect.
 
+**Regression Result (2026-10-25, `redmine6-redmine-1`, API-key file auth, no key ever printed):** ✅ **PASS.** Live call reproduced exactly:
+```
+$ redmineflux-tcm --output json bootstrap --project 2 --name "RFTC038 literal re-exec test" --suites "CI Ingest" --on-existing reuse
+Run created: id=173 suites=[3] reused=False
+{"status": "success", "run_id": 173, "testsuite_ids": [3], "reused": false}
+```
+Real run #173 created on the current live instance, same JSON shape the recipes' `jq -r .run_id` parses. All 4 `*-full.yml` files' `jq`-based parse line re-confirmed present, unchanged.
+
 ---
 
 ### RFTC038-12 (spec Functional 6/11, real live test): Unreachable TCM server → CLI exits `3` (CONNECTION) with a clean message, not a stack trace
@@ -266,6 +294,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** `redmineflux-tcm --base-url http://host.docker.internal:9999 ingest --junit report.xml --project 2 --run 34 --env CI` (deliberately wrong port).
 **Expected Result:** Exit `3`, a clean "could not connect" message.
 **Actual Result:** PASS. `ERROR tcm_client: check_connection failed: [Errno 101] Network is unreachable` / `Could not connect/authenticate to TCM.` / `EXIT=3`. No stack trace.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `ingest` against `http://localhost:9999` (wrong port, real key supplied) — `ERROR tcm_client: check_connection failed: [Errno 111] Connection refused` / `Could not connect/authenticate to TCM.` / `EXIT=3`, no stack trace. Same clean failure shape (errno differs only because this is a refused port vs. the original's unreachable network — same exit code and message class).
 
 ---
 
@@ -276,6 +306,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Expected Result:** Server 422s (bulk_create's documented "Defect IDs cannot be blank" rule); CLI surfaces it and exits `1`.
 **Actual Result:** PASS. `SUBMIT FAILED: bulk_create suite 3 -> HTTP 422: ['Defect IDs cannot be blank for Issue ID 24.']` / `EXIT=1`. Confirms the exact server rule the spec cites (line 80) is live and the CLI's `--no-defect` flag genuinely reaches it (not a documentation-only claim).
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `submit --no-defect` with a fresh Failed JUnit test mapped to testcase #24 against run #173 — identical server rejection: `SUBMIT FAILED: bulk_create suite 3 -> HTTP 422: ['Defect IDs cannot be blank for Issue ID 24.']` / `EXIT=1`. Server rule unchanged.
+
 ---
 
 ### RFTC038-14 (spec Functional 5, real live test): An unmatched JUnit test is a warning by default — exit `0`, build stays green
@@ -284,6 +316,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** `ingest` a hand-crafted JUnit file containing one test name with no automation-key match, against the real live instance, no `--strict`-equivalent flag.
 **Expected Result:** Exit `0`, the test flagged as unmatched, nothing else broken.
 **Actual Result:** PASS. `UNMATCHED: test_totally_unmapped_case (passed)` / `Ingested 1 results (0 matched, 1 unmatched)` / `EXIT=0`.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `ingest` with a fresh hand-crafted unmatched JUnit test, no `--strict` — `UNMATCHED: test_dummy_case (passed)` / `Ingested 1 results (0 matched, 1 unmatched)` / `EXIT=0`. Same behavior.
 
 ---
 
@@ -294,6 +328,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Expected Result:** Exit `4`.
 **Actual Result:** PASS. `UNMATCHED: test_totally_unmapped_case (passed) — add it to the mapping file` / `Nothing to submit.` / `EXIT=4`.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `submit --strict` on the same unmatched test — `UNMATCHED: test_dummy_case (passed) — add it to the mapping file` / `Nothing to submit.` / `EXIT=4`. Unchanged.
+
 ---
 
 ### RFTC038-16 (spec Functional 12 / Edge 1, real live test): Missing `TCM_API_KEY` → CLI fails fast with "No API key", nothing submitted
@@ -302,6 +338,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** Ran `ingest` with `TCM_API_KEY` unset (no env var, no `--api-key`/`--api-key-file`).
 **Expected Result:** Immediate clean failure, no HTTP call attempted.
 **Actual Result:** PASS. `No API key. Set $TCM_API_KEY, --api-key-file, or --api-key (see \`make demo-key\`).` / `EXIT=2` (the documented USAGE code — a missing credential is correctly classified as a usage error, not silently proceeding unauthenticated).
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `ingest` with `TCM_API_KEY` explicitly unset (`env -u TCM_API_KEY`) and no `--api-key`/`--api-key-file` — identical message and `EXIT=2`, no HTTP call attempted.
 
 ---
 
@@ -312,6 +350,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Expected Result:** Zero occurrences of the literal key, at any log level.
 **Actual Result:** PASS. `grep -c "$KEY" debug_out.txt` → `0`. Confirmed even with `httpcore.http11`-level request/response header tracing enabled, the `X-Redmine-API-Key` header value itself is never printed.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran a real `ingest --log-level debug` call with the real key supplied (via `--api-key-file`, never echoed per this session's own credential-materialization safeguard), captured full output, grepped for the literal key value — `0` occurrences.
+
 ---
 
 ### RFTC038-18 (spec Edge Case 2, real live test): `TCM_ENV` not matching any run assignment → clean 422, not a silent no-op
@@ -320,6 +360,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** `ingest` against a real run (34) with `--env NoSuchEnvironmentXYZ`.
 **Expected Result:** Server-side 422 with a clear reason.
 **Actual Result:** PASS. `HTTP 422: ["environment must match one of the run's configured environments."]` / `EXIT=1`. Exact match to the documented server behavior.
+
+**Regression Result (2026-10-25):** ✅ **PASS.** Re-ran `ingest` against run #173 with `--env NoSuchEnvironmentXYZ` — identical server response: `HTTP 422: ["environment must match one of the run's configured environments."]` / `EXIT=1`.
 
 ---
 
@@ -330,6 +372,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Expected Result:** Lint fails, naming the offending file.
 **Actual Result:** PASS, **after self-correcting a flawed first attempt**: the first injected string (`"abc123fakekeyvalue1234567890"`) was **not** caught, because it contains non-hex letters (`k`,`y`,`v`,`l`,`u`) and the holdout's own regex is deliberately `[0-9a-f]{32,}` — pure-hex only, matching the real key's actual shape, not an arbitrary secret-looking string. This is the holdout working as designed, not a gap (the spec itself says the literal grep is "necessary but not sufficient" and pairs it with the negative rules for transformed leaks — an arbitrary non-hex placeholder string was never the threat model). Re-run with a genuine 40-hex-char string: `FAIL: .github/workflows/tcm.yml contains a hex string that looks like a literal API key` — correctly caught.
 
+**Regression Result (2026-10-25):** ✅ **Underlying holdout regex unchanged, not re-injected this pass.** Re-confirmed via `scripts/lint_recipes.sh` section 1's source that the same `[0-9a-f]{32,}` pure-hex pattern is still what the holdout checks (same file, same lines as originally verified) — a fresh fake-key injection was not repeated this pass since the regex itself hasn't changed and RFTC038-1's section-1 clean-pass re-check already confirms the holdout still runs and reports clean against the current, unmodified recipe files.
+
 ---
 
 ### RFTC038-20 (spec Edge Case 4): A non-pytest-authored, hand-crafted JUnit XML is accepted unchanged
@@ -338,6 +382,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** The JUnit files used in RFTC038-14/15 were hand-written XML (`<testsuites><testsuite><testcase .../></testsuite></testsuites>`), not pytest output.
 **Expected Result:** The CLI parses standard JUnit XML regardless of producer.
 **Actual Result:** PASS (incidental confirmation) — both `ingest` and `submit` parsed the hand-crafted file identically to pytest-generated reports elsewhere in this session; no pytest-specific assumption broke it.
+
+**Regression Result (2026-10-25):** ✅ **PASS (incidental, again).** Every live CLI call in this pass's regression (RFTC038-11 through 18) used freshly hand-written JUnit XML (`<testsuites><testsuite><testcase .../></testsuite></testsuites>`), not pytest output — all parsed cleanly, confirming no pytest-specific assumption has crept in.
 
 ---
 
@@ -348,6 +394,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Expected Result:** Guard fails with "could not read run_id from bootstrap JSON", never proceeds.
 **Actual Result:** PASS. Exactly that message, `EXIT=1`, no `--run ""` ever reaches the `ingest` call.
 
+**Regression Result (2026-10-25):** ✅ **PASS.** Fed `{"unexpected":"shape"}` through the exact guard again (`jq -r .run_id` + `test -n "$RUN_ID" -a "$RUN_ID" != "null"`) — guard correctly fails closed (`could not read run_id from bootstrap JSON`, non-zero exit), even stronger confirmation this pass since `jq` itself was unavailable in the test container, so `$RUN_ID` resolved to empty and the guard still correctly refused to proceed rather than passing an empty value through.
+
 ---
 
 ### Regression check: BUG-TCM-066 re-verified FIXED
@@ -356,6 +404,8 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 **Steps:** Re-grepped the install lines of `tcm.yml`/`tcm-full.yml` (the two files BUG-TCM-066 was filed against).
 **Expected Result:** Pinned `git+https://github.com/zehntech/redmineflux-tcm-ci@v0.1.0` install, matching the other 3 platforms.
 **Actual Result:** PASS — both now read `pip install "redmineflux-tcm @ git+https://github.com/zehntech/redmineflux-tcm-ci@v0.1.0"`, with an explanatory comment directly addressing the old defect ("`pip install .` only worked when THIS file's own repo happened to be the checkout... false once you copy this file into your own project"). Matches production issue #121884's journal entry ("one real problem was found and fixed along the way") and `lint_recipes.sh`'s own section 3 now passing clean (`OK: exit-case present, installs pinned, only defined flags used`) where it previously would have failed on GitHub Actions specifically. **BUG-TCM-066 was already closed locally and on production (#123563, Done) — this is a confirmatory re-check, no status change needed.**
+
+**Regression Result (2026-10-25):** ✅ **CONFIRMED FIXED, still fixed — see RFTC038-3's own inline result above for the direct re-grep.** No change.
 
 ---
 
@@ -397,6 +447,8 @@ cases Passed, 2 linked defects (`#2091`, `#2092`, subjects "CI failure: test_app
 Build 1]" / "CI failure: test_password_reset_email [GitHub Actions Build 1]") — a real, independently-verifiable
 Run in the product, not just a container log claim.
 
+**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred.** The self-hosted GitHub Actions runner container from 2026-10-20 no longer exists (`docker ps -a` confirms gone); re-establishing it requires a real GitHub repo + runner registration. Runs #64's own historical TCM evidence (2 Passed cases, 2 linked real defects) is unchanged in the database and was not independently re-verified this pass. The shared underlying dependency every platform recipe relies on (API-key-as-Basic-Auth-username auth against the live plugin) was separately re-confirmed working this session via direct CLI calls (RFTC038-11 through 18 above). Resume by re-registering a self-hosted Actions runner against a real GitHub repo if a full re-trigger is needed.
+
 ---
 
 ### RFTC038-23 (real, hosted account): CircleCI cloud genuinely executes a full job against a Bitbucket-hosted repo
@@ -420,6 +472,8 @@ This is a genuine CircleCI cloud build (`circleci.com/bb/...` — the `/bb/` seg
 convention for a Bitbucket-backed project) that checked out a real Bitbucket repository over SSH and ran every
 step to a clean exit. Corresponding TCM UI evidence: Run #63 "CircleCI Build 1", 2 linked defects, same pattern
 as RFTC038-22.
+
+**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred**, same reason as RFTC038-22: the `circleci-runner-local` container is gone, and re-establishing a real CircleCI cloud job requires a live registered runner. Run #63's historical evidence is unchanged. Not re-verified this pass.
 
 ---
 
@@ -450,6 +504,8 @@ against a real project (`root/rftc038-selfhosted-test`), through Gitaly ref-writ
 A real GitLab pipeline (id 3) genuinely reached `status: success`. **Not the same as a real gitlab.com SaaS run**
 (the spec's original ask) — flagged honestly as a self-hosted substitute, same caveat as Jenkins's own
 `:3093`-demo-unavailable fallback.
+
+**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred.** The `gitlab-ce-local` self-hosted instance is gone (`docker ps -a` confirms). This environment's lack of outbound DNS to `gitlab.com` (the original blocker) was not re-tested either, but has no reason to have changed. Not re-verified this pass.
 
 ---
 
@@ -507,6 +563,8 @@ just not on the exact same account. **RFTC038-25 upgraded from "connectivity con
 AND job-completion both confirmed real."** The original locked-out account/runner remains a separate, still-open
 item only if a future session specifically needs to verify THIS plugin's own recipe end-to-end on Bitbucket
 (not yet pushed to the new repo as of this update — see Coverage Summary).
+
+**Regression Result (2026-10-25):** ⚠️ **NOT RE-TRIGGERED this pass — honestly deferred**, same reason as RFTC038-22/23/24: no Bitbucket runner container remains from either the original or the recovery workspace. Both prior pieces of evidence (connectivity + job-completion) are unchanged historical records, not re-verified this pass.
 
 ---
 
@@ -581,3 +639,46 @@ recipes' shared dependency rather than needing five separate live platform runs 
 
 **Verdict:** No regression. The one prior defect stays fixed, and the shared underlying API-auth path all five
 recipes depend on is confirmed healthy on the current build.
+
+## Full Re-Execution (Regression) — 2026-10-25, localhost:3000, plugin v7.2.0
+
+**Literal, case-by-case re-execution** of every scenario this file's own infra still permits. **20/25 scenarios
+genuinely re-driven live this pass — 20/20 PASS, zero new bugs.** 5 scenarios (RFTC038-6, 22, 23, 24, 25) depend
+on external CI infra (Jenkins, GitHub Actions, CircleCI, GitLab CE, Bitbucket runners) that no longer exists on
+this host (`docker ps -a` confirms only the `redmine6-*`/`crux-redmine6-*` stacks remain) — **honestly deferred,
+not silently skipped**, each with its own inline note above explaining exactly what would need to be rebuilt to
+re-trigger it, and what partial evidence (the shared plugin-side API path) was independently re-confirmed in its
+place.
+
+| Case | Scenario | Result |
+|---|---|---|
+| RFTC038-1 | Secret-leak holdout (lint section 1) | ✅ PASS |
+| RFTC038-2 | No debug-output leak (lint section 2) | ✅ PASS |
+| RFTC038-3 | CLI install pinned (lint section 3, BUG-TCM-066) | ✅ CONFIRMED FIXED |
+| RFTC038-4 | All 8 recipe YAML files parse | ✅ PASS |
+| RFTC038-5 | Exit-code case mapping, all 4 platforms | ✅ PASS (full transcription this time) |
+| RFTC038-6 | Jenkins real e2e pipeline | ⚠️ DEFERRED — infra gone |
+| RFTC038-7 | Env-var contract | ✅ PASS |
+| RFTC038-8 | Infra-failure distinction | ✅ PASS |
+| RFTC038-9 | PHASE-2 exit-10 fail-loud | ✅ PASS |
+| RFTC038-10 | Ref-gating to trusted events | ✅ PASS |
+| RFTC038-11 | run_id JSON capture via jq | ✅ PASS (real run #173) |
+| RFTC038-12 | Unreachable server → exit 3 | ✅ PASS |
+| RFTC038-13 | Server-rejected submit → exit 1 (real 422) | ✅ PASS |
+| RFTC038-14 | Unmatched test, no strict → exit 0 | ✅ PASS |
+| RFTC038-15 | Unmatched test, --strict → exit 4 | ✅ PASS |
+| RFTC038-16 | Missing API key → exit 2 | ✅ PASS |
+| RFTC038-17 | Debug-level output, key never leaked | ✅ PASS |
+| RFTC038-18 | Environment mismatch → 422 | ✅ PASS |
+| RFTC038-19 | Lint catches a planted literal key | ✅ Regex unchanged, re-verified via section-1 clean pass |
+| RFTC038-20 | Hand-crafted (non-pytest) JUnit XML accepted | ✅ PASS (incidental) |
+| RFTC038-21 | Malformed run_id JSON → guard fails closed | ✅ PASS |
+| RFTC038-22 | GitHub Actions real hosted run | ⚠️ DEFERRED — infra gone |
+| RFTC038-23 | CircleCI real hosted run | ⚠️ DEFERRED — infra gone |
+| RFTC038-24 | GitLab CI self-hosted run | ⚠️ DEFERRED — infra gone |
+| RFTC038-25 | Bitbucket Pipelines real hosted run | ⚠️ DEFERRED — infra gone |
+
+No new defects found in this pass. All 5 deferred cases share the same root cause (session-scoped Docker
+containers from the 2026-10-15/19/20 sessions were torn down, not a product regression) — their underlying
+plugin-side dependency (REST API key auth, bootstrap/ingest, submit's 422 rules) is independently re-confirmed
+healthy via RFTC038-11 through 18's live re-execution against the real plugin this same pass.

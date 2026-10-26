@@ -75,6 +75,15 @@ As `luna.blossom` (holds `manage_crm_activities` but is neither the activity's a
 - Native UI (`/leads`, checked as admin): still exactly 2 rows (Celeste Dawn, Priya Sharma) both before and after this attempt — confirms no silent write occurred.
 - For comparison, a genuine success earlier in the same test session (as admin, same tool): `✓ Lead 'Priya Sharma' created (ID: 1).` — identical checkmark styling, opposite real outcome.
 
+## Retest — 2026-10-26 (STILL BROKEN)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled). Fixture rebuilt: `daisy.skye` (Reporter, `Use Ask Crux` granted, zero CRM permissions) on `Crux CRM Agent Test Project`.
+
+- Re-sent "Create a lead named Ember Lilac, email ember.lilac@testco-crmtest.local, from TestCo, source Cold Call." Got a genuine `Crm Create Lead` confirm card. On Confirm: the exact same visually-success-styled **"✓ Forbidden ... Grant you the required role/permission for this action"** text.
+- Independently verified via native UI (`/leads`, as admin): still exactly 1 row (Celeste Dawn) — no "Ember Lilac" was created, confirming the permission check genuinely fired and only the checkmark rendering is wrong.
+
+Still broken — reopened on production (#123224).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect **class** as the already-closed BUG-CRX-018 (first found on this same Sales Agent, 7.0.0 cycle) and BUG-CRX-054 (Project Manager agent, closed 2026-10-12) — recorded as a new, separate bug per the repo's own established precedent for this exact situation (BUG-CRX-027/028 were filed the same way as new recurrences of BUG-CRX-020's pattern on new trigger paths, rather than reopening the original). This is the first confirmed instance of the misleading-checkmark pattern on the new Redmine 6 stack's Sales Agent specifically, on a genuine Redmine-permission Forbidden response (as opposed to BUG-CRX-054's "project not found / no permission" business-rule-shaped failures).

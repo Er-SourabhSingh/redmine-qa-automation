@@ -1,6 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-066
+- Status: Closed 2026-10-26 — CONFIRMED FIXED, production synced to Done/100%
 - Production Redmine Issue ID: #123223
 - Title: Answering-agent picker shows the raw internal slug "crm-sales" instead of the human-friendly "Sales Agent" label, for a user who holds `Use Ask Crux` but lacks `view_crux` (the separate Agent Fleet permission) — root-caused to a silently-failing `/crux/agents.json` 403
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
@@ -44,6 +45,15 @@
 - Browser console (3 identical entries): `Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:3015/crux/agents.json:0`
 - Confirmed via native UI that `daisy.skye`'s role (Reporter) has `Use Ask Crux` checked but `view_crux` left unchecked — a deliberately distinct permission pair, not a misconfiguration.
 - Comparison: the identical chat flow as `admin`/`luna.blossom` (both holding `view_crux`) shows "Sales Agent ▾" correctly.
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled). Rebuilt the exact fixture: `daisy.skye` imported via the shared seed-pool CSV (`scripts/qa_seed_users_import.csv`), added to `Crux CRM Agent Test Project` as Reporter, with `Use Ask Crux` granted on the Reporter role but `view_crux` deliberately left ungranted (confirmed via DB: `has_view_crux=false`, `has_use_ask_crux=true`).
+
+- Logged in as `daisy.skye`, opened a fresh `/crux/ask` chat. The agent picker correctly shows **"Sales Agent ▾"**, not the raw slug.
+- Checked the network tab: the frontend now calls `GET /crux/ask/agents.json` (a different, correctly-scoped endpoint than the originally-cited `/crux/agents.json`) and it returns **200 OK**, not 403 — the root cause (a silently-failing agent-list call forcing a slug fallback) is gone.
+
+Confirmed FIXED — closed locally, production synced to Done/100% (#123223).
 
 ## Duplicate check
 

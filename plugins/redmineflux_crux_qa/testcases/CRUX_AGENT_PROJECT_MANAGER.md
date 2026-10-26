@@ -1124,6 +1124,48 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-268: Spent time — Log time, non-admin WITHOUT `log_time` permission
+
+> First non-admin permission-matrix coverage of the Spent time domain — TC-CRX-226–228 above were admin-only. Added 2026-10-26 to close this specific coverage gap, raised directly by the user ("kya humne spent time log test kiya hai admin se, without/with permission?").
+
+**User Role:** `luna.blossom` (Manager role on `Crux PM Agent Test Project`, `log_time` permission explicitly removed from the role — confirmed via exact-match DB check: `:log_time` absent from `roles.permissions`, only the unrelated `:log_time_for_other_users` remains).
+**Precondition:** Fixture issue #1 ("Fixture issue for time-tracking permission TC") created on `Crux PM Agent Test Project`. This instance's global activity list doesn't include "Development" (only Customer Call/Remote Support/Technical Support/Email Support/Live Chat Support) — substituted "Technical Support" throughout.
+
+**Steps:**
+1. As `luna.blossom`, in a fresh Ask Crux chat (Project Manager agent): "Log 2 hours of Technical Support time on issue #1 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'."
+
+**Expected Result:**
+- An honest, correctly-scoped permission refusal (she genuinely lacks `log_time`) — not a generic tool-discovery denial that gives no indication the real blocker is a missing permission.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* — the same generic false-denial text as BUG-CRX-061's reworded family, not an honest "you lack the log_time permission" message. The agent never distinguishes "genuinely missing permission" from "can't find the tool at all."
+- Independently verified via native UI (`/projects/crux-pm-agent-test-project/time_entries`): "No data" — no write occurred.
+- Folded into **BUG-CRX-061** as a new entity-domain-non-admin-without-permission data point.
+
+---
+
+### TC-CRX-269: Spent time — Log time, non-admin WITH `log_time` permission
+
+**User Role:** `luna.blossom`, same project, `log_time` permission then genuinely granted back on the Manager role (confirmed via exact-match DB check: `:log_time` now present).
+**Precondition:** Same fixture issue #1, fresh chat session.
+
+**Steps:**
+1. Identical request, fresh chat, immediately after granting the permission: "Log 2 hours of Technical Support time on issue #1 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'."
+
+**Expected Result:**
+- A genuine confirm card for `Core Log Time`, since the agent now has both the real tool and the real permission.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"Time entry creation should be in the `core` group's write tools. Let me load those.(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — the exact per-turn token-budget stall shape, not the false-denial shape from TC-268. Granting the real permission changed the failure mode entirely rather than fixing anything.
+- Independently verified via native UI: still "No data" — no write occurred either way.
+- Folded into **BUG-CRX-060** as a new entity-domain-non-admin-with-permission data point.
+
+**Net finding across TC-CRX-268–269: Spent time / log_time is now confirmed permission-independent, joining Members (BUG-CRX-060/062), Version (BUG-CRX-060/061), and Wiki (BUG-CRX-061) as entity domains where granting the specific relevant permission makes no difference to the outcome — it just shifts which of the two shared failure modes (false denial vs. token-budget stall) fires.**
+
+---
+
 ### TC-CRX-229: News — Create
 
 **User Role:** `admin`.

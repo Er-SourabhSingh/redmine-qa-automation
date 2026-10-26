@@ -188,6 +188,10 @@ Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated 
 
 Not reported as fixed — left in `bugs/open/`, no production status sync performed.
 
+## New repro — 2026-10-26, Spent Time domain, non-admin WITHOUT `log_time` permission (TC-CRX-268)
+
+Per explicit user request to check whether Spent Time / Log Time had ever been tested as non-admin (without/with permission) — it had not; only admin (TC-CRX-226–228, already folded into this bug as Repro 10). Closed the gap: `luna.blossom` (Manager role, `log_time` permission explicitly removed, confirmed via exact-match DB check) sent "Log 2 hours of Technical Support time on issue #1 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'." Got the identical reworded false denial: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* — not an honest "you lack this permission" message, the same generic tool-discovery denial text used elsewhere in this bug's family. Independently verified via native UI — "No data", no write occurred. See `testcases/CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-268–269 for the full without/with pair (the "with permission" half instead hit BUG-CRX-060's token-budget stall shape — see that bug's file).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect *family* as the false-capability-denial bugs already on file (BUG-CRX-029/032/034/050), but this is the first instance on the **Members/project-membership** domain specifically, and the first case where the agent's own successful prerequisite tool calls (fetching the exact membership id and role id) make the "couldn't confirm availability" claim provably false from its own trace, not just from an external source check. Distinct from BUG-CRX-060 (member *creation* stalls on token budget before any refusal is given) — this is member *role update*, which completes its reasoning turn and produces a clean, confident, but false refusal instead of stalling.

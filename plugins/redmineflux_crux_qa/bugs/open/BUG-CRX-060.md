@@ -82,6 +82,10 @@ Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated 
 
 Not reported as fixed — left in `bugs/open/`, no production status sync performed.
 
+## New repro — 2026-10-26, Spent Time domain, non-admin WITH `log_time` permission (TC-CRX-269)
+
+Per explicit user request to check whether Spent Time / Log Time had ever been tested as non-admin (without/with permission) — it had not; only admin (TC-CRX-226–228). Closed the gap: `luna.blossom` (Manager role, `log_time` permission genuinely granted, confirmed via exact-match DB check) sent "Log 2 hours of Technical Support time on issue #1 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'." Stalled identically: *"Time entry creation should be in the `core` group's write tools. Let me load those.(Stopped: this turn's token budget was reached; the answer above may be partial.)"* Independently verified via native UI (`/projects/crux-pm-agent-test-project/time_entries`) — "No data", no write occurred. This is a 4th entity domain (after Members, Version, and now Spent Time) where the stall reproduces, and it reproduces specifically on the "with the real permission genuinely present" half — consistent with this being permission-independent. See `testcases/CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-268–269 for the full without/with pair (the "without" half hit BUG-CRX-061's false-denial shape instead — see that bug's file).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not the same as the cost/day-level spend-reminder issue (BUG-CRX-053, which is about a *daily* spend threshold never firing) — this is a *per-turn* token-budget ceiling being hit during tool discovery, a different mechanism and a different, more severe symptom (the action never completes at all, regardless of cost). Also distinct from the fabricated-confirm family (BUG-CRX-020/056) — those produce a fake confirm card with no real buttons; this produces no confirm card of any kind, fake or real, and visibly tells the user it was cut off rather than pretending to have an answer.

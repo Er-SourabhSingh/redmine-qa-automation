@@ -1900,4 +1900,16 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Net finding: Versions Delete flips shape by permission state exactly like Members Update/Delete did** — WITHOUT permission gets a false denial (BUG-061), WITH permission stalls (BUG-060) — the opposite pairing from Versions Update (TC-289, where WITHOUT also got a false denial but WITH got a *different*, more specific false denial rather than a stall). Either way, every Versions write operation (Create, Update, Delete) is now confirmed broken regardless of permission state.
 
+### TC-CRX-291: Issue Categories — Update (rename), non-admin, WITHOUT then WITH `manage_categories`
+
+**User Role:** `luna.blossom`. **Precondition:** disposable fixture category "zz-delete-me-category" (id=27) already present.
+
+**Steps (without permission):** `manage_categories` removed and DB-verified absent. Fresh chat: "can you rename the 'zz-delete-me-category' issue category on crux pm agent test project to 'QA Scratch Category'? the old name was just a placeholder"
+
+**Result: FAIL — false denial, folded into BUG-CRX-061.** *"I don't see an `update_issue_category` tool in the discovered core group..."* ($0.07, 86,845 input tokens).
+
+**Steps (with permission):** `manage_categories` re-granted and DB-verified present. Fresh chat, identical request.
+
+**Result: FAIL — the same false claim, reworded slightly, also folded into BUG-CRX-061.** *"I don't see an `update_issue_category` tool in the core group... that's an admin/settings-level operation..."* ($0.02, 107,405 input tokens). Both confirmed false via source grep — `redmineflux_core_update_issue_category` genuinely exists (`core.py:1767`). Both halves verified via DB that the category name never changed. Extends BUG-CRX-061's permission-independence finding to Issue Categories Update.
+
 

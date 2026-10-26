@@ -167,3 +167,29 @@ building the (never-appended) breadcrumb `<li>` via `innerHTML` entirely.
 
 **Verdict: STILL BROKEN, not closed.** Severity unchanged: **Critical/Blocker**. Stays in `bugs/open/`.
 Screenshot: `screenshots/BUG-TCM-093/retest-2026-10-26-still-fails-breadcrumb.png`.
+
+## Retest addendum — 2026-10-26, same day: blast radius is broader than "open the malicious page itself"
+
+**Found live by the user** (screenshot) while opening a **different, unrelated, clean-titled requirement**
+(`#113 "V1 Checkout Requirement"`, project `alpha-web`) in the same project as the malicious "Sidebar Tree Test"
+fixture (`#115`) — the `alert('XSS093')` fired anyway, even though #113's own title contains no payload at all.
+Independently reproduced here: clicking `#113` from the Requirements list (client-side SPA navigation via
+`openPage(113)`, not a fresh server-rendered page load) produced a `GET /x` `404` in the console — the same
+broken-image signature as the original payload — confirming a live, unescaped `<img src=x>` element was created
+in the DOM at that moment, despite #113's own title being completely clean.
+
+**Ruled out first:** directly confirmed via DOM inspection (`document.getElementById('page-115').innerHTML`)
+that the sidebar tree's own rendering of the malicious title is still correctly, fully escaped
+(`&lt;img src=x onerror=alert('XSS093')&gt;` as literal entities, in both the `editor-tooltip` attribute and the
+link text) — this is not a regression of the sidebar-tree fix confirmed earlier today. The trigger is still
+`createPageBreadcrumb()`, but evidently **its `pagePath.path` array is not scoped to only the opened page's own
+direct ancestors** — opening an unrelated page (#113) can still end up iterating over the malicious page's (#115)
+title within the same breadcrumb-building loop, firing its payload. (A full fix only needs `escapeHtml()` added
+to the two `pagePath.path[i]` interpolations already identified above — it doesn't matter why an unrelated open
+page's breadcrumb loop touches a different page's title, escaping fixes every variant of this trigger at once.)
+
+**Net effect: this XSS's actual trigger surface is "open or navigate to essentially any requirement in a project
+that contains at least one malicious-titled requirement anywhere," not just "open the malicious one directly"**
+— broader and more dangerous than the original finding already stated, though the severity/verdict (Critical,
+still broken) is unchanged. No separate bug filed for this — it's the same root cause (`createPageBreadcrumb`'s
+unescaped `innerHTML`) already documented above, just a wider confirmed blast radius.

@@ -130,3 +130,40 @@ used for BUG-TCM-082, also a Critical-severity finding), Category "Testcase Mana
 "Testcase Management plugin Release 7.2.0", assigned to Vaishnavi Bhawsar (id=192). Standalone issue, no Test
 Run/Testcase link (matching the BUG-TCM-087/088/089/090/091/092 pattern). Custom fields (Defect Type/Severity/
 priority) left at project defaults — `list_custom_fields` returns a permission error for this account.
+
+## Retest — 2026-10-26 (STILL BROKEN — sidebar tree fixed, a second sink found in the breadcrumb builder)
+
+Per commit `a8a3a56` ("Escape requirement titles and mentioned-issue details before showing them"),
+`escapeHtml(pageName)` was added to the sidebar tree's title-rendering template literals in `script.js`.
+**Live-verified this specific fix works**: created a new requirement titled
+`<img src=x onerror=alert('XSS093')> Sidebar Tree Test`, and on a full page reload the sidebar tree genuinely
+shows it as safe, literal text (`document.getElementById('user-list')`-equivalent tree node has no live
+`<img>` element) — no alert fires from the tree render itself.
+
+**However, opening that same requirement (via the sidebar, a direct link, or anyone else's browser) still
+fires the XSS.** Live-verified: navigating directly to `/requirements?project_id=5&page_id=115` (the created
+requirement's own page) fires a genuine `alert('XSS093')` dialog — reproduced twice in a row, including once
+immediately after the requirement's own creation and once on a completely fresh navigation (not a cached
+state). Root-caused: `openPage(id)` → `getPageContent(id)` calls **`createPageBreadcrumb(id, spaceId)`** on
+every single page-open, which builds the breadcrumb trail via:
+
+```js
+li.innerHTML = `<a class="text-deco-none">${pagePath.path[i]}</a>`;        // last segment
+li.innerHTML = `<a class="path-item" id="path-${pagePath.pathId[i]}">${pagePath.path[i]}</a>`;  // other segments
+```
+
+`pagePath.path[i]` is the requirement's own raw, unescaped title — assigned directly via `.innerHTML =` with
+**no `escapeHtml()` call at all**, a completely separate code path from the sidebar-tree template literals
+the a8a3a56 fix actually patched. Even though the resulting `breadcrumb.append(li)` call is commented out
+(so the breadcrumb never visibly renders in the UI), the `li.innerHTML =` assignment alone is enough to parse
+the `<img>` tag and fire its `onerror` handler — a classic "detached-element innerHTML still executes"
+behavior. Since `createPageBreadcrumb` runs on **every page-open**, this fires for literally every viewer who
+ever opens this requirement, exactly matching the original bug's "fires automatically on page load" severity
+— not a narrower self-XSS.
+
+**Suggested fix (for the dev's next pass):** wrap both `pagePath.path[i]` interpolations in
+`createPageBreadcrumb()` with the same `escapeHtml()` helper already used elsewhere in this file, or stop
+building the (never-appended) breadcrumb `<li>` via `innerHTML` entirely.
+
+**Verdict: STILL BROKEN, not closed.** Severity unchanged: **Critical/Blocker**. Stays in `bugs/open/`.
+Screenshot: `screenshots/BUG-TCM-093/retest-2026-10-26-still-fails-breadcrumb.png`.

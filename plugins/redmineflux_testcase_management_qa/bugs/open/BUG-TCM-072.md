@@ -180,3 +180,30 @@ data-dependent.
 HTML/script from any test case subject") is still literally true today via this second widget — not a
 duplicate finding, the same bug with an incomplete fix. Severity unchanged: **High** (genuine, reproducible,
 near-zero-interaction stored/DOM XSS). Moved back to `bugs/open/`.
+
+## Retest — 2026-10-26 (STILL BROKEN — third root cause found, at the SELECT step not the dropdown render)
+
+Per the developer's commit `c9d35ca` ("Fix BUG-TCM-072 for real: the previous fix for the mention-menu XSS
+never actually took effect"), `menuItemTemplate` was moved to the place Tribute.js actually reads it from
+(inside each collection entry, not the outer settings object). **Live-verified this specific fix works**:
+typing `#` in the content editor (project `RFTC-016 CI Ingest QA`, issue #35's XSS-payload subject) now shows
+the dropdown item as safe, literal escaped text — no alert fires while the menu is open, confirmed via a real
+keyboard-driven `#`/`3`/`5` sequence (not a programmatic fill).
+
+**However, clicking/selecting that dropdown item still fires the XSS.** Confirmed live: selecting the item
+produced a genuine `alert('export-xss')` dialog the moment it was inserted into the editor content — a
+`<img src=x onerror=...>` was spliced into the document as real, live markup. Root-caused: `menuItemTemplate`
+only controls what the **dropdown row** displays; Tribute.js reads a *separate* setting, `selectTemplate`, to
+decide what text gets **inserted into the editor** on selection. Neither the `mentionUser` nor `mentionIssue`
+Tribute configuration in `script.js` defines a `selectTemplate` override, so both fall back to Tribute's own
+default (`editorMention.js`'s vendored `defaultSelectTemplate`), which inserts the raw, unescaped subject via
+`replaceTriggerText` with no escaping at all — the exact same unescaped-sink pattern as the previous two
+fixes, just one step further down the interaction (render vs. select), still inside the same Tribute.js
+wiring this bug has already been reopened on twice.
+
+**Suggested fix (for the dev's next pass):** add a `selectTemplate` function alongside each `menuItemTemplate`
+in both Tribute configs in `script.js`, applying the same `escapeHtml()` helper to the inserted text/HTML
+before it reaches `replaceTriggerText` — mirroring how `menuItemTemplate` was itself fixed.
+
+**Verdict: STILL BROKEN, not closed.** Severity unchanged: **High**. Stays in `bugs/open/`. Screenshot:
+`screenshots/BUG-TCM-072/retest-2026-10-26-still-fails-selectTemplate.png`.

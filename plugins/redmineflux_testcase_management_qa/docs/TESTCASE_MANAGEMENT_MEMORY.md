@@ -1499,3 +1499,27 @@
   empty/missing" report comes in, grep the whole plugin for the backing model's name across `app/controllers/`,
   `config/routes.rb`, and `app/views/settings/` before concluding it's a display bug — sometimes the real gap is
   that nothing in the product can ever populate the data model at all.
+
+- **A "fix for real" commit message is a signal to look harder, not trust more — an XSS fix that patches one
+  rendering surface often leaves a second, structurally identical sink untouched (2026-10-26, BUG-TCM-072 and
+  BUG-TCM-093, each reopened a 3rd time in the same mass-retest session).** Both bugs follow the exact same shape:
+  the dev's fix correctly escapes the *first* place a payload renders (a dropdown's `menuItemTemplate`, a sidebar
+  tree's title template literal) but a *second*, separately-coded path that consumes the same raw data — Tribute's
+  own `selectTemplate` (fires on click, not on menu-open), `createPageBreadcrumb()`'s own `li.innerHTML` (fires on
+  every page-open, not page-create) — was never touched, because it's a different function the original fix
+  author never searched for. When retesting an XSS fix, don't stop at confirming the originally-reported trigger
+  is now safe — actively look for every *other* place the same raw field reaches the DOM (grep the whole file for
+  `innerHTML`/`insertAdjacentHTML`/template literals touching the same model attribute) before closing it.
+- **`PUPPETEER_EXECUTABLE_PATH`/`GROVER_NO_SANDBOX` are set at the docker-compose level for `redmine6-redmine-1`,
+  not baked into the image** — a throwaway/rebuilt container (e.g. a fresh Redmine 5.1 instance for a Gemfile-fix
+  retest) needs these env vars passed explicitly, and Grover additionally needs a working Node.js/npx on `PATH`
+  to actually spawn its driver process (separate from whether the Chrome *binary* path resolves) — confirmed via a
+  3-step error progression (`pdf_path` NameError → `Errno::ENOENT - node` → Chrome crashpad flag issue) while
+  retesting BUG-TCM-114, each a genuinely different blocker, not the same bug reappearing.
+- **A fresh Redmine container's very first `db:migrate` can crash a plugin initializer that queries the DB
+  (e.g. Grover's `RunMailer.pdf_generation_available?` check) with `PG::UndefinedTable: relation "settings" does
+  not exist`** — the plugin's own initializer runs before Redmine's core tables exist yet on a brand-new empty
+  database. Workaround used successfully: boot a plain (no-plugin-mounted) container against the same DB first to
+  let core migrations create `settings` etc., then stop it and start the real plugin-mounted container against
+  the now-migrated DB. Not a plugin bug — an inherent chicken-and-egg order issue with any DB-querying initializer
+  on a truly first-ever boot.

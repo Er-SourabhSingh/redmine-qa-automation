@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-077
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125305
 - Title: Project Manager agent produces a fabricated "I'll change this project's settings — confirm?" card with no mention of the actual request, when asked to change a member's role (Members Update) — same defect class as closed BUG-CRX-056, recurring on a new (Members-update) trigger path
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

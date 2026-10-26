@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-075
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125303
 - Title: Project Manager agent falsely claims the Calendar has nothing for this month "until you create some versions and assign issues to them" — Redmine's Calendar is based purely on issue start/due dates and has no dependency on versions/milestones at all; 3 real issues genuinely appear on the native Calendar this month
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

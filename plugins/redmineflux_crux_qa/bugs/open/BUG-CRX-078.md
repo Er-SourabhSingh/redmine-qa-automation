@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-078
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125306
 - Title: A single chat turn repeatedly rebuilds its full context cache 3 times within the same turn (3 real cache-misses, each strictly larger than the last) instead of reusing the session's warm cache, driving one reply to $0.1187 — roughly 10-40x this session's typical per-turn cost — while still landing on a wrong answer
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

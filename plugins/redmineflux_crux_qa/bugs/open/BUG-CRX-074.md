@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-074
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125302
 - Title: A natural "who's working on what" question answers only the "what" (issue list) and silently drops the "who" (assignee) — even though the agent can correctly resolve and report assignees when asked as a separate follow-up question
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

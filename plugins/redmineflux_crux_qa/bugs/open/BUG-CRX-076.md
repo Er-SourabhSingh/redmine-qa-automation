@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-076
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125304
 - Title: Project Manager agent falsely claims the Documents module isn't enabled (and separately, that no `update_document` tool exists) for a project where Documents is genuinely enabled and a real document exists — Documents Update and Delete are completely non-functional via chat, 2/2 each, via 3 distinct false reasons across attempts
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

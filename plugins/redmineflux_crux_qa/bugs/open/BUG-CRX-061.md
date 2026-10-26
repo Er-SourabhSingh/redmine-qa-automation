@@ -210,6 +210,10 @@ Same coverage gap closed for Documents. `luna.blossom` with `add_documents` genu
 
 **Audit summary (TC-CRX-268–277, 2026-10-26): 5 entity domains (Spent Time, Members, Issue Categories, News, Documents) now confirmed permission-independent across both this bug and BUG-CRX-060 — granting the specific relevant permission never produces a working confirm card in any of them.**
 
+## New repro — 2026-10-26, Wiki Delete (admin, TC-CRX-286)
+
+Closing the admin-tier CRUD gap (Wiki previously only had Create tested, TC-231/244). "can you remove the team norms wiki page from crux pm agent test project, we don't need it anymore" got: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* Confirmed FALSE via source grep — `redmineflux_core_delete_wiki_page` genuinely exists (`core.py:2817`). The real wiki page still exists afterward (verified via native UI). Wiki's full CRUD set is now confirmed broken: Create (BUG-CRX-061 Repro 15), Update (BUG-CRX-060, TC-CRX-285), Delete (this repro).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect *family* as the false-capability-denial bugs already on file (BUG-CRX-029/032/034/050), but this is the first instance on the **Members/project-membership** domain specifically, and the first case where the agent's own successful prerequisite tool calls (fetching the exact membership id and role id) make the "couldn't confirm availability" claim provably false from its own trace, not just from an external source check. Distinct from BUG-CRX-060 (member *creation* stalls on token budget before any refusal is given) — this is member *role update*, which completes its reasoning turn and produces a clean, confident, but false refusal instead of stalling.

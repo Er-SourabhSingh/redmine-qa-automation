@@ -1753,6 +1753,77 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+## Closing the remaining CRUD gaps — News/Documents/Wiki Update+Delete (admin, 2026-10-26)
+
+> Per explicit user follow-up: close the remaining admin-tier CRUD gaps — News/Documents/Wiki had previously only ever had Create tested (TC-229/230/231). All phrased casually, real-user style.
+
+### TC-CRX-281: News — Update (admin)
+
+**User Role:** `admin`. **Precondition:** real news post "Sprint kickoff" created via native UI (chat Create is already known-broken, BUG-CRX-061 Repro 13).
+
+**Steps:** "can you update the 'Sprint kickoff' news post in crux pm agent test project, change the text to say the sprint actually starts tomorrow"
+
+**Result: FAIL — stalled on BUG-CRX-060's token-budget shape** (*"Good — the `core` group has write tools. Let me load them:(Stopped...)"*). Verified via native UI: post text unchanged. Folded into **BUG-CRX-060** as a new entity domain.
+
+---
+
+### TC-CRX-282: News — Delete (admin)
+
+**User Role:** `admin`, same fixture post.
+
+**Steps:** "can you delete that sprint kickoff news post in crux pm agent test project, we don't need it anymore"
+
+**Result: FAIL — stalled identically** (*"Let me check the available groups again:(Stopped...)"*). Verified via native UI: post still present. Folded into **BUG-CRX-060**.
+
+---
+
+### TC-CRX-283: Documents — Update (admin)
+
+**User Role:** `admin`. **Precondition:** real document "Project Charter" created via native UI — this required first creating a Document Category enumeration, since the fresh instance had none at all (a real environment-setup gap, not a Crux bug, now documented in `CRUX_MEMORY.md`).
+
+**Steps:** "quick thing - can you rename the project charter doc in crux pm agent test project to 'Project Charter v2'?"
+
+**Result: FAIL — 3 distinct wrong behaviors across attempts, documented fully in BUG-CRX-076:**
+1. First attempt never considered Documents as the entity at all — searched the project's issues for a "project charter" issue/attachment instead, despite the user's own word "doc."
+2. "Ask again" stalled on BUG-CRX-060's shape while still chasing the wrong (issue-attachment) theory.
+3. A more explicit rephrasing ("in the Documents tab... there's a document called 'Project Charter'") got a confident false claim that *"The Documents module isn't enabled for the Crux PM Agent Test Project"* — independently confirmed FALSE via DOM inspection (`#project_enabled_module_names_documents` is genuinely `checked`).
+
+Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-076.**
+
+---
+
+### TC-CRX-284: Documents — Delete (admin)
+
+**User Role:** `admin`, same fixture document.
+
+**Steps:** "can you delete the 'Project Charter' document from crux pm agent test project? it's outdated"
+
+**Result: FAIL — identical false "Documents module isn't enabled" claim**, with full (incorrect) step-by-step instructions to enable it. Verified via native UI: document still present. Folded into **BUG-CRX-076**.
+
+---
+
+### TC-CRX-285: Wiki — Update (admin)
+
+**User Role:** `admin`. **Precondition:** real wiki page "Team Norms" created via native UI (content: "Be kind, ship often.").
+
+**Steps:** "hey can you add a line to the team norms wiki page on crux pm agent test project saying 'review PRs within 24 hours'?"
+
+**Result: FAIL — stalled on BUG-CRX-060's shape** (*"Let me list the actual available groups:(Stopped...)"*). Verified via native UI (`/wiki/Team_Norms/history`): still only 1 revision, content unchanged. Folded into **BUG-CRX-060** as a new entity domain (Wiki previously only had Create tested, TC-231/244).
+
+---
+
+### TC-CRX-286: Wiki — Delete (admin)
+
+**User Role:** `admin`, same fixture page.
+
+**Steps:** "can you remove the team norms wiki page from crux pm agent test project, we don't need it anymore"
+
+**Result: FAIL — false denial** (*"I couldn't find a tool for this here, so I can't do it from this chat..."*) — confirmed FALSE via source grep, `redmineflux_core_delete_wiki_page` genuinely exists (`core.py:2817`). Verified via native UI: page still exists. Folded into **BUG-CRX-061** as a new entity domain (Wiki Delete).
+
+**Net finding across TC-CRX-281–286: News, Documents, and Wiki now all have their full CRUD set (Create/Update/Delete) independently confirmed broken, joining Members, Issue Categories, and Time Entries as entity domains where every write operation fails. Documents (TC-283/284) additionally surfaced a new, distinct bug (BUG-CRX-076) — a confident false "module isn't enabled" claim, plus a failure to even recognize "document" as the right entity type on the first attempt, a resolution failure one level earlier than this suite's usual "found the right tool, falsely denied it" pattern.**
+
+---
+
 ## Evidence Map
 
 - LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-209, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete — TC-213 contributes 2 of the 8 repros, a first confounded attempt and a later clean retry), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** (TC-CRX-207 and TC-CRX-210 are explicitly NOT part of this bucket — they got different, distinctly-worded failures, BUG-CRX-060 and BUG-CRX-062 respectively, as their own TC write-ups describe) — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — untested as of this point in the session (later closed by TC-CRX-240, see below). **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **TC-CRX-189–192 (the luna.blossom incremental permission matrix) completed 2026-10-11** — see its own bullet below. **Project entity Delete also completed 2026-10-11 — see TC-CRX-239–240's bullet.**

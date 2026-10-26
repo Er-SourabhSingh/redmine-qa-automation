@@ -1874,4 +1874,16 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Net finding: Members Delete now mirrors Members Update (TC-287) exactly** — WITHOUT permission stalls (BUG-060), WITH permission gets a false denial (BUG-061), and both halves ran at unusually high cost (BUG-078's pattern, not yet filed as additional repro count but consistent with it).
 
+### TC-CRX-289: Versions — Update (due date change), non-admin, WITHOUT then WITH `manage_versions`
+
+**User Role:** `luna.blossom`. **Precondition:** real version "v1.0" created via native UI (required BOTH Start Date and Due date filled — a first attempt leaving both blank silently failed to persist, caught via DB verification before it could be mistaken for a Crux bug; see `CRUX_MEMORY.md`). Confirmed via DB: due date 2026-12-31.
+
+**Steps (without permission):** `manage_versions` removed and DB-verified absent. Fresh chat: "can you push the v1.0 version's due date on crux pm agent test project out to 2027-03-31? we're slipping a bit"
+
+**Result: FAIL — standard false denial, folded into BUG-CRX-061.** *"I couldn't find a tool for this here, so I can't do it from this chat..."* ($0.09, 145,578 input tokens — another high-cost turn). Verified via DB: due date unchanged.
+
+**Steps (with permission):** `manage_versions` re-granted and DB-verified present. Fresh chat, identical request.
+
+**Result: FAIL — a more specific, equally false denial, also folded into BUG-CRX-061.** *"I'm unable to update version due dates from this chat interface. The tools available to me don't include an `update_version` function..."* — explicitly denies a named tool, `redmineflux_core_update_version`, confirmed to genuinely exist (`core.py:1290`). Notably the reply correctly read back the real current state ("v1.0 exists... currently open with a 2026-12-31 due date") — the read/resolution path works, only the write path falsely denies itself. Verified via DB: due date still unchanged (2026-12-31). This extends BUG-CRX-061's permission-independence finding to Versions Update (previously only Versions Create had this confirmed, TC-CRX-243).
+
 

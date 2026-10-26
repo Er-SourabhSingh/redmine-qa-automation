@@ -1926,4 +1926,18 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Net finding: completes Issue Categories' full CRUD set (Create/Update/Delete) as confirmed broken under both permission states** — like Members and Versions, the specific failure shape flips with permission (stall when granted, false denial when not, for this operation), but the write never succeeds either way.
 
+### TC-CRX-293: Issue tracking tab — tracker remove, non-admin, WITHOUT then WITH `edit_project`
+
+**User Role:** `luna.blossom`. All 4 trackers (Bug, Feature, support, Testcase) confirmed enabled beforehand via DB.
+
+**Steps (without permission):** `edit_project` removed and DB-verified absent. Fresh chat: "we're not using the testcase tracker on crux pm agent test project, can you remove it from the issue tracking settings?"
+
+**Result: PASS, no bug.** Got a **genuine** confirm card (not BUG-CRX-056's fabricated shape) — real "Write: Change project crux-pm-agent-test-project" card with a correct detail table (`Project`, `Tracker Ids: [1, 2, 3]` — correctly excluding Testcase=4). Clicked Confirm — got an honest, correctly-styled failure: *"write failed: tool 'redmineflux_core_update_project' failed... You do not have permission to update project... Grant you the required role/permission..."* no false checkmark. Verified via DB: all 4 trackers still assigned, nothing changed.
+
+**Steps (with permission):** `edit_project` re-granted and DB-verified present. Fresh chat, identical request.
+
+**Result: PASS, no bug.** Same genuine confirm card and detail table. Clicked Confirm — got *"✓ Updated project 'crux-pm-agent-test-project'."* Verified via DB: Testcase tracker (id=4) genuinely removed from `projects_trackers`. Testcase tracker was re-enabled afterward via native UI to restore the fixture to its original state.
+
+**Significance: this is the first clean, fully-correct repro of the Project/Issue-tracking-tab write path found this session** — it proves `update_project`'s confirm-card-and-honest-failure-or-genuine-success pipeline works correctly for at least this specific field (tracker list via removal), contrasting with BUG-CRX-056/077's fabricated-card failures on other `update_project`-shaped requests (description/homepage/public, and now Members role-update). Worth noting for future regression passes as a known-working baseline for this write path.
+
 

@@ -70,3 +70,13 @@ of this test, which the submission silently picked up instead of Crux Manager's 
 ## Production report
 
 Reported to production 2026-10-01 as **#121830** (Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested on the new Redmine 6 stack (`localhost:3015`). As `luna.blossom`, asked the Time Agent: "can you submit aurora wren's timesheet for this week?" (Aurora Wren is a real other user; luna had no intent to submit her own data).
+
+Crux replied: *"I need to clarify something first: I can only submit **my own** timesheet (for the caller, luna.blossom). I don't have the ability to submit someone else's timesheet through the Timesheet plugin tools. If Aurora Wren needs to submit her own timesheet for this week (October 26 – November 1), she would need to do that herself. However, if you're asking me to help you understand her timesheet status or if there's something else I can assist with regarding her submissions, I'm happy to help — just let me know!"* — an honest, explicit disclosure of the real limitation, with zero silent substitution of luna's own data. No submission was created at all (verified via DB — no new row for luna under this request).
+
+**Verdict: CONFIRMED FIXED.**
+
+Status: Closed 2026-10-26 — CONFIRMED FIXED, live-retested.

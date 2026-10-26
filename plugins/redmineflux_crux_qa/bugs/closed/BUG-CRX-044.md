@@ -76,3 +76,13 @@ Level 1 of 2 | Submitted
 ## Production report
 
 Reported to production 2026-10-01 as **#121829** (Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested on the new Redmine 6 stack (`localhost:3015`), reproducing Repro 2's exact shape: `daisy.skye` genuinely submitted a timesheet under team "Retest Squad" context (4.0h, week of Oct 26 - Nov 1), independently confirmed pending at Level 1/1 via `luna.blossom`'s own native `/approvals` dashboard immediately beforehand. As `luna.blossom` (the real Level-1 approver): "Time Agent, please approve Daisy Skye's timesheet for the week of October 26 to November 1."
+
+Crux replied: *"Great! Here's what I found: [Daisy Skye's Timesheet (Submission #2)] Period: October 26 – November 1, 2026 (Week 44), Team: Retest Squad, Hours: 4.0h, Status: Submitted and awaiting Level 1/1 approval. I'm ready to approve this timesheet. Shall I proceed with the approval?"* — correctly found the real, genuinely-pending submission with every detail matching the native UI exactly, no fabricated absence claim. Confirmed the approval; verified via DB (`timesheet_submissions`/`timesheet_approval_instances`) that it genuinely transitioned to `approved`/`approved`.
+
+**Verdict: CONFIRMED FIXED.**
+
+Status: Closed 2026-10-26 — CONFIRMED FIXED, live-retested.

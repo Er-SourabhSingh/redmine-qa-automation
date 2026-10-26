@@ -86,3 +86,17 @@ This is conclusive: in the very same turn, the agent correctly read and reported
 ## Production report
 
 Reported to production 2026-10-01 as **#121827** (Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-26 (PARTIALLY FIXED — core complaint resolved, minor residual friction remains)
+
+Retested on the new Redmine 6 stack (`localhost:3015`), fresh fixtures: team "Retest Squad" (schema "Standard Manager Approval", 1 level/Manager), `daisy.skye` as a team member with team-role Reporter (no approve capability), 4.0h logged and unsubmitted for the current week.
+
+As `daisy.skye`, natural phrasing: "can you submit my timesheet for this week?" — Crux replied: *"Great! You have 4.0 hours logged this week on the Crux PM Agent Test Project. Now, which context would you like me to submit this timesheet under — the **Crux PM Agent Test Project**, or do you have a team context you'd prefer? Once you confirm, I'll submit your timesheet for approval."*
+
+**The core complaint is fixed**: the agent never once demanded a raw, undiscoverable numeric team/project ID — it correctly read her real logged hours and offered the actual project **name** as an option, which is something she can act on without needing an administrator out-of-band. This directly resolves the original "no legitimate path to discover the ID" finding.
+
+**A smaller residual friction remains**: a plain affirmative ("yeah go ahead and submit it") was not accepted as confirmation of the single obvious option — the agent repeated the same disambiguation question almost verbatim, and only proceeded once she explicitly named the option back ("the crux pm agent test project one"), producing a genuine confirm card (Context Type: project, Context: 1, Week Start: 2026-10-26) that, once confirmed, genuinely submitted (verified via DB: `timesheet_submissions` row created, status `submitted`). So the agent still doesn't fully "auto-infer without asking" when there's exactly one real answer sitting in its own prior statement — it's a UX friction (one extra turn), not the original blocking defect (an unreasonable, undiscoverable requirement). Not severe enough to warrant its own new bug number; noting it here for the dev's awareness in case the retry-same-question-on-affirmative behavior is worth polishing.
+
+**Verdict: the original scope (undiscoverable raw ID demand making the feature unusable) is fixed.** Recommend closing, with the note above kept for awareness rather than reopening or re-filing.
+
+Status: Closed 2026-10-26 — CONFIRMED FIXED (original scope), minor residual UX friction noted for awareness, not reopened.

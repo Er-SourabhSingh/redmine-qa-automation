@@ -66,3 +66,13 @@ this session, no Withdraw category/count exists)
 ## Production report
 
 Reported to production 2026-10-01 as **#121831** (Priority Low, Defect Type Functional, Defect Severity Low-severity, Defect priority Low, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested on the new Redmine 6 stack (`localhost:3015`). As `daisy.skye`, withdrew a genuine submission (#1, status `submitted`) via the Time Agent's `Timesheet Withdraw` tool (real confirm card, genuine execution — verified via DB that the submission reverted to `draft`).
+
+Checked `timesheet_audit_logs` immediately after: a genuine new row exists — `entity_type=Timesheet::TimesheetSubmission, entity_id=1, action=withdraw, performed_by=6 (daisy.skye)`, with full metadata (`previous_status: submitted, new_status: draft, total_hours: 4.0, context_type: project, context_id: 1, context_name: Crux PM Agent Test Project`) — the exact same shape and detail level as the pre-existing `submit` audit entry for the same submission. Withdraw now has full audit-log coverage, matching Submit/Approve.
+
+**Verdict: CONFIRMED FIXED.**
+
+Status: Closed 2026-10-26 — CONFIRMED FIXED, live-retested.

@@ -71,3 +71,13 @@ no data corruption, genuinely just an empty week.
 ## Production report
 
 Reported to production 2026-10-01 as **#121828** (Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested on the new Redmine 6 stack (`localhost:3015`). As `daisy.skye`, with 0 hours logged for the week of November 2-8, in the same chat right after a genuine submission for the current week: "can you submit my timesheet for next week too (nov 2-8)?"
+
+Crux replied: *"No time logged for November 2-8 — nothing to submit yet. You'll need to log some hours first before I can submit a timesheet for that week."* — plain, accurate, and non-alarming, matching the native UI's own correct tone. No mention of "corrupted approval schema" or "contact an administrator" anywhere. The agent also correctly checked and answered proactively in a single turn, without first generating a misleading proposal that would later fail on confirm (an improvement over the original repro's flow too). Verified via DB (`timesheet_submissions`): no phantom submission was created for the empty week.
+
+**Verdict: CONFIRMED FIXED.**
+
+Status: Closed 2026-10-26 — CONFIRMED FIXED, live-retested.

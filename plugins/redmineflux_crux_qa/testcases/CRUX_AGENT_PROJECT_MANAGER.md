@@ -1690,6 +1690,69 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+## Real-User-Prompt & Tabular-Format Audit — Calendar, Issues, Spent Time (2026-10-26)
+
+> Per explicit user request: test with casual, real-user-style phrasing (not clean/structured prompts), and separately check whether list-shaped answers (issues with assignees, spent time entries) render as an actual table or plain text. Fixture: 3 real issues on `Crux PM Agent Test Project` (#1 unassigned, start 10/26; #2 "Fix login page styling" assigned Luna Blossom, start 10/26, due 10/30; #3 "Write release notes for v1.1" assigned Redmine Admin, start 10/26, due 11/05), 2 real time entries (3h Redmine Admin on #1, 1.5h Luna Blossom on #2), Approved Hours (40h, "Development - Web Application - Backend") + matching Issue Category set on #1/#2 as the documented precondition for `log_time` to actually persist.
+
+### TC-CRX-278: Calendar tab — "what's coming up this month" (never tested before this session)
+
+**User Role:** `admin`.
+
+**Steps:**
+1. In a fresh Ask Crux chat, casual phrasing: "what's coming up on the calendar for the crux pm agent test project this month?"
+2. Independently check the native Calendar view (`/projects/crux-pm-agent-test-project/issues/calendar`) for ground truth.
+
+**Expected Result:**
+- Issue #2's real due date (10/30) falls in the current month and should be surfaced; Redmine's Calendar plots any issue with a start/due date in the shown month, with no dependency on versions/milestones.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26. New bug filed: BUG-CRX-075.**
+
+- Reply: *"The Crux PM Agent Test Project has no versions (milestones) defined yet. There's nothing on the calendar for this month—or any month—until you create some versions and assign issues to them."* — confidently, specifically wrong on both the underlying mechanism (versions have nothing to do with the Calendar) and the actual data (independently confirmed via native UI that all 3 issues genuinely show this month — day 26 for all 3 start dates, day 30 again for #2's due date).
+- See `bugs/open/BUG-CRX-075.md` for full evidence.
+
+---
+
+### TC-CRX-279: Issues overview — real-user "who's working on what" phrasing silently drops assignees
+
+**User Role:** `admin`.
+
+**Steps:**
+1. Casual phrasing, fresh chat: "hey who's working on what right now in the crux pm agent test project?"
+2. Same chat, explicit follow-up: "and who's each one assigned to?"
+3. Same chat, second follow-up: "can you show that as a table please"
+
+**Expected Result:**
+- Since the question itself asks "who," the first reply should name each issue's assignee (or "unassigned").
+
+**Result: FAIL (first reply) — CONFIRMED LIVE 2026-10-26. New bug filed: BUG-CRX-074.**
+
+- First reply lists all 3 issues by number/title/status/priority but never mentions assignees at all — not even "unassigned."
+- Second reply (explicit follow-up) correctly resolves all 3 real assignees (`#1 → unassigned`, `#2 → Luna Blossom`, `#3 → Redmine Admin`) — proving the data was available the whole time.
+- Third follow-up ("show that as a table") correctly rendered a genuine HTML table with `Issue | Title | Assignee` columns — table rendering works when explicitly asked, but is never used by default for this question shape, even though the underlying data (3 records × 3 fields) is naturally tabular.
+- See `bugs/open/BUG-CRX-074.md` for full evidence.
+
+---
+
+### TC-CRX-280: Spent Time overview — real-user "how much time has everyone logged" phrasing
+
+**User Role:** `admin`.
+**Precondition:** 2 real time entries exist this session (3h Redmine Admin/#1, 1.5h Luna Blossom/#2) — see audit intro above for the Approved-Hours+Category setup this required.
+
+**Steps:**
+1. Casual phrasing, fresh chat: "how much time has everyone logged on the crux pm agent test project so far?"
+
+**Expected Result:**
+- A correct per-person breakdown totaling 4.5h.
+
+**Result: PASS — CONFIRMED LIVE 2026-10-26, no bug.**
+
+- Reply correctly states "Total time logged: 4.5 hours," breaks it down accurately per person (`Luna Blossom: 1.5 hours on #2`, `Redmine Admin: 3.0 hours on #1`, including the real comment text), and correctly notes both are from today. This is the identical question shape BUG-CRX-058 was originally filed against (and already closed/fixed) — **confirmed still fixed** with real multi-person data this session.
+- Tabular-format note: rendered as a plain bullet list in this attempt. A separate live spot-check of the same question (run directly by the user, not part of this TC's own transcript) got a genuine HTML table by default (`Date | Hours | Issue | User | Comment` columns, with a correct `4.5h total` footer row) for the identical underlying data. This confirms table-vs-list formatting is non-deterministic per attempt for this question shape too, consistent with TC-CRX-279's finding — not filed as its own bug (no correctness impact), but documented in `BUG-CRX-074.md`'s evidence section since it's the same underlying formatting inconsistency.
+
+**Net finding across TC-CRX-278–280: 2 new bugs found via real-user-style (not clean/structured) prompts — BUG-CRX-074 (Issues "who" silently dropped) and BUG-CRX-075 (Calendar false "no versions = nothing" claim). Calendar had literally never been tested via chat before this session. Spent Time's previously-fixed BUG-CRX-058 is confirmed still fixed. Table rendering is confirmed non-deterministic across both Issues and Spent Time question shapes — present in some attempts, absent in others, for the identical question and identical underlying data.**
+
+---
+
 ## Evidence Map
 
 - LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-209, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete — TC-213 contributes 2 of the 8 repros, a first confounded attempt and a later clean retry), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** (TC-CRX-207 and TC-CRX-210 are explicitly NOT part of this bucket — they got different, distinctly-worded failures, BUG-CRX-060 and BUG-CRX-062 respectively, as their own TC write-ups describe) — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — untested as of this point in the session (later closed by TC-CRX-240, see below). **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **TC-CRX-189–192 (the luna.blossom incremental permission matrix) completed 2026-10-11** — see its own bullet below. **Project entity Delete also completed 2026-10-11 — see TC-CRX-239–240's bullet.**

@@ -1886,4 +1886,18 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Result: FAIL — a more specific, equally false denial, also folded into BUG-CRX-061.** *"I'm unable to update version due dates from this chat interface. The tools available to me don't include an `update_version` function..."* — explicitly denies a named tool, `redmineflux_core_update_version`, confirmed to genuinely exist (`core.py:1290`). Notably the reply correctly read back the real current state ("v1.0 exists... currently open with a 2026-12-31 due date") — the read/resolution path works, only the write path falsely denies itself. Verified via DB: due date still unchanged (2026-12-31). This extends BUG-CRX-061's permission-independence finding to Versions Update (previously only Versions Create had this confirmed, TC-CRX-243).
 
+### TC-CRX-290: Versions — Delete, non-admin, WITHOUT then WITH `manage_versions`
+
+**User Role:** `luna.blossom`, same "v1.0" fixture.
+
+**Steps (without permission):** `manage_versions` removed and DB-verified absent. Fresh chat: "we're scrapping the v1.0 version on crux pm agent test project, can you delete it?"
+
+**Result: FAIL — false denial, folded into BUG-CRX-061.** *"I don't see a `delete_version` tool in the available core tools..."* — confirmed false, `redmineflux_core_delete_version` genuinely exists (`core.py:1363`); the reply correctly identified the real version first. Verified via DB: v1.0 still exists.
+
+**Steps (with permission):** `manage_versions` re-granted and DB-verified present. Fresh chat, identical request.
+
+**Result: FAIL — a different shape, the standard stall, folded into BUG-CRX-060.** *"Now let me load the core group's write tools:(Stopped: this turn's token budget was reached...)"* ($0.03, 166,913 input tokens). Verified via DB: v1.0 still exists, unchanged.
+
+**Net finding: Versions Delete flips shape by permission state exactly like Members Update/Delete did** — WITHOUT permission gets a false denial (BUG-061), WITH permission stalls (BUG-060) — the opposite pairing from Versions Update (TC-289, where WITHOUT also got a false denial but WITH got a *different*, more specific false denial rather than a stall). Either way, every Versions write operation (Create, Update, Delete) is now confirmed broken regardless of permission state.
+
 

@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-079
 - Production Redmine Issue ID:
-- Title: QA Agent's Create Testcase guesses a hardcoded classic priority_id (3) instead of resolving the named priority via list_enumeration, failing deterministically on any instance whose priority enumeration doesn't use the classic 1-4 ID scheme — same wrong-ID-hallucination class as BUG-CRX-015/019/038/043/050/052
+- Title: QA Agent's Create Testcase AND Update Testcase both guess a hardcoded/assumed priority_id (3 and 5 respectively, each wrong) instead of resolving the named priority via list_enumeration, failing deterministically on any instance whose priority enumeration doesn't use the classic 1-4 ID scheme — same wrong-ID-hallucination class as BUG-CRX-015/019/038/043/050/052
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)
 - Plugin version: redmineflux_testcase_management 7.2.0 / crux-core 0.128.0
@@ -47,6 +47,10 @@ The agent should resolve "High" to the real priority ID on **this** instance (8)
 ## Note for triage
 
 This is the same wrong/hallucinated-ID resolution defect class already extensively documented in `CRUX_MEMORY.md` for the Project Manager agent (BUG-CRX-015/019/038/043, and BUG-CRX-050/052's Priority-field-specific "High→Urgent" sub-variant) — "never guess a numeric id from a name" — now confirmed on a **different agent** (QA Agent) and a **different plugin domain** (Test Case Management's `create_testcase` tool) for the very first time this session. The specific trigger condition here is a non-classic Priority enumeration (IDs 6-9 instead of 1-4), which this QA Agent's `create_testcase` flow apparently never accounts for — it appears to hardcode or assume a priority ID rather than ever calling the lookup tool, unlike some other flows in this suite that do call `list_priorities` correctly (see CRUX_MEMORY.md's Project Manager Priority note, where the lookup tool genuinely WAS called but the wrong value was still picked — a related but distinct sub-shape; here, no lookup call is made at all).
+
+## New repro — 2026-10-26, Update Testcase (same wrong-ID-hallucination, different guessed value)
+
+Same instance, test case #4 (created cleanly via TC-CRX-295 with no priority specified, defaulting to `low`/id=6). Asked the QA Agent: "can you update test case #4 to set its priority to high and add the description '...'?" — the confirm card showed `Priority: 5` (a *different* wrong guess from Create's `3`, still not any of the real IDs `[6, 7, 8, 9]`) alongside a correctly-filled `Description`. Confirming produced a different failure shape this time — Redmine's own validation silently drops the invalid foreign key and reports: *"Validation error: Priority cannot be blank"* — since the Testcase tracker's workflow requires Priority. Verified via DB: neither the description nor the priority changed (`description` still empty, `priority_id` still `6`). This confirms the defect is not confined to Create — **Update Testcase independently guesses its own wrong priority_id** (a different wrong number than Create guessed for the identical "High" input), ruling out a single hardcoded constant shared between the two code paths — each write path appears to have its own unvalidated assumption about the priority ID scheme.
 
 ## Duplicate check
 

@@ -46,3 +46,33 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 **Result: FAIL — new bug, BUG-CRX-079.** Got a genuine confirm card (`Testcases Management Create Testcase`) with every field correctly filled — Project, Subject, Description, Steps array all exactly as requested — **except Priority, shown as the raw ID `3`** instead of a resolved value. Clicking Confirm genuinely attempted the write and failed: *"Error: priority_id 3 not found. Valid IDs: [6, 7, 8, 9]. Use list_enumeration(kind='priorities') to see names."* Retried Confirm a second time — identical failure, no self-correction. Verified via DB: no test case was created (honest failure, not silent). Real priority enumeration on this instance: `6=low, 7=medium, 8=high, 9=immediate` — the agent assumed the "classic" `3=High` ID scheme instead of ever calling the lookup tool. Filed as **BUG-CRX-079** (same wrong-ID-hallucination class as BUG-CRX-015/019/038/043/050/052, first instance on this agent/domain).
 
 ---
+
+### TC-CRX-295: Test case — Create, admin, required fields only (Subject only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Fresh chat, QA Agent: "in the crux qa agent test project, can you create a test case titled 'Verify logout clears the session'?"
+
+**Result: PASS.** Clean confirm card (`Project`, `Subject` only — no invented fields). Confirmed: *"✓ Testcase created: \"Verify logout clears the session\" (tracker #4, project #3)"*. Verified via DB: issue #4 genuinely created, correct subject/project/tracker.
+
+---
+
+### TC-CRX-296: Test case — Read
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Same chat: "what's test case #4 about?"
+
+**Result: PASS.** *"Test case #4 is titled 'Verify logout clears the session' — it's currently in **Waiting for Customer Response** status with **low** priority."* (with a link to #4). Verified via DB: subject/status/priority all exactly match.
+
+---
+
+### TC-CRX-297: Test case — Update (priority + description together)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Same chat: "can you update test case #4 to set its priority to high and add the description '...'?"
+
+**Result: FAIL — folded into BUG-CRX-079 as a new repro.** Confirm card showed `Priority: 5` (a *different* wrong guess than Create's `3`, still not one of the real IDs `[6,7,8,9]`) and a correctly-filled `Description`. Confirming produced: *"Validation error: Priority cannot be blank"* (Redmine's own FK validation silently drops the invalid id, and the Testcase tracker requires Priority). Verified via DB: neither field changed. Confirms the wrong-ID guess isn't shared/hardcoded identically between Create and Update — each path has its own independent, equally-wrong assumption.
+
+---

@@ -55,6 +55,16 @@ Both working cases pass their changed value as a plain top-level confirm-card fi
 - Deal's own activity trail: no Territory-change entry at all (contrast: the Company Industry and Lead Source updates below both produced a clear change-log line).
 - For contrast, same-sweep working cases: `Crm Update Company` → native `/companies/3` activity trail: `Industry: "Technology" → "Healthcare"`. `Crm Update Lead` → native `/leads/1` activity trail: `Source: "Website" → "Referral"`.
 
+## Retest — 2026-10-26 (STILL BROKEN, different failure shape)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled). Fixture rebuilt: deal "NovaTech Solutions Rollout" (deal #1).
+
+- Re-sent "Update deal 'NovaTech Solutions Rollout' to set its territory to North America." twice (fresh "Ask again"). Both times Crux incorrectly insisted Territory must be a custom field and asked for a custom field ID — despite Territory being a real, native select field on the Deal form (confirmed via `/deals/new`), not a Redmine custom field. Neither attempt ever reached a confirm card.
+- The original false "✓ updated successfully" claim no longer reproduces (an improvement), but the write still never succeeds — now it's blocked earlier, before even proposing anything.
+- Independently verified via native UI (`/deals/1`) that Territory remains unset ("--").
+
+Still broken, via a different failure shape than originally filed — reopened on production (#123230) with this evidence.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not part of the false-capability-denial family (BUG-CRX-029/032/034/050/061/062/065/066/067/068/069) — the tool is invoked and claims success, it never denies the capability. Not a duplicate of BUG-CRX-068/069 (Assigned To/Private fields the agent falsely believes don't exist at all) — here the agent correctly recognizes Territory as a real field, builds a correct confirm card for it, and the tool call itself reports success; the defect is purely in whether the custom-field value is actually persisted server-side. Not a duplicate of BUG-CRX-071 (Deal Currency bypass) — that's a documented restriction being silently *accepted* when it shouldn't be; this is the opposite shape, a legitimate, unrestricted field update being silently *dropped* when it should succeed.

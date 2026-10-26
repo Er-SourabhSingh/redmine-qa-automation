@@ -70,6 +70,15 @@ This is the same **false-capability-denial** shape already tracked across BUG-CR
 
 As admin, a full-field company-create request naming all 8 documented fields at once: "Create a company called Full Fields Enterprises, email..., phone..., website..., industry Healthcare, employee count 250, **assigned to admin**, address..., notes..." → the resulting confirm card correctly included all 7 other fields (Name, Email, Phone, Website, Industry, Employee Count, Address, Notes) but **silently omitted Assigned To entirely** — no row, no mention. Confirmed → "✓ Company 'Full Fields Enterprises' created (ID: 6)." Independently verified via `/companies/6`: all 7 other fields genuinely applied exactly as requested (Website correctly auto-`https://`-prefixed too), but **Assigned To is still blank ("—")**. This is the 3rd entity type (after Lead's write+read paths and Contact's explicit denial) confirmed to share this exact blind spot — strongly suggesting one shared root cause in how the agent's tool-calling layer resolves "assign/assigned to" across the whole CRM domain, not a per-entity issue.
 
+## Retest — 2026-10-26 (STILL BROKEN)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled). Fixtures rebuilt: `Crux CRM Agent Test Project`, lead "Celeste Dawn" (lead #1, company "OldCo Legacy").
+
+- Re-sent "For lead Celeste Dawn, update her phone to +1-555-0142, her company name to NovaTech Solutions, and assign her to admin." The resulting `Crm Update Lead` confirm card only showed Phone and Company Name rows — Assigned To was silently dropped again, zero disclosure.
+- Confirmed the write; independently verified via native UI (`/leads/1/edit`) that Assigned To is still "-- Select User --" (unset).
+
+Still broken — reopened on production (#123225).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same **false-capability-denial family** as BUG-CRX-029/032/034/050/061/062/066/067 (Repro 2: a confident, specific, checkable false claim that a real, working field doesn't exist) — filed as a new bug per the repo's own precedent for new domains/tools (this is the first instance on the Sales Agent's lead-assignment field). Distinguishing feature from the rest of that family: here the false belief doesn't just produce an outright refusal — it also causes a *silent write-time omission* when assignment is bundled into a multi-field request (Repro 1), rather than the request failing or asking for clarification. Also distinct from BUG-CRX-052 (wrong/hallucinated field *values*, not a field dropped entirely because the agent believes it doesn't exist).

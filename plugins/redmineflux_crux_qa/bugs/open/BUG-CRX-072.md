@@ -57,6 +57,15 @@ Two distinct problems here:
 - Step 2 reply (captured via accessibility snapshot): "I'm hitting a discovery issue. However, my instructions mention that `redmineflux_crm_settings_update` should exist for this kind of change..." followed by the full correct proposed current/new stages list, then "Unfortunately, I don't currently have direct access to the `settings_update` tool in this session."
 - Native UI (`/crm/settings`): Deal Stages — `New` (deletable), `Qualified` (deletable, Deal-stage context), `Proposal` (deletable), `Negotiation` (deletable), `Won` (img alt="Required value — can't be removed or renamed", no Delete button), `Lost` (same lock indicator, no Delete button). Lead Statuses — `New`/`Contacted`/`Unqualified` deletable, `Qualified` locked with the same indicator.
 
+## Retest — 2026-10-26 (STILL BROKEN)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled).
+
+- In the same chat session, sent "Remove the Lost stage from CRM settings." then "Add a new deal stage called 'Contract Review'." The internal tool name (`redmineflux_crm_settings_update`) and a computed proposed diff were again leaked before failing — this time on the first request ("Remove Lost") rather than the "Add" request as originally filed — and the second request in the same session got a different, generic "I couldn't find a tool for this here" denial with no tool name disclosed.
+- Same underlying defect (tool-name leak + inconsistent messaging across two requests of the same underlying restriction, in the same session), just with which request triggers which wording reshuffled.
+
+Still broken — reopened on production (#123229).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related to, but distinct from, the false-capability-denial family (BUG-CRX-029/032/034/050/061/062/065/066/067/068/069): those involve the agent confidently and wrongly claiming "no tool exists" or "not supported" with no further detail; this is the first instance where the agent instead partially succeeds at internal reasoning (names the real tool, computes the exact correct diff) but still fails to invoke it, explicitly self-describing it as "a discovery issue" — a more specific, diagnosable shape of the same general tool-routing failure. Also not a duplicate of BUG-CRX-060 (member-add stalling on token budget — that's a resource-limit cutoff, this is a tool-discovery failure with no token-budget signal) or BUG-CRX-063 (whole-server MCP tool catalog degraded after startup — this is scoped to one specific tool being unreachable for one agent, not a server-wide catalog gap, and the server's tool catalog is otherwise working normally in this same session, e.g. `Crm Create Deal` succeeded minutes earlier).

@@ -51,6 +51,14 @@ This is the same **false-capability-denial** family as BUG-CRX-029/032/034/050/0
 - Native UI (`/contacts/2/edit`): `checkbox "Mark as Private"` and `combobox "Assigned To"` both present and functional.
 - CRM plugin docs (`/crm/docs`, read this session): `§Contacts` lists "assignee" among the form's accepted fields; `§Record visibility` describes "Mark as Private" as a real, documented feature for leads/contacts/companies/deals.
 
+## Retest — 2026-10-26 (STILL BROKEN)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled). Fixture rebuilt: contact "Autumn Grace" (contact #1).
+
+- Re-sent "Mark contact Autumn Grace as private, assigned to luna.blossom." Crux again falsely claimed "The CRM plugin's contact fields don't include a private flag or an assigned_to field in the standard schema" and asked for clarification instead of proposing a write — despite both "Mark as Private" and "Assigned To" being real, visible fields on the native contact form (confirmed via `/contacts/new`). No write was ever proposed.
+
+Still broken — reopened on production (#123226).
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same false-capability-denial family as BUG-CRX-029/032/034/050/061/062/066/067/068, and specifically the same shape as **BUG-CRX-068** (false denial that Leads have an Assigned To field) — filed as a new bug per the repo's own precedent for new entity types (this is the first instance on Contacts, and the first instance covering 2 fields — Private and Assigned To — in a single false claim). Flagging the pattern between 068/069 for the dev team to investigate as one shared root cause across entity types, rather than fixing each entity in isolation.

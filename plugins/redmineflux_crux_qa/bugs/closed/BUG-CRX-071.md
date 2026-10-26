@@ -1,6 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-071
+- Status: Closed 2026-10-26 — CONFIRMED FIXED, production synced to Done/100%
 - Production Redmine Issue ID: #123228
 - Title: `Crm Create Deal` lets a chat user set an arbitrary deal currency (e.g. EUR), genuinely persisted — directly contradicting the CRM plugin's own documented and native-UI-enforced invariant that every deal always uses the instance's Default Currency, never a per-deal value
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
@@ -48,6 +49,15 @@
 - Native UI (`/deals/5`): `Amount: EUR 500.00`, `Currency: EUR` — genuinely persisted, not auto-corrected.
 - Native UI (`/deals/new`): `textbox "Currency" [disabled]: USD` with helper text `Currency can be changed from CRM settings only.`
 - CRM plugin docs (`/crm/docs`, `§Deals`): "The Currency field is read-only: deals created or edited on this form always use the Default Currency from Settings... Choose the default currency before deals are entered, and avoid changing it afterward."
+
+## Retest — 2026-10-26 (CONFIRMED FIXED)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, CRM plugin code freshly pulled).
+
+- Re-sent "Create a deal called 'EUR Currency Test Deal' worth $500 in EUR." The confirm card still cosmetically includes `Currency: EUR` as a proposed row (unchanged display behavior).
+- Confirmed it. The real deal record (`/deals/2`) genuinely saved with **Currency: USD, Amount: USD 500.00** — the server now correctly overrides/ignores the requested currency and enforces the instance's Default Currency, matching the native-UI invariant.
+
+Confirmed FIXED — closed locally, production synced to Done/100% (#123228). Note for the dev team: the confirm card's own display still shows the (now-ignored) requested currency, which could still mislead a user into thinking their currency choice took effect — worth a low-priority follow-up on the confirm-card text, but no longer a data-integrity issue.
 
 ## Duplicate check
 

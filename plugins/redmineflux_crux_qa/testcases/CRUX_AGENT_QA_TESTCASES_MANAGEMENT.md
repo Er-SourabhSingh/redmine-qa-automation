@@ -76,3 +76,17 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 **Result: FAIL — folded into BUG-CRX-079 as a new repro.** Confirm card showed `Priority: 5` (a *different* wrong guess than Create's `3`, still not one of the real IDs `[6,7,8,9]`) and a correctly-filled `Description`. Confirming produced: *"Validation error: Priority cannot be blank"* (Redmine's own FK validation silently drops the invalid id, and the Testcase tracker requires Priority). Verified via DB: neither field changed. Confirms the wrong-ID guess isn't shared/hardcoded identically between Create and Update — each path has its own independent, equally-wrong assumption.
 
 ---
+
+### TC-CRX-298: Test suite — Create, admin, required fields only (Name only, suite ID never supplied)
+
+**User Role:** `luna.blossom` (QA Full Access). Per the real-user-phrasing rule, only the project **name** is given, never an ID.
+
+**Steps (attempt 1, long-running chat — 4 prior turns already in this session):** "in the crux qa agent test project, can you create a test suite called 'Authentication'?"
+
+**Result: FAIL — new bug, BUG-CRX-080.** The confirm card showed **`Project: Crux PM Agent Test Project`** — the wrong project — despite 3 prior turns in the identical chat session correctly resolving "Crux QA Agent Test Project" from the same phrasing (TC-294/296/297). Clicked **Cancel**; verified via DB that no suite was created anywhere.
+
+**Steps (attempt 2, brand-new chat session):** Identical message, fresh conversation.
+
+**Result: PASS on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Name: Authentication`. Confirmed: genuine success, verified via DB (`testsuites` id=1, correct `project_id`). Filed the wrong-project occurrence as **BUG-CRX-080** (1 of 1 repro in a long session, 0 of 1 in a fresh one — flagged as a priority investigation item given the severity of a silently-wrong write target, not yet treated as confirmed-deterministic).
+
+---

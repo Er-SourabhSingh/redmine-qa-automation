@@ -1,0 +1,47 @@
+# Bug Report Template
+
+- Bug ID: BUG-CRX-080
+- Production Redmine Issue ID:
+- Title: QA Agent's "Create Test Suite" confirm card once resolved the wrong project (a different, unrelated project from an earlier conversation) despite the user's message explicitly naming the correct project by name, inside a chat session where every prior Create/Update Testcase request had correctly resolved the same named project
+- Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
+- Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)
+- Plugin version: redmineflux_testcase_management 7.2.0 / crux-core 0.128.0
+- Environment: Local — `http://localhost:3015` (`C:\crux-redmine`)
+- Browser: Chromium (Playwright)
+- User role: non-admin (`luna.blossom`, "QA Full Access" role)
+- Date: 2026-10-26
+
+## Steps to reproduce
+
+1. As `luna.blossom`, in a chat session (QA Agent) that had already run 3 prior turns in the same session, each correctly resolving "Crux QA Agent Test Project": "create a test case..." (TC-CRX-294/295), "what's test case #4 about?" (TC-CRX-296), "update test case #4..." (TC-CRX-297) — all 3 confirm/response cards correctly showed `Project: Crux QA Agent Test Project`.
+2. In the **same** chat session, send: "in the crux qa agent test project, can you create a test suite called 'Authentication'?" — identical project-naming phrasing used successfully in every prior turn.
+3. Observe the resulting confirm card's `Project` field.
+4. In a **fresh** chat session (new conversation, no prior turns), resend the exact identical message and compare.
+
+## Expected result
+
+The same explicit project name, phrased identically to 3 already-successful prior turns in the same conversation, should resolve to the same correct project every time — "Crux QA Agent Test Project" — regardless of which specific write tool (Create Testcase vs. Create Test Suite) is being invoked.
+
+## Actual result
+
+1. **Within the long-running session**: the confirm card for `Testcases Management Create Test Suite` showed `Project: Crux PM Agent Test Project` — a **different, unrelated project** (one this user/session had been used to test extensively earlier the same day, in an unrelated part of this QA engagement) — not the QA Agent Test Project named in the message. Clicked **Cancel** rather than Confirm, out of caution.
+2. Independently verified via DB (`SELECT * FROM testsuites`) that no suite was created in either project — the Cancel click was honored correctly, no silent write occurred.
+3. **In a brand-new chat session, the identical message resolved correctly** — `Project: Crux QA Agent Test Project` — confirmed and genuinely created (verified via DB: `testsuites` row with the correct `project_id`).
+4. This strongly suggests some form of **context leakage/contamination specific to the Create Test Suite tool's project-resolution step**, possibly drawing on stale conversation history, a cached/previous tool-call result, or a different project reference from much earlier in a long session — while the Create/Update Testcase tools in the very same session never showed this symptom.
+
+## Evidence
+
+### Console / log
+
+- Wrong-project confirm card (verbatim table): `Project: Crux PM Agent Test Project`, `Name: Authentication`.
+- Correct confirm card (fresh chat, verbatim table): `Project: Crux QA Agent Test Project`, `Name: Authentication`.
+- DB verification after Cancel: `testsuites` table empty (0 rows) immediately after.
+- DB verification after the fresh-chat Confirm: `testsuites` row `id=1, name=Authentication, project_id=crux-qa-agent-test-project` — correct.
+
+## Note for triage
+
+**Reproduction count: 1 of 1 attempts in a long-running session, 0 of 1 in a fresh session** — this needs more repros to pin down a reliable trigger, but is flagged now because of its severity class: a silently-wrong **write target** (not just a wrong read or a cosmetic error) is a more dangerous shape than most false-denial/fabrication bugs in this suite, since confirming it would have written real data into the wrong project with no warning beyond the easily-overlooked project name in a results table. Recommend the dev check whether `create_test_suite`'s project-resolution step reuses a stale cached project reference (e.g. "last project touched by the Crux dashboard elsewhere," "last project referenced by any agent," or a leftover value from a different domain's session state) instead of re-resolving the project named in the current message, the way the Testcase create/update/read tools evidently do correctly every time. Given the one-off nature so far, treat this as a priority investigation item rather than a confirmed deterministic defect — but always re-verify the `Project` field on any Create Test Suite confirm card before confirming, especially in a long-running session that has touched multiple projects.
+
+## Duplicate check
+
+- Duplicate found: No — this is a project-resolution failure on a **write-target field**, distinct from every other wrong/hallucinated-ID bug in this suite's history (BUG-CRX-015/019/038/043/050/052/079), which are about a field *value* being wrong, not the *project the write lands in*. Also distinct from the fabricated-confirm-card family (BUG-CRX-020/027/028/056/077) — this card was genuine and fully functional, just targeting the wrong project.

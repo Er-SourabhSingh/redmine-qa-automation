@@ -72,6 +72,16 @@ Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, conf
 
 Not reported as fixed — left in `bugs/open/`, no production status sync performed.
 
+## Retest — 2026-10-26 (STILL BROKEN)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, fresh pulled code for `redmineflux_crux`/`redmineflux-crux-core`/`redmineflux-mcp`; empty DB reseeded with the minimum fixture — `Developer` role, `luna.blossom` user, `Crux PM Agent Test Project`). Confirmed healthy infra first: MCP catalog 488 tools/12-14 plugins, OpenRouter key verified live, Core service URL fixed.
+
+- Re-sent "Add luna.blossom as a Developer to the Crux PM Agent Test Project." — stalled identically: *"Now let me load the core write tools to access project membership creation.(Stopped: this turn's token budget was reached; the answer above may be partial.)"*
+- "Ask again" — stalled again on a different sentence: *"Let me check what groups are actually available:(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — 2/2, same outcome as every prior retest.
+- Independently confirmed via native UI (`/projects/crux-pm-agent-test-project/settings/members`) — "No data", no membership ever created.
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not the same as the cost/day-level spend-reminder issue (BUG-CRX-053, which is about a *daily* spend threshold never firing) — this is a *per-turn* token-budget ceiling being hit during tool discovery, a different mechanism and a different, more severe symptom (the action never completes at all, regardless of cost). Also distinct from the fabricated-confirm family (BUG-CRX-020/056) — those produce a fake confirm card with no real buttons; this produces no confirm card of any kind, fake or real, and visibly tells the user it was cut off rather than pretending to have an answer.

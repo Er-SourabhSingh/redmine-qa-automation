@@ -178,6 +178,16 @@ Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, conf
 
 Not reported as fixed — left in `bugs/open/`, no production status sync performed.
 
+## Retest — 2026-10-26 (STILL BROKEN, 3rd wording)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, fresh pulled code; `Crux PM Agent Test Project` recreated as fixture). Confirmed healthy infra first (488 tools, 12/14 plugins, OpenRouter verified live).
+
+- Re-sent Repro 6's request: "Create a new issue category called 'Security Testing' for the Crux PM Agent Test Project." Got a **third distinct wording** of the same false denial: *"I see that the discovered `core` group has a `redmineflux_core_get_issue_category` tool (read-only), but no create tool listed. Issue category creation is not yet supported through the chat interface. You cannot create a new issue category from here."* — followed by instructions to use the native admin UI or the REST API directly.
+- Confirmed via source grep (`docker compose exec mcp grep -n "def redmineflux_core_create_issue_category" //app/src/tools/core.py` → `core.py:1737`) that the create tool genuinely exists — the denial is still false, just reworded a third time (2026-10-01: "couldn't confirm whether this action is actually available here" → 2026-10-12: "I couldn't find a tool for this here" → 2026-10-26: "no create tool listed... not yet supported").
+- Confirmed via native UI (`/projects/crux-pm-agent-test-project/settings/categories`) that no "Security Testing" category exists among the project's categories.
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect *family* as the false-capability-denial bugs already on file (BUG-CRX-029/032/034/050), but this is the first instance on the **Members/project-membership** domain specifically, and the first case where the agent's own successful prerequisite tool calls (fetching the exact membership id and role id) make the "couldn't confirm availability" claim provably false from its own trace, not just from an external source check. Distinct from BUG-CRX-060 (member *creation* stalls on token budget before any refusal is given) — this is member *role update*, which completes its reasoning turn and produces a clean, confident, but false refusal instead of stalling.

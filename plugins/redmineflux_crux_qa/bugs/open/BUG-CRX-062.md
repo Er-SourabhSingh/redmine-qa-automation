@@ -33,6 +33,18 @@ Every factual claim in this message is wrong or contradicted by this session's o
 
 So in one short message, Crux makes two confident, specific, and both-false claims about what its own tool surface can and cannot do — it both overstates one broken capability (create) and denies an actually-working one (delete) in the same breath.
 
+## Retest — 2026-10-26 (STILL BROKEN, different failure shape)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, fresh pulled code; `luna.blossom` re-added as Reporter, membership id=1 this time, via native UI since BUG-CRX-060 still blocks adding via chat).
+
+- Re-sent "Remove luna.blossom from the Crux PM Agent Test Project." — this time it did **not** reach the original "is not yet supported" false-denial text at all. Instead it stalled on BUG-CRX-060's per-turn token-budget cutoff: *"Now let me load the core group's write tools:(Stopped: this turn's token budget was reached; the answer above may be partial.)"*
+- "Ask again" — stalled again, same shape, different sentence: *"Let me get the full list of available groups:(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — 2/2.
+- Independently confirmed via native UI (`/projects/crux-pm-agent-test-project/settings/members`) that Luna Blossom is still listed as Reporter — unchanged, no deletion occurred.
+
+**Net effect: still broken, but via a different failure mode than originally documented** — the dev's fix attempt (if any) appears to have changed how this request fails rather than fixing it: it no longer confidently claims deletion "is not yet supported" (the originally-filed false statement), but it also never reaches a working confirm card — it now dies in BUG-CRX-060's tool-discovery stall before any answer is produced. This is consistent with BUG-CRX-060 and BUG-CRX-061/062 sharing a common upstream write-proposal-pipeline defect (as already hypothesized in BUG-CRX-060's file) — fixing one entity's resolution path can just make a different entity hit the shared stall instead of a shared false-denial.
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Evidence
 
 ### Screenshot

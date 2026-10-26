@@ -31,6 +31,17 @@ The exact same genuinely-missing capability produces two wildly different answer
 
 Neither response fabricates success and neither silently executes a write (confirmed via native UI both times — the target activity's enabled/disabled state never changed), so this isn't a data-integrity bug. But it's a real, user-facing inconsistency: a user who tries "disable" first has no idea the capability is architecturally absent and might reasonably interpret "try again" as "this might work on a retry," file a confused support ticket, or conclude Crux is broken — while a user who happens to phrase the same request as "enable" gets a clear, trustworthy answer immediately.
 
+## Retest — 2026-10-26 (STILL BROKEN, direction flipped)
+
+Retested live on a freshly rebuilt instance (new laptop, Docker stack recreated from `C:\crux-redmine`, fresh pulled code). Note: this fresh instance's global activity enumeration doesn't include "Design" — substituted "Email Support" (disable) / "Live Chat Support" (enable), both pre-existing, checked activities on `Crux PM Agent Test Project`.
+
+- **"Disable the Email Support time-tracking activity..."** → this time got the **detailed, honest** reply: correctly explained activities are instance-level not per-project, offered two concrete alternatives (change the project's default activity, or ask an admin to disable it system-wide via Administration → Enumerations).
+- **"Enable the Live Chat Support time-tracking activity..."** → got the **vague, generic** non-answer: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."*
+
+**The inconsistency is still present, but which direction gets the vague vs. the detailed answer has flipped** compared to the original filing (originally Disable=vague/Enable=detailed; now Disable=detailed/Enable=vague). The core defect — the same genuinely-unavailable capability produces wildly different answer quality depending only on enable/disable phrasing — is unchanged; only which phrasing triggers which response text has shifted, consistent with this being a non-deterministic/prompt-sensitive path in the agent rather than a hardcoded per-word branch. Neither response claimed success; not independently re-verified via native UI since neither reply asserted a write occurred.
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Evidence
 
 ### Screenshot

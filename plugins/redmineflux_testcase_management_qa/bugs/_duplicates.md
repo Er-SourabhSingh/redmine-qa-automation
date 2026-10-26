@@ -22,3 +22,8 @@
 > "RecordNotUnique" turning up nothing prior.
 
 | "Requirement creation shows no Template option" on a fresh/real environment | Not a setup gap — `requirement_templates` seeding only ever happens via the internal QA/demo rake task `testcase_plugin:setup` (never run on a real install, never referenced in README). No UI/API anywhere in the plugin can create a `RequirementTemplate`. Confirmed live: dropdown renders but with zero real options on an environment where only migrations (not the rake task) were applied. This is BUG-TCM-120 | BUG-TCM-120 |
+
+> **BUG-TCM-121 is not a duplicate of BUG-TCM-072 despite sharing the same commit, file and feature.** BUG-TCM-072
+> is the security vulnerability (unescaped subject executes as live HTML); BUG-TCM-121 is a cosmetic regression
+> *introduced by* BUG-TCM-072's own fix (Tribute's legitimate highlight `<span>` markup now shown as literal
+> escaped text instead of rendering). Fixing one does not fix the other.

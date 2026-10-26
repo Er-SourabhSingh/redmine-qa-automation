@@ -1912,4 +1912,18 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Result: FAIL — the same false claim, reworded slightly, also folded into BUG-CRX-061.** *"I don't see an `update_issue_category` tool in the core group... that's an admin/settings-level operation..."* ($0.02, 107,405 input tokens). Both confirmed false via source grep — `redmineflux_core_update_issue_category` genuinely exists (`core.py:1767`). Both halves verified via DB that the category name never changed. Extends BUG-CRX-061's permission-independence finding to Issue Categories Update.
 
+### TC-CRX-292: Issue Categories — Delete, non-admin, WITH then WITHOUT `manage_categories`
+
+**User Role:** `luna.blossom`, same "zz-delete-me-category" fixture (id=27).
+
+**Steps (with permission):** `manage_categories` genuinely granted and DB-verified present. Fresh chat: "we don't need the 'zz-delete-me-category' issue category on crux pm agent test project anymore, can you get rid of it?"
+
+**Result: FAIL — the standard stall, folded into BUG-CRX-060.** *"Good — the `core` group has 37 write tools. Let me load them:(Stopped: this turn's token budget was reached...)"* ($0.03, 166,505 input tokens). Verified via DB: category still exists.
+
+**Steps (without permission):** `manage_categories` removed and DB-verified absent. Fresh chat, identical request.
+
+**Result: FAIL — a false denial, folded into BUG-CRX-061.** *"I checked the available tools, and there isn't a delete operation for issue categories in Redmineflux..."* — confirmed false, `redmineflux_core_delete_issue_category` genuinely exists (`core.py:1802`) ($0.01, 86,855 input tokens). Verified via DB: category still exists.
+
+**Net finding: completes Issue Categories' full CRUD set (Create/Update/Delete) as confirmed broken under both permission states** — like Members and Versions, the specific failure shape flips with permission (stall when granted, false denial when not, for this operation), but the write never succeeds either way.
+
 

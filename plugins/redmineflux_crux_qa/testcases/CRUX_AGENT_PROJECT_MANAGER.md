@@ -1860,4 +1860,18 @@ Verified via native UI: document untouched throughout. **New bug filed: BUG-CRX-
 
 **Separately — cost-inefficiency flag on this same turn:** the turn cost **$0.1187** (6 LLM calls for only 4 tool calls, `tool_calls=4 outcome=success`), roughly **10-40x** this session's typical per-turn cost ($0.003-$0.01), with 3 of those 6 calls being full cache-misses within the single turn (`cache_write` 19,425 → 25,377 → 35,459, each strictly larger, `cache_read=0` each time) instead of reusing the session's warm cache. Filed as a new, separate bug per the cost-efficiency standing instruction: **BUG-CRX-078**.
 
+### TC-CRX-288: Members — Delete, non-admin, WITHOUT then WITH `manage_members`
+
+**User Role:** `luna.blossom`. Target: Aurora Wren (user id 15, Reporter). All facts (name, user ID, project) supplied in the opening message both times, per the cost-efficiency standing instruction.
+
+**Steps (without permission):** `manage_members` removed and DB-verified absent. Fresh chat: "aurora wren (user id 15) isn't working on the crux pm agent test project anymore, can you remove her from the project members?"
+
+**Result: FAIL — stalled on BUG-CRX-060's shape.** *"Good— `core` has 37 write tools. Let me load them.(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — **$0.08, 167,684 input tokens** for a turn that never reached an answer. Verified via native UI: Aurora Wren still listed as Reporter. Folded into **BUG-CRX-060** as a new entity-domain repro (Members Delete).
+
+**Steps (with permission):** `manage_members` re-granted and DB-verified present. Fresh chat, identical request.
+
+**Result: FAIL — different shape, a false denial matching BUG-CRX-061.** *"I couldn't find a tool for this here, so I can't do it from this chat..."* — confirmed false via source grep, `redmineflux_core_delete_project_membership` genuinely exists (`core.py:2182`). **$0.06, 146,480 input tokens** for this turn — again far above this session's typical per-turn cost, consistent with BUG-CRX-078's pattern. Verified via DB (`members`/`member_roles` join) that Aurora Wren's membership is unchanged (still Reporter, id=3). Folded into **BUG-CRX-061** as a new repro.
+
+**Net finding: Members Delete now mirrors Members Update (TC-287) exactly** — WITHOUT permission stalls (BUG-060), WITH permission gets a false denial (BUG-061), and both halves ran at unusually high cost (BUG-078's pattern, not yet filed as additional repro count but consistent with it).
+
 

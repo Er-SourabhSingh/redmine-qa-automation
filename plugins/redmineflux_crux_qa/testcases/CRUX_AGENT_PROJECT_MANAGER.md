@@ -1166,6 +1166,145 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-270: Members CRUD — Create, non-admin WITHOUT `manage_members` permission
+
+> Per explicit user follow-up asking whether every remaining admin-only domain (Members, Issue Categories, Versions Update/Delete, News, Documents, Files) had ever been tested non-admin with/without permission — it had not, only Create was spot-checked for Version/Wiki (TC-243/244). Systematically closing these gaps, domain by domain.
+
+**User Role:** `luna.blossom` (Manager role on `Crux PM Agent Test Project`, `manage_members` explicitly removed — confirmed via exact-match DB check).
+**Note:** first attempts named the target user by login ("daisy.skye", then "Redmine Admin") and both got sidetracked on an unrelated confound — `luna.blossom`'s `view_users` scope ("Members of visible projects") can't resolve a user outside her own shared projects, and `list_users`/search found nothing for either name. Re-sent with the exact login ("admin") to isolate the real target permission.
+
+**Steps:**
+1. As `luna.blossom`, in a fresh Ask Crux chat (Project Manager agent): "The login is "admin". Add them as a Reporter to the Crux PM Agent Test Project."
+
+**Expected Result:**
+- An honest refusal naming the missing `manage_members` permission, OR a genuine confirm card if the agent considers this a read-then-propose operation it can still attempt (then correctly refused server-side).
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"Let me check the actual group names:(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — the same per-turn token-budget stall as BUG-CRX-060, not an honest permission refusal.
+- Independently verified via native UI (`/projects/crux-pm-agent-test-project/settings/members`, as admin): still only Luna Blossom listed — no "Redmine Admin" membership was created.
+- Folded into **BUG-CRX-060** as a new non-admin-without-permission data point (previously only ever reproduced as admin for Members Create, TC-CRX-207).
+
+---
+
+### TC-CRX-271: Members CRUD — Create, non-admin WITH `manage_members` permission
+
+**User Role:** `luna.blossom`, same project, `manage_members` then genuinely granted back (confirmed via exact-match DB check).
+
+**Steps:**
+1. Identical request, fresh chat, immediately after granting the permission: "The admin user's numeric ID is 1. Add them as a Reporter to the Crux PM Agent Test Project." (numeric ID given directly this time, having already established `view_users` is the real blocker on name resolution, not the target `manage_members` permission under test.)
+
+**Expected Result:**
+- A genuine confirm card for `Core Create Project Membership`.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* — BUG-CRX-061's false-denial shape this time, a DIFFERENT failure mode than the "without permission" half (TC-270) hit, even though both are the identical underlying write attempt.
+- Independently verified via native UI: still only Luna Blossom listed — no membership created either way.
+- Folded into **BUG-CRX-061** as a new non-admin-with-permission data point.
+
+**Net finding across TC-CRX-270–271: Members Create is now also confirmed permission-independent — and notably, the without/with halves hit *opposite* failure shapes compared to the Spent Time pair (TC-268/269 was without=denial, with=stall; this pair is without=stall, with=denial). This rules out any theory that one specific shape is reserved for "missing permission" and the other for "permission present" — which shape fires looks effectively non-deterministic per attempt, not keyed to the permission state at all.**
+
+---
+
+### TC-CRX-272: Issue Categories CRUD — Create, non-admin WITHOUT `manage_categories` permission
+
+**User Role:** `luna.blossom` (Manager role, `manage_categories` explicitly removed — confirmed via exact-match DB check).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a new issue category called 'Permission Test Category' for the Crux PM Agent Test Project."
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"Good — the `core` group has 37 write tools. Let me load it to find the issue category creation tool.(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — BUG-CRX-060's stall shape.
+- Independently verified via native UI (`/projects/crux-pm-agent-test-project/settings/categories`, as admin): still exactly the original 13 categories — no "Permission Test Category" created.
+- Folded into **BUG-CRX-060** as a new non-admin-without-permission data point (Issue Categories had previously only ever been tested as admin, TC-CRX-216).
+
+---
+
+### TC-CRX-273: Issue Categories CRUD — Create, non-admin WITH `manage_categories` permission
+
+**User Role:** `luna.blossom`, `manage_categories` then genuinely granted back (confirmed via exact-match DB check).
+
+**Steps:**
+1. Identical request, fresh chat: "Create a new issue category called 'Permission Test Category' for the Crux PM Agent Test Project."
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* — BUG-CRX-061's false-denial shape, the opposite of the "without" half (TC-272).
+- Independently verified via native UI: still the original 13 categories, no write occurred either way.
+- Folded into **BUG-CRX-061** as a new non-admin-with-permission data point.
+
+**Net finding across TC-CRX-272–273: Issue Categories Create is also confirmed permission-independent, with the without/with halves again landing on opposite shapes (stall-then-denial, matching the Members pattern rather than the Spent Time pattern) — consistent with the shape being effectively random per attempt, not tied to permission state.**
+
+---
+
+### TC-CRX-274: News — Create, non-admin WITHOUT `manage_news` permission
+
+**User Role:** `luna.blossom` (Manager role, `manage_news` explicitly removed — confirmed via exact-match DB check).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a news post in the Crux PM Agent Test Project titled 'Permission Test News' with the text 'Testing non-admin news create.'"
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."*
+- Independently verified via native UI (`/projects/crux-pm-agent-test-project/news`): "No data" — no write occurred.
+- Folded into **BUG-CRX-061** (News had previously only ever been tested as admin, TC-CRX-229).
+
+---
+
+### TC-CRX-275: News — Create, non-admin WITH `manage_news` permission
+
+**User Role:** `luna.blossom`, `manage_news` then genuinely granted back (confirmed via exact-match DB check).
+
+**Steps:**
+1. Identical request, fresh chat.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"News creation is not currently supported from this chat interface. The available tools on my list cover reading news items (list_news, get_news) but not creating them... This is a limitation of the current chat interface, not a permission issue."* — a 4th distinct wording of this false-denial family, and notably explicit (and wrong) about ruling out a permission cause, when `redmineflux_core_create_news` is confirmed to genuinely exist (`core.py:2885`, per BUG-CRX-061's Repro 13).
+- Independently verified: still "No data", no write occurred either way.
+- Folded into **BUG-CRX-061** as a new non-admin-with-permission data point.
+
+**Net finding across TC-CRX-274–275: News Create is also permission-independent — both halves hit a false-denial text (not the token-budget stall), but with meaningfully different, sometimes self-contradictory wording (TC-275 explicitly denies a permission cause while asserting "not yet supported" for a tool that genuinely exists).**
+
+---
+
+### TC-CRX-276: Documents — Create, non-admin WITHOUT `add_documents` permission
+
+**User Role:** `luna.blossom` (Manager role, `add_documents` explicitly removed — confirmed via exact-match DB check).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a document in the Crux PM Agent Test Project titled 'Permission Test Document' with description 'Testing non-admin document create.'"
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"Great. The core group has 37 write tools. Let me load those tools:(Stopped: this turn's token budget was reached; the answer above may be partial.)"* — BUG-CRX-060's stall shape.
+- Independently verified via native UI (`/projects/crux-pm-agent-test-project/documents`): "No data" — no write occurred.
+- Folded into **BUG-CRX-060** (Documents had previously only ever been tested as admin, TC-CRX-230).
+
+---
+
+### TC-CRX-277: Documents — Create, non-admin WITH `add_documents` permission
+
+**User Role:** `luna.blossom`, `add_documents` then genuinely granted back (confirmed via exact-match DB check).
+
+**Steps:**
+1. Identical request, fresh chat.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-26.**
+
+- Reply: *"I don't see a `create_document` tool in the discovered `core` group. The available document tools are `list_documents` and `get_document` (reads only). Document creation is not yet supported through the chat interface..."* — same false-capability-denial family as the News result, again contradicted by the real, genuinely-registered `redmineflux_core_create_document` tool (`core.py:3728`, per BUG-CRX-061's Repro 14).
+- Independently verified: still "No data", no write occurred either way.
+- Folded into **BUG-CRX-061** as a new non-admin-with-permission data point.
+
+**Net finding across TC-CRX-276–277: Documents Create is also permission-independent, with the without/with halves landing on opposite shapes (stall-then-denial, same pattern as Members and Issue Categories).**
+
+**Overall summary of this permission-matrix audit (TC-CRX-268–277, 2026-10-26): every entity domain checked — Spent Time, Members, Issue Categories, News, Documents — is confirmed permission-independent. 8 of 10 without/with pairs land on opposite shapes (stall↔denial); 2 of 10 (News) land on the same shape (denial↔denial) but with different wording each time. No domain tested shows the real permission making any difference to the outcome. Still NOT covered by this audit (deliberately deprioritized, flagged for a future session if wanted): Versions Update/Delete (only Create has a non-admin spot-check, TC-CRX-243), Files Read (now-fixed via BUG-CRX-065, lower priority since it's a read not a write), Time-tracking-activity toggle (BUG-CRX-064 — N/A, no tool exists at all regardless of permission), Gantt reschedule (uses the same `edit_issues` permission already exhaustively matrixed in TC-CRX-189-192), and the Closed/Archived-project issue CRUD matrix as non-admin (TC-CRX-234-238 are admin-only; combining project-state with permission-state multiplies the matrix considerably).**
+
+---
+
 ### TC-CRX-229: News — Create
 
 **User Role:** `admin`.

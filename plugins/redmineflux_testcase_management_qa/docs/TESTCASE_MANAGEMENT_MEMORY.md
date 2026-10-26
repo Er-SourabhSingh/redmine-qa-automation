@@ -1483,3 +1483,19 @@
     blocked (unlike secret values), and it's safe to treat as disposable rather than a lasting credential; a
     fresh one is needed for each new runner registration, the same token can't be reused across 3 separate
     ephemeral runner launches.
+
+- **Requirement Templates (`RequirementTemplate` model) is a half-shipped feature — don't assume "zero templates
+  show up" is a local-environment setup gap before checking for a management UI first (BUG-TCM-120, 2026-10-26).**
+  The model, migration, and `requirements_controller.rb`'s apply-on-create logic are all real, but no controller
+  action, route, or settings page anywhere in the plugin can create/edit/delete a `RequirementTemplate` — the only
+  place one is ever created is the internal QA/demo rake task `testcase_plugin:setup` (never referenced in
+  `README.md`, never run by a real install). On any environment where that rake task wasn't run, the dropdown will
+  always show only the placeholder — this is expected given the current code, not evidence the environment itself
+  is broken. Also found a second, independent bug in the same area: the top-level "New Requirement" modal's
+  template `<select>` has no `id` attribute, so `script.js`'s `document.getElementById('requirement_template')`
+  always resolves to the *child*-requirement modal's select instead — confirmed live by inserting a test
+  `RequirementTemplate` row directly via `psql` (the only way to create one on this instance) and checking in the
+  browser console which element `getElementById` actually returns. Lesson: when a "feature X's UI element shows
+  empty/missing" report comes in, grep the whole plugin for the backing model's name across `app/controllers/`,
+  `config/routes.rb`, and `app/views/settings/` before concluding it's a display bug — sometimes the real gap is
+  that nothing in the product can ever populate the data model at all.

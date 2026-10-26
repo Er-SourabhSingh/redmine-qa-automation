@@ -20,3 +20,5 @@
 > specifically about `bootstrap_run`'s race-condition resolution for a duplicate run name, only reproducible with
 > genuinely concurrent requests (1-in-5 trials), confirmed via `bugs/_index.md` grep for "race"/"bootstrap_run"/
 > "RecordNotUnique" turning up nothing prior.
+
+| "Requirement creation shows no Template option" on a fresh/real environment | Not a setup gap — `requirement_templates` seeding only ever happens via the internal QA/demo rake task `testcase_plugin:setup` (never run on a real install, never referenced in README). No UI/API anywhere in the plugin can create a `RequirementTemplate`. Confirmed live: dropdown renders but with zero real options on an environment where only migrations (not the rake task) were applied. This is BUG-TCM-120 | BUG-TCM-120 |

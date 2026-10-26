@@ -230,13 +230,21 @@ testcase per granular scenario):
 All 4 assigned to Sourabh Singh (id 683), status `New`, priority `High`.
 
 **Run #612 linkage (2026-10-19):** all 4 testcases added to Run #612 (environment "Win + Chrome + Ver6", same run
-as the sibling RFTC-016/017/020 suites). #123981/#123982 pending execution recording in that run. #123983 and
-#123984 marked Failed with their defects linked via `report_defect`:
+as the sibling RFTC-016/017/020 suites). #123983 and #123984 marked Failed with their defects linked via
+`report_defect`:
 
 - **BUG-TCM-070 → production #123985** (https://flux.zehntech.com/issues/123985, assigned Vaishnavi Bhawsar,
   Security/High-severity/High), linked to testcase #123983.
 - **BUG-TCM-071 → production #123986** (https://flux.zehntech.com/issues/123986, assigned Vaishnavi Bhawsar,
   Functional/High-severity/High), linked to testcase #123984.
+
+**Pending-result gap closed (2026-10-26):** the user spotted #123981/#123982 still showing `[untested]` on
+production run #612 (`runs/612?environment=Win+%2B+Chrome+%2B+Ver6&project_id=ztflux&testsuite_id=446`) while
+reviewing the run page directly. Confirmed via this file's own Coverage Summary that both were genuinely executed
+and PASS back on 2026-10-19 (10/10 executed scenarios, 8/10 PASS) — the result was simply never recorded against
+the production run at the time. No re-execution was needed; recorded both as Passed via `create_status_result`
+(result IDs 18218/18219) with notes explaining the retroactive fill-in, and confirmed via `get_run_testcases` that
+run #612 now shows both as `[Passed]`.
 
 ## Coverage Summary
 

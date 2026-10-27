@@ -601,6 +601,16 @@ Both reproductions folded into their respective existing bug files (BUG-CRX-085,
 
 ---
 
+### TC-CRX-343: Record a testcase result on a CLOSED run (Failed, with defect creation) — admin
+
+**User Role:** `luna.blossom` (QA Full Access). Run #4 ("Sprint 3 Full Fields Test") already closed this session (TC-CRX-335).
+
+**Steps:** Fresh chat: "for the 'Sprint 3 Full Fields Test' run, can you mark the test case 'Verify password reset email is sent' as Failed?" → agent correctly explained Failed requires a linked defect and offered to create one → replied "yes" → supplied defect subject "Password reset email not being sent on valid request" when asked.
+
+**Result: FAIL — new bug, BUG-CRX-088.** The agent produced a `Testcases Management Report Defect` confirm card (`Testcase: 7`, `Run: 4`, `Testsuite: 1`, `Environment: Staging`, `Case Status: 3`, `Defect Subject: ...`) with **no mention anywhere that run #4 is closed**. Confirming succeeded cleanly: *"Testcase #7 marked 'Failed' with defect #10 ... linked and visible in run."* Verified via DB: `issue_status_results` row created against `run_id=4` (closed) with `defect_ids=10`, and new defect issue #10 genuinely created. **Root cause confirmed via MCP source**: `create_status_result` has an explicit closed-run guard (citing its own ticket `BUG-TM-011`: *"Cannot log results: run #{run_id} is closed"*), but `report_defect` — the tool actually used for any Failed/Blocked status, i.e. the common real-world path — has no equivalent check anywhere in its body. Filed as **BUG-CRX-088** (High) — the two tools cover the identical underlying action but only one inherited the safeguard.
+
+---
+
 ## Suite status (2026-10-27, session close)
 
 All 6 scoped CRUD areas plus bulk operations and the To-Do capability check have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin), **Requirements** (standalone CRUD confirmed zero MCP tool support; create-time linking by name broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result, admin+non-admin), **To-Do** (zero MCP tool support, but the agent's fallback behavior here is the session's best example of honest degradation).

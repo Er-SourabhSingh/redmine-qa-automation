@@ -1,7 +1,7 @@
 # BUG-TCM-124
 
 - Bug ID: BUG-TCM-124
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #125531
 - Title: Recording a result under the "All Suites" run view is broken two ways — Bulk Update Result fails outright with "Test Suite not found," and a single Add Result silently kicks the viewer out of "All Suites" into one specific suite
 - Severity: Medium
 - Redmine version: 6.x (Docker)
@@ -126,3 +126,11 @@ behavior. The Status dropdown has no "Untested"/unset option to manually revert 
 (now 18.18%, up from its original 13.64%) was left as-is rather than attempting an unsupported rollback. Noted
 here for the record — not a data-integrity concern (the extra Passed statuses are real, intentional results
 from this session), just a heads-up for anyone later using this run's counts as a baseline.
+
+## Production report
+
+Reported to production `ztflux` as **#125531** on 2026-10-27, per explicit user instruction ("sirf 124 report kro").
+Tracker Bug, Priority Medium, Category "Testcase Management Plugin", Target version "Testcase Management plugin
+Release 7.2.0 [21-10-2026]" (id=2067), assigned to Vaishnavi Bhawsar (id=192). Custom fields: Defect
+Type=Functional, Defect Severity=Medium-severity, Defect priority=Medium. Standalone issue, no Test Run/Testcase
+link.

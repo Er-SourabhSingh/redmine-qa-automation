@@ -1259,6 +1259,26 @@ remain correctly absent.
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 6 — Test execution, BUG-TCM-094/101/103/104)
+
+- **BUG-TCM-101 (console error on Run/Environment switch) — CONFIRMED FIXED, live.** On issue #23's "Testcase
+  Execution" section, switched both the Run dropdown (→ "RFTC-016 QA run 2") and the Environment dropdown (→
+  "CI") — zero console errors on either switch (previously threw a `TypeError` on every single switch).
+- **BUG-TCM-094 (cross-project IDOR via `issue_status_results#new`), BUG-TCM-103 (Run-result filter env leak on
+  timestamp collision), BUG-TCM-104 (misattributed first result)** — not re-run this pass given the "fast,
+  targeted" scope (each needs more elaborate setup — a second project/run pair, a timestamp collision fixture, or
+  a genuine second-user login — than this pass's time budget allows). All 3 were confirmed via precise source
+  diff on 2026-10-26; no commits to the affected files since. **Resume points:** TC-094 — request
+  `issue_status_results/new?run_id=<other-project's-run>&project_id=<this-project>` as a member of only this
+  project, confirm 404; TC-103 — reproduce two results with an identical `created_at` across two environments,
+  confirm the Run-result filter picks the correct one; TC-104 — log in as a second real user, record a case's
+  first-ever result, confirm `added_by`/`created_at` reflect that user/moment, not the run's creator.
+
+**Result: 1 of 4 bugs freshly live-reproduced, 3 rely on yesterday's still-current source-diff evidence. No
+regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

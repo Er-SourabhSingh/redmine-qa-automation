@@ -492,6 +492,20 @@ warning-only during import, never enforced as a hard error — see the comment a
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 5 — CSV Import, BUG-TCM-091)
+
+**Not live-reproduced this pass** (the CSV import wizard's multi-step file-upload flow — step1 → step2 →
+upload → process — is heavy to drive live via browser automation for a cross-project tamper scenario, and this
+cycle's "fast" directive prioritized breadth across 9 areas over re-driving this one wizard). Existing
+2026-10-26 source-diff confirmation stands: `testcase_import_controller.rb#step2` now validates
+`Testsuite.where(project_id: @project.identifier, id: params[:selected_suite_id]).exists?` before accepting
+`session[:selected_suite_id]`, closing the cross-project suite-link leak the bug described. **Resume point:**
+drive the real import wizard as a user with access to two projects, tamper `selected_suite_id` in the step2
+request to point at the other project's suite, and confirm the import now rejects/ignores it instead of linking
+the imported issue cross-project.
+
+---
+
 ## Evidence Map
 
 | TC ID | CSV fixture (in `automation/uploads/`) | Bug reference |

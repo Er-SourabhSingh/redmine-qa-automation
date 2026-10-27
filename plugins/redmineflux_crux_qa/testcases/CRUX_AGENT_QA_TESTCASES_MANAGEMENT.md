@@ -358,3 +358,59 @@ Asked the QA Agent to "schedule the 'Weekly QA Summary' report to run every week
 **Result: PASS.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Report: 1`. Confirmed: genuine deletion, verified via DB (`testcase_reports` table empty).
 
 ---
+
+### TC-CRX-321: Run — Create, admin (name + suite named, no IDs supplied by the user)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** "...can you create a test run called 'Sprint 2 Smoke Test' using the Staging environment, including only the 'Login and Auth' test suite?" Agent asked for assignee (offered "numeric user ID or username"), dates, and state — all reasonable required fields the user hadn't specified. Replied "assign it to luna.blossom, start date 2026-10-27, due date 2026-10-31, state New" (username, not ID, per the real-user-phrasing rule).
+
+**Result: FAIL then PASS — folded into BUG-CRX-079.** First confirm-card attempt correctly resolved "luna.blossom" → user ID 5 and showed a complete, correct proposal — but replying "yes" produced the self-contradiction *"There's nothing pending to confirm right now..."* (no bug filed separately; see TC-CRX-318/319 pattern — not re-verified as a 4th BUG-085 repro to avoid redundant filings, since the user never got to click a real Confirm button here). Retried the entire request in one message in a fresh chat: this time the agent claimed *"I don't have permission to look up users... I can attempt the run creation with a likely ID (often 1...), but that would be a guess"* — did NOT resolve "luna.blossom" by itself this time, inconsistent with the earlier attempt in the same overall session. Supplied "luna.blossom's user ID is 5" directly — confirm card then showed the complete, correct proposal (`Environment: Staging`, `Assignee: 5`, `Suite Testcase Map: {'1': [6]}`). Confirmed: genuine success, verified via DB (run #2 created, `run_issues` row: issue 6, suite 1). Folded the assignee-ID inconsistency into **BUG-CRX-079** as a 4th field type.
+
+---
+
+### TC-CRX-322: Run — Update (status), admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Fresh chat: "...can you mark the 'Sprint 2 Smoke Test' run as In Progress?"
+
+**Result: PASS.** Confirm card correctly showed `Run: 2`, `State: 2`. Confirmed: genuine update, verified via DB (`runs.state=2`).
+
+---
+
+### TC-CRX-323: Run — Delete, admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Fresh chat: "...can you delete the 'Sprint 2 Smoke Test' run?"
+
+**Result: PASS.** Confirm card correctly showed `Run: 2`. Confirmed: genuine deletion, verified via DB (run #2 no longer exists, only run #1 remains).
+
+---
+
+### TC-CRX-324: Run — Create, admin, specific testcase within a suite (not "include all")
+
+**User Role:** `luna.blossom` (QA Full Access). Fixture: suite "Login and Auth" now has 2 testcases (#6, #7 — #7 added via chat earlier this session).
+
+**Steps:** Fresh chat: "...can you create a test run called 'Sprint 2 Targeted Test'... from the 'Login and Auth' test suite but only including test case #7... (not the other test case in that suite)?"
+
+**Result: PASS.** Confirm card correctly showed `Suite Testcase Map: {'1': [7]}` — testcase #6 correctly excluded. Confirmed: genuine success, verified via DB (run #3 created, `run_issues` has exactly 1 row: issue 7, suite 1 — #6 absent).
+
+---
+
+### TC-CRX-325: Run — Update, admin, swap specific testcase selection
+
+**User Role:** `luna.blossom` (QA Full Access). Run #3 (TC-CRX-324) currently has only testcase #7.
+
+**Steps:** "...can you update the 'Sprint 2 Targeted Test' run to include only test case #6... from the 'Login and Auth' suite instead of test case #7?"
+
+**Result: FAIL — new bug, BUG-CRX-086 (High severity, silent partial write).** Confirm card showed only `Run: 3`, `Include Testcase: true` — the agent used the wrong tool parameter (`include_testcase="true"`, documented as "re-sync all testcases") instead of `run_assignments` (the mechanism it correctly used for the equivalent Create Run request two turns earlier in the same session). Confirming produced: *"Validation error: Save failed: Testsuite is not selected..."* — appears to be a clean, honest failure. **Verified via DB this is false**: run #3's existing `run_issues` row (issue 7, suite 1) was silently deleted despite the error message claiming the save failed; the run itself (name, state) was otherwise unchanged. Filed as **BUG-CRX-086** — the most severe finding in this suite's "wrong tool mechanism" family, since it destructively modifies real data while reporting failure.
+
+---
+
+## Suite status (2026-10-27)
+
+All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.
+
+---

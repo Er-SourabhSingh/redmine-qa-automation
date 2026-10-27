@@ -38,6 +38,10 @@ The failure message rendered as: **"✓ Test suite #3 not found. (If you expecte
 - Exact message (verbatim): `✓ Test suite #3 not found. (If you expected this add testcases to suite to exist, verify the ID with the corresponding list_* tool.)`
 - DB verification: `SELECT * FROM issue_test_suites WHERE issue_id=5` → 0 rows, confirming the write genuinely did not happen.
 
+## New repro — 2026-10-27, Create Environment (`✓ components must be a non-empty list.`)
+
+Same agent/domain, different tool. As `luna.blossom`, asking the QA Agent to create a test environment "Staging" (see **BUG-CRX-083** for the full `components`-field defect this repro is embedded in): the second of three attempts produced a confirm card with an invalid `Components: []`, and confirming it failed with **`✓ components must be a non-empty list.`** — again a genuine, textually-explicit failure rendered with a leading `✓`. Verified via DB: no row created in `testcase_environments` at that point — the operation genuinely failed, confirming this is purely the rendering-layer defect, not a second data-integrity issue.
+
 ## Note for triage
 
 This is the same shared rendering-layer defect already documented extensively: originally found and fixed on the Workload/Capacity agent (**BUG-CRX-018**, closed 2026-09-25), confirmed recurring on 4 other domain agents at the time (KB, Scrum, and others per `CRUX_MEMORY.md`'s "Recurring Issues" notes), and currently still open on the CRM Sales agent (**BUG-CRX-067**, 6 reproductions across Lead/Contact/Company/Deal/Stage/Activity tools). This is simply the **first confirmed instance on the QA Agent / Test Case Management domain** — the underlying shared component that unconditionally prefixes outcome text with "✓" regardless of whether the underlying tool call actually succeeded evidently covers this agent's tools too, and was never fixed platform-wide despite being fixed once for the original Workload trigger path.

@@ -17,7 +17,7 @@
 - Two roles created for the admin/non-admin CRUD matrix:
   - **QA Full Access** — all Testcase Management plugin permissions (create/edit/delete test suite, create/edit/delete/close run, execute testcase, view/create/edit/delete report, view all to-dos, add/edit/delete requirement) + Redmine `Add issues`/`Edit issues`/`Import issues` (including the per-tracker "All trackers" grid cells — Redmine 6's known scoping gotcha) + `Use Ask Crux` + `Log spent time`. Assigned to `luna.blossom`.
   - **QA No Access** — only the defaults (`View Issues`, public `test_suites` permission) + `Use Ask Crux`. No Testcase Management plugin permission at all. Assigned to `daisy.skye`.
-- Per the plugin's own documentation: **"Environments are not guarded — no permission controls the Environment page. Any user who can open it can add, edit and delete the project's environments, whatever their role."** — so Environment CRUD is expected to work the same for both roles; a permission-based block there would itself be a documentation/behavior mismatch worth investigating, not an expected negative-path result.
+- ~~Per the plugin's own documentation: "Environments are not guarded..."~~ **Correction (2026-10-27): this documentation is stale.** `TestcaseEnvironmentController` now has a real `before_action :authorize_manage_environment` check (its own code comment: `rftc-012 H3 (TCM-009): no auth check at all — read AND write actions ... were reachable by any logged-in non-member`) — i.e. the plugin was fixed to require the `manage_environment` permission since that doc was written. Neither fixture role had it granted (the same class of fixture-setup gap as `view_test_suite` below) — granted to **QA Full Access** via native UI, verified via DB. **QA No Access** intentionally still lacks it, so Environment CRUD is now expected to behave like every other permission-gated area: succeed for `luna.blossom`, denied for `daisy.skye`.
 - Real-user-phrasing note: per explicit user instruction, test suite/environment/requirement IDs are **never** supplied in chat prompts (only their **names**) — the plugin's own UI only ever shows a Testcase ID or a Run ID, never a suite/environment/requirement ID, so a real user has no way to know the latter. Only testcase IDs and run IDs may be used naturally in phrasing once the agent (or a prior turn) has surfaced them.
 
 ## Scope (per explicit user request, 2026-10-26)
@@ -206,5 +206,31 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 **Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test suite called 'Daisy Attempt Suite'?"
 
 **Result: PASS (expected negative).** Confirm card correctly showed `Project`, `Name` (name resolution isn't permission-gated). Confirming produced a genuine denial: *"Permission denied: you do not have create_test_suite permission in project 'Crux QA Agent Test Project'..."* Verified via DB: no suite named "Daisy Attempt Suite" exists — honest denial, matches the expected QA No Access behavior.
+
+---
+
+## Fixture correction (2026-10-27) — Environments are not actually unguarded
+
+Attempted TC-CRX-310 (Environment Create, non-admin `daisy.skye`) first, expecting success per the suite's original precondition note ("Environments are not guarded"). Got a genuine `"Unauthorized access"` denial instead. Investigated via the plugin's own source (`testcase_environment_controller.rb`): a real `authorize_manage_environment` check now exists, added as a security fix (`rftc-012 H3`/`TCM-009`) after the "unguarded" documentation was written. Checked `QA Full Access`'s permissions via DB — `manage_environment` was genuinely absent (the same class of fixture-setup gap as `view_test_suite` earlier in this session). Granted it via native UI (Administration → Roles → QA Full Access → Manage environment), re-verified present via DB. The precondition section above has been corrected. `QA No Access` was left without it, since the correct expectation now is a permission-gated feature like every other Testcase Management area.
+
+---
+
+### TC-CRX-310: Environment — Create, admin (unexpected permission fix required; see above)
+
+**User Role:** `luna.blossom` (QA Full Access, `manage_environment` now granted).
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test environment called 'Staging'?" — the user never mentions "components".
+
+**Result: PASS after 2 retries — new bugs filed.** Attempt 1 hit a one-off transient tool-discovery failure ("disconnect with the group discovery system", self-described, not reproduced again — noted in `CRUX_MEMORY.md`, not filed as a bug). Attempt 2 (confirm card `Components: []`) failed with `"✓ components must be a non-empty list."` — a genuine failure rendered with a misleading `✓`, folded into **BUG-CRX-082** as a new repro. Attempt 3 ("yes please create it", no new info from the user) self-corrected to `Components: ['Staging']` and succeeded, verified via DB (`testcase_environments` id=1, name='Staging', components='Staging', project_id=3). The underlying inconsistent/invalid `components` defaulting across 3 identical-intent calls is filed as **BUG-CRX-083**.
+
+---
+
+### TC-CRX-311: Environment — Create, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no `manage_environment` permission).
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test environment called 'Staging'?"
+
+**Result: PASS (expected negative) — this is what surfaced the fixture gap above.** Confirm card showed `Project`, `Name: Staging`, `Components: ['Staging']` (reasonable auto-default here, unlike TC-CRX-310's later inconsistent attempts). Confirming produced a genuine denial: *"Unauthorized access. To fix this, ask your Redmineflux administrator to: Grant you the required role/permission for this action..."* Verified via DB: no environment named "Staging" exists at the time of this attempt — honest denial.
 
 ---

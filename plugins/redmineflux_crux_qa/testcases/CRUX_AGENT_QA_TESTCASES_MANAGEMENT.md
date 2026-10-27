@@ -298,3 +298,63 @@ This means full Requirements CRUD (create/read/update/delete the requirement its
 **Follow-up (same chat, supplying the ID manually to verify the one working path):** replied "The requirement's ID is 1." — confirm card correctly showed `Requirement Ids: [1]`. Confirmed: genuine success, verified via DB (issue #7 created, `requirement_issues` row: requirement 1 ↔ issue 7). Confirms the underlying create-time linking mechanism itself works correctly once given a numeric ID — the defect is purely the missing name-to-ID resolution path.
 
 ---
+
+## Fixture note — Runs required before Reports
+
+Attempting Report Create first hit "There are no test runs in the project yet." Rather than let the agent chain Run creation (burned ~$0.07 and hit a token-budget cutoff on a multi-step "create environment → create run → create report" request), created the fixtures directly via native UI: environment "Staging" (components: Software) and run "Sprint 1 Regression" (run #1, Include all test cases, environment Staging, assignee Luna Blossom).
+
+---
+
+### TC-CRX-317: Run — Read, admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Fresh chat, QA Agent: "can you tell me about the 'Sprint 1 Regression' test run?"
+
+**Result: PASS.** Correctly reported Run ID #1, status (Open/New), duration, linked suite ("Login and Auth"), environment ("Staging"), and the 1 testcase in it (#6, "Reset password with valid email") — all verified against DB.
+
+---
+
+### TC-CRX-318: Report — Create, admin (name only, run named)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps (attempt 1, chat with 1 prior turn):** "can you create a testcase summary report called 'Weekly QA Summary' covering the 'Sprint 1 Regression' run?"
+
+**Result: FAIL — new bug, BUG-CRX-085.** The agent replied *"I described a change without actually proposing it, so there's nothing to confirm yet..."* — no confirm card at all despite "Checked 3 things." Verified via DB: no report created — honest non-write. Recurrence of the already-documented self-contradiction class (BUG-CRX-013/070), first instance on the Reports domain. Filed as **BUG-CRX-085**.
+
+**Steps (attempt 2, brand-new chat, identical message):**
+
+**Result: PASS on retry.** Confirm card correctly showed `Project`, `Name: Weekly QA Summary`, `Report Type: summary`, `Run Ids: [1]`. Confirmed: genuine success, verified via DB (`testcase_reports` id=1, report_type='summary', project_id=3).
+
+---
+
+## Scope note — Report scheduling has no MCP tool support
+
+Asked the QA Agent to "schedule the 'Weekly QA Summary' report to run every week" — got *"I couldn't find a tool for this here, so I can't do it from this chat..."* Confirmed via MCP source (`create_report`/`update_report`/`cancel_report_scheduling` full signatures) that **no tool anywhere accepts `schedule_now`/`schedule_later`/`schedule_interval`/`schedule_weekday`/`schedule_day`** (all genuine DB columns on `testcase_reports`, settable only via native UI) — only `cancel_report_scheduling` exists, to turn an existing (natively-set) schedule off. This is an honest capability disclosure, not a bug, matching the Requirements-CRUD gap documented above: **report scheduling is create/edit-only via native UI, not reachable via chat at all.**
+
+---
+
+### TC-CRX-319: Report — Update (rename), admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps (attempt 1, long-running chat):** "...can you rename the 'Weekly QA Summary' report to 'Weekly QA Summary v2'?" — agent asked a natural-language pre-check first ("Ready to proceed?"), replied "yes, proceed".
+
+**Result: FAIL — new repro of BUG-CRX-080.** Confirm card showed `Project: Crux PM Agent Test Project` — wrong — despite the agent's own preceding prose correctly saying "Crux QA Agent Test Project." Clicked Cancel; verified via DB no change.
+
+**Steps (attempt 2, brand-new chat, identical message):**
+
+**Result: PASS on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Report: 1`, `Name: Weekly QA Summary v2`. Confirmed: genuine rename, verified via DB. Folded into **BUG-CRX-080** as a 3rd tool hit (after Create Test Suite, Update Environment).
+
+---
+
+### TC-CRX-320: Report — Delete, admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Fresh chat.
+
+**Steps:** "...can you delete the 'Weekly QA Summary v2' report?" — first attempt hit a token-budget cutoff mid-turn (unrelated transient issue, not a bug — same class as the earlier Create Environment flake); "Ask again" produced a clean confirm card.
+
+**Result: PASS.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Report: 1`. Confirmed: genuine deletion, verified via DB (`testcase_reports` table empty).
+
+---

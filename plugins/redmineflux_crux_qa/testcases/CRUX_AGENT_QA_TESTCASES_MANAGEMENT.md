@@ -443,6 +443,20 @@ Asked the QA Agent to "schedule the 'Weekly QA Summary' report to run every week
 
 ---
 
+## Scope note — Run Type, Notes, and Watchers have no MCP tool support
+
+The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` fields beyond what any suite test here had exercised. Confirmed via MCP source (`create_run`'s full parameter list: `project_id, name, state, start_date, due_date, environment, assignee_id, suite_testcase_map` — nothing else) that **none of these three fields are settable via chat at all**, matching the already-documented pattern for Requirements CRUD and Report scheduling.
+
+### TC-CRX-329: Run — Create, attempt all native-UI fields (Run Type, Notes, Watchers)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** "...create a test run called 'Sprint 3 Full Fields Test'... run type Regression, notes '...', and add daisy.skye as a watcher, including all test cases from the 'Login and Auth' suite?"
+
+**Result: PASS (expected — not a bug).** The agent correctly and explicitly identified that `create_run` has no parameters for Run Type, Notes, or Watchers, named the exact tool signature it does support, and asked whether to proceed with only the supported fields rather than silently dropping the other three or fabricating a way to set them. Proceeding (after the usual user-ID resolution detour, folded into BUG-CRX-079) produced a correct confirm card and a genuine run creation covering all testcases in the named suite (verified via DB: run #4 created). This is an honest capability disclosure, consistent with the Requirements/Report-scheduling gaps — not a bug.
+
+---
+
 ## Suite status (2026-10-27)
 
 All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.

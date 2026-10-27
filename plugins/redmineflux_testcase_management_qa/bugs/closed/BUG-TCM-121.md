@@ -131,3 +131,8 @@ Dropdown dismissed via Escape (no selection made, nothing inserted into the edit
 reverting an unrelated stray edit from the same session's BUG-TCM-072 retest.
 
 **Verdict: FIXED.** Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-27
+
+Production issue #125358 updated to Status: Done, % done: 100, per explicit user approval ("bug tumne closed kr
+diye jo fixed he production pe bhi").

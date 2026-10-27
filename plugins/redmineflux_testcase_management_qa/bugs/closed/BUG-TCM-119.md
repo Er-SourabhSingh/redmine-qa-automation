@@ -100,3 +100,8 @@ EXIT:2
 ```
 
 No raw traceback, clean message, correct exit code. Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-27
+
+Production issue #125097 updated to Status: Done, % done: 100, per explicit user approval ("bug tumne closed kr
+diye jo fixed he production pe bhi").

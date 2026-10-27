@@ -174,3 +174,11 @@ Live-verified end to end against a real outgoing mail server (Mailpit): recorded
 for test case #26 in run #174 — Mailpit's own API confirmed `"total":1` message delivered ("Test Case Result
 Added: Checkout flow renders correctly"), not 2. No regression on the existing controller-level cache guard
 (still present, unaffected). Moving to `bugs/closed/`.
+
+## Production sync — PENDING
+
+Local fix is confirmed and this file is closed locally, but production issue #121703 could **not** be synced
+(Status → Done, % done → 100) — the write was denied twice by the Claude Code auto-mode permission classifier
+("[External System Writes]") despite explicit user approval for this batch ("bug tumne closed kr diye jo fixed he
+production pe bhi"). Needs either a user-side permission rule for `mcp__redmineflux__redmineflux_core_update_issue`
+or a manual update on production.

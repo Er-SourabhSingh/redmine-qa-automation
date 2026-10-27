@@ -238,3 +238,8 @@ requirement is left in its original state.
 
 **Verdict: FIXED.** All three previously-identified sinks (`#user-list` dropdown, `menuItemTemplate` render,
 `selectTemplate` insertion) are confirmed escaping correctly. Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-27
+
+Production issue #124008 updated to Status: Done, % done: 100, per explicit user approval ("bug tumne closed kr
+diye jo fixed he production pe bhi").

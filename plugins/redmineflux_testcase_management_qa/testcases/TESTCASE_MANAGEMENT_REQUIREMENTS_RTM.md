@@ -218,6 +218,19 @@ extra warning about the 3 links). All checked afterward:
 against `tcm-permissions-private-test`: absent from that project's own Requirements list **and** from its New
 Test Case form's Requirement dropdown. Correctly project-scoped.
 
+**REGRESSION — 2026-10-27 — PASS on the list/dropdown scoping, but FAIL on direct `page_id` access, filed as
+BUG-TCM-123 (High).** Re-verified the original assertion first: `alpha-web`'s Requirements list (`V1 Checkout
+Requirement`, `Sidebar Tree Test`) and `rftc-016-ci-qa`'s own list are correctly disjoint — no cross-contamination
+in the sidebar tree. **Extended this pass to directly test cross-project `page_id` access** (not covered by the
+original TC): confirmed `alpha-web` is a private project and that `qa.limited` (a real Manager on `rftc-016-ci-qa`
+only) gets a genuine `403` on `/projects/alpha-web` — then, as `qa.limited`, navigated to
+`/requirements?project_id=rftc-016-ci-qa&page_id=115` (page_id 115 belongs to `alpha-web`, not
+`rftc-016-ci-qa`) — **the full content of `alpha-web`'s private Requirement #115 loaded and rendered**, confirmed
+via `#page-title`/`#page-id` DOM inspection, while the page's own project-context heading correctly still read
+"RFTC-016 CI Ingest QA". Root-caused via source read to `RequirementsController#content`'s unscoped
+`Requirement.where(id: params[:id])` lookup (both its `edit_requirement` and fallback branches) — filed as
+**BUG-TCM-123 (High, new)**.
+
 ---
 
 ## Functional Cases — Traceability Matrix
@@ -928,10 +941,55 @@ BUG-TCM-072 (mention-dropdown XSS) and BUG-TCM-121 (mention-highlight regression
   rather than a disposable one specifically to catch this kind of risk; from now on, any further manual edit
   testing on this fixture will use a disposable requirement instead.
 
-**Not yet executed this pass (deferred, see fork's final report for resume point):** TC-TCM-114–121 (link/unlink/
-edit/delete CRUD beyond 112/113), TC-TCM-270 (rapid multi-block race), TC-TCM-271/272 (mention link/unlink, fresh
-creation — needs a disposable fixture), TC-TCM-273 (rename doesn't affect content), TC-TCM-310–312 (linking
-surfaces), TC-TCM-122–127/313–315 (Traceability Matrix). No regressions found in anything executed.
+**Traceability Matrix spot-check (TC-TCM-122, partial) — PASS, notable escaping confirmation.** Loaded
+`/traceability_rtms?project_id=rftc-016-ci-qa` fresh: 0 console errors, table renders cleanly with real
+requirement/testcase/defect rows. Specifically inspected the DOM for test case titles containing historic XSS
+payloads still present in this project's fixture data (e.g. `#2115: <img src=x onerror=alert('export-xss')>
+export check`) — confirmed via `innerHTML` the payload is fully HTML-entity-escaped
+(`&lt;img src=x onerror=alert('export-xss')&gt;`) with **no live `<img>` element** in the DOM
+(`hasLiveImg: false`). This is the RTM's own independent rendering path (separate from the Requirements sidebar
+tree and `createPageBreadcrumb()` sinks BUG-TCM-093 fixed) and it is also correctly escaping — no regression,
+no new sink found here.
+
+**TC-TCM-114–121, 273 — all PASS, regression continued 2026-10-27 (same day, second pass).** Created a disposable
+fixture (`REG-CRUD-TC114-121-20261027`, page_id 123) and exercised the full CRUD/linking lifecycle live:
+- **TC-115/116 (link one/multiple test cases) — PASS.** Right-click → Requirements submenu on 3 distinct test
+  cases (#5691, #2132, #2128) each correctly linked; the requirement's own page listed all 3 exactly once, no
+  duplicates.
+- **TC-117 (unlink via Issue Edit form) — PASS, notable: contradicts TC-TCM-311's 2026-10-23 finding.** Removed
+  the requirement chip from issue #2128's Edit form and submitted — confirmed genuinely unlinked on **both**
+  sides (issue #2128 no longer shows the requirement; the requirement's own page no longer lists #2128) after a
+  fresh reload, not just client-side. Re-tested the exact TC-TCM-311 scenario a second time against "requirement
+  2" (id 6, the same requirement TC-311 used) with a fresh test case (#2127) — **also genuinely unlinked on both
+  sides**, directly contradicting TC-TCM-311's "Successful update, zero actual change" finding from
+  2026-10-23. BUG-TCM-027 (closed 2026-10-06) now appears to genuinely hold; not treated as a new bug since this
+  is an *improvement* (previously-reconfirmed-broken behavior now works), but the discrepancy with TC-TCM-311's
+  own recorded evidence is worth a human's attention — see that TC's own entry below, left unchanged so both
+  findings stay on record.
+- **TC-118 (edit/rename title) — PASS.** Used the `#pencil-icon` → `contenteditable` flow (not a direct click on
+  `#page-title`, which is not editable by itself) to rename to `REG-CRUD-TC114-121-RENAMED-20261027`; confirmed
+  persisted on a fresh reload.
+- **TC-273 (rename doesn't affect content/links) — PASS.** Same rename above; confirmed both linked test cases
+  (#5691, #2132) still correctly listed on the renamed requirement's page afterward.
+- **TC-120 (delete a requirement with linked test cases) — PASS.** Deleted requirement #123 (2 real links) — not
+  blocked, succeeded with the same plain "Are you sure?" confirmation as an unlinked requirement. Issue #5691
+  confirmed to survive with the link cleanly cleared (no dangling reference); the RTM loaded with 0 console
+  errors afterward.
+- **TC-119 (delete an unlinked requirement) — PASS.** Created and deleted a second disposable fixture
+  (`REG-TC119-Unlinked-Delete-20261027`, page_id 124) via delete-icon → "Are you sure?" → Delete; confirmed
+  removed from the list on a fresh reload.
+- **TC-121 (project-scoped) — PASS on list/dropdown scoping, but surfaced BUG-TCM-123 (High, new) on direct
+  `page_id` access** — see that TC's own entry above for full detail.
+- **TC-114** (link at creation, compounds closed BUG-TCM-021/022) was not separately re-executed this pass — its
+  own already-closed/fixed status was not touched by this cycle's bug fixes, and TC-115/116/117 above exercise
+  the same linking mechanism from a different entry point with fresh live evidence.
+
+**Not yet executed this pass (deferred, see fork's final report for resume point):** TC-TCM-270 (rapid
+multi-block race), TC-TCM-271/272 (mention link/unlink via `#`-trigger, fresh creation — needs a disposable
+fixture and real keystroke simulation, not `.fill()`), TC-TCM-310–312 (linking surfaces: plain Edit-form link,
+right-click assign-only confirmation), TC-TCM-123–127/313–315 (remaining Traceability Matrix count-accuracy/
+empty-state checks). One new bug found and filed: **BUG-TCM-123** (High — cross-project Requirement content IDOR
+via `RequirementsController#content`'s unscoped lookup).
 
 ---
 

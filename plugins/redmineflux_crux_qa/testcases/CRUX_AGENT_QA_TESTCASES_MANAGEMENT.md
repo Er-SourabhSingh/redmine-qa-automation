@@ -198,3 +198,13 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 **Result: PASS (expected negative).** Confirm card showed `Testcase: 4`, `Description: Updated by daisy` (correctly resolved). Confirming produced a genuine denial: *"Unauthorized access. To fix this, ask your Redmineflux administrator to: Grant you the required role/permission for this action..."* Verified via DB: issue #4's description is still empty — the denial is honest.
 
 ---
+
+### TC-CRX-309: Test suite — Create, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no `create_test_suite` permission).
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test suite called 'Daisy Attempt Suite'?"
+
+**Result: PASS (expected negative).** Confirm card correctly showed `Project`, `Name` (name resolution isn't permission-gated). Confirming produced a genuine denial: *"Permission denied: you do not have create_test_suite permission in project 'Crux QA Agent Test Project'..."* Verified via DB: no suite named "Daisy Attempt Suite" exists — honest denial, matches the expected QA No Access behavior.
+
+---

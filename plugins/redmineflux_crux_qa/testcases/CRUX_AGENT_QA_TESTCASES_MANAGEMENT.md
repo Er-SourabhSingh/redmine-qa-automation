@@ -126,3 +126,13 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 **Result: FAIL — new bug, BUG-CRX-081.** Confirm card showed only `Project` and `Subject` — no suite field at all. Confirming produced a plain *"✓ Testcase created..."* message with no mention of the suite. Verified via DB: the test case (issue #5) was genuinely created but **never linked to the suite** (`issue_test_suites` has 0 rows for it) — it sits unassigned, not inside "Password Reset" as requested. Confirmed via MCP source that `create_testcase` has no suite parameter at all, but a separate, genuinely-available tool (`add_testcases_to_suite`) exists to do this as a second step — the agent never called it, and never disclosed the limitation. Filed as **BUG-CRX-081**.
 
 ---
+
+### TC-CRX-302: Test case — Move into an existing suite (suite referenced by name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Real suites on this project: `1=Login and Auth, 2=Password Reset` (confirmed via DB beforehand).
+
+**Steps:** Same chat: "can you move test case #5 into the 'Password Reset' test suite?"
+
+**Result: FAIL — two findings.** The confirm card (`Testcases Management Add Testcases To Suite`) showed `Suite: 3` — a nonexistent suite ID (only 1 and 2 exist) — resolved from the correctly-typed name "Password Reset." Confirming failed: *"✓ Test suite #3 not found. (If you expected this add testcases to suite to exist, verify the ID with the corresponding list_* tool.)"* Verified via DB: no link created, genuinely failed. **(1) The wrong suite-ID guess** folded into **BUG-CRX-079** as a 3rd field type hit by the same wrong-ID-hallucination pattern (after Priority and Project). **(2) The failure message is prefixed with a misleading "✓"** despite being a genuine failure — filed as new bug **BUG-CRX-082** (recurrence of the already-closed BUG-CRX-018 class, first instance on this agent/domain).
+
+---

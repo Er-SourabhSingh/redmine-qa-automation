@@ -1237,6 +1237,30 @@ enforced on the MCP API surface but still completely unenforced on the ordinary 
 for one surface was never applied to the other. No new bug filed; this is additional confirming evidence for
 BUG-TCM-009's existing scope, not a separate defect.
 
+**Planned dev change, per direct developer communication 2026-10-27 — NOT YET SHIPPED, re-verify once it
+lands:** the developer intends to fix BUG-TCM-009 by **renaming `view_test_suite` to `view_testcase`** and
+**widening its scope**, not just patching the existing browser-path gap:
+- Granting `view_testcase` will make the entire **Testcase menu** (every tab under it — Test Cases, Runs &
+  Results, Reports, Requirements, Traceability Matrix, etc., not just the Test Suites tab this permission
+  originally gated) visible to the user.
+- Core Redmine's own **Issues** tab and **Spent time** tab — previously ungated by any Testcase Management
+  permission at all — will **only** be shown to a user once they hold `view_testcase`.
+
+This is a significantly bigger behavior change than a simple rename: it turns `view_testcase` into a single
+master visibility gate for the entire Testcase menu *and* two core Redmine tabs that this plugin doesn't
+otherwise control. Once this ships:
+- This TC's own Steps/Expected Result need updating to reference `view_testcase` instead of `view_test_suite`
+  (both on the MCP-API side confirmed here and the browser side BUG-TCM-009 covers).
+- A new regression pass is needed specifically on **Issues and Spent time tab visibility** toggled by this one
+  permission — not previously tested anywhere in this suite, since no Testcase Management permission has ever
+  gated a core Redmine tab before now.
+- Re-check whether `view_test_suite`'s existing consumers (`test_suites_controller.rb`,
+  `issue_testcase_controller.rb#new`, the MCP controller methods tested above) are updated to the renamed
+  `view_testcase`, or whether the rename introduces a transition gap of its own.
+- `init.rb`'s permission inventory (19 plugin-registered + 2 reused core, per the note above) and
+  `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md`'s Permissions Matrix will both need updating for the rename once
+  it's live.
+
 **Also confirmed via source** (not executed live, no live-UI implication): `init.rb` registers a 19th
 permission, `test_suites`, as `public: true`, scoped only to `test_suites#releases` (the Overview dashboard)
 and `testcase_help#index` (Help & Documentation) — meaning these two specific actions are *intentionally*

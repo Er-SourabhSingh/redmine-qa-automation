@@ -234,3 +234,37 @@ Attempted TC-CRX-310 (Environment Create, non-admin `daisy.skye`) first, expecti
 **Result: PASS (expected negative) — this is what surfaced the fixture gap above.** Confirm card showed `Project`, `Name: Staging`, `Components: ['Staging']` (reasonable auto-default here, unlike TC-CRX-310's later inconsistent attempts). Confirming produced a genuine denial: *"Unauthorized access. To fix this, ask your Redmineflux administrator to: Grant you the required role/permission for this action..."* Verified via DB: no environment named "Staging" exists at the time of this attempt — honest denial.
 
 ---
+
+### TC-CRX-312: Environment — Read (list), admin
+
+**User Role:** `luna.blossom` (QA Full Access, with TC-CRX-310's "Staging" environment now genuinely existing).
+
+**Steps:** Same chat as TC-CRX-310: "what environments exist in the Crux QA Agent Test Project?"
+
+**Result: PASS.** *"The Crux QA Agent Test Project has 1 environment: ID 1: Staging — with component 'Staging'."* Correct, verified against DB. (Note: this response surfaces the environment's numeric ID unprompted in a read-only answer — not the same as asking the user to supply one, so not flagged as a violation of the real-user-phrasing rule, but noted in `CRUX_MEMORY.md` as worth keeping an eye on.)
+
+---
+
+### TC-CRX-313: Environment — Update (rename), admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps (attempt 1, long-running chat):** "can you rename the 'Staging' environment to 'Staging-EU'?"
+
+**Result: FAIL — new repro of BUG-CRX-080.** Confirm card showed `Project: Crux PM Agent Test Project` — the wrong, unrelated project — despite 2 prior turns in the identical chat correctly resolving "Crux QA Agent Test Project." Clicked Cancel; verified via DB no change occurred.
+
+**Steps (attempt 2, brand-new chat, project named explicitly this time):** "in the Crux QA Agent Test Project, can you rename the 'Staging' environment to 'Staging-EU'?"
+
+**Result: PASS on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Environment: 1`, `Name: Staging-EU`. Confirmed: genuine rename, verified via DB. Folded into **BUG-CRX-080** as a 2nd tool hit by the same session-length-dependent wrong-project pattern (after Create Test Suite).
+
+---
+
+### TC-CRX-314: Environment — Delete, admin (name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Fresh chat.
+
+**Steps:** "in the Crux QA Agent Test Project, can you delete the 'Staging-EU' environment?" — agent first asked a natural-language confirmation ("I found the 'Staging-EU' environment (ID: 1)... Is this correct?") before producing the actual confirm card; replied "yes, confirm."
+
+**Result: PASS.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Environment: 1`. Confirmed: genuine deletion, verified via DB (`testcase_environments` table empty).
+
+---

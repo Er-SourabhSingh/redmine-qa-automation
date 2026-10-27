@@ -27,3 +27,8 @@
 > is the security vulnerability (unescaped subject executes as live HTML); BUG-TCM-121 is a cosmetic regression
 > *introduced by* BUG-TCM-072's own fix (Tribute's legitimate highlight `<span>` markup now shown as literal
 > escaped text instead of rendering). Fixing one does not fix the other.
+
+> **BUG-TCM-122 is not a duplicate of BUG-TCM-120 despite sharing the same feature and fix commit.** BUG-TCM-120
+> was "no way to create a Requirement Template at all"; BUG-TCM-122 is "the way that now exists only clones an
+> existing Requirement's content, and there's still no way to edit a template afterward." Fixing BUG-TCM-120 could
+> not have fixed this — it's a narrower scoping gap within the same fix, not a leftover of the original bug.

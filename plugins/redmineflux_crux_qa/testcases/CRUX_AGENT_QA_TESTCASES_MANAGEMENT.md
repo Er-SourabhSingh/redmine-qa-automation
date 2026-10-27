@@ -409,6 +409,40 @@ Asked the QA Agent to "schedule the 'Weekly QA Summary' report to run every week
 
 ---
 
+### TC-CRX-326: Test suite — Read (name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Fixture: suite "Login and Auth" has 2 testcases (#6, #7) and a child suite "Password Reset".
+
+**Steps:** Fresh chat: "in the Crux QA Agent Test Project, can you tell me what's in the 'Login and Auth' test suite?"
+
+**Result: PASS.** Correctly listed both testcases (#6, #7) with accurate status/priority, and correctly noted the child suite "Password Reset." Verified against DB — exact match.
+
+---
+
+### TC-CRX-327: Run — Read full progress/results table (name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Fresh chat: "...can you show me the full progress and results table for the 'Sprint 1 Regression' run — pass/fail counts and status of each test case in it?"
+
+**Result: FAIL — new bug, BUG-CRX-087.** The agent's table listed **two** rows (#6 and #7, both "Untested") with a summary of "Total testcases: 2." **Caught by the user comparing this directly against the native "Runs & Results" UI page for the same run**, which shows only testcase #6, "Showing 1 test cases," and a pie chart reading "Total 1." Verified via DB: `run_issues` for run #1 has exactly 1 row (issue 6) — testcase #7 was never added to this run (it belongs only to run #3, a separate run created earlier in this session). The agent fabricated an extra row for a testcase that was never in this run at all, apparently substituting "all testcases in the run's suite" for "testcases actually linked to this run." Filed as **BUG-CRX-087** — a new, distinct failure shape (read-path data fabrication, not a wrong ID/value/write).
+
+---
+
+### TC-CRX-328: Run — Record a testcase execution result (Pass), name only
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps (attempt 1, long-running chat):** "can you mark test case #6 in the 'Sprint 1 Regression' run as Passed?" — agent correctly resolved testcase, run, suite, case status (Passed=2), and environment in its proposal.
+
+**Result: FAIL — new repro of BUG-CRX-080.** Confirm card showed `Project: Crux PM Agent Test Project` — wrong — with every other field (`Run: 1`, `Issue: 6`, `Testsuite: 1`, `Case Status: 2`, `Environment: Staging`) correct. Cancelled; verified via DB no change.
+
+**Steps (attempt 2, brand-new chat, project named explicitly):**
+
+**Result: PASS on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project` alongside the same correct fields. Confirmed: genuine success, verified via DB (`issue_status_results`: new row, issue 6, run 1, case_status_id=2/Passed). Folded into **BUG-CRX-080** as a 4th tool hit (after Create Test Suite, Update Environment, Update Report).
+
+---
+
 ## Suite status (2026-10-27)
 
 All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.

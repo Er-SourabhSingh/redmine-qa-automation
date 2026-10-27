@@ -121,3 +121,23 @@ Regression testing TC-TCM-121 ("Requirements are project-scoped") in `TESTCASE_M
 as part of the post-bug-fix regression pass triggered by this cycle's 39 retested bugs (2026-10-26/27). The
 original TC-TCM-121 only checked that the sidebar/project-switch correctly scopes the requirements *list*; this
 session extended it to directly test cross-project `page_id` access, which the original TC never covered.
+
+## Independent reconfirmation — 2026-10-27
+
+Per direct user request to double-check the "private project" premise rather than accept it on faith, re-verified
+both halves of this bug from scratch, independently of the original finding:
+
+1. **`alpha-web`'s privacy setting checked directly in the UI**, not inferred from the 403: navigated to
+   `/projects/alpha-web/settings` as admin and inspected the `Public` checkbox's actual DOM state —
+   `document.querySelector('#project_is_public').checked === false`. Confirmed genuinely private, not a module-
+   disabled or other unrelated cause of the earlier 403.
+2. **Logged out and back in as `qa.limited` fresh** (not reusing a cached session) — `/projects/alpha-web` still
+   returns a real `403 Forbidden`, confirming no membership.
+3. **Re-ran the exploit from this clean state**: navigated to
+   `/requirements?project_id=rftc-016-ci-qa&page_id=115` as `qa.limited` — `#page-title` still reads `" Tree
+   Test"`, `#page-id` still reads `"#115"` (alpha-web's private requirement), while `h1` correctly still shows
+   `"RFTC-016 CI Ingest QA"` (the project qa.limited is actually browsing). Identical result to the original
+   finding.
+
+**Verdict: reconfirmed, no change.** The bug is genuine and the "private project" premise holds up under direct
+independent verification, not just inference from a 403.

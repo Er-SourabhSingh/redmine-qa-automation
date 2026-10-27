@@ -1430,6 +1430,33 @@ Role permissions restored immediately after.
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request — "fast way me test karo jo bhi impacted
+area lagte hai"; NOT an exhaustive suite re-run)
+
+Scope: only the TCs directly tied to this cycle's 3 Roles & permissions bug fixes (BUG-TCM-009, 089, 113), per
+`SENIOR_QA_STANDARDS.md` §26.
+
+- **BUG-TCM-113 (milestone permissions) — CONFIRMED FIXED, live.** Opened `/roles/3/edit` (Manager role):
+  `Create milestone`/`Edit milestone`/`Delete milestone` now appear as real, enabled, uncheckable checkboxes in
+  the permissions list — genuinely grantable, not just enforced-but-undeclared as the bug described. No new TC
+  exists for this in the suite yet (newer bug); recorded here directly.
+- **BUG-TCM-089 (Requirements attachment download bypass) — spot-checked, consistent with fixed.** Anonymous
+  `GET /requirement/download?id=4&filename=tc176-sample-attachment.txt` now returns a real `403`, not a silent
+  200 via the core `view_files` fallback the bug described. A full granted-vs-denied-role matrix (TC-TCM-289) was
+  not re-run this pass given the "fast" scope — this spot-check plus the bug's own 2026-10-26 source-diff retest
+  are treated as sufficient for now.
+- **BUG-TCM-009 (Test Suites/New Test Case zero-authorization) — not re-run this pass.** Already live-verified
+  via real curl session checks just one day before this regression (2026-10-26: `dev1`, non-member of private
+  `alpha-web`, correctly 403 on `/test_suites`, `/requirements`, `/issue_testcase/new`; `qa.manager`, a real
+  member, correctly 200 on the same routes) — same build, no permissions-relevant commits since. Treated as
+  current given the "fast, targeted" directive; a fresh TC-TCM-294-style check is the resume point if a future
+  session wants to re-confirm independently.
+
+**Result: 2 of 3 bugs freshly live-reproduced this pass, 1 relies on yesterday's still-current live evidence. No
+regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

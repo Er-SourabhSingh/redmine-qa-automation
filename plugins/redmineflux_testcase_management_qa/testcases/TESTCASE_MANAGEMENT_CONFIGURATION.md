@@ -897,6 +897,29 @@ stands unless someone reports a regression.
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 2 — Email notifications, BUG-TCM-013/087/088)
+
+- **BUG-TCM-013 (Result Added duplicate-send)** — not re-run this pass; already confirmed fixed **earlier the
+  same day** via a direct Mailpit `"total":1` check (see `bugs/closed/BUG-TCM-013.md`'s own "Retest Result
+  (2026-10-27)" section) — same-day evidence, no need to repeat.
+- **BUG-TCM-087 (Run Added never fires for web-UI runs) — CONFIRMED FIXED, genuinely live this pass** (the
+  2026-10-26 closure had only been source-diffed, never actually reproduced live). Created a real run via
+  `/runs/new?project_id=rftc-016-ci-qa` (`REG-TC011-RunAdded-v2-20261027`, run #182), environment `test`,
+  assignee **QA Limited** (a different user from the creator, to avoid Redmine's own self-notification
+  suppression confounding the result — an earlier same-pass attempt self-assigned to admin and correctly saw no
+  email, which is expected default behavior, not a bug). Mailpit confirmed delivery: "Run #182 Added" to
+  `qa.limited@test.local`, correct State/Environment/Assignee in the body. The hardcoded `from=API` suppression
+  flag this bug described is genuinely gone from the real web-created-run path.
+- **BUG-TCM-088 (Run Updated stale content)** — not re-run this pass (ran out of time locating the run Edit UI
+  for a true rapid-double-edit repro); existing 2026-10-26 source-diff confirmation stands. **Resume point:** edit
+  run #182's name twice in quick succession and confirm the "Run Updated" email shows the second (latest) name,
+  not the first.
+
+Cleanup: run #182 left in place (harmless fixture, matches this suite's existing pattern of many similarly-named
+regression-probe runs already present in this project).
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

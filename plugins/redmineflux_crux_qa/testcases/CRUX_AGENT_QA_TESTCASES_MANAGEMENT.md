@@ -90,3 +90,39 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 **Result: PASS on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Name: Authentication`. Confirmed: genuine success, verified via DB (`testsuites` id=1, correct `project_id`). Filed the wrong-project occurrence as **BUG-CRX-080** (1 of 1 repro in a long session, 0 of 1 in a fresh one — flagged as a priority investigation item given the severity of a silently-wrong write target, not yet treated as confirmed-deterministic).
 
 ---
+
+## Fixture correction (2026-10-27)
+
+Before continuing: found that the **QA Full Access** role was missing the `view_test_suite` permission (an oversight during fixture setup, not a Crux bug) — `luna.blossom`'s first Test Suite Update attempt got a correctly-honest-but-wrong-for-this-fixture denial: *"I don't have permission to view or manage test suites... grant the `view_test_suite` permission."* Verified the permission was genuinely absent via DB, granted it via native UI, re-verified present, then retried — see TC-CRX-299 below.
+
+---
+
+### TC-CRX-299: Test suite — Update (rename), admin
+
+**User Role:** `luna.blossom` (QA Full Access, `view_test_suite` now granted).
+
+**Steps:** Fresh chat, QA Agent: "in the crux qa agent test project, can you rename the 'Authentication' test suite to 'Login and Auth'?"
+
+**Result: PASS.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Suite: 1`, `Name: Login and Auth`. Confirmed: genuine rename, verified via DB (`testsuites` id=1 now named "Login and Auth").
+
+---
+
+### TC-CRX-300: Test suite — Create sub-suite, admin (suite referenced by name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Same chat: "can you add a sub test suite called 'Password Reset' under the 'Login and Auth' test suite?"
+
+**Result: PASS.** Confirm card correctly showed `Project`, `Name: Password Reset`, `Parent: 1` (correctly resolved from the name "Login and Auth", never asked for an ID). Confirmed: genuine sub-suite creation, verified via DB (`testsuites` id=2, `parent_id=1`).
+
+---
+
+### TC-CRX-301: Test suite — Create a test case directly inside a suite (by name only)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Same chat: "can you create a test case titled 'Reset password with valid email' inside the 'Password Reset' test suite?"
+
+**Result: FAIL — new bug, BUG-CRX-081.** Confirm card showed only `Project` and `Subject` — no suite field at all. Confirming produced a plain *"✓ Testcase created..."* message with no mention of the suite. Verified via DB: the test case (issue #5) was genuinely created but **never linked to the suite** (`issue_test_suites` has 0 rows for it) — it sits unassigned, not inside "Password Reset" as requested. Confirmed via MCP source that `create_testcase` has no suite parameter at all, but a separate, genuinely-available tool (`add_testcases_to_suite`) exists to do this as a second step — the agent never called it, and never disclosed the limitation. Filed as **BUG-CRX-081**.
+
+---

@@ -138,3 +138,33 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 **Retry in a brand-new chat (no prior context):** identical message, no project named this time (resolved implicitly from the testcase ID alone) — confirm card correctly showed `Suite: 2`. Confirmed: genuine success, verified via DB (`issue_test_suites` row: issue 5, suite 2). This corroborates **BUG-CRX-079/080**'s pattern that this agent's ID-resolution reliability degrades as a chat session accumulates more turns/context, rather than being a flat, always-wrong defect.
 
 ---
+
+### TC-CRX-303: Test suite — Remove a test case from a suite (suite referenced by name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Real suite: `2=Password Reset` (test case #5 currently linked, from TC-CRX-302's fresh-chat retry).
+
+**Steps:** Fresh chat, QA Agent: "can you remove test case #5 from the 'Password Reset' test suite?" — agent first asked for the project name (reasonable, since suite names aren't guaranteed globally unique and no suite ID was ever given by the user) — replied "Crux QA Agent Test Project".
+
+**Result: PASS.** Confirm card (`Testcases Management Remove Testcases From Suite`) correctly showed `Suite: 2`, `Testcase Ids: [5]` — both resolved correctly from the names/ID given, no ID ever requested from the user beyond the already-known testcase #5. Confirmed: *"✓ 1 testcase(s) removed from suite #2 'Password Reset'."* Verified via DB: `issue_test_suites` has 0 rows for issue 5 — genuine removal, correctly reflects the real success (no misleading-✓ issue here, unlike TC-CRX-302's failure case).
+
+---
+
+### TC-CRX-304: Test suite — Copy a test case into a suite (suite referenced by name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Test case #5 (now unassigned after TC-CRX-303's removal). Real suite: `1=Login and Auth`.
+
+**Steps:** Fresh chat, QA Agent: "can you copy test case #5 into the 'Login and Auth' test suite in the Crux QA Agent Test Project?"
+
+**Result: PASS.** Confirm card (`Testcases Management Copy Testcases To Suite`) correctly showed `Target Suite: 1`, `Testcase Ids: [5]`. Confirmed: *"✓ 1 testcase(s) copied to suite 'Login and Auth' (ID: 1). New #6 'Reset password with valid email' (copied from #5)."* Verified via DB: a genuinely **new** issue #6 was created (same subject as #5) and linked to `testsuite_id=1`; original #5 was left untouched/unassigned. Confirms this plugin's "Copy" semantics are "duplicate the testcase into the target suite," not "link the same testcase into a second suite" — the agent's behavior correctly matches the tool's real semantics.
+
+---
+
+### TC-CRX-305: Test suite — Delete, admin (suite referenced by name only)
+
+**User Role:** `luna.blossom` (QA Full Access). Fixture suite `"zz-delete-me-suite"` (ID 3) created fresh for this test, then deleted.
+
+**Steps:** Same chat — create: "in the Crux QA Agent Test Project, can you create a test suite called 'zz-delete-me-suite'?" → confirmed, `"✓ Test suite 'zz-delete-me-suite' created (ID: 3)..."`. Then: "in the Crux QA Agent Test Project, can you delete the 'zz-delete-me-suite' test suite?"
+
+**Result: PASS.** Delete confirm card correctly showed `Project: Crux QA Agent Test Project`, `Suite: 3` (resolved from name only). Confirmed: *"✓ ... deleted"* (success message). Verified via DB: `testsuites` id=3 no longer exists — genuine deletion.
+
+---

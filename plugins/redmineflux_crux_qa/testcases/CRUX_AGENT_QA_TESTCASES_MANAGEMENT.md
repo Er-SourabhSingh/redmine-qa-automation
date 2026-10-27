@@ -168,3 +168,33 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 **Result: PASS.** Delete confirm card correctly showed `Project: Crux QA Agent Test Project`, `Suite: 3` (resolved from name only). Confirmed: *"✓ ... deleted"* (success message). Verified via DB: `testsuites` id=3 no longer exists — genuine deletion.
 
 ---
+
+### TC-CRX-306: Test case — Create, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no Testcase Management permission, no Add/Edit issues).
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test case titled 'Verify invalid login shows error'?"
+
+**Result: PASS (expected negative).** Confirm card correctly showed `Project`, `Subject` (resolution itself isn't permission-gated). Confirming produced a genuine, correctly-worded denial: *"Cannot create testcase in project #3: permission denied..."* Verified via DB: no issue with that subject exists — the denial is honest, not a silent partial write.
+
+---
+
+### TC-CRX-307: Test case — Read, non-admin (expected success — `View Issues` is granted)
+
+**User Role:** `daisy.skye` (QA No Access).
+
+**Steps:** Same chat: "what's test case #4 about?"
+
+**Result: PASS.** *"Test case #4 is 'Verify logout clears the session' — it's a low-priority case currently in Waiting for Customer Response status..."* Correctly succeeded — `View Issues` is part of the QA No Access role's defaults, so Read is expected to work even with zero Testcase Management permissions.
+
+---
+
+### TC-CRX-308: Test case — Update, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access).
+
+**Steps:** Same chat: "can you update test case #4's description to 'Updated by daisy'?"
+
+**Result: PASS (expected negative).** Confirm card showed `Testcase: 4`, `Description: Updated by daisy` (correctly resolved). Confirming produced a genuine denial: *"Unauthorized access. To fix this, ask your Redmineflux administrator to: Grant you the required role/permission for this action..."* Verified via DB: issue #4's description is still empty — the denial is honest.
+
+---

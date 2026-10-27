@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-080
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125488
 - Title: QA Agent's "Create Test Suite" confirm card once resolved the wrong project (a different, unrelated project from an earlier conversation) despite the user's message explicitly naming the correct project by name, inside a chat session where every prior Create/Update Testcase request had correctly resolved the same named project
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

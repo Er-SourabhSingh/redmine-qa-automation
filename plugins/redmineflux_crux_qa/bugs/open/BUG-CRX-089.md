@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-089
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125497
 - Title: QA Agent's "To Do" answer substitutes generic assigned-open-issues for the plugin's actual To-Do feature (pending/incomplete Runs) and falsely claims an empty list for admin despite 3 real pending runs — supersedes this suite's earlier "honest fallback, no bug" assessment of the same feature
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

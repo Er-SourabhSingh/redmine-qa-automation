@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-083
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125491
 - Title: QA Agent's "Create Environment" guesses an invalid empty `components` list on retry (despite the field being tool-required) instead of either defaulting consistently or asking the user, requiring 3 attempts in one chat to land on a valid value
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

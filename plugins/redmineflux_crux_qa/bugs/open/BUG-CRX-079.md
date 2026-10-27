@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-079
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125487
 - Title: QA Agent's Create Testcase AND Update Testcase both guess a hardcoded/assumed priority_id (3 and 5 respectively, each wrong) instead of resolving the named priority via list_enumeration, failing deterministically on any instance whose priority enumeration doesn't use the classic 1-4 ID scheme — same wrong-ID-hallucination class as BUG-CRX-015/019/038/043/050/052
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

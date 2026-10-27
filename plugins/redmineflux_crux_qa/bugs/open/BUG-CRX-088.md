@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-088
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125496
 - Title: "Report Defect" (the Failed/Blocked flow) silently bypasses the closed-run guard that "Create Status Result" explicitly has — writes a new testcase result + linked defect into a CLOSED run with no warning at all
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

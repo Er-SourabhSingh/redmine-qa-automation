@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-084
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125492
 - Title: QA Agent has no way to resolve a Requirement by name at all — there is no `list_requirements`/`get_requirement`/search MCP tool, so "link test case to requirement X" always ends in the agent asking the user to supply the requirement's numeric ID, violating the real-user-phrasing expectation that a user should never need to know or supply this ID
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

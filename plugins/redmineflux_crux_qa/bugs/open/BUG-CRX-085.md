@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-085
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125493
 - Title: QA Agent's "Create Report" self-contradicts with "I described a change without actually proposing it..." on the first attempt in a chat that had prior turns, then produces a genuine confirm card on an identical retry in a fresh chat — recurrence of the BUG-CRX-013/070 self-contradiction class, first instance on the Test Case Management Reports domain
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

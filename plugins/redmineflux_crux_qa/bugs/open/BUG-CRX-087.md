@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-087
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125495
 - Title: QA Agent's "Run progress/results table" fabricates an extra testcase row for a testcase that was never actually added to that run — it appears to substitute "all testcases in the run's suite" for "testcases actually linked to this run," inventing a fake "Untested" result for a testcase genuinely absent from the run
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

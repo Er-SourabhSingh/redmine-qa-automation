@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-081
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125489
 - Title: QA Agent silently drops the "create this test case inside suite X" request — creates the test case genuinely but never links it to the named suite, reports plain success with no disclosure, despite a genuine two-step tool path (create_testcase + add_testcases_to_suite) existing to do it correctly
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

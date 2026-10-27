@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-086
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125494
 - Title: QA Agent's "Update Run" to change which testcase is included picks the wrong tool parameter (`include_testcase="true"`, meant for "re-sync all testcases") instead of `run_assignments` (the actual per-suite/testcase selector it correctly used on Create) — the resulting server-side validation error is honest about the write failing, but the run's EXISTING testcase/suite association is silently deleted anyway, a genuine silent partial write behind a "failed" message
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

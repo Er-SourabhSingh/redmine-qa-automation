@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-082
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125490
 - Title: QA Agent's "Add Testcases To Suite" renders a genuine "suite not found" failure with a misleading success ✓ prefix — recurrence of the already-closed BUG-CRX-018 class (also recurring separately on the CRM Sales Agent as BUG-CRX-067), first instance on the QA Agent / Test Case Management domain
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

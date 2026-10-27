@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-091
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125499
 - Title: QA Agent's "link testcase result to an existing defect by name" request never converges — re-discovers the same tools from scratch on every turn and hits the per-turn token budget repeatedly, burning $0.13-0.25+ across 3-5 forced "please continue" turns without ever reaching a confirm card (reproduced twice: once in a long chat, once in a brand-new chat with the project named explicitly)
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

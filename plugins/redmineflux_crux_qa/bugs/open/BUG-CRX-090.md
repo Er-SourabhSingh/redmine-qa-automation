@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-090
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #125498
 - Title: QA Agent's answer to "show me the traceability matrix" falsely claims "test cases do not currently have explicit requirement links attached" despite a genuine, pre-existing requirement↔testcase link — reached after burning 10 tool calls and hitting the turn's token budget
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, QA Agent, Test Case Management plugin domain)

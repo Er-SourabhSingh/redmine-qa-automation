@@ -845,6 +845,24 @@ de-duplicate in the equivalent situation.
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 3 — Test case authoring, BUG-TCM-090/096)
+
+- **BUG-TCM-090 (kebab menu / Edit Folder broken for everyone) — CONFIRMED FIXED, live.** On
+  `/issue_testcase/new?project_id=rftc-016-ci-qa` (the Add Testcase page), opened test suite "CI Ingest"'s kebab
+  menu — confirmed `#subfolder-modal`'s `data-project_id="rftc-016-ci-qa"` is now genuinely set (previously
+  missing, causing `project_id=undefined`). Clicked "Edit Folder" — no 404, no console error. The permission-
+  gating half (kebab hidden for a denied role) was not re-checked this pass — already source-diff confirmed
+  2026-10-26, lower risk than the "broken for everyone" half just reproduced live.
+- **BUG-TCM-096 (Requirement-link bypass via Issue Edit) — not re-run this pass.** Already live-verified
+  2026-10-26 via a real `PUT /issues/3654.json` with `requirement_ids`: Developer role (edit_issues, no
+  edit_requirement) got 204 but the link was genuinely NOT created; qa.manager (has edit_requirement) succeeded.
+  Genuine live evidence, one day old, no relevant commits since — treated as current for this fast pass.
+
+**Result: 1 of 2 bugs freshly live-reproduced (browser UI, not just source/API), 1 relies on yesterday's
+still-current live API evidence. No regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

@@ -344,6 +344,21 @@ correctly project-scoped.
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 4 — Test suite management, BUG-TCM-090/092)
+
+- **BUG-TCM-092 (no-`testsuite_id` 500 crash) — CONFIRMED FIXED, live.** Loaded
+  `/test_suites?project_id=rftc-016-ci-qa` (no `testsuite_id` param — the exact crashing condition) on a project
+  with many real unassigned test-case issues (confirmed present throughout this session's other fixtures) — page
+  loads cleanly, no 500, no `ArgumentError`. This is the real Test Suites page's own version of the bug (distinct
+  from the kebab-menu copy on the Add Testcase page, already covered under Area 3).
+- **BUG-TCM-090 (kebab menu permission-gating on this page)** — not separately re-run here; the real Test Suites
+  page's kebab was already the *correctly-behaving* reference implementation the bug compared the Add Testcase
+  page's broken copy against, so no regression risk specific to this page.
+
+**Result: 1 bug freshly live-reproduced. No regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC ID | Result | Evidence |

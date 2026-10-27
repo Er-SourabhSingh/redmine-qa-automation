@@ -212,3 +212,10 @@ timing/state-dependent and is not being treated as a fix for any part of this bu
 **Verdict: STILL BROKEN.** Severity unchanged: **Critical**. Stays in `bugs/open/`. No code fix has been applied
 for this bug's root cause (`createPageBreadcrumb()`'s unescaped `pagePath.path[i]` interpolations) since the
 2026-10-26 retest.
+
+## Production sync — 2026-10-27
+
+Production issue #124348 was sitting at **In QA / 90%** (set 2026-10-26) despite this retest confirming the bug
+is still genuinely exploitable — the "In QA" status was never corrected back to Reopen after the 2026-10-26
+retest found it still broken. Moved to **Reopen / 30%** now, per this session's live reconfirmation, with a note
+explaining the still-live `createPageBreadcrumb()` sink.

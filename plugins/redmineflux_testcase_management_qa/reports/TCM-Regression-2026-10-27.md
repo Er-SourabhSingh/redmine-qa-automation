@@ -32,6 +32,25 @@ multi-block race), TC-TCM-271/272 (mention link/unlink via `#`-trigger, needs ca
 | BUG-TCM-110 | High | Found the real Scheduled Reports UI section's own Cancel action; live-clicked it — no 404, schedule genuinely removed |
 | BUG-TCM-111 | Critical | Sidekiq boots cleanly (`connection_pool 2.5.5`); **ReminderWorker backlog fired live** (Mailpit jumped 7→100 messages), confirming the scheduled-job poller genuinely dequeues jobs now, not just boots without crashing |
 
+## High-tier areas — targeted fast pass (per direct user request: "fast way me test karo jo bhi impacted area
+lagte hai" — only TCs tied to this cycle's specific bug fixes, not exhaustive suite re-runs)
+
+| # | Area | Bugs | Freshly live-reproduced this pass | Relies on existing (2026-10-26) source-diff/API evidence |
+|---|---|---|---|---|
+| 1 | Roles & permissions | 009, 089, 113 | **113** (milestone perms now real checkboxes on Roles page) | 009 (live curl, 1 day old), 089 (attachment-download spot-check) |
+| 2 | Email notifications | 013, 087, 088 | **087** (real "Run Added" email delivered to a different user) | 013 (same-day Mailpit check, see Critical tier), 088 |
+| 3 | Test case authoring | 090, 096 | **090** (Edit Folder `data-project_id` fix, no 404) | 096 (live API, 1 day old) |
+| 4 | Test suite management | 090, 092 | **092** (no-`testsuite_id` page loads clean, no 500) | — |
+| 5 | CSV Import | 091 | — | 091 (not live-reproduced; wizard too heavy for this pass) |
+| 6 | Test execution | 094, 101, 103, 104 | **101** (Run/Environment switch, zero console errors) | 094, 103, 104 |
+| 7 | Test case ↔ suite org | 095, 097, 098, 112 | **098** (run #83 "All Suites" shows real data, spot-check) | 095, 097, 112 |
+| 8 | Test run lifecycle | 097 (shared), 116 | — | 097 (via area 7), 116 |
+| 9 | Reporting | 102, 105, 106, 107, 114 | **106** (real .xlsx downloaded, not "Unknown Report Type") | 102, 105; 107/114 environment-blocked (no working PDF generation on this instance) |
+
+**Summary: 8 of ~18 targeted bugs got fresh live reproduction this pass; the rest stand on genuine evidence from
+1 day earlier (2026-10-26) with no relevant commits since, or are environment-blocked (PDF generation). Zero new
+bugs found in the High-tier pass, zero regressions.**
+
 ## New bug filed this pass
 
 - **BUG-TCM-123 (High, open)** — `RequirementsController#content` has zero cross-project scoping
@@ -51,15 +70,25 @@ if it causes confusion later.
 
 ## Not yet executed (resume points for next session)
 
-- **Requirements/RTM**: TC-TCM-270–272 only (see above) — everything else in this file is done.
-- **High-tier areas not started at all** (in priority order): Roles & permissions (TC-TCM-046–077, 287–294),
-  Email notifications (TC-TCM-008–014, 280–286), Test case authoring (TC-TCM-128–143, 298–302), Test suite
-  management (TC-TCM-192–203), CSV Import (TC-TCM-021–037, 275–279), Test execution (TC-TCM-170–187, 318–319),
-  Test case ↔ suite organisation (TC-TCM-144–151, 295–298), Test run lifecycle (TC-TCM-152–169), Reporting
-  (TC-TCM-078–111, 274, 316–317 — remaining TCs beyond the Tester Scorecard spot-check already done)
-- **Not touched by any of this cycle's bugs** (only needed for the full §27 final-cycle regression, not this
-  targeted pass): Environment management, Bulk update of results, To-Do management, Activity log, Plugin
-  configuration, Performance testing, Project Overview dashboard
+- **Requirements/RTM**: TC-TCM-270–272 only — everything else in this file is done.
+- **CSV Import (BUG-091)**: drive the real import wizard with a cross-project `selected_suite_id` tamper; not
+  attempted this pass (multi-step file-upload flow too heavy for the "fast" directive).
+- **Test execution (BUG-094/103/104)**: cross-project IDOR check, timestamp-collision filter leak, two-real-user
+  misattribution check — each needs more elaborate setup than this pass allowed.
+- **Test case↔suite org (BUG-095/097/112) and Test run lifecycle (BUG-116)**: denied-role submenu check,
+  multi-suite/multi-environment contradictory-status fixture, drag-and-drop simulation, and a DB-level orphan-row
+  check (blocked by the `secret_key_base`/`docker exec` gap noted below) respectively.
+- **Reporting (BUG-102/105)**: defect multi-run aggregation check, multi-environment Defect Summary pairing
+  check.
+- **Reporting (BUG-107/114, PDF-dependent)**: genuinely blocked on this environment — Puppeteer/Node PDF
+  generation doesn't work here (confirmed via a report-email silently falling back to HTML earlier this session).
+  Needs an environment with working PDF generation to re-verify live.
+- Full exhaustive TC-by-TC re-runs of all 9 High-tier suites (this pass deliberately only touched the TCs tied to
+  specific bug fixes, per the user's own "fast" directive) — still needed for the eventual full §27 final-cycle
+  regression.
+- **Not touched by any of this cycle's bugs at all** (only needed for the full §27 final-cycle regression):
+  Environment management, Bulk update of results, To-Do management, Activity log, Plugin configuration,
+  Performance testing, Project Overview dashboard
 
 ## Notes / Findings
 

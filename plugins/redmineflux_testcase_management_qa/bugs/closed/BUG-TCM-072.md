@@ -207,3 +207,34 @@ before it reaches `replaceTriggerText` — mirroring how `menuItemTemplate` was 
 
 **Verdict: STILL BROKEN, not closed.** Severity unchanged: **High**. Stays in `bugs/open/`. Screenshot:
 `screenshots/BUG-TCM-072/retest-2026-10-26-still-fails-selectTemplate.png`.
+
+## Retest — 2026-10-27 (FIXED, all three sinks confirmed closed)
+
+Retested live against `localhost:3000` after a fresh `docker restart redmine6-redmine-1 redmine6-sidekiq-1` (user
+requested a general retest pass excluding BUG-TCM-122). Project `RFTC-016 CI Ingest QA`, requirement #3, admin
+role, real keyboard-driven `#` trigger (no programmatic `.fill()`/value-set).
+
+1. **`#user-list` (original sink)** — unaffected, remains correctly escaped (not re-checked this pass, no
+   regression expected/observed elsewhere).
+2. **Mention dropdown render (`menuItemTemplate`)** — typed `#`, `3`, `5` with real keystrokes. Live
+   `document.querySelector('.tribute-container ul').innerHTML` showed the XSS fixture row (#35) as
+   `<span>3</span><span>5</span> : &lt;img src=x onerror=alert('export-xss')&gt; Remove item from cart` — the
+   subject is genuinely HTML-entity-escaped text, confirmed by reading raw `innerHTML` (not the accessibility
+   tree). No dialog fired while the menu was open.
+3. **Mention selection (`selectTemplate` — the specific gap this bug was reopened for on 2026-10-26)** — used a
+   real mouse click (`page.locator(...).click()`, not a synthetic `element.click()` which Tribute does not treat
+   as a genuine selection) on the `#35` dropdown row. Result inserted into the editor:
+   ```html
+   <a class="tribute-mention user-mention" href="http://localhost:3000/issues/35" target="_blank" contenteditable="false">#35: &lt;img src=x onerror=alert('export-xss')&gt; Remove item from cart </a>
+   ```
+   Confirmed via `querySelectorAll('img').length === 0` inside that anchor — zero live `<img>` elements, the
+   payload is inert text. **No alert fired.**
+4. **Regression spot-check (same session):** selecting a clean, non-payload mention (issue #2135, "Duplicate Step
+   1 header columns") inserted a normal, correctly-functioning mention link — confirms the fix didn't break
+   ordinary (non-malicious) mention insertion.
+
+Test content was reverted (`last block innerHTML` restored to its original `#570`, re-saved) so the fixture
+requirement is left in its original state.
+
+**Verdict: FIXED.** All three previously-identified sinks (`#user-list` dropdown, `menuItemTemplate` render,
+`selectTemplate` insertion) are confirmed escaping correctly. Moving to `bugs/closed/`.

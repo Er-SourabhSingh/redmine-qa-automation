@@ -193,3 +193,22 @@ that contains at least one malicious-titled requirement anywhere," not just "ope
 — broader and more dangerous than the original finding already stated, though the severity/verdict (Critical,
 still broken) is unchanged. No separate bug filed for this — it's the same root cause (`createPageBreadcrumb`'s
 unescaped `innerHTML`) already documented above, just a wider confirmed blast radius.
+
+## Retest — 2026-10-27 (STILL BROKEN — reconfirmed after full server restart, no fix pulled)
+
+Retested live against `localhost:3000` after a fresh `docker restart redmine6-redmine-1 redmine6-sidekiq-1` (no
+new plugin code was pulled for this pass). Direct navigation to
+`/requirements?project_id=alpha-web&page_id=115` (the "Sidebar Tree Test" fixture) fired a genuine
+`alert('XSS093')` dialog immediately on page load — handled via `browser_handle_dialog` — reproducing the core
+`createPageBreadcrumb()` sink exactly as before. The sidebar tree's own title render remains correctly escaped
+(confirmed separately, unrelated to this sink).
+
+The broader "unrelated requirement" blast-radius variant (opening clean requirement #113 via sidebar client-side
+navigation) did **not** reproduce this pass — no alert, no `GET /x` 404 observed. This does not change the
+verdict: the primary, originally-reported trigger (direct navigation to the malicious requirement) still fires
+every time, which is sufficient on its own to keep this Critical and open. The narrower non-reproduction may be
+timing/state-dependent and is not being treated as a fix for any part of this bug.
+
+**Verdict: STILL BROKEN.** Severity unchanged: **Critical**. Stays in `bugs/open/`. No code fix has been applied
+for this bug's root cause (`createPageBreadcrumb()`'s unescaped `pagePath.path[i]` interpolations) since the
+2026-10-26 retest.

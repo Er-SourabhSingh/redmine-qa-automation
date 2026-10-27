@@ -108,3 +108,26 @@ let issue = {
   `getAllIssues()`/`key`-building step instead of either Tribute callback.
 - Checked `bugs/_duplicates.md` and `bugs/_index.md` — no existing bug covers Tribute's highlight markup being
   escaped.
+
+## Retest — 2026-10-27 (FIXED)
+
+Retested live against `localhost:3000` after a fresh `docker restart redmine6-redmine-1 redmine6-sidekiq-1`.
+Project `RFTC-016 CI Ingest QA`, requirement #3, real keyboard-driven `#`+`5`+`7` sequence (matching the bug's own
+repro steps). Inspected the live dropdown DOM directly (`document.querySelector('.tribute-container ul')`):
+
+```html
+<li data-index="0" class="highlight"><span>5</span><span>7</span>10 : RFTC021-5-dedup-fixture </li>
+<li data-index="1" class=""><span>5</span><span>7</span>09 : RFTC021-7-private-fixture </li>
+...
+```
+
+`ul.querySelectorAll('li span').length` → **26** genuine, live `<span>` DOM elements wrapping the matched `5`/`7`
+characters across the dropdown rows — not escaped `&lt;span&gt;` text. The highlight markup renders correctly
+again, while the earlier-fixed subject-escaping (confirmed separately under BUG-TCM-072's own 2026-10-27 retest)
+remains intact for payload rows in the same dropdown — both the security fix and the cosmetic regression it had
+introduced are now correctly resolved together.
+
+Dropdown dismissed via Escape (no selection made, nothing inserted into the editor) — no cleanup needed beyond
+reverting an unrelated stray edit from the same session's BUG-TCM-072 retest.
+
+**Verdict: FIXED.** Moving to `bugs/closed/`.

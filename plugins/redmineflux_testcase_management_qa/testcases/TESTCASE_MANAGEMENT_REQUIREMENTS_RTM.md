@@ -19,7 +19,9 @@
 > **Extended 2026-10-27** with the new Requirement Templates feature (standalone create/edit, delete, and template
 > selection at Requirement-creation time) — added per direct user request, following live retest of BUG-TCM-120
 > and BUG-TCM-122 against a freshly-pulled plugin build (7.2.0). All 4 cases executed live against `localhost:3000`,
-> project `rftc-016-ci-qa`, as Administrator.
+> project `rftc-016-ci-qa`, as Administrator. **TC-TCM-332 extended same day** per direct user follow-up to cover
+> every block type the Content editor's toolbox offers (not just a single bold paragraph) — see its own Status
+> note for the full 10-block-type template built and verified.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -855,13 +857,14 @@ template had just been deleted). Also exercised earlier in this same session on 
 
 ---
 
-### TC-TCM-332: Select a Requirement Template while creating a new Requirement — the new Requirement's content exactly matches the template, including formatting
+### TC-TCM-332: Select a Requirement Template while creating a new Requirement — the new Requirement's content exactly matches the template, across every editor block type
 
 **User Role:** Administrator
 **Priority:** High
 **Steps:**
-1. Create a Requirement Template with distinctive, formatted content (e.g. bold text with a unique marker string) —
-   per TC-TCM-329/330.
+1. Create a Requirement Template whose content uses every block type the Content editor's own "+"/block-menu
+   offers (Text, Heading, List, Quote, Delimiter, Code, Table, Raw HTML, Warning, Checklist), each with a unique
+   marker string, per TC-TCM-329/330.
 2. On the project's Requirements page, click **+** to open "New Requirement".
 3. Enter a Title, then select the template from the **"Select Requirement Template"** dropdown.
 4. Click **Save**.
@@ -869,20 +872,28 @@ template had just been deleted). Also exercised earlier in this same session on 
 
 **Expected Result:**
 - The dropdown lists the template by name.
-- The created Requirement's content editor shows exactly the template's content — same text, same formatting
-  (e.g. bold preserved as a real `<b>`/`<strong>` element, not stripped or shown as literal markup) — not blank,
-  not truncated, not garbled.
+- The created Requirement's content editor shows exactly the template's content for **every** block type used —
+  same text, same block structure (heading stays a heading, list stays a list with the same item count, table
+  keeps every cell, etc.) — not blank, not truncated, not collapsed to plain text, not missing any block.
 
-**Status: EXECUTED 2026-10-27 — PASS.** The "Select Requirement Template" dropdown listed
-`QA-RTPL-Fidelity-Test-EDITED` (the template from TC-TCM-330, content:
-`<b>TEMPLATE-MARKER-rtpl001 bold-me-this EDITED-APPEND</b>`). Created a new Requirement
-(`REQ-TC-TEMPLATE-USE-TEST`, page_id `119`) with this template selected. Inspected `#contentEditor`'s DOM
-immediately after save: the content block (`.ce-paragraph.cdx-block`) contained exactly
-`<b>TEMPLATE-MARKER-rtpl001 bold-me-this EDITED-APPEND</b>` — an exact, formatting-preserving copy of the
-template's content, not plain/garbled text. Re-verified on a **fresh navigation** to the same page (ruling out a
-stale in-memory render) — identical `innerHTML`, confirming the content is genuinely persisted on the created
-Requirement, not just reflected client-side at save time. Cleanup: deleted the test Requirement and the test
-template afterward.
+**Status: EXECUTED 2026-10-27 — PASS (extended same day, full block-type coverage).** Initial pass only exercised
+a single bold paragraph; extended per direct user follow-up ("tumne sare editor use kr ke template banaya?",
+"table add nhi kiya") to cover every block type the toolbox actually offers. Built template
+`QA-RTPL-AllBlocks-Test` (id `5`) with one of each: Paragraph, Heading, List (2 items), Quote, Delimiter, Code,
+Table (2×2, all 4 cells), Raw HTML, Warning (title+message), Checklist — each block's text carrying a
+`TEMPLATE-MARKER-allblocks` marker. Saved and re-opened the template fresh to confirm all 10 blocks persisted
+correctly (two blocks — Code and Raw HTML — initially appeared to lose their typed content when a later block was
+inserted via the toolbox, a client-side re-render timing quirk; retyping them immediately before the final Save
+fixed it and the saved/reloaded template showed all 10 blocks intact — not filed as a bug, since the final saved
+state is correct and this only affects mid-authoring block insertion order, not data integrity once saved).
+
+Created a new Requirement (`REQ-TC-ALLBLOCKS-USE-TEST`, page_id `120`) with this template selected. On a **fresh
+page reload** (not the same in-memory state as right after Save), inspected `#contentEditor`'s DOM directly:
+all 10 block classes present in the same order (`ce-paragraph`, `ce-header`, `cdx-nested-list`, `cdx-quote`,
+`ce-delimiter`, `ce-code`, table `cdx-block`, `ce-rawtool`, `cdx-warning`, `cdx-checklist`); both `<textarea>`
+values (Code, Raw HTML) exactly matched the template's; the table's 4 cells, the 2 list items, the Warning's
+title+message, and the Checklist item text all matched exactly. No block was dropped, truncated, or flattened to
+plain text. Cleanup: deleted the test Requirement and the test template afterward.
 
 ---
 

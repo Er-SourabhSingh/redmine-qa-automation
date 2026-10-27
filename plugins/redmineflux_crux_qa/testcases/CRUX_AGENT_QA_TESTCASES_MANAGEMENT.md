@@ -597,7 +597,19 @@ Both reproductions folded into their respective existing bug files (BUG-CRX-085,
 
 **Steps:** "in the Crux QA Agent Test Project, what to-dos are there?"
 
-**Result: Capability gap, not a bug — honest, graceful fallback.** Confirmed via MCP source (`grep -in 'todo' testcases_management.py` → 0 matches) that **no To-Do-specific MCP tool exists at all** — `view_all_todos` is a plugin permission with no corresponding chat-reachable capability. Rather than hallucinating a result or claiming no permission, the agent substituted the closest available data (a generic issue listing, correctly filtered to open issues in "Waiting for Customer Response" status) and explicitly flagged the substitution: *"If you were looking for items labeled specifically as 'to-do' or a different task tracker, there don't appear to be any open ones matching that pattern. Would you like me to search for closed issues as well...?"* This is the most transparent handling of a capability gap seen all session — no new bug filed; noted as a 4th confirmed zero-MCP-tool-support area (after Requirements CRUD, Report scheduling, Run Type/Notes/Watchers).
+**Result (original call): Capability gap, not a bug — honest, graceful fallback.** Confirmed via MCP source (`grep -in 'todo' testcases_management.py` → 0 matches) that **no To-Do-specific MCP tool exists at all** — `view_all_todos` is a plugin permission with no corresponding chat-reachable capability. Rather than hallucinating a result or claiming no permission, the agent substituted the closest available data (a generic issue listing, correctly filtered to open issues in "Waiting for Customer Response" status) and explicitly flagged the substitution: *"If you were looking for items labeled specifically as 'to-do' or a different task tracker, there don't appear to be any open ones matching that pattern. Would you like me to search for closed issues as well...?"*
+
+**SUPERSEDED — see TC-CRX-344.** Exploring the plugin's native UI afterward revealed `/testcase_todos` is a real, well-defined dashboard (pending/incomplete **Runs** by assignee, not a generic issue filter) and that `list_runs` could answer it correctly. Retested as admin — the agent gave a confident **false** "empty" answer instead of a hedged fallback. The "no bug, honest fallback" call above is retracted; filed as **BUG-CRX-089**.
+
+---
+
+### TC-CRX-344: To-Do feature, admin — retest after discovering the real native "To Do" dashboard
+
+**User Role:** `luna.blossom` (QA Full Access). Ground truth: native `/testcase_todos?project_id=...` shows a dedicated "To Do" dashboard — "Total Runs: 3," listing all 3 project runs ("Bulk Status Fixture Run," "Sprint 2 Targeted Test," "Sprint 1 Regression"), each assigned to Luna Blossom, none closed.
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, what's on my To Do list?"
+
+**Result: FAIL — new bug, BUG-CRX-089.** Reply: *"Your To Do list in the Crux QA Agent Test Project is empty — you have no open issues assigned to you right now."* This is a confident, specific **false negative** — the real To-Do dashboard shows 3 genuinely pending runs assigned to this exact user. Root cause: the agent checks generic Redmine issue `assigned_to` (correctly empty — no testcase issues are individually assigned) instead of the plugin's actual To-Do concept (incomplete Runs by assignee), and confirmed via source that `list_runs` exists and could answer this correctly if called with the right filter. This supersedes TC-CRX-342's "honest fallback, no bug" conclusion — the non-admin repro's hedged wording made the same wrong-data-model substitution look more graceful than it is; here, with no hedging at all, it's a plain false claim. Filed as **BUG-CRX-089** (Medium — read-only, but actively misleading).
 
 ---
 
@@ -611,12 +623,70 @@ Both reproductions folded into their respective existing bug files (BUG-CRX-085,
 
 ---
 
-## Suite status (2026-10-27, session close)
+### TC-CRX-345: Native plugin UI exploration — discovered 2 untested features (Traceability Matrix, real "To Do" dashboard)
 
-All 6 scoped CRUD areas plus bulk operations and the To-Do capability check have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin), **Requirements** (standalone CRUD confirmed zero MCP tool support; create-time linking by name broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result, admin+non-admin), **To-Do** (zero MCP tool support, but the agent's fallback behavior here is the session's best example of honest degradation).
+**Steps:** Browsed the plugin's own nav (`/test_suites/releases?project_id=...`) as admin, which lists: Overview, Activity, To Do, Environment, Test Cases, Runs & Results, Reports, Requirement, **Traceability Matrix**, Help & Documentation.
 
-10 new bugs filed this session (BUG-CRX-079 through 086), several extended multiple times across different tools and trigger paths each — see `bugs/_index.md` for the full list and `bugs/_duplicates.md` for how each was scoped. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) remains the most severe finding** and should be prioritized for a fix. One fixture gap was also found and corrected mid-session (QA Full Access role was missing Redmine's own `Delete issues` permission — not a product defect).
+**Result:** Confirmed 2 real, fully-functional native features this suite had not yet targeted directly: **To Do** (`/testcase_todos` — a dashboard of pending/incomplete **Runs** by assignee, with a bar chart and a "Test Runs" table, nothing to do with generic issue status) and **Traceability Matrix** (`/traceability_rtms` — a Requirement → Testcase → Defect coverage table). Both exist and work correctly via native UI. Testing both via chat afterward (TC-CRX-344, TC-CRX-346) found real defects in each.
 
-This closes the full scope the user requested: Test cases, Test suites (incl. sub-suites/move/copy/remove), Environments, Requirements (incl. linking), Reports (incl. scheduling), Runs (incl. include/exclude specific suites/testcases, close, and bulk operations) — each tested admin and non-admin, every finding DB-verified.
+---
+
+### TC-CRX-346: Traceability Matrix read via chat
+
+**User Role:** `luna.blossom` (QA Full Access). Ground truth: native `/traceability_rtms` page shows `Requirement #1` → `Testcase #7` → `Defect #10`, matching `requirement_issues` DB table exactly.
+
+**Steps:** "in the Crux QA Agent Test Project, can you show me the traceability matrix — which requirements are covered by which test cases and defects?"
+
+**Result: FAIL — new bug, BUG-CRX-090.** After burning 10 tool calls on an unrelated testcase/defect table and hitting the turn's token budget, concluded: *"The test cases do not currently have explicit requirement links attached."* This is false — the link genuinely exists (confirmed via DB and the native Traceability Matrix page). Filed as **BUG-CRX-090**.
+
+---
+
+### TC-CRX-347: Closed-run read via chat (contrast with BUG-CRX-088's write-path gap)
+
+**User Role:** `luna.blossom`. Run #4 closed this session (TC-CRX-335).
+
+**Steps:** "in the Crux QA Agent Test Project, can you tell me the status of the 'Sprint 3 Full Fields Test' run?"
+
+**Result: PASS.** Accurate, detailed answer: `Run #4` closed (state 3/Done), correct date range, correct suite/testcase counts, and a correct per-testcase breakdown (`#6 Untested`, `#7 Failed, defect linked: #10`) — matches DB exactly. The **read** path for closed runs works correctly; only specific **write** paths (BUG-CRX-088) have the gap.
+
+---
+
+### TC-CRX-348: Run assignee read by run/environment name
+
+**User Role:** `luna.blossom`. Ground truth (native UI): "Sprint 1 Regression (Staging)" assignee = Luna Blossom.
+
+**Steps:** "in the Crux QA Agent Test Project, who is assigned to the 'Sprint 1 Regression' run in the Staging environment?"
+
+**Result: Honest capability gap, not a bug.** The agent correctly reported it could not find assignee information in `get_run`'s output and asked the user to check natively instead of guessing. Confirmed via MCP source: `redmineflux_testcases_management_get_run`'s formatted response genuinely never includes `assignee_id` anywhere in its text output (only state/dates/suite-and-testcase-group counts) — an honest, accurate disclosure of a real tool limitation. No bug filed.
+
+---
+
+### TC-CRX-349: Create Status Result (Passed path) on a closed run — contrast confirms BUG-CRX-088's scope
+
+**User Role:** `luna.blossom`. Run #4 closed.
+
+**Steps:** "for the 'Sprint 3 Full Fields Test' run, can you mark the test case 'Reset password with valid email' as Passed?"
+
+**Result: PASS (expected denial), new repro of BUG-CRX-082 (misleading ✓).** Confirm card correctly built (`Run: 4`, `Issue: 6`, `Case Status: 2`), but confirming correctly refused: *"✓ Cannot log results: run #4 is closed. Use list_runs to see open runs."* — DB-verified no write occurred. This is `create_status_result`'s own closed-run guard working as intended (unlike `report_defect` in BUG-CRX-088), confirming the gap is scoped specifically to the Failed/Blocked flow. The leading ✓ on this genuine failure is a new tool hit for the already-tracked **BUG-CRX-082** rendering defect.
+
+---
+
+### TC-CRX-350: Report Defect, link-to-EXISTING-defect path (as opposed to create-new, TC-CRX-343)
+
+**User Role:** `luna.blossom`.
+
+**Steps:** "for the 'Bulk Status Fixture Run' run, can you mark test case 'Reset password with valid email' as Blocked and link it to the existing defect 'Password reset email not being sent on valid request'?" — attempted in both a long-running chat and a brand-new chat with the project named explicitly.
+
+**Result: FAIL — 2 new bugs.** Neither attempt converged to a confirm card within 3-5 turns, each hitting the per-turn token budget while re-discovering the same tools already established earlier in the same conversation (filed as **BUG-CRX-091**, High — a simple, common action rendered effectively unusable for this specific request shape, $0.13-0.16+ burned per attempt with no result). The long-chat attempt, once it finally did produce a confirm card, additionally showed the wrong project/run/environment (folded into **BUG-CRX-080** as a 5th affected tool). Both attempts were canceled — no write occurred to any project.
+
+---
+
+## Suite status (2026-10-27, session close — final)
+
+All 6 scoped CRUD areas plus bulk operations, Close Run, closed-run read/write behavior, the To-Do dashboard, the Traceability Matrix, and run-assignee read have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete), **Test suites** (full CRUD + sub-suite/move/copy/remove), **Environments** (full CRUD), **Requirements** (standalone CRUD zero MCP tool support; create-time linking broken as BUG-CRX-084; Traceability Matrix read falsely denies a real link as BUG-CRX-090), **Reports** (create/update/delete; scheduling zero MCP tool support), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result; closed-run read correct, closed-run Failed/Blocked write silently bypasses its own guard as BUG-CRX-088 while the Passed-path guard correctly fires), **To-Do** (real native feature = pending Runs by assignee; chat substitutes a false, unrelated answer as BUG-CRX-089, correcting this suite's earlier "no bug" call), **Defect linking** (new-defect creation works cleanly in 2 turns; existing-defect linking never converges, BUG-CRX-091).
+
+**13 bugs filed this session (BUG-CRX-079 through 091)**, several extended across multiple tools/trigger paths each — see `bugs/_index.md`/`_duplicates.md` for full detail. Ranked by severity: **BUG-CRX-086** (silent data loss behind a false error, High) and **BUG-CRX-091** (request never converges, High — a simple action effectively unusable) are the two most severe; **BUG-CRX-088** (closed-run guard bypass, High) and **BUG-CRX-080** (wrong write target, High) follow. One fixture gap found/fixed mid-session (missing core `Delete issues` permission).
+
+This closes the full scope originally requested, plus every gap identified in this session's follow-up review: Test cases, Test suites, Environments, Requirements (incl. linking and Traceability Matrix), Reports (incl. scheduling), Runs (incl. close, bulk operations, closed-run read/write, assignee read), To-Do, and both defect-linking paths (new and existing) — each tested admin and non-admin where meaningful, every finding DB- or source-verified.
 
 ---

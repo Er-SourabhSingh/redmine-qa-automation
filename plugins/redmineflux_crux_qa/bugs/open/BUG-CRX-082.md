@@ -46,6 +46,10 @@ Same agent/domain, different tool. As `luna.blossom`, asking the QA Agent to cre
 
 As `daisy.skye`, attempting to rename the "Staging" environment resolved to a fabricated, nonexistent `project_id=30` (see BUG-CRX-079's new repro for that part). The resulting genuine failure rendered as **`✓ Project '30' not found. (If you expected this test environment #2 to exist, verify the ID with the corresponding list_* tool.)`** — again a textually explicit failure with a leading `✓`. Verified via DB: no change — the failure is honest, purely a rendering defect.
 
+## New repro — 2026-10-27, Create Status Result on a closed run (`✓ Cannot log results: run #4 is closed...`)
+
+As `luna.blossom`, attempting to mark a testcase Passed on already-closed run #4 correctly triggered `create_status_result`'s own closed-run guard (contrast with **BUG-CRX-088**, where the sibling `report_defect` tool has no such guard at all): *"✓ Cannot log results: run #4 is closed. Use list_runs to see open runs."* — again a genuine, textually explicit failure rendered with a leading ✓. Verified via DB: no new row in `issue_status_results` for this attempt — the refusal is honest, purely the same rendering-layer defect.
+
 ## Note for triage
 
 This is the same shared rendering-layer defect already documented extensively: originally found and fixed on the Workload/Capacity agent (**BUG-CRX-018**, closed 2026-09-25), confirmed recurring on 4 other domain agents at the time (KB, Scrum, and others per `CRUX_MEMORY.md`'s "Recurring Issues" notes), and currently still open on the CRM Sales agent (**BUG-CRX-067**, 6 reproductions across Lead/Contact/Company/Deal/Stage/Activity tools). This is simply the **first confirmed instance on the QA Agent / Test Case Management domain** — the underlying shared component that unconditionally prefixes outcome text with "✓" regardless of whether the underlying tool call actually succeeded evidently covers this agent's tools too, and was never fixed platform-wide despite being fixed once for the original Workload trigger path.

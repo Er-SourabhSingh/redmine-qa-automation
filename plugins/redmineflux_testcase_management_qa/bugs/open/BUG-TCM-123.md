@@ -1,7 +1,7 @@
 # BUG-TCM-123
 
 - Bug ID: BUG-TCM-123
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #125461
 - Title: `RequirementsController#content` has zero cross-project scoping — any user with `edit_requirement` on ANY project (or just logged-in, via the fallback branch) can read ANY other project's Requirement content by ID, completely bypassing project membership/visibility, even for private projects
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management
@@ -141,3 +141,10 @@ both halves of this bug from scratch, independently of the original finding:
 
 **Verdict: reconfirmed, no change.** The bug is genuine and the "private project" premise holds up under direct
 independent verification, not just inference from a 403.
+
+## Production report
+
+Reported to production `ztflux` as **#125461** on 2026-10-27, per explicit user instruction ("create kr do bug").
+Tracker Bug, Priority High, Category "Testcase Management Plugin", Target version "Testcase Management plugin
+Release 7.2.0 [21-10-2026]" (id=2067), assigned to Vaishnavi Bhawsar (id=192). Custom fields: Defect Type=Security,
+Defect Severity=High-severity, Defect priority=High. Standalone issue, no Test Run/Testcase link.

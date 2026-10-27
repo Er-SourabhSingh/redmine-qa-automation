@@ -1,7 +1,7 @@
 # BUG-TCM-122
 
 - Bug ID: BUG-TCM-122
-- Production Redmine Issue ID: <!-- fill after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #125377
 - Title: Requirement Templates' "create" path is really only "clone an existing Requirement" — there is no standalone way to author a new template from scratch, and no way to edit a template's content after it's created
 - Severity: Low
 - Redmine version: 6.x (Docker `localhost:3000`)

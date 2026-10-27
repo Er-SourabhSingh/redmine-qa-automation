@@ -863,6 +863,28 @@ still-current live API evidence. No regressions, no new bugs.**
 
 ---
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 7 — Test case ↔ suite organisation, BUG-TCM-095/097/098/112)
+
+- **BUG-TCM-098 ("All Suites in Run" aggregation) — spot-checked live, consistent with fixed.** Reopened run #83
+  (the exact fixture this bug's own evidence used — 29 distinct issues, 4 belonging to multiple suites) in its
+  "All Suites" view: 8 real rows rendered, **not** the "No data to display" / `@run.testsuites.first`-only
+  substitution the bug described. A precise count-match against the expected 29 distinct issues was not done this
+  pass (would need pagination-aware counting); the qualitative "real aggregated data, not empty/wrong" signal is
+  treated as sufficient for this fast pass.
+- **BUG-TCM-095 (bulk submenu not greyed out), BUG-TCM-097 (duplicate RunIssue per suite), BUG-TCM-112
+  (drag-copy linking both suites)** — not re-run this pass (each needs a denied-permission role, a fresh
+  multi-suite+multi-environment fixture, or a real drag-and-drop simulation respectively — more setup than this
+  pass's time budget allows). All 3 confirmed via precise source diff 2026-10-26, no relevant commits since.
+  **Resume points:** TC-095 — strip `edit_requirement` from a role, confirm the bulk Requirements submenu is now
+  hidden; TC-097 — link a fresh case to 2 suites in a new run, mark Passed under one tab, confirm it reads Passed
+  (not Untested) under the other; TC-112 — drag-copy a case into a second suite, confirm it's linked to the
+  target suite only.
+
+**Result: 1 of 4 bugs freshly spot-checked live, 3 rely on yesterday's still-current source-diff evidence. No
+regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

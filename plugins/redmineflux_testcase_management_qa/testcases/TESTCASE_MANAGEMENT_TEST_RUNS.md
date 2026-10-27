@@ -1277,6 +1277,21 @@ remain correctly absent.
 **Result: 1 of 4 bugs freshly live-reproduced, 3 rely on yesterday's still-current source-diff evidence. No
 regressions, no new bugs.**
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 8 — Test run lifecycle, BUG-TCM-097 shared/116)
+
+- **BUG-TCM-097** — shared with Area 7, see that area's note above (run #83 "All Suites" spot-check).
+- **BUG-TCM-116 (orphan `issue_status_results` row on test case delete)** — not re-run this pass. Deleting a test
+  case from one of this project's many shared regression-fixture runs risked disturbing other in-flight sessions'
+  evidence, and confirming "no orphan row" meaningfully needs a DB check (`rails runner` is blocked in this
+  environment by a `secret_key_base` config gap when invoked via `docker exec`, per this project's own standing
+  constraint on environment-variable access). Confirmed via precise source diff 2026-10-26
+  (`has_many :issue_status_results, dependent: :destroy` added to `issue_patch.rb`), no relevant commits since.
+  **Resume point:** create a disposable test case, add it to a disposable run, record a result, delete the test
+  case, and confirm (via a DB check, not just the UI) its `issue_status_results` row is gone, not orphaned.
+
+**Result: 0 of 2 bugs freshly live-reproduced this specific area (BUG-097 covered under Area 7); both rely on
+existing source-diff evidence. No regressions, no new bugs.**
+
 ---
 
 ## Evidence Map

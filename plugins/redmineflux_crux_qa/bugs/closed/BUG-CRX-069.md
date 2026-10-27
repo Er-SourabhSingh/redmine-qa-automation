@@ -62,3 +62,9 @@ Still broken — reopened on production (#123226).
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same false-capability-denial family as BUG-CRX-029/032/034/050/061/062/066/067/068, and specifically the same shape as **BUG-CRX-068** (false denial that Leads have an Assigned To field) — filed as a new bug per the repo's own precedent for new entity types (this is the first instance on Contacts, and the first instance covering 2 fields — Private and Assigned To — in a single false claim). Flagging the pattern between 068/069 for the dev team to investigate as one shared root cause across entity types, rather than fixing each entity in isolation.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, as admin. Re-sent "Mark contact Autumn Grace as private, assigned to luna.blossom." — got a genuine `Crm Update Contact` confirm card with BOTH fields present (`Assignee: Luna Blossom`, `Is Private: True`) — no false claim that either field doesn't exist. Confirmed; DB verified `is_private=true` and `assigned_to_id=5` (luna.blossom) genuinely written to contact #1.
+
+**Production synced 2026-10-27**: #123226 → Status Done, % done 100.

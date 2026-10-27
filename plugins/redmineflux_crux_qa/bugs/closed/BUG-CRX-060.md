@@ -117,3 +117,13 @@ Per explicit user follow-up to test every remaining CRUD gap: **News Update** ("
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not the same as the cost/day-level spend-reminder issue (BUG-CRX-053, which is about a *daily* spend threshold never firing) — this is a *per-turn* token-budget ceiling being hit during tool discovery, a different mechanism and a different, more severe symptom (the action never completes at all, regardless of cost). Also distinct from the fabricated-confirm family (BUG-CRX-020/056) — those produce a fake confirm card with no real buttons; this produces no confirm card of any kind, fake or real, and visibly tells the user it was cut off rather than pretending to have an answer.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build (`redmineflux_crux` pulled to `5c3666e`/0.82.0, `redmineflux-crux-core` to `68abf7e`/0.129.0, `redmineflux-mcp` `crux_development` branch to `f1a9e63`; `mcp` image rebuilt, `crux-core`/`redmine` restarted).
+
+- Re-sent "Add luna.blossom as a Developer to the Crux PM Agent Test Project." as admin, fresh chat. Got an immediate genuine `Core Create Project Membership` confirm card (`Project: Crux PM Agent Test Project`, `User: 5`, `Role Ids: [3]`) after "Checked 3 things" — no stall, no token-budget cutoff.
+- Confirmed the card; the write genuinely attempted and failed with an honest `Validation error: User has already been taken` (luna.blossom was already a Manager-role member from earlier testing this session — a fixture pre-condition, not a reproduction of this bug's defect). The specific documented defect — stalling before ever reaching a confirm card — did not reproduce.
+
+**Production synced 2026-10-27**: #123102 → Status Done, % done 100.
+

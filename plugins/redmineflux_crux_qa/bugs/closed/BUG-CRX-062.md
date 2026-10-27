@@ -70,3 +70,9 @@ Not reported as fixed — left in `bugs/open/`, no production status sync perfor
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same false-capability-denial family as BUG-CRX-029/032/034/050/061, but this is the sharpest instance yet: a specific, confident, unhedged "not yet supported" assertion (not a vague "couldn't confirm" like BUG-CRX-061) for a tool that is not only present but was one call away from being used correctly (the agent had already found the right membership id). Also notable for being self-contradictory alongside BUG-CRX-060 in the same breath, claiming create "works" when this session already proved it doesn't.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build. Re-sent "Remove luna.blossom from the Crux PM Agent Test Project." (admin, fresh chat) — got an immediate genuine `Core Delete Project Membership` confirm card (`Membership: 1`) after "Checked 3 things" — no "not yet supported" claim.
+
+**Production synced 2026-10-27**: #123104 → Status Done, % done 100.

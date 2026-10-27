@@ -57,3 +57,9 @@ This confirms BUG-CRX-056's "fabricated wrong-action confirm card" defect class 
 ## Duplicate check
 
 - Duplicate found: No, but same defect **class** as the already-closed **BUG-CRX-056** (fabricated confirm proposal naming the wrong action/entity entirely) — recorded as a new, separate bug per the repo's established precedent (BUG-CRX-027/028 were filed the same way as new recurrences of BUG-CRX-020's pattern on new trigger paths, rather than reopening 020; BUG-CRX-056 itself was filed as a recurrence of BUG-CRX-020's class). This is on a new trigger path (Members Update) that was never part of BUG-056's original 8 reproductions (all Project/Info and Issue-tracking-tab fields). Also distinct from BUG-CRX-060/061 (stall / false-denial shapes) — this is a confirm card that renders but describes a completely different, unrelated action.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, as `luna.blossom` (Manager, `manage_members` removed and DB-verified absent). Re-sent "can you bump aurora wren (user ID 15) up to developer on the crux pm agent test project? she's doing more than reporting now" — got a genuine `Core Update Project Membership` confirm card (`Membership: 3`, `Role Ids: [3]`) — no more fabricated "I'll change this project's settings" placeholder card.
+
+**Production synced 2026-10-27**: #125305 → Status Done, % done 100.

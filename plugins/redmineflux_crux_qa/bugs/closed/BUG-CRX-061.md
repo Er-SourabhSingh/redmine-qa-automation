@@ -243,3 +243,9 @@ Closing the admin-tier CRUD gap (Wiki previously only had Create tested, TC-231/
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect *family* as the false-capability-denial bugs already on file (BUG-CRX-029/032/034/050), but this is the first instance on the **Members/project-membership** domain specifically, and the first case where the agent's own successful prerequisite tool calls (fetching the exact membership id and role id) make the "couldn't confirm availability" claim provably false from its own trace, not just from an external source check. Distinct from BUG-CRX-060 (member *creation* stalls on token budget before any refusal is given) — this is member *role update*, which completes its reasoning turn and produces a clean, confident, but false refusal instead of stalling.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build (`redmineflux_crux` 0.82.0, `redmineflux-crux-core` 0.129.0, `redmineflux-mcp` @ `f1a9e63`). Re-sent "Create a new issue category called 'Security Testing' for the Crux PM Agent Test Project." (admin, fresh chat) — got an immediate genuine `Core Create Issue Category` confirm card (`Project: Crux PM Agent Test Project`, `Name: Security Testing`) after "Checked 1 thing" — no false "couldn't confirm this action is available" denial anywhere.
+
+**Production synced 2026-10-27**: #123103 → Status Done, % done 100.

@@ -68,3 +68,9 @@ Not reported as fixed — left in `bugs/open/`, no production status sync perfor
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Originally logged as Repro 7 of **BUG-CRX-061** (the "false denial of an existing tool" pattern) before the follow-up Enable test revealed the tool genuinely doesn't exist in either direction — re-filed here as a distinct issue since the root cause is different (a genuine capability gap communicated inconsistently, not a false denial of a real tool). Related to, but distinct from, the Forums/Repositories honest-refusal precedent (TC-CRX-218/219) — those get the *same* honest treatment every time they're asked; this is the first instance where the *same* genuinely-absent capability gets two different quality levels of answer depending purely on phrasing.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, both directions in fresh chats. "Disable the Design time-tracking activity for the Crux PM Agent Test Project." now gets a detailed, honest, non-vague reply ("there is no tool to disable a time-tracking activity at the project level... Time-tracking activities in Redmineflux are global enumerations..."). "Enable the Design time-tracking activity..." gets an equally detailed, honest reply ("time-tracking activities are configured at the Redmineflux instance level, not per-project..."). Both directions now match in quality — no more vague "couldn't confirm" text on the Disable direction.
+
+**Production synced 2026-10-27**: #123106 → Status Done, % done 100.

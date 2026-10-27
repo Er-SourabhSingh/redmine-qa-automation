@@ -82,3 +82,9 @@ Still broken — reopened on production (#123225).
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same **false-capability-denial family** as BUG-CRX-029/032/034/050/061/062/066/067 (Repro 2: a confident, specific, checkable false claim that a real, working field doesn't exist) — filed as a new bug per the repo's own precedent for new domains/tools (this is the first instance on the Sales Agent's lead-assignment field). Distinguishing feature from the rest of that family: here the false belief doesn't just produce an outright refusal — it also causes a *silent write-time omission* when assignment is bundled into a multi-field request (Repro 1), rather than the request failing or asking for clarification. Also distinct from BUG-CRX-052 (wrong/hallucinated field *values*, not a field dropped entirely because the agent believes it doesn't exist).
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, as admin. Re-sent "Assign lead Celeste Dawn to admin." (Repro 2, the root-cause repro) in a fresh chat — got a genuine `Crm Update Lead` confirm card with a real `Assignee: Redmine Admin` row (`Lead: 1`) — no false "leads don't have an assign-to-user field" claim. Confirmed; DB verified `assigned_to_id=1` (admin) genuinely written to lead #1.
+
+**Production synced 2026-10-27**: #123225 → Status Done, % done 100.

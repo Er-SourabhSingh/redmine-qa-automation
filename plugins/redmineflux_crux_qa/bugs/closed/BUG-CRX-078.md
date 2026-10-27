@@ -65,3 +65,9 @@ This is this session's first *directly measured, log-grounded* instance of the c
 ## Duplicate check
 
 - Duplicate found: No. Distinct from the already-CLOSED **BUG-CRX-065** ("wasted tool calls" — that bug was about burning 10 *tool* calls checking individual issues one-by-one instead of using the one purpose-built tool; this bug is about repeated *LLM-layer* cache-invalidation within a single turn, a different mechanism, and is based on real `cost_usd`/`cache_read`/`cache_write` log figures rather than tool-call count alone). Related to, but filed separately from, **BUG-CRX-061** (the wrong-answer false-denial this same turn produced) and **BUG-CRX-060** (the token-budget-stall shape for Members Create) — this bug is scoped only to the turn's cost/performance, not its correctness.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED, cost/performance scope only)
+
+Retested against the round-20 build, as `luna.blossom` with `manage_members` genuinely restored, identical repro prompt. crux-core logs for this turn show all 7 LLM calls hitting `cache_read=19742, cache_write=0` every single time — zero full cache-rebuilds (vs. 3 in the original report). Total turn cost ~$0.03 vs. the original $0.1187. Note: the turn's *answer* was still wrong (a new/different false-denial shape — "the discovery system is having trouble... not currently in my toolset" — distinct wording from BUG-CRX-061's original repro), but that correctness aspect is outside this bug's stated scope (cost/performance only) and is flagged separately for triage.
+
+**Production synced 2026-10-27**: #125306 → Status Done, % done 100.

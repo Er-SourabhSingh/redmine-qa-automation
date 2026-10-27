@@ -68,3 +68,9 @@ Still broken, via a different failure shape than originally filed — reopened o
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not part of the false-capability-denial family (BUG-CRX-029/032/034/050/061/062/065/066/067/068/069) — the tool is invoked and claims success, it never denies the capability. Not a duplicate of BUG-CRX-068/069 (Assigned To/Private fields the agent falsely believes don't exist at all) — here the agent correctly recognizes Territory as a real field, builds a correct confirm card for it, and the tool call itself reports success; the defect is purely in whether the custom-field value is actually persisted server-side. Not a duplicate of BUG-CRX-071 (Deal Currency bypass) — that's a documented restriction being silently *accepted* when it shouldn't be; this is the opposite shape, a legitimate, unrestricted field update being silently *dropped* when it should succeed.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, as admin. Re-sent "Update deal 'NovaTech Solutions Rollout' to set its territory to North America." — the confirm card now shows `Territory: North America` as a top-level field (`Deal: 1`), no longer routed through the previously-broken `Custom Field Values` map. Confirmed; DB verified `territory='North America'` genuinely persisted on deal #1 (`rf_crm_deals`).
+
+**Production synced 2026-10-27**: #123230 → Status Done, % done 100.

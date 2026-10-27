@@ -87,3 +87,9 @@ Still broken — reopened on production (#123224).
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect **class** as the already-closed BUG-CRX-018 (first found on this same Sales Agent, 7.0.0 cycle) and BUG-CRX-054 (Project Manager agent, closed 2026-10-12) — recorded as a new, separate bug per the repo's own established precedent for this exact situation (BUG-CRX-027/028 were filed the same way as new recurrences of BUG-CRX-020's pattern on new trigger paths, rather than reopening the original). This is the first confirmed instance of the misleading-checkmark pattern on the new Redmine 6 stack's Sales Agent specifically, on a genuine Redmine-permission Forbidden response (as opposed to BUG-CRX-054's "project not found / no permission" business-rule-shaped failures).
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build, as `daisy.skye` with a rebuilt, clean fixture (her Developer membership on the unrelated PM project was removed — see BUG-CRX-092 — so she again has zero CRM permission anywhere in the instance, matching this bug's original precondition). Re-sent "Create a lead named Ember Lilac Two, email ember.lilac2@testco-crmtest.local, from TestCo, source Cold Call." — got a genuine `Crm Create Lead` confirm card; on Confirm, the write was correctly blocked with a clean, honest `Forbidden` message — no misleading ✓ checkmark prefix this time. DB confirms no lead was created (`rf_crm_leads` unchanged, still 2 rows).
+
+**Production synced 2026-10-27**: #123224 → Status Done, % done 100.

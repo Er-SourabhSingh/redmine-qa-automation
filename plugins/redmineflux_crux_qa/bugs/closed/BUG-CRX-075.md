@@ -43,3 +43,9 @@
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not a duplicate of BUG-CRX-057 (issue-count questions silently excluding Closed issues — a different silent-omission shape, and that bug was confirmed fixed) or BUG-CRX-058 (spent-time fabricated absence — also confirmed fixed, and this session's own retest of the identical question pattern for Spent Time got a correct answer). This is the first finding specifically on the Calendar tab, which — per the plugin's own suite file (`CRUX_AGENT_PROJECT_MANAGER.md`) — had never been tested via chat at all before this session, and it is a confident false claim invoking an entirely wrong mental model (versions gate the calendar) rather than a silent count/total error.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build. Re-sent "What's coming up on the calendar for the Crux PM Agent Test Project this month?" (admin, fresh chat) — reply now correctly lists all 3 real issues under "Starting October 26," with each one's real assignee and due date (#2 due Oct 30, #3 due Nov 5, carries into November) — no false "nothing on the calendar until you create versions" claim.
+
+**Production synced 2026-10-27**: #125303 → Status Done, % done 100.

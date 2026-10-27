@@ -53,3 +53,9 @@ Three different false reasons were given across repeated attempts for the identi
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related to, but a new shape within, the false-capability-denial family (BUG-CRX-029/032/034/050/061/062/066/067/068/069): this is the first instance where the false claim is specifically "the module isn't enabled" (as opposed to "no tool exists" or "not yet supported"), and the first instance where the agent fails to even identify the correct entity type for a request before reaching the false-denial stage. Distinct from BUG-CRX-061's Repro 14 (Documents Create, admin, same session type but a different action and a different false-denial wording — "I don't see a create_document tool") — that repro at least correctly identified Documents as the entity in question; this one often doesn't.
+
+## Retest — 2026-10-27 (CONFIRMED FIXED)
+
+Retested against the round-20 build (new `CrxDocumentsController`, CRP-43). Re-sent "in the Documents tab of crux pm agent test project there's a document called 'Project Charter' - can you rename it to 'Project Charter v2'?" — got a genuine `Core Update Document` confirm card (`Document: 1`, `Title: Project Charter v2`); confirmed, and DB-verified the title genuinely updated. Then re-sent "can you delete the 'Project Charter v2' document from crux pm agent test project? it's outdated" — got a genuine `Core Delete Document` confirm card (`Document: 1`) — no false "Documents module isn't enabled" claim on either request.
+
+**Production synced 2026-10-27**: #125304 → Status Done, % done 100.

@@ -44,3 +44,9 @@
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Distinct from BUG-CRX-068/069 (Sales Agent, CRM Leads/Contacts, a false claim that an Assigned-To field doesn't exist at all, plus a write-time silent drop) — this is the Project Manager agent, native Issues, a read-time question, and the agent demonstrably has and can correctly report the exact data a moment later; nothing is falsely denied, it's simply left out of the first answer despite being explicitly asked for.
+
+## Retest — 2026-10-27 (STILL BROKEN)
+
+Retested against the round-20 build. Re-sent "Hey, who's working on what right now in the Crux PM Agent Test Project?" (admin, fresh chat) — reply lists all 3 issues with status/priority/milestone commentary ("All three are blocked waiting on customer input...") but never mentions any issue's assignee, not even "unassigned" — identical omission to the original report.
+
+**Production synced 2026-10-27**: #125302 → Status Reopen (not fixed).

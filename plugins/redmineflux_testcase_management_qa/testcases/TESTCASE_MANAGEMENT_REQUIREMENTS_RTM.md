@@ -897,6 +897,44 @@ plain text. Cleanup: deleted the test Requirement and the test template afterwar
 
 ---
 
+## Regression — 2026-10-27 (post-bug-fix pass, triggered by BUG-TCM-093/072/121's Critical/High severity per SENIOR_QA_STANDARDS.md §26)
+
+Live-executed against `localhost:3000`, plugin 7.2.0, project `rftc-016-ci-qa`, as Administrator. Scope: the
+Requirements content-editor/escaping group, since that's the exact area BUG-TCM-093 (breadcrumb XSS),
+BUG-TCM-072 (mention-dropdown XSS) and BUG-TCM-121 (mention-highlight regression) all touched.
+
+- **TC-TCM-112 — PASS.** Created `REG-TC112-Create-20261027` (page_id 122) via the "+" control; appeared in the
+  list immediately.
+- **TC-TCM-113 — PASS.** Empty-title Save correctly blocked; inline "Please enter title!" message confirmed
+  present (initially missed on a first check due to it being transient — re-verified immediately after the Save
+  click).
+- **TC-TCM-269, TC-303, TC-304, TC-305, TC-306 (partial), TC-307 — PASS**, all verified live on the existing
+  `QA-EDITOR-FULLTEST-REQ` fixture (id 112) via a **fresh page load** (not cached state): all 13 original blocks
+  (paragraph w/ bold+italic+underline+strikethrough+link, heading, list w/ 2 live `#35` mention links, code,
+  quote, delimiter, table, 2×image, raw HTML, checklist, warning) rendered correctly with zero console errors
+  (one pre-existing, unrelated cosmetic 404 for `article-icon.svg` noted, not a regression — not filed, purely
+  cosmetic icon asset, no functional impact). Attachment (`tc176-sample-attachment.txt`) download link intact.
+  Content search for "plain paragraph block" (body text) correctly returned the requirement (1 result); search
+  for "FULLTEST" (title-only text) correctly returned 0 results — title-exclusion behavior still correct.
+- **TC-TCM-308 (partial) — PASS.** Save toolbar button clicked, re-saved cleanly, no new errors.
+- **TC-TCM-309 — PASS.** Pressing Escape on this page produced no new console error (BUG-TCM-099's fix holds) —
+  confirmed by comparing the console log before/after the Escape keypress; only the same pre-existing cosmetic
+  404 appeared, nothing new.
+- **Incident avoided, logged for awareness:** an initial attempt to test TC-TCM-271 via Playwright's `.fill()` on
+  the fixture's own first paragraph block **overwrote its content** (fill replaces instead of appending, and
+  doesn't trigger Tribute.js the way real keystrokes do — the same lesson already documented earlier this session
+  for mention insertion). Caught immediately via DOM check, **not saved** (no Save/Update click made), and
+  confirmed fully reverted on a fresh page reload — the fixture's original 13 blocks were intentionally reused
+  rather than a disposable one specifically to catch this kind of risk; from now on, any further manual edit
+  testing on this fixture will use a disposable requirement instead.
+
+**Not yet executed this pass (deferred, see fork's final report for resume point):** TC-TCM-114–121 (link/unlink/
+edit/delete CRUD beyond 112/113), TC-TCM-270 (rapid multi-block race), TC-TCM-271/272 (mention link/unlink, fresh
+creation — needs a disposable fixture), TC-TCM-273 (rename doesn't affect content), TC-TCM-310–312 (linking
+surfaces), TC-TCM-122–127/313–315 (Traceability Matrix). No regressions found in anything executed.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

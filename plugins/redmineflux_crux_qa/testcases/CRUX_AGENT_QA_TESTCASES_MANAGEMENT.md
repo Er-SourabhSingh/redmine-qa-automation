@@ -681,6 +681,26 @@ Both reproductions folded into their respective existing bug files (BUG-CRX-085,
 
 ---
 
+### TC-CRX-351: Overdue run query
+
+**User Role:** `luna.blossom`. Fixture: run #8 "Overdue Run Fixture" created via native UI with `start_date=2026-10-10`, `due_date=2026-10-15` (today is 2026-10-27, so 12 days overdue), open (not closed).
+
+**Steps:** "in the Crux QA Agent Test Project, are there any overdue test runs?"
+
+**Result: PASS.** Correctly identified Run #8 as the only overdue run, with accurate day-count math ("12 days overdue, due date was October 15, today is October 27"), and correctly listed the other 3 open runs as not overdue with their correct future due dates. No bug.
+
+---
+
+### TC-CRX-352: Pending-testcase-execution-in-run query
+
+**User Role:** `luna.blossom`. Ground truth: run #3 ("Sprint 2 Targeted Test") has an orphaned `issue_status_results` row (testcase #7, Untested) but **zero** `run_issues` rows — confirmed via the native "Runs & Results" page itself showing "0 of 0 tested" / "No data," meaning the app's own source of truth for run-testcase membership genuinely has no testcases in this run (the DB-level `issue_status_results` row is a pre-existing orphaned artifact, not reflected anywhere in the native UI). Run #8 ("Overdue Run Fixture"), by contrast, has both testcases #6 and #7 genuinely linked (`run_issues` populated) and Untested.
+
+**Steps (attempt 1, run #3):** "...which test cases are still pending execution in the 'Sprint 2 Targeted Test' run?" — **Result: PASS (not a bug).** Replied "the run has no testcases assigned to it" — this matches the native UI's own ground truth exactly ("0 of 0 tested"), confirming the orphaned DB row doesn't mislead the agent either. Initially suspected as a bug until cross-checked against the native "Runs & Results" page.
+
+**Steps (attempt 2, run #8):** "...which test cases are still pending execution in the 'Overdue Run Fixture' run?" — **Result: PASS.** Correctly listed both testcases #6 and #7 as `[Untested]`, with correct suite ("Login and Auth"), environment ("Staging"), and priority — matching DB exactly, in just 3 tool calls / $0.01 (efficient, unlike BUG-CRX-091's defect-linking path).
+
+---
+
 ## Suite status (2026-10-27, session close — final)
 
 All 6 scoped CRUD areas plus bulk operations, Close Run, closed-run read/write behavior, the To-Do dashboard, the Traceability Matrix, and run-assignee read have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete), **Test suites** (full CRUD + sub-suite/move/copy/remove), **Environments** (full CRUD), **Requirements** (standalone CRUD zero MCP tool support; create-time linking broken as BUG-CRX-084; Traceability Matrix read falsely denies a real link as BUG-CRX-090), **Reports** (create/update/delete; scheduling zero MCP tool support), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result; closed-run read correct, closed-run Failed/Blocked write silently bypasses its own guard as BUG-CRX-088 while the Passed-path guard correctly fires), **To-Do** (real native feature = pending Runs by assignee; chat substitutes a false, unrelated answer as BUG-CRX-089, correcting this suite's earlier "no bug" call), **Defect linking** (new-defect creation works cleanly in 2 turns; existing-defect linking never converges, BUG-CRX-091).

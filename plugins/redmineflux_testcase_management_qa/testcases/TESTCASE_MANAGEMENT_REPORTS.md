@@ -478,10 +478,13 @@ emails show the correct type name.
 (report id 177) as Tester Scorecard, "Include all test run" scope — the exact previously-crashing configuration
 — and opened it: no 500, no `NoMethodError`, a real per-assignee scorecard table rendered (Completion
 Rate/Pass Rate/Efficiency Score columns, 3 assignees). This confirms the underlying data-access bug that crashed
-both the page and the mailer job is resolved; the emailing half specifically (does the notification now actually
-arrive) was not re-verified this pass due to time — **resume point:** tick "Notify me by email" on a fresh
-Tester Scorecard/"Include all" report and check Mailpit. Cleanup: deleted report 177 (and a throwaway
-Testcase-Summary-typed report, id 176, created while getting the report-type `<select>`'s correct option value)
+both the page and the mailer job is resolved. **Emailing half — CONFIRMED FIXED, same day (second pass).**
+Created `REG-TC108-Email-AllRuns-20261027` (report id 180) as Tester Scorecard, "Include all test run", "Right
+now", "Notify me by email" to `admin@example.net` — Mailpit confirmed delivery within seconds: "Testcase Report:
+REG-TC108-Email-AllRuns-20261027", 1 attachment (HTML, since PDF generation isn't available in this environment —
+a separate, unrelated Puppeteer/Node gap, not this bug). The email that previously could never arrive for this
+exact scope now genuinely does. Cleanup: deleted reports 177, 180 (and a throwaway Testcase-Summary-typed report,
+id 176, created while getting the report-type `<select>`'s correct option value)
 after confirming.
 
 ---
@@ -738,18 +741,25 @@ up the project via `Project.find_by(id: params[:project_id])` — the wrong look
 Reproduced twice. No workaround exists (a schedule-only report has no row in the main Reports table to delete
 instead). See `bugs/open/BUG-TCM-110.md`.
 
-**REGRESSION — 2026-10-27 (post BUG-TCM-110 fix, Critical-tier pass triggered by BUG-TCM-111).** Confirmed via
-source read of `testcase_reports_controller.rb`'s `rftc_authorize_report_schedule`
-(`app/controllers/testcase_reports_controller.rb:543-546`): it now does
-`Project.find_by(id: params[:project_id]) || Project.find_by(identifier: params[:project_id])`, exactly the
-documented fix. **Not live-reproduced this pass** (ran out of time locating the Scheduled Reports section's own
-Cancel UI in the current build — the main report list's icons are Edit/Delete only; the schedule itself lives in
-a separate `ScheduledReport` row, created successfully via `/projects/<id>/testcase_reports/new` with "Only
-Later"/interval set, confirmed by its generated `TestcaseReport` row `178` titled
-`REG-TC110-ScheduleCancel-20261027(2026-10-27)` and the flash "Report scheduled successfully for..."). **Resume
-point:** find the Scheduled Reports section's Cancel action in the UI (or call
-`DELETE /projects/rftc-016-ci-qa/cancel_scheduling/<ScheduledReport id>` directly) against a fresh scheduled
-report and confirm no 404. Cleanup: deleted report 178 (and its schedule) via the main list's Delete action.
+**REGRESSION — 2026-10-27 (post BUG-TCM-110 fix) — CONFIRMED FIXED LIVE, same day (second pass).** Found the
+Scheduled Reports section's real Cancel action: it's a **separate table below the main Reports list** on
+`/projects/<id>/testcase_reports` (own heading "Scheduled Reports", own Delete icon per row calling
+`confirmDeleteScheduleReport(id, name)`), distinct from the main table's Edit/Delete icons — not something the
+2026-10-23 original evidence's methodology surfaced either, since it called the route directly rather than using
+this UI. Created a scheduled report (`REG-TC110-CancelUI-20261027`, `ScheduledReport` id 7), clicked its real
+Cancel/Delete icon in that section, confirmed the "Are you sure?" modal, and submitted — **redirected cleanly
+back to the reports list, no 404**, and the scheduled report was genuinely gone from the Scheduled Reports table
+on reload. This directly confirms the documented source fix
+(`Project.find_by(id: params[:project_id]) || Project.find_by(identifier: params[:project_id])`) holds in
+practice, not just in the diff.
+
+**Data-hygiene note found during cleanup (not a new bug, just worth recording):** deleting a `TestcaseReport` row
+via the main table's own Delete icon does **not** cascade-delete its associated `ScheduledReport` row — the
+schedule row from this session's earlier first-pass test (`REG-TC110-ScheduleCancel-20261027`, scheduled_report
+id 6) was still present in the Scheduled Reports table even though its parent `TestcaseReport` (id 178) had
+already been deleted via the main list. Cancelled it the same way (now that the Cancel action is confirmed
+working) to clean it up. Cleanup: deleted `ScheduledReport` ids 6 and 7 via the Scheduled Reports section's Cancel
+action, and `TestcaseReport` id 179 via the main list's Delete action.
 
 ---
 
@@ -778,10 +788,15 @@ poller at every boot) **confirmed genuinely fixed**: `docker logs redmine6-sidek
 "Schedules Loaded" and no `ArgumentError`/`TimedStack` crash signature anywhere in the log (previously crashed on
 every single boot); `docker exec redmine6-sidekiq-1 bundle list` shows `connection_pool (2.5.5)` now — a version
 actually compatible with `sidekiq (7.3.9)`, not the old mismatched `3.0.2`. This is the real gem-level fix, not
-an incidental non-repro. **The delivery-timing half is still not re-verified live this pass** (would need to
-schedule a report for a near-future UTC time and wait for it, or inspect `Sidekiq::ScheduledSet` for the queued
-job) — **resume point:** schedule a report ~2 minutes out, confirm Mailpit receives it at the correct UTC-labelled
-time now that the poller itself can run.
+an incidental non-repro. **The delivery-timing half is now live-confirmed indirectly, same day (second pass):**
+creating a report with "Right now" + "Notify me by email" caused Mailpit's total message count to jump from 7 to
+100 within seconds of the report-creation request — the plugin's own `ReminderWorker` cron job (which depends on
+the exact same Sidekiq scheduled-job poller BUG-TCM-111 broke) fired a large backlog of overdue test-run reminder
+emails that had been queued/due for a long time but could never previously be dequeued. This is strong live
+evidence the poller itself is now genuinely running jobs, not just booting cleanly. A precise "report scheduled
+for exactly HH:MM UTC delivers at exactly that UTC time" timing check was not performed this pass (would need to
+schedule ~2 minutes out and wait) — **resume point:** schedule a report for a specific near-future UTC time and
+confirm exact delivery timestamp in Mailpit matches.
 
 ---
 

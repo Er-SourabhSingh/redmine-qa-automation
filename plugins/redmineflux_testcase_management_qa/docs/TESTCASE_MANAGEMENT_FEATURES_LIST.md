@@ -27,6 +27,7 @@
 | 17 | Email notifications | Run Added, Run Updated, Test Case Result Added. | TC-TCM-008 – TC-TCM-014 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
 | 18 | Installation prerequisites | Redis, Node.js + Puppeteer + Chromium, Sidekiq — each gates a user-visible feature. | TC-TCM-017 – TC-TCM-020 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
 | 19 | Project Overview dashboard | The module's landing page (`/test_suites/releases`): a chart with 3 selectable dimensions (Activity/Defects/Result), a date-range picker, copy-to-clipboard and SVG/PNG/CSV download, an Execution Details table (Run ID + Total Defects redirects), and Test Runs/To-Do summary panels (View All + item redirects). **Added 2026-10-23 — this feature had no entry here, in the User Guide, or in any testcase file until found and added per direct user request.** | TC-TCM-321 – TC-TCM-328 (`TESTCASE_MANAGEMENT_OVERVIEW.md`) |
+| 20 | Requirement Templates | Standalone reusable content templates for Requirements: create a template directly via its own rich-text (Editor.js) form, edit/update a saved template's name and content, delete a template, and select a template at Requirement-creation time so its content is copied onto the new Requirement. **Added 2026-10-27 — new feature (fix for BUG-TCM-120/BUG-TCM-122), had no entry here or in any testcase file until added per direct user request.** | TC-TCM-329 – TC-TCM-332 (`TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md`) |
 
 ## Notes
 

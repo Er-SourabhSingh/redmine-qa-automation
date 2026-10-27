@@ -16,6 +16,10 @@
 > test cases (a minor data-hygiene observation, not a bug). Re-confirmed explicitly, per direct user question,
 > that the RTM itself never shows Run membership for a linked test case (only the separate Requirement Coverage
 > report does).
+> **Extended 2026-10-27** with the new Requirement Templates feature (standalone create/edit, delete, and template
+> selection at Requirement-creation time) — added per direct user request, following live retest of BUG-TCM-120
+> and BUG-TCM-122 against a freshly-pulled plugin build (7.2.0). All 4 cases executed live against `localhost:3000`,
+> project `rftc-016-ci-qa`, as Administrator.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -773,6 +777,115 @@ alone.
 
 ---
 
+## Functional Cases — Requirement Templates
+
+---
+
+### TC-TCM-329: Create a standalone Requirement Template with original rich-text content (not cloned from an existing Requirement)
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. Administration → Plugins → Redmineflux Testcase Management → Configure → **Requirement Templates** tab.
+2. Click **"New Requirement Template"**.
+3. Enter a `Name`, then click into the `Content` editor (Editor.js — same editor Requirements themselves use) and
+   type original content directly — do not clone from any existing Requirement.
+4. Apply inline formatting (e.g. select the text and press Ctrl+B for bold) before saving.
+5. Click **Create**.
+
+**Expected Result:**
+- The template saves successfully with no Requirement needed as a source; the list shows it with both `Edit` and
+  `Delete` actions.
+- The formatting applied in the editor (e.g. bold) is preserved in the saved content, not stripped or escaped.
+
+**Status: EXECUTED 2026-10-27 — PASS.** Created template `QA-RTPL-Fidelity-Test` with content
+`TEMPLATE-MARKER-rtpl001 bold-me-this`, selected all and applied Ctrl+B before saving — confirmed via DOM
+(`.cdx-block` `innerHTML`) the content was wrapped in a real `<b>` tag at the moment of typing. After Create, the
+template appeared in the list (id `4`) with both `Edit` and `Delete` links present (previously Delete-only, per
+BUG-TCM-122). This directly verifies BUG-TCM-122 Finding 1 (no standalone create) is fixed.
+
+---
+
+### TC-TCM-330: Edit an existing Requirement Template — name and content both persist after Update
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. From the Requirement Templates list, click **Edit** on an existing template.
+2. Confirm the form is pre-populated with the template's current `Name` and `Content` (including any formatting).
+3. Change the `Name` and append text to the `Content`.
+4. Click **Update**.
+5. Re-open the same template's Edit page on a fresh navigation.
+
+**Expected Result:**
+- The Edit form loads the existing name/content correctly (not blank).
+- After Update, the list reflects the new name immediately.
+- Re-opening Edit on a fresh page load shows both the renamed title and the appended content — the change
+  genuinely persisted, not just an in-memory/optimistic UI update.
+
+**Status: EXECUTED 2026-10-27 — PASS.** Opened `/requirement_templates/4/edit` — form correctly pre-populated
+`Name: QA-RTPL-Fidelity-Test` and `Content: <b>TEMPLATE-MARKER-rtpl001 bold-me-this</b>` (bold preserved from
+TC-329). Renamed to `QA-RTPL-Fidelity-Test-EDITED` and appended ` EDITED-APPEND` inside the same bold run, then
+clicked Update — list immediately showed the new name. Re-navigated fresh to the same Edit URL: both the new name
+and `<b>TEMPLATE-MARKER-rtpl001 bold-me-this EDITED-APPEND</b>` loaded correctly, confirming a genuine server-side
+persist. This directly verifies BUG-TCM-122 Finding 2 (no edit capability) is fixed.
+
+---
+
+### TC-TCM-331: Delete a Requirement Template — confirmation modal, removal from list
+
+**User Role:** Administrator
+**Priority:** Low
+**Steps:**
+1. From the Requirement Templates list, click **Delete** on a template.
+2. Confirm the modal text names the correct template.
+3. Confirm the deletion.
+4. Reload the Requirement Templates tab.
+
+**Expected Result:**
+- A confirmation modal appears before any deletion happens (no silent/instant delete).
+- After confirming, the template is removed from the list; the list correctly returns to "No data to display"
+  when it was the only row.
+
+**Status: EXECUTED 2026-10-27 — PASS.** Clicking Delete on `QA-RTPL-Fidelity-Test-EDITED` raised a modal titled
+"Delete Requirement Template?" naming the template explicitly, with Delete/Cancel buttons. Confirmed — the row
+was removed, and the Requirement Templates tab correctly showed no table/list content afterward (the only
+template had just been deleted). Also exercised earlier in this same session on a different throwaway template
+(id `3`, from the BUG-TCM-122 retest) with the same result.
+
+---
+
+### TC-TCM-332: Select a Requirement Template while creating a new Requirement — the new Requirement's content exactly matches the template, including formatting
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. Create a Requirement Template with distinctive, formatted content (e.g. bold text with a unique marker string) —
+   per TC-TCM-329/330.
+2. On the project's Requirements page, click **+** to open "New Requirement".
+3. Enter a Title, then select the template from the **"Select Requirement Template"** dropdown.
+4. Click **Save**.
+5. Open the newly-created Requirement on a fresh page load (not the same in-memory state as right after Save).
+
+**Expected Result:**
+- The dropdown lists the template by name.
+- The created Requirement's content editor shows exactly the template's content — same text, same formatting
+  (e.g. bold preserved as a real `<b>`/`<strong>` element, not stripped or shown as literal markup) — not blank,
+  not truncated, not garbled.
+
+**Status: EXECUTED 2026-10-27 — PASS.** The "Select Requirement Template" dropdown listed
+`QA-RTPL-Fidelity-Test-EDITED` (the template from TC-TCM-330, content:
+`<b>TEMPLATE-MARKER-rtpl001 bold-me-this EDITED-APPEND</b>`). Created a new Requirement
+(`REQ-TC-TEMPLATE-USE-TEST`, page_id `119`) with this template selected. Inspected `#contentEditor`'s DOM
+immediately after save: the content block (`.ce-paragraph.cdx-block`) contained exactly
+`<b>TEMPLATE-MARKER-rtpl001 bold-me-this EDITED-APPEND</b>` — an exact, formatting-preserving copy of the
+template's content, not plain/garbled text. Re-verified on a **fresh navigation** to the same page (ruling out a
+stale in-memory render) — identical `innerHTML`, confirming the content is genuinely persisted on the created
+Requirement, not just reflected client-side at save time. Cleanup: deleted the test Requirement and the test
+template afterward.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |
@@ -782,6 +895,7 @@ alone.
 | TC-TCM-269 – 273 | Requirement content editor round-trip persistence, link/unlink/rename | BUG-TCM-074 |
 | TC-TCM-303 – 309 | Full editor block-type coverage, inline formatting, attachment/image upload-download, search, Share/Export/Save toolbar, tour-script console error | BUG-TCM-099, BUG-TCM-100 |
 | TC-TCM-310 – 315 | Requirement↔testcase linking from every real entry point (Edit form, right-click context menu, requirement-page mention), RTM count accuracy (defects, linked-testcase total), RTM's lack of a Run column | BUG-TCM-027 (reconfirmed) |
+| TC-TCM-329 – 332 | Requirement Templates: standalone create (with formatting), edit/update persistence, delete, and template-selection content fidelity at Requirement-creation time | BUG-TCM-120, BUG-TCM-122 (both fixed, reverified here) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-120, 269 and 270 are the highest-value cases — data-loss semantics, the content editor's core save

@@ -268,3 +268,33 @@ Attempted TC-CRX-310 (Environment Create, non-admin `daisy.skye`) first, expecti
 **Result: PASS.** Confirm card correctly showed `Project: Crux QA Agent Test Project`, `Environment: 1`. Confirmed: genuine deletion, verified via DB (`testcase_environments` table empty).
 
 ---
+
+## Scope note (2026-10-27) — Requirements CRUD has no MCP tool support
+
+Before writing any Requirements test cases, confirmed via MCP source inspection (`testcases_management.py`'s 64 `@mcp.tool` entries) that **there is no `create_requirement`/`list_requirements`/`get_requirement`/`update_requirement`/`delete_requirement` tool at all** — despite the plugin's own permission system genuinely having `add_requirement`/`edit_requirement`/`delete_requirement` as real, grantable permissions, and despite Requirements being a real, native-UI-only feature (page-based records at `/requirements?project_id=...`, stored in their own `requirements` table, linked to testcase issues via a separate `requirement_issues` join table — confirmed via DB, NOT Redmine issues themselves). The only requirement-related capability reachable via chat at all is the `requirement_ids: list[int]` parameter on `create_testcase`, which links at creation time only (no equivalent on `update_testcase`) and requires the caller to already know the numeric Requirement ID.
+
+This means full Requirements CRUD (create/read/update/delete the requirement itself) and unlinking are **not testable via Ask Crux chat** — only the create-time linking path is. Created requirement #1 ("User must be able to reset password via email") via native UI as a fixture for the one testable path below.
+
+---
+
+### TC-CRX-315: Requirement — attempt standalone Create via chat (expected: no tool exists)
+
+**User Role:** `luna.blossom` (QA Full Access, `add_requirement` genuinely granted).
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you add a requirement titled 'User must be able to reset password via email' with description '...'?"
+
+**Result: PASS (expected — not a bug).** The agent correctly and honestly reported it has no tool for creating a standalone "requirement" record, offering to either create a test case instead or suggesting a different tracker — matches the confirmed absence of any requirement-creation MCP tool. No bug filed for this part; this is an honest capability disclosure, not a false denial.
+
+---
+
+### TC-CRX-316: Requirement — link to a test case by name at creation time
+
+**User Role:** `luna.blossom` (QA Full Access). Fixture: requirement #1 ("User must be able to reset password via email") created via native UI.
+
+**Steps:** Fresh chat, QA Agent: "in the Crux QA Agent Test Project, can you create a test case titled 'Verify password reset email is sent' and link it to the 'User must be able to reset password via email' requirement?" — the user names the requirement by title only, per the real-user-phrasing rule (Requirements have no user-visible ID in this plugin's UI).
+
+**Result: FAIL — new bug, BUG-CRX-084.** The agent never attempted to resolve the requirement by name and instead asked: *"What is the numeric issue ID of the 'User must be able to reset password via email' requirement?"* — exactly the "asks the user for an ID" violation this suite's precondition section was set up to catch. Root cause confirmed via MCP source: no requirement-lookup tool exists at all, so this isn't a case of the agent failing to call an available tool — the tool genuinely doesn't exist, making this an architectural gap rather than an agent misbehavior. Filed as **BUG-CRX-084**.
+
+**Follow-up (same chat, supplying the ID manually to verify the one working path):** replied "The requirement's ID is 1." — confirm card correctly showed `Requirement Ids: [1]`. Confirmed: genuine success, verified via DB (issue #7 created, `requirement_issues` row: requirement 1 ↔ issue 7). Confirms the underlying create-time linking mechanism itself works correctly once given a numeric ID — the defect is purely the missing name-to-ID resolution path.
+
+---

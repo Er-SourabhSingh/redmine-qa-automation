@@ -481,6 +481,40 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 
 ---
 
+### TC-CRX-332: Environment — Read, non-admin (expected success — index isn't gated by `manage_environment`)
+
+**User Role:** `daisy.skye` (QA No Access).
+
+**Steps:** Fresh chat: "what environments exist in the Crux QA Agent Test Project?"
+
+**Result: PASS.** Correctly listed "Staging" (ID 2, components: Software) — matches DB. Confirms the controller source finding that `:index` is excluded from the `manage_environment` gate — read access only requires project membership, which daisy.skye has.
+
+---
+
+### TC-CRX-333: Environment — Update, non-admin (expected denial; also a new wrong-ID instance)
+
+**User Role:** `daisy.skye` (QA No Access — no `manage_environment`).
+
+**Steps (attempt 1):** "...can you rename the 'Staging' environment to 'Staging-Daisy'?"
+
+**Result: FAIL — new bug repro.** Confirm card showed `Project: 30` — a **nonexistent** project ID (this project is id=3) — alongside correct `Environment: 2`, `Name: Staging-Daisy`. Confirming failed: *"✓ Project '30' not found..."* — a genuine failure (verified via DB: no change) rendered with the usual misleading ✓, folded into **BUG-CRX-082**. The fabricated project_id=30 (not even a real project elsewhere in this instance, unlike BUG-CRX-080's wrong-but-real-project pattern) is folded into **BUG-CRX-079**'s broader wrong-ID family as a new worst-case variant.
+
+**Steps (attempt 2, fresh chat):**
+
+**Result: PASS (expected negative) on retry.** Confirm card correctly showed `Project: Crux QA Agent Test Project`. Confirming produced a genuine, clean denial: *"Unauthorized access..."* Verified via DB: no change.
+
+---
+
+### TC-CRX-334: Environment — Delete, non-admin (expected denial; deterministic self-contradiction)
+
+**User Role:** `daisy.skye` (QA No Access — no `manage_environment`).
+
+**Steps:** "...can you delete the 'Staging' environment?" — repeated 3 times (original, fresh chat, "Ask again" within that fresh chat).
+
+**Result: FAIL (expected denial, wrong presentation) — new repro of BUG-CRX-085, deterministic.** All 3 attempts produced the identical self-contradiction — *"I described a change without actually proposing it..."* — never reaching a confirm card. Verified via DB each time: no change, honest non-write. Notably this is **not session-length-dependent** (reproduced in a brand-new chat too), unlike BUG-CRX-085's original Report-domain repro — the same missing `manage_environment` permission produces a clean "Unauthorized access" on Update (TC-CRX-333) but this confusing self-contradiction on Delete, consistently.
+
+---
+
 ## Suite status (2026-10-27)
 
 All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.

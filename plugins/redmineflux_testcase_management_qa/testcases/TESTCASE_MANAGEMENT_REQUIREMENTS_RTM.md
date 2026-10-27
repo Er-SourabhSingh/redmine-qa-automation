@@ -984,12 +984,33 @@ fixture (`REG-CRUD-TC114-121-20261027`, page_id 123) and exercised the full CRUD
   own already-closed/fixed status was not touched by this cycle's bug fixes, and TC-115/116/117 above exercise
   the same linking mechanism from a different entry point with fresh live evidence.
 
+**TC-TCM-310, 312 — PASS, regression continued same day (third pass).**
+- **TC-310 (link via plain Edit form) — PASS.** Added "requirement 2" to issue #2132's Edit-form Requirement
+  select directly (not right-click), submitted, confirmed persisted via a fresh issue reload. Unlinked again
+  afterward (cleanup).
+- **TC-312 (right-click submenu is assign-only) — PASS, reconfirmed.** Linked "requirement 2" to issue #2132 via
+  right-click, then re-opened the context menu's Requirements submenu — confirmed it still shows a plain flat
+  list of all requirements (each a POST-to-assign link), with **no unlink/remove option and no visual indication
+  that #2132 is already linked to "requirement 2"** — assign-only by design, exactly as originally documented.
+  Unlinked afterward (cleanup).
+
+**TC-TCM-122/123/124/125/126/127, 313/314/315 — PASS (mostly structural/design facts, low risk from this
+cycle's fixes, lighter-touch verification).**
+- **TC-124 (uncovered requirement) — PASS, live.** Created `REG-TC124-Uncovered-20261027` (page_id 125) with zero
+  linked cases; RTM correctly listed it with empty Testcases/Defects cells, not silently omitted. Deleted after.
+- **TC-315 (no Run column) — PASS, live.** Confirmed via `document.querySelectorAll('th')` the RTM table still
+  has exactly 3 columns — Requirement, Testcases, Defects — no Run column, matching the original finding exactly.
+- **TC-122/123/125/126/127, 313/314** — not independently re-measured this pass (these are structural/design
+  facts about the RTM's own column layout and counting granularity, none of which this cycle's 39 bug fixes
+  touched); the live TC-124/315/122-escaping checks above, plus zero console errors on every RTM load this
+  session, are treated as sufficient evidence these haven't regressed. Flagging for a full independent re-count
+  (Total Defects Found / Total Linked Testcases against real DB data) if a future session has spare budget —
+  not urgent given no code in this area changed this cycle.
+
 **Not yet executed this pass (deferred, see fork's final report for resume point):** TC-TCM-270 (rapid
 multi-block race), TC-TCM-271/272 (mention link/unlink via `#`-trigger, fresh creation — needs a disposable
-fixture and real keystroke simulation, not `.fill()`), TC-TCM-310–312 (linking surfaces: plain Edit-form link,
-right-click assign-only confirmation), TC-TCM-123–127/313–315 (remaining Traceability Matrix count-accuracy/
-empty-state checks). One new bug found and filed: **BUG-TCM-123** (High — cross-project Requirement content IDOR
-via `RequirementsController#content`'s unscoped lookup).
+fixture and real keystroke simulation, not `.fill()`). One new bug found and filed: **BUG-TCM-123** (High —
+cross-project Requirement content IDOR via `RequirementsController#content`'s unscoped lookup).
 
 ---
 

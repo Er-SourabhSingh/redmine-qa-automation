@@ -81,3 +81,22 @@ is exactly the gap this reproduces.
   no existing entry. Distinct from `BUG-TCM-065` (the `python -m client` packaging gap) and `BUG-TCM-118` (the
   TCM plugin's own `bootstrap_run` race condition) — this is a different repo (`redmineflux-tcm-ci`) and a
   different code path entirely.
+
+## Retest Result (2026-10-27)
+
+**CONFIRMED FIXED.** Developer fixed this in the `redmineflux-tcm-ci` repo (commit `2d14ae5`, "Fix a crash on a
+broken mapping file instead of showing a clean error"): `resolve_rows()` now validates `case` is a dict
+containing both `testcase_id` and `testsuite_id` before indexing into it, raising a `ValueError` with a clear
+message instead of letting the raw `TypeError` propagate; `__main__.py`'s top-level `except ValueError` catches
+it and prints `Input error: {e}` with `exit_codes.USAGE` (2), exactly matching RFTC017-21's "never a raw
+traceback" design principle.
+
+Live-verified end to end: reinstalled the CLI from the fixed checkout inside `redmine6-redmine-1`, reproduced the
+exact repro steps (`{"cases": {"test_login_valid": "23"}}` mapping + `submit`) —
+
+```
+Input error: mapping entry for 'test_login_valid' must be an object with 'testcase_id' and 'testsuite_id', got '23'
+EXIT:2
+```
+
+No raw traceback, clean message, correct exit code. Moving to `bugs/closed/`.

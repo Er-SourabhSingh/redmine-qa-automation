@@ -160,3 +160,17 @@ should be kept (it is a correct, working safety net for the enqueue path) but do
 
 Reopened production #121703 (Reopen, 30%) with this full evidence. Local file moved back to
 `bugs/open/BUG-TCM-013.md`.
+
+## Retest Result (2026-10-27)
+
+**CONFIRMED FIXED.** Developer moved this to "In QA" (commit `be9f25c`/`54e029f`, "Fix BUG-TCM-013: stop the
+'Test Case Result Added' email from being sent twice") — root-caused to the mailer method both building AND
+sending the email itself, on top of the normal sending step every caller already does afterward, so one
+submission actually transmitted the same email twice at the transport layer (matching this file's own
+"Retest — 2026-10-22" root-cause narrowing). Fixed by only building the email in that method and letting the
+normal sending step send it once, like every other notification email in the plugin.
+
+Live-verified end to end against a real outgoing mail server (Mailpit): recorded a single "Add Result" (Passed)
+for test case #26 in run #174 — Mailpit's own API confirmed `"total":1` message delivered ("Test Case Result
+Added: Checkout flow renders correctly"), not 2. No regression on the existing controller-level cache guard
+(still present, unaffected). Moving to `bugs/closed/`.

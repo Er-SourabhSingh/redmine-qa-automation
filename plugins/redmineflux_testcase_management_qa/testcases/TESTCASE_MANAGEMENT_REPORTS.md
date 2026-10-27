@@ -798,6 +798,32 @@ for exactly HH:MM UTC delivers at exactly that UTC time" timing check was not pe
 schedule ~2 minutes out and wait) — **resume point:** schedule a report for a specific near-future UTC time and
 confirm exact delivery timestamp in Mailpit matches.
 
+## Regression — 2026-10-27 (targeted, fast pass per direct user request; Area 9 — Reporting, BUG-TCM-102/105/106/107/114; BUG-TCM-108 already covered above)
+
+- **BUG-TCM-106 (Requirement Coverage Excel export broken) — CONFIRMED FIXED, live.** Created
+  `REG-TC106-ReqCoverage-20261027` (report id 181) as Requirement Coverage, requirement "requirement 2",
+  "Include all test run", then hit its real `Download Excel` link
+  (`/testcase_reports/181/export_excel?project_id=2`) — downloaded a genuine `.xlsx` file (`file` command confirms
+  "Microsoft Excel 2007+", real `xl/worksheets/sheet1.xml` content), not the "Unknown Report Type" error text the
+  bug described. Cleanup: deleted report 181.
+- **BUG-TCM-107 (Slow Tests PDF drops body), BUG-TCM-114 (`export_pdf1` 500 crash)** — **cannot be meaningfully
+  live-retested on this environment**: this instance's PDF generation (Puppeteer/Node/Chrome) is non-functional
+  — confirmed earlier this same session when emailing a Tester Scorecard report as PDF silently fell back to
+  HTML ("The PDF version of this report could not be generated"). This is a known, pre-existing environment gap
+  (BUG-TCM-114's own 2026-10-26 retest separately confirmed the original `pdf_path` crash is gone, but hit a
+  different Chrome crashpad-handler incompatibility trying to get further) — not a regression of either bug's
+  fix. Both rely on their 2026-10-26 source-diff/partial-live confirmations.
+- **BUG-TCM-102 (defect's "Test Run:" field doesn't aggregate), BUG-TCM-105 (Defect Summary wrong
+  testcase/environment pairing)** — not re-run this pass given remaining time budget; both confirmed via precise
+  source diff 2026-10-26, no relevant commits since. **Resume points:** TC-102 — link a defect to a 2nd run,
+  confirm its "Test Run:" field now shows both, not just the first; TC-105 — generate a Defect Summary report on
+  a multi-environment run, confirm each defect pairs with the correct testcase/environment, not an unscoped
+  first-match.
+
+**Result: 1 of 5 bugs freshly live-reproduced this area (BUG-108 already fully live-confirmed earlier in this
+report), 2 are environment-blocked (PDF generation unavailable here, not a regression), 2 rely on yesterday's
+still-current source-diff evidence. No regressions, no new bugs.**
+
 ---
 
 ## Evidence Map

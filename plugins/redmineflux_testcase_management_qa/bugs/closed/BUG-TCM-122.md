@@ -104,3 +104,32 @@ No `:edit`/`:update` in the allowed actions list.
   the same fix, not a leftover from the original bug.
 - Checked `bugs/_duplicates.md` and `bugs/_index.md` — no existing entry covers Requirement Templates lacking a
   standalone create form or an edit capability.
+
+## Retest — 2026-10-27 (FIXED)
+
+Retested live against `localhost:3000` after pulling latest `redmineflux_testcase_management` (plugin now
+Version: 7.2.0) and a fresh `docker restart redmine6-redmine-1 redmine6-sidekiq-1`. The pulled commits added
+`app/views/requirement_templates/{_form,new,edit}.html.erb` and extended the controller/routes.
+
+**Finding 1 (no standalone create) — FIXED.** Administration → Plugins → Redmineflux Testcase Management →
+Configure → Requirement Templates now shows a **"New Requirement Template"** link (`/requirement_templates/new`)
+alongside the list. Opened it: a standalone form with a `Name *` text field and its own independent Editor.js
+rich-text `Content` field (no Requirement needed to clone from). Created a real template ("BUG-TCM-122 Retest
+Template") with original content typed directly into the editor — saved successfully and appeared in the list.
+
+**Finding 2 (no edit) — FIXED.** The list row for the newly-created template now shows both **Edit** and
+**Delete** actions (previously Delete only). Opened `/requirement_templates/3/edit` — the form correctly
+pre-populated both the `Name` field and the rich-text `Content` with the template's saved values. Changed the
+name to "BUG-TCM-122 Retest Template EDITED" and clicked **Update** — the list immediately reflected the new
+name, confirming the edit genuinely persists.
+
+Cleanup: deleted the test template (`BUG-TCM-122 Retest Template EDITED`) via the row's Delete action + confirm
+modal — list returned to empty ("No data to display").
+
+**Verdict: FIXED.** Both the standalone-create gap and the missing edit capability are resolved. Moving to
+`bugs/closed/`.
+
+## Production sync — 2026-10-27
+
+Production issue #125377 updated to Status: Done, % done: 100, per explicit user approval, with a note
+summarizing the standalone New/Edit views verification.

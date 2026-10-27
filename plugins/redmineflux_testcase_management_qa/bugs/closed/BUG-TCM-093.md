@@ -219,3 +219,38 @@ Production issue #124348 was sitting at **In QA / 90%** (set 2026-10-26) despite
 is still genuinely exploitable — the "In QA" status was never corrected back to Reopen after the 2026-10-26
 retest found it still broken. Moved to **Reopen / 30%** now, per this session's live reconfirmation, with a note
 explaining the still-live `createPageBreadcrumb()` sink.
+
+## Retest — 2026-10-27, later same day (FIXED, after fresh pull)
+
+A new pull of `redmineflux_testcase_management` landed later the same day (plugin now Version: 7.2.0), followed
+by a fresh `docker restart redmine6-redmine-1 redmine6-sidekiq-1`. Retested the exact still-broken trigger from
+this file's own prior retest: direct navigation to `/requirements?project_id=alpha-web&page_id=115` (the
+"Sidebar Tree Test" fixture, title `<img src=x onerror=alert('XSS093')>`).
+
+**No alert fired.** Page loaded completely cleanly — confirmed via `browser_navigate` (no dialog raised) and a
+full snapshot of the resulting DOM (only the legitimate arrow-icon `<img>` present under `#page-115`, no payload
+element). Also re-confirmed via source read that this was a genuine fix, not a non-repro fluke:
+`createPageBreadcrumb()` (`assets/javascripts/script.js:1668-1688`) now wraps **both** `pagePath.path[i]`
+interpolations in `escapeHtml()`:
+
+```js
+li.innerHTML = `<a class="text-deco-none">${escapeHtml(pagePath.path[i])}</a>`;
+li.innerHTML = `<a class="path-item" id="path-${pagePath.pathId[i]}">${escapeHtml(pagePath.path[i])}</a>`;
+```
+
+— exactly the fix this file itself suggested on 2026-10-26 ("wrap both `pagePath.path[i]` interpolations ...
+with the same `escapeHtml()` helper already used elsewhere in this file").
+
+Also re-verified the originally-reported sidebar-tree title sink is still correctly escaped (separately
+confirmed fixed earlier): created a fresh probe requirement (`<img src=x onerror="window.__tcmXssFired093=true">
+TC-093-retest-2026-10-27`, page_id=118, project `rftc-016-ci-qa`) — `window.__tcmXssFired093` never fired, and
+`#title-118`'s `outerHTML` showed both the `editor-tooltip` attribute and the child content fully HTML-entity
+escaped (`&lt;img ... &gt;`, `&quot;`), not a live `<img>` element. Probe requirement deleted after confirming.
+
+**Verdict: FIXED.** Both known sinks (`createPageBreadcrumb()` and the sidebar-tree title render) are now
+confirmed escaping correctly, live and via source. Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-27
+
+Production issue #124348 updated to Status: Done, % done: 100, per explicit user approval, with a note
+summarizing the `createPageBreadcrumb()` fix and this session's live/source reverification.

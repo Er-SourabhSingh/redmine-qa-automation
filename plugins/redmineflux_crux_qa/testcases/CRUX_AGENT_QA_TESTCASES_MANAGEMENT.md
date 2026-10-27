@@ -515,8 +515,98 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 
 ---
 
-## Suite status (2026-10-27)
+### TC-CRX-335: Run — Close, admin (expected success)
 
-All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.
+**User Role:** `luna.blossom` (QA Full Access — `close_run` genuinely granted).
+
+**Steps:** Fresh chat: "in the Crux QA Agent Test Project, can you close the 'Sprint 3 Full Fields Test' run?"
+
+**Result: PASS.** Confirm card correctly resolved `Run: 4` by name alone (no ID ever asked of the user). Confirming succeeded — verified via DB: `SELECT id, name, state, is_closed, closed_on FROM runs WHERE id=4` → `is_closed=t`, `closed_on` populated with the current timestamp.
+
+---
+
+### TC-CRX-336: Run — Close, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no `close_run`).
+
+**Steps:** Fresh chat: "in the Crux QA Agent Test Project, can you close the 'Sprint 1 Regression' run?"
+
+**Result: PASS (expected negative), clean presentation.** Confirm card correctly resolved `Run: 1` by name alone. Confirming produced a clean, honest denial: *"You don't have permission to close run. To fix this, ask your Redmineflux administrator to: • Grant you the required role/permission for this action • Check: Administration → Roles and Permissions → [your role]"* — no self-contradiction, no misleading ✓, no ID-asking violation. Verified via DB: `runs` id=1 unchanged (`is_closed=f`, `closed_on` NULL). This is the cleanest non-admin denial presentation of the whole suite — unlike Environment Delete's deterministic self-contradiction (BUG-CRX-085) for the identical "action genuinely not permitted" situation, Close Run's denial text is unambiguous and actionable.
+
+---
+
+### TC-CRX-337: Bulk Delete Testcases, admin (fixture permission gap found and fixed)
+
+**User Role:** `luna.blossom` (QA Full Access).
+
+**Steps:** Created throwaway testcases #8 ("Bulk Delete Fixture A") and #9 ("Bulk Delete Fixture B"), then: "can you delete the test cases 'Bulk Delete Fixture A' and 'Bulk Delete Fixture B' in one go?"
+
+**Result: Fixture gap found, not a product bug.** Confirm card correctly resolved `Testcase Ids: [8, 9]`. Confirming failed with a clean, honest denial: *"You don't have permission to delete test case/issues..."* — root-caused via DB (`SELECT permissions FROM roles WHERE id=6`) to the **QA Full Access** role genuinely never having Redmine's own `Delete issues` permission granted (only `Add issues`/`Edit issues`/`Import issues` were set up for this role at project scaffolding time) — a gap in this suite's own fixture setup, not an agent or plugin defect. Granted `Delete issues` to the role via native UI (`/roles/6/edit`), verified via DB, then re-confirmed the same pending card (session state persisted across the role change) —
+
+**Result after fix: PASS.** *"✓ 2 test cases deleted successfully. 0 were not in this project and were not deleted."* Verified via DB: both issues 8 and 9 gone.
+
+---
+
+### TC-CRX-338: Bulk Delete Runs, admin (expected success)
+
+**User Role:** `luna.blossom` (QA Full Access — `delete_run` genuinely granted).
+
+**Steps:** Created throwaway runs #5 ("Bulk Delete Run X") and #6 ("Bulk Delete Run Y"), then: "can you delete the runs 'Bulk Delete Run X' and 'Bulk Delete Run Y' together?"
+
+**Result: PASS.** Confirm card correctly resolved `Run Ids: [5, 6]` by name alone. Confirming succeeded: *"✓ 2 runs deleted successfully. 0 were not in this project and were not deleted."* Verified via DB: both runs gone.
+
+---
+
+### TC-CRX-339: Bulk Create Status Results, admin (expected success)
+
+**User Role:** `luna.blossom` (QA Full Access — `execute_testcase` genuinely granted).
+
+**Steps:** Created a throwaway run #7 ("Bulk Status Fixture Run") covering both testcases (#6, #7) of the "Login and Auth" suite, then: "for the 'Bulk Status Fixture Run' run, can you mark both test cases as Passed in one go?"
+
+**Result: PASS.** Confirm card correctly resolved `Run: 7`, `Testsuite: 1`, and both `issue_id`s (6, 7) with `case_status_id: 2` (Passed) and `environment: Staging` — names resolved correctly end-to-end with no ID ever asked of the user. Confirming succeeded, verified via DB: `issue_status_results` rows created for both issues under run 7 with `case_status_id=2`.
+
+---
+
+### TC-CRX-340: Bulk Delete Runs, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no `delete_run`).
+
+**Steps:** "in the Crux QA Agent Test Project, can you delete the test runs 'Sprint 1 Regression' and 'Sprint 2 Targeted Test' together?"
+
+**Result: PASS (expected negative), clean presentation.** Confirm card correctly resolved `Run Ids: [1, 3]` by name alone. Confirming produced a clean, honest denial: *"You don't have permission to delete runs..."* — no self-contradiction, no misleading ✓. Verified via DB: both runs unchanged.
+
+---
+
+### TC-CRX-341: Create Run (multi-run), self-contradiction recurrence (BUG-CRX-085 class) + self-resolution recurrence (BUG-CRX-079 class)
+
+**User Role:** `luna.blossom`, long-running chat (prior turns: testcase bulk-create/delete, run close).
+
+**Steps:** "can you create two test runs called 'Bulk Delete Run X' and 'Bulk Delete Run Y', no test cases needed in either?" → supplied all required fields (state/dates/environment) but phrased the assignee as "me (luna.blossom)".
+
+**Result: FAIL — new repro of BUG-CRX-085.** Despite all required fields being supplied and "Checked 3 things" shown, the agent replied with the exact self-contradiction text: *"I described a change without actually proposing it..."* — no confirm card. This is the first instance of this defect class on **Create Run** specifically (previously only seen on Reports-domain Create and Environment Delete).
+
+**Follow-on, fresh chat:** same request (minus "no test cases needed", which triggered the mandatory `suite_testcase_map` requirement to surface instead) produced a clean required-fields request, then — after supplying everything except resolving "me" — the agent again failed to call `get_current_user` and asked for the numeric ID directly (**new repro of BUG-CRX-079's self-resolution reliability bug**, now confirmed on Create Run's assignee field for a 2nd distinct session). Supplying the ID let it proceed to a correct confirm card and a successful create.
+
+Both reproductions folded into their respective existing bug files (BUG-CRX-085, BUG-CRX-079) rather than filed as new bugs — same defect classes, new trigger paths.
+
+---
+
+### TC-CRX-342: To-Do feature (`view_all_todos`) — no matching MCP tool, honest fallback
+
+**User Role:** `daisy.skye` (QA No Access, which still has `view_all_todos` per the fixture's base-permission set — this is a public `view_issues`-adjacent read, not the admin-only CRUD list).
+
+**Steps:** "in the Crux QA Agent Test Project, what to-dos are there?"
+
+**Result: Capability gap, not a bug — honest, graceful fallback.** Confirmed via MCP source (`grep -in 'todo' testcases_management.py` → 0 matches) that **no To-Do-specific MCP tool exists at all** — `view_all_todos` is a plugin permission with no corresponding chat-reachable capability. Rather than hallucinating a result or claiming no permission, the agent substituted the closest available data (a generic issue listing, correctly filtered to open issues in "Waiting for Customer Response" status) and explicitly flagged the substitution: *"If you were looking for items labeled specifically as 'to-do' or a different task tracker, there don't appear to be any open ones matching that pattern. Would you like me to search for closed issues as well...?"* This is the most transparent handling of a capability gap seen all session — no new bug filed; noted as a 4th confirmed zero-MCP-tool-support area (after Requirements CRUD, Report scheduling, Run Type/Notes/Watchers).
+
+---
+
+## Suite status (2026-10-27, session close)
+
+All 6 scoped CRUD areas plus bulk operations and the To-Do capability check have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin), **Requirements** (standalone CRUD confirmed zero MCP tool support; create-time linking by name broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result, admin+non-admin), **To-Do** (zero MCP tool support, but the agent's fallback behavior here is the session's best example of honest degradation).
+
+10 new bugs filed this session (BUG-CRX-079 through 086), several extended multiple times across different tools and trigger paths each — see `bugs/_index.md` for the full list and `bugs/_duplicates.md` for how each was scoped. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) remains the most severe finding** and should be prioritized for a fix. One fixture gap was also found and corrected mid-session (QA Full Access role was missing Redmine's own `Delete issues` permission — not a product defect).
+
+This closes the full scope the user requested: Test cases, Test suites (incl. sub-suites/move/copy/remove), Environments, Requirements (incl. linking), Reports (incl. scheduling), Runs (incl. include/exclude specific suites/testcases, close, and bulk operations) — each tested admin and non-admin, every finding DB-verified.
 
 ---

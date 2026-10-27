@@ -884,6 +884,19 @@ redmine6-sidekiq-1`) immediately after, confirmed `Up` again.
 
 ---
 
+## Regression — 2026-10-27 (post BUG-TCM-111 fix, Critical severity per §26)
+
+Sidekiq's scheduled-job poller crash (BUG-TCM-111's root cause, a `connection_pool`/`sidekiq` gem version
+mismatch) directly affects this file's installation-prerequisite TCs' own assumption that Sidekiq boots and stays
+up. Confirmed fixed: `docker logs redmine6-sidekiq-1` shows a clean boot ("Schedules Loaded", no
+`ArgumentError`/`TimedStack` crash) and `connection_pool (2.5.5)` is now installed (compatible with
+`sidekiq 7.3.9`, replacing the old mismatched `3.0.2`). TC-TCM-017 (Redis stopped) remains deferred per its
+existing shared-instance-risk note, unrelated to this fix. TC-TCM-018/019/020 not re-executed this pass (lower
+priority — not touched by any of this cycle's bug fixes); existing PASS/FAIL evidence from 2026-10-22/09-14
+stands unless someone reports a regression.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

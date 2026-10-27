@@ -472,6 +472,18 @@ for full root cause). Retested Tester Scorecard scoped to a single run instead �
 `report_type_texts` lookup hash in `run_mailer.rb` never updated for these two newer types) — the other 6 types'
 emails show the correct type name.
 
+**REGRESSION — 2026-10-27 (post BUG-TCM-108/111 fixes, triggered by BUG-TCM-111's Critical severity per
+`SENIOR_QA_STANDARDS.md` §26).** Live-verified against `localhost:3000`, plugin 7.2.0, project `rftc-016-ci-qa`.
+**BUG-TCM-108's crash — CONFIRMED FIXED on the UI side.** Created `REG-TC108-TesterScorecard-AllRuns-20261027`
+(report id 177) as Tester Scorecard, "Include all test run" scope — the exact previously-crashing configuration
+— and opened it: no 500, no `NoMethodError`, a real per-assignee scorecard table rendered (Completion
+Rate/Pass Rate/Efficiency Score columns, 3 assignees). This confirms the underlying data-access bug that crashed
+both the page and the mailer job is resolved; the emailing half specifically (does the notification now actually
+arrive) was not re-verified this pass due to time — **resume point:** tick "Notify me by email" on a fresh
+Tester Scorecard/"Include all" report and check Mailpit. Cleanup: deleted report 177 (and a throwaway
+Testcase-Summary-typed report, id 176, created while getting the report-type `<select>`'s correct option value)
+after confirming.
+
 ---
 
 ### TC-TCM-099: Emailed HTML attachment content matches the in-app report
@@ -726,6 +738,19 @@ up the project via `Project.find_by(id: params[:project_id])` — the wrong look
 Reproduced twice. No workaround exists (a schedule-only report has no row in the main Reports table to delete
 instead). See `bugs/open/BUG-TCM-110.md`.
 
+**REGRESSION — 2026-10-27 (post BUG-TCM-110 fix, Critical-tier pass triggered by BUG-TCM-111).** Confirmed via
+source read of `testcase_reports_controller.rb`'s `rftc_authorize_report_schedule`
+(`app/controllers/testcase_reports_controller.rb:543-546`): it now does
+`Project.find_by(id: params[:project_id]) || Project.find_by(identifier: params[:project_id])`, exactly the
+documented fix. **Not live-reproduced this pass** (ran out of time locating the Scheduled Reports section's own
+Cancel UI in the current build — the main report list's icons are Edit/Delete only; the schedule itself lives in
+a separate `ScheduledReport` row, created successfully via `/projects/<id>/testcase_reports/new` with "Only
+Later"/interval set, confirmed by its generated `TestcaseReport` row `178` titled
+`REG-TC110-ScheduleCancel-20261027(2026-10-27)` and the flash "Report scheduled successfully for..."). **Resume
+point:** find the Scheduled Reports section's Cancel action in the UI (or call
+`DELETE /projects/rftc-016-ci-qa/cancel_scheduling/<ScheduledReport id>` directly) against a fresh scheduled
+report and confirm no 404. Cleanup: deleted report 178 (and its schedule) via the main list's Delete action.
+
 ---
 
 ### TC-TCM-111: Scheduled time is interpreted as UTC
@@ -746,6 +771,17 @@ Sidekiq's own `ScheduledSet` entry shows the identical `at=2026-10-23 11:20:00 U
 half of this TC genuinely passes. The **delivery-timing** half cannot be verified at all right now — no
 scheduled report ever delivers, in any timezone, per BUG-TCM-111 — so "does delivery match UTC" is currently
 unanswerable and should be re-run once that bug is fixed.
+
+**REGRESSION — 2026-10-27 (post BUG-TCM-111 fix, Critical severity, §26 full-suite-plus-related-suites scope).**
+BUG-TCM-111's actual root cause (`connection_pool`/`sidekiq` gem version mismatch crashing Sidekiq's scheduled-job
+poller at every boot) **confirmed genuinely fixed**: `docker logs redmine6-sidekiq-1` shows a clean boot with
+"Schedules Loaded" and no `ArgumentError`/`TimedStack` crash signature anywhere in the log (previously crashed on
+every single boot); `docker exec redmine6-sidekiq-1 bundle list` shows `connection_pool (2.5.5)` now — a version
+actually compatible with `sidekiq (7.3.9)`, not the old mismatched `3.0.2`. This is the real gem-level fix, not
+an incidental non-repro. **The delivery-timing half is still not re-verified live this pass** (would need to
+schedule a report for a near-future UTC time and wait for it, or inspect `Sidekiq::ScheduledSet` for the queued
+job) — **resume point:** schedule a report ~2 minutes out, confirm Mailpit receives it at the correct UTC-labelled
+time now that the poller itself can run.
 
 ---
 

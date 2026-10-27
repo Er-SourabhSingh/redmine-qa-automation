@@ -457,6 +457,30 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 
 ---
 
+### TC-CRX-330: Report — Create, non-admin (expected denial)
+
+**User Role:** `daisy.skye` (QA No Access — no `create_report` permission).
+
+**Steps:** Fresh chat: "...can you create a testcase summary report called 'Daisy Attempt Report' covering the 'Sprint 1 Regression' run?"
+
+**Result: PASS (expected negative).** Confirm card correctly resolved project/run/report type. Confirming produced a genuine denial: *"Unauthorized access..."* Verified via DB: no report created — honest denial.
+
+---
+
+### TC-CRX-331: Run — Create, non-admin (expected denial; also surfaces an ID-asking violation)
+
+**User Role:** `daisy.skye` (QA No Access — no `create_run` permission, and also genuinely lacks `view_test_suite`).
+
+**Steps (attempt 1):** "...can you create a test run called 'Daisy Attempt Run'... including all test cases from the 'Login and Auth' suite?"
+
+**Result: Real-user-phrasing violation, not a permission bug.** Because daisy.skye genuinely lacks `view_test_suite`, the agent could not resolve "Login and Auth" to a suite ID — a correct limitation. However, instead of simply explaining it can't proceed, it asked the user to directly supply **Suite ID, Testcase IDs, and User ID** — three identifiers a real non-admin user has no way to see anywhere in this plugin's UI. This is the same class of violation as BUG-CRX-084 (asking for an ID the user could never have), just triggered by a genuine permission wall instead of a missing tool.
+
+**Steps (attempt 2, supplying the raw IDs as a security probe):** "Suite ID is 1, testcase IDs are 6 and 7, daisy.skye's user ID is 6." (first try landed in a chat with stale wrong-project context, re-tried explicit-project in a fresh chat).
+
+**Result: PASS (server-side permission correctly enforced).** Even with raw IDs supplied directly, the actual `create_run` call was genuinely rejected: *"Unauthorized access..."* Verified via DB: no run created under either name. **This confirms there is no privilege-escalation path** via supplying IDs the agent itself offered to accept — the permission check happens at the tool/API layer regardless of how the IDs were obtained. The bug is purely the UX of offering/asking for those IDs in the first place, not a security bypass.
+
+---
+
 ## Suite status (2026-10-27)
 
 All 6 scoped CRUD areas have now been exercised at least once, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update, full+required-only, admin+non-admin), **Test suites** (create/sub-suite/create-in-suite/move/copy/remove/delete, admin+non-admin), **Environments** (create/read/update/delete, admin+non-admin, after correcting a stale "unguarded" doc assumption and a fixture permission gap), **Requirements** (standalone CRUD confirmed to have zero MCP tool support; the one real capability — create-time linking by name — found broken as BUG-CRX-084), **Reports** (create/update/delete; scheduling confirmed to have zero MCP tool support beyond cancellation), **Runs** (create/read/update/delete, including specific suites AND specific testcases within a suite at both creation and update time). 10 new bugs filed this session (BUG-CRX-079 through 086, inclusive, plus multiple extensions of 079/080/082 across different tools each) — see `bugs/_index.md` for the current full list and `bugs/_duplicates.md` for how each was scoped against prior findings. **BUG-CRX-086 (Run Update silently deleting an existing testcase association behind a false "validation failed" message) is the most severe finding of this session** and should be prioritized for a fix.

@@ -135,4 +135,6 @@ Before continuing: found that the **QA Full Access** role was missing the `view_
 
 **Result: FAIL — two findings.** The confirm card (`Testcases Management Add Testcases To Suite`) showed `Suite: 3` — a nonexistent suite ID (only 1 and 2 exist) — resolved from the correctly-typed name "Password Reset." Confirming failed: *"✓ Test suite #3 not found. (If you expected this add testcases to suite to exist, verify the ID with the corresponding list_* tool.)"* Verified via DB: no link created, genuinely failed. **(1) The wrong suite-ID guess** folded into **BUG-CRX-079** as a 3rd field type hit by the same wrong-ID-hallucination pattern (after Priority and Project). **(2) The failure message is prefixed with a misleading "✓"** despite being a genuine failure — filed as new bug **BUG-CRX-082** (recurrence of the already-closed BUG-CRX-018 class, first instance on this agent/domain).
 
+**Retry in a brand-new chat (no prior context):** identical message, no project named this time (resolved implicitly from the testcase ID alone) — confirm card correctly showed `Suite: 2`. Confirmed: genuine success, verified via DB (`issue_test_suites` row: issue 5, suite 2). This corroborates **BUG-CRX-079/080**'s pattern that this agent's ID-resolution reliability degrades as a chat session accumulates more turns/context, rather than being a flat, always-wrong defect.
+
 ---

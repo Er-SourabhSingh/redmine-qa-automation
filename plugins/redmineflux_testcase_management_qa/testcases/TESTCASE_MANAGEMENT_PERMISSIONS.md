@@ -1501,3 +1501,47 @@ regressions, no new bugs.**
 - Screenshot: capture only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - Log: for leg C, capture the HTTP status and response of the direct request as evidence — a screenshot of a
   rendered page is not sufficient proof of refusal.
+
+---
+
+## Regression — 2026-10-28 (§27 final-cycle, area 16/22 — Roles & Permissions)
+
+**Trigger:** `git log --since=2026-10-22 -- app/controllers app/views config/locales` on
+`C:\redmine v6\plugins\redmineflux_testcase_management` showed commits `1e601dd` and `0782bbe` — the plugin
+permission `view_test_suite` was renamed to `view_testcase`, and `test_suites_controller.rb`'s menu item (the
+top-level "TestCases" project-tab) was changed to require `permission: :view_testcase` before Redmine will even
+render it, closing part of **BUG-TCM-009**'s reopened finding (TC-TCM-077): previously the TestCases tab and the
+underlying controller were both reachable by any project member regardless of this permission.
+
+**Live verification performed (not source-diff-only):**
+
+1. **Admin UI shows the renamed permission.** `/roles/3/edit` (Manager role) — the Testcase Management
+   permission group now lists **"View testcase"**, not the old "View test suite" label. Confirmed the rename is
+   real in the rendered checkbox list, not just in the locale YAML.
+2. **Built a real denial fixture.** Created role id 8, "V1 Reporter (no TCM)", with `view_testcase` left
+   **unchecked** (all other Testcase Management permissions also off, to isolate this one permission) — confirmed
+   via `/roles/8/edit` that the checkbox is genuinely unchecked, not just assumed from the role name.
+3. **Added a real project member with that role.** Added user `reporter` ("Rep Orter") to `rftc-016-ci-qa` via
+   `/projects/rftc-016-ci-qa/memberships/new` with role "V1 Reporter (no TCM)" — a genuine membership, not a
+   simulated/hypothetical one.
+4. **Logged in as `reporter` and confirmed menu-gating live.** Navigated to `/projects/rftc-016-ci-qa` as this
+   real user — the project's menu list rendered as only **Overview, Activity, Issues** (plus Spent time). The
+   **TestCases tab is genuinely absent** from the rendered page, not merely styled hidden — confirms `0782bbe`'s
+   `permission: :view_testcase` gate on the menu item works for a real denied user, closing the module-disabled
+   /no-permission half of TC-TCM-077.
+5. **Confirmed backend enforcement, not just UI-hiding, as `reporter`.** Navigated directly to
+   `/test_suites?project_id=rftc-016-ci-qa` (bypassing the hidden menu entirely) — got a clean **403 Forbidden**,
+   not the full test-suite listing that the pre-fix build would have returned to any project member. Backend
+   authorization and menu visibility are now consistent.
+6. **Cleaned up the fixture.** Logged out of `reporter`, logged back in as `admin`, and deleted membership id 33
+   (Rep Orter / V1 Reporter (no TCM)) from `rftc-016-ci-qa/settings/members` — the project is restored to its
+   original 3 members (QA Limited/Manager, Redmine Admin/Manager, QA NonAdmin/Developer). Role id 8 itself was
+   left in place as a reusable denial fixture for future permission regressions (harmless — it's not assigned to
+   any member now).
+
+**Verdict:** BUG-TCM-009's `view_test_suite`-never-checked sub-finding (TC-TCM-077, reopened 2026-10-22) is now
+**genuinely live-confirmed fixed** — both the menu-hiding and the backend 403 were exercised end-to-end against
+the running app with a real denied user, not inferred from the source diff alone. The Test-Suites-controller
+`module_enabled?` gap noted in the same 2026-10-22 entry was not in scope of this commit pair and was not
+re-tested this pass (no related commit since 2026-10-22); it remains tracked under BUG-TCM-009 as before. No new
+bugs found this area.

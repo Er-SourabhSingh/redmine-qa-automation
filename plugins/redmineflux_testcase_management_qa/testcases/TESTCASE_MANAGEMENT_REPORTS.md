@@ -845,6 +845,24 @@ environment-blocked (PDF generation non-functional on this instance), not a regr
 
 ---
 
+## Regression — 2026-10-28 continued (§27 final-cycle, area 14/22 — Report emailing & scheduling)
+
+- **BUG-TCM-110 (cancelling a scheduled report always 404s) — genuinely live-reproduced.** Created a real
+  scheduled report ("REG28-CancelSchedule-Check", Testcase Summary, Daily) via the New Report wizard — appeared
+  in the **Scheduled Reports** table alongside the 3 pre-existing entries. Clicked its row's real **Delete**
+  link, confirmed via the genuine "Delete?" modal (correctly named the right report), and verified via a direct
+  re-inspection of the Scheduled Reports table that the entry is genuinely gone — no 404, no error, back to
+  exactly 3 rows. Full write-up in `bugs/closed/BUG-TCM-110.md`'s 2026-10-28 retest section.
+- **BUG-TCM-111 (scheduled-job poller crash)** — already had genuine live confirmation from its original
+  2026-10-26 retest (ReminderWorker cron job observed actually firing), not re-run this pass; no commits since.
+
+**Result: 1 more bug (BUG-TCM-110) moved from source-diff-only to genuinely live-confirmed this session, on top
+of BUG-TCM-108 and BUG-TCM-111 already holding real live evidence. Only BUG-TCM-102/105 (Reporting) and
+BUG-TCM-107/114 (PDF, environment-blocked) remain without fresh live reproduction in this area. No regressions,
+no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

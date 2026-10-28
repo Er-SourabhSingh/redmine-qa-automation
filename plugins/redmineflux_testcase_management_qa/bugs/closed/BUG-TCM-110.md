@@ -108,3 +108,12 @@ afterward, confirming this is not a transient failure.
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff (d5a342b): rftc_authorize_report_schedule now falls back to Project.find_by(identifier: params[:project_id]) when the numeric lookup fails, fixing the 404-for-everyone on cancelling a scheduled report.
+
+## Retest Result (2026-10-28) — genuinely live-reproduced
+
+Prior confirmation was source-diff only. Created a real scheduled report ("REG28-CancelSchedule-Check",
+Testcase Summary, Daily) via the real New Report wizard — appeared correctly in the **Scheduled Reports** table
+alongside 3 pre-existing entries. Clicked its row's real **Delete** link, confirmed via the genuine "Delete?"
+confirmation modal (correctly named the right report). After confirming, re-inspected the Scheduled Reports
+table directly: it now shows only the original 3 entries — the new schedule is genuinely gone, no 404, no error
+page, no console error. **Verdict: fix holds under a real end-to-end cancel, not just source inspection.**

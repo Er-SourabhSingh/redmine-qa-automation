@@ -78,3 +78,11 @@ the `innerHTML` write with a null check before assigning — e.g. `const el = do
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff (d121ebb): the Run/Environment dropdown switch handler no longer throws a console error on every switch.
+
+## Retest Result (2026-10-28) — genuinely live-reproduced
+
+Prior confirmations were source-diff only. Live-retested on issue #23's "Testcase Execution" section: switched
+the Run dropdown via a real `selectOption()` call twice (→ run #163 "RFTC016-41-multienv-run", then → run #76
+"TC-TCM-042-env-rename-run"). `browser_console_messages` showed **zero errors or warnings** after either switch
+(previously a guaranteed `TypeError` on every single switch). **Verdict: fix holds under genuine live
+interaction, not just source inspection.**

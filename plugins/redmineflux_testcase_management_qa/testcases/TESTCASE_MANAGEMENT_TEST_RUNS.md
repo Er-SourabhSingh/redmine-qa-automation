@@ -1322,6 +1322,41 @@ existing source-diff evidence. No regressions, no new bugs.**
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, areas 11-12/22 — Test run lifecycle & Test execution)
+
+`runs_controller.rb` has had 6 bug-fix commits land since the 2026-10-23 full regression (`a8a3a56`, `bcf7c93`,
+`3e4131a`, `4acbe84`, `d5a342b`, `7f463cb`, `4b284cc`) — the exact fixes for **BUG-TCM-097, 098, 101, 102, 103,
+104**, all found in this suite's own 2026-10-23 run and all now showing Closed in `bugs/_index.md`. Per
+`bugs/closed/BUG-TCM-09{7,8}.md` and `BUG-TCM-10{1,2,3,4}.md`, every one of these 6 closures is **source-diff
+only** — none had been genuinely live-reproduced since the fix landed, including the 2026-10-27 fast pass above.
+
+**Live re-verified this session:**
+- **BUG-TCM-101 (console error on Run/Environment switch)** — on issue #23's "Testcase Execution" section,
+  switched the Run dropdown via a real `selectOption()` twice (→ run #163, then → run #76) — **zero console
+  errors** both times (`browser_console_messages` confirmed empty). Fix holds, now confirmed a second time
+  since the 2026-10-27 check, after the later commits landed.
+- **BUG-TCM-098 (All Suites in Run aggregation)** — already exercised repeatedly earlier in this same session
+  while retesting BUG-TCM-124: Run #163's "All Suites" view (`/runs/163?project_id=rftc-016-ci-qa`, no
+  `testsuite_id`) consistently rendered real aggregated data (22 real test case rows, a populated donut chart,
+  correct pass-rate percentages that changed live across several result submissions) — not the "No data to
+  display" / single-suite substitution the bug described. Treated as genuine same-day live evidence, not
+  re-derived from source.
+
+**Not independently live-reproduced this pass** (flagging transparently rather than claiming full coverage):
+**BUG-TCM-097** (duplicate `RunIssue` per suite pair — needs a fresh case linked to 2 suites in a new run),
+**BUG-TCM-102** (defect's "Test Run:" field aggregation — needs a defect linked across 2 runs), **BUG-TCM-103**
+(Run-result filter env leak — needs a contrived identical-`created_at` fixture), **BUG-TCM-104** (first-result
+misattribution — needs a genuine second-user login recording a case's first-ever result). Each still rests on
+the 2026-10-26 source-diff confirmation only, unchanged since no further commits touched their code paths. These
+4 remain the right candidates for live reproduction in a future session with more setup time, following the
+same resume points already recorded in the 2026-10-27 section above.
+
+**Result: 2 of 6 recently-fixed bugs in this area now have genuine live confirmation (one fresh today, one
+reused from same-day evidence); 4 remain source-diff-only. No regressions, no new bugs found in either Test run
+lifecycle or Test execution.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

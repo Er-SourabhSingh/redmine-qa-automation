@@ -1251,6 +1251,18 @@ with no bleed-over to unselected rows.
 _result[case_status_id]"]` options are exactly `["-- Select status --", "Passed", "Retest", "Skipped"]`. Failed and
 Blocked remain correctly absent, still true now that BUG-TCM-003 is fixed and bulk update actually persists —
 confirms this exclusion is deliberate design (bulk mode has no per-case Defects field to satisfy Failed/Blocked's
+
+**§27 regression, 2026-10-28 — all 4 TCs (188–191) re-verified, 4/4 PASS, zero new bugs.** TC-188/191 already
+reconfirmed earlier the same day via the BUG-TCM-124 retest (run #163, 22-case bulk Passed, dropdown still exactly
+Passed/Retest/Skipped). TC-190 (partial selection) re-verified fresh on run #188: selected exactly 2 of 25
+untested cases (#2045/#2046, modal confirmed "Apply to 2 testcase(s)"), bulk-updated to Passed — only those 2
+changed, every other case (including the still-untested ones) kept its prior status. TC-189 (bulk note)
+re-verified on the same run: selected #2047/#26, bulk-updated to Skipped with note "TC189-REG28-bulk-note-check"
+— both issues' Results & Comments tabs show the identical note text and Skipped status, confirmed independently
+on each issue's own page. **Note for future sessions**: the Bulk Update Result modal's submit button id is
+`bulk-update-submit-btn`, distinct from the single Add Result modal's `update-btn` — an automation script or
+manual JS-evaluate click targeting the wrong id fails silently (no error, nothing submitted) since the wrong
+id simply doesn't exist in that modal; cost real debugging time this session before being traced to this.
 requirement), not a side-effect of the endpoint being broken.
 
 **RETESTED 2026-10-23 — PASS.** On run #83, selected all 2 then-visible cases, opened Bulk Update Result: the

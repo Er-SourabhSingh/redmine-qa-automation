@@ -1037,18 +1037,18 @@ cross-project Requirement content IDOR via `RequirementsController#content`'s un
 - **BUG-TCM-072 (second XSS spot, `#`-mention dropdown)** — already genuinely live-reproduced (XSS payload
   fixture re-tested, confirmed inert, no alert fired) — see `bugs/closed/BUG-TCM-072.md`.
 - **BUG-TCM-089 Finding 3 (Requirements-attachment download bypasses Requirements permissions via core
-  `view_files`)** — **not independently live-reproduced this pass.** The original probe attachment
-  (`qa-probe-download-test.txt` on Requirement #6) no longer exists (cleaned up after the original bug
-  investigation), and creating a fresh one requires driving the Editor.js block editor's attach/image block
-  through several more steps than this pass's remaining time budget allows. Still relies on the 2026-10-26
-  source-diff confirmation only. **Resume point:** open Requirement #6 (or any requirement) in edit mode, add a
-  file via the editor's attachment/image block, save, then as a role with zero Requirements permissions but
-  normal `view_files` (e.g. a fresh test role), request `/requirement/download?id=<attachment_id>` directly and
-  confirm it's now rejected instead of serving the file.
+  `view_files`)** — **closed out 2026-10-28, genuinely live-reproduced.** Rather than drive the Editor.js block
+  editor's UI (which proved resistant to headless automation — Editor.js's toolbar only activates via a real
+  trusted hover/focus sequence its internal block-index tracking depends on), created the attachment directly
+  through the plugin's own `POST /upload_attachement_testcase` endpoint (the exact same code path the editor's
+  attach block itself calls) on Requirement #6 — confirmed created via `GET /page_attachments/6`. Logged in as
+  `qanonadmin` (Developer, zero Requirements permissions) and requested
+  `GET /requirement/download?id=11&filename=...` directly: **403 Forbidden**, not the 200-OK full-file download
+  the original bug reported. Probe attachment deleted immediately after. See `bugs/closed/BUG-TCM-089.md`'s new
+  "Retest Result (2026-10-28)" section for the full walkthrough.
 
-**Result: 3 of 4 recent fixes in this area have genuine live confirmation (2 reused from this exact session's
-earlier work, 1 from 2026-10-27); 1 (BUG-TCM-089 Finding 3) remains source-diff-only, flagged transparently. No
-regressions, no new bugs.**
+**Result: all 4 recent fixes in this area now have genuine live confirmation this cycle. No regressions, no new
+bugs.**
 
 ---
 

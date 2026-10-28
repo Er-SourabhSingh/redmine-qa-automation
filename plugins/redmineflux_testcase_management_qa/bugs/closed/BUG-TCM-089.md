@@ -219,3 +219,22 @@ needed to set them explicitly weren't available this session.
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff: Requirements attachment download now checks Requirements permissions before serving the file (previously fell back to core view_files), and Add/Edit controls are hidden instead of failing silently for a user with zero Requirements permissions.
+
+## Retest Result (2026-10-28) — Finding 3 genuinely live-reproduced
+
+Prior confirmation for Finding 3 (attachment download bypass) was source-diff only. Live-reproduced the exact
+original exploit against the real app:
+
+1. As admin, created a real attachment on the same Requirement #6 used in the original finding
+   (`POST /upload_attachement_testcase?project_id=rftc-016-ci-qa&page_id=6&filename=reg28-probe-download-test.txt`,
+   raw `application/octet-stream` body) — confirmed created via `GET /page_attachments/6` (attachment id 11).
+2. Logged in as `qanonadmin` (Developer role, zero Requirements permissions — add/edit/delete_requirement all
+   unchecked) and requested `GET /requirement/download?id=11&filename=reg28-probe-download-test.txt` directly.
+3. **Result: 403 Forbidden** (previously 200 OK with the file served in full) — the `view_files` fallback is
+   genuinely gone; download access is now actually gated by this plugin's own Requirements permission model, not
+   just in the source diff.
+
+Probe attachment (id 11) deleted immediately after confirming. **Verdict: Finding 3's fix holds under a real
+end-to-end download attempt by a genuine zero-permission user, not just source inspection.** Finding 1 (no
+`view_requirement` permission registered) remains an open design question, not a defect — unchanged status.
+Finding 2 (UI-visibility gap) was already covered by this file's 2026-10-26 confirmation.

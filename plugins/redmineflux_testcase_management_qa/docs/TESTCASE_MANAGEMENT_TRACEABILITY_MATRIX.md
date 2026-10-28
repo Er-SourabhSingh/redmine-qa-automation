@@ -66,12 +66,12 @@
    (confirmed via `bugs/_index.md` — zero rows with Status `Open`); every bug this matrix references across all
    22 rows, including BUG-TCM-087/088/089/090/091/092/093/094/009/096/097/098 and every earlier one, is `Closed`.
 6. ~~**Several bug closures rested on source-diff only, never a live re-run**~~ — **closed 2026-10-28** (§27
-   final-cycle exhaustive regression, this session): upgraded BUG-TCM-091, 094, 101, 108, 110, 123 (and
-   reconfirmed 092/093/124 already had genuine live evidence) from source-diff-only to actual live reproduction
-   against the running app. **One remains source-diff-only by explicit disclosure**: BUG-TCM-089 Finding 3
-   (Requirements-attachment download bypass) — see the Requirements/RTM suite's 2026-10-28 regression note for
-   its resume point. This is a single sub-finding of an already-closed bug, not a TC with zero coverage, and does
-   not itself block `CLAUDE.md` §10's Complete criteria, but is flagged here for whoever picks it up next.
+   final-cycle exhaustive regression, this session): upgraded BUG-TCM-091, 094, 101, 108, 110, 123, and finally
+   **089 Finding 3** (and reconfirmed 092/093/124 already had genuine live evidence) from source-diff-only to
+   actual live reproduction against the running app. BUG-TCM-089 Finding 3's attachment-download bypass was
+   closed out by creating a real attachment via the plugin's own upload endpoint and confirming a genuine
+   zero-Requirements-permission user now gets 403, not the file — see `bugs/closed/BUG-TCM-089.md`'s 2026-10-28
+   retest section. **Zero source-diff-only bug closures remain anywhere in this matrix.**
 7. **Full final-cycle regression (CLAUDE.md §10 criterion 2 / §27)** — **completed 2026-10-28.** All 22 rows of
    this matrix received a dated regression pass this session (`git log`-driven, re-verifying every commit since
    each row's last checkpoint against the running app). See `TESTCASE_MANAGEMENT_HANDOFF.md`'s Run History for

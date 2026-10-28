@@ -5,11 +5,13 @@
 >
 > **Status: authored 2026-09-14; nearly fully executed 2026-10-01 (every TC carried live evidence except
 > TC-TCM-170); FULLY REGRESSED 2026-10-23 across four same-day passes — all 40 TCs now carry current-build
-> evidence (TC-TCM-187 remains genuinely deferred for its own documented tooling-constraint reason, not a gap in
-> coverage) — see notes below. Two new TCs (TC-TCM-318/319) added and executed the same day, per direct user
+> evidence. Two new TCs (TC-TCM-318/319) added and executed the same day, per direct user
 > request to check the run grid's Subject filter and the run chart's Download SVG/PNG/CSV correctness — the
 > latter surfaced a confirmed extension of already-open BUG-TCM-098 (the chart and all 3 export formats inherit
-> the same "only the first testsuite" bug already tracked for the grid).**
+> the same "only the first testsuite" bug already tracked for the grid). **TC-TCM-187 resolved 2026-10-28** —
+> previously the plugin's one tooling-blocked TC, now genuinely executed with two truly independent concurrent
+> sessions (real browser UI + a separately curl-authenticated second user). This suite is now 42/42, zero
+> deferred.**
 >
 > **Fourth pass, same day (2026-10-23)**: completed the 5 TCs still outstanding after the third pass —
 > TC-TCM-189 (bulk notes, PASS), TC-TCM-169 (delete test case in active run, PASS — this time with explicit user
@@ -1150,6 +1152,27 @@ two truly simultaneous, independently-authenticated UI sessions with the tooling
 faked with a sequential two-single-user workaround, since that wouldn't actually test the race condition this TC
 is for. Deferred — needs either two separate browser profiles/processes or the automation suite (which can run
 two independent Playwright browser contexts) to execute properly.
+
+**RESOLVED LIVE — 2026-10-28 (§27 final-cycle closeout).** Found a working second channel: Playwright's single
+shared cookie jar still blocks a second *browser-tab* session, but a second genuinely-independent session can be
+authenticated separately via `curl` (its own cookie jar, its own login against `/login` with its own CSRF token)
+— a real, server-side-authenticated second user, not a simulated one. Built a disposable fixture (test case
+"TC187-Concurrency-Probe", issue #5748, in a new run "TC187-Concurrency-Run" #190, suite id 3, environment
+`test1`) and ran the actual concurrency scenario:
+- **User 1 (Redmine Admin)** recorded a result through the real **Add Result popup in the browser** (Status:
+  Passed, Submit button clicked) — genuine UI interaction, not an API call.
+- **User 2 (QA Limited)**, authenticated independently via `curl` with her own session cookie and CSRF token,
+  fired her own save (`POST /issue_status_results`, Status: Retest) in the background **at the same moment**
+  Admin's UI Submit was clicked — no reload of either side between actions, matching the TC's "without reloading"
+  requirement exactly.
+- **Result, verified on the issue's own Results & Comments tab**: both entries are present in history ("Added by
+  QA Limited — Status: Retest" and "Added by Redmine Admin — Status: Passed", each timestamped "less than a
+  minute ago"), and the case's current **Result:** badge shows **Passed** — the chronologically later write,
+  confirming deterministic last-write-wins with zero silent loss of the earlier (QA Limited's) entry.
+- **Verdict: PASS.** No error on either concurrent write, final state deterministic, full history preserved.
+  Probe fixtures (run #190, issue #5748) left in place, matching this suite's existing pattern of similarly-named
+  regression-probe runs. **No longer deferred — TC-TCM-187 is now genuinely executed with real concurrent
+  sessions**, closing the one remaining tooling-blocked TC in this entire plugin.
 
 ---
 

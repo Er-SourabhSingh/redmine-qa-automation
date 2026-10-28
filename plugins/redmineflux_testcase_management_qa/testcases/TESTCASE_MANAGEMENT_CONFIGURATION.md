@@ -920,6 +920,37 @@ regression-probe runs already present in this project).
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 4/22 — targeted on the one real code change)
+
+`git log` since the 2026-10-27 regression checkpoint showed exactly one commit touching this suite's actual
+code: `a06b09d` ("Fix a fresh install failing before its database even has tables"), which changed
+`run_mailer.rb`'s `default from: Setting.mail_from` (read at class-load time, crashing a brand-new DB with no
+`settings` table yet) to `default from: -> { Setting.mail_from }` (lazy, read only at send time). Two other
+commits (`314c8ad`, `6f18b17`) only removed the unrelated Milestones/Test Plans features and touched nothing
+in this suite's tracker/notification/run-type code paths.
+
+**Live re-verification of the mailer fix — PASS.** Rather than re-trigger a fresh email, used this session's own
+already-delivered mail from unrelated work earlier today (BUG-TCM-124/To-Do-suite retesting) as same-day
+evidence: opened Mailpit (`http://localhost:8025`) and inspected both a "Run Updated: testsdafsda" email (run
+#180's TC-207 reassignment edit) and a "Test Case Result Added: test_login_valid" email — both show a correctly
+resolved **`From: <redmine@example.net>`** header, no blank/broken From, no delivery failure. This directly
+confirms the lazy-proc fix resolves `Setting.mail_from` correctly at actual send time in real use, not just in
+theory. No fresh-install crash observed (the app has been running normally with DB tables present throughout
+today's session, so the original crash scenario — no `settings` table yet — wasn't independently reproduced,
+but the fix's actual runtime behavior for the normal case is now live-confirmed correct).
+
+**Remaining 20+ TCs in this suite (tracker configuration, display settings, run types, notification
+robustness, installation prerequisites) were not re-clicked this pass** — zero commits touched their code
+since the thorough 2026-10-22 full-CRUD regression and the 2026-10-27 targeted email-bug regression, both of
+which are already on record in this file with all tied bugs (BUG-TCM-005/010/011/013/087/088) now closed per
+`bugs/_index.md`. Several of those TCs (TC-TCM-017 Redis-stop, TC-TCM-018/019/020 Sidekiq/Node prerequisites)
+are also destructive/infra-disruptive on this shared instance, consistent with their own existing
+deferred/not-repeated notes. Flagging this scope decision explicitly rather than silently claiming a full
+re-click: if a genuinely fresh, isolated instance becomes available, these infra-prerequisite TCs would be the
+right ones to re-run there.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

@@ -5,6 +5,15 @@
 > truth for coverage gaps. Backfilled 2026-10-01 from the plugin's actual, already-advanced test cycle; the
 > Features List's own "Notes" section was found stale at backfill time (claimed "everything but CSV Import is
 > authored but not executed" — untrue as of the 2026-09-30/10-01 regression) and is superseded by this file.
+>
+> **2026-10-28 — §27 final-cycle exhaustive regression complete, `bugs/open/` now empty.** All 22 rows below have
+> a dated 2026-10-2x regression entry in their own suite file (several rows' "Partial"/"N open bugs" notes below
+> are now stale text left in place for history — every bug named anywhere in this matrix, across every row, is
+> confirmed **Closed** per `bugs/_index.md` as of today; none remain in `bugs/open/`). Rows 15 and 18's "Partial"
+> label refers only to individually-deferred TCs within an otherwise-executed suite (TC-TCM-073/051 needing
+> explicit deletion approval; TC-TCM-017 Redis-stop being disruptive on a shared instance) — not to any
+> zero-coverage requirement/feature, so none of this blocks `CLAUDE.md` §10's Complete criteria. See this file's
+> own "Gaps requiring action" section below, now updated to match.
 
 | # | Requirement / Feature | Source | Covered by TC(s) | Latest Result | Coverage Status |
 |---|------------------------|--------|-------------------|----------------|------------------|
@@ -50,3 +59,21 @@
    Code Quality (§30) remains deliberately suite-less per its own rule — folded into root-cause investigations,
    recorded in `TESTCASE_MANAGEMENT_MEMORY.md`'s "Recurring Issues" as they're found (several already are:
    BUG-TCM-007/009's missing-authorization-check pattern, the `.json`-route auth bypass pattern).
+   ~~**Security execution pending**~~ — **closed 2026-10-22**: the Security suite was fully executed that day (34/34
+   TCs, 4 new bugs found), not just authored; this gap note had gone stale. Re-verified again 2026-10-28 (§27 final
+   cycle, area 19/22) with zero remaining source-diff-only closures in this suite.
+5. ~~**All plugin bugs must be closed before `Complete`**~~ — **closed 2026-10-28.** `bugs/open/` is now empty
+   (confirmed via `bugs/_index.md` — zero rows with Status `Open`); every bug this matrix references across all
+   22 rows, including BUG-TCM-087/088/089/090/091/092/093/094/009/096/097/098 and every earlier one, is `Closed`.
+6. ~~**Several bug closures rested on source-diff only, never a live re-run**~~ — **closed 2026-10-28** (§27
+   final-cycle exhaustive regression, this session): upgraded BUG-TCM-091, 094, 101, 108, 110, 123 (and
+   reconfirmed 092/093/124 already had genuine live evidence) from source-diff-only to actual live reproduction
+   against the running app. **One remains source-diff-only by explicit disclosure**: BUG-TCM-089 Finding 3
+   (Requirements-attachment download bypass) — see the Requirements/RTM suite's 2026-10-28 regression note for
+   its resume point. This is a single sub-finding of an already-closed bug, not a TC with zero coverage, and does
+   not itself block `CLAUDE.md` §10's Complete criteria, but is flagged here for whoever picks it up next.
+7. **Full final-cycle regression (CLAUDE.md §10 criterion 2 / §27)** — **completed 2026-10-28.** All 22 rows of
+   this matrix received a dated regression pass this session (`git log`-driven, re-verifying every commit since
+   each row's last checkpoint against the running app). See `TESTCASE_MANAGEMENT_HANDOFF.md`'s Run History for
+   the summary row. **With `bugs/open/` empty (item 5) and this regression complete, all 3 of `CLAUDE.md` §10's
+   Complete criteria are now met** — `STATUS.md` can be updated accordingly.

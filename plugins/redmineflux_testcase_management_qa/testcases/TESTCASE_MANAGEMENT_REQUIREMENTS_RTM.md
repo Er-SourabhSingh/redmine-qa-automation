@@ -1025,7 +1025,15 @@ cross-project Requirement content IDOR via `RequirementsController#content`'s un
   exploit as `qa.limited` against `alpha-web`'s private Requirement #115, confirmed a clean 404 instead of the
   content leak. See `bugs/closed/BUG-TCM-123.md`'s 2026-10-28 retest section.
 - **Requirement Templates (`cdb7b90`)** — already has full live CRUD coverage from the 2026-10-27 session
-  (TC-TCM-329–332, all 10 Editor.js block types verified). No further commits since.
+  (TC-TCM-329–332, all 10 Editor.js block types verified). **Correction: this line previously said "no further
+  commits since," which was stale** — a fuller `git log` pass today found 9 more commits after `cdb7b90`, all
+  cosmetic/UI-consistency fixes to the Requirement Template form (`99e21a0`, `504dfa1`, `55442e2`, `669d2ca`,
+  `ebce9f4`, `87bed16`) and its error display (`051baf8` BUG-TCM-122, `28e8b4e`, `84d42ba`) — none changing
+  functional behavior any existing TC asserts on. Live-verified today: opened New Requirement Template and
+  submitted it empty — the resulting "Please enter title!" error now renders as a real Redmine-style pink
+  warning banner (with icon) positioned directly below the page heading, above the form (screenshot-confirmed),
+  matching both `28e8b4e` and `84d42ba`'s intent. Form fields/buttons match the rest of the admin pages'
+  styling. No functional regression, no new bugs — purely cosmetic fixes working as described.
 - **BUG-TCM-072 (second XSS spot, `#`-mention dropdown)** — already genuinely live-reproduced (XSS payload
   fixture re-tested, confirmed inert, no alert fired) — see `bugs/closed/BUG-TCM-072.md`.
 - **BUG-TCM-089 Finding 3 (Requirements-attachment download bypasses Requirements permissions via core

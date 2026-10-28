@@ -506,6 +506,37 @@ Playwright MCP's shared-cookie-jar tabs can't do this (same limitation already d
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 5/22)
+
+`git log` since the 2026-10-23 execution showed 7 bug-fix commits touching `runs_controller.rb`/views and
+report-related code (`testcase_reports_controller.rb` and friends) — none of them performance-targeted, but
+real functional fixes (e.g. 4acbe84's "missing Excel exports, missing PDF footnote," 7f463cb's "wrong status
+in filtered results"). Given the volume of code churn in exactly the pages this suite measures, re-verified the
+most heavily-touched ones live against the still-intact `rftc-perf-500` fixture rather than treating "no
+performance-specific commit" as "nothing to check":
+
+- **Run #81 detail page (TC-TCM-249/251/260)** — still renders correctly (500 cases, pagination intact,
+  donut chart, no console error from the Run/Environment-switch fix in 7f463cb). `performance.timing`:
+  **~2.4s** `responseEnd` — consistent with the original 1.7–2.0s range (browser-measured vs. curl-measured,
+  same order of magnitude, no regression).
+- **Reports list (TC-TCM-252)** — still renders correctly, **162ms** (`responseEnd`), consistent with the
+  original 153ms.
+- **Report generation, the real report from TC-TCM-263 (id 135, Testcase Summary scoped to Run #81)** —
+  still renders correctly, **~5.9s** (`responseEnd`), within the original 6.4–8.0s range (if anything slightly
+  faster). No timeout, no 500.
+- **Excel export (TC-TCM-265)** — the `export_excel_testcase_report_path` route (`/testcase_reports/135/export_excel`)
+  still exists and a real file download triggered successfully (confirmed by the browser's download-start
+  event, not an error page).
+
+**No regression found in any of the pages this suite measures.** The remaining TCs (250, 253–259, 261–268) were
+not re-clicked individually this pass — their underlying code (`test_suites_controller.rb`,
+`traceability_rtms_controller.rb`, CSV import) wasn't in the commit list above, and this suite's own 15/20
+executed result from 2026-10-23 already stands with zero bugs filed. The 5 originally-deferred TCs (256, 259,
+264, 266, 268) remain deferred for the same reasons recorded against each — destructive, needs tooling this
+session doesn't have, or needs a longer observation window.
+
+---
+
 ## Evidence Map (fill in during execution — record actual timings, not just PASS/FAIL)
 
 | TC ID | Result | Observed timing | Notes / bug reference |

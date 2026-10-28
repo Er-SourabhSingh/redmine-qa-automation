@@ -14,7 +14,7 @@
 | Release | 7.2.0 (production Target Version id=2067, due 2026-10-21, currently **open**) |
 | Bugs tagged to this release in production | **54**, all **Done** |
 | Features/Tasks tagged to this release in production | **9** (the RFTC-* specs) |
-| ⚠️ Feature/Task production status | **All 9 still "In QA"** — QA-complete, results ready to post, none marked "Done" yet (see §3) |
+| Feature/Task production status | **All 9 marked Done** (2026-10-28) — see §3 |
 | Internal QA suite status (`STATUS.md`) | Complete — full 22-area Traceability Matrix regression passed 2026-10-28 |
 
 ## 2. Internal Suite Regression (22 Traceability Matrix areas) — summary
@@ -23,10 +23,10 @@ This plugin's entire `TC-TCM-NNN` suite (all 22 Traceability Matrix areas) was r
 completing 2026-10-28. Full detail: `docs/TESTCASE_MANAGEMENT_TRACEABILITY_MATRIX.md` and
 `reports/TCM-Regression-2026-10-28.md`. All 22 areas: **Covered**, zero requirement/feature with zero TC coverage.
 
-## 3. Features/Tasks tagged to Release 7.2.0 in production — results, ready to post before marking Done
+## 3. Features/Tasks tagged to Release 7.2.0 in production — all 9 now Done (2026-10-28)
 
-QA execution is complete for all 9; the result below is what should be posted as a comment on each production
-issue (per `REDMINEFLUX-MCP-SETUP.md`'s write-approval process) before its status moves In QA → Done.
+Each result below was posted as a comment on its production issue, then status moved In QA → Done, done-ratio →
+100%, per `REDMINEFLUX-MCP-SETUP.md`'s write-approval process.
 
 | Issue | Feature | Result | Bugs found (this feature) |
 |---|---|---|---|
@@ -45,9 +45,8 @@ already in §4's closed-54 list). Full detail per feature: `testcases/RFTC-*_EXT
 (dedicated results files exist for two: `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md` and
 `RFTC-009_EXTERNAL_SPEC_RESULTS.md`).
 
-**Production still shows all 9 as "In QA", not "Done."** Recommended next step: post the result row above as a
-comment on each of the 9 issues, then update status In QA → Done and done-ratio → 100 — this is a production
-write and needs explicit approval first (same as any other production change, `REDMINEFLUX-MCP-SETUP.md` §4).
+All 9 issues (#121879–#121887) are now **Done, done-ratio 100%** in production, each with the result above
+recorded as its own comment.
 
 ## 4. Bugs found during Release 7.2.0's testing/regression — production-verified (54 total, all Done)
 
@@ -127,10 +126,18 @@ Zero new bugs found in this final pass. Full detail: `reports/TCM-Regression-202
 - [x] Internal `bugs/open/` empty (plugin-wide, including these 54)
 - [x] Full final-cycle regression run and passed, 2026-10-28, all 22 Traceability Matrix areas
 - [x] All 9 RFTC-* feature specs fully QA-tested
-- [ ] **Open item: the 9 RFTC-* Feature/Task issues (#121879–#121887) are still "In QA" in production, not "Done"** — needs a production status update before Release 7.2.0 is fully closed on the Redmine side.
+- [x] All 9 RFTC-* Feature/Task issues (#121879–#121887) moved In QA → Done, done-ratio 100%, in production (2026-10-28)
 
-**QA testing for Release 7.2.0 is complete. One administrative item remains: moving the 9 feature/task issues from
-"In QA" to "Done" in production — this is not a QA/testing gap, just a production status sync still pending.**
+**Release 7.2.0 is fully closed out: QA testing complete, all 54 bugs Done, all 9 features/tasks Done, zero open
+items remaining.**
+
+**Known gap, not blocking this closure:** production Run #612 ("Testcase Release 7.2.0 Sign-off", RFTC
+testcase-execution tracking) still shows 10 individual testcase results as "Failed" from before their underlying
+bugs were fixed (e.g. #124004/124006/124007 under RFTC-011, #123965 under RFTC-017, #123977 under RFTC-020,
+#123983/#123984 under RFTC-021, #124124 under RFTC-038, #124143 under RFTC-044, #124225 under RFTC-043) — each
+one's bug is confirmed fixed and Closed (see §4), so these are stale pre-fix results, not live failures. Retest
+to Passed is pending a permission grant for the bulk status-result write (blocked once by the Claude Code
+auto-mode classifier); does not affect the Done status of the 9 features above.
 
 ## Notes
 

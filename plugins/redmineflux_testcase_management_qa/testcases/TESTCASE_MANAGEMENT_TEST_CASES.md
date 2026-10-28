@@ -885,11 +885,42 @@ regressions, no new bugs.**
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 9/22)
+
+`git log` since 2026-10-27 showed 3 commits touching `issue_testcase_controller.rb` — not cosmetic. `a8a3a56`
+added real authorization to the `new`/`create` actions for the first time (reopened BUG-TCM-009 Finding 2: the
+form previously had **zero** authorization at all, and the `add_issues` permission check used `global: true`
+against a permanently-nil `@project`, so it never actually gated anything). `bcf7c93` then fixed a regression
+that same change introduced: the new `@project` lookup used `Project.find_by(id: params[:project_id])` only,
+which never matches the identifier-style `project_id` every real caller actually sends — i.e. the fix for a
+security hole temporarily broke the ordinary "New Test Case" flow for every ordinary identifier-based URL,
+before the follow-up commit corrected it to also check `find_by(identifier:)`.
+
+Given that chain, TC-TCM-128 (the core creation flow) could not be treated as "unchanged, skip it" — live
+re-executed end-to-end:
+
+- **As admin**, opened `/projects/rftc-016-ci-qa/issue_testcase/new` (identifier-style URL, the normal case) —
+  loads correctly, Tracker defaults to "Testcase" (BUG-TCM-022 fix still holds). Created
+  `REG28-TC128-CreateCheck` — issue **#5746** created successfully, confirmed via its own page title
+  ("Testcase #5746: ...") that it landed on the Testcase tracker, not Bug.
+- **As `qa.execonly`** (not a member of `rftc-016-ci-qa`), requested the same
+  `/projects/rftc-016-ci-qa/issue_testcase/new` URL directly — clean **404 Not Found**. Confirms the newly-added
+  authorization genuinely blocks a non-member now, closing the "zero authorization at all" gap BUG-TCM-009
+  Finding 2 described.
+
+**Verdict: both halves of this fix chain hold together — the security gate works, and it didn't break the
+ordinary create flow for real project-identifier URLs.** No regression, no new bugs. The remaining TCs in this
+suite (129–143, 144–151, 295–298) were not re-clicked individually — none of their own specific behaviors
+(step CRUD, suite linking, requirement assignment) were touched by these 3 commits, which were scoped to the
+`new`/`create` authorization path only.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-128–143 | Authoring, editing, deletion | BUG-TCM-021, 022, 024 (all closed, fix reconfirmed 2026-10-22/23) |
+| TC-TCM-128–143 | Authoring, editing, deletion | BUG-TCM-021, 022, 024 (all closed, fix reconfirmed 2026-10-22/23/28) |
 | TC-TCM-144–151, 295–298 | Suite organisation, requirement assignment | BUG-TCM-025, 026 (closed, fix reconfirmed); BUG-TCM-095, 096, 097, 098 (open, found/confirmed 2026-10-22/23) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).

@@ -959,3 +959,49 @@ upgraded to a full, unqualified PASS — no TC in this suite rests on architectu
 bugs filed this pass: **BUG-TCM-091** (High), **BUG-TCM-092** (High, found incidentally during TC-231's
 investigation, not itself a numbered TC in this suite), **BUG-TCM-093** (Critical), **BUG-TCM-094** (Medium) —
 all four reported to production as #124346/#124347/#124348/#124349.
+
+---
+
+## Regression — 2026-10-28 (§27 final-cycle, area 19/22)
+
+`git log --since=2026-10-22` on the plugin source showed several commits touching code paths this suite covers.
+Cross-referenced each against this suite's own 4 bugs plus the ones found elsewhere this cycle that share the
+same security surface (cross-project IDOR, injection, authorization):
+
+- **BUG-TCM-091 (TC-230, CSV import cross-project suite leak)** — already **genuinely live-reproduced** earlier
+  this cycle (area 7/22, `TESTCASE_MANAGEMENT_CSV_IMPORT.md`'s 2026-10-28 regression section): a real tampered
+  CSV-import request with a cross-project `selected_suite_id` now correctly fails the
+  `Testsuite.where(project_id: ..., id: ...).exists?` gate. Citing that evidence rather than repeating the
+  exploit a third time.
+- **BUG-TCM-092 (Test Suites page 500 crash)** — `bugs/closed/BUG-TCM-092.md`'s own "Retest Result (2026-10-26)"
+  is already a genuine live GET against a real project with an unassigned test case (200 OK, no crash). No
+  newer commit touches this path since.
+- **BUG-TCM-093 (TC-232, Requirements sidebar stored XSS)** — `bugs/closed/BUG-TCM-093.md` already carries
+  multiple rounds of genuine live reproduction through 2026-10-27 (including the second `createPageBreadcrumb()`
+  sink the first fix missed), ending in a confirmed-fixed live re-test with a real `onerror` payload. No newer
+  commit touches `script.js`'s requirement-rendering paths since. Not repeated.
+- **BUG-TCM-094 (TC-226, `issue_status_results#new` cross-project IDOR)** — this was the one genuine gap: its
+  2026-10-26 closure was **source-diff only**, never actually exercised against the running app. Upgraded today:
+  logged in as `qanonadmin` (real member of `rftc-016-ci-qa`, zero membership on `alpha-web`) and hit
+  `alpha-web`'s real run #134 both with a mismatched `project_id=rftc-016-ci-qa` and with no `project_id` at all
+  — both attempts now return a clean **403 Forbidden**, no form rendered, no environment names or run/issue ID
+  validity disclosed. Full walkthrough and both request variants recorded in `bugs/closed/BUG-TCM-094.md`'s new
+  "Retest Result (2026-10-28) — genuinely live-reproduced" section.
+- **BUG-TCM-009 (TC-223/224, non-member/module-disabled access)** — the `view_test_suite`→`view_testcase` rename
+  and menu-gating half of this (TC-TCM-077 in the Permissions suite) was independently live-reconfirmed fixed
+  this cycle (area 16/22). The still-open Test-Suites-controller `module_enabled?` gap (the other half of this
+  bug) was not touched by any commit since 2026-10-22 and remains open, consistent with the Permissions suite's
+  own 2026-10-28 regression note.
+- **`d2cf3d1` (BUG-TCM-123, cross-project Requirement content IDOR)** — a different bug than any TC in this
+  suite numbers directly, but the same security class (cross-project IDOR) this suite exists to cover. Already
+  genuinely live-reproduced this cycle per `bugs/closed/BUG-TCM-123.md`'s own 2026-10-28 retest section
+  (referenced from the Requirements/RTM suite's area-15/22 regression) — a cross-project Requirement page now
+  correctly 404s for a non-member.
+
+**No commit since 2026-10-22 touches** the authentication-required routes (TC-215–218), the remaining
+authorization/input-sanitization/session-handling/file-upload TCs (219–222, 225, 227–231, 233–248) not already
+covered above, so their 2026-10-22 full-pass PASS evidence stands unchanged and was not re-clicked this pass —
+consistent with this cycle's pattern of re-verifying only what a real code change could have affected, while
+explicitly disclosing (rather than silently claiming) when a TC's standing evidence is being carried forward.
+**Net result: the one genuine source-diff-only gap in this suite (BUG-TCM-094) is now closed with real live
+evidence; the suite's other 3 bugs already had live evidence from earlier in the cycle. Zero new bugs found.**

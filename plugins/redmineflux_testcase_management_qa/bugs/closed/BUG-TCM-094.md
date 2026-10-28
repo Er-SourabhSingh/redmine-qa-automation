@@ -145,3 +145,18 @@ Severity/priority) left at project defaults — `list_custom_fields` returns a p
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff (issue_status_results_controller.rb): #new now derives @project from @run.project_id (mirroring the already-correct #create) instead of trusting the caller's own params[:project_id], and 404s if the run doesn't exist, closing the cross-project IDOR.
+
+## Retest Result (2026-10-28) — genuinely live-reproduced
+
+Prior confirmation was source-diff only. Logged in as a real genuine non-member: `qanonadmin` (member of
+`rftc-016-ci-qa` only, zero role/membership on `alpha-web`). Attempted the exact exploit shape this bug
+describes against a real cross-project target — `alpha-web`'s run #134:
+
+- `GET /issue_status_results/new?run_id=134&project_id=rftc-016-ci-qa` (claiming a project the attacker IS a
+  member of while targeting a run in one they are not) — **403 Forbidden**.
+- `GET /issue_status_results/new?run_id=134` (no `project_id` override at all, the original exploit's minimal
+  shape) — **403 Forbidden**.
+
+Neither request disclosed any of the target run's environment names or confirmed the run/issue ID combination
+— both were cleanly denied before rendering anything. **Verdict: fix holds under a real end-to-end cross-project
+attempt by a genuine non-member, not just source inspection.**

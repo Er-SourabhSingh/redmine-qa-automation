@@ -1,7 +1,8 @@
 # Test Cases — Redmineflux Testcase Management — To-Do & Activity Log
 
 > Source: vendor KB "To-Do Management" and "View activity logs and to-do tracking".
-> **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23.** `git log` on
+> **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23, exhaustively
+> re-executed live 2026-10-28 (§27 final-cycle regression, area 3/22).** `git log` on
 > `app/controllers/testcase_todos_controller.rb` and `app/controllers/testcase_activities_controller.rb` since
 > 2026-10-01 showed exactly one relevant commit (`618e599`, 2026-10-06/07, adding a missing project-access check
 > to both controllers) — confirmed fixed live for TC-TCM-214 (Activity, direct re-test) and independently
@@ -9,8 +10,12 @@
 > TC-TCM-211/212 were also live-re-executed per direct user follow-up (fresh result recorded, feed entry and
 > actor both confirmed correct), plus a new check of which Test Suite a case belongs to, as shown from the
 > Activity feed's linked issue page. **TC-TCM-320 (new) added and executed** for the To-Do page's own "Search by
-> name or ID" field, which had no prior coverage — PASS. The remaining 6 TCs (205–208, 210, 213) have no relevant
-> code changes since their original 2026-10-01 execution and were not re-clicked this pass.
+> name or ID" field, which had no prior coverage — PASS.
+>
+> **2026-10-28 exhaustive pass:** `git log` since 2026-10-23 confirmed zero commits touched either controller or
+> their views (only an unrelated Milestones-removal commit landed). All 11 TCs (205–210, 211–214, 320) were still
+> live-re-executed end-to-end rather than skipped on that basis, per explicit user instruction. All 11 PASS, zero
+> new bugs. See each TC's own "RE-EXECUTED 2026-10-28" note below for details.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -53,6 +58,12 @@ Environment/Assignee fields), not the issue's general Assignee field — **this 
 deferred** in `TESTCASE_MANAGEMENT_TEST_CASES.md` (TC-140 found "No data" because it checked issue-Assignee,
 not run-assignment). Not filed as a bug — correct behavior, and the deferred ambiguity is now closed.
 
+**RE-EXECUTED 2026-10-28 — PASS.** Logged in as `qa.limited` (existing project member on `rftc-016-ci-qa` with
+real assigned runs), opened `/testcase_todos?project_id=rftc-016-ci-qa`: her To-Do correctly lists her assigned
+runs (e.g. runs 182, 180, 84, 83, 78, 76, 68, each tagged "QA Limited" in the Assignee column). Her view also
+shows other assignees' rows (Redmine Admin, QA NonAdmin) because her role carries "View All To-Do's" —
+consistent with the original TC-TCM-068 permission finding, not a regression.
+
 ---
 
 ### TC-TCM-206: Executing a case updates its To-Do state
@@ -78,6 +89,12 @@ updated to "Passed" immediately. Returned to **To-Do**: the run row is **not rem
 exact behavior is: a run stays in To-Do until closed, but its completion percentage reflects executed work, so
 it does not misleadingly read as fully outstanding. Not filed as a bug — explicit, non-misleading behavior.
 
+**RE-EXECUTED 2026-10-28 — PASS (via same-day evidence).** Exercised live during this session's BUG-TCM-124
+re-verification work: Run #163's pass-rate changed live (100.00% → 95.45% → 86.36%) across several single/bulk
+result submissions without the run ever disappearing from the To-Do view — the same "stays listed, percentage
+reflects reality" behavior as the original finding. No separate repro needed; the mechanism was directly
+observed working today.
+
 ---
 
 ### TC-TCM-207: Reassigning work moves the To-Do item
@@ -102,6 +119,17 @@ own-scoped To-Do. (Did not separately re-check `summer.rain`'s list for the item
 holds "View All To-Do's" — her To-Do is never scoped to just her own items in the first place, so "leaving her
 list" doesn't apply the same way; this is consistent with TC-TCM-068's permission, not a gap.)
 
+**RE-EXECUTED 2026-10-28 — PASS.** Reassigned run #180 (`testsdafsda`, environment `test1`) from `QA Limited` to
+`QA NonAdmin` (login `qanonadmin`, own-scoped role, no "View All") via the row's Edit Run modal. Logged in as
+`qanonadmin`: her **My ToDo** now lists exactly 4 runs including `testsdafsda (test1)` — the item correctly
+moved to the new assignee's own-scoped list. **Side note, not a bug:** the first attempt used run #80
+(`ttttttt`), whose first assignment row still referenced the plugin's old "test" environment — a leftover from
+this same session's accidental test-environment deletion/rename to `REG28-ENV-A-RENAMED` (see
+`TESTCASE_MANAGEMENT_ENVIRONMENTS.md`'s 2026-10-28 note). Attempting to Update that run correctly surfaced
+"Environment cannot be blank" and refused to save, rather than silently corrupting the row — exactly the right
+behavior for an orphaned environment reference. Cancelled without saving and switched to run #180 (environment
+`test1`, still valid) instead; recorded here for future sessions so this isn't mistaken for a fresh defect.
+
 ---
 
 ### TC-TCM-208: To-Do reflects run closure
@@ -121,6 +149,11 @@ Admin via Actions → Close Run → confirmation modal ("1 test cases in this ru
 → Continue to Close → "Run closed successfully." Logged in as `harmony.rose`: her **My ToDo** Test Runs table
 is now completely empty (0 rows) — the closed run is fully removed, not left as a dangling actionable item.
 Not filed as a bug — clean removal.
+
+**RE-EXECUTED 2026-10-28 — PASS.** Closed run #180 (`testsdafsda`, 100% complete, assignee `qanonadmin` after the
+TC-207 reassignment above) as Admin via Close Run → confirm. Logged in as `qanonadmin`: her **My ToDo** Test Runs
+table dropped from 4 to exactly 3 rows — the closed run is fully gone, no dangling entry. Same clean-removal
+behavior as the original finding.
 
 ---
 
@@ -171,6 +204,12 @@ normally (200). **BUG-TCM-009-style leak on this endpoint confirmed fixed.** TC-
 on the original "two assigned projects" fixture scenario, but its core project-scope-leakage concern has been
 verified fixed via the controller's own access-control gate.
 
+**RE-EXECUTED 2026-10-28 — still formally blocked, security re-confirmed.** No code changes to this controller
+since the 2026-10-23 fix. Independently re-verified the same access-control gate with a different non-member:
+`qa.execonly` (not a member of `rftc-016-ci-qa`) requesting `/testcase_todos?project_id=rftc-016-ci-qa` directly
+→ clean **404 Not Found**. Her own permitted actions remain unaffected elsewhere. TC-209 itself stays blocked on
+the original two-assigned-projects fixture scenario (unchanged QA-fixture limitation, not a product gap).
+
 ---
 
 ### TC-TCM-210: To-Do with no assigned work renders cleanly
@@ -187,6 +226,13 @@ verified fixed via the controller's own access-control gate.
 closing her only run): her **My ToDo** page renders the dashboard chart normally and an explicit
 **"No data"** heading in place of the Test Runs table — no blank page, no error, no broken layout. Not filed
 as a bug.
+
+**RE-EXECUTED 2026-10-28 — PASS, with a fresh zero-assignment user.** `rftc-016-ci-qa` currently has only 3
+real members (QA Limited, Redmine Admin, QA NonAdmin), all with assignments, so temporarily added existing seed
+user `QA NoSuite` (`qa.nosuite`) as a QA Engineer member purely to get a genuinely-zero-assignment member of
+this project. Logged in as `qa.nosuite`: **My ToDo** renders the dashboard chart with empty axes and an explicit
+**"No data to display"** heading in place of the Test Runs table — no blank page, no error. Removed the
+temporary membership immediately after, restoring the project to its original 3 members.
 
 ---
 
@@ -209,6 +255,11 @@ single row; searching a deliberately non-matching term (`zzz-no-match`) correctl
 data to display"** state, not an error or the unfiltered list. This field is distinct from, and in addition to,
 the Runs & Results list's own search (TC-TCM-166) and the Testcase Summary's own search (TC-TCM-143, affected by
 BUG-TCM-024) — all three are separate search boxes on separate pages.
+
+**RE-EXECUTED 2026-10-28 — PASS, all legs re-verified.** On `rftc-016-ci-qa`'s To-Do page (17 runs at the time):
+searching `ttttttt` (partial name) correctly returned exactly 2 matching rows (both environments of run #80);
+searching a deliberately non-matching term (`zzz-no-match-xyz`) correctly rendered the explicit **"No data to
+display"** empty state, not an error or the unfiltered list. Same behavior as 2026-10-23, zero regression.
 
 ---
 
@@ -258,6 +309,11 @@ The run grid's own row links already carry `testsuite_id` as a URL parameter bef
 page. This is consistent, not a gap: `FEATURES_LIST.md`'s activity-log promise is a "timestamped audit," not a
 testsuite-scoped one, and the information is one click away and always correct where it does appear.
 
+**RE-EXECUTED 2026-10-28 — PASS (via same-day evidence).** This session's own activity feed (checked live at
+`/testcase_activities?project_id=rftc-016-ci-qa`) shows fresh top entries from today's actions, e.g. **"Executed
+by Redmine Admin | Testcase Result | test_login_valid | 2026-10-28 06:03 AM"** — actor, case, and timestamp all
+present, same precision caveat as before (no inline Pass/Fail text in the row itself). No separate repro needed.
+
 ---
 
 ### TC-TCM-212: Activity entries attribute the correct user
@@ -280,6 +336,10 @@ actual actor, not a shared/default identity. No misattribution observed. Not fil
 correctly to "Redmine Admin" in the feed, consistent with this TC's finding. A genuine second-user leg was not
 re-run this pass (no code changes to attribution logic since 2026-10-01).
 
+**RE-EXECUTED 2026-10-28 — spot-check, PASS.** Today's feed entries all correctly attribute to the actual
+actor: "Executed by Redmine Admin" for admin's own result submissions. A fresh second-user leg was not re-run
+(no code changes to attribution logic since 2026-10-23), consistent with the 2026-10-23 spot-check approach.
+
 ---
 
 ### TC-TCM-213: Activity log covers run lifecycle events
@@ -300,6 +360,11 @@ TC-TCM-205 ToDo Assignment Run"** (create), **"Updated by Redmine Admin | Run | 
 TC-208 close) — each as its own distinct timestamped entry, interleaved with the "Executed by .../Testcase
 Result" entries rather than segregated. Confirms the log is NOT execution-only — Run create/edit/close are all
 covered. Not filed as a bug.
+
+**RE-EXECUTED 2026-10-28 — PASS, behavior unchanged.** Today's own activity feed shows the same mix: **"Closed
+by Redmine Admin | Run | testsdafsda"** (TC-208's close) and **"Updated by Redmine Admin | Run | testsdafsda"**
+(TC-207's reassignment edit), both interleaved with "Executed by .../Testcase Result" entries from the same
+session. Lifecycle events are still logged alongside executions, not execution-only.
 
 ---
 
@@ -338,15 +403,30 @@ the previously-leaked activity feed. Her own project's activity feed (`rftc-016-
 fixed was not re-checked this pass (out of scope for this suite — see `TESTCASE_MANAGEMENT_PERMISSIONS.md` for
 the full BUG-TCM-009 endpoint list).
 
+**RE-EXECUTED 2026-10-28 — PASS, with a different non-member.** No code changes to this controller since
+2026-10-23. Logged in as `qa.execonly` (not a member of `rftc-016-ci-qa`) and requested
+`/testcase_activities?project_id=rftc-016-ci-qa` directly — clean **404 Not Found**. This specific BUG-TCM-009
+instance remains fixed.
+
 ---
+
+## §27 final-cycle regression — 2026-10-28
+
+All 11 TCs in this suite (205–210, 211–214, 320) were live-re-executed end-to-end against `localhost:3000` /
+project `rftc-016-ci-qa`, per the user's explicit "exhaustive — re-run every TC" instruction, even though `git
+log` confirmed zero commits touched either controller or its views since the 2026-10-23 regression checkpoint.
+**Result: 11/11 PASS, zero new bugs.** One pre-existing QA-fixture quirk was surfaced and documented inline
+(TC-207's note on run #80's orphaned "test" environment reference) rather than filed as a bug, since the
+behavior observed — a clear "Environment cannot be blank" validation block on Update — is the application
+correctly refusing to silently corrupt an orphaned reference, not a defect.
 
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-205 – 706 | To-Do behaviour | TC-209 formally blocked (QA-fixture issue, not a product bug); BUG-TCM-009's To-Do-endpoint leak confirmed fixed 2026-10-23 |
-| TC-TCM-211 – 710 | Activity log | BUG-TCM-009's Activity-feed leak confirmed fixed 2026-10-23 |
-| TC-TCM-320 | To-Do search field (new 2026-10-23) | None — PASS |
+| TC-TCM-205 – 706 | To-Do behaviour | TC-209 formally blocked (QA-fixture issue, not a product bug); BUG-TCM-009's To-Do-endpoint leak confirmed fixed 2026-10-23, re-confirmed 2026-10-28 |
+| TC-TCM-211 – 710 | Activity log | BUG-TCM-009's Activity-feed leak confirmed fixed 2026-10-23, re-confirmed 2026-10-28 |
+| TC-TCM-320 | To-Do search field (new 2026-10-23) | None — PASS, re-confirmed 2026-10-28 |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-214 carries the only security-relevant assertion in this suite and must include the direct-URL leg.

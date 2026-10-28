@@ -213,6 +213,31 @@ observation, not filed as a bug** — flagged here in case a future session want
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 6/22)
+
+`git log` since 2026-10-23 showed 5 commits touching `test_suites_controller.rb`/views — the exact controller
+serving this Overview page — including `bcf7c93` ("a crash on the Test Suites page") and `1e601dd` (the
+`view_test_suite` → `view_testcase` permission rename). Live re-verified rather than assumed safe:
+
+- **Page loads cleanly** at `/test_suites/releases?project_id=rftc-016-ci-qa`, no crash, no console errors
+  (confirms `bcf7c93`'s crash fix didn't regress normal rendering).
+- **TC-TCM-321/322 (default state + dimension switch)** — chart renders, dimension defaulted to whatever was
+  last persisted (Defects, from a prior session interaction — itself correct persistence behavior per
+  TC-TCM-323). Switching to **Activity** fired a genuine `GET /show_chart_data?...&dimensions=by_activity` →
+  **200 OK**, confirmed via network inspection, not just UI appearance.
+- **TC-TCM-326 (Execution Details redirects)** — the `#163` → `/runs/163?...` and defects-count →
+  `/defects?project_id=...&run_id=163` redirects both still resolve correctly, no 404/500.
+- **TC-TCM-327/328 (Test Runs/To-Do panels, "By [user]" attribution)** — both panels render real current data
+  (today's runs #188/#180 etc.) with working links; "By Unknown User" still appears for runs with a blank
+  `Run#assignee_id`, unchanged from the original low-severity wording observation (not a regression).
+
+**No regression found.** TC-TCM-323/324/325 (date-range picker, Copy to Clipboard, chart downloads) were not
+re-clicked individually this pass — none of their underlying JS (`testcase_chart.js`) or routes were touched by
+the 5 commits above, and the core page-load/data-wiring path they depend on (dimension switching, Execution
+Details, panels) is confirmed intact.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

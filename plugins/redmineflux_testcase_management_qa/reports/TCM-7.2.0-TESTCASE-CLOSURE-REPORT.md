@@ -14,7 +14,7 @@
 | Release | 7.2.0 (production Target Version id=2067, due 2026-10-21, currently **open**) |
 | Bugs tagged to this release in production | **54**, all **Done** |
 | Features/Tasks tagged to this release in production | **9** (the RFTC-* specs) |
-| ⚠️ Feature/Task production status | **8 still "In QA", 1 "In QA"** — **none show "Done" yet** (see §3) |
+| ⚠️ Feature/Task production status | **All 9 still "In QA"** — QA-complete, results ready to post, none marked "Done" yet (see §3) |
 | Internal QA suite status (`STATUS.md`) | Complete — full 22-area Traceability Matrix regression passed 2026-10-28 |
 
 ## 2. Internal Suite Regression (22 Traceability Matrix areas) — summary
@@ -23,25 +23,31 @@ This plugin's entire `TC-TCM-NNN` suite (all 22 Traceability Matrix areas) was r
 completing 2026-10-28. Full detail: `docs/TESTCASE_MANAGEMENT_TRACEABILITY_MATRIX.md` and
 `reports/TCM-Regression-2026-10-28.md`. All 22 areas: **Covered**, zero requirement/feature with zero TC coverage.
 
-## 3. Features/Tasks tagged to Release 7.2.0 in production — ⚠️ not yet marked Done
+## 3. Features/Tasks tagged to Release 7.2.0 in production — results, ready to post before marking Done
 
-| Issue | Feature | Production Status |
-|---|---|---|
-| #121879 | rftc-011 — TCM UI modernization | **In QA** |
-| #121880 | rftc-016 — CI results ingest (JUnit → executions + auto-defect) | **In QA** |
-| #121881 | rftc-017 — Ship the CI results CLI | **In QA** |
-| #121882 | rftc-020 — Per-test duration + slow-test detection | **In QA** |
-| #121883 | rftc-021 — Most-failed-tests metric | **In QA** |
-| #121884 | rftc-038 — CI platform recipes (GitHub/GitLab/CircleCI/Bitbucket) | **In QA** |
-| #121885 | rftc-042 — TCM Testing Harness (CLI/API/browser/load/chaos) | **In QA** |
-| #121886 | rftc-043 — Static/dynamic security + discovery testing | **In QA** |
-| #121887 | rftc-044 — Quality HQ: org-wide QA command center | **In QA** |
+QA execution is complete for all 9; the result below is what should be posted as a comment on each production
+issue (per `REDMINEFLUX-MCP-SETUP.md`'s write-approval process) before its status moves In QA → Done.
 
-**QA-side testing of all 9 is complete** (each has a full, literal re-execution pass on record — see
-`testcases/RFTC-*_EXTERNAL_SPEC_*.md`, plus `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md` and
-`RFTC-009_EXTERNAL_SPEC_RESULTS.md` for the two with dedicated results files). **However, production itself still
-shows all 9 as "In QA", not "Done"** — this needs an explicit status update on production before Release 7.2.0 can
-be considered fully closed out on the Redmine side, not just from this repo's own QA records.
+| Issue | Feature | Result | Bugs found (this feature) |
+|---|---|---|---|
+| #121879 | rftc-011 — TCM UI modernization (Wave 0) | **15/16 PASS**, 1 confirmed fixed, zero new bugs | — |
+| #121880 | rftc-016 — CI results ingest (JUnit → executions + auto-defect) | **41/43 PASS**, 2 confirmed fixed, 1 finding reversed, zero new bugs | — |
+| #121881 | rftc-017 — Ship the CI results CLI | **42/42 PASS** (shipped pytest suite) + **14/14 PASS** (manual live-server CLI checks) | BUG-TCM-065 (fixed) |
+| #121882 | rftc-020 — Per-test duration + slow-test detection | **16/17 PASS**, 1 cross-referenced to an already-tracked plugin-wide bug (BUG-TCM-114), zero new bugs this pass | BUG-TCM-068 (fixed) |
+| #121883 | rftc-021 — Most-failed-tests metric | **8/10 PASS**, 2 bugs found — both confirmed fixed | BUG-TCM-070 (High), BUG-TCM-071 (High) — both fixed |
+| #121884 | rftc-038 — CI platform recipes (GitHub/GitLab/CircleCI/Bitbucket/Jenkins) | **24/24 PASS** (genuinely re-driven live, incl. a real end-to-end Jenkins run), zero new bugs | BUG-TCM-066 (fixed) |
+| #121885 | rftc-042 — TCM Testing Harness (CLI/API/browser/load/chaos) | Harness operational end-to-end (real `harness/run.py` run completed): **api 9/9 PASS**, **security 7/8 PASS** (upgraded from 5/8 once all personas resolved), **cli 2/5 PASS** (3 known, non-blocking failures, same root cause each re-run) | — (no plugin bugs; CLI-module gaps are in the companion harness repo, not the plugin) |
+| #121886 | rftc-043 — Static/dynamic security + discovery testing | Brakeman clean, bundler-audit CVE count reduced via a Rails version bump, harness fuzz/property tests **17/18 PASS** (1 known brittle assertion, cross-referenced to rftc-042) | — |
+| #121887 | rftc-044 — Quality HQ: org-wide QA command center | **PASS**, re-verified correct against real, much larger live data (6 projects, 127 active runs, 60% overall pass rate) | — |
+
+**Net: all 9 features are QA-complete with zero outstanding plugin-side bugs** (every bug any of them surfaced is
+already in §4's closed-54 list). Full detail per feature: `testcases/RFTC-*_EXTERNAL_SPEC_*.md`
+(dedicated results files exist for two: `reports/RFTC-008_EXTERNAL_SPEC_RESULTS.md` and
+`RFTC-009_EXTERNAL_SPEC_RESULTS.md`).
+
+**Production still shows all 9 as "In QA", not "Done."** Recommended next step: post the result row above as a
+comment on each of the 9 issues, then update status In QA → Done and done-ratio → 100 — this is a production
+write and needs explicit approval first (same as any other production change, `REDMINEFLUX-MCP-SETUP.md` §4).
 
 ## 4. Bugs found during Release 7.2.0's testing/regression — production-verified (54 total, all Done)
 

@@ -1014,6 +1014,36 @@ cross-project Requirement content IDOR via `RequirementsController#content`'s un
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 15/22 — Requirements management & Traceability Matrix)
+
+`git log` since 2026-10-23 showed 4 commits touching `requirements_controller.rb`: `d2cf3d1` (BUG-TCM-123 fix),
+`cdb7b90` (Requirement Templates feature), `d5a342b` (BUG-TCM-089, Requirements-attachment permission gap), and
+`bcf7c93` (BUG-TCM-072, second XSS spot). Status of each, checked rather than assumed:
+
+- **BUG-TCM-123 (cross-project Requirement content IDOR)** — already genuinely live-reproduced **earlier in
+  this same session** (not just today's regression pass — the original closure work): re-ran the exact original
+  exploit as `qa.limited` against `alpha-web`'s private Requirement #115, confirmed a clean 404 instead of the
+  content leak. See `bugs/closed/BUG-TCM-123.md`'s 2026-10-28 retest section.
+- **Requirement Templates (`cdb7b90`)** — already has full live CRUD coverage from the 2026-10-27 session
+  (TC-TCM-329–332, all 10 Editor.js block types verified). No further commits since.
+- **BUG-TCM-072 (second XSS spot, `#`-mention dropdown)** — already genuinely live-reproduced (XSS payload
+  fixture re-tested, confirmed inert, no alert fired) — see `bugs/closed/BUG-TCM-072.md`.
+- **BUG-TCM-089 Finding 3 (Requirements-attachment download bypasses Requirements permissions via core
+  `view_files`)** — **not independently live-reproduced this pass.** The original probe attachment
+  (`qa-probe-download-test.txt` on Requirement #6) no longer exists (cleaned up after the original bug
+  investigation), and creating a fresh one requires driving the Editor.js block editor's attach/image block
+  through several more steps than this pass's remaining time budget allows. Still relies on the 2026-10-26
+  source-diff confirmation only. **Resume point:** open Requirement #6 (or any requirement) in edit mode, add a
+  file via the editor's attachment/image block, save, then as a role with zero Requirements permissions but
+  normal `view_files` (e.g. a fresh test role), request `/requirement/download?id=<attachment_id>` directly and
+  confirm it's now rejected instead of serving the file.
+
+**Result: 3 of 4 recent fixes in this area have genuine live confirmation (2 reused from this exact session's
+earlier work, 1 from 2026-10-27); 1 (BUG-TCM-089 Finding 3) remains source-diff-only, flagged transparently. No
+regressions, no new bugs.**
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

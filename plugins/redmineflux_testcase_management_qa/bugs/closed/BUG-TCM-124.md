@@ -134,3 +134,29 @@ Tracker Bug, Priority Medium, Category "Testcase Management Plugin", Target vers
 Release 7.2.0 [21-10-2026]" (id=2067), assigned to Vaishnavi Bhawsar (id=192). Custom fields: Defect
 Type=Functional, Defect Severity=Medium-severity, Defect priority=Medium. Standalone issue, no Test Run/Testcase
 link.
+
+## Retest Result (2026-10-28)
+
+**CONFIRMED FIXED — both findings.** Developer pulled a fix (commit `4b284cc`, "Fix recording a test result from
+a run's 'All Suites' view (BUG-TCM-124)"). Retested live against `localhost:3000` after a fresh pull + full
+server restart, on the same fixture Run #163 (`RFTC016-41-multienv-run`), as Administrator.
+
+**Finding 1 (Bulk Update Result) — FIXED.** Selected all 22 test cases on the "All Suites" view, opened Bulk
+Update Result, Status=Passed, Environment=Chrome, Submit. No error this time — all 22 rows now show "Passed,"
+pass rate 100.00%. Network trace confirms a genuine write: `POST /issue_status_results/bulk_create` →
+**201 Created** (previously 404 `{"errors":"Test Suite not found"}`). The "Suite:" switcher stayed on
+"All Suites" throughout.
+
+**Finding 2 (single Add Result) — FIXED.** On the same "All Suites" view, clicked test case #27's result link,
+Status=Passed, Submit. The redirect URL is now `/runs/163?environment=Chrome&project_id=rftc-016-ci-qa` — **no
+`testsuite_id` param** — and the "Suite:" switcher still reads **"Suite: All Suites"** afterward (previously it
+silently switched to `testsuite_id=3` / "Suite: CI Ingest"). Also noticed the fix added a `view_testsuite_id=all`
+marker on each row's own result link, which appears to be how the frontend now tracks "the user is viewing All
+Suites" through a page reload — a clean, purpose-built fix rather than a workaround.
+
+**Verdict: FIXED.** Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-28
+
+Production issue #125531 updated to Status: Done, % done: 100, per explicit user approval, with a note
+summarizing both findings' live reverification.

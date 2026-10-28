@@ -148,3 +148,32 @@ Reported to production `ztflux` as **#125461** on 2026-10-27, per explicit user 
 Tracker Bug, Priority High, Category "Testcase Management Plugin", Target version "Testcase Management plugin
 Release 7.2.0 [21-10-2026]" (id=2067), assigned to Vaishnavi Bhawsar (id=192). Custom fields: Defect Type=Security,
 Defect Severity=High-severity, Defect priority=High. Standalone issue, no Test Run/Testcase link.
+
+## Retest Result (2026-10-28)
+
+**CONFIRMED FIXED.** Developer pulled a fix (commit `d2cf3d1`, "Fix viewing another project's private Requirement
+content (BUG-TCM-123)"). Retested live against `localhost:3000` after a fresh pull + full server restart,
+re-running the exact original exploit:
+
+1. Logged in fresh as `qa.limited` (not a reused session).
+2. Confirmed still NOT a member of `alpha-web` — `/projects/alpha-web` → real `403 Forbidden`.
+3. Navigated to `/requirements?project_id=rftc-016-ci-qa&page_id=115` (alpha-web's private Requirement #115,
+   browsing as a member of `rftc-016-ci-qa` instead).
+
+`#page-title` and `#page-id` are now both **empty** — no content leaked, versus the original finding's full
+title/content disclosure. Network trace confirms a clean rejection, not a silent empty render:
+
+```
+GET /knowlegebase_pages_testcase/115?project_id=2
+=> 404 Not Found
+```
+
+This is exactly the fix this bug's own "Expected result" asked for — a cross-project `page_id` is now rejected
+with a 404, matching the plugin's existing `show`-action pattern instead of serving the content unscoped.
+
+**Verdict: FIXED.** Moving to `bugs/closed/`.
+
+## Production sync — 2026-10-28
+
+Production issue #125461 updated to Status: Done, % done: 100, per explicit user approval, with a note
+summarizing the live reverification.

@@ -359,6 +359,34 @@ correctly project-scoped.
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 8/22)
+
+`git log` since 2026-10-27 showed 5 commits touching `test_suites_controller.rb`, including `a8a3a56`'s
+project-access-check addition (BUG-TCM-009) and `1e601dd`'s `view_test_suite` → `view_testcase` permission
+rename — neither a CRUD-logic change, but close enough to this suite's core controller to re-verify live rather
+than assume safe. Built a fresh 3-level chain from scratch and ran it through create/nest/cascade-delete:
+
+- **TC-TCM-192** — created suite `REG28-TESTSUITE-CHECK` (id 126) via the real Add Test Suite modal, Name +
+  Description both present (BUG-TCM-017 fix still holds). Appeared immediately, survived reload.
+- **TC-TCM-193** — "Add Sub Test Suite" from 126's own kebab menu correctly pre-filled the hidden parent field
+  with `126`; created `REG28-SUBSUITE-L2` (id 127), confirmed genuinely nested in the DOM
+  (`<li id="parent_id_126">` contains suite 127's row).
+- **TC-TCM-194** — "Add Sub Test Suite" from **127's own** kebab menu (the exact scenario BUG-TCM-018 broke)
+  correctly pre-filled the parent field with `127`; created `REG28-SUBSUITE-L3` (id 128), confirmed genuinely
+  nested 3 levels deep (`<li id="parent_id_127">` contains suite 128's row) — BUG-TCM-018 fix holds.
+- **TC-TCM-200** — deleted parent suite 126 via the real Delete Test Suite confirmation modal (correctly warned
+  "All its sub-suites and test cases will be deleted too"). Confirmed the full cascade: requesting
+  `/test_suites?project_id=rftc-016-ci-qa&testsuite_id=128` (the grandchild) now returns a clean **404** — all
+  3 levels removed together, no orphaned sub-suite left behind.
+
+**No regression found.** The remaining TCs (195–199, 201–203) were not re-clicked individually this pass — none
+of the 5 commits touched the specific name-validation, description-edit, or count-toggle code paths those TCs
+exercise, and TC-203's project-scoping assertion is the same `view_project`/module-enabled check already
+live-verified working correctly across this session's other suites today (To-Do, Activity, CSV Import). Test
+fixtures from this pass (suites 126–128) were fully deleted by the cascade itself — no cleanup needed.
+
+---
+
 ## Evidence Map
 
 | TC ID | Result | Evidence |

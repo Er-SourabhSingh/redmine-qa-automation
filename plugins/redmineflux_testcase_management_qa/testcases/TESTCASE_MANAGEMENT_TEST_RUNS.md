@@ -1263,6 +1263,22 @@ on each issue's own page. **Note for future sessions**: the Bulk Update Result m
 `bulk-update-submit-btn`, distinct from the single Add Result modal's `update-btn` — an automation script or
 manual JS-evaluate click targeting the wrong id fails silently (no error, nothing submitted) since the wrong
 id simply doesn't exist in that modal; cost real debugging time this session before being traced to this.
+
+**Additional BUG-TCM-124 coverage, 2026-10-28 — particular-suite view, both write paths re-verified.** The
+original BUG-TCM-124 retest only exercised the "All Suites" view (both findings fixed there — see
+`bugs/closed/BUG-TCM-124.md`). On user request, also re-verified both write paths from a **particular-suite**
+view (`run_id=163&testsuite_id=3`, "Suite: CI Ingest") to confirm the fix didn't regress the already-working
+suite-scoped case:
+- **Single Add Result** on issue #23 (`testsuite_id=3` in the form URL) — submitted Status=Retest, result
+  saved ("Retest" now shown in the grid, pass rate updated to 95.45%), and the redirect correctly **stayed on**
+  `testsuite_id=3` / "Suite: CI Ingest" — no suite-switching regression.
+- **Bulk Update Result** on issues #26/#27 (2 selected, modal confirmed "Apply to 2 testcase(s)") — submitted
+  Status=Retest. Network trace: `POST /issue_status_results/bulk_create` → **201 Created**. Both issues now
+  show "Retest," Suite switcher stayed "Suite: CI Ingest," `testsuite_id=3` preserved in the URL.
+
+All 4 combinations (Single/Bulk × All-Suites/particular-suite) are now confirmed working with zero regressions.
+Same test-data-impact note as the original bug applies: these are genuine result writes against fixture Run
+#163, left as-is (no "Untested" revert option exists on the Status dropdown).
 requirement), not a side-effect of the endpoint being broken.
 
 **RETESTED 2026-10-23 — PASS.** On run #83, selected all 2 then-visible cases, opened Bulk Update Result: the

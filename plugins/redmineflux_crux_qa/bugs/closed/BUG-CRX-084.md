@@ -46,3 +46,9 @@ This is a different shape from every other finding in this suite's wrong-ID-hall
 ## Duplicate check
 
 - Duplicate found: No — first instance of a request type that is architecturally unfulfillable by name due to a missing lookup tool, as distinct from a tool existing but being miscalled (the wrong-ID family) or a tool existing but being unreachable (BUG-CRX-072).
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (Testcase Management new endpoint `GET /testcase_mcp/projects/:id/requirements.json?title=`, MCP new `list_requirements` tool, crux-core CRC-69 rule: find by title, pass id in `requirement_ids`, never ask the user for an id). As `luna.blossom`, "create a test case titled 'Verify password reset confirmation page shown' and link it to the 'User must be able to reset password via email' requirement" produced a confirm card with `Requirement Ids: [1]` automatically — no ID ever requested. Confirming created testcase #13, genuinely linked to requirement 1 — verified via DB join on `requirement_issues`.
+
+**Production synced 2026-10-28**: #125492 → Status Done, % done 100.

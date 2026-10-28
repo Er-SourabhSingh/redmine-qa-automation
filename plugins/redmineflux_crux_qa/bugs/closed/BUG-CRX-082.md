@@ -57,3 +57,9 @@ This is the same shared rendering-layer defect already documented extensively: o
 ## Duplicate check
 
 - Duplicate found: No (new agent/domain), but same defect **class** as the already-closed BUG-CRX-018 and the still-open BUG-CRX-067 — filed as a new bug per the repo's established precedent for this exact pattern recurring on a new agent (BUG-CRX-067 was itself filed the same way, as a CRM-domain recurrence of BUG-018's class).
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (crux-core 0.130.0 @1140e8a — specific failure phrases like "not found.", "must be a non-empty", "cannot log results" now count as failures, independent of the response otherwise). As `luna.blossom`, a genuine "Name has already been taken" validation error on Create Environment rendered with no checkmark/success styling. No spurious "✓" observed on any genuine failure across this round's retests (environment create, closed-run refusal on BUG-CRX-088).
+
+**Production synced 2026-10-28**: #125490 → Status Done, % done 100.

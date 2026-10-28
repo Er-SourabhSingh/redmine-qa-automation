@@ -50,3 +50,9 @@
 Retested against the round-20 build. Re-sent "Hey, who's working on what right now in the Crux PM Agent Test Project?" (admin, fresh chat) — reply lists all 3 issues with status/priority/milestone commentary ("All three are blocked waiting on customer input...") but never mentions any issue's assignee, not even "unassigned" — identical omission to the original report.
 
 **Production synced 2026-10-27**: #125302 → Status Reopen (not fixed).
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-22 build (MCP crux_development @55e840d — adds a "Who's working on what" section to `project_summary`, grouped by assignee including "unassigned"). As admin, fresh chat on Crux PM Agent Test Project, exact repro prompt: "hey who's working on what right now in the crux pm agent test project?" First reply named every assignee — Luna Blossom, unassigned, Redmine Admin — with no follow-up question needed.
+
+**Production synced 2026-10-28**: #125302 → Status Done, % done 100.

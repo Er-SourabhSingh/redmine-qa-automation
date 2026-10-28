@@ -45,3 +45,11 @@ Likely root cause: the agent appears to have substituted "all testcases belongin
 ## Duplicate check
 
 - Duplicate found: No — first instance in this suite of a read query returning a fabricated/wrong *scope* (suite-level data presented as run-level data) rather than a wrong value, wrong ID, or wrong write target. Distinct from BUG-CRX-086 (a destructive write) and from the wrong-ID family (BUG-CRX-079, values guessed, not rows invented).
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (new endpoint `GET /testcase_mcp/projects/:id/runs/:run_id/testcases.json` that lists only the run's own testcases, not the suite's). As `luna.blossom`, in a fresh chat with the project explicitly named, "full progress and results table for the 'Sprint 1 Regression' run" returned exactly 1 row ("Reset password with valid email") — matching the DB (`run_issues` has exactly 1 row for run #1) and the native "Runs & Results" page. No fabricated extra row.
+
+**Related finding, not a recurrence of this bug's own defect:** reproduced the same *symptom* (run not found / wrong data) once more in a long session where the project wasn't re-named in the current message — `list_runs` resolved `project_id=9`, which doesn't exist on this instance. That is the read-path project-resolution gap filed separately as **BUG-CRX-093** (related to BUG-CRX-080), not a recurrence of this bug's original suite-vs-run scope confusion, which is confirmed fixed.
+
+**Production synced 2026-10-28**: #125495 → Status Done, % done 100.

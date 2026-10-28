@@ -60,3 +60,9 @@ if r.get("is_closed"):
 ## Duplicate check
 
 - Duplicate found: No — first instance of this specific inconsistency (closed-run protection present on one tool but missing on its sibling for the identical action). Not a duplicate of BUG-CRX-086 (that's a destructive silent write behind a *false failure* message on Update Run); here the write is genuinely intended to succeed and does, the defect is that a known, already-implemented safeguard (cited by its own code comment, `BUG-TM-011`) simply wasn't applied to this second code path.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (`report_defect` now refuses a closed run with "Cannot log results: run #N is closed. Use list_runs to see open runs." — same pre-check `create_status_result` already had). As `luna.blossom`, fresh chat, "for the 'Sprint 3 Full Fields Test' run (closed), mark test case 'Verify password reset email is sent' as Failed" was correctly refused, citing the run as closed. Verified via DB: `issue_status_results` row count for run #4 stayed at 3 — no new write.
+
+**Production synced 2026-10-28**: #125496 → Status Done, % done 100.

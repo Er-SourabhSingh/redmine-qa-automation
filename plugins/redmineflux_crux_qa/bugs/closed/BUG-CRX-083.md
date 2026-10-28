@@ -45,3 +45,11 @@ This surfaced only after a same-session **fixture correction**: the `manage_envi
 ## Duplicate check
 
 - Duplicate found: No. Related to the broader "doesn't reliably resolve/default a field" family (BUG-CRX-079 and its predecessors) but a distinct sub-shape: those bugs guess a wrong *ID* for a field the user did name (priority, project, suite); this bug invents a *whole field's value* (`components`) that the user never mentioned at all, and does so inconsistently across identical retries in the same chat.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (MCP: "when the user names no components, the environment's name is used"). As `luna.blossom`, two separate create-environment requests ("Staging", "Canary") both succeeded cleanly on the first attempt with a valid, non-empty `components` value each time — no empty-list failure, no 3-way flip between tool-unavailable/failure/success as originally reported. Verified via DB: `Staging` → components="Software", `Canary` → components="Canary".
+
+**Minor residual note (not reopening):** the component default isn't always literally the environment's own name as the fix note describes — "Staging" got "Software" while "Canary" got "Canary" — but both are valid, non-empty values and neither failed or required a retry, so the original user-facing defect (crash/non-determinism across identical retries) is resolved. Flagged in `CRUX_MEMORY.md` for a future look, not severe enough to reopen.
+
+**Production synced 2026-10-28**: #125491 → Status Done, % done 100.

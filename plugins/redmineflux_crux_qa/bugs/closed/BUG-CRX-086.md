@@ -46,3 +46,9 @@ This is a new, more severe sub-shape within this suite's wrong-tool-call-argumen
 ## Duplicate check
 
 - Duplicate found: No — distinct from every other finding in this suite. Not the wrong-ID family (no ID was guessed, a wrong tool mechanism was chosen). Not the misleading-✓ family (BUG-CRX-082 — this message correctly shows no ✓, it is just substantively wrong about what happened). First instance in this suite of a genuinely destructive silent partial write hiding behind an honest-looking validation error.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (new endpoint `PUT /testcase_mcp/runs/:id/testcases.json` with `suite_testcase_map`, validated and applied in one transaction; MCP `update_run` now takes `suite_testcase_map` and its docstring says never use `include_testcase` for this). As `luna.blossom`, "update the 'Sprint 1 Regression' run to include only test case 'Verify password reset email is sent' from the 'Login and Auth' suite instead of its current test case" produced a confirm card with `Suite Testcase Map: {'1': [7]}` (the correct mechanism, not `include_testcase`). After confirming, run #1 held exactly testcase #7 — not wiped to zero — verified via DB on `run_issues`.
+
+**Production synced 2026-10-28**: #125494 → Status Done, % done 100.

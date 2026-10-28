@@ -49,3 +49,9 @@ This is a distinct defect class from the wrong-ID-hallucination family (BUG-CRX-
 ## Duplicate check
 
 - Duplicate found: No — related to, but distinct from, the general "silent omission" pattern documented elsewhere in this suite (e.g. BUG-CRX-074, a *read*-time omission of requested information) — this is the first instance of a *write*-time silent omission, where part of a multi-part create request is dropped without disclosure despite the capability to fulfill it via an additional tool call existing and being readily available.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (MCP crux_development @49b50b1 — `create_testcase` now takes `test_suite_id`, checks the suite first, then adds the case to it after creation). As `luna.blossom`, "create a test case titled 'Reset password with expired link' inside the 'Password Reset' test suite" produced a confirm card showing `Test Suite: 2` (the real id). Confirming created testcase #12 and genuinely linked it to suite 2 — verified via DB join on `issue_test_suites`.
+
+**Production synced 2026-10-28**: #125489 → Status Done, % done 100.

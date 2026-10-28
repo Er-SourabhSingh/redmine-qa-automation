@@ -61,3 +61,11 @@ As `luna.blossom`, asking to mark a testcase Blocked and link it to an already-e
 ## Duplicate check
 
 - Duplicate found: No — this is a project-resolution failure on a **write-target field**, distinct from every other wrong/hallucinated-ID bug in this suite's history (BUG-CRX-015/019/038/043/050/052/079), which are about a field *value* being wrong, not the *project the write lands in*. Also distinct from the fabricated-confirm-card family (BUG-CRX-020/027/028/056/077) — this card was genuine and fully functional, just targeting the wrong project.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED for write-path — round 22/23)
+
+Retested against round-21 build (crux-core 0.130.0 @1140e8a — deterministic project check: "the project named in THIS message replaces whatever project the model sent"). As `luna.blossom`, 5 separate testcase-management write tools (Create Testcase, Add To Suite, Create Environment x2, Link Requirement, Update Run) run across one increasingly long single chat session, all on "Crux QA Agent Test Project": every confirm card correctly showed `Project: Crux QA Agent Test Project` throughout — zero wrong-project writes observed. CONFIRMED FIXED for the originally-listed write tools.
+
+**Important caveat found this round:** the identical root-cause shape (stale/hallucinated project resolved when the project isn't re-named in the current message) persists on two newer **read** tools, `list_requirements` and `list_runs`, which are outside this fix's stated scope ("for every testcase write"). Reproduced cleanly: in a chat that first mentioned "Crux PM Agent Test Project," a follow-up that didn't re-name any project ("can you show me the traceability matrix...?") got `list_requirements` called against project_id=1 (PM) instead of 3 (QA), and a run-table request got `list_runs` called against project_id=9 — which doesn't exist at all on this instance. Filed separately as **BUG-CRX-093** since it's a distinct, newer tool set outside this bug's original scope — this bug's own write-path fix is working correctly.
+
+**Production synced 2026-10-28**: #125488 → Status Done, % done 100 (write-path scope). See BUG-CRX-093 for the related read-path gap.

@@ -50,3 +50,9 @@ Same defect shape as the already-closed **BUG-CRX-013** (self-contradiction: cla
 ## Duplicate check
 
 - Duplicate found: No — same defect class as BUG-CRX-013/070, first instance on the Reports domain. Not a duplicate of the wrong-ID-hallucination family (BUG-CRX-079) or the misleading-✓ family (BUG-CRX-082) since no confirm card was ever shown here, genuine or otherwise.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (crux-core CRC-69: the retry after a fabricated "...confirm?" text block now keeps every tool the first pass discovered, and the "Proposed Action... Shall I...?" text shape also triggers the retry). As `luna.blossom`, 8 separate write requests (Create Testcase x3, Add To Suite, Create Environment x2, Link Requirement, Update Run) run back-to-back in one increasingly long chat session — the exact condition that originally triggered the self-contradiction — and it never recurred once; every request produced a genuine confirm card on its first attempt.
+
+**Production synced 2026-10-28**: #125493 → Status Done, % done 100.

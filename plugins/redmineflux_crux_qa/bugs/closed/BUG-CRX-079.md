@@ -79,3 +79,9 @@ Immediately after the wrong-`Suite: 3`-id repro above (in a long-running chat wi
 ## Duplicate check
 
 - Duplicate found: No, but same defect **class** as the already-documented wrong-ID-hallucination family (BUG-CRX-015/019/038/043/050/052) — recorded as a new bug per the repo's established precedent for the same pattern recurring on a new agent/tool combination. This is the first instance of this class confirmed on the QA Agent / Test Case Management domain.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED — round 22/23)
+
+Retested against round-21 build (crux-core 0.130.0 @1140e8a, MCP crux_development @49b50b1, Testcase Management @028663a). As `luna.blossom`, "create a test case titled 'Verify login with valid credentials'... priority High" produced a confirm card showing `Priority: high` (resolved by name, not a guessed numeric id). Confirming created testcase #11 with `priority_id=8` (verified via DB) — the real "high" id on this instance, not 3.
+
+**Production synced 2026-10-28**: #125487 → Status Done, % done 100.

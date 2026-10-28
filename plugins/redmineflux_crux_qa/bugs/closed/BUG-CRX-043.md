@@ -98,3 +98,9 @@ Source evidence:
 ## Production report
 
 Reported to production as issue **#121819** (`ztflux`, Tracker Bug, Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, assigned Prashant Chaurasia — user id 410), 2026-10-01. Textile description, no attachments. Linked via `report_defect` to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`) / Suite #374 / environment "Window 11 + Chrome" — testcase marked Failed.
+
+## Retest — 2026-10-28 (CONFIRMED FIXED)
+
+Retested as `admin`, local Docker instance, `redmineflux_crm` at master @581bd8d (already deployed, no new pull needed — fix was shipped/verified by the dev on 2026-10-05: `update_stage` now reads from the nested `params[:crm_deal]`, matching the sibling `update` action's convention). "CRM, move the NovaTech Solutions Rollout deal to the Proposal stage" produced a correct confirm card (`Stage: Proposal`), and confirming genuinely updated the deal — verified via DB: `rf_crm_deals.stage` changed from "New" to "Proposal" for deal id=1.
+
+**Production synced 2026-10-28**: #121819 → Status Done, % done 100.

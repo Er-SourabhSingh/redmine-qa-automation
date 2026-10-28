@@ -613,6 +613,32 @@ it's orthogonal to the length-limit change.
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 7/22 — BUG-TCM-091 genuinely live-reproduced)
+
+`git log` since the 2026-10-23 run showed one new commit touching `testcase_import_controller.rb`: `d5a342b`
+("CSV import suite leak," BUG-TCM-091's fix). The 2026-10-27 fast-pass note above had only source-diffed this
+fix, explicitly flagging a live re-drive as the resume point. Closed that gap properly this session:
+
+**Live reproduction, as a single admin user with access to both `rftc-016-ci-qa` and `rftc-perf-500`:**
+1. Opened the real Import Testcase wizard for `rftc-016-ci-qa` (`/projects/rftc-016-ci-qa/testcase_import/step1`),
+   uploaded a 1-row CSV, and selected suite "CI Ingest" (id 3, genuinely belongs to this project) via the real
+   "Import to:" picker — confirmed the form's hidden `selected_suite_id` input read `3`.
+2. **Tampered that hidden field to `37`** (the id of `Perf-500`'s test suite, which belongs to the completely
+   different project `rftc-perf-500`) via direct DOM manipulation before submitting — exactly the attack this
+   bug described (a user with access to project A pointing the import at project B's suite).
+3. Submitted through all 4 real wizard steps (auto-mapping accepted as-is, preview showed "1 testcases will be
+   created correctly"), then clicked the real **Import** link.
+4. **Import succeeded** — "1 testcase(s) imported successfully," issue **#5732** created in `rftc-016-ci-qa`.
+5. Opened `/issues/5732` directly and inspected its **Test Suite:** field — **blank/empty**, not "Perf-500" and
+   not any other suite. Confirms the tampered cross-project suite id was rejected entirely (`session[...] = nil`
+   per the fix), not silently linked to the attacker-supplied suite, and not crashing the import either.
+
+**Verdict: BUG-TCM-091 CONFIRMED FIXED, genuinely live, not just source-diffed.** This closes the specific gap
+the 2026-10-27 note left open. Test fixture issue #5732 left in place as the reproduction artifact, consistent
+with this suite's existing evidence-retention convention.
+
+---
+
 ## Regression Run — 2026-10-23 (full-plugin §27 cycle, per explicit user instruction)
 
 Environment: Docker `localhost:3000` (container `redmine6-redmine-1`), project `rftc-016-ci-qa`, user `admin`,

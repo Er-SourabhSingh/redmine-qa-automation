@@ -165,3 +165,16 @@ left at project defaults — `list_custom_fields` returns a permission error for
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff (testcase_import_controller.rb): session[:selected_suite_id] is now only accepted if Testsuite.where(project_id: @project.identifier, id: ...).exists?, closing the cross-project suite-link leak via a tampered selected_suite_id.
+
+## Retest Result (2026-10-28) — genuinely live-reproduced
+
+Source diff alone was confirmed on 2026-10-26; this session closed the gap with a real live reproduction of the
+exact original attack. As admin (access to both `rftc-016-ci-qa` and `rftc-perf-500`): ran the real 4-step CSV
+import wizard for `rftc-016-ci-qa`, selected the legitimate "CI Ingest" suite (id 3) via the real picker, then
+tampered the form's hidden `selected_suite_id` field to `37` (Perf-500's suite, belonging to the different
+project `rftc-perf-500`) before submitting. Completed the import — issue **#5732** created successfully. Opened
+`/issues/5732` directly: its **Test Suite:** field is **blank**, not linked to suite 37 or to any suite at all.
+The tampered cross-project id was rejected entirely, exactly as the fix intends — no crash, no cross-project
+link created. **Verdict: fix holds under genuine live attack, not just source inspection.** Full write-up in
+`testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md`'s 2026-10-28 regression section. Test fixture issue #5732 left in
+place as the reproduction artifact.

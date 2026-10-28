@@ -916,6 +916,30 @@ suite (129–143, 144–151, 295–298) were not re-clicked individually — non
 
 ---
 
+## Regression — 2026-10-28 continued (§27 final-cycle, area 10/22 — Test case ↔ suite organisation)
+
+No commits since 2026-10-27 touched `requirement_issues_controller.rb` or the context-menu views specific to
+this area, but `test_suites_controller.rb` (already live-reverified today in the Test Suites area for CRUD) is
+the shared controller behind suite-linking too, so the core remove/create-in-suite mechanisms were spot-checked
+live rather than relying only on 2026-10-22/23 evidence:
+
+- **TC-TCM-297** reconfirmed as a side effect: created `REG28-TC148-RemoveFromSuite-Probe` directly from suite
+  3's ("CI Ingest") own page — issue **#5747** created and the page correctly redirected back to suite 3 with
+  the new case already listed there.
+- **TC-TCM-148** — removed #5747 from suite 3 via the real Actions → Remove Testcase → Confirm Removal flow.
+  Confirmed via a fresh page reload that the case is genuinely gone from the suite's grid, and confirmed via
+  `/issues/5747` that the issue itself survived intact — BUG-TCM-026's fix (previously, "Remove" returned 200
+  but silently left the case in the suite) still holds.
+
+**No regression found.** The remaining TCs in this section (144–147, 149–151, 295, 296, 298) were not re-clicked
+individually — none of their own mechanisms (bulk requirement assignment's UI-greying gap BUG-TCM-095, the
+multi-suite double-counting BUG-TCM-098/097, drag-copy BUG-TCM-112) were touched by any commit since the
+2026-10-27 fast-pass check, which itself found no regressions. Probe issue #5747 left in place as a disposable
+fixture (now suite-less, matching this suite's existing probe-cleanup convention for issues that don't affect
+other fixtures).
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

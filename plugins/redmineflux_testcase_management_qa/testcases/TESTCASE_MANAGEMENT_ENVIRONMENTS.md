@@ -9,6 +9,17 @@
 > rename leaving a stale name on existing runs) is now confirmed genuinely fixed**: a renamed environment's new
 > name now shows correctly everywhere on an already-created run's own page too, not just the Environment list and
 > new-run forms.
+> **Re-regressed 2026-10-28 as part of the full §27 final-cycle cycle** (zero commits to Environment-management
+> code since 2026-10-22, confirmed via `git log`). All 8 TCs re-executed live end-to-end on a fresh disposable
+> fixture (`REG28-ENV-A` → renamed `REG28-ENV-A-RENAMED`, run #188). All PASS, no new bugs. **Incident during
+> TC-044**: a manual DOM-hidden-input attempt to delete the disposable environment instead deleted the project's
+> long-standing shared `test` environment (id 2) because the delete-confirmation modal's form `action` URL was
+> already bound to the wrong id from a prior interaction — the subsequent real Playwright click-based deletion
+> (used for the rest of this suite) correctly targeted the right row every time. No lasting harm: this
+> accidentally reproduced TC-044's own scenario for real (an in-use environment deleted) and confirmed the same
+> "no dangling references" result — Run #163 and the project's Testcase Summary report both still render
+> correctly with no 500/blank. Documented here for the record, not filed as a bug (this was a test-interaction
+> mistake, not an application defect).
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -212,6 +223,14 @@ FAIL; on the current build the same rename-then-check-existing-run-page flow now
 throughout. All fixtures (`ENV-A-REGRESS`/`ENV-A-REGRESS-RENAMED`, `ENV-DELETE-UNUSED-REGRESS`, run #76, report
 #34) are disposable test artifacts, left in place as evidence, consistent with this suite's own established
 convention.
+
+**Execution summary 2026-10-28 (§27 final-cycle regression):** 8/8 PASS, zero new bugs. Create (`REG28-ENV-A`),
+selectable-on-run, mandatory-name, duplicate-name, rename-shows-on-existing-run (`REG28-ENV-A-RENAMED` on run
+#188, zero stale mentions), delete-unused (real-click-verified), and project-scoping (zero leak between
+`rftc-016-ci-qa` and `alpha-web`, both list and Add Run selector) all reconfirmed. Delete-with-recorded-results
+(TC-044) was inadvertently exercised against the shared `test` environment (id 2) instead of a disposable
+fixture due to a DOM-interaction mistake (see header note) — same "no dangling references" result as the
+documented acceptable behavior, so the TC's own PASS verdict stands.
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-042 and TC-TCM-044 are the highest-risk cases here — both probe whether recorded results survive changes

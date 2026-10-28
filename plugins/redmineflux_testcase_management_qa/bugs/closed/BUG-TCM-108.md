@@ -143,3 +143,13 @@ emails correctly to the same mailbox within seconds of creation.
 ## Retest Result (2026-10-26)
 
 **CONFIRMED FIXED.** Confirmed via precise source diff (22b24b8 and 807c7c4): Tester Scorecard now counts a never-executed testcase/environment pair as untested instead of crashing with a 500 (and silently failing to email).
+
+## Retest Result (2026-10-28) — genuinely live-reproduced
+
+Prior confirmation was source-diff only. Created a real Tester Scorecard report ("REG28-TesterScorecard-Check",
+id 190) via the actual New Report wizard with default "Include all test run" scope against `rftc-016-ci-qa` —
+this project has dozens of runs with zero executed cases (CLI bootstrap test, jsontest2, quiettest1, etc.),
+exactly the never-executed-pair condition that crashed the report before. Opened `/testcase_reports/190`
+directly: **no 500, no error page** — real scorecard data rendered, with multiple rows correctly showing
+`0.0%` completion/pass rate for the never-executed runs instead of crashing. **Verdict: fix holds under genuine
+live load, not just source inspection.**

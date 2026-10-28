@@ -826,6 +826,25 @@ still-current source-diff evidence. No regressions, no new bugs.**
 
 ---
 
+## Regression — 2026-10-28 (§27 final-cycle, area 13/22)
+
+`git log` since 2026-10-27 showed no new commits to `testcase_reports_controller.rb`/views (the 5 commits
+touching reports code were all dated 2026-10-26, already accounted for by the 2026-10-27 fast pass above).
+Rather than treat that as "nothing to check," closed one more gap the earlier passes left source-diff-only:
+
+- **BUG-TCM-108 (Tester Scorecard 500 crash on never-executed pairs) — genuinely live-reproduced.** Created a
+  real Tester Scorecard report ("REG28-TesterScorecard-Check", id 190), default "Include all test run" scope,
+  against `rftc-016-ci-qa` — a project with dozens of runs that have zero executed cases. Opened the report
+  directly: renders cleanly, no 500, with multiple rows correctly showing `0.0%` completion/pass rate for the
+  never-executed runs (the exact condition that used to crash the whole report). Full write-up in
+  `bugs/closed/BUG-TCM-108.md`'s 2026-10-28 retest section.
+
+**BUG-TCM-102 and BUG-TCM-105 remain source-diff-only** (unchanged — no commits touched their code since the
+2026-10-26 fix), same resume points as recorded in the 2026-10-27 section above. BUG-TCM-107/114 remain
+environment-blocked (PDF generation non-functional on this instance), not a regression.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

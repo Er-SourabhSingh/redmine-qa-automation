@@ -951,6 +951,29 @@ right ones to re-run there.
 
 ---
 
+## Regression — 2026-10-28 continued (§27 final-cycle, area 17-18/22 — Email notifications & Installation prerequisites)
+
+A second `git log` pass turned up two more commits since the area-4/22 checkpoint above, both relevant to this
+file's Email notifications (TC-TCM-008–014, 280–286) and Installation prerequisites (TC-TCM-017–020) rows:
+
+- **`be9f25c`** ("Fix BUG-TCM-013: stop the 'Test Case Result Added' email from being sent twice") — already
+  **genuinely live-confirmed** the same day it landed: `bugs/closed/BUG-TCM-013.md`'s own "Retest Result
+  (2026-10-27)" section recorded a real Mailpit API check (`"total":1`) after recording one Add Result, not a
+  source-diff-only closure. No re-run needed; citing that existing live evidence rather than repeating it.
+- **`6556d08`** ("Fix the app failing to even start when Node.js isn't installed") — `config/initializers/grover.rb`
+  now rescues a missing `npx` binary instead of letting it crash the whole app at boot. This specific failure mode
+  (no Node.js on the machine) can't be genuinely reproduced on this shared Docker instance without uninstalling
+  Node.js from the running container — disruptive to every other session's PDF-dependent testing, so not attempted.
+  Instead, live-verified the fix's **happy-path regression risk**: downloaded a PDF export of report #153
+  ("EMAIL-PDF-TestcaseSummary-run83") via the real Download PDF link — succeeded, a valid 31-page PDF document
+  (`909,483` bytes, confirmed via `file`), proving the rescue-wrapped `npx puppeteer executablePath` call still
+  resolves and returns a working executable path on a machine that **does** have Node.js, i.e. the defensive
+  rescue didn't silently break the normal/working case. The "Node.js absent" failure path itself remains
+  unverified live (environment constraint, not a tooling limitation) — flagged here rather than claimed as
+  covered.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |

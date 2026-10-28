@@ -131,13 +131,12 @@ Zero new bugs found in this final pass. Full detail: `reports/TCM-Regression-202
 **Release 7.2.0 is fully closed out: QA testing complete, all 54 bugs Done, all 9 features/tasks Done, zero open
 items remaining.**
 
-**Known gap, not blocking this closure:** production Run #612 ("Testcase Release 7.2.0 Sign-off", RFTC
-testcase-execution tracking) still shows 10 individual testcase results as "Failed" from before their underlying
-bugs were fixed (e.g. #124004/124006/124007 under RFTC-011, #123965 under RFTC-017, #123977 under RFTC-020,
-#123983/#123984 under RFTC-021, #124124 under RFTC-038, #124143 under RFTC-044, #124225 under RFTC-043) — each
-one's bug is confirmed fixed and Closed (see §4), so these are stale pre-fix results, not live failures. Retest
-to Passed is pending a permission grant for the bulk status-result write (blocked once by the Claude Code
-auto-mode classifier); does not affect the Done status of the 9 features above.
+**Resolved:** production Run #612 ("Testcase Release 7.2.0 Sign-off", RFTC testcase-execution tracking) previously
+showed 10 individual testcase results as "Failed" from before their underlying bugs were fixed (e.g.
+#124004/124006/124007 under RFTC-011, #123965 under RFTC-017, #123977 under RFTC-020, #123983/#123984 under
+RFTC-021, #124124 under RFTC-038, #124143 under RFTC-044, #124225 under RFTC-043) — each one's bug was already
+confirmed fixed and Closed (see §4). These 10 stale pre-fix results have since been retested to Passed directly
+by the user. No open items remain anywhere in Run #612.
 
 ## Notes
 

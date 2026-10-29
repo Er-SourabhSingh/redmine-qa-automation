@@ -95,6 +95,20 @@ BUG-CRX-067's `daisy.skye` fixture (as originally built and in every prior retes
 
 - Duplicate found: No. Distinct from BUG-CRX-067 (still a real, separate defect — a correctly-enforced Forbidden rendered with a misleading ✓; that defect's own precondition, a Reporter-only `daisy.skye` with no other project role, was not present in this fixture, so BUG-067 itself could not be retested here, only this new defect could be observed). This is a genuine server-side authorization-logic flaw (`global: true` permission scope) in `redmineflux_crm`'s own `CrmBaseController`, not a chat-UI rendering issue, and not previously documented anywhere in `bugs/_index.md` or `bugs/_duplicates.md`.
 
+## Resolution — 2026-10-29, Won't Fix (working as designed)
+
+Production #125544 closed by the dev (Prashant Chaurasia, 2026-10-27T14:10:16Z) as **Won't Fix — working as designed**, confirmed via `redmineflux_core_get_issue` journals. Developer's rationale, verbatim summary:
+
+- **CRM is not project-based by design.** It opens from the top menu, not from inside a project — no project module, no project routes. Leads/contacts/companies/deals belong to the whole Redmine instance, not to any project (confirmed on the test instance: 0 of 10 leads, 0 of 11 companies, 0 of 64 deals have a project). Neither the CRM pages nor the CRM API filter by project.
+- Every CRM permission is therefore declared as a **global** permission (`redmineflux_crm/init.rb`), and the plugin's own README states this explicitly: "All CRM permissions are global (not per-project), since CRM data isn't scoped to a single project."
+- The `allowed_to?(..., nil, global: true)` checks in `Api::CrmBaseController` (and the native CRM browser controllers) are therefore **correct for this design** — a CRM permission on any role means "this person may use the CRM" for the whole instance, not just the project that role happens to be attached to.
+- `daisy.skye`'s Developer role on the unrelated PM project has `manage_leads`/`view_crm` ticked → she is a CRM user instance-wide by design; her Reporter role on the CRM test project has no bearing on CRM access at all, since CRM isn't tied to that project.
+- The **one genuinely project-scoped CRM action** is linking a contact/deal to a ticket (`link_crm_to_issues`), which correctly checks the issue's own project — and was confirmed to work correctly.
+- Correct way to restrict CRM access: remove CRM permissions from general roles (Developer/Manager), or create a dedicated role (e.g. "Sales") carrying only CRM permissions, granted only to intended CRM users.
+- Making CRM genuinely project-scoped would be a **new feature request**, not a bug fix.
+
+**Local disposition:** moved to `bugs/closed/` per this resolution — **Won't Fix**, not a defect. No production sync needed beyond what the dev already set (status already Won't Fix, 0% done — not the usual Done/100% bug-closure pattern, since this isn't a fix). `_index.md` updated accordingly.
+
 ## Note for triage
 
 - **Severity: Critical** — this is a broken-access-control vulnerability: a low-privilege user's writes to a sensitive business-data domain (CRM Leads/Contacts/Companies/Deals, and CRM data deletion via `authorize_delete`) succeed as long as they hold an unrelated elevated role anywhere in the instance, bypassing the intended per-CRM-project permission model entirely. This affects every `authorize_global`/`authorize_manage`/`authorize_delete` call site in `CrmBaseController`, i.e. all CRM entity types (Leads, Contacts, Companies, Deals, Activities), both via the native UI and via the Sales Agent/MCP.

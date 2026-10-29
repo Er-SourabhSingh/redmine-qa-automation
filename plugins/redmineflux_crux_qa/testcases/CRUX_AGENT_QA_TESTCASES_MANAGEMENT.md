@@ -701,6 +701,148 @@ Both reproductions folded into their respective existing bug files (BUG-CRX-085,
 
 ---
 
+## Auto-mode routing check (2026-10-29) — per explicit user request
+
+Scope: with the Ask Crux agent picker set to **Auto** (not pinned to QA Agent), does a Testcase-Management-domain question/write genuinely get answered/performed by **QA Agent** — or does some other agent (Project Manager, etc.) answer or perform the operation instead? Tested as `admin`.
+
+---
+
+### TC-CRX-353: Auto mode — testsuite count (read), no domain word needed
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "in the Crux QA Agent Test Project, how many test suites are there?"
+
+**Result: PASS.** Routed to **QA Agent** (no misrouting). Answered "2 test suites: Login and Auth (ID:1), Password Reset (ID:2)" — matches DB exactly (`testsuites` table, 2 rows, project_id=3).
+
+---
+
+### TC-CRX-354: Auto mode — create test case (write), no domain word needed; surfaces a new agent-description mismatch (BUG-CRX-095)
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "in the Crux QA Agent Test Project, can you create a test case titled 'Auto-route check 1'?"
+
+**Result: PASS (routing/write), but new bug found.** Routed to **QA Agent** correctly — confirm card `Project: Crux QA Agent Test Project`, `Subject: Auto-route check 1`. Confirming genuinely created the test case, verified via DB (`issues` id=14, tracker_id=4, project_id=3). No other agent answered or attempted the write.
+
+However: the agent-picker's own one-line description for **QA Agent** reads *"reports coverage and run status, never creates a case"* — directly contradicted by this test (and by the ~60 prior TCs in this suite where QA Agent routinely creates/updates/deletes test cases, suites, environments, reports, and runs). Filed as **BUG-CRX-095** (Low — description/behavior mismatch only, no incorrect write).
+
+---
+
+### TC-CRX-355: Auto mode — "What's on my To Do list?" (ambiguous phrasing, no domain word) — misroutes
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "What's on my To Do list?" (no project or domain named).
+
+**Result: FAIL — new bug, BUG-CRX-094.** Auto did **not** route to QA Agent. First reply was a tool-less "plain chat" response ("I don't have tools available in this plain chat..."), then a hand-off card proposing **Project Manager**. Confirming, Project Manager answered using generic Redmine `assigned_to` issue data ("#3 Write release notes for v1.1") rather than the plugin's real To-Do concept (pending/open Runs by assignee — confirmed via native `/testcase_todos`, which shows 4 real open runs, none assigned to `admin`, all to Luna Blossom). For this specific user the final headline happened not to visibly conflict (admin genuinely has 0 pending runs), but the **agent selected and the data model used were both wrong** — for a user who does have pending runs (e.g. `luna.blossom`, 4 of them), the Project Manager would have no way to know about them at all. Filed as **BUG-CRX-094** (High — covers this repro plus a CRM-domain recurrence, see `CRUX_AGENT_CRM_SALES.md` TC-CRX-357).
+
+---
+
+## Gap-fill round (2026-10-29) — per explicit user request
+
+Scope: (1) Requirement-linking re-verified, (2) report Update tested with a genuine type+run change (not just rename — the only other report type ever exercised was "summary"; "testcase", "activity", "tester_scorecard", "requirement", and "overdue_run" remain untested), (3) Run Update's "swap already-added testcase/suite" path re-examined specifically for what happens to the existing environment/assignee when only one field is meant to change, (4) a clean names-only execution test spanning run + suite + environment + testcase together (no IDs at any point).
+
+---
+
+### TC-CRX-359: Report — Update, genuine type + run change (not just rename)
+
+**User Role:** `admin`, QA Agent (pinned).
+
+**Steps:** Fixture: created report #3 "QA Report Update Check" (`report_type='testcase'`, run #3 "Sprint 2 Targeted Test"), verified via DB. Then: "can you update the 'QA Report Update Check' report to be a summary-type report covering the 'Bulk Status Fixture Run' run instead?"
+
+**Result: FAIL — new bug, BUG-CRX-097.** Confirm card correctly showed `Report: 3`, `Report Type: summary`, `Run Ids: [7]`. Confirming replied *"✓ Report #3 'QA Report Update Check' updated successfully."* Verified via DB: the run link genuinely changed to #7, but `report_type` **silently stayed `'testcase'`** — never became `summary`. Native UI independently confirms this: the report still renders as a "Testcase Summary" page, not a high-level summary. No error of any kind was shown for the dropped field. Filed as **BUG-CRX-097** — first silent-partial-write instance on the Reports domain, and the first in this suite with zero accompanying error text at all.
+
+*(Note: this attempt was first tried on Auto mode and misrouted to Project Manager — a repro of BUG-CRX-094's class on the Report-Update path specifically, not re-filed separately. Pinning the chat to QA Agent directly reached the real tool and surfaced the bug above.)*
+
+---
+
+### TC-CRX-360: Run — Update, change ONLY the environment; assignee must not be silently altered
+
+**User Role:** `admin`, QA Agent (pinned). Fixture ground truth (native UI, `/runs/1`): run #1 "Sprint 1 Regression" — `Environment: Staging`, `Assignee: Luna Blossom`.
+
+**Steps:** "can you update the 'Sprint 1 Regression' run to use the Canary environment instead?" — assignee never mentioned.
+
+**Result: FAIL (1st attempt) — new bug, BUG-CRX-098; PASS on correction.** Confirm card showed `Run Assignments: [{'environment': 'Canary', 'assignee_id': 1}]` — `1` is `admin` (the current chat user), not the run's real assignee (Luna Blossom, id 5) — the agent silently substituted its own user for a field nobody asked to change. Confirming correctly failed (admin isn't a project member): *"Validation error: Invalid assignee_id: 1. It must belong to the current project users."* — verified via DB, no change (honest failure this time, not a silent write). Replied "keep the assignee as luna.blossom" — confirm card corrected to `assignee_id: 5`; confirming succeeded, verified via DB (`run_assignments` new row: environment='Canary', assignee_id=5) and native UI (`Environment: Canary`, `Assignee: Luna Blossom` — both correct). Filed the wrong-default as **BUG-CRX-098** — had `admin` genuinely been a project member, this would have silently reassigned the run with no error and no confirmation ever shown to the user.
+
+---
+
+### TC-CRX-361: Execute a test case using run name + suite name + environment name only — zero IDs anywhere
+
+**User Role:** `admin`, QA Agent (pinned). Fixture: run #1 "Sprint 1 Regression" (now environment Canary, assignee Luna Blossom per TC-CRX-360), testcase #7 "Verify password reset email is sent" linked to suite "Login and Auth".
+
+**Steps:** "in the Crux QA Agent Test Project, for the 'Verify password reset email is sent' test case in the 'Login and Auth' suite, under the 'Sprint 1 Regression' run, using the Canary environment, can you mark it as Passed?" — run name, suite name, testcase name, and environment name all given; **no numeric ID of any kind supplied by the user**, per the suite's standing real-user-phrasing rule (CLAUDE.md §4a / this suite's precondition section).
+
+**Result: PASS.** Confirm card correctly resolved every field from names alone: `Run: 1`, `Issue: 7`, `Testsuite: 1`, `Case Status: 2` (Passed), `Environment: Canary`. Confirming succeeded, verified via DB (`issue_status_results` new row: issue 7, run 1, testsuite 1, case_status_id=2, environment='Canary'). Confirms the plugin's name-to-ID resolution works correctly end-to-end for this combination when all four names are supplied together in one message.
+
+---
+
+### Requirement linking (re-verification, per explicit user question)
+
+Re-confirmed TC-CRX-316's existing result stands: linking a test case to a requirement **by name** still fails (**BUG-CRX-084**, no requirement-lookup tool exists), while linking **by numeric ID** (once supplied) genuinely works and is DB-verified (`requirement_issues` row created). No change in behavior found on this stack version; no new test case needed beyond the existing TC-CRX-316.
+
+---
+
+### Report types (gap acknowledged, not closed this round)
+
+Per MCP source inspection (`create_report`'s `_valid_report_types`), this plugin supports 6 report types: `testcase`, `summary`, `activity`, `tester_scorecard`, `requirement`, `overdue_run`. Across this entire suite, only `testcase` (this round, TC-CRX-359) and `summary` (TC-CRX-318/330) have been exercised via chat. `activity`, `tester_scorecard`, `requirement`, and `overdue_run` remain untested — flagged for a follow-up session rather than rushed into this round, since `activity` alone has its own required-field precondition (`start_date`/`end_date`) worth testing deliberately.
+
+---
+
+## Run composition update round (2026-10-29) — per explicit user request
+
+### TC-CRX-362: Run — Update an EXISTING run to add a whole additional test suite's testcases, without losing its already-included testcases
+
+**User Role:** `admin`, QA Agent (pinned). Fixture ground truth (DB, before): run #1 "Sprint 1 Regression" → `run_issues` has exactly 1 row (issue #7, testsuite 1 "Login and Auth") — testcase #6 of the same suite had dropped out of the run's composition at some earlier point this session (pre-existing drift, not reproduced by this TC — see note below). Suite "Password Reset" (testsuite 2) has testcases #4 and #12 (`issue_test_suites` DB truth), not yet in run #1 at all.
+
+**Steps:** "in the Crux QA Agent Test Project, can you update the 'Sprint 1 Regression' run to also include all test cases from the 'Password Reset' test suite?" — no suite ID, no testcase ID, no mention of the run's current contents.
+
+**Result: PASS.** Confirm card correctly showed `Suite Testcase Map: {'1': [6, 7], '2': [4, 12]}` — the agent read the run's *existing* composition first (correctly including testcase #6, even though it had fallen out of the live DB row at the time) and merged it with the new suite's testcases rather than overwriting blindly. Confirming produced: *"✓ Run #1 'Sprint 1 Regression' now has 4 test case(s)."* Verified via DB: `run_issues` for run #1 now has 4 rows — `(6,1), (7,1), (4,2), (12,2)` — exactly the union of old + new, nothing lost.
+
+### TC-CRX-363: Run — Record a result for a testcase already in the run's composition; composition must survive untouched
+
+**User Role:** `admin`, QA Agent (pinned). Fixture: run #1 now has 4 testcases per TC-CRX-362 (6, 7, 4, 12).
+
+**Steps:** "in the Crux QA Agent Test Project, for the 'Reset password with valid email' test case in the 'Password Reset' suite, under the 'Sprint 1 Regression' run, can you mark it as Passed?" — deliberately named the wrong suite for this testcase (testcase #6 "Reset password with valid email" actually only belongs to suite "Login and Auth", not "Password Reset", per `issue_test_suites`), to probe whether the agent would trust the user's suite name or the testcase's real suite membership.
+
+**Result: PASS (both the resolution and the composition-safety check).** Confirm card correctly resolved `Issue: 6, Testsuite: 1` — the testcase's **real** suite, silently correcting the user's wrong suite name rather than either failing or mis-filing the result under suite 2. This is an honest resolution, not a bug: the agent clearly did a name→ID lookup on the testcase itself rather than trusting the suite phrase at face value. Confirmed; verified via DB: new `issue_status_results` row (id 16, issue 6, run 1, case_status_id=2/Passed), and — the actual point of this TC — `run_issues` for run #1 still has all 4 rows (6, 7, 4, 12) afterward, unchanged. Recording a result for a testcase that was already part of the run's composition does **not** silently prune the other testcases.
+
+**Note on the pre-existing drift (not a reproduced bug):** before TC-CRX-362, `run_issues` for run #1 held only testcase #7 where it should have held #6 as well (per BUG-CRX-087's earlier ground truth of "exactly 1 row — issue #6"). Something between that check and this round dropped #6 and added #7 to run #1's composition outside of any TC in this file that explicitly targeted run #1's testcase list. TC-CRX-363 above rules out "recording a status result" as the cause (it preserved composition correctly when repeated under the same conditions). The likely cause is TC-CRX-361's own execute-by-name call, which may have used a different code path on that occasion — but this could not be conclusively reproduced in this round and does not currently reproduce, so **no bug is filed**; flagging in `CRUX_MEMORY.md` for a future session to watch for if a similar unexplained drop recurs.
+
+---
+
+## Run Type / Status / Close / multi-environment round (2026-10-29) — per explicit user request
+
+### TC-CRX-364: Run — attempt Run Type change at UPDATE time (expected: no tool support, symmetric with create-time gap)
+
+**User Role:** `admin`, QA Agent (pinned). Fixture ground truth, discovered via the native "Edit Run" modal (`GET /runs/1/edit`, fetched with Rails-UJS `Accept: text/javascript` header to get the real AJAX response rather than the empty shell a plain page load/`fetch` returns): the modal genuinely renders `<select name="run[run_type_id]">` (Functional/Regression/Smoke/Integration/Performance/Security/User Acceptance) on the exact same per-run form as Name/State/Dates/Run Assignments, submitted via `PATCH /runs/1`. DB confirms `runs.run_type_id` is a real per-row column (`runs` table: run #1 and #8 both carry `run_type_id=1`; #3/#4/#7 are NULL) — Run Type genuinely is a per-run field, editable natively, just not exposed on the `update_run` MCP tool.
+
+**Steps:** "in the Crux QA Agent Test Project, can you change the Run Type of the 'Sprint 1 Regression' run to Regression?"
+
+**Result: FAIL — new bug, BUG-CRX-099 (the refusal is correct, the stated reason is false).** The agent correctly refused to fabricate a change and correctly named `update_run`'s real parameter list (`name`, `state`, `suite_testcase_map`, `include_testcase`, `run_assignments` — no `run_type_id`) — that part matches the create-time gap (Scope note, TC-CRX-329). But it justified the refusal with: *"the 'Run Type' is a shared reference configuration in the plugin ... not a property of individual runs"* — which the native Edit Run form and the DB both directly contradict. Filed as **BUG-CRX-099**: not a bad write, but a confidently wrong explanation of the plugin's own data model, which could mislead a user into thinking Run Type isn't a per-run concept at all.
+
+### TC-CRX-365: Run — Status/state change (re-confirmation; already covered by TC-CRX-322)
+
+Already tested and passing — see **TC-CRX-322** above: "`...mark the run as In Progress?`" → confirm card `State: 2`, DB-verified (`runs.state=2`). No new test needed; referenced here per today's explicit question about run status.
+
+### TC-CRX-366: Run — Close (re-confirmation; already covered)
+
+Already tested and passing for both the permitted and denied case:
+- `luna.blossom` (has `close_run`) closing run #4 by name → PASS, DB-verified (`is_closed=t`, `closed_on` populated) — see the Run-close TC near line 520.
+- `daisy.skye` (no `close_run`) attempting the same → correctly denied — see the adjacent TC near line 530.
+
+No new test needed; referenced here per today's explicit question about closing a run.
+
+### TC-CRX-367: Run — Update to ADD a second environment+assignee to an existing run, without disturbing the first (the actual gap: create-time only exercised a single environment)
+
+**User Role:** `admin`, QA Agent (pinned). Fixture ground truth (DB, before): run #1 `run_assignments` has exactly 1 row — `environment='Canary', assignee_id=5` (luna.blossom).
+
+**Steps:** "in the Crux QA Agent Test Project, can you also add a Staging environment assignment for daisy.skye to the 'Sprint 1 Regression' run, while keeping the existing Canary assignment for luna.blossom?"
+
+**Result: PASS, with a notable near-miss along the way.** First response hit the turn's token budget mid-reasoning and, before stopping, asserted *"the run is currently assigned to the **Staging** environment"* — factually wrong (it was Canary); this false intermediate claim was shown to the user and would have been misleading if taken at face value instead of pushed further via "Ask again." On retry, the agent correctly re-derived the true current state and produced a correct confirm card: `Run Assignments: [{'environment': 'Staging', 'assignee_id': 6}, {'environment': 'Canary', 'assignee_id': 5}]` — both the new assignment AND the preserved existing one. Confirmed: genuine success, verified via DB (`run_assignments` now has 2 rows: `Staging/daisy.skye(6)` and `Canary/luna.blossom(5)` — nothing lost, correctly additive). **No bug filed** for the mid-reasoning wrong-environment claim — it never reached a confirm card or a write, self-corrected on retry, and matches the already-documented "hits token budget mid-turn, partial/stale reasoning shown" shape (TC-CRX-318/319 family) rather than being a new independent defect; flagged in `CRUX_MEMORY.md` as a reminder to never trust a pre-confirm-card status claim without an independent DB/UI check, even if the eventual confirm card and write turn out correct.
+
+---
+
 ## Suite status (2026-10-27, session close — final)
 
 All 6 scoped CRUD areas plus bulk operations, Close Run, closed-run read/write behavior, the To-Do dashboard, the Traceability Matrix, and run-assignee read have now been exercised, admin + non-admin where meaningful, with every genuinely-reachable write verified against the database: **Test cases** (create/read/update/bulk-delete), **Test suites** (full CRUD + sub-suite/move/copy/remove), **Environments** (full CRUD), **Requirements** (standalone CRUD zero MCP tool support; create-time linking broken as BUG-CRX-084; Traceability Matrix read falsely denies a real link as BUG-CRX-090), **Reports** (create/update/delete; scheduling zero MCP tool support), **Runs** (create/read/update/delete/close/bulk-delete/bulk-status-result; closed-run read correct, closed-run Failed/Blocked write silently bypasses its own guard as BUG-CRX-088 while the Passed-path guard correctly fires), **To-Do** (real native feature = pending Runs by assignee; chat substitutes a false, unrelated answer as BUG-CRX-089, correcting this suite's earlier "no bug" call), **Defect linking** (new-defect creation works cleanly in 2 turns; existing-defect linking never converges, BUG-CRX-091).

@@ -962,6 +962,42 @@ Re-read each cited TC's failure-path replies specifically for a leading ✓ or s
 
 ---
 
+## Auto-mode routing check (2026-10-29) — per explicit user request, new Redmine 6 stack (localhost:3015, crux-core 0.130.0)
+
+Scope: same methodology as the Testcase Management suite's equivalent check (`CRUX_AGENT_QA_TESTCASES_MANAGEMENT.md` TC-CRX-353–355) — with the Ask Crux agent picker set to **Auto**, does a CRM-domain question/write genuinely get answered/performed by **Sales Agent** — or does another agent (Project Manager, etc.) answer or perform the operation instead? Tested as `admin`. Fixture ground truth: 2 real deals (`rf_crm_deals`) — id=1 "NovaTech Solutions Rollout" ($25,000, Proposal stage), id=2 "EUR Currency Test Deal" ($500, New stage); 2 contacts, 2 leads, 0 companies.
+
+---
+
+### TC-CRX-356: Auto mode — pipeline-state (read), no domain word needed
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "what's the state of our sales pipeline?"
+
+**Result: PASS.** Routed to **Sales Agent** correctly, no misrouting. Answered with a grounded breakdown matching DB exactly: 2 open deals, "EUR Currency Test Deal (ID: 2)" in New stage, "NovaTech Solutions Rollout (ID: 1)" in Proposal stage, correct per-stage/total values, correct CRM status counts (Contacts: 2, Companies: 0, Deals: 2, Leads: 2).
+
+---
+
+### TC-CRX-357: Auto mode — move a deal's stage (write), **no** domain word — misroutes (BUG-CRX-096)
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "can you move the 'EUR Currency Test Deal' to the Qualified stage?" (no "CRM" word, no project named).
+
+**Result: FAIL — new bug, BUG-CRX-096** (kept as its own bug file, separate from the Testcase-Management-domain recurrence BUG-CRX-094, per explicit user instruction — one md file per bug/domain, not a combined write-up). Auto routed straight to **Project Manager** (no hand-off card shown at all) instead of Sales Agent. Project Manager falsely replied: *"I couldn't find a tool for this here, so I can't do it from this chat... if you expected Crux to do it, an administrator can check this deployment's tool setup."* The tool (`crm_update_deal_stage`) genuinely exists and is exposed to Sales Agent (confirmed by TC-CRX-358's identical request succeeding once correctly routed) — this is a false capability denial caused purely by Auto picking the wrong agent, a direct recurrence of the already-**closed** BUG-CRX-014's defect class on the current stack.
+
+---
+
+### TC-CRX-358: Auto mode — identical request, **with** "CRM:" domain word — routes and executes correctly
+
+**User Role:** `admin`, Auto mode, fresh chat.
+
+**Steps:** "CRM: can you move the 'EUR Currency Test Deal' to the Qualified stage?" (identical request to TC-CRX-357, domain word added).
+
+**Result: PASS.** Routed correctly to **Sales Agent**. Confirm card: `Write — Crm Update Deal Stage`, `Deal: 2`, `Stage: Qualified` — correctly resolved deal id from name alone. (Not confirmed/executed, to avoid altering the shared fixture mid-suite; routing and confirm-card correctness is the scope of this check.) This contrast confirms the defect in TC-CRX-357 is purely a **routing** failure, not a missing capability — the identical request succeeds the instant Auto has a lexical cue to pick the right agent.
+
+---
+
 ## Evidence Map (2026-10-12 cycle)
 
 - Case IDs: TC-CRX-245 through TC-CRX-267 — drafted, not yet executed.

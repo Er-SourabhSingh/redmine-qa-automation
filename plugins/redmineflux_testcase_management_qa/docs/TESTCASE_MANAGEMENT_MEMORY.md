@@ -1523,3 +1523,18 @@
   let core migrations create `settings` etc., then stop it and start the real plugin-mounted container against
   the now-migrated DB. Not a plugin bug — an inherent chicken-and-egg order issue with any DB-querying initializer
   on a truly first-ever boot.
+
+## Release 7.2.0 Closure (2026-10-28/29)
+
+- **(2026-10-28/29) Release 7.2.0 is CLOSED — all `CLAUDE.md` §10 criteria met.** Zero open bugs, full §27
+  final-cycle regression passed 2026-10-28, Traceability Matrix fully covered, all 9 feature/task production
+  issues (#121879–#121887) marked Done, and Run #612's stale results retested to Passed by the user directly on
+  production. See `reports/TCM-7.2.0-TESTCASE-CLOSURE-REPORT.md` for the full scoped closure record and
+  `docs/TESTCASE_MANAGEMENT_HANDOFF.md`'s "CURRENT STATUS" block for the detailed trail.
+- **(2026-10-29) A post-closure plugin pull (`265cb0b` → `1ed1987`) touched only `README.md`,
+  `config/locales/en.yml` (in-app Help Guide copy) and 2 CSS files** (Quality HQ section-title spacing; removed
+  `text-transform: uppercase` on `.rf_testcase_management_table thead th`, the shared table-header class used
+  across Reports lists, Quality HQ tables, etc.) — no Ruby/ERB/JS changed. Visually confirmed clean on
+  `localhost:3000` (Quality HQ dashboard, a project's Reports list). **A commit touching only README/locale/CSS
+  files is a safe pattern to fast-verify visually rather than re-running the full automation suite** — useful
+  precedent for any future post-closure doc/cosmetic-only pulls on this plugin.

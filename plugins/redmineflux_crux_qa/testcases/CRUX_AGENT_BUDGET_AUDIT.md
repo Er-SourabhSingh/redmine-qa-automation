@@ -537,7 +537,7 @@ Spent and Remaining hours (ideally an over-budget flag) for a category without l
 underlying calculation already exists and is correct (Budget Agent's `get_budget_status`, TC-CRX-417:
 Approved/Spent/Remaining/Over-Budget all correct).
 
-**Result: FAIL — new bug BUG-CRX-108 (Medium).** Reviewed both native view partials in full
+**Result: FAIL — new bug BUG-CRX-108 (Medium, upgraded to High 2026-10-30 — see follow-up).** Reviewed both native view partials in full
 (`app/views/approved_hour/_approved.html.erb`, `_approved_history.html.erb`). The "Add Approve Hours" form
 only collects `hour`/`category_id`/`comment` — no current Spent/Remaining shown. The "History" table's
 columns are Sr. No / Property Changes / Added Hours / Issue category / Comment / Updated by / Updated On —
@@ -550,9 +550,70 @@ never surfaces the derived Spent/Remaining numbers at all.
 
 ---
 
+### TC-CRX-419: Reducing approved hours after full consumption, then re-approving a modest amount, silently leaves the category still fully blocked (native UI, no Crux)
+
+**User Role:** Admin. **Precondition:** fresh category `BudgetFlowTest` (id 68, project 5), fresh issue #18,
+all actions via native UI only, per explicit user request to test this flow without Crux.
+
+**Steps:**
+1. Approve 50h. 2. Log a genuine 50h time entry against the category (DB-verified, consumes it fully). 3.
+   Reduce approved hours by 50 (admin reasoning: "already fully used, reset to 0") — genuinely succeeds,
+   approved = 0h, spent stays 50h (separate table, never reset). 4. Approve 20h more, intending a fresh
+   20h allowance for new work — genuinely succeeds, approved = 20h. 5. Try to log a routine 2h time entry
+   against the category.
+
+**Expected Result:** Either the 2h log should succeed (if 20h was meant as genuinely new, usable budget), or
+the admin should have been warned at step 4 that 20h would not actually unlock any new logging given 50h is
+already spent.
+
+**Result: FAIL — confirms a severe real-world consequence of BUG-CRX-108.** Step 5 was genuinely rejected:
+*"Hours exceed the approved limit"* (DB-verified: no new `time_entries` row created). The admin's 20h
+"re-approval" produced zero actually-usable hours, because the validation compares the new entry against the
+**total historical spent (50h)**, not against spend since the last reduction — and the new approved total
+(20h) still doesn't exceed it. Confirmed the actual fix mechanically: only topping approved up to 52h (i.e.
+*above* total historical spend, not just "+20" from the reduced number) let the same 2h entry genuinely
+succeed (DB-verified). Since the native UI shows no Spent figure anywhere (BUG-CRX-108), an admin doing this
+in good faith has no way to compute the number they actually need to enter, and gets no warning that their
+approval was silently ineffective — this will surface as a confusing "I approved more hours but the user
+still can't log time" report days or weeks later, with no error until that moment. Folded into **BUG-CRX-108**
+as a confirmed, more severe symptom of the same root cause (not filed as a separate bug).
+
+---
+
+## Auto-mode Routing Check (per explicit user request, 2026-10-30)
+
+### TC-CRX-420: Auto mode routes ambiguously-phrased Budget questions to the correct agent, not Project Manager
+
+**User Role:** admin, Crux set to **Auto**.
+
+**Steps:**
+1. Control (fresh chat): "What's the approved budget status for project ID 5?" — contains "budget," strong
+   domain signal, included to confirm the easy case first.
+2. Fresh chat: "Is the Development category in project ID 5 over its limit right now?" — avoids "budget,"
+   "approved," "hours" entirely, uses "limit" instead, same ambiguous-phrasing probe shape that broke QA
+   Agent (BUG-CRX-094) and CRM/Sales Agent (BUG-CRX-096).
+3. Fresh chat: "How's project 5's spending looking lately? Is it under control?" — a second, differently-
+   worded ambiguous attempt.
+
+**Expected Result:** All three route to the Budget Agent, matching the correct-routing baseline already
+confirmed for the Scrum Agent (TC-CRX-397, no misroute on 2 similarly ambiguous phrasings).
+
+**Result: FAIL — new bug BUG-CRX-109.** Step 1 (control) correctly routed to Budget Agent, answered
+immediately and accurately (`Total approved: 82.0h`, `Total spent: 103.0h`, `Total remaining: -21.0h`,
+correct per-category over-budget flag). Steps 2 and 3 (the 2 ambiguous attempts) **both misrouted to Project
+Manager** — 2/2. Project Manager's responses were honest (no fabricated budget data, no false capability
+denial) but wrong-agent: step 2 asked the user to clarify what "limit" meant instead of recognizing this as a
+Budget Agent question; step 3 used core time-entry tools to list raw time entries and then admitted it
+couldn't assess "under control" without budget/approval data, never mentioning or handing off to the Budget
+Agent that could answer directly. Unlike the Scrum Agent (clean 2/2 PASS, TC-CRX-397), the Budget Agent
+domain genuinely has the Auto-routing misroute defect already confirmed on 2 other domains. Filed as
+**BUG-CRX-109**.
+
+---
+
 ## Evidence Map
 
-- Case IDs: TC-CRX-398 through TC-CRX-418 (20 cases) — TC-CRX-398–411 drafted from `agents/budget-audit.md`'s
+- Case IDs: TC-CRX-398 through TC-CRX-420 (23 cases) — TC-CRX-398–411 drafted from `agents/budget-audit.md`'s
   real 4-tool catalog and `redmineflux-mcp/src/tools/budget_audit.py`'s own documented edge cases and
   past-bug fix comments (BUG-BA-001, 002, 004, 007, 008, 010); TC-CRX-412–416 added per explicit user
   follow-up questions, 2026-10-29.

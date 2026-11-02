@@ -95,6 +95,10 @@ Every other column is saved correctly, so the loss is specific to Estimated time
 
 ![All fields, one row](../../screenshots/BUG-TCM-132/all-fields-one-row-testcase-1482.png)
 
+### Also confirmed on MySQL
+
+MySQL 8.0.46 (`localhost:3002`, release/7.3.0 @ `eefc0a4`, rebuilt database), Playwright MCP, fixtures 25 and 26: Estimated time empty and % Done 0% for all four cases, as on PostgreSQL. Everything else in the one-row fixture (status, category, version, dates, private, requirement link, both steps) was saved, as on PostgreSQL.
+
 ### Retest screenshot (fill after fix is verified)
 
 ![Retest result](../../screenshots/BUG-TCM-132/retest-yyyy-mm-dd-pass.png)

@@ -437,6 +437,9 @@ is now **OK** (DB-confirmed `length(step) = 40000` on the saved issue), and the 
 **rejected**, now with the corrected message: "Step 1: step content exceeds the maximum length of 40000 characters
 (got 40001)."
 
+**2026-11-02 on MySQL 8.0.46 (release/7.3.0 @ `eefc0a4`, rebuilt database): FAIL, BUG-TCM-133 (Medium, open).** The preview marks the 40001-char row OK (2 OK / 0 errors) because the check uses the
+MySQL `mediumtext` limit (16777215); the import then rejects that row ("Step save failed … Exceeds the maximum length of 40000 characters"), visible on the progress page for under a second. PostgreSQL still PASSES.
+
 ---
 
 ### TC-TCM-277: Baseline CSV import regression is unaffected by the 40000-char column migration

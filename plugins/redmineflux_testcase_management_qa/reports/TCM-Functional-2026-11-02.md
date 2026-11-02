@@ -117,3 +117,18 @@ now with a screenshot of the full row. New test case **TC-TCM-336** (not yet in 
 
 Open observation (not filed): the preview warns "Status 'In Progress' is not defined in the workflow for tracker 'testcase'. Using default." while the case is saved
 with In Progress; the same warning appears for the default status "New" on every row of the larger exports. Wording or check looks wrong.
+
+## Update — MySQL (rebuilt from an empty database) on release/7.3.0 @ eefc0a4 (same day, last)
+
+- **Branch:** plugin switched to `release/7.3.0` and pulled (`acda260..eefc0a4`, up to date with origin).
+- **Rebuild of the MySQL stack (`localhost:3002`):** a backup dump was taken first (90 tables), then the `redmine` database was dropped and recreated (utf8mb4 / utf8mb4_unicode_ci),
+  the Redmine container recreated, and every migration run from scratch: **413 core migrations and the plugin's 86 migrations, no errors**; `steps.step/expected` are `mediumtext`.
+  An earlier attempt right after the first wipe crash-looped with "Table 'runs' already exists" at the plugin's `CreateRuns` migration; it did not happen again on a freshly recreated container, so it looks like
+  a leftover of how that first wipe was done (container restarted against a half-built schema), not a plugin defect — but the exact cause was not established.
+- **Native spec on MySQL:** 23 passed, 2 failed — on the existing database and again on the rebuilt one, same two: **TC-TCM-276** (BUG-TCM-133) and **TC-TCM-335** (BUG-TCM-132).
+- **Playwright MCP on the rebuilt MySQL:** fixtures 01–09, 12, 13, 15–17, 21, 22, 25, 26 (about 190 cases) compared with the CSV in the UI. Everything matches (subject, description, priority, steps and their **order**), except:
+  - **BUG-TCM-133 (new, Medium):** the 40001-character step passes the preview ("2 OK, 0 errors"); the import then rejects it ("Row 2: Step save failed … Exceeds the maximum length of 40000 characters"), shown on the progress page for under a second; only row 1 is created.
+  - **BUG-TCM-132 on MySQL too:** Estimated time empty and % Done 0% for fixtures 25 and 26; the rest of the one-row all-fields case (status, category, version, dates, private, requirement 1 link, steps) saved correctly.
+  - The "Status 'In Progress' is not defined in the workflow… Using default." preview warning appears on MySQL as well while the saved status is In Progress (observation, not filed).
+- **BUG-TCM-129 (steps order) did not show on MySQL** in about 190 cases (InnoDB returns the rows in primary-key order); the code is the same.
+- Not covered on MySQL: fixtures 10, 11, 14, 18–20 through MCP (the native spec covers them and passed); 3002's earlier data (project `asdf`, 15 cases, requirement `sdfgdsf`) is gone — backup dump kept in the scratchpad.

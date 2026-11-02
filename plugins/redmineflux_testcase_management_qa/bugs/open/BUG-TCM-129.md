@@ -45,6 +45,7 @@
   steps on that instance. Both releases carry the same unordered `has_many :steps` in `issue_patch.rb`.
 - **Also present on `master`** (`983556e`, fresh PostgreSQL 16, `localhost:3005`): case #390 from `09_large_bulk_import_100_rows.csv` shows its steps
   out of saved order (first step displayed: "Step 3 for case 16"). So all three branches (master, 7.2.0, 7.3.0) are affected.
+- **Not seen on MySQL 8.0.46** (InnoDB, `localhost:3002`, release/7.3.0): about 190 imported cases (fixtures 01–09, 12–17, 21, 22) all showed their steps in saved order. The code is the same, so only the database's row order protects MySQL.
 
 ## Root cause (confirmed)
 

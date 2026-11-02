@@ -39,3 +39,11 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause — related to BUG-CRX-122 and BUG-CRX-123 (all three surfaced from the same Team Update Member testing pass, on the same team/user) but each isolates a different field (team ID, user ID, role value respectively) and none share a demonstrated common cause. Kept as its own bug per the one-bug-per-concrete-finding convention.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent, fresh chat: "In
+team 4, change Sage Willow's role from Reporter to Manager." The confirm card correctly showed `Role: Manager`
+(role ID 4) — not "Developer" as the original bug found. Confirmed; native check on `/timesheet/teams/4`
+afterward shows Sage Willow's role genuinely changed to Manager, matching the request exactly. **Confirmed
+fixed.**

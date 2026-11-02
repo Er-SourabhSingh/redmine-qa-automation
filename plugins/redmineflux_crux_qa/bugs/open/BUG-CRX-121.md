@@ -40,3 +40,15 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause — shares the exact same underlying gap as **BUG-CRX-118** (per-level description immutability claim, also disproven by the same native Edit form), but is filed separately because it demonstrates the stronger, independently-reproduced claim that level **roles** (not just descriptions) are also falsely declared unchangeable, confirmed via an actual live edit-and-verify rather than just an empty field inspection. Kept as its own bug per this repo's one-bug-per-concrete-finding convention, while noting in both bug files that they share one root cause (an incomplete `schema_update` tool whose limitations the agent mis-describes as plugin-level constraints).
+
+## Retest — 2026-11-02 — STILL OPEN (improved but not fixed — silent no-op instead of a false denial)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent, fresh chat: "Update
+the approval schema 'Crux QA Schema Updated' - change level 2's approver role from Reporter to Developer." The
+false "immutable after creation" denial is **GONE** — the agent now produces a genuine `Write` /
+`Timesheet Schema Update` confirm card. However, the confirm table shows only `Description`, `Schema`, `Name`,
+`Active` — no level-role field at all. Confirmed; response claimed success. Native Show page
+(`/approval_schemas/2`) afterward: Level 2 is still genuinely **Reporter** (Sage Willow), unchanged. **Not fixed**
+— the agent no longer falsely claims the field is immutable, but the underlying capability gap remains: the
+`schema_update` tool still has no way to change a level's role, and now silently no-ops rather than explaining
+this, which is arguably a regression in transparency even though the false "immutable" claim itself is resolved.

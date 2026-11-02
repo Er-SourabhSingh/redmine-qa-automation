@@ -38,3 +38,19 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause — same general class as **BUG-CRX-106** (Budget Agent, wrong project ID resolved silently with high confidence) but on a different domain agent (Time Agent) and a different entity (team ID, not project ID), and notably the first instance where the correct value was available in the SAME chat's own immediately preceding turn, ruling out "the agent never knew the right ID" as an explanation. Kept as its own bug per the one-bug-per-domain-defect rule, consistent with how BUG-CRX-106 itself was filed separately from the Testcase-Management domain's earlier instances of the same root-cause class (BUG-CRX-080/093/101).
+
+## Retest — 2026-11-02 — NOT RETESTED (deferred — blocked by a separate, new team_create discovery failure)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Could not reproduce the original two-turn
+repro (create a team, then immediately add a member) because `Timesheet Team Create` itself now fails with a
+false "I'm encountering an issue discovering the team management tools... team_create may not be available"
+denial — reproduced across 3 attempts (one reused chat, one "Ask again" retry, one fresh chat), each with
+slightly different wording but the same underlying false denial. This blocks reconstructing this bug's specific
+stale-ID trigger condition. As a substitute check (not the same repro), added a new member ("Willow Belle") to
+the existing, real "Crux Team Test" (ID 4) in a fresh chat: the confirm card correctly showed `Team: Crux Team
+Test` (resolved by name, not a raw ID this time) and `User Ids: 8` (independently verified correct — user 8 is
+genuinely `willow.belle`) — no wrong-team-id substitution observed in this simpler case. Given the new
+`team_create` regression blocks the original two-turn stale-ID repro, this bug's own verdict is left
+**undetermined** — it may be fixed, but could not be confirmed under its original conditions this round. The new
+`team_create` false-denial regression is noted here for follow-up but not filed as its own bug (overlaps the
+already-documented discovery-flakiness class, e.g. BUG-CRX-117/123's first-attempt failures).

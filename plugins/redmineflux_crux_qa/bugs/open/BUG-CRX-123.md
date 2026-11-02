@@ -38,3 +38,12 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause filed as a separate class from BUG-CRX-122 — both are ID-resolution failures from the same test pass on the same team — but kept as its own bug because the failure mode is materially different and more severe: BUG-CRX-122 resolved to a stale but *plausible* team ID (a team that existed earlier in the session), whereas this resolves to a *completely unrelated person* from a different team's context, which could silently affect a bystander user's data rather than merely fail against a non-existent record. Also distinct from BUG-CRX-106 (Budget Agent/project ID) and BUG-CRX-117 (schema delete discovery failure) in both domain and entity type.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent, fresh chat: "In
+team 4, change Sage Willow's role from Reporter to Manager." Produced a genuine `Write` / `Timesheet Team Update
+Member` confirm card on the first attempt (no discovery-group error this time): `Team: Crux Team Test`,
+`User: 18`, `Role: Manager` — `User: 18` is Sage Willow's real ID (previously wrongly resolved to 5, Luna
+Blossom). Confirmed; native check on `/timesheet/teams/4` afterward shows Sage Willow's role genuinely changed to
+Manager. **Confirmed fixed** — correct user resolved, no bystander (Luna Blossom) affected.

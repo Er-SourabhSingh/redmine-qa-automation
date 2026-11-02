@@ -1572,3 +1572,17 @@
   any fork touch Playwright/live execution in parallel, since this plugin's Playwright MCP browser session is a
   single shared resource and 7 concurrent live-test passes would race each other. Live verification of these 7
   suites is a separate, sequential follow-up task, not yet done.
+
+- **(2026-11-02) `format_date_string` (testcase_activities_helper.rb) tries day-first date-parse formats before
+  month-first ones against an already-US-formatted `MM/DD/YYYY` string — any event on the 1st-12th of a month
+  gets its month/day silently swapped on the Activity feed** (e.g. Nov 2 renders as "2026-02-11"). Confirmed via
+  live reproduction (BUG-TCM-126) while testing rftc-029. Affects every activity row type uniformly, not a
+  feature-specific regression — don't mistake a swapped-looking Activity-feed date for a new feature's bug;
+  check the record's own detail page (which formats correctly) before concluding the underlying data is wrong.
+- **(2026-11-02) `AutomationSource`'s uniqueness validation (`case_sensitive: false`) and
+  `AutomationSourceResolver#resolve!`'s own lookup (`find_by(key: key)`, case-sensitive) disagree** — re-ingesting
+  a CI source with different casing of an existing name returns `nil` from `resolve!` instead of reusing the
+  source, silently leaving that result "Ungrouped" (BUG-TCM-125, confirmed via `bin/rails runner`). If a future
+  session sees fewer `AutomationSource` rows than expected, or a CI result landing in "Ungrouped" that shouldn't
+  be, check for a casing mismatch against an existing source key before assuming the ingest payload itself is
+  wrong.

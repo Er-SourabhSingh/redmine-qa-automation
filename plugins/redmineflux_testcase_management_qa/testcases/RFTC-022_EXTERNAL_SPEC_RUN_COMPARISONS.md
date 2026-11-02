@@ -339,3 +339,28 @@ dedup check consistent with this plugin's BUG-TCM-097 history (RFTC022-18). No a
 unresolved — the two edge cases that looked ambiguous at first glance (self-comparison, environment-keying) were
 both fully traced through the actual `RollupMath` source to a deterministic, confidently-predicted expected
 result rather than being flagged as open questions.
+
+## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
+
+Strong live verification performed this session (most of the highest-risk scenarios executed):
+
+- **PASS — picker-only state** renders cleanly ("Pick a base run and a compare run to see the difference"), no
+  crash with neither run selected.
+- **PASS — real two-run diff**: compared "Jenkins CI Build 1" vs "Jenkins CI Build 2" (project `rftc-016-ci-qa`) —
+  0 New Failures, 0 Newly Fixed, 1 Still Failing (`#24 Apply valid discount code at checkout`), 4 Still Passing,
+  0 New Tests, 0 No Longer Run. Drill-down table correctly shows Test Case/Environment/Base run/Compare run
+  columns with real data. Summary-tile sum sanity confirmed: 0+0+1+4+0+0 = 5 cells, matching the fixture size.
+- **PASS — self-comparison (base == compare) is fully deterministic**, exactly as predicted by the code trace in
+  this file's own design notes: comparing "Jenkins CI Build 1" against itself produced the identical tally
+  (0/0/1/4/0/0) — every executed cell correctly landed in Still Failing/Still Passing, confirming `suite_diff`'s
+  `Array#find` behavior as analyzed, not an ambiguity.
+- **PASS — SEC-001 SACRED cross-project run-id tampering**: obtained a real run id (94, "CI Build 1423") from a
+  genuinely different project (`alpha-web`) and passed it as `compare_run_id` on `rftc-016-ci-qa`'s own
+  comparison URL. The page correctly reset to "Select a run" / the clean empty state — zero leak of the foreign
+  project's run name or data, confirming `@runs.find_by` scoping holds.
+
+**Not yet live-verified this pass:** each of the other 5 diff buckets individually with dedicated fixtures (only
+Still Failing/Still Passing were naturally present in the fixture used), the environment-keyed-not-issue-keyed
+distinction, the permission gate (:view_report) failure modes, and XSS safety of run names/test subjects in the
+diff table. Given how solidly the core mechanism and the SACRED security check held up, this suite is assessed as
+low-risk for the remaining scenarios, but they should still be executed before marking it fully regressed.

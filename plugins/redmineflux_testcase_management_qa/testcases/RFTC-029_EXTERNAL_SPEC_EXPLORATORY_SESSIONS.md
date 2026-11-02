@@ -417,3 +417,47 @@ Activity feed integration (RFTC029-23), the Overview page's 3-item limit (RFTC02
 negative-space case (RFTC029-25). Everything above was derived directly from the controller, both models, every
 view, both migrations, `init.rb`'s permission block, `config/routes.rb`, and the feature's own (not-yet-executed)
 unit/functional test files — not guessed from the ticket description alone.
+
+## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
+
+Strong live verification performed this session (full happy-path + both pre-commit regressions + XSS + the
+UI gap, executed end-to-end on project `rftc-016-ci-qa`):
+
+- **PASS — regression 1 (missing `has_many :testcase_sessions`)**: `/testcase_sessions` on a project with zero
+  prior sessions loads a clean "No exploratory sessions yet" empty state, zero `NoMethodError`.
+- **PASS — full happy-path lifecycle**: started a session with a title and charter (both deliberately containing
+  XSS-shaped payloads, see below), added 2 timestamped notes over time, closed it with outcome **Failed** —
+  final state correctly showed a red "Closed · Failed" badge.
+- **PASS — regression 2 (phantom empty note row)**: the freshly-started session's show page correctly displayed
+  "No notes yet" with zero phantom `<li>` rows, confirming `TestcaseSessionNote.new(testcase_session: @session)`
+  (not `.testcase_session_notes.new`) holds.
+- **PASS — notes append-only ordering**: both notes rendered in correct chronological order, each with its own
+  author ("Redmine Admin") and timestamp, neither note altering or removing the other.
+- **PASS — XSS safety, two different sanitization strategies, both safe**: the session **title**
+  (`<img src=x onerror=alert('session-xss')>`) and **charter**
+  (`Exploring <script>alert('charter-xss')</script> the new automation dashboard...`) both rendered as literal
+  escaped text (tags visible as text, zero `alert()` fired) on the show page, Overview "Sessions" block, and
+  Activity feed. A **note** body containing a second `<script>alert('note-xss')</script>` payload was instead
+  **tag-stripped** (the `<script>` tags themselves were removed, leaving only "alert('note-xss')" as inert text)
+  — a different sanitization approach (allow-list stripping vs. HTML-escaping) but equally safe; zero `alert()`
+  fired either way. No XSS vulnerability found anywhere in this feature.
+- **CONFIRMED (not a bug, a UI gap)**: the Close Session Outcome `<select>` has exactly 3 options (Passed,
+  Failed, Inconclusive) with no blank option — "close with no outcome" genuinely cannot be exercised through the
+  real UI, only by posting directly to the `close` endpoint (not attempted this pass). Matches the design-review
+  finding exactly.
+- **PASS — Overview page integration**: the project Overview page's new "Sessions" block showed the session's
+  title (XSS-escaped), tester, date, and "Closed" status, linked correctly to the session.
+- **PASS — Activity feed integration**: both "Created by Redmine Admin" and "Closed by Redmine Admin" events
+  appeared, correctly deep-linked to the session.
+- **FAIL → BUG-TCM-126 (Open, Low, pre-existing, not specific to this feature)**: the Activity feed's own
+  per-event timestamp showed "2026-02-11 07:23/07:24 AM" for events that actually happened at 07:23/07:24 AM on
+  **November 2, 2026** (correctly grouped under the "November 02, 2026" heading just above, and correctly shown
+  as "11/02/2026" on the session's own page) — month and day visibly swapped. Root-caused to
+  `TestcaseActivitiesHelper#format_date_string` trying a day-first parse format before a month-first one against
+  an already-US-formatted string. Confirmed this affects every activity row type in this view, not just
+  Exploratory Sessions — see `bugs/open/BUG-TCM-126.md`.
+
+**Not yet live-verified this pass:** the 4-permission matrix (create/edit/delete/close_session independently),
+cross-project 404 isolation (SEC-001), anonymous-access denial, and destroy cascade. Given how solid the
+happy-path/regression/XSS results were, remaining risk is assessed as concentrated in the permission matrix —
+should be prioritized first in a follow-up session.

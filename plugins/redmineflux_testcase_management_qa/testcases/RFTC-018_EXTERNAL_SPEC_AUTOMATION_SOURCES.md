@@ -374,3 +374,22 @@ model data-integrity default, and the nullify-not-destroy deletion guarantee. On
 is flagged as a likely real edge-case gap discovered purely from reading the code, independent of this
 file's own execution status, and should be raised to the dev team for confirmation before `release/7.3.0`
 merges to `master`.
+
+## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
+
+Partial live verification performed this session (not all 18 designed scenarios executed — see remaining as
+still "Not Executed" above):
+
+- **Automation Dashboard (RFTC-035) correctly shows the "Ungrouped" bucket for pre-rftc-018 data** — confirmed
+  live: project `rftc-016-ci-qa` shows 1 source ("Ungrouped"), 1325 executions, 30 failures, 97.74% pass rate —
+  real historical data, not dropped. Cross-references RFTC-035's own Ungrouped-bucket test.
+- **FAIL → BUG-TCM-125 (Open, Medium): case-sensitivity mismatch confirmed live.** Via `bin/rails runner`:
+  resolving `"CaseTestXYZ"` then `"casetestxyz"` (same name, different case) for the same project — the second
+  call returns `nil` instead of reusing the existing source, because `AutomationSource`'s uniqueness validation
+  is case-insensitive but `AutomationSourceResolver#resolve!`'s lookup is case-sensitive. See
+  `bugs/open/BUG-TCM-125.md` for full root-cause trace and evidence.
+
+**Not yet live-verified this pass:** the other 4 precedence levels individually, idempotency under genuine
+concurrent calls, the advisory-lock race guard, per-project uniqueness with two real projects, the
+resolution-failure-never-blocks-write guarantee, and the XSS-in-source-name display check (cross-referenced to
+RFTC-035). A future session should pick these up before this suite can be marked fully regressed.

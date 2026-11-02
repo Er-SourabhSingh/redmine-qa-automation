@@ -345,3 +345,21 @@ views/locale strings, and the shipped (not-yet-CI-run) unit/functional tests on 
 (commit `329311d`). An independent live execution pass (once this branch is merged/deployed to the QA
 environment) is required before any of these can be marked Pass/Fail, and before this feature can be
 considered genuinely QA-verified rather than developer-self-verified.
+
+## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
+
+Partial live verification performed this session (not all 18 designed scenarios executed):
+
+- **PASS — core Flaky Tests panel renders real, ranked data on Quality HQ** (`/quality_hq`), confirming the
+  stub ("not available") is genuinely replaced: real test cases shown (e.g. `#23 test_login_valid`,
+  `#26 Checkout flow renders correctly`, `#24 Apply valid discount code at checkout`, plus entries from a second
+  project `Alpha Web Platform`), each with a rank, project, and test case — not an empty/error state.
+- **PASS — the Flaky-test minimum-runs setting exists and is wired up**: `/settings/plugin/redmineflux_testcase_management`
+  shows a real "Flaky-test minimum runs" numeric field, default `4`, with help text "A test case needs at least
+  this many executed runs (in some environment) before it is considered for flakiness; blank falls back to 4" —
+  matches the spec doc exactly.
+
+**Not yet live-verified this pass:** flip-count correctness against a known fixture, the min-runs threshold
+boundary, Untested/Skipped gap handling, multi-environment independence, cross-project/private-issue isolation
+(SEC-001 SACRED — important, not yet done), settings live-adjustment effect on the ranking, and XSS safety of the
+ranking table. A future session should pick these up before this suite can be marked fully regressed.

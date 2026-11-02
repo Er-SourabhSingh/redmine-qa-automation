@@ -323,3 +323,21 @@ whole-page sum-consistency check, and two code-confirmed behavioral/UX notes (Pa
 denominator, and the sidebar's plugin-wide no-permission-gate pattern) flagged for tester awareness rather than
 assumed as bugs. No `Actual Result` has been fabricated — every case is explicitly "Not Executed" pending a real
 Playwright/live pass against a running `release/7.3.0` instance.
+
+## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
+
+Partial live verification performed this session:
+
+- **PASS — page renders with real aggregated data, zero console errors**: project `rftc-016-ci-qa`'s Automation
+  Dashboard correctly shows 1 Source, 1325 Executions, 97.74% Pass Rate at the top, and a per-source table row
+  for "Ungrouped" (1325 executions, 30 failures, 97.74% pass rate, Last Seen "-") — confirms the explicit
+  Ungrouped bucket for `source_id IS NULL` rows (all of this project's pre-rftc-018 historical data) is not
+  silently dropped. Sum sanity holds: 1325 executions total matches the one visible source row exactly (nothing
+  else to sum against yet, since no post-rftc-018 CI ingest with an explicit source has been run on this project).
+
+**Not yet live-verified this pass:** a genuine multi-source scenario (needs a fresh CI ingest with an explicit
+`source` field to create a second, non-Ungrouped row), the permission gate's two failure modes (404 vs 403),
+anonymous-access redirect, last-seen timestamp update behavior, and the design-review finding about Pass Rate's
+denominator (RFTC035-14) — this project's current data doesn't have enough Untested/Blocked volume mixed in to
+visibly demonstrate the discrepancy either way. A future session should set up a dedicated multi-source fixture
+(ties in naturally with RFTC-018's own remaining live verification) before this suite is marked fully regressed.

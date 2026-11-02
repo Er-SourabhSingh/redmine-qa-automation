@@ -62,3 +62,13 @@ silently failing) — part of a multi-field request is dropped with zero disclos
   shape as BUG-CRX-068/073, but a distinct domain (project creation + team assignment) and a distinct,
   stronger proof that the capability genuinely exists (the exact same tool call succeeds moments later as
   a standalone request).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Project Setup Agent, fresh
+chat: "Create a project called 'Crux Project Setup Retest 111', identifier 'CruxTestRetest111'." (team-member
+request folded into a related retest in the same chat — see BUG-CRX-111). The team-member limitation is no longer
+silently dropped: the agent now explicitly discloses it as a known limitation rather than silently omitting it,
+and the project was successfully created via the (newly observed) two-step confirm flow — a plain-text proposal
+first, then, after the user explicitly says "yes," a real structured Confirm/Cancel confirm card. **Confirmed
+fixed** — no more silent, undisclosed field drop.

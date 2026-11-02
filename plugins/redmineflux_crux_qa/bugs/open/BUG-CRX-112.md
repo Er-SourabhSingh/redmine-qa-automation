@@ -80,3 +80,16 @@ cycle).
   no-permission caller) not covered by that fix — consistent with this repo's convention of filing
   recurrences of an already-fixed defect class as new bugs when the specific trigger differs (see
   BUG-CRX-027, BUG-CRX-056/077, BUG-CRX-082 for the same pattern on other defect classes).
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+No specific developer commit claimed this one fixed in the CRC-70/71/72/73 range reviewed this cycle. Re-ran as
+`daisy.skye` (confirmed no `add_project` permission), Project Setup Agent, 2 fresh chats:
+
+- Attempt 1: "Create a project called 'Daisy Unauthorized Retest 112'." → same defect — plain prose "Project
+  proposal:" list (Name/Identifier) ending "Is this correct? I'm ready to create it once you confirm." with only
+  `Copy`/`Keep`/`Ask again` message actions. No real Confirm/Cancel button anywhere.
+- Attempt 2 (fresh chat): "Create a project called 'Daisy Unauthorized Retest 112 B'." → identical shape again —
+  plain-text "Project proposal:" with no structured confirm card.
+
+**Reproduced 2/2, unchanged from the original bug.** Still not fixed.

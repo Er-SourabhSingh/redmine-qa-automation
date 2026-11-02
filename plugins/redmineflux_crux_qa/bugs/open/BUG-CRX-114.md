@@ -83,3 +83,18 @@ only 7 tools it has, and one of its two core advertised outputs per its own pers
 - Duplicate found: No. First finding on the Project Setup Agent's Work Package proposal judgment
   (TC-CRX-433/434 area) — a distinct capability (crux_create_work_package) from the project/issue creation
   bugs already filed this session (BUG-CRX-110/111/112/113).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Project Setup Agent, same
+chat as the BUG-CRX-111 retest: "Track issue #1 as a work package, with a plan review gate before development and
+a QA holdout gate before release." — the agent no longer falsely claims there's "no built-in way to define
+multiple sequential gates." Instead it correctly asked for the two missing required inputs (a one-sentence goal,
+and which `outcome_type` fits — listing `bug`/`software`/`document`/`customer-support`/`billing` with a short
+description of each), and itself suggested `software` as the right fit given the "plan review + QA holdout"
+phrasing. After supplying the goal, it produced a genuine **"Create work package"** confirm card:
+`Goal: Implement the new reporting dashboard feature for issue #1.`, `Tickets: #1`, `Type: software`,
+`Autonomy: execute-with-approval` — i.e. it now correctly proposes `crux_create_work_package` with
+`outcome_type: "software"` (the template that bakes in `plan-approve` before `develop` and a `holdout` stage
+before `review`/`deliver` — exactly the two gates requested), instead of substituting a plain issue or refusing.
+Clicked Cancel (no actual work package created — not needed for this verdict). **Confirmed fixed.**

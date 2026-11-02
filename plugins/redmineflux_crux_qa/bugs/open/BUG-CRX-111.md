@@ -71,3 +71,14 @@ never valid in the first place.
   Same general "client-side check looser than server-side reality, surfaces as a confusing confirm-time
   failure" shape seen elsewhere in this repo (e.g. budget-hours validation gaps), but the first instance on
   project identifier validation specifically.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Project Setup Agent, fresh
+chat: "Create a project called 'Crux Project Setup Retest 111', identifier 'CruxTestRetest111'." — the mixed-case
+identifier still passed straight through unlowercased/uncorrected to the confirm card (`Identifier:
+CruxTestRetest111`), with no client-side warning. Confirming it (via the newly-observed two-step confirm pattern —
+a plain-text pre-confirm proposal, then a real Confirm/Cancel card after replying "Yes, confirm and create it.")
+produced the exact same backend rejection as the original bug: `Validation error: Identifier is invalid`. The
+MCP's client-side `_SAFE_ID_PATTERN` check still has not been tightened to match Redmine's real lowercase-only,
+non-numeric identifier rule. **Not fixed.** Clicked Cancel/no retry after the error — no bad data persisted.

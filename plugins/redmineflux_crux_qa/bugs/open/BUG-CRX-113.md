@@ -83,3 +83,10 @@ whenever Auto-mode's routing fails to match a sufinciently-paraphrased request.
   cycle. Reproduced again 2026-11-02 on the Timesheet domain (TC-CRX-468) — same symptom, different trigger
   phrase and domain — kept under this same bug rather than filed separately, since the root cause (Auto-mode's
   routing failing over to a capability-blind generic fallback) is identical, not domain-specific.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Auto mode, fresh chat: "I
+need a fresh space in Redmine to start tracking the mobile app work." — still misroutes to the generic "Crux"
+persona rather than any named domain agent (not Project Setup Agent, not even a Project-Manager-style fallback).
+**Not fixed.**

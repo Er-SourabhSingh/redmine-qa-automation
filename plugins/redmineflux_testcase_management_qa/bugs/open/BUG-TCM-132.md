@@ -70,6 +70,31 @@ The other branches (dates, status, priority, version, category) end with their v
 Test case #1477 ("EstHours probe 2"): the CSV said 9 hours and 75%; the page shows % Done 0% and an empty Estimated time, while Start date,
 Due Date and Priority High are saved.
 
+### Second reproduction — one CSV row with every mappable column (fixture `26_all_mappable_fields_one_row.csv`)
+
+Imported on `master` @ `983556e` (`localhost:3005`, project `pgtest`, which has the requirement `requirement 1`, the category `QA Category` and the version `v1.0`).
+All 16 columns were auto-mapped in step 2. Values read back from the test case page (#1482) in the browser:
+
+| CSV column | CSV value | Saved |
+|---|---|---|
+| Title | All fields case 1 | same |
+| Description | Full description, with a comma and "quotes" | same |
+| Priority | High | High |
+| Status | In Progress | In Progress |
+| Category | QA Category | QA Category |
+| Target version | v1.0 | v1.0 |
+| Start date / Due date | 09/01/2026 / 09/30/2026 | same (the page adds "33 days late" to the overdue date) |
+| **Estimated time** | **2.5** | **empty** |
+| **% Done** | **40** | **0%** |
+| Private | Yes | Private badge shown |
+| Requirements | requirement 1 | linked: "requirement 1" |
+| Step 1 / Expected Result 1 | Open the login page / The login page is shown | same |
+| Step 2 / Expected Result 2 | Enter valid credentials and press Login / The user lands on My page | same |
+
+Every other column is saved correctly, so the loss is specific to Estimated time and % Done.
+
+![All fields, one row](../../screenshots/BUG-TCM-132/all-fields-one-row-testcase-1482.png)
+
 ### Retest screenshot (fill after fix is verified)
 
 ![Retest result](../../screenshots/BUG-TCM-132/retest-yyyy-mm-dd-pass.png)

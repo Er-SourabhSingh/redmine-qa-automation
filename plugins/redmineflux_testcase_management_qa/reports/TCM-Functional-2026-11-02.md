@@ -106,3 +106,14 @@ order). Both are in the native spec, which now runs 23 TCs.
   the files use MM/DD/YYYY; the default format is the right one for these fixtures.
 - Not covered: the `18` export's Status/Category/Target version/Private columns and `% Done` (not auto-mapped in these files) were not value-checked;
   MySQL not tested on master.
+
+## Update — one CSV row with every mappable column (same day, last)
+
+Fixture `26_all_mappable_fields_one_row.csv` (one row, 16 columns, uses the requirement `requirement 1` that was created in the UI, plus a category and a version
+created for the test) imported on `master` @ `983556e`, `localhost:3005`, with Playwright MCP; the created case #1482 was read back in the browser.
+All 16 columns were auto-mapped. Saved correctly: Title, Description (comma and quotes intact), Priority, Status (In Progress), Category, Target version,
+Start date, Due date, Private, Requirements (linked), both Step / Expected Result pairs. **Not saved: Estimated time (2.5) and % Done (40)** — BUG-TCM-132 again,
+now with a screenshot of the full row. New test case **TC-TCM-336** (not yet in the native spec; its precondition needs a requirement created through the plugin UI).
+
+Open observation (not filed): the preview warns "Status 'In Progress' is not defined in the workflow for tracker 'testcase'. Using default." while the case is saved
+with In Progress; the same warning appears for the default status "New" on every row of the larger exports. Wording or check looks wrong.

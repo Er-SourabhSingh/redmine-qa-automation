@@ -568,6 +568,26 @@ Due date and Priority are saved, but every case has no Estimated time and 0% Don
 
 ---
 
+### TC-TCM-336: One CSV row that uses every mappable column imports with every value saved
+
+**User Role:** QA / Manager
+**Priority:** Medium
+**Precondition:** A project with the Testcase Management module that has a requirement named `requirement 1`, an issue category `QA Category` and an open version `v1.0`. Fixture: `automation/testdata/csv-test-data/26_all_mappable_fields_one_row.csv` (one row: Title, Description, Priority, Status, Category, Target version, Start date, Due date, Estimated time, % Done, Private, Requirements, Step 1, Expected Result 1, Step 2, Expected Result 2).
+
+**Steps:**
+1. Import the fixture through the wizard; in step 2 check that all 16 columns are mapped; step 1 date format stays MM/DD/YYYY.
+2. Read the preview (Status, Priority and the other values) and import.
+3. Open the created test case and compare every field with the CSV row.
+
+**Expected Result:**
+- Every value is saved: Status In Progress, Priority High, Category, Target version, Start/Due date, Estimated time 2.5 h, % Done 40, Private, the Requirements link, both Step / Expected Result pairs and the Description (with its comma and quotes).
+
+**Status: EXECUTED 2026-11-02 — FAIL, BUG-TCM-132 (Medium, open).** `master` @ `983556e`, fresh PostgreSQL (`localhost:3005`), Playwright MCP. Everything is saved except **Estimated time (empty)** and **% Done (0%)**. The preview also showed one warning, "Status 'In Progress' is not defined in the workflow for tracker 'testcase'. Using default.", although the saved status is In Progress, not the default — see the note below. Not yet in the native spec: its precondition (a requirement) has to be created through the plugin's own UI.
+
+**Open observation (not filed):** the warning says "Using default", but the case was saved with the status from the CSV. Either the workflow check or the wording is wrong. It also appears for the default status "New" on every row of the larger exports.
+
+---
+
 ## Notes (non-bug observations)
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
@@ -741,6 +761,7 @@ code:
 | TC-TCM-333 | all of `01`–`09`, `12`, `13`, `15`–`17`, `21`, `22` (see the fixture list in `automation/testdata/csv-test-data/README.md`) | Data check after import — Subject/Description/steps compared with the CSV | — |
 | TC-TCM-334 | `02_zero_to_fifty_steps_range.csv`, `05_mixed_partial_per_row.csv`, `06_varying_step_counts_same_file.csv` | Steps shown out of saved order on PostgreSQL | BUG-TCM-129 |
 | TC-TCM-335 | `25_estimated_time_and_done_ratio.csv` | Estimated time and % Done dropped on import | BUG-TCM-132 |
+| TC-TCM-336 | `26_all_mappable_fields_one_row.csv` | Every mappable column in one row; all saved except Estimated time and % Done | BUG-TCM-132 |
 
 **The remaining 18 TCs in this suite** (TC-TCM-021–025, 026, 027, 028, 029, 030–034, 035, 037) were **not
 re-clicked through the wizard this pass** — re-confirmed instead via the code-unchanged check above, since every

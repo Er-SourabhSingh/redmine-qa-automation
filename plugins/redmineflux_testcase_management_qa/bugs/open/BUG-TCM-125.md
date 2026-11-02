@@ -1,7 +1,7 @@
 # BUG-TCM-125
 
 - Bug ID: BUG-TCM-125
-- Production Redmine Issue ID: <!-- not yet reported — branch release/7.3.0 not yet merged to master -->
+- Production Redmine Issue ID: #127357 (linked to testcase #127276, Run #659 "Testcase Release 7.3.0 Sign-off", RFTC-018 suite #519)
 - Title: AutomationSource resolution silently drops a result into "ungrouped" when the same source name is re-ingested with different casing
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

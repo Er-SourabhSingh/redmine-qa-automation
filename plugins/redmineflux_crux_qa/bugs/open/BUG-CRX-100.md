@@ -73,3 +73,14 @@ API, not in Crux's AI layer.
   level data-model defect (API endpoint has no real epic concept), not an AI hallucination, wrong-ID
   resolution, fabricated confirm card, or misleading ✓/failure-text pattern. First finding specific to
   the Agile Board plugin's "epics" feature.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed, masked by agent reasoning)
+
+Developer commit (Agile Board API, "100: the API uses the board's own rule: a top-level issue with sub-issues")
+pulled + containers restarted. Re-ran as `admin`, Scrum Agent pinned: "what's in the backlog, are there any open
+epics or sprints?" — response: *"Open Epics: None — the two items listed as epics (#16 and #15) are both in the
+active sprint, not unassigned."* This phrasing itself proves the underlying `list_epics` call **still returns
+#15/#16 as epics** (plain Bug-tracker cards with zero sub-issues) — the agent is just applying its own "not
+unassigned" filter on top to mask the bad data, not a genuine backend fix (a real "has sub-issues" filter would
+never have returned these two parentless, childless cards as epic candidates at all, sprint-assigned or not).
+**Not fixed** — the symptom is hidden one layer up in the agent's phrasing, but the API defect is unchanged.

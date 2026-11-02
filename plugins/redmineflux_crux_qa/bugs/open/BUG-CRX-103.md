@@ -87,3 +87,12 @@ used.
   is a data-shape/format mismatch between what the MCP tool writes and what the plugin's own render path
   requires, not a wrong-ID resolution, wrong-project substitution, or misleading-success-text pattern,
   though it shares the latter's "confident ✓ for something that doesn't actually work" flavor.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (Agile Board API, "103: the API stores filters in the board's nested shape") pulled +
+containers restarted. Re-ran as `admin`, Scrum Agent: created a new board config #2 ("My Open Bugs Retest 103",
+grouped by priority, filtered to open Bug-tracker issues) via chat — succeeded, *"✓ Board config created: #2 ...
+[kanban]."* Opened it natively: `GET /projects/crux-scrum-agent-test-project/agile_board?board_config_id=2` →
+genuine **HTTP 500 Internal Server Error**, identical crash to the original repro. **Not fixed** — the filters
+are still being written in a shape the board's render path can't consume.

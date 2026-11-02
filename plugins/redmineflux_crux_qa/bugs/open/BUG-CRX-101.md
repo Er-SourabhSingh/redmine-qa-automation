@@ -77,3 +77,11 @@ project with no error at all.
   differently from the always-loaded static tool list. Kept as its own bug file per this repo's standing
   rule (one bug = one file per plugin domain, even when root cause classes match) — see
   `bugs/_duplicates.md` for the equivalent BUG-CRX-094/096 precedent.
+
+## Retest — 2026-11-02 — NOT RETESTED (deferred)
+
+Developer's live-verification table claims this fixed ("101: a 'Feedback' column card in Kopyst with status 4")
+via `field_check` extended to "every write" including discovery-gated tools. Not independently retested this
+round — this bug's repro requires re-establishing a multi-turn chat history (board read, card move, a failed
+WIP-limit attempt) before the stale-project write occurs, which is expensive to reconstruct reliably. Deferred to
+a dedicated follow-up; status left as-is pending that retest.

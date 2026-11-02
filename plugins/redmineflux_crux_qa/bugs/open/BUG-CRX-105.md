@@ -81,3 +81,15 @@ per-sprint ceremony).
   feature hai"), Story Points is core to the Scrum Agent's own stated domain, not a peripheral
   one-time-setup field like Run Type (BUG-CRX-099, QA Agent) — the distinction this repo has used to decide
   "honest gap, not a bug" doesn't hold here. Filed as a genuine feature-gap bug.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (MCP + Agile Board API, "105: The API and MCP accept `story_points` while the admin has Story
+Points enabled") pulled + containers restarted. Re-ran as `admin`, Scrum Agent pinned: "can you set the story
+points on card #15 to 5?" — the confirm card now genuinely shows `Field: story_points`, `Value: 5` (previously
+the tool wouldn't even propose this field) — looked like real progress. On Confirm: *"Error: field 'story_points'
+is not editable via this endpoint. Allowed fields: assigned_to_id, category_id, done_ratio, fixed_version_id,
+is_private, priority_id, sprint_craft_id, tracker_id or custom_field_N"* — the **exact same error text** as the
+original bug. Verified natively on `/issues/15`: Story Points still shows "-" (unset). **Not fixed** — the
+confirm-card UI now accepts the field (a half-step), but the actual write-time whitelist still rejects it with
+the identical message.

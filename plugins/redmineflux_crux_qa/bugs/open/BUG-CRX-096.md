@@ -39,3 +39,12 @@ Auto mode should route a CRM deal-stage-move request to **Sales Agent** (which g
 ## Duplicate check
 
 - Duplicate found: Related but not identical to the already-**closed** `BUG-CRX-014` ("domain-agent mis-routing to the Project Manager, false 'no write tools' claim") from the old Redmine 7.0.0 / crux-core 0.92.0 stack — that bug was fixed/closed on the old environment; this is a new recurrence of the same defect class on the current Redmine 6 / crux-core 0.130.0 stack, CRM domain specifically. The Testcase-Management-domain recurrence of the identical Auto-routing defect class is filed separately as **BUG-CRX-094** (different plugin domain, different fixture, kept in its own file per explicit user instruction rather than one combined bug).
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+CRC-71's fix table lists gated Auto-routes only for 094 (QA), 109 (Budget) and 113 (Project Setup) — CRM/Sales
+routing (096) is not in its per-bug table, so no fix was expected here. Confirmed still broken: fresh chat, Auto
+mode, admin: "can you move the 'EUR Currency Test Deal' to the Qualified stage?" (no "CRM" word) — routed to
+**Project Manager**, which replied: *"I don't have tools to manage CRM deals or pipeline stages in this chat...
+ask an admin whether there's a CRM agent available in Ask Crux for that task."* — still a false/uncertain
+capability denial, still never reaches Sales Agent. **Not fixed.**

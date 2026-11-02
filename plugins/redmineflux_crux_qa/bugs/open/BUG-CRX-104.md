@@ -67,3 +67,14 @@ and the delete succeeded (verified via DB: `rf_board_configs` has 0 rows afterwa
   the group loadable — a shape not previously documented (prior instances were typically about a tool
   never having been discovered at all in that session, not one re-failing after a proven-working prior
   discovery).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit (CRC-71, "104: a hint loads the board-config tools. The Scrum Agent gets `list_projects`")
+pulled + containers restarted. Re-ran as `admin`, Scrum Agent, same chat as a board-config create: "Can you clean
+up unused board configs for that project?" (deliberately vague) — response correctly listed the real config
+(*"Project 4 has only one board config: #2 'My Open Bugs Retest 103' (kanban, private) — the one you just
+created... There are no unused or duplicate configs to clean up."*) — **no false "tools can't load" denial**.
+Immediate follow-up, same chat: "Please delete the 'My Open Bugs Retest 103' board config..." — found it
+correctly on the **first** attempt (`Config: 2`), produced a genuine confirm card, confirmed, deleted (cleanup).
+**Confirmed fixed.**

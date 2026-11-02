@@ -57,3 +57,13 @@ instance's highest-severity "Blocker" instead.
   the Scrum Agent's own `create_issue` tool — a second domain the original fix never reached. Kept as its
   own bug file per this repo's one-bug-per-domain rule (same precedent as BUG-CRX-094/096 and
   BUG-CRX-101).
+
+## Retest — 2026-11-02 — STILL OPEN (improved but not fixed)
+
+Developer commit (MCP "`redmineflux_agile_create_issue` gets the same priority and tracker check as core
+create_issue") pulled + containers restarted. Re-ran as `admin`, Scrum Agent pinned, same repro: "create an issue
+titled 'Scrum Fixture Card C - Payment retries' from the backlog, priority Low? Tracker Bug, leave it unassigned
+in the backlog." Confirm card showed `Priority: 3` — ground truth (`id=1: Low, id=2: Medium, id=3: High, id=4:
+Blocker`) means this is **"High"**, still the wrong id for "Low" (though no longer the most-severe "Blocker" the
+original repro hit). Cancelled before confirming, no bad write occurred. **Not fixed** — the priority
+name-to-id resolution is still wrong, just less severely wrong than before.

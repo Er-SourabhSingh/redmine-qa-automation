@@ -55,3 +55,25 @@ chat user here was luna.blossom (id 5), so id 1 isn't even "the current chat use
 it's a different wrong default. **Not fixed** — an unmentioned assignee field still gets silently substituted
 with a wrong value instead of preserving the real existing assignee. Cancelled before confirming, no bad write
 occurred.
+
+## Retest — 2026-11-02 (2nd pull, testcase_management 265cb0b→99ea5a7, includes dcd0b6c "MCP API: run assignments, Run Type, report_type check") — STILL OPEN, REGRESSED (data corruption)
+
+Pulled `redmineflux_testcase_management` to `99ea5a7` (fast-forward from `265cb0b`, includes `dcd0b6c`), ran
+`redmine:plugins:migrate`, restarted the `redmine` container. Fixture before this retest: run #1 "Sprint 1
+Regression" — `Environment: Staging`, `Assignee: Daisy Skye` (native-verified).
+
+Re-ran as `admin`, QA Agent, fresh chat: "can you update the 'Sprint 1 Regression' run to use the Canary
+environment instead? Don't change anything else." Confirm card showed `Run Assignments: [{'environment':
+'Canary'}]` — no assignee field proposed at all this time (an improvement over silently substituting a wrong id).
+Confirming produced: *"Validation error: Invalid assignee_id: . It must belong to the current project users."*
+— **but checking the native run page immediately afterward showed BOTH `Environment` and `Assignee` had been
+wiped to blank** — the write partially applied (clearing both fields) despite the chat showing a validation
+error that implies nothing was saved. This is worse than the original bug: not just a wrong-default, but a
+**genuine silent data-corrupting partial write** masked by an error message claiming failure. Restored the
+fixture (environment back to Staging, assignee back to Daisy Skye) via a follow-up chat request that explicitly
+named both fields, which worked correctly and persisted (DB/native-verified).
+
+**STILL OPEN — regressed.** The specific "defaults to current chat user" shape is gone (no assignee is proposed
+when not asked for one), but attempting an environment-only update now corrupts the run's real environment and
+assignee to blank, with a misleading error message that gives no indication a partial write happened. Flagging
+for priority escalation — this is a genuine data-integrity defect, not just a UX/wrong-default issue.

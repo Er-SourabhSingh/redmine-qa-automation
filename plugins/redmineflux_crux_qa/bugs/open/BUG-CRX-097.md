@@ -56,3 +56,16 @@ updated successfully" message as before.
 follow-up "update report" message got routed to Scrum Agent and then generic "Crux," both falsely claiming no
 testcase tools exist. Not re-filed here; consistent with the already-documented Auto-routing defect class
 (BUG-CRX-094/096/109/113) and this suite's own observation that long chats degrade tool/project resolution.)
+
+## Retest — 2026-11-02 (2nd pull, testcase_management 265cb0b→99ea5a7, includes dcd0b6c "MCP API: run assignments, Run Type, report_type check") — FIXED (different, honest behavior)
+
+Pulled `redmineflux_testcase_management` to `99ea5a7`, ran `redmine:plugins:migrate`, restarted the `redmine`
+container. Re-ran as `admin`, QA Agent, fresh chat: "Update report 3 (QA Report Update Check) to report_type
+'defect'." The agent no longer proposes a confirm card that silently fails — it now honestly declines: *"I don't
+see a tool to change a report's type in the discovered group. The `update_report` tool I have access to can
+change the run IDs, dates, description, and notification settings, but it doesn't support changing the report
+type itself... Report types appear to be set at creation time and may not be changeable after the fact."* No
+confirm card, no misleading "✓ updated successfully," no silent partial write. **Confirmed fixed** for the
+originally-reported defect (misleading success on a field that silently didn't persist) — the residual capability
+gap (report_type genuinely can't be changed via chat after creation) is now honestly disclosed rather than
+silently failing with a false success claim.

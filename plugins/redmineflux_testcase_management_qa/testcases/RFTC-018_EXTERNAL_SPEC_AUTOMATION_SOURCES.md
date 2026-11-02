@@ -391,3 +391,36 @@ persistence and failure-isolation cases (9, 12), a genuine 5-trial two-thread ra
 case (14), a real CI ingest + live Playwright check of the Automation Dashboard for the XSS case (15),
 and a direct file diff for the documentation case (16). Full detail is recorded inline against each case
 above; summary: **17 PASS, 1 FAIL (BUG-TCM-125)**.
+
+### Genuine CI/CD-driven re-confirmation (RFTC018-1, RFTC018-2) — 2026-11-02
+
+The pass above used `bin/rails runner`/direct service calls, not a real external CI tool. Per explicit
+user follow-up ("isme real ci cd tool use kiya kya tumne" — did you actually use a real CI/CD tool), the
+two precedence-order cases most representative of this feature's real-world entry point were re-verified
+through an actual Jenkins pipeline, not a Ruby-level shortcut:
+
+- Reused the existing `tcm-forge-demo-jenkins` container (`tcm-ci-jenkins:local` image, already has the
+  `redmineflux-tcm` CLI wheel baked in from the earlier 7.2.0 demo work), connected to `localhost:3000`
+  via `http://host.docker.internal:3000` (confirmed reachable, `HTTP 200` on `/login`).
+- Added a new Jenkins credential (`tcm-local-api-key`, Secret text) holding this local instance's real
+  admin API key.
+- Created a new Jenkins Pipeline job (`rftc018-local-verification`) with 3 stages, each making a real
+  `curl` HTTP call (not through the CLI, since it has no `--source` flag yet — a minor gap worth noting
+  to the dev team separately) to the actual `/testcase_ci/bootstrap_run.json` and
+  `/testcase_ci/ingest_results.json` endpoints: (1) bootstrap a fresh run, (2) ingest a result with an
+  explicit per-result `source` alongside a different batch-level `source` (RFTC018-1), (3) ingest a
+  second result with only a batch-level `source` (RFTC018-2).
+- **Triggered a real build ("Build Now") — `Finished: SUCCESS`.** Build #1 genuinely bootstrapped
+  **Run #194** ("RFTC-018 Jenkins Verification Build 1") and both ingest calls returned the expected
+  `source_name` (`"jenkins-explicit-source"` for RFTC018-1's explicit-beats-batch check,
+  `"jenkins-batch-source-2"` for RFTC018-2's batch-level check) — confirmed directly from the real HTTP
+  response bodies in the Jenkins console log, not inferred.
+- **Independently cross-checked on the Automation Dashboard** (not just trusting the Jenkins console):
+  reloaded `/projects/rftc-016-ci-qa/automation_dashboard` afterward — both `jenkins-explicit-source` and
+  `jenkins-batch-source-2` appear as real rows with `Last Seen` timestamps matching the actual Jenkins
+  build time (`11/02/2026 08:09 AM`), proving the data genuinely flowed from a real external CI
+  pipeline's HTTP call through to the UI, not a shortcut.
+
+This upgrades RFTC018-1 and RFTC018-2 from "verified via direct Ruby call" to "verified via a real,
+independently-triggered Jenkins pipeline making real HTTP requests" — the same rigor standard this repo
+already holds rftc-038/009's CI-platform claims to.

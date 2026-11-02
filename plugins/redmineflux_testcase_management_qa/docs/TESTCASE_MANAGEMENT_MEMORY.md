@@ -1586,3 +1586,18 @@
   session sees fewer `AutomationSource` rows than expected, or a CI result landing in "Ungrouped" that shouldn't
   be, check for a casing mismatch against an existing source key before assuming the ingest payload itself is
   wrong.
+- **(2026-11-02) The `redmineflux-tcm` CLI has no `--source` flag** (confirmed via `redmineflux-tcm ingest
+  --help` on the CLI wheel baked into the `tcm-forge-demo-jenkins` image) — rftc-018's `source` field is
+  only reachable by calling `POST /testcase_ci/ingest_results.json` directly (raw `curl`/HTTP), not through
+  the packaged CLI tool. Not filed as a bug (the CLI's own scope for this brand-new field may simply not be
+  wired up yet), but worth flagging to the dev team — any real customer using the CLI (not raw HTTP) cannot
+  currently set an explicit per-result or batch-level source at all, only get whatever the testsuite-name/
+  automation-key-prefix/fallback levels produce automatically.
+- **(2026-11-02) `tcm-forge-demo-jenkins` (the Jenkins container built for the 7.2.0 demo) can reach this
+  repo's local Redmine instance via `http://host.docker.internal:3000`** — confirmed reachable despite being
+  on a different Docker Compose network (`tcmforgedemo_default` vs `redmine6_default`); Docker Desktop's
+  `host.docker.internal` resolves to the host regardless of which compose network a container is on, so no
+  `docker network connect` was needed. Reusable pattern for any future "verify a local-instance feature via
+  a real external CI pipeline" task — admin/admin logs into Jenkins at `localhost:8081`, a new Secret-text
+  credential holds the local instance's real API key, and a plain Pipeline job with `curl` steps can hit any
+  `/testcase_ci/*.json` endpoint for real, independent of the CLI's own feature coverage.

@@ -7,22 +7,17 @@
 >
 > **ID prefix**: every case here is `RFTC018-<n>`.
 >
-> **Pre-release test DESIGN, not yet independently executed.** The feature's code lives on branch
-> `release/7.3.0` (commit `329311d`) — **`master` does not have it yet**, and this repo's usual QA
-> environment (Docker `localhost:3000`) runs `master`. Every case below was authored directly from the
-> real implementation (`app/services/automation_source_resolver.rb`,
-> `app/services/ci_result_ingest_service.rb`, `app/models/automation_source.rb`, the two new
-> migrations, `API.md` §source field, and the developer's own `test/unit/automation_source_resolver_test.rb`
-> + `test/unit/ci_result_ingest_service_test.rb` rftc-018 section), not from the ticket description
-> alone — but no independent live/automated run has been performed yet. Every `Actual Result` below is
-> intentionally left as **Not Executed**; this file's job is complete, accurate test design ahead of
-> that execution pass. The developer's own planning doc
-> (`backlog/planning/rftc-018-feature-automation-sources.md`) records their own Quality Gates as
-> "manually verified live against the running dev instance" — that is the developer's self-check, not
-> an independent QA pass, and is not treated as equivalent to execution here.
->
-> **Written**: 2026-11-02, by reading the `release/7.3.0` branch source directly (not executed against
-> a running instance this session).
+> **FULLY EXECUTED 2026-11-02 — 17/18 PASS, 1 FAIL (BUG-TCM-125).** The branch (`release/7.3.0`, commit
+> `329311d`) was checked out into the local Docker instance (`localhost:3000`), its 4 pending migrations
+> run, and the app restarted. All 18 cases below were independently executed this session — RFTC018-1
+> through 12 and 17 directly against `AutomationSourceResolver`/`AutomationSource` via `bin/rails runner`
+> (the pure precedence/idempotency/model logic), RFTC018-9/12 via a real `CiResultIngestService` call
+> against an existing run, RFTC018-14 via a genuine 5-trial concurrent-thread race, RFTC018-15 via a real
+> CI ingest + live Playwright check of the Automation Dashboard, RFTC018-16 via a direct diff of `API.md`
+> against the code, and RFTC018-18 via the model's own association-reflection options (same check the
+> developer's own unit test asserts). Only RFTC018-13 failed — confirmed as a real bug, filed as
+> **BUG-TCM-125** (see `bugs/open/BUG-TCM-125.md`). This is independent QA execution, not the developer's
+> own "Quality Gates" self-check recorded in `backlog/planning/rftc-018-feature-automation-sources.md`.
 
 # Test Cases — Redmineflux Testcase Management — rftc-018: Automation Sources (auto-grouping)
 
@@ -82,8 +77,9 @@ Key design points worth testing explicitly:
 batch-level `source` param set to a different value (`"batch-source"`).
 **Expected Result:** The result's own `source_name` is `"nightly-regression"` (not the batch value, the
 suite name, or the automation_key prefix); the created `AutomationSource.kind` is `"explicit"`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: 'nightly-regression',
+batch_source: 'batch-source', testsuite_name: 'SomeSuite', automation_key: 'com.app.LoginTests.test_x',
+environment: 'ci')` returned exactly `["nightly-regression", "explicit"]`.
 
 ---
 
@@ -94,8 +90,9 @@ on branch `release/7.3.0`, not yet live-verified independently of the developer'
 per-result `source` field, for a test case that also belongs to a named suite.
 **Expected Result:** The result's `source_name` is `"ci-batch-7"`, not the suite's name — batch-level
 beats testsuite-name.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: nil,
+batch_source: 'ci-batch-7', testsuite_name: 'SomeSuite', automation_key: 'com.app.LoginTests.test_x',
+environment: 'ci')` returned exactly `["ci-batch-7", "explicit"]`.
 
 ---
 
@@ -106,8 +103,9 @@ on branch `release/7.3.0`, not yet live-verified independently of the developer'
 belongs to exactly one suite (name e.g. `"Checkout"`) and has no `automation_key` match in play.
 **Expected Result:** `source_name == "Checkout"` (the suite's own name); the created source's `kind` is
 `"testsuite"`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: nil,
+batch_source: nil, testsuite_name: 'Checkout', automation_key: nil, environment: 'ci')` returned exactly
+`["Checkout", "testsuite"]`.
 
 ---
 
@@ -120,8 +118,9 @@ against a test case with no per-result/batch `source` and whose matched testsuit
 name scenario (or is otherwise unavailable to the resolver).
 **Expected Result:** `source_name == "com::app::LoginTests"` (the namespace with the last segment
 dropped, separators normalized to `::`); `kind == "automation_key_prefix"`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: nil,
+batch_source: nil, testsuite_name: nil, automation_key: 'com.app.LoginTests.test_valid', environment: 'ci')`
+returned exactly `["com::app::LoginTests", "automation_key_prefix"]`.
 
 ---
 
@@ -133,8 +132,9 @@ on branch `release/7.3.0`, not yet live-verified independently of the developer'
 **Expected Result:** `automation_key_namespace` returns `nil` (fewer than 2 segments after split), so the
 resolver falls all the way through to the final fallback — `source_name == "CI / <environment>"`, not an
 error and not an empty/garbage source name.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: nil,
+batch_source: nil, testsuite_name: nil, automation_key: 'test_valid', environment: 'staging')` returned
+exactly `["CI / staging", "fallback"]` — no error, no blank key.
 
 ---
 
@@ -146,8 +146,9 @@ and matched by raw numeric `id` or `subject` (not `automation_key`, so there is 
 candidate at all) — ingested against environment `"Staging"`.
 **Expected Result:** `source_name == "CI / Staging"`; a real `AutomationSource` row is created with
 `kind == "fallback"` — never a blank/nil source on any ingested result.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: nil,
+batch_source: nil, testsuite_name: nil, automation_key: nil, environment: 'Staging')` returned exactly
+`["CI / Staging", "fallback"]`.
 
 ---
 
@@ -160,8 +161,9 @@ call, submit a different test case's result also with `source: "shared-suite"` i
 **Expected Result:** Exactly **one** `AutomationSource` row exists for `(project, "shared-suite")` after
 both calls; its `executions_count` is `2` (not reset, not two separate rows at `1` each); the second
 call's `source_id` in the response matches the first call's.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`, project `rftc-016-ci-qa`). Called
+`resolve!(key: "QA-shared-suite-test")` twice — both calls returned the SAME row id, and after the
+second call `executions_count == 2` exactly.
 
 ---
 
@@ -174,8 +176,9 @@ with `source: "shared-key"` in Project B (a completely separate project).
 **Expected Result:** `AutomationSource.where(key: "shared-key").count == 2` — two separate rows, scoped
 by `project_id`, never reused across the project boundary, even though the literal key text is
 identical.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`, projects `rftc-016-ci-qa` + `alpha-web`).
+Resolved `"QA-shared-key-test"` in both real projects — two distinct `AutomationSource` ids returned,
+`AutomationSource.where(key: "QA-shared-key-test").count == 2` confirmed.
 
 ---
 
@@ -186,8 +189,10 @@ on branch `release/7.3.0`, not yet live-verified independently of the developer'
 `IssueStatusResult` row directly (e.g. via `rails runner` / DB query) rather than trusting the response.
 **Expected Result:** `IssueStatusResult#source_id` on the persisted row equals the `source_id` reported
 in the ingest response's `matched[].source_id` field.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real `CiResultIngestService` call against Run #8 "Jenkins CI
+Build 1", project `rftc-016-ci-qa`). Ingested `test_login_valid` with `source: "QA-persist-test"` —
+response reported `source_id=6`; loading the actual `IssueStatusResult` row directly confirmed
+`source_id == 6`, an exact match, not just a response-payload claim.
 
 ---
 
@@ -200,8 +205,9 @@ batch-level `source: "batch-value"` is also set.
 **Expected Result:** The empty per-result string is treated as not-present (`explicit.present?` is
 false after `.strip`), so the batch-level value `"batch-value"` is used instead — not an empty-string
 source, not a crash.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: '',
+batch_source: 'batch-value', testsuite_name: nil, automation_key: nil, environment: 'ci')` returned
+exactly `["batch-value", "explicit"]` — the blank string never "won" its precedence slot.
 
 ---
 
@@ -212,8 +218,9 @@ on branch `release/7.3.0`, not yet live-verified independently of the developer'
 batch-level `source` is also `"  "` (whitespace only), with a resolvable testsuite name available.
 **Expected Result:** Both whitespace-only values are stripped to empty and treated as absent (same
 `.present?` guard as RFTC018-10); resolution falls through to the testsuite-name level.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). `derive_key(result_source: '   ',
+batch_source: '  ', testsuite_name: 'Checkout', automation_key: nil, environment: 'ci')` returned exactly
+`["Checkout", "testsuite"]` — both whitespace-only values correctly treated as blank.
 
 ---
 
@@ -227,8 +234,12 @@ CI-ingesting an otherwise-valid result.
 **Expected Result:** The ingest call still succeeds (`ok == true`); the result's `source_id` is `nil` in
 both the response and the persisted row; no other part of the write (case status, defect linking,
 duration) is affected. The failure is logged (`Rails.logger.error`), never raised to the caller.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real `CiResultIngestService` call, `derive_key` monkey-patched
+to raise `"Simulated resolver failure"`). The ingest call still returned `ok=true`, `status=ok`,
+`test_login_valid` was matched and written with `case_status_id` set correctly, and `source_id` was
+`nil` in the response — the write was entirely unaffected by the forced failure. The exact expected log
+line appeared: `"CI ingest: automation source resolution failed for key=test_login_valid: Simulated
+resolver failure"`.
 
 ---
 
@@ -251,11 +262,12 @@ match** the existing `"Nightly"` row (still case-sensitive) — returning `nil`.
 via the generic rescue in `resolve_source_for`), rather than either (a) reusing the existing `"Nightly"`
 source, or (b) a clear "name collision" error. **This needs to be confirmed against the real running
 code, not just the static read above** — record the actual observed behavior here when executed.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
-This specific case is a **flagged code-reading finding**, not a confirmed bug — flag to the dev team for
-confirmation regardless of this file's own execution status, since it may be worth fixing or clarifying
-before merge to `master`.
+**Actual Result:** ❌ **FAIL → BUG-TCM-125 (Open, Medium), confirmed live** (2026-11-02, `bin/rails
+runner`). Resolving `"CaseTestXYZ"` then `"casetestxyz"` (same name, different case) for the same
+project: the first call created the source correctly (`id=1`); the second call returned **`nil`** exactly
+as predicted — the result would silently get no source at all instead of reusing `"CaseTestXYZ"`. This
+is now a confirmed defect, not just a code-reading prediction. See `bugs/open/BUG-TCM-125.md` for the
+full root-cause trace and evidence.
 
 ---
 
@@ -271,8 +283,9 @@ entry).
 **Expected Result:** Across every trial, exactly ONE `AutomationSource` row exists for that key in that
 project afterward — the advisory lock serializes the two concurrent `resolve!` calls so the second one
 finds the first one's row instead of racing it on the unique index.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS, 5/5 trials** (2026-11-02, `bin/rails runner`, two real Ruby threads racing
+`resolve!` on a brand-new key each trial). Row count after both threads joined: `[1, 1, 1, 1, 1]` across
+5 independent trials — the advisory lock held every time, no duplicate ever created.
 
 ---
 
@@ -292,8 +305,11 @@ in the resolver), but every rendering location escapes it as inert text — no `
 the source name is displayed. **Cross-reference**: this exact source name also appears on rftc-035's
 Automation Dashboard — the corresponding case there (see `RFTC-035`'s own file) must independently
 re-verify the same payload on that page, not assume this case alone covers it.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real CI ingest + live Playwright). Ingested a real result with
+`source: "<img src=x onerror=alert('rftc018-xss')>"` against Run #8 — the Automation Dashboard
+(`/projects/rftc-016-ci-qa/automation_dashboard`) rendered the payload as literal escaped text in the
+Source column, zero `alert()` fired, dashboard correctly showed 2 Sources / 1325 Executions after the
+ingest. Cross-reference confirmed: this is the same live check RFTC-035's own file also records.
 
 ---
 
@@ -307,8 +323,9 @@ precedence) line-by-line against `AutomationSourceResolver.derive_key`'s actual 
 (3) resolved `testsuite_id`'s name, (4) `automation_key` namespace prefix, (5) `"CI / <environment>"`
 fallback. Confirmed matching on a static read of both files as of commit `329311d` — still worth a
 quick re-confirmation at execution time in case either side drifts before merge.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, direct re-read of both files on `release/7.3.0`). `API.md`
+line 1259-1263 ("Automatic source grouping (rftc-018)") lists the identical 5-step order as
+`AutomationSourceResolver.derive_key`'s actual code — no drift found.
 
 ---
 
@@ -321,8 +338,8 @@ brand-new key) and inspect the created row's `name` column.
 **Expected Result:** `name == key` exactly (the model's `before_validation :default_name_to_key` sets it
 when `name.blank?`, and `create_source` itself also explicitly passes `name: key`) — never a blank name
 on a freshly created source.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`). Resolved a brand-new key
+`"QA-NameDefaultTest"` — the created row's `name == "QA-NameDefaultTest"` exactly, matching the key.
 
 ---
 
@@ -338,58 +355,39 @@ still exist, unchanged except `source_id` is now `nil` — confirmed by
 `has_many :issue_status_results, dependent: :nullify` and the unit test
 `test_automation_source_association_is_nullify_not_destroy` asserting exactly this reflection option.
 Execution history must never be destroyed as a side effect of removing its grouping.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives
-on branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`, same check the developer's own unit test
+asserts). `AutomationSource.reflect_on_association(:issue_status_results).options[:dependent]` returned
+exactly `:nullify`.
 
 ---
 
 ## Not Executed
 
-Every case above is unexecuted — see the header note. In addition, the following could not be reasoned
-about from a static code read alone and need a live pass:
-
-- **RFTC018-13's actual observed behavior** (the case-sensitivity mismatch) — the write-up above is a
-  prediction from reading three code paths together, not a confirmed trace through the real interpreter;
-  it must be the first thing re-verified live, since if correct it represents a real (if narrow) silent
-  data-loss-of-categorization bug.
-- **RFTC018-14's concurrency outcome** — advisory-lock correctness under genuine concurrent load can only
-  be confirmed by actually racing two real requests against a Postgres-backed instance, several times.
-- **RFTC018-15's live XSS check** — the "ERB auto-escapes by default" expectation is standard Rails
-  behavior but has NOT been independently confirmed by actually triggering a payload and watching for an
-  `alert()`, the way this repo's own BUG-TCM-070 finding originally was.
-- Any UI-level test (there is none — v1 has no admin UI for sources at all, confirmed Out of Scope in
-  the planning doc; the only way this feature is visible to a user is indirectly, through the
-  `source_name` the API response returns and through rftc-035's Automation Dashboard, covered in that
-  file instead).
+Nothing — all 18 scenarios were independently executed 2026-11-02 (see each case's own Actual Result
+above). No admin UI exists for sources in v1 (confirmed Out of Scope in the planning doc), so there are
+no UI-driven test cases to add — the feature is only reachable via the ingest API response and rftc-035's
+Automation Dashboard, both of which were exercised directly.
 
 ## Coverage Summary
 
-**18 scenarios designed, 0 executed.** All 18 are derived directly from the real `release/7.3.0`
-implementation (resolver, service integration, model, migrations, API docs, and the developer's own
-unit tests) rather than from the ticket description alone. Covers all 5 precedence levels individually,
-idempotency, cross-project isolation, persistence-on-the-row (not just the response), 3 distinct blank/
-whitespace negative paths, the documented never-blocks-the-write failure guarantee, one concurrency/race
-scenario, one security (XSS) scenario cross-referenced to rftc-035, a doc-vs-code accuracy check, a
-model data-integrity default, and the nullify-not-destroy deletion guarantee. One finding (RFTC018-13)
-is flagged as a likely real edge-case gap discovered purely from reading the code, independent of this
-file's own execution status, and should be raised to the dev team for confirmation before `release/7.3.0`
-merges to `master`.
+**18/18 scenarios executed — 17 PASS, 1 FAIL.** All 5 precedence levels individually confirmed correct,
+idempotency and cross-project isolation both hold, the resolved `source_id` is genuinely persisted on
+the row (not just claimed in the response), all 3 blank/whitespace negative paths correctly fall through,
+the never-blocks-the-write failure guarantee holds (confirmed via a forced-exception test, including the
+exact expected log line), the concurrency/advisory-lock guard held across 5 real-thread race trials, the
+XSS/security case is confirmed safe via a real ingest + live dashboard check, `API.md` matches the code
+exactly, and both model data-integrity guarantees (name-defaults-to-key, nullify-not-destroy) hold. The
+one failure, **RFTC018-13** (case-sensitivity mismatch), is a confirmed real defect — filed as
+**BUG-TCM-125** (Open, Medium) — not merely a code-reading prediction anymore.
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
-Partial live verification performed this session (not all 18 designed scenarios executed — see remaining as
-still "Not Executed" above):
-
-- **Automation Dashboard (RFTC-035) correctly shows the "Ungrouped" bucket for pre-rftc-018 data** — confirmed
-  live: project `rftc-016-ci-qa` shows 1 source ("Ungrouped"), 1325 executions, 30 failures, 97.74% pass rate —
-  real historical data, not dropped. Cross-references RFTC-035's own Ungrouped-bucket test.
-- **FAIL → BUG-TCM-125 (Open, Medium): case-sensitivity mismatch confirmed live.** Via `bin/rails runner`:
-  resolving `"CaseTestXYZ"` then `"casetestxyz"` (same name, different case) for the same project — the second
-  call returns `nil` instead of reusing the existing source, because `AutomationSource`'s uniqueness validation
-  is case-insensitive but `AutomationSourceResolver#resolve!`'s lookup is case-sensitive. See
-  `bugs/open/BUG-TCM-125.md` for full root-cause trace and evidence.
-
-**Not yet live-verified this pass:** the other 4 precedence levels individually, idempotency under genuine
-concurrent calls, the advisory-lock race guard, per-project uniqueness with two real projects, the
-resolution-failure-never-blocks-write guarantee, and the XSS-in-source-name display check (cross-referenced to
-RFTC-035). A future session should pick these up before this suite can be marked fully regressed.
+Full execution pass, superseding the earlier partial pass recorded in this section. Environment: branch
+`release/7.3.0` checked out locally, 4 pending migrations run via the container's own
+`/docker-entrypoint.sh` (avoids the known `SECRET_KEY_BASE`/`docker exec` gap), web + Sidekiq containers
+restarted. Methods used: `bin/rails runner` for the pure precedence/idempotency/model-reflection cases
+(1-8, 10, 11, 17, 18), a real `CiResultIngestService` call against Run #8 "Jenkins CI Build 1" for the
+persistence and failure-isolation cases (9, 12), a genuine 5-trial two-thread race for the concurrency
+case (14), a real CI ingest + live Playwright check of the Automation Dashboard for the XSS case (15),
+and a direct file diff for the documentation case (16). Full detail is recorded inline against each case
+above; summary: **17 PASS, 1 FAIL (BUG-TCM-125)**.

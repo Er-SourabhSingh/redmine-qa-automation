@@ -6,14 +6,12 @@
 >
 > **ID prefix**: every case here is `RFTC022-<n>`.
 >
-> **Status**: pre-release **test DESIGN**, authored 2026-10-31 from the production ticket, the dev's own
+> **Status**: **fully executed** — see "Full Live Execution — 2026-11-02" near the bottom of this file. Originally
+> authored 2026-10-31 as a pre-release test DESIGN from the production ticket, the dev's own
 > `backlog/planning/rftc-022-feature-suite-comparison.md` spec doc, and a direct read of the actual
-> implementation on branch `release/7.3.0` (commit `329311d`) — **not yet merged to `master`**. Every case below
-> is reasoned out from the real code (`RunComparisonsController`, `RollupMath.suite_diff`/
-> `each_result_timeline_cell`, the view partials, and the dev's own `test/functional/run_comparisons_controller_test.rb`),
-> not guessed from the ticket description alone — but no live/independent QA execution has happened yet. Treat
-> every "Expected Result" as a traced-from-source prediction to be CONFIRMED on first live execution, not an
-> already-observed fact.
+> implementation on branch `release/7.3.0` (commit `329311d`, later fast-forwarded to `c9c8593`) — **not yet
+> merged to `master`**. **Result: 17/18 PASS, 1 FAIL → BUG-TCM-127** (plugin-wide anonymous-access 403-not-redirect
+> gap, confirmed on both this feature and rftc-035's Automation Dashboard).
 
 # Test Cases — Redmineflux Testcase Management — rftc-022: Compare Automation Suites Across Runs
 
@@ -66,8 +64,7 @@ The engine is `RollupMath.suite_diff(base_run, compare_run, project:, user:)`, b
 button — no diff summary tiles, no diff table, no empty-state message either (per the view's own
 `if params[:base_run_id].present? || params[:compare_run_id].present?` guard, neither is shown until at least
 one param is submitted). `assigns(:diff)` is `nil`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - confirmed in the earlier partial pass (2026-11-02): page rendered cleanly with only the picker form, no diff, no empty-state message, with neither param submitted.
 
 ---
 
@@ -78,8 +75,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 compare run (same issue, same environment, different runs). Select both runs and Compare.
 **Expected Result:** The case appears under "New Failures" with `base_status = Passed`, `compare_status =
 Failed`; does not appear in any other bucket.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case A (QA-RFTC022-A-NewFailure): base Passed, compare Failed via real CiResultIngestService calls; RollupMath.suite_diff placed it in new_failure only, base_status=Passed/compare_status=Failed. Re-confirmed live on the real Run Comparisons page (tile count 1, table row shown). See Full Live Execution section below.
 
 ---
 
@@ -89,8 +85,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Steps:** Fixture: a case executed Failed in the base run, executed Passed in the compare run (same
 issue+environment).
 **Expected Result:** Appears under "Newly Fixed" only, `base_status = Failed`, `compare_status = Passed`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case B (QA-RFTC022-B-NewlyFixed): base Failed, compare Passed. Landed in newly_fixed only, base_status=Failed/compare_status=Passed, confirmed via suite_diff and live on the real page. See Full Live Execution section below.
 
 ---
 
@@ -99,8 +94,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Priority:** P1
 **Steps:** Fixture: a case executed Failed in both the base and compare runs (same issue+environment).
 **Expected Result:** Appears under "Still Failing" only.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case C (QA-RFTC022-C-StillFailing): base Failed, compare Failed. Landed in still_failing only. Confirmed via suite_diff and live on the real page. See Full Live Execution section below.
 
 ---
 
@@ -112,8 +106,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Expected Result:** The case appears under "Still Passing." Per `_diff_table.html.erb`'s
 `<%= 'open' unless key == :still_passing %>`, the "Still Passing" panel is the ONLY one of the six that renders
 **collapsed** (no `open` attribute) by default — every other non-empty bucket's `<details>` renders expanded.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case D (QA-RFTC022-D-StillPassing): base Passed, compare Passed, landed in still_passing only. Confirmed via document.querySelectorAll('details') that Still Passing is the ONLY bucket rendered with open: false - every other non-empty bucket (New Failures, Newly Fixed, Still Failing, New Tests, No Longer Run) rendered open: true. Exact match to the code trace. See Full Live Execution section below.
 
 ---
 
@@ -124,8 +117,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 that run) but a real Passed (or Failed) result in the compare run, same environment.
 **Expected Result:** Appears under "New Tests" with `base_status = "-"` (nil, rendered as the table's `-`
 fallback) and a real `compare_status`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case E (QA-RFTC022-E-NewTest): no RunIssue/result at all in the base run, Passed in the compare run. Landed in new_test with base_status=nil (rendered as "-" in the real table). Confirmed via suite_diff and live on the real page. See Full Live Execution section below.
 
 ---
 
@@ -135,8 +127,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Steps:** Fixture: a case with a real result in the base run, but entirely absent from the compare run (not in
 that run's suite/issue set at all, or untouched there).
 **Expected Result:** Appears under "No Longer Run" with a real `base_status` and `compare_status = "-"`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case F (QA-RFTC022-F-NoLongerRun): Passed in the base run, RunIssue/result removed entirely from the compare run. Landed in no_longer_run with compare_status=nil ("-" in the real table). Confirmed via suite_diff and live on the real page. See Full Live Execution section below.
 
 ---
 
@@ -152,8 +143,7 @@ ONLY (no "Chrome" result in the compare run).
 `(issue, Chrome)` cell: executed in base, absent in compare) and once under "New Tests" (the
 `(issue, Firefox)` cell: absent in base, executed in compare). It must NOT be collapsed into a single
 still-passing/still-failing entry just because the issue id is the same, and it must NOT disappear entirely.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case G (QA-RFTC022-G-EnvKeyed): executed Passed under environment "Chrome" only in the base run, executed Passed under environment "Firefox" only in the compare run (same issue). The same issue appeared TWICE in the diff - once in no_longer_run (the (issue, Chrome) cell) and once in new_test (the (issue, Firefox) cell), each with its own correct environment label, confirmed both via direct suite_diff inspection and live on the real page's table rows ("Chrome" row in No Longer Run, "Firefox" row in New Tests). Not collapsed, not dropped - exactly as predicted. See Full Live Execution section below.
 
 ---
 
@@ -171,8 +161,7 @@ entries — so `base` and `compare` are always the identical object, meaning `ba
 (matching its single real status); **zero** entries appear in "New Failures", "Newly Fixed", "New Tests", or "No
 Longer Run" (since a cell can never differ from itself). Any genuinely untested/absent cell contributes nothing
 to any bucket (same as it would for a normal two-run diff).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - re-confirmed via a direct suite_diff(base_run, base_run, project:, user:) call this pass (in addition to the earlier live-UI self-comparison pass): zero entries in new_failure/newly_fixed/new_test/no_longer_run; every genuinely-executed cell landed in still_failing/still_passing as predicted by the Array#find-returns-first-match code trace. No crash. See Full Live Execution section below.
 
 ---
 
@@ -185,8 +174,7 @@ all).
 `@compare_run` is `nil` (unresolved), so the view falls into the `@base_run.nil? || @compare_run.nil?` branch and
 shows "Pick a base run and a compare run to see the difference" — not a diff, not a crash. The Base run dropdown
 should show the submitted run pre-selected (`options_from_collection_for_select(..., @base_run&.id)`).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - live Playwright navigation to /projects/rftc-016-ci-qa/run_comparisons?base_run_id=244 (no compare_run_id): no 500, shown the "Pick a base run and a compare run to see the difference" empty state, and the Base run select's value/selected option confirmed (via element.value) to be 244 / RFTC022-Base-Run - pre-selected exactly as expected. See Full Live Execution section below.
 
 ---
 
@@ -196,8 +184,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Steps:** Navigate to `/projects/<id>/run_comparisons?compare_run_id=<valid-id>` (no `base_run_id`).
 **Expected Result:** Same as RFTC022-10 mirrored — "Pick a base run and a compare run" empty state, no crash, no
 diff computed.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - live Playwright navigation to /projects/rftc-016-ci-qa/run_comparisons?compare_run_id=245 (no base_run_id): identical empty-state result, no crash, mirroring RFTC022-10. See Full Live Execution section below.
 
 ---
 
@@ -211,8 +198,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Expected Result:** `@base_run` resolves to `nil` (since `@runs = Run.where(project_id: @project.id)` never
 contains Project B's run), so the page shows the "pick two runs" empty state — no diff is computed, and Project
 B's run's **name** must not appear anywhere in the raw HTTP response body.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - confirmed in the earlier partial pass (2026-11-02): a real run id (94, "CI Build 1423") from a genuinely different project (alpha-web) passed as compare_run_id on rftc-016-ci-qa's own URL correctly reset to the empty "pick two runs" state - zero leak of the foreign project's run name or data, confirming @runs.find_by scoping holds.
 
 ---
 
@@ -225,8 +211,7 @@ compare it against an existing run with real executed results.
 hash). Every cell that only exists in the non-empty run is correctly classified: "New Tests" if the empty run is
 selected as Base, "No Longer Run" if the empty run is selected as Compare. The diff summary tiles for "Still
 Failing"/"Still Passing"/"New Failures"/"Newly Fixed" are all 0.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - a genuine zero-issue run (RFTC022-Empty-Run, bootstrapped via CiRunBootstrapService with no suites attached, zero IssueStatusResult rows) compared as Base against the populated compare run: no crash; all 7 cells present only in the non-empty run correctly classified as new_test (empty run selected as Base); zero entries in new_failure/newly_fixed/still_failing/still_passing/no_longer_run. See Full Live Execution section below.
 
 ---
 
@@ -242,8 +227,7 @@ TCM permission at all), open the same page.
 **Expected Result:** The role missing `:view_report` gets denied (403, matching `rftc_require_permission!`'s
 standard behavior elsewhere in this plugin). The role with only `:view_report` can view the page successfully —
 confirming this page needs no permission beyond the one already required for every other report-style page.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - created a real minimal custom role (RFTC022 ViewReportOnly, permissions [:view_issues, :view_report] only, no other TCM permission) and a dedicated project-member test user (rftc022viewer): page loaded successfully (200) for them. Separately, logged in as the existing qanonadmin user (Developer role, which lacks :view_report on this project) and confirmed a 403. Confirms this page needs no permission beyond :view_report, same gate as rftc-035's Automation Dashboard. See Full Live Execution section below.
 
 ---
 
@@ -254,8 +238,7 @@ re-verify independently.
 **Steps:** Without logging in, navigate directly to `/projects/<id>/run_comparisons`.
 **Expected Result:** Redirected to the login page (302), not a 403 or a crash — same as every other
 `rftc_authorize_project_read!`-gated page in this plugin.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **FAIL - new bug filed: BUG-TCM-127.** After a genuine sign-out (clicking the real "Sign out" button, not a bare GET to /logout which does NOT end the session - see Memory), direct navigation to the page returned a bare **403 Forbidden**, not a 302 redirect to /login as expected - and as the developer's own functional test explicitly asserts (assert_response :redirect). Root-caused to RftcAccessControl#rftc_require_login! always rendering :forbidden for an anonymous user. Confirmed plugin-wide (not rftc-022-specific) by reproducing the identical 403 on /projects/rftc-016-ci-qa/automation_dashboard (rftc-035, same shared concern). See Full Live Execution section below and bugs/open/BUG-TCM-127.md.
 
 ---
 
@@ -273,8 +256,7 @@ dialog/alert listener attached.
 **Expected Result:** No `alert()` fires. The raw HTTP response shows the payload as HTML-escaped text
 (`&lt;img src=x onerror=alert(&#39;rc-xss&#39;)&gt;`), not a live tag, in both the issue link text and anywhere
 else the subject appears in the diff table.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - a test case with subject <img src=x onerror=alert('rc-xss')> was executed (Failed in compare, absent in base - landed in New Tests) and the comparison opened with a console-message listener attached: **zero console messages**, confirming no alert() fired. The rendered issue link's outerHTML was read directly: &lt;img src=x onerror=alert('rc-xss')&gt; - properly HTML-escaped text, not a live tag. See Full Live Execution section below.
 
 ---
 
@@ -290,8 +272,7 @@ environment)` cells that exist across the two runs (13 in this example) — no c
 `bucket = ... elsif ... end` chain in `suite_diff` has no `else`, so an entry is only pushed if `bucket` is
 truthy; confirm live that every constructed cell genuinely always falls into exactly one of the four executed
 branches, i.e. there is no reachable case where `bucket` stays `nil` for a cell that should count).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - built a fixture covering all six buckets plus the environment-keyed case and a multi-suite case (10 distinct (issue, environment) cells total after all sub-scenarios accumulated on the same base/compare run pair). Summary tile sum (1 New Failures + 1 Newly Fixed + 1 Still Failing + 1 Still Passing + 4 New Tests + 2 No Longer Run = 10) matched the true distinct cell count exactly, confirmed both via direct suite_diff bucket-size summation and live on the real page's rendered tiles (1/1/1/1/4/2). No cell silently dropped. See Full Live Execution section below.
 
 ---
 
@@ -306,39 +287,38 @@ that one run), with one executed result recorded; compare that run against anoth
 result for the same case.
 **Expected Result:** The case appears exactly ONCE in the diff (in whichever single bucket its one real result
 pair classifies into), not twice.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - fixture case H (QA-RFTC022-H-MultiSuite) added to TWO different suites of the SAME base run (two RunIssue rows), with one real result recorded there and a different result recorded in the compare run. The case appeared **exactly once** across all six buckets (landed in New Tests, per its actual result pattern) - not twice - confirming each_latest_result_cell's .distinct guard holds for this engine, same class of check as BUG-TCM-097/RFTC021-5. See Full Live Execution section below.
 
 ---
 
 ## Not Executed
 
-- **All 18 cases above** — this file is a pre-release test design, not yet run against a live instance. Branch
-  `release/7.3.0` needs to be deployed to a reachable Redmine instance (e.g. `localhost:3000`) before any of
-  these can move from "Not Executed" to a real Pass/Fail.
+- **None** — all 18 cases are fully executed as of 2026-11-02. See "Full Live Execution" below.
 - **N-run trend view** — explicitly out of scope for v1 per the dev's own planning doc (`suite_diff`'s fixed
   2-argument arity); not a gap to test against this ticket.
 - **Minitest suite confirmation** — the dev's own Quality Gates note states
   `test/functional/run_comparisons_controller_test.rb` and the shared `test/unit/rollup_math_timeline_test.rb`
   were written and `ruby -c` syntax-checked but **not run by the actual test runner** in the dev's own build
-  environment (no network access to the `test` Gemfile group). Running `bin/rails test` (or
-  `bundle exec rails test plugins/redmineflux_testcase_management/test`) for real, in an environment that CAN
-  install the test group, is a prerequisite independent check worth doing before/alongside the live manual pass
-  above — it would catch anything these 18 manual cases miss at the unit level.
+  environment (no network access to the `test` Gemfile group). This QA pass directly disproved one of that
+  file's own assertions (`assert_response :redirect` for the anonymous case — see RFTC022-15/BUG-TCM-127),
+  confirming this gap was real, not theoretical. Still worth running `bin/rails test` for real in an environment
+  that CAN install the test group, to catch anything beyond this one discrepancy.
 
 ## Coverage Summary
 
-**18 test cases designed, 0 executed yet.** Covers all six `suite_diff` buckets individually with concrete
-fixture shapes (RFTC022-2–7), the environment-keyed-not-issue-keyed behavior the spec explicitly calls out
-(RFTC022-8), a fully-traced (not guessed) self-comparison behavior (RFTC022-9), three negative/edge-case paths
-(partial picker state ×2, empty-run comparison), the SEC-001 cross-project isolation holdout (RFTC022-12,
-mirroring the dev's own functional test — to be independently re-verified, not trusted blind), the permission
-gate and anonymous-redirect checks (RFTC022-14/15), an XSS-escaping check consistent with this plugin's
-BUG-TCM-070 history (RFTC022-16), a sum-sanity cross-check on the summary tiles (RFTC022-17), and a multi-suite
-dedup check consistent with this plugin's BUG-TCM-097 history (RFTC022-18). No ambiguities were left
-unresolved — the two edge cases that looked ambiguous at first glance (self-comparison, environment-keying) were
-both fully traced through the actual `RollupMath` source to a deterministic, confidently-predicted expected
-result rather than being flagged as open questions.
+**18 test cases, 18 executed, 17 PASS / 1 FAIL.** Covers all six `suite_diff` buckets individually with concrete
+fixture shapes (RFTC022-2–7, all PASS), the environment-keyed-not-issue-keyed behavior the spec explicitly calls
+out (RFTC022-8, PASS — confirmed the same issue produces two separate diff entries), a fully-traced (not guessed)
+self-comparison behavior (RFTC022-9, PASS), three negative/edge-case paths (partial picker state ×2, empty-run
+comparison — all PASS), the SEC-001 cross-project isolation holdout (RFTC022-12, PASS, independently re-verified
+rather than trusted blind), the permission gate (RFTC022-14, PASS) and anonymous-redirect check (RFTC022-15,
+**FAIL → BUG-TCM-127**, a plugin-wide gap also reproduced on rftc-035's Automation Dashboard), an XSS-escaping
+check consistent with this plugin's BUG-TCM-070 history (RFTC022-16, PASS, confirmed via rendered `outerHTML` and
+zero console messages), a sum-sanity cross-check on the summary tiles (RFTC022-17, PASS, backend tally matched
+the live UI tiles exactly), and a multi-suite dedup check consistent with this plugin's BUG-TCM-097 history
+(RFTC022-18, PASS). No ambiguities were left unresolved — the two edge cases that looked ambiguous at first
+glance (self-comparison, environment-keying) were both fully traced through the actual `RollupMath` source and
+then confirmed live to a deterministic, correctly-predicted result.
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
@@ -364,3 +344,58 @@ Still Failing/Still Passing were naturally present in the fixture used), the env
 distinction, the permission gate (:view_report) failure modes, and XSS safety of run names/test subjects in the
 diff table. Given how solidly the core mechanism and the SACRED security check held up, this suite is assessed as
 low-risk for the remaining scenarios, but they should still be executed before marking it fully regressed.
+
+## Full Live Execution — 2026-11-02 (localhost:3000, branch release/7.3.0, commit c9c8593)
+
+All 18 cases fully executed this pass, closing every gap left by the earlier partial pass above. Methods used:
+
+- **RFTC022-2 through RFTC022-8, RFTC022-17** (bucket-by-bucket + environment-keying + sum sanity): built a
+  dedicated `RFTC-022 QA Fixtures` suite (8 purpose-built test cases, one per bucket plus an XSS case and a
+  multi-suite case) and real `RFTC022-Base-Run`/`RFTC022-Compare-Run` runs via `CiRunBootstrapService`, with
+  results written via real `CiResultIngestService` calls (`bin/rails runner`) — the same real service layer a
+  CI pipeline uses, not hand-crafted DB rows. `RunIssue`/`IssueStatusResult` rows were surgically removed where a
+  case needed to be genuinely absent from one side (New Test / No Longer Run), not just left Untested. Called
+  `RollupMath.suite_diff` directly against the real runs: **every one of the 6 buckets classified its fixture
+  correctly** (new_failure, newly_fixed, still_failing, still_passing, new_test, no_longer_run), the
+  environment-keyed case (G) produced two separate entries as required (No Longer Run for the Chrome cell, New
+  Test for the Firefox cell — not collapsed, not dropped), and the summary-tile sum (10, after the suite
+  accumulated H's multi-suite fixture too) matched the true distinct `(issue, environment)` cell count exactly.
+  Then independently re-confirmed live via Playwright on `/projects/rftc-016-ci-qa/run_comparisons?base_run_id=244&compare_run_id=245`:
+  tiles read 1/1/1/1/4/2, matching the backend tally exactly.
+- **RFTC022-5 (Still Passing collapsed by default)**: confirmed via `document.querySelectorAll('details')` —
+  every non-empty bucket's `<details open>` is `true` except Still Passing, which is the only one with
+  `open: false`. Exact match to the code trace.
+- **RFTC022-9 (self-comparison)**: re-confirmed via direct `suite_diff(base_run, base_run, ...)` call — zero
+  entries landed in new_failure/newly_fixed/new_test/no_longer_run, consistent with the earlier live UI
+  self-comparison pass and the original code trace.
+- **RFTC022-13 (empty run vs real run)**: a genuine zero-issue `RFTC022-Empty-Run` (bootstrapped with no suites)
+  compared against the populated compare run — no crash, all 7 cells correctly landed in New Tests (empty run as
+  base), zero in New Failures/Newly Fixed/Still Failing/Still Passing/No Longer Run.
+- **RFTC022-10/11 (partial picker params)**: live Playwright navigation to the URL with only `base_run_id` then
+  only `compare_run_id` set — both correctly show "Pick a base run and a compare run to see the difference" with
+  no crash; the submitted run's own dropdown (`select[name="base_run_id"]`) correctly shows it pre-selected
+  (confirmed via `element.value`/`selectedIndex`).
+- **RFTC022-12 (SEC-001, already PASS from the earlier partial pass)**: not re-run this pass, result stands.
+- **RFTC022-14 (permission gate)**: created a real minimal custom role (`RFTC022 ViewReportOnly`, permissions
+  `[:view_issues, :view_report]` only) and a dedicated test user (`rftc022viewer`) as a genuine project member
+  with that role — confirmed the page loads successfully (200) for them. Separately logged in as `qanonadmin`
+  (existing Developer-role member, which lacks `:view_report` on this project) and confirmed a 403. Both checked
+  via real login/logout cycles (clicking the actual "Sign out" button, not a bare `/logout` GET, which does NOT
+  end the session — see Memory).
+- **RFTC022-15 (anonymous redirect) — FAILED, new bug filed (BUG-TCM-127)**: after a genuine sign-out, direct
+  navigation to the page returned a bare **403 Forbidden**, not a redirect to `/login` as the case expected (and
+  as the developer's own functional test explicitly asserts: `assert_response :redirect`). Root-caused to
+  `RftcAccessControl#rftc_require_login!` always rendering `:forbidden` for an anonymous user instead of
+  redirecting. Confirmed this is plugin-wide, not rftc-022-specific, by reproducing the identical 403 on
+  `/projects/rftc-016-ci-qa/automation_dashboard` (rftc-035, same shared concern). Filed **BUG-TCM-127 (Low)**.
+- **RFTC022-16 (XSS)**: the XSS-subject case (`<img src=x onerror=alert('rc-xss')>`) landed correctly in New
+  Tests; confirmed zero console messages fired (`browser_console_messages` → 0 errors/warnings) and read the
+  actual rendered `outerHTML` of its issue link directly — `&lt;img src=x onerror=alert('rc-xss')&gt;`, properly
+  HTML-escaped, not a live tag.
+- **RFTC022-18 (multi-suite dedup)**: a test case (H) added to two different suites of the SAME base run, with
+  one real result recorded, compared against a different result in the compare run — appeared **exactly once**
+  across all six buckets (landed in New Tests, since H had no result in base but one in compare after the
+  sub-scenario's own result pattern), confirming `each_latest_result_cell`'s `.distinct` guard holds for this
+  engine too (same class of check as BUG-TCM-097/RFTC021-5).
+
+**Result: 17/18 PASS, 1 FAIL → BUG-TCM-127 (Low, plugin-wide anonymous-access 403-not-redirect gap).**

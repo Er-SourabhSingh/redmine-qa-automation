@@ -1645,3 +1645,20 @@
   cannot be blank" error with no way to actually supply one. The proper popup (URL stays `/runs/:id`) reveals
   both correctly, and clicking "Report Defect" opens a working "Add Defect" modal whose created defect
   auto-populates back into the parent popup's Defects* field.
+- **(2026-11-02) A bare `GET /logout` does NOT end a Redmine session** — it lands on a confirmation page with its
+  own "Sign out" button/form; the session stays live until that button is actually clicked (confirmed by
+  navigating straight back to an authenticated page afterward and still seeing "Logged in as ..."). Any test
+  case that needs a genuine anonymous/logged-out state must click the real "Sign out" link/button, not just
+  navigate to `/logout`.
+- **(2026-11-02) `RftcAccessControl#rftc_require_login!` renders a bare 403 for an anonymous user instead of
+  redirecting to `/login`** — this is shared, plugin-wide behavior (every `rftc_require_permission!`/
+  `rftc_authorize_project_read!`-gated controller inherits it), confirmed identically on both Run Comparisons
+  (rftc-022) and the Automation Dashboard (rftc-035). It directly contradicts
+  `run_comparisons_controller_test.rb`'s own `assert_response :redirect` assertion — filed as **BUG-TCM-127**.
+  When writing an "anonymous user is redirected to login" test case for ANY future rftc-0NN feature in this
+  plugin, expect/verify a 403, not a 302, until this shared concern is fixed — or flag the discrepancy again if
+  testing a controller that bypasses this concern.
+- **(2026-11-02) `CiResultIngestService`'s `status` values must be lowercase** (`'passed'`/`'failed'`/
+  `'blocked'`/`'skipped'`/`'retest'`/`'error'`) — passing the `CaseStatus` display-cased name (`'Passed'`) fails
+  with "Unknown or unavailable CI status" since `default_status_for` matches on the literal lowercase string, not
+  case-insensitively.

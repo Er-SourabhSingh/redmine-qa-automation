@@ -1713,3 +1713,16 @@
   volume (~140 runs, 2000+ results) this costs 1,600+ queries and 5-21 seconds on EVERY load, confirmed via real
   Rails log lines. Filed as **BUG-TCM-130**. If `rftc-016-ci-qa`'s data volume keeps growing from future QA
   cycles, expect this to get worse, not self-resolve.
+- **(2026-11-02) `RequirementsController#testcases` (`/requirement/testcases`) completely ignores its own
+  `limit` param** — the frontend (`assets/javascripts/script.js#getAllIssues`) sends `limit=100` expecting a
+  capped response, but the action has no `.limit(...)` call anywhere, so it always returns every Testcase/
+  Feature-tracker issue in the project. Worse, the frontend calls it via a **synchronous** jQuery AJAX
+  (`async: false`), so the whole tab freezes for however long that unbounded fetch+serialize takes. Filed as
+  **BUG-TCM-131**. When investigating ANY "page X feels frozen/slow" report in this plugin going forward, check
+  Network tab for `async: false`-style calls first — they block the main thread, unlike a normal slow async
+  fetch which merely delays a spinner.
+- **(2026-11-02) Before filing any new BUG-TCM-NNN, re-check the true max via `git fetch origin master` +
+  `git log --oneline origin/master` in addition to local `bugs/_index.md`/`bugs/open/`** — a concurrent session
+  can push new commits (and new bug numbers) between your own session's start and when you're ready to file,
+  and local files alone won't show that. This is the follow-up habit from the BUG-TCM-129 collision earlier this
+  session.

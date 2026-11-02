@@ -19,6 +19,34 @@ containers restarted. Even then, one bug (BUG-CRX-125) still reproduced afterwar
 failure mode — pulling all three repos doesn't guarantee one ask-level finding is actually closed; always re-run
 the original repro in a **fresh chat** (old chat history keeps the stale answer) before marking fixed.
 
+## 2026-11-02 full campaign — retested all of BUG-CRX-089 through BUG-CRX-131 (43 bugs)
+
+After the initial 6-bug batch below, the user clarified the developer's CRC-70/71/72/73 commits actually claimed
+to cover the full BUG-CRX-089–131 range (minus 108, developer's own admission as out-of-scope browser-UI work),
+and asked for all ~31 remaining bugs to be retested in the same session. Final tally across all 43 bugs in the
+range (089–131):
+
+- **FIXED (16)**: 089, 090, 093, 099, 104, 106, 110, 114, 116, 117, 120, 123, 124, 126, 128, 131 — confirmed via
+  fresh-chat retest and/or native/DB verification.
+- **STILL OPEN (20)**: 094 (partially — project-named case now works), 095, 096, 097, 098, 100, 102 (improved but
+  still wrong), 103, 105, 107, 109, 111, 112 (2/2 reproduced again), 113, 118 (improved — now surfaces somewhere,
+  still not per-level), 119 (partially — create path fixed, delete path now has a different false-denial),
+  121 (improved — no more false "immutable" claim, but now silently no-ops instead), 125, 127, 130 (regressed to a
+  genuine backend 422 — escalate).
+- **NOT RETESTED / deferred (5)**: 091 (fixture reconstruction too fragile), 101 (needs multi-turn chat history,
+  expensive to reconstruct), 108 (developer's own admission, browser-UI work out of scope), 122 (blocked by a
+  *new*, separate `team_create` discovery failure that appeared this round), 129 (original fixture week already
+  consumed/Approved from its own earlier investigation).
+- **Out of this round's scope (2)**: 092 (already Closed — Won't Fix, dev-confirmed by-design, not part of the
+  retest population) and 115 (cost-inefficiency finding, no developer fix claimed for it in the CRC-70/71/72/73
+  specs reviewed — not retested this round).
+- A **new regression surfaced mid-retest**: `Timesheet Team Create` now fails with a false "tool discovery"
+  denial across 3 separate attempts (reused chat, "Ask again" retry, and a brand-new fresh chat) — this blocked
+  BUG-CRX-122's exact repro and is worth its own follow-up bug if it reproduces again in a dedicated session.
+
+Full per-bug retest narrative is in each bug's own `## Retest — 2026-11-02` section in `bugs/open/`. The
+`bugs/_index.md` Status column was brought current for the entire 089–131 range in the same session.
+
 ## 2026-11-02 batch retest of 6 developer-fixed bugs — 3 fixed, 2 still open, 1 regressed
 
 Developer reported BUG-CRX-116/125/127/128/130/131 fixed (not BUG-CRX-129, no fix commit found for it anywhere).

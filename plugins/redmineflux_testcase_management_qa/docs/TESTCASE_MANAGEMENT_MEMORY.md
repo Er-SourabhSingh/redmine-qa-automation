@@ -1687,3 +1687,14 @@
   (`MANUAL-NoCI-Demo-Run2` showed "2026-02-11 02:18 PM" there too), not just the Activity feed — same
   `format_date_string` root cause, additional confirmed surface, folded into the existing bug rather than filed
   separately.
+- **(2026-11-02) `CaseStatus.is_failure` is `false` for EVERY status except `Failed`** (`Untested`, `Passed`,
+  `Retest`, `Blocked`, `Skipped` all have `is_failure: false`) — any rollup code that increments a "pass" counter
+  on `is_failure == false` rather than checking `is_success == true` will silently count Untested/Blocked/Retest/
+  Skipped as passes. Confirmed as a real, live-reproducible defect in `RollupMath.automation_sources_overview`
+  (filed as **BUG-TCM-128**) — worth checking any OTHER rollup method in this file for the same `is_failure`-vs-
+  `is_success` confusion before assuming a given pass/fail split is correct.
+- **(2026-11-02) To toggle a project's `testcase_management` module on/off for a permission test, use
+  `project.enabled_module_names = project.enabled_modules.pluck(:name) - ['testcase_management']` then `+
+  ['testcase_management']` to restore** — always re-enable immediately after the check on a shared project; use a
+  low-traffic project (`compat-fresh` worked well) rather than the main `rftc-016-ci-qa` fixture project, to avoid
+  interfering with other suites' concurrent or later use of that project's TCM pages.

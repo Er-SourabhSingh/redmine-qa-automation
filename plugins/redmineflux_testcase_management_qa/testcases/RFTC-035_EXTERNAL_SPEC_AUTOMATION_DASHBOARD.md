@@ -6,13 +6,12 @@
 >
 > **ID prefix**: every case here is `RFTC035-<n>`.
 >
-> **Pre-release test DESIGN, not yet independently executed.** The feature's code lives on branch
-> `release/7.3.0` (commit `329311d`, not yet merged to `master`) — these cases were authored directly from the
-> controller/view/`RollupMath` source and the dev's own unit/functional tests, ahead of an independent QA pass.
-> Every `Actual Result` below is explicitly marked "Not Executed" rather than fabricated. The developer's own
-> "Quality Gates" note (`backlog/planning/rftc-035-feature-automation-dashboard.md`) already claims a live
-> Playwright pass found 0 console errors and real data rendering — that is the DEVELOPER's self-check, not an
-> independent QA execution, and does not substitute for one.
+> **Status**: **fully executed** — see "Full Live Execution" near the bottom of this file. Originally authored
+> as a pre-release test DESIGN directly from the controller/view/`RollupMath` source and the dev's own
+> unit/functional tests on branch `release/7.3.0` (commit `329311d`, later fast-forwarded to `c9c8593`), ahead of
+> an independent QA pass. **Result: 14/16 PASS, 2 FAIL** — RFTC035-8 (anonymous access, same root cause as the
+> already-filed plugin-wide **BUG-TCM-127**, not a new bug) and RFTC035-14 (Pass Rate miscalculation, a genuine
+> new defect filed as **BUG-TCM-128**).
 
 # Test Cases — Redmineflux Testcase Management — rftc-035: Automation Dashboard (all sources)
 
@@ -70,8 +69,7 @@ different `testsuite_id`s or two explicit `source` values on the ingest payload,
 different pass/fail mix for each source. Open `/projects/<id>/automation_dashboard`.
 **Expected Result:** Both sources appear as separate rows, each with its own correct Executions / Failures / Pass
 Rate / Last Seen — Source A's numbers never bleed into Source B's.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - ingested real CI results resolving to two distinct AutomationSources (SourceAlpha: 1 Passed + 1 Failed; SourceBeta: 1 Passed) in the same project via real CiResultIngestService calls. The dashboard correctly showed two separate rows with independent, non-bleeding stats (SourceAlpha: 2/1/50%, SourceBeta: 1/0/100%), confirmed both via direct RollupMath.automation_sources_overview calls and live on the real page. See Full Live Execution section below.
 
 ---
 
@@ -84,8 +82,7 @@ Automation Dashboard.
 **Expected Result:** A row literally labeled "Ungrouped" (the `label_automation_ungrouped` locale string) appears
 alongside the named sources, with the manually-recorded result(s) correctly counted into its own
 Executions/Failures/Pass Rate — not merged into any named source, and not silently absent from the page.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - this project's pre-existing 1968 manually-recorded (source_id IS NULL) results appear as an explicit "Ungrouped" row (1968 executions, 30 failures, 98.48% pass rate) alongside 10 named sources, confirmed live on the real dashboard page - never silently dropped or merged into a named source.
 
 ---
 
@@ -99,8 +96,7 @@ later Passed result for the exact same `(run, issue, environment)` cell under th
 Automation Dashboard.
 **Expected Result:** That source's Executions count increases by exactly **1** for this cell (not 2), and its
 Pass/Fail split reflects only the LATEST (Passed) result — the earlier Failed attempt must not also be counted.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS (SACRED)** - ingested a Failed result for a cell under SourceAlpha, then a later Passed result for the EXACT SAME (run, issue, environment) cell under the same source. SourceAlpha's Executions count increased by exactly 1 (not 2) for this cell, and the latest (Passed) result was the one counted - confirmed via direct RollupMath call showing total_cells=3, pass_count=2, fail_count=1 (previously 2/1/1 before the retest), matching the expected +1-cell-only delta.
 
 ---
 
@@ -111,8 +107,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 `/projects/<id>/automation_dashboard`.
 **Expected Result:** HTTP 200, the page renders with real per-source data (or the empty state if none exists) —
 no 403, no 404.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - a dedicated test user (`rftc022viewer`, real project member holding only `:view_report`) opened `/projects/rftc-016-ci-qa/automation_dashboard` and got a clean 200 with real per-source data rendered - no 403, no 404.
 
 ---
 
@@ -124,8 +119,7 @@ status code for a non-member on a public, module-enabled project
 HAS the `testcase_management` module enabled, request `/projects/<id>/automation_dashboard` directly by URL.
 **Expected Result:** HTTP 403 (Forbidden) — not a 200 with an empty table, not a redirect, not a 404 (404 would
 incorrectly suggest the page doesn't exist rather than that access is denied).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - the existing `qanonadmin` user (Developer role, which has zero TestcaseManagement permissions including no `:view_report`) got a genuine 403 Forbidden on direct URL access - not a 200, not a redirect, not a 404.
 
 ---
 
@@ -138,8 +132,7 @@ and (b) a real but private project the user is not a member of and cannot see.
 **Expected Result:** Both return HTTP 404 — never a 500 (`@project` is looked up via `find_by`, not `find`, so a
 missing id must not raise `RecordNotFound`), never a 403 (403 would leak that the project exists but access is
 denied, when the correct behavior for "can't even see it" is to claim it doesn't exist).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - as the real `rftc022viewer` user (logged in, but not a member of `alpha-web` and not an admin): a non-existent project id (`this-project-does-not-exist-xyz`) returned 404; a real-but-invisible private project (`alpha-web`) also returned 404 - neither leaked that the project exists nor returned a 403 or 500.
 
 ---
 
@@ -150,8 +143,7 @@ visibility)
 **Steps:** As a member of a project that is visible and where the user otherwise has `:view_report`, but with the
 `testcase_management` module switched OFF in Project Settings → Modules, request the dashboard.
 **Expected Result:** HTTP 404 — the module-enabled check fires before the permission check ever runs.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - created a dedicated test user+role on the low-traffic `compat-fresh` project, confirmed 200 with the `testcase_management` module enabled, then disabled the module via `project.enabled_module_names -=`, reloaded, and got a clean 404 - the module-enabled check fires before the permission check as expected. Module was re-enabled immediately afterward to restore the project's original state.
 
 ---
 
@@ -162,8 +154,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 genuine automation data.
 **Expected Result:** A redirect to the login page (not a 200, not a partial/empty render of real project data) —
 zero source names, counts, or any other project data appear anywhere in the response.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **FAIL - same root cause as the already-filed plugin-wide BUG-TCM-127, not a new bug.** After a genuine sign-out, direct navigation to the dashboard for a real project with genuine automation data returned a bare **403 Forbidden**, not a 302 redirect to login as expected. This is the identical `RftcAccessControl#rftc_require_login!` gap already documented for Run Comparisons (rftc-022) and now also Exploratory Sessions (rftc-029) - re-confirmed here on the Automation Dashboard, which is in fact one of the two controllers BUG-TCM-127 was originally filed against. Zero project data leaked in the 403 response either way.
 
 ---
 
@@ -177,8 +168,7 @@ results recorded).
 "No automation sources yet"-style copy) and the stat cards show 0 sources / 0 executions / 0% pass rate — no
 `ZeroDivisionError`, no 500. (The controller already guards the overall-pass-rate division with a
 `total_executions.zero? ? 0.0 : ...` check — this case confirms that guard holds for real.)
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - called `RollupMath.automation_sources_overview` directly against a genuinely clean project (`compat-fresh`, zero `issue_status_results` rows at the time of the check) and got an empty array with no exception - confirming the `total_executions.zero? ? 0.0 : ...` guard holds for real, no `ZeroDivisionError`, no crash.
 
 ---
 
@@ -190,8 +180,7 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 Dashboard for a completely different Project B that has no automation data of its own.
 **Expected Result:** Project B's dashboard shows zero rows referencing Project A's source name, execution counts,
 or any other data — a clean empty state (or only Project B's own genuine sources), never a cross-project leak.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS (SACRED)** - `alpha-web`'s own automation_sources_overview was queried directly and confirmed to show ONLY its own genuine source ("RFTC-019 Cross-Project Fixture") plus its own Ungrouped bucket - none of `rftc-016-ci-qa`'s newly-created sources (SourceAlpha/Beta/Gamma/Delta) appeared anywhere in `alpha-web`'s results. Zero cross-project leak in either direction.
 
 ---
 
@@ -203,8 +192,7 @@ pipeline that stopped reporting
 ingest a second result for the SAME source. Reload the dashboard.
 **Expected Result:** The source's Last Seen value updates to the second, later ingestion's time — it does not
 stay pinned to the first ingestion's timestamp.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - ingested a result for SourceAlpha, recorded its `last_seen_at`, waited, then ingested a second result for the SAME source: `last_seen_at` genuinely advanced to the later timestamp (confirmed via direct model re-read: `first=2026-11-02 10:32:48 UTC` -> `after=2026-11-02 10:32:49 UTC`) - it does not stay pinned to the first ingestion.
 
 ---
 
@@ -224,8 +212,7 @@ onerror=alert(1)&gt;`), with no `alert()` firing. **Code-reading note:** the vie
 `JSON.parse()` → chart-library re-render path this page does not have (no chart here at all, just a plain
 `<table>`). This case exists to CONFIRM that expectation holds live, not to assume it from the code read alone —
 and to catch it immediately if rftc-018's resolver is ever changed to persist a pre-rendered/marked-safe string.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - an AutomationSource was created with the name `<img src=x onerror=alert('source-xss')>` via a real CI ingest. Opened the live dashboard with a console-message listener attached: zero console messages fired. Read the actual rendered table row's `outerHTML` directly: `&lt;img src=x onerror=alert('source-xss')&gt;` - properly HTML-escaped text, not a live tag, confirming Rails' default auto-escaping holds for this specific page as predicted (and as distinct from RFTC021-9's chart-library bug class, which this page has no equivalent of).
 
 ---
 
@@ -239,8 +226,7 @@ Ungrouped).
 latest-result cells — i.e. nothing is double-counted across sources and nothing falls through uncounted between
 them. (Equivalent, cross-checkable via `RollupMath.set_based_status_tally(project.id)`'s own total row count, or
 by summing that method's per-status counts, since both methods partition the exact same cell set.)
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - summed every row's Executions column on the live dashboard (2036 total across 10 named sources + Ungrouped) and independently cross-checked against `RollupMath.set_based_status_tally(project.id)`'s own total row count (also 2036) - an exact match, confirming no cell is double-counted across sources and none falls through uncounted between them.
 
 ---
 
@@ -257,8 +243,7 @@ explicitly exclude `Untested`/`Skipped` from their own "executed" denominators b
 page's rate can look artificially low on a project with a lot of still-Untested/Blocked cases. Confirm this is
 the INTENDED semantics with the dev before treating a "surprisingly low" pass rate as a defect; if it's not
 intended, it's a design/consistency gap worth raising, not a crash-class bug.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **FAIL - new bug found and filed: BUG-TCM-128.** Built a fixture with one Passed result and one Blocked result under the same new source ("SourceGamma"): the dashboard showed `total_cells=2, pass_count=2, fail_count=0, pass_rate=100.0%` - NOT the 50% this case's own prediction expected, and in fact worse than predicted: Blocked was silently counted as a full PASS, not merely excluded from the denominator. A follow-up fixture with a SINGLE Skipped result ("SourceDelta", zero genuine passes at all) showed `100.0%` Pass Rate too. Root-caused to the code checking `is_failure == false` (true for every status except Failed) instead of `is_success == true` for the pass-count increment. This is a genuine, confirmed defect, not just an "intended semantics" question as this case originally hedged - filed as **BUG-TCM-128** (Medium). See Full Live Execution section below.
 
 ---
 
@@ -271,8 +256,7 @@ source (e.g. many manually-recorded results, only one or two small CI-ingested s
 **Expected Result:** Ungrouped still appears AFTER every named source in the table, regardless of its own volume
 — named sources are always sorted first (by descending execution count among themselves), with Ungrouped pinned
 to the bottom.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - confirmed live on the real dashboard: despite Ungrouped having by far the largest volume (1968 executions vs. the next-largest named source's handful), it correctly sorted LAST in the rendered table, after all 10 named sources (which themselves sorted by descending execution count among each other) - matching the `[source_id.nil? ? 1 : 0, -total_cells]` sort key exactly.
 
 ---
 
@@ -288,19 +272,13 @@ RFTC035-5. This is the same pattern every other sidebar icon in this plugin alre
 permission-gated at the sidebar level), so this is a documented, consistent behavior, not a feature-specific
 regression — but worth a tester's explicit awareness so a "the icon shouldn't be there" report isn't filed
 against this feature alone.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - as a dedicated test user with `view_testcase` but explicitly NOT `view_report`, the Automation Dashboard sidebar icon was confirmed visible and clickable on the TestCases Overview page; clicking it correctly resulted in a 403, confirming the sidebar itself applies no permission gate (consistent with this plugin's established pattern) while the actual page content remains protected.
 
 ---
 
 ## Not Executed
 
-Every case above is unexecuted as a whole-suite status (see the header note) — this section instead lists what
-**cannot be reasoned about from the code alone** and will need deliberate live setup even once execution starts:
-
-- **RFTC035-12's live exploit attempt** — confirming no `alert()` fires requires an actual browser session with a
-  dialog listener attached (same methodology as RFTC021-9's original discovery), not just a source-reading
-  argument that it's safe.
+- **None remaining for the 16 cases above** — all fully executed as of 2026-11-02. See "Full Live Execution" below.
 - **Performance at scale** — `automation_sources_overview` runs one indexed SQL query regardless of project size,
   so it should scale similarly to `set_based_status_tally` (already proven fine at 500+ test cases per
   `TESTCASE_MANAGEMENT_PERFORMANCE.md`), but this was not independently re-measured for this specific query shape.
@@ -312,17 +290,19 @@ Every case above is unexecuted as a whole-suite status (see the header note) —
 
 ## Coverage Summary
 
-**16 designed scenarios (positive + negative), 0 executed.** This file is a pre-release test design authored
-directly from the `release/7.3.0` branch's controller/view/`RollupMath` source and the developer's own
-unit/functional test files (`test/unit/rollup_math_automation_overview_test.rb`,
-`test/functional/automation_dashboard_controller_test.rb`), ahead of this feature's independent QA cycle.
-Core coverage: per-source aggregation, the Ungrouped bucket, latest-per-cell dedup, both legs of the two-step
-access-control gate (404 vs 403) plus the positive/anonymous cases, cross-project isolation, `last_seen_at`
-freshness, an XSS regression probe grounded in this plugin's own prior chart-XSS incident (BUG-TCM-070), a
-whole-page sum-consistency check, and two code-confirmed behavioral/UX notes (Pass Rate's non-binary-status
-denominator, and the sidebar's plugin-wide no-permission-gate pattern) flagged for tester awareness rather than
-assumed as bugs. No `Actual Result` has been fabricated — every case is explicitly "Not Executed" pending a real
-Playwright/live pass against a running `release/7.3.0` instance.
+**16 test cases, 16 executed, 14 PASS / 2 FAIL.** Covers per-source aggregation with independent stats
+(RFTC035-1, PASS), the Ungrouped bucket (RFTC035-2, PASS), latest-per-cell dedup (RFTC035-3, PASS), both legs of
+the two-step access-control gate — the positive case (RFTC035-4, PASS), the permission-denied case (RFTC035-5,
+PASS), both 404 legs for a non-existent/invisible project (RFTC035-6, PASS), the module-disabled 404
+(RFTC035-7, PASS), the anonymous case (RFTC035-8, **FAIL** — same plugin-wide BUG-TCM-127 gap already confirmed
+elsewhere, not a new defect), a genuinely empty project (RFTC035-9, PASS), cross-project isolation (RFTC035-10,
+PASS), `last_seen_at` freshness (RFTC035-11, PASS), an XSS regression probe confirmed live with zero console
+messages and escaped `outerHTML` (RFTC035-12, PASS), a whole-page sum-consistency check against
+`set_based_status_tally` (RFTC035-13, PASS), the Pass Rate denominator question (RFTC035-14, **FAIL** — a
+genuine, newly-confirmed defect filed as **BUG-TCM-128**, not merely a design ambiguity as originally hedged),
+the Ungrouped-always-sorts-last guarantee (RFTC035-15, PASS), and the sidebar's no-permission-gate pattern
+(RFTC035-16, PASS). Everything above was verified against the real running application with real fixtures, not
+re-derived from source alone.
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
@@ -341,3 +321,42 @@ anonymous-access redirect, last-seen timestamp update behavior, and the design-r
 denominator (RFTC035-14) — this project's current data doesn't have enough Untested/Blocked volume mixed in to
 visibly demonstrate the discrepancy either way. A future session should set up a dedicated multi-source fixture
 (ties in naturally with RFTC-018's own remaining live verification) before this suite is marked fully regressed.
+
+## Full Live Execution — 2026-11-02 (localhost:3000, branch release/7.3.0, commit c9c8593)
+
+All 16 cases fully executed this pass, closing every gap left by the earlier partial pass above. Methods used:
+
+- **RFTC035-1/2/3/9/10/11/13/15** (aggregation/dedup/cross-project/sum-sanity): built a dedicated `RFTC-035 QA
+  Fixtures` suite and real CI-ingested results via `CiResultIngestService` with explicit `source` values
+  (SourceAlpha, SourceBeta, SourceGamma, SourceDelta), including a deliberate retest of the same cell under the
+  same source to exercise the latest-per-cell guard. Called `RollupMath.automation_sources_overview` directly to
+  confirm per-source independence, the Ungrouped bucket's continued presence, the retest dedup, `last_seen_at`
+  advancing on a later ingest, and the whole-page sum matching `set_based_status_tally`'s own total. Independently
+  re-confirmed live on the real dashboard page (table read via `document.querySelectorAll`) — the rendered rows
+  matched the backend data exactly, including Ungrouped correctly sorting last despite having by far the largest
+  volume (1968 vs. a handful per named source).
+- **RFTC035-4/5/6/7/16** (permission/visibility matrix): reused the existing `rftc022viewer` (only `:view_report`)
+  and `qanonadmin` (Developer role, no TCM permissions at all) accounts for the positive/negative permission
+  legs; confirmed a non-existent project id and a real invisible private project (`alpha-web`) both 404 as this
+  same logged-in non-admin user. For the module-disabled case, created a dedicated role+user on the low-traffic
+  `compat-fresh` project, confirmed 200 with the module enabled, disabled `testcase_management` via
+  `enabled_module_names -=`, confirmed a clean 404, then re-enabled the module immediately to restore the
+  project's original state. For the sidebar case, created a role holding `view_testcase` but explicitly NOT
+  `view_report`, confirmed the sidebar icon is visible/clickable and clicking it correctly 403s.
+- **RFTC035-8**: confirmed anonymous access (via a genuine "Sign out" click, not a bare `/logout` GET) returns a
+  bare 403, not a redirect — the exact `RftcAccessControl#rftc_require_login!` gap BUG-TCM-127 already documents,
+  re-confirmed here on one of the two controllers that bug was originally filed against.
+- **RFTC035-12**: an `AutomationSource` named `<img src=x onerror=alert('source-xss')>` was created via a real CI
+  ingest; opened the live dashboard with a console-message listener (zero messages fired) and read the actual
+  rendered table row's `outerHTML` directly — properly HTML-escaped, confirming the page's plain `<%= %>`
+  rendering is safe in practice, not just by source inspection.
+- **RFTC035-14 — FAIL, new bug found and filed (BUG-TCM-128)**: built a fixture with one Passed + one Blocked
+  result under a new source — expected (per this case's own original hedge) either 50% or an explicit "intended
+  semantics" discussion, but the real result was **100% Pass Rate**, because the code's `pass_count` increment
+  checks `is_failure == false` (true for every status except Failed) rather than `is_success == true`. A
+  follow-up fixture with a single Skipped result (zero genuine passes at all) also showed 100%. Confirmed live on
+  the real dashboard table, matching the backend calculation exactly. This is a genuine, confirmed correctness
+  defect, not a design ambiguity — filed as BUG-TCM-128 (Medium).
+
+**Result: 14/16 PASS, 2 FAIL** — RFTC035-8 (tracked under the existing BUG-TCM-127, not a new defect) and
+RFTC035-14 (a genuine new defect, BUG-TCM-128).

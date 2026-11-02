@@ -488,6 +488,66 @@ warning-only during import, never enforced as a hard error — see the comment a
 
 ---
 
+## Post-import data integrity (added 2026-11-02)
+
+> The wizard's preview only says what *will* happen. These two cases check what was actually **saved**, by opening
+> the created test cases after the import finishes — the step the earlier cases above only mention in passing.
+
+---
+
+### TC-TCM-333: After an import, the saved test cases hold exactly the data in the CSV
+
+**User Role:** QA / Manager
+**Priority:** High
+**Precondition:** Any fixture from `automation/testdata/csv-test-data/`. Note the highest issue id in the project before importing.
+
+**Steps:**
+1. Import the fixture through the wizard (step 1 → 4) and press **Import**; wait for the redirect to the suites list.
+2. List the project's issues with id above the one noted in the precondition (the newly created test cases).
+3. For every row the preview did **not** mark Error, open the matching test case and compare **Subject**, **Description**,
+   and every saved **Step / Expected Result** pair with the CSV row. A step whose step text or expected text is blank
+   is skipped, and the surviving steps are numbered 1, 2, 3 … without gaps (TC-TCM-022, -025, -027).
+4. For every row the preview marked Error, confirm no test case with that subject exists.
+5. Confirm the number of new test cases equals the number of non-Error rows.
+
+**Expected Result:**
+- Subject, Description, step text and expected text are identical to the CSV (whitespace aside), with no truncation —
+  including 40000-character values (TC-TCM-276), unicode/emoji/newlines (TC-TCM-028), and rows with 0 to 50 steps.
+- Error rows create nothing; the created count equals the non-Error row count.
+- The order of the steps is checked separately in TC-TCM-334.
+
+**Status: EXECUTED 2026-11-02 — PASS (content).** release/7.3.0 @ `acda260`, PostgreSQL, Playwright MCP + the native spec
+(`TESTCASE_MANAGEMENT_CSV_IMPORT.spec.ts`). 191 test cases imported from fixtures 01–09, 12, 13, 15–17, 21, 22: Subject and
+Description identical to the CSV in all 191 (checked against the database), step text and expected text identical in every
+case, 100/100 checked on the 100-row file, the 40001-char row not created. The one step-level difference found was ordering, not
+content — see TC-TCM-334.
+
+---
+
+### TC-TCM-334: A test case shows its steps in the order they were saved (Step 1, Step 2, …)
+
+**User Role:** QA / Manager
+**Priority:** High
+**Precondition:** A **PostgreSQL**-backed instance. Fixtures with several steps per row: `02_zero_to_fifty_steps_range.csv`,
+`05_mixed_partial_per_row.csv`, `06_varying_step_counts_same_file.csv`.
+
+**Steps:**
+1. Import the fixtures through the wizard.
+2. Open every created test case that has two or more steps.
+3. Read the Step / Expected Result rows top to bottom and compare with the CSV row's step order (survivors renumbered).
+
+**Expected Result:**
+- The page shows the steps in the order they were saved, every time, for every case — "Step 1" always carries the first step's text
+  and its own expected result.
+
+**Status: EXECUTED 2026-11-02 — FAIL, intermittent. Filed as BUG-TCM-129 (High, open).** On a fresh PostgreSQL 16 install,
+`Issue has_many :steps` has no ORDER BY and the `steps` table has no position column, so the page follows the database's
+physical row layout. Seen on 3 of 871 cases with steps (#297, #386 — both 30 steps — and #888, only 2 steps: shows "Step 3"
+before "Step 1"); the same check on the restored `localhost:3000` PostgreSQL database found 1 of 2020 (#2748). Also reproduced on `release/7.2.0` @ `b1a6c79` (#350, 1 of 424). The test passed on the final native runs of both releases, which is what "intermittent" means here. TC-TCM-026 failed
+on 2 of 5 full runs of the native spec for the same reason. Not checked on MySQL.
+
+---
+
 ## Notes (non-bug observations)
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
@@ -658,6 +718,8 @@ code:
 | TC-TCM-036 | `14_duplicate_step_column_headers.csv` | Same duplicate-column warning banner text at step 2; 1 correct / 0 warnings / 0 errors at step 4; import completed | PASS |
 | TC-TCM-279 | `01_legacy_single_step_format.csv` + a fresh `QA Import Required Field` (required custom field, no column in the CSV) | 0 correct / 5 warnings / 0 errors; expanded row 1's detail and confirmed the exact warning text ("Required custom field 'QA Import Required Field' is missing or empty; importing without it."); import completed, all 5 cases (#2136–#2140) confirmed created via DB lookup; temp custom field deleted after | PASS |
 | TC-TCM-277 | (same fixture as TC-279, baseline content) | Same 0/5/0 pattern as the 2026-10-21 baseline re-check — no regression | PASS |
+| TC-TCM-333 | all of `01`–`09`, `12`, `13`, `15`–`17`, `21`, `22` (see the fixture list in `automation/testdata/csv-test-data/README.md`) | Data check after import — Subject/Description/steps compared with the CSV | — |
+| TC-TCM-334 | `02_zero_to_fifty_steps_range.csv`, `05_mixed_partial_per_row.csv`, `06_varying_step_counts_same_file.csv` | Steps shown out of saved order on PostgreSQL | BUG-TCM-129 |
 
 **The remaining 18 TCs in this suite** (TC-TCM-021–025, 026, 027, 028, 029, 030–034, 035, 037) were **not
 re-clicked through the wizard this pass** — re-confirmed instead via the code-unchanged check above, since every

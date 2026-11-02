@@ -128,9 +128,21 @@ export class ImportPage extends BasePage {
     return out;
   }
 
+  /** Raw saved Subject and Description (from the page's edit form, so no wiki rendering is involved) plus the displayed steps. */
+  async readCase(issueId: number): Promise<{ subject: string; description: string; steps: StepPair[] }> {
+    await this.goto(`/issues/${issueId}`);
+    const subject = await this.page.locator('#issue_subject').inputValue();
+    const description = (await this.page.locator('#issue_description').count()) ? await this.page.locator('#issue_description').inputValue() : '';
+    return { subject, description, steps: await this.displayedSteps() };
+  }
+
   /** Saved Step N / Expected Result pairs shown on the test case's own page, in display order. */
   async readSteps(issueId: number): Promise<StepPair[]> {
     await this.goto(`/issues/${issueId}`);
+    return this.displayedSteps();
+  }
+
+  private async displayedSteps(): Promise<StepPair[]> {
     return this.page.locator('#content .splitcontent').evaluateAll((blocks) =>
       blocks
         .map((b) => {

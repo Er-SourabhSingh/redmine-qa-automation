@@ -58,3 +58,31 @@ made along the way: the custom-field page object's checkbox locators (TC-TCM-279
 - Playwright MCP could not be used (server connection timed out), so the suite was run through the repo's own Playwright runner.
 - Open question not tested: on MySQL the column limit is 16777215, so the 40000-char fallback never applies there and a
   40001-char step may pass the preview; whether the import then rejects it was not checked.
+
+## Update — Playwright MCP regression, data check, and release/7.2.0 (same day, later)
+
+Two new test cases were added to the suite: **TC-TCM-333** (saved data equals the CSV) and **TC-TCM-334** (steps shown in saved
+order). Both are in the native spec, which now runs 23 TCs.
+
+| Build | Where | Native spec (`npx playwright test`) | Playwright MCP regression (22 fixtures, saved data compared with the CSV) |
+|---|---|---|---|
+| `release/7.3.0` @ `acda260` | fresh PostgreSQL 16, `localhost:3003` | **24 passed** (23 TCs + auth) | 191 cases created. Subject and Description identical to the CSV in all 191; step text/expected text identical, except one case whose steps came back in the wrong order (#888, BUG-TCM-129) |
+| `release/7.2.0` @ `b1a6c79` (pulled, up to date with origin) | fresh PostgreSQL 16, `localhost:3004` | **24 passed** | 191 cases created. Subject and Description identical in all 191; steps identical, except one case in the wrong order (#350, BUG-TCM-129) |
+
+- **Pull + migration on 7.2.0, as a customer would do it.** Plugin pulled to `b1a6c79`; migration `20261103000004` run in two database states:
+  (1) `steps.step/expected` already `text` (the state behind the step 4 crash) — migration ran on boot, nothing pending afterwards;
+  (2) the old `varchar(40000)` state — `rake redmine:plugins:migrate` converted both columns to `text`, the 40000-char step stayed intact,
+  and the migration is recorded as applied. After each, five fixtures (01, 06, 13, 21, 22) went through the wizard with step 4 returning 200,
+  and the 23 created cases matched the CSV (Subject, Description, steps).
+  **Result: the step 4 crash (`comparison of Integer with nil failed`) is fixed in release/7.2.0 at `b1a6c79`.**
+- **Before the fix (for the record):** the same wizard on the parent commit `a222104` returned HTTP 500 on step 4 for three files
+  (01, 13, 21), `testcase_import_controller.rb:426`, the same error as the customer's log. That commit was used once only to
+  reproduce; it is not part of the regression.
+- **BUG-TCM-129 (steps shown in the wrong order) is present in both releases.** 7.3.0 instance: 3 of 871 cases with steps (#297, #386,
+  #888); 7.2.0 instance: 1 of 424 (#350); restored `localhost:3000` database: 1 of 2020 (#2748). Both releases have the unordered
+  `has_many :steps`. TC-TCM-334 failed on some runs and passed on the final native runs of both builds — intermittent, as the bug describes.
+- The 20_all_columns_export_118789_redmine5.csv fixture (German headers) gives 25 "Subject cannot be blank" errors on both builds, as already
+  documented in TC-TCM-037; not a regression.
+- Playwright MCP was used for the regression runs above (it connected later in the session). Per CLAUDE.md §13 the official TC results are the
+  native `npx playwright test` runs; the MCP runs are an independent second pass with the same fixtures.
+- Not tested: MySQL with the new cases (TC-TCM-333/334); the MySQL preview of a 40001-char step.

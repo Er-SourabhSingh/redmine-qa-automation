@@ -6,7 +6,7 @@
 - Severity: High
 - Redmine version: 7.0 (Docker `redmine:7.0-bookworm`)
 - Plugin name: Redmineflux Testcase Management
-- Plugin version: branch `release/7.3.0`, commit `acda260` ("Fix CSV test case import crashing on PostgreSQL when steps have long text")
+- Plugin version: branch `release/7.3.0`, commit `acda260` (also `release/7.2.0`, commit `b1a6c79`) ("Fix CSV test case import crashing on PostgreSQL when steps have long text")
 - Environment: Docker `localhost:3003` (fresh install, PostgreSQL 16, project `pgtest`)
 - Browser: Chromium (Playwright automation suite)
 - User role: Administrator
@@ -35,6 +35,14 @@
   import suite on this instance, TC-TCM-026 failed on 2 (runs 2 and 3, with the same "Step 24" symptom) and passed on 3
   (runs 1, 4 and 5; it also passed when run alone). A case whose rows are already stored out of order stays that way:
   issue #386 still returns Step 24, Step 25, Step 1, Step 2 … on every read.
+- **Not limited to long cases.** Found again on 2026-11-02 with Playwright MCP, importing `05_mixed_partial_per_row.csv` on the same
+  instance: case #888 ("Mixed - missing step mid-sequence") has only 2 steps. Saved order (`ORDER BY id`) is Step 1, Step 3, but the
+  page shows "Step 3 action" first. Cases whose rows come back out of saved order on this instance: **3 of 871** with steps
+  (#297 and #386, both 30-step, and #888); on the restored `localhost:3000` PostgreSQL database: **1 of 2020** (#2748, 3 steps).
+  Found by comparing physical row order (`ctid`) with `id` order; read-only SQL.
+- **Also present in `release/7.2.0`** (`b1a6c79`, fresh PostgreSQL 16, `localhost:3004`): found with Playwright MCP importing
+  `05_mixed_partial_per_row.csv`, case #350 ("Mixed - fully paired, 3 steps") shows its steps out of saved order — 1 of 424 cases with
+  steps on that instance. Both releases carry the same unordered `has_many :steps` in `issue_patch.rb`.
 
 ## Root cause (confirmed)
 

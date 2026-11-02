@@ -40,6 +40,7 @@ async function importAndVerify(
   await imp.confirmImport();
   const created = await imp.findCreated(`~${fx.tag}`);
   const bySubject = new Map(created.map((c) => [c.subject, c.id]));
+  const descIdx = fx.header.findIndex((h) => h.trim().toLowerCase() === 'description');
 
   for (let i = 0; i < fx.rows.length; i++) {
     const id = bySubject.get(fx.subjects[i]);
@@ -50,7 +51,10 @@ async function importAndVerify(
     expect(id, `row ${i + 1} (${fx.subjects[i]}) should have been created`).toBeDefined();
     if (opts.verifySteps === false || (opts.sample && !opts.sample.includes(i))) continue;
     const want = expectedSteps(fx.header, fx.rows[i]);
-    const got = await imp.readSteps(id!);
+    const saved = await imp.readCase(id!);
+    expect(saved.subject, `row ${i + 1} subject`).toBe(fx.subjects[i]);
+    if (descIdx >= 0) expect(squash(saved.description), `row ${i + 1} description`).toBe(squash(fx.rows[i][descIdx] ?? ''));
+    const got = saved.steps;
     expect(got.length, `row ${i + 1} step count`).toBe(want.length);
     got.forEach((g, k) => {
       expect(g.step, `row ${i + 1} step ${k + 1}`).toBe(squash(want[k].step));
@@ -211,6 +215,26 @@ test.describe('CSV Import — 40000-char limit (BUG-TCM-079 / BUG-TCM-093, Postg
   test('TC-TCM-277 - short-content baseline import is unaffected by the column migration', async ({ page }) => {
     const { preview } = await importAndVerify(page, '01_legacy_single_step_format.csv');
     expect(preview).toMatchObject({ ok: 4, warnings: 1, errors: 0 });
+  });
+});
+
+test.describe('CSV Import — post-import data integrity', () => {
+  test('TC-TCM-333 - saved Subject, Description and step content equal the CSV after import', async ({ page }) => {
+    test.setTimeout(300_000);
+    // importAndVerify() opens every created case and compares Subject, Description, step text and expected text with its CSV row.
+    for (const name of ['01_legacy_single_step_format.csv', '13_special_characters_and_escaping.csv', '22_jira_zephyr_migration_long_expected.csv']) {
+      const { preview, created } = await importAndVerify(page, name);
+      expect(preview.errors, name).toBe(0);
+      expect(created.length, name).toBe(preview.rows.length);
+    }
+  });
+
+  test('TC-TCM-334 - every saved case shows its steps in the saved order (BUG-TCM-129)', async ({ page }) => {
+    test.setTimeout(600_000);
+    // No sample: every row of these files is opened, and the step list must equal the CSV's order (the comparison is position by position).
+    for (const name of ['05_mixed_partial_per_row.csv', '06_varying_step_counts_same_file.csv', '02_zero_to_fifty_steps_range.csv']) {
+      await importAndVerify(page, name);
+    }
   });
 });
 

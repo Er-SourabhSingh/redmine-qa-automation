@@ -40,3 +40,22 @@
 ## Duplicate check
 
 - Duplicate found: No — distinct from BUG-CRX-126 (that bug is about wrong time-entry ID resolution on Update; this bug is about the error MESSAGE shown once the correct entry is targeted and genuinely blocked). Both affect the same `Core Update Time Entry` tool but are independent defects with independent fixes.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed, different failure shape)
+
+Developer commit `cff5cd7` (new `Api::TimeEntryLocksController` + `GET /api/time_entries/:id/edit_lock`), MCP
+tool-layer commit `0fb02d7`, and crux-core commit `1e041a1` all pulled; containers restarted.
+
+Re-ran the original repro as `luna.blossom`: *"Please update my time entry on 2026-10-26 for the Crux PM Agent
+Test Project, issue #2, Customer Call activity (1.5 hours) to 2 hours instead."* The confirm card resolved to
+**Time Entry ID 1** (not luna's own entry) and, on Confirm, reported **"✓ Updated time entry #1."** — a false
+success. Verified natively: Week Oct26–Nov1's total for luna is still **1:30hr** (unchanged); the entry actually
+modified, `/time_entries/1/edit`, belongs to **Redmine Admin**, on **Bug #1** ("Fixture issue for time-tracking
+permission TC"), Technical Support activity — a completely different user/issue/activity than what was asked for,
+now sitting at 2:00. The original bug's repro (a misleading permission-style error on a *correctly* resolved,
+genuinely locked entry) was never reached, because the entry resolution itself picked the wrong record and
+reported success instead of surfacing any lock message at all. **Not fixed** — this is a regression in time-entry
+ID resolution overlapping BUG-CRX-126's territory, with an added false-success claim, not the wording fix this
+bug asked for. Recommend re-filing as a new/updated finding once BUG-CRX-126's resolution path is reviewed, since
+the lock-message wording this bug targets can no longer even be exercised while resolution itself is broken this
+way.

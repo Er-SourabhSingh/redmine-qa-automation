@@ -41,3 +41,25 @@
 ## Duplicate check
 
 - Duplicate found: No — this is a new, previously untested capability (Late Submission Unlock Queue visibility) with its own distinct failure (false "all clear" read, not a wrong-ID write or a missing-tool refusal like prior bugs this session).
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit `cff5cd7` (redmineflux_timesheet API — adds `late_unlock_queue` to `/api/admin_dashboard.json`),
+MCP tool-layer commit `0fb02d7` (formats that field into the `admin_dashboard` tool's text output), and crux-core
+commit `1e041a1` all pulled; `redmine`/`mcp`/`crux-core` containers restarted.
+
+Recreated the fixture fresh (prior session's fixture had since been resolved): as `luna.blossom`, logged 4h on
+2026-10-12 (Week 42) after temporarily raising `Allowed Past Days Timelog` 7→30 (admin), then attempted Submit —
+native result: *"Team submission failed: Retest Squad: Submission deadline has passed (Oct 19, 2026)."* Verified
+natively on `/admin_dashboard`: **1 overdue blocked submission**, Luna Blossom / Retest Squad, deadline Oct 19,
+**14 days overdue**.
+
+Asked the Time Agent (fresh chat, admin) the original repro question. Result improved but still wrong:
+*"The admin dashboard shows there is 1 pending submission currently in the queue, but the queue health report
+shows: Pending > 3 days: 0, Pending > 7 days: 0 ... This means there are no overdue blocked timesheet submissions
+... The Late Submission Unlock Queue is currently empty."* — the agent now sees the real submission count (1,
+up from the old "0 submissions" claim) but reads the wrong dashboard section (the generic "queue health" pending-
+duration counters) instead of the new `late_unlock_queue` array the fix actually added, and still concludes "empty"
+— still a false "all clear" against a genuinely non-empty queue. **Not fixed** — the underlying API data is now
+correct, but the agent's reasoning still lands on the wrong field. Reverted `Allowed Past Days Timelog` back to 7
+after this retest.

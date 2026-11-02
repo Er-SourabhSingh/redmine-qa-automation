@@ -38,3 +38,15 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause — this is the **same defect class as BUG-CRX-111** (MCP tool validation looser than native Redmine/plugin validation), applied to a new entity (Timesheet approval schema levels instead of project identifiers). Filed as a separate bug per this repo's convention of filing recurrences of an already-identified defect class on a new trigger path (see BUG-CRX-027, BUG-CRX-056/077, BUG-CRX-082, BUG-CRX-112, BUG-CRX-115 for the same pattern on other defect classes).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit `cff5cd7` (redmineflux_timesheet, `api/approval_schemas_controller.rb`) pulled, plus matching MCP
+tool-layer commit `0fb02d7` (redmineflux-mcp `src/tools/timesheet.py`) and crux-core commit `1e041a1`. All three
+repos pulled, `redmine`/`crux-core`/`mcp` containers restarted.
+
+Re-ran the exact repro: asked the Time Agent (fresh chat, admin) to create "Crux No-Level Schema Retest" with zero
+approval levels. The confirm card now shows no Level Roles row, and on Confirm the write is rejected server-side:
+*"Validation error: You must have at least one approval level. Correct the value(s) above and try again."* —
+verified natively on `/approval_schemas` immediately after: only the original 4 schemas exist, no bogus 0-level
+schema was created. This matches the native "New Schema" form's own validation exactly. **Confirmed fixed.**

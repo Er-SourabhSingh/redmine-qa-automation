@@ -2,6 +2,41 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## Retesting a developer fix — the fix can live in 3 separate repos, pull all 3 (2026-11-02)
+
+This plugin's "Ask Crux" chat behavior is split across **three independent git repos**, each its own Docker
+service, and a fix for one chat-level bug can land in any subset of them:
+- `plugins/redmineflux_timesheet` (and the other `plugins/redmineflux_*` folders) — the Rails plugin's own
+  `api/` controllers. Restart the `redmine` container to pick these up.
+- `services/redmineflux-mcp` — the MCP tool-layer (`src/tools/*.py`) that defines what the agent's tools return
+  and how they're worded. Restart the `mcp` container.
+- `services/redmineflux-crux-core` — the actual chat/LLM orchestration (`crux_core/askcrux/*.py`, routing,
+  confirm-card building). Restart the `crux-core` container.
+A single "BUG-CRX-NNN fixed" developer commit message can be misleading: check `git log --all --oneline --grep
+"BUG-CRX"` in **all three** repos before concluding a fix wasn't shipped — the API-only commit alone did nothing
+observable in chat for BUG-CRX-125 until the matching MCP + crux-core commits were also pulled and all three
+containers restarted. Even then, one bug (BUG-CRX-125) still reproduced afterward with an improved-but-still-wrong
+failure mode — pulling all three repos doesn't guarantee one ask-level finding is actually closed; always re-run
+the original repro in a **fresh chat** (old chat history keeps the stale answer) before marking fixed.
+
+## 2026-11-02 batch retest of 6 developer-fixed bugs — 3 fixed, 2 still open, 1 regressed
+
+Developer reported BUG-CRX-116/125/127/128/130/131 fixed (not BUG-CRX-129, no fix commit found for it anywhere).
+After pulling all 3 repos above and restarting all 3 containers, retested each in a fresh chat:
+- **FIXED**: BUG-CRX-116 (0-level schema now rejected server-side), BUG-CRX-128 (team-member role change resolves
+  name-only on first try), BUG-CRX-131 (per-submission audit log now accurate, matches native ground truth).
+- **STILL OPEN**: BUG-CRX-125 — the API now returns the real `late_unlock_queue` data and the agent now sees the
+  real submission count (1, not 0), but it reads the wrong dashboard section (generic "queue health" pending-
+  duration counters) and still concludes "empty." BUG-CRX-127 — the time-entry resolution itself now picks the
+  **wrong entry** (another user's, on an unrelated issue) and reports **false success**, so the original
+  misleading-error-wording repro can't even be reached; overlaps BUG-CRX-126's territory now.
+- **REGRESSED (worse)**: BUG-CRX-130 — the chat-level false refusal is gone, but admin's confirm now fails at the
+  **API layer** with a genuine `422 Validation error: Not authorised to approve at this level` for any submission
+  with rejection history — a backend regression, not just an agent-reasoning gap. This threatens TC-CRX-464's
+  earlier PASS coverage of admin's approve-bypass and needs its own regression check against a never-rejected
+  submission.
+Full retest narrative is in each bug's own `## Retest` section in `bugs/open/`.
+
 ## Standing instruction — cost efficiency (2026-10-26, explicit user request)
 
 While testing Ask Crux chat (any agent), watch for **redundant/excessive tool calls or multiple LLM round-trips for a single request** — this is a real, reportable cost-inefficiency defect in its own right, not just a side note, since every round-trip is billed against a shared, limited OpenRouter balance. Already-known instances of this pattern: **BUG-CRX-060** (5-6 LLM round-trips of tool-group discovery per turn before a token-budget cutoff, never reaching the real write tool) and **BUG-CRX-065** (10 wasted tool calls fetching issues one at a time instead of the one purpose-built list tool). When a *new* instance is found (a request that should be cheap but burns many calls/generations), file it as its own bug with the real `tool_calls`/generation count and cost pulled from `docker compose logs crux-core | grep cost_usd`, not just mentioned in passing.

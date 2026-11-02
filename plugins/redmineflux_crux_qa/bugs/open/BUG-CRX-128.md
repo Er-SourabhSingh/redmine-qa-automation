@@ -85,3 +85,16 @@ capability exists, with no single consistent error message pointing at a real, a
   failure modes, including one flat (and false) denial that the capability exists at all when explicitly pinned to
   the Time Agent. Kept separate per the one-bug-per-concrete-finding convention, since the root causes (routing,
   domain misread, tool-discovery failure) are independent of the wrong-value resolution bugs.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits pulled: redmineflux-mcp `0fb02d7`, crux-core `1e041a1`/`3812e0f` (Time Agent routing + team-member
+role update fixes). Containers restarted.
+
+Re-ran as `admin`, pinned to Time Agent: *"In the 'Crux Team Test' team, please change Selene Frost's role to
+Developer."* — single attempt, first try. Confirm card resolved correctly: `Team: Crux Team Test`, `User: 23`,
+`Role: Developer` (team and role both resolved by name alone, no numeric ID required from the user). On Confirm:
+*"✓ Member updated — Selene Frost in team #4: role=Developer, can_approve_leave=False, manage_workload=False"* —
+verified natively on `/timesheet/teams/4`: Selene Frost's row now shows **Developer**. **Confirmed fixed.** Role
+reverted back to Manager afterward via native Edit (cleanup, since other suite fixtures depend on her being the
+team's Manager-level approver).

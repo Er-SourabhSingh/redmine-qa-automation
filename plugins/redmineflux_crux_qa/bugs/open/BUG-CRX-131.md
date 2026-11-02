@@ -81,3 +81,17 @@ only the chat retrieval of it is broken).
   convention. Also directly relevant to this suite's TC-CRX-441 (audit log honesty) and TC-CRX-466 (BUG-CRX-046
   regression check) — the underlying data gap from BUG-CRX-046 appears fixed, but this new retrieval-accuracy
   defect replaces it as the active blocker for both TCs.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit `ca1f81b` (redmineflux_timesheet, `api/audit_logs_controller.rb` + `timesheet_submissions_controller.rb`
+— per-submission audit log endpoint), MCP tool-layer commit `9f477f2`, and crux-core commit `3812e0f` all pulled;
+containers restarted.
+
+Tested on a real, currently-existing submission with 2 genuine audit entries (#12 — Submit by Serenity Bloom
+2026-11-02 09:09:13, Approve by Selene Frost 09:10:17 — confirmed natively on `/audit_logs` beforehand). Asked
+the Time Agent: *"Show me the audit log for timesheet submission #12 - who changed it and when?"* — response
+correctly named Submitted by: Serenity Bloom, Project, Period, Current status: Approved, and the timeline
+correctly states both real events — *"submitted on 2026-11-02 at 09:09 and approved less than a minute later"*
+by Selene Frost at Level 1/1 — matching the native audit log exactly, no fabricated or missing entries. **Confirmed
+fixed.**

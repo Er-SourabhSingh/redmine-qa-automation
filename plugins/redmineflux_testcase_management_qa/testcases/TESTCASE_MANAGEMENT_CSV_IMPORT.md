@@ -543,8 +543,28 @@ content — see TC-TCM-334.
 **Status: EXECUTED 2026-11-02 — FAIL, intermittent. Filed as BUG-TCM-129 (High, open).** On a fresh PostgreSQL 16 install,
 `Issue has_many :steps` has no ORDER BY and the `steps` table has no position column, so the page follows the database's
 physical row layout. Seen on 3 of 871 cases with steps (#297, #386 — both 30 steps — and #888, only 2 steps: shows "Step 3"
-before "Step 1"); the same check on the restored `localhost:3000` PostgreSQL database found 1 of 2020 (#2748). Also reproduced on `release/7.2.0` @ `b1a6c79` (#350, 1 of 424). The test passed on the final native runs of both releases, which is what "intermittent" means here. TC-TCM-026 failed
+before "Step 1"); the same check on the restored `localhost:3000` PostgreSQL database found 1 of 2020 (#2748). Also reproduced on `release/7.2.0` @ `b1a6c79` (#350, 1 of 424). And on `master` @ `983556e` (#390). The test passed on the final native runs of both releases, which is what "intermittent" means here. TC-TCM-026 failed
 on 2 of 5 full runs of the native spec for the same reason. Not checked on MySQL.
+
+---
+
+### TC-TCM-335: Estimated time, % Done, Start date and Due date columns are saved on import
+
+**User Role:** QA / Manager
+**Priority:** Medium
+**Precondition:** `automation/testdata/csv-test-data/25_estimated_time_and_done_ratio.csv` (Title, Description, Priority, Start date, Due date, Estimated time, % Done).
+
+**Steps:**
+1. Import the fixture through the wizard (step 2: accept the auto-mapping; step 1 date format stays MM/DD/YYYY, as the file uses it).
+2. After the import, open each created test case.
+3. Compare Start date, Due date, Estimated time and % Done with the CSV row.
+
+**Expected Result:**
+- Start date, Due date, Estimated time (2.5 h, 9 h, 1.5 h) and % Done (40, 75, 10) equal the CSV.
+
+**Status: EXECUTED 2026-11-02 — FAIL, filed as BUG-TCM-132 (Medium, open).** On `master` @ `983556e` (fresh PostgreSQL, `localhost:3005`) Start date,
+Due date and Priority are saved, but every case has no Estimated time and 0% Done; the preview reported 3 OK / 0 warnings. The same code is in
+`release/7.2.0` and `release/7.3.0`. Also seen on the 500-row export `18_all_columns_export_118789.csv` (no case got an estimated time).
 
 ---
 
@@ -720,6 +740,7 @@ code:
 | TC-TCM-277 | (same fixture as TC-279, baseline content) | Same 0/5/0 pattern as the 2026-10-21 baseline re-check — no regression | PASS |
 | TC-TCM-333 | all of `01`–`09`, `12`, `13`, `15`–`17`, `21`, `22` (see the fixture list in `automation/testdata/csv-test-data/README.md`) | Data check after import — Subject/Description/steps compared with the CSV | — |
 | TC-TCM-334 | `02_zero_to_fifty_steps_range.csv`, `05_mixed_partial_per_row.csv`, `06_varying_step_counts_same_file.csv` | Steps shown out of saved order on PostgreSQL | BUG-TCM-129 |
+| TC-TCM-335 | `25_estimated_time_and_done_ratio.csv` | Estimated time and % Done dropped on import | BUG-TCM-132 |
 
 **The remaining 18 TCs in this suite** (TC-TCM-021–025, 026, 027, 028, 029, 030–034, 035, 037) were **not
 re-clicked through the wizard this pass** — re-confirmed instead via the code-unchanged check above, since every

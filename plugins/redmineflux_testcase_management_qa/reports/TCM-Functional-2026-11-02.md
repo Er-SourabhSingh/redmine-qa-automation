@@ -86,3 +86,23 @@ order). Both are in the native spec, which now runs 23 TCs.
 - Playwright MCP was used for the regression runs above (it connected later in the session). Per CLAUDE.md §13 the official TC results are the
   native `npx playwright test` runs; the MCP runs are an independent second pass with the same fixtures.
 - Not tested: MySQL with the new cases (TC-TCM-333/334); the MySQL preview of a 40001-char step.
+
+## Update — master, and a check of every imported column (same day, later)
+
+- **`master` @ `983556e`** (pulled, fast-forward `7350d40..983556e`, up to date with origin; contains the step 4 fix commit and migration
+  `20261103000004`). Fresh PostgreSQL 16, `localhost:3005`. Native spec: **24 passed** (23 TCs + auth) — before TC-TCM-335 was added.
+  The step 4 crash does not occur on master.
+- **Playwright MCP regression on master, verified in the UI:** for each created case the page was opened and Subject, Description (raw
+  text from the edit form), Priority and every Step / Expected Result pair were compared with the CSV. Fixtures 01–09, 12, 13, 15–17, 21, 22
+  (about 190 cases): all match, except **#390** (from the 100-row file) whose steps came back in the wrong order — BUG-TCM-129 again.
+  Fixture 21: the 40001-char row is rejected with the 40000-limit message; fixture 22: 5k/15k/35k texts saved without truncation.
+- **Priority** was also compared on the 7.2.0 instance (191 cases): Normal→Normal 151, High→High 38, Low→Low 2, all equal to the CSV.
+- **Every mapped column of the all-columns exports.** `19_all_columns_export_118789_redmine6.csv` imported (5 cases): Subject, Priority and Start date
+  match the CSV. `18_all_columns_export_118789.csv` imported with Windows-1252 (500 cases; 55 opened — every 10th row plus every row that has a date or hours):
+  Subject, Priority, Start date and Due date match (the page appends "(about 2 months late)" to an overdue Due date; the date itself is the CSV's).
+  **Estimated time is not saved: none of the 500 cases has one** although some rows carry "9.00" or "56.00" — **BUG-TCM-132** (Medium). Confirmed with a
+  3-row fixture (`25_estimated_time_and_done_ratio.csv`): estimated hours NULL and % Done 0 for all three; dates and priority saved. New test case **TC-TCM-335**.
+- Test-setup notes: with the Date format set to YYYY-MM-DD both exports get "Invalid date format for start date '09/11/2026'" errors, which is correct, because
+  the files use MM/DD/YYYY; the default format is the right one for these fixtures.
+- Not covered: the `18` export's Status/Category/Target version/Private columns and `% Done` (not auto-mapped in these files) were not value-checked;
+  MySQL not tested on master.

@@ -129,11 +129,20 @@ export class ImportPage extends BasePage {
   }
 
   /** Raw saved Subject and Description (from the page's edit form, so no wiki rendering is involved) plus the displayed steps. */
-  async readCase(issueId: number): Promise<{ subject: string; description: string; steps: StepPair[] }> {
+  async readCase(issueId: number): Promise<{ subject: string; description: string; steps: StepPair[]; startDate: string; dueDate: string; estimatedTime: string; doneRatio: string }> {
     await this.goto(`/issues/${issueId}`);
     const subject = await this.page.locator('#issue_subject').inputValue();
     const description = (await this.page.locator('#issue_description').count()) ? await this.page.locator('#issue_description').inputValue() : '';
-    return { subject, description, steps: await this.displayedSteps() };
+    const shown = async (sel: string) => ((await this.page.locator(sel).count()) ? ((await this.page.locator(sel).first().textContent()) ?? '').replace(/\s+/g, ' ').trim() : '');
+    return {
+      subject,
+      description,
+      steps: await this.displayedSteps(),
+      startDate: await shown('.issue .start-date .value'),
+      dueDate: await shown('.issue .due-date .value'),
+      estimatedTime: await shown('.issue .estimated-hours .value'),
+      doneRatio: await shown('.issue .progress .percent'),
+    };
   }
 
   /** Saved Step N / Expected Result pairs shown on the test case's own page, in display order. */

@@ -43,6 +43,8 @@
 - **Also present in `release/7.2.0`** (`b1a6c79`, fresh PostgreSQL 16, `localhost:3004`): found with Playwright MCP importing
   `05_mixed_partial_per_row.csv`, case #350 ("Mixed - fully paired, 3 steps") shows its steps out of saved order — 1 of 424 cases with
   steps on that instance. Both releases carry the same unordered `has_many :steps` in `issue_patch.rb`.
+- **Also present on `master`** (`983556e`, fresh PostgreSQL 16, `localhost:3005`): case #390 from `09_large_bulk_import_100_rows.csv` shows its steps
+  out of saved order (first step displayed: "Step 3 for case 16"). So all three branches (master, 7.2.0, 7.3.0) are affected.
 
 ## Root cause (confirmed)
 

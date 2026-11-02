@@ -238,6 +238,34 @@ test.describe('CSV Import — post-import data integrity', () => {
   });
 });
 
+test.describe('CSV Import — schedule columns', () => {
+  /** 'h:mm' or decimal hours, with or without a trailing ' h', as hours. */
+  const hours = (text: string) => {
+    const m = text.match(/(\d+):(\d{2})/);
+    return m ? Number(m[1]) + Number(m[2]) / 60 : parseFloat(text);
+  };
+
+  test('TC-TCM-335 - Estimated time, % Done, Start date and Due date are saved on import (BUG-TCM-132)', async ({ page }) => {
+    const imp = new ImportPage(page, projectId);
+    const fx = loadFixture('25_estimated_time_and_done_ratio.csv', tag());
+    const preview = await imp.previewOf(fx.file);
+    expect(preview.errors).toBe(0);
+    await imp.confirmImport();
+    const created = await imp.findCreated(`~${fx.tag}`);
+    const bySubject = new Map(created.map((c) => [c.subject, c.id]));
+    const col = (name: string) => fx.header.indexOf(name);
+    for (let i = 0; i < fx.rows.length; i++) {
+      const row = fx.rows[i];
+      const saved = await imp.readCase(bySubject.get(fx.subjects[i])!);
+      expect(saved.estimatedTime, `row ${i + 1} estimated time was not saved (CSV ${row[col('Estimated time')]})`).not.toBe('');
+      expect(hours(saved.estimatedTime), `row ${i + 1} estimated time (CSV ${row[col('Estimated time')]})`).toBeCloseTo(hours(row[col('Estimated time')]), 2);
+      expect(saved.doneRatio, `row ${i + 1} % done`).toBe(`${row[col('% Done')]}%`);
+      if (row[col('Start date')]) expect(saved.startDate, `row ${i + 1} start date`).toBe(row[col('Start date')]);
+      if (row[col('Due date')]) expect(saved.dueDate.startsWith(row[col('Due date')]), `row ${i + 1} due date (${saved.dueDate})`).toBe(true);
+    }
+  });
+});
+
 test.describe('CSV Import — required custom field', () => {
   const CF = `QA Import Required ${RUN}`;
 

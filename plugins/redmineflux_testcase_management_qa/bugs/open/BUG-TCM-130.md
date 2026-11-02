@@ -1,7 +1,7 @@
 # BUG-TCM-130
 
 - Bug ID: BUG-TCM-130
-- Production Redmine Issue ID: <!-- not yet reported — found this session, confirm scope before reporting -->
+- Production Redmine Issue ID: #127376 — "BUG-TCM-130: Quality HQ takes 5-21 seconds and issues 1,600-6,500 SQL queries per page load", assigned Vaishnavi Bhawsar, Target Version "Testcase Management plugin Release 7.3.0"
 - Title: Quality HQ (`/quality_hq`) takes 5–21 seconds and issues 1,600–6,500 SQL queries per page load — the "Most Failed"/"Slow Tests"/"Flaky Tests" panels are recomputed live, uncached, on every request
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

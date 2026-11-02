@@ -1,7 +1,7 @@
 # BUG-TCM-131
 
 - Bug ID: BUG-TCM-131
-- Production Redmine Issue ID: <!-- not yet reported — found this session, confirm scope before reporting -->
+- Production Redmine Issue ID: #127377 — "BUG-TCM-131: Requirements page's \"get all testcases\" endpoint ignores its own limit parameter, freezing the UI", assigned Vaishnavi Bhawsar, Target Version "Testcase Management plugin Release 7.3.0"
 - Title: Requirements page's "get all testcases" endpoint ignores its own `limit` parameter — fetches and synchronously serializes EVERY testcase/feature-tracker issue in the project on every page load, freezing the UI
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

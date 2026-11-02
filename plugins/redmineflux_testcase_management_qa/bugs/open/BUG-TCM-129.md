@@ -1,7 +1,7 @@
 # BUG-TCM-129
 
 - Bug ID: BUG-TCM-129
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127375 — "BUG-TCM-129: A test case's steps are shown in scrambled order on PostgreSQL", assigned Vaishnavi Bhawsar, Target Version "Testcase Management plugin Release 7.3.0"
 - Title: A test case's steps are shown in scrambled order on PostgreSQL — `Issue has_many :steps` has no ORDER BY and the `steps` table has no position column, so the page follows the database's physical row layout, not the order the steps were saved
 - Severity: High
 - Redmine version: 7.0 (Docker `redmine:7.0-bookworm`)

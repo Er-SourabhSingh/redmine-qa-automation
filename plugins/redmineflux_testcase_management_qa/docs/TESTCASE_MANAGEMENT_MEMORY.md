@@ -1662,3 +1662,28 @@
   `'blocked'`/`'skipped'`/`'retest'`/`'error'`) — passing the `CaseStatus` display-cased name (`'Passed'`) fails
   with "Unknown or unavailable CI status" since `default_status_for` matches on the literal lowercase string, not
   case-insensitively.
+- **(2026-11-02) `TestcaseSessionsController` mixes TWO different access-control mechanisms, and the project-level
+  one wins for every action, not just read-only ones** — `authorize_session_project_access` (wrapping
+  `rftc_authorize_project_read!` → `rftc_require_login!`) runs as a `before_action` for ALL actions
+  (`index`/`show`/`new`/`create`/`edit`/`update`/`destroy`/`close`/`add_note`), while the 4 action-specific
+  permission checks (`authorize_create_session`/`edit`/`delete`/`close_session`) use Redmine's own `deny_access`
+  helper and only apply to their own narrower action list. Since the project-level check runs first, an anonymous
+  user hits the plugin's 403-not-redirect gap (BUG-TCM-127) on literally every route of this controller, never
+  reaching the `deny_access` path at all — don't assume a controller using `deny_access` anywhere is exempt from
+  BUG-TCM-127 without checking which `before_action` actually runs first for the anonymous case.
+- **(2026-11-02) A non-member of a PRIVATE project correctly gets 404 (not 403, not a redirect) from
+  `rftc_authorize_project_read!`** — `Project.visible?(User.current)` is false for a non-member on a private
+  project, so `rftc_authorize_project_read!` returns "not found" rather than "forbidden." This is the CORRECT,
+  leak-safe behavior and is a separate code path from the anonymous-user case (BUG-TCM-127); don't conflate the
+  two when writing an anonymous-vs-non-member test case — they currently produce different (and differently
+  correct/incorrect) results.
+- **(2026-11-02) This plugin's TCM-specific "Overview" page is `test_suites#releases`
+  (`/test_suites/releases?project_id=...`, reached via the TestCases sidebar's own "Overview" link), NOT
+  Redmine's core `/projects/:id` project-show page** — the latter has no TCM content at all (no Sessions block,
+  no Test Runs block). Any spec doc or test case referring to "the project Overview page" for a TCM feature means
+  this plugin-specific page, confirmed by directly checking both URLs when RFTC029-24 initially found no
+  "Sessions" text on the core page.
+- **(2026-11-02) BUG-TCM-126's date month/day-swap bug also affects the project Overview's "To Do" widget**
+  (`MANUAL-NoCI-Demo-Run2` showed "2026-02-11 02:18 PM" there too), not just the Activity feed — same
+  `format_date_string` root cause, additional confirmed surface, folded into the existing bug rather than filed
+  separately.

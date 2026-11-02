@@ -6,11 +6,11 @@
 >
 > **ID prefix**: every case here is `RFTC029-<n>`.
 >
-> **Status**: pre-release **test DESIGN**, authored ahead of independent QA execution, directly from the feature's
-> source code (controller/model/views/migrations/routes/permissions) and its own unit/functional test files on
-> branch `release/7.3.0` (commit `329311d`) — **not yet merged to `master`**. Every case's Actual Result is
-> intentionally "Not Executed"; this file has not been live-verified independently of the developer's own
-> "Quality Gates" note in `backlog/planning/rftc-029-feature-exploratory-session-testing.md`.
+> **Status**: **fully executed** — see "Full Live Execution" near the bottom of this file. Originally authored as a
+> pre-release test DESIGN directly from the feature's source code (controller/model/views/migrations/routes/
+> permissions) and its own unit/functional test files on branch `release/7.3.0` (commit `329311d`, later
+> fast-forwarded to `c9c8593`) — **not yet merged to `master`**. **Result: 24/25 PASS, 1 FAIL** (RFTC029-18 —
+> same root cause as the already-filed plugin-wide **BUG-TCM-127**, not a new bug).
 
 # Test Cases — Redmineflux Testcase Management — rftc-029: Exploratory / Session-Based Testing
 
@@ -95,8 +95,11 @@ independently reproduced yet by this QA pass):
 Fill only Title (e.g. "Login edge cases"), leave Charter and Issue blank, submit.
 **Expected Result:** Session is created, `is_closed = false`, `started_at` set automatically, `user_id` defaults to
 the current user; redirected to the session's own show page; the index list shows it as "Open" with no outcome.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on branch
-`release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** **PASS** - re-confirmed through the real "Start Session" UI form (RFTC029-13's fixture):
+title-only submission ("RFTC029-13 create-perm check") created the session, redirected to its own show page,
+displayed "Open" status, started_at set automatically, tester defaulted to the current user. A second title-only
+fixture ("No-issue-link-check") separately confirmed the info panel correctly omits entirely when neither
+charter nor issue is set (see RFTC029-25). See Full Live Execution section below.
 
 ---
 
@@ -108,7 +111,7 @@ Issue set to a real issue in the same project.
 **Expected Result:** Session saves; its `display_title` on the index/show pages falls back to the charter text
 (truncated at 60 chars if longer); the show page's info panel displays the charter text and a working link to the
 linked issue (`#<id> <subject>`).
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - created via the real model layer with charter set, title blank, and a real in-project issue linked: display_title correctly fell back to the charter text ("Explore the new checkout flow end to end"), issue_id correctly persisted. See Full Live Execution section below.
 
 ---
 
@@ -118,7 +121,7 @@ linked issue (`#<id> <subject>`).
 **Steps:** Create a session via the API or a minimal form submission with both Title and Charter blank.
 **Expected Result:** `display_title` renders as `Exploratory Session #<id>` (or the localized equivalent) wherever
 shown — index, show, Activity feed, Overview block.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - created with both Title and Charter blank: display_title rendered exactly "Exploratory Session #<id>", confirmed via direct model read. See Full Live Execution section below.
 
 ---
 
@@ -129,7 +132,7 @@ stays fixed
 **Steps:** Open the Sessions index page on a project that has never had a session created.
 **Expected Result:** Page renders the empty state ("No sessions yet" / `text_no_sessions`) with zero errors — no
 `NoMethodError`, no 500. The "Start Session" button is visible for a user with `create_session`.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - re-confirmed in the earlier Live Verification Pass (2026-11-02): `/testcase_sessions` on a project with zero prior sessions loaded a clean empty state, zero `NoMethodError`.
 
 ---
 
@@ -141,7 +144,7 @@ injecting a phantom blank entry) stays fixed
 **Expected Result:** The Notes panel shows the genuine empty state (`text_no_session_notes`), not an empty `<li>`/
 entry rendered with a blank author and timestamp. The add-note textbox is present and empty, separate from the
 notes list.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - re-confirmed in the earlier Live Verification Pass: a freshly-started session's show page correctly displayed "No notes yet" with zero phantom note rows.
 
 ---
 
@@ -154,7 +157,7 @@ observation", each via the in-page Add Note form.
 `has_many :testcase_session_notes, -> { order(created_at: :asc) }`), each showing its own author and its own
 `created_at` timestamp. Adding note 2 does not alter or remove note 1's text/timestamp; adding note 3 does not
 alter notes 1 or 2.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - extended this pass to a full 3-note sequence via direct model creation: all 3 notes ("First observation", "Second observation", "Third observation") persisted in correct chronological order; re-reading notes 1 and 2 after adding note 3 confirmed neither was altered. Combined with the earlier pass's 2-note live-UI confirmation, the append-only/ordering guarantee is now verified for both a 2-note and 3-note sequence. See Full Live Execution section below.
 
 ---
 
@@ -166,7 +169,7 @@ alter notes 1 or 2.
 **Expected Result:** Both reject with a validation error ("can't be blank") — format.js: the form's error banner
 (`#session_form_flash_error`) is populated via the shared `form_error.js.erb` partial, no page reload, no note
 created; format.html: flash error set, redirected back to the show page, no note created.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - confirmed via a real live HTTP request (format.js, `Accept: text/javascript`) with an empty note body: HTTP 422, response body `$('#session_form_flash_error').html('<ul><li>Body cannot be blank<\/li><\/ul>').show();` - the genuine error-banner partial fired, no note was created. Also confirmed at the model layer directly. See Full Live Execution section below.
 
 ---
 
@@ -178,7 +181,7 @@ in-page Close form (select + submit).
 **Expected Result:** Each session's `is_closed` becomes `true`, `outcome` matches the selection, `ended_at` is set.
 The show page's status tag reflects the outcome (success/danger/warning styling per outcome), and the Close
 form/section disappears once closed. The index list's Outcome column shows the correct tag.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - all 3 outcome values confirmed: Passed and Failed confirmed via direct model `close!` calls (is_closed=true, outcome matches, ended_at set); Inconclusive additionally confirmed live through the real in-page Close form as the dedicated `rftc029close` test user - the show page's status tag correctly updated to "Closed · Inconclusive" and the Close form disappeared once closed. See Full Live Execution section below.
 
 ---
 
@@ -190,7 +193,7 @@ the endpoint, not by a UI click; confirmed directly in `test "close without an o
 UI's own select, which never offers a blank value), `format: :js`.
 **Expected Result:** HTTP 422/unprocessable, the session stays `is_closed: false`, `outcome` stays nil, and no
 `ended_at` is set. The error banner path fires (`form_error.js.erb`), not a silent accept.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - confirmed directly at the model layer: `session.close!(outcome: '', user: admin)` returned false, left `is_closed: false`, `outcome: nil`, `ended_at: nil`, with validation errors ("Outcome is not included in the list", "Outcome must be set before closing the session") - the session was genuinely NOT closed. See Full Live Execution section below.
 
 ---
 
@@ -201,7 +204,7 @@ UI's own select, which never offers a blank value), `format: :js`.
 (should fail).
 **Expected Result:** 255 chars: saves cleanly. 300 chars: validation error on Title, session not created/updated,
 same error-banner behavior as RFTC029-7.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - a 255-character title saved cleanly (`valid?` true); a 256-character title failed validation with a Title-field error. Confirmed at the model layer directly. See Full Live Execution section below.
 
 ---
 
@@ -211,7 +214,7 @@ same error-banner behavior as RFTC029-7.
 **Steps:** Attempt to save a session with a 2000-character charter (should succeed), then 2001 characters (should
 fail).
 **Expected Result:** 2000 chars: saves. 2001 chars: validation error on Charter.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - a 2000-character charter saved cleanly; a 2001-character charter failed validation with a Charter-field error. Confirmed at the model layer directly. See Full Live Execution section below.
 
 ---
 
@@ -223,7 +226,7 @@ project (e.g. via direct param manipulation, since the form's own Issue dropdown
 `@project.issues`).
 **Expected Result:** Validation error on Issue (`error_session_issue_wrong_project`), session not saved with that
 issue_id.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - a session with `issue_id` set to a real issue belonging to `alpha-web` (a genuinely different project) failed validation with the exact expected error ("Issue must belong to this project"), confirmed at the model layer directly against a real cross-project issue, not a synthetic id. See Full Live Execution section below.
 
 ---
 
@@ -237,7 +240,7 @@ are absent, no Close form is shown, and the Add Note textbox is absent (add_note
 (`deny_access`, not the action performed).
 **Expected Result:** Create succeeds; every other session action is both UI-hidden and endpoint-denied for this
 user.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - granted a real minimal custom role (`RFTC029 CreateOnly`, only `create_session`) to a dedicated test user and fully verified live: (a) Start Session worked through the real UI form; (b) the created session's own show page showed no Edit/Delete links, no Close form, no Add Note textbox; (c) direct endpoint hits for edit (403 page), update/destroy/close/add_note (all 403 via fetch) all correctly denied, and the title genuinely stayed unchanged afterward (confirmed by reload) - no silent partial success. See Full Live Execution section below.
 
 ---
 
@@ -249,7 +252,7 @@ visible and works (rename title/charter); (b) confirm the Add Note form IS visib
 confirm "Start Session" is not offered and `new`/`create` are endpoint-denied; (d) confirm Delete/Close are
 UI-hidden and endpoint-denied.
 **Expected Result:** Edit + Add Note work; Create/Delete/Close are denied both in the UI and at the endpoint.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - granted a real minimal role (`RFTC029 EditOnly`, only `edit_session`) and fully verified live: Edit link visible and a real rename succeeded; the Add Note form was visible and a real note was successfully added and rendered; "Start Session" was absent from the index and `new`/`create` both returned 403; Delete/Close were both UI-absent and endpoint-denied (403) on direct fetch. See Full Live Execution section below.
 
 ---
 
@@ -260,7 +263,7 @@ UI-hidden and endpoint-denied.
 present and deleting a session works (cascades its notes); confirm Create/Edit/Close/Add-Note are all UI-hidden
 and endpoint-denied.
 **Expected Result:** Delete works in isolation; every other session action is denied.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - granted a real minimal role (`RFTC029 DeleteOnly`, only `delete_session`) and fully verified live: the Delete icon + confirmation modal ("Delete this session and all of its notes?") appeared and a real delete succeeded (redirected to the index, session genuinely gone); Create/Edit/Update/Close/Add-Note were all confirmed endpoint-denied (403) against a separate fixture. See Full Live Execution section below.
 
 ---
 
@@ -271,7 +274,7 @@ and endpoint-denied.
 and closing it works; confirm Create/Edit/Delete/Add-Note are all UI-hidden and endpoint-denied (add_note still
 needs `edit_session`, which this user lacks).
 **Expected Result:** Close works in isolation; every other session action is denied, including Add Note.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - granted a real minimal role (`RFTC029 CloseOnly`, only `close_session`) and fully verified live: the Close form was visible and a real close (outcome=Inconclusive) succeeded, updating the status tag to "Closed · Inconclusive"; Create/Edit/Update/Delete/Add-Note were all confirmed endpoint-denied (403), including Add Note (this user lacks `edit_session`, confirming add_note really is gated on edit, not close). See Full Live Execution section below.
 
 ---
 
@@ -283,7 +286,7 @@ needs `edit_session`, which this user lacks).
 **Expected Result:** HTTP 404 (Redmine's standard not-found page) — the session's title, charter, notes, or any
 other detail from Project B must never appear in the response. Same expectation for `edit`/`update`/`destroy`/
 `close`/`add_note` against a foreign session id.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS (SACRED)** - as a genuine member of `rftc-016-ci-qa` only (not `alpha-web`), requested a real `alpha-web` session (title "ALPHA-WEB-SECRET-SESSION-DO-NOT-LEAK") via `rftc-016-ci-qa`'s own URL: `show` returned a genuine 404 with the secret title confirmed absent anywhere in the response (searched the full page text); `edit`, `close`, and `destroy` against the same foreign id all independently returned 404 too. Zero leak on any of the 4 routes tested. See Full Live Execution section below.
 
 ---
 
@@ -294,7 +297,7 @@ other detail from Project B must never appear in the response. Same expectation 
 reach `index`, `show`, `new`, and the member routes (`close`, `add_note`) directly by URL.
 **Expected Result:** Redirected to login (anonymous) or denied (non-member, same `rftc_authorize_project_read!`
 gate every other read-only page in this plugin uses) — no session data rendered either way.
-**Actual Result:** Not Executed.
+**Actual Result:** **FAIL - same root cause as already-filed BUG-TCM-127, not a new bug.** As a genuinely logged-out (real Sign-out click confirmed first) user, every route (`index`, `show`, `new`) returned a bare **403 Forbidden**, not the expected 302 redirect to login - because `authorize_session_project_access` (wrapping `rftc_authorize_project_read!` -> `rftc_require_login!`) runs as a `before_action` ahead of every action in this controller, so the same plugin-wide 403-not-redirect gap BUG-TCM-127 already documents applies here on every single session route, not just read-only ones. Separately confirmed the non-member half of this case IS correct: a genuinely logged-in user with zero membership on this private project got a clean 404 (not a 403, not a data leak) on both `index` and `show`. BUG-TCM-127 updated to record this additional confirmed scope. See Full Live Execution section below.
 
 ---
 
@@ -309,7 +312,7 @@ Activity feed (both the Created and Closed entries).
 **Expected Result:** All three payloads render as inert, HTML-escaped text everywhere they appear — no `alert()`
 fires on any of the 4 surfaces. `display_title` goes through plain `<%= %>` (Rails auto-escape) on index/show/
 Overview/Activity; the note body goes through `simple_format` (HTML-escapes by default) on show.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - re-confirmed in the earlier Live Verification Pass: session title/charter XSS payloads rendered as literal escaped text (zero `alert()`); a note-body script payload was tag-stripped. No XSS found anywhere in this feature.
 
 ---
 
@@ -322,7 +325,7 @@ path, and inspect the actual injected error-banner HTML.
 **Expected Result:** Error messages are escaped (no raw, unescaped HTML in the banner even if a validation message
 somehow contained markup), and the banner shows the correct errored object's messages (`@note`'s if a note failed,
 `@session`'s otherwise), per the partial's own `errored = (@note && @note.errors.any?) ? @note : @session` logic.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - confirmed via real live HTTP requests (format.js): a blank-note failure correctly populated the error banner with `@note`'s own error ("Body cannot be blank"); a too-long-title update failure correctly populated the SAME banner selector with `@session`'s own error ("Title is too long (maximum is 255 characters)") instead - confirming the partial's `errored = (@note && @note.errors.any?) ? @note : @session` selection logic genuinely picks the right object. Both responses were safely jQuery-escaped list markup, no raw injection. See Full Live Execution section below.
 
 ---
 
@@ -334,7 +337,7 @@ the same check to the other 3 actions
 `format: :html` instead of the real in-page AJAX path.
 **Expected Result:** Each behaves as a classic full-page Rails action: success redirects to the show page (or
 re-renders `new`/`edit` with a flash error on failure) — no JS injection, no reliance on the `format.js` partials.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - confirmed via real live HTTP requests with `Accept: text/html` (no format.js) for all 4 actions: create (valid title: real 3xx redirect confirmed via `response.type === 'opaqueredirect'`; invalid 300-char title: HTTP 200 re-rendering the `new` form with the flash error text present in the body), update (valid rename: real redirect, DB-verified the title genuinely changed), close (valid outcome: real redirect, DB-verified `is_closed`/`outcome` genuinely updated), and add_note (valid body: real redirect, DB-verified the note count genuinely increased). Every action behaves as a classic full-page Rails flow with zero reliance on the format.js partials. See Full Live Execution section below.
 
 ---
 
@@ -345,7 +348,7 @@ re-renders `new`/`edit` with a flash error on failure) — no JS injection, no r
 delete it (as a user with `delete_session`).
 **Expected Result:** The session, both its notes, and both its Activity rows are all gone — no orphaned
 `testcase_session_notes` rows, and the session no longer appears in the project Activity feed.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - created a session with 2 real notes, closed it (producing a genuine Created + Closed Activity row pair), then destroyed it: before destroy, 2 notes + 2 activity rows existed; after destroy, both counts were independently re-queried from the database and confirmed at exactly 0 - no orphaned rows of either kind. See Full Live Execution section below.
 
 ---
 
@@ -356,7 +359,7 @@ delete it (as a user with `delete_session`).
 **Expected Result:** Two distinct entries appear — one for session creation, one for its closing — each labeled
 with the localized "Exploratory Session" type and linking back to the session's own show page
 (`project_testcase_session_path`). Clicking either link lands on the correct session.
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - re-confirmed in the earlier Live Verification Pass: both "Created by Redmine Admin" and "Closed by Redmine Admin" events appeared in the project Activity feed, correctly deep-linked to the session. (Separately noted: the SAME per-event timestamp swap bug already filed as BUG-TCM-126 was also observed here, and additionally spotted this pass in the project's "To Do" widget on the Overview page for an unrelated Run - confirming BUG-TCM-126's reach extends beyond the Activity feed to at least one more shared view; not filed as a new bug, folded into BUG-TCM-126's existing evidence.)
 
 ---
 
@@ -367,7 +370,7 @@ with the localized "Exploratory Session" type and linking back to the session's 
 **Expected Result:** Exactly 3 sessions are listed (the 3 most-recently-created, by id descending), each showing
 title, tester, last-updated date, and open/closed status — same visual block style as the adjacent "Test Runs"
 section. A "View all" link navigates to the full Sessions index (all 5 visible there).
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - created 5 sessions in the project (a mix of open ones), then opened the real project "Overview" page (`test_suites#releases` - note this is NOT Redmine's core `/projects/:id` page, which has no Sessions block at all; it's the TCM-specific Overview reached from the TestCases sidebar). The "Sessions" block appeared immediately below "Test Runs", same visual card style, showing exactly the 3 most-recently-created sessions by id descending (correctly excluding the 2 oldest of the 5), each with title/tester/date/status, plus a working "View All" link to the full index. See Full Live Execution section below.
 
 ---
 
@@ -378,7 +381,7 @@ section. A "View all" link navigates to the full Sessions index (all 5 visible t
 **Expected Result:** Every step works identically to a session with a linked issue; the show page's info panel
 simply omits the "Issue:" line entirely (the panel itself only renders `if @session.charter.present? ||
 @session.issue`, so a session with neither charter nor issue shows no info panel at all).
-**Actual Result:** Not Executed.
+**Actual Result:** **PASS** - a session created with a title but no charter and no issue link worked identically to one with both: viewed, added a note to, and closed normally. Its show page's info panel (which only renders `if charter.present? || issue.present?`) was confirmed entirely absent - no stray "Charter:" or "Issue:" line, no empty placeholder - via a full page snapshot. See Full Live Execution section below.
 
 ---
 
@@ -398,25 +401,31 @@ simply omits the "Issue:" line entirely (the panel itself only renders `if @sess
   `bundle exec rails test plugins/redmineflux_testcase_management/test/unit/testcase_session_test.rb` (and the
   note/functional siblings) in a properly provisioned environment, before this branch merges, should be an early
   step of actual execution.
-- **Live Playwright execution of every case above** — this file is a pre-release test design; the developer's own
-  "Quality Gates" note claims an end-to-end Playwright pass was already done once during the build, but that has
-  not been independently repeated by this QA session. Executing all 25 cases live against a running instance on
-  this branch is the natural next step.
+- **None remaining** — all 25 cases are fully executed as of 2026-11-02. See "Full Live Execution" below.
+- **The plugin's own Minitest suite has still not actually been run** by this QA session — per the spec doc's own
+  "Known gap" note, `test/unit/testcase_session_test.rb`, `test/unit/testcase_session_note_test.rb`, and
+  `test/functional/testcase_sessions_controller_test.rb` are written and `ruby -c` syntax-checked but not yet
+  executed by the real test runner. This pass directly disproved one of that functional test file's own
+  assertions (`assert_response :redirect` for the anonymous case — see RFTC029-18/BUG-TCM-127), confirming this
+  gap was real, not theoretical. Still worth running `bin/rails test` for real before this branch merges.
 
 ## Coverage Summary
 
-**25 test cases designed, 0 executed yet (pre-release design pass).** Covers: full happy-path lifecycle (start →
-notes → close) across both minimal and fully-populated fixtures (RFTC029-1/2/3), both pre-commit bugs re-proven as
-regression-shaped tests (RFTC029-4/5), the append-only/chronological note design (RFTC029-6/7), every outcome
-value plus the UI-unreachable blank-outcome negative (RFTC029-8/9), both length boundaries (RFTC029-10/11), the
-cross-project issue-link guard (RFTC029-12), all 4 permissions independently in both directions (RFTC029-13
-through 16), the SACRED cross-project session-isolation holdout (RFTC029-17), anonymous/non-member denial
-(RFTC029-18), a 3-surface XSS probe given this plugin's real history of exactly this bug class (RFTC029-19), safe
-error-message escaping (RFTC029-20), the format.html fallback (RFTC029-21), full destroy cascade (RFTC029-22), the
-Activity feed integration (RFTC029-23), the Overview page's 3-item limit (RFTC029-24), and the issue-optional
-negative-space case (RFTC029-25). Everything above was derived directly from the controller, both models, every
-view, both migrations, `init.rb`'s permission block, `config/routes.rb`, and the feature's own (not-yet-executed)
-unit/functional test files — not guessed from the ticket description alone.
+**25 test cases, 25 executed, 24 PASS / 1 FAIL.** Covers: full happy-path lifecycle (start → notes → close)
+across both minimal and fully-populated fixtures (RFTC029-1/2/3, all PASS), both pre-commit bugs re-proven as
+regression-shaped tests (RFTC029-4/5, PASS), the append-only/chronological note design extended to a 3-note
+sequence (RFTC029-6/7, PASS), every outcome value plus the UI-unreachable blank-outcome negative (RFTC029-8/9,
+PASS), both length boundaries (RFTC029-10/11, PASS), the cross-project issue-link guard (RFTC029-12, PASS), all 4
+permissions independently verified in both directions with real dedicated roles/users and real endpoint hits
+(RFTC029-13 through 16, all PASS), the SACRED cross-project session-isolation holdout (RFTC029-17, PASS — 404 on
+all 4 routes, zero leak), anonymous/non-member denial (RFTC029-18, **FAIL** — anonymous gets 403 not a redirect,
+confirming BUG-TCM-127's scope extends to this feature too; non-member correctly 404s), a 3-surface XSS probe
+(RFTC029-19, PASS), safe error-message escaping with both `@note`- and `@session`-errored-object paths confirmed
+live (RFTC029-20, PASS), the format.html fallback for all 4 write actions confirmed via real HTTP requests and
+DB-verified writes (RFTC029-21, PASS), full destroy cascade confirmed via before/after row counts (RFTC029-22,
+PASS), the Activity feed integration (RFTC029-23, PASS), the Overview page's 3-item limit confirmed with 5 real
+sessions (RFTC029-24, PASS), and the issue-optional negative-space case (RFTC029-25, PASS). Everything above was
+verified against the real running application, not re-derived from source alone.
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
@@ -461,3 +470,59 @@ UI gap, executed end-to-end on project `rftc-016-ci-qa`):
 cross-project 404 isolation (SEC-001), anonymous-access denial, and destroy cascade. Given how solid the
 happy-path/regression/XSS results were, remaining risk is assessed as concentrated in the permission matrix —
 should be prioritized first in a follow-up session.
+
+## Full Live Execution — 2026-11-02 (localhost:3000, branch release/7.3.0, commit c9c8593)
+
+All 25 cases fully executed this pass, closing every gap left by the earlier partial pass above. Methods used:
+
+- **RFTC029-1/2/3/6/7/8/9/10/11/12/22** (model-level/validation/lifecycle): built real fixtures directly against
+  the `TestcaseSession`/`TestcaseSessionNote` models (the same models the controller uses, no bypass of
+  validations) via `bin/rails runner` — title-only, charter+issue, blank-everything, a 3-note sequence, a blank
+  note, all 3 close outcomes, a blank-outcome close attempt, both length boundaries, a real cross-project issue
+  link attempt, and a full destroy-cascade check with before/after row counts. All 11 PASS.
+- **RFTC029-13 through 16** (permission matrix): created 4 real minimal custom roles (`RFTC029 CreateOnly`,
+  `EditOnly`, `DeleteOnly`, `CloseOnly`, each holding only `view_issues` + exactly the one session permission
+  under test) and 4 dedicated test users, each a genuine project member. For each: logged in as that real user,
+  confirmed the UI correctly shows/hides Start Session, Edit, Delete, Close, and Add Note; performed the one
+  allowed action for real (created a session through the actual form, renamed a session and added a note, deleted
+  a session through the real confirm-modal flow, closed a session with a real outcome selection); then hit every
+  OTHER action directly via `fetch()` with a valid CSRF token and confirmed a genuine 403 for each, re-reading the
+  target record afterward to confirm no silent partial write occurred (e.g. a title-update attempt via a
+  create-only user left the title completely unchanged). All 4 PASS.
+- **RFTC029-17 (SACRED/SEC-001)**: as a real member of `rftc-016-ci-qa` only, requested a genuine `alpha-web`
+  session's `show`, `edit`, `close`, and `destroy` routes via `rftc-016-ci-qa`'s own URL prefix — all 4 returned
+  404, and the foreign session's deliberately distinctive title
+  ("ALPHA-WEB-SECRET-SESSION-DO-NOT-LEAK") was confirmed absent from the full response text, not just the visible
+  page title. PASS.
+- **RFTC029-18**: as a genuinely logged-out user (confirmed via a real "Sign out" button click, not a bare GET to
+  `/logout` — see Memory), `index`/`show`/`new` all returned a bare 403, not a redirect — this is the EXACT
+  behavior BUG-TCM-127 already documents for other rftc-0NN controllers, now confirmed to apply here too, and
+  confirmed to apply on every route since `authorize_session_project_access` runs ahead of every action-specific
+  gate in this controller. Separately, as a genuinely logged-in user with zero membership on this private
+  project, `index`/`show` both correctly returned 404 (not a 403, not a leak) — the non-member half of this case
+  behaves exactly as expected. **FAIL** overall (anonymous half), tracked entirely under the existing
+  **BUG-TCM-127**, which has been updated with this additional confirmed scope.
+- **RFTC029-20**: triggered a real blank-note failure and a real too-long-title update failure via live `fetch()`
+  calls with `Accept: text/javascript`, and read the actual raw response bodies: `$('#session_form_flash_error')
+  .html('<ul><li>Body cannot be blank<\/li><\/ul>').show();` for the note failure and the equivalent with
+  `@session`'s own "Title is too long (maximum is 255 characters)" message for the update failure — confirming
+  the partial's errored-object selection logic picks the correct one live, not just in source. PASS.
+- **RFTC029-21**: triggered real `create`/`update`/`close`/`add_note` requests with `Accept: text/html` (format.js
+  never in play) via live `fetch()` calls with `redirect: 'manual'`: every successful case returned
+  `response.type === 'opaqueredirect'` (a genuine 3xx), and the invalid-create case returned a real 200
+  re-rendering the `new` form with the flash error text present in the body. Independently re-queried the
+  database after each success to confirm the write genuinely took effect (title changed, note count increased,
+  `is_closed`/`outcome` updated) — not just a redirect header with no real effect. PASS.
+- **RFTC029-24**: created 5 real sessions in the project, then opened the actual TCM-specific "Overview" page
+  (`test_suites#releases`, reached via the TestCases sidebar's own "Overview" link — **not** Redmine's core
+  `/projects/:id` page, which this pass confirmed has no Sessions block at all, resolving an ambiguity in how the
+  spec doc described "the project Overview page"). The "Sessions" block rendered immediately below "Test Runs",
+  same card style, showing exactly the 3 most-recently-created sessions with a working "View All" link. PASS.
+- **RFTC029-25**: confirmed via a full page snapshot of a title-only, charter-less, issue-less session's show page
+  that the info panel is entirely absent — no stray "Charter:"/"Issue:" line — while every other part of the page
+  (Close form, Add Note form) rendered completely normally. PASS.
+
+**Result: 24/25 PASS, 1 FAIL** — RFTC029-18's anonymous-access half, which is not a new, feature-specific defect
+but the same plugin-wide `RftcAccessControl#rftc_require_login!` 403-not-redirect gap already filed as
+**BUG-TCM-127** (originally found via RFTC022-15), now confirmed to additionally cover every route of
+`TestcaseSessionsController`.

@@ -1628,3 +1628,20 @@
   `lib/redmineflux_testcase_management/reporting/rollup_math.rb` wraps it in
   `module RedminefluxTestcaseManagement; module Reporting; ... end; end`. A bare `RollupMath.foo` call from
   `rails runner` raises `uninitialized constant RollupMath`.
+- **(2026-11-02) `RollupMath.flaky_tally`'s real signature is `flaky_tally(runs, project:, user:, min_runs: nil)`**
+  — a positional `runs` scope plus keyword `project`/`user`, not keyword-only. `each_result_timeline_cell`'s
+  returned hash is keyed by **`[issue_id, environment]` tuples**, not bare issue IDs — `timelines[6789]` returns
+  `nil`, you need `timelines[[6789, 'test1']]`.
+- **(2026-11-02) `flaky_min_runs` defaults to 4** (`Setting.plugin_redmineflux_testcase_management['flaky_min_runs']`,
+  falls back to 4 if blank/non-numeric/non-positive). An issue needs at least 4 EXECUTED (non-Untested/Skipped)
+  results in the same environment before it is ranked on Quality HQ's Flaky Tests panel at all — 2 results with
+  a genuine flip will compute correctly in `each_result_timeline_cell`/internal flip-counting but won't surface
+  in the UI ranking. Don't mistake this for a bug when demoing with a small number of manually-created results —
+  it's the documented intent ("too little history is not evidence either way").
+- **(2026-11-02) The Add Result flow absolutely must go through the AJAX popup (click "Untested" from the Run
+  page), never a direct URL to `/issue_status_results/new`** — confirmed twice now, once by the user's explicit
+  correction ("add result poup ka use krna"). The direct-URL page is broken: selecting "Failed"/"Blocked" never
+  reveals the dynamic "Report Defect" link or "Defects*" field, so submission fails with a vague "Defect IDs
+  cannot be blank" error with no way to actually supply one. The proper popup (URL stays `/runs/:id`) reveals
+  both correctly, and clicking "Report Defect" opens a working "Add Defect" modal whose created defect
+  auto-populates back into the parent popup's Defects* field.

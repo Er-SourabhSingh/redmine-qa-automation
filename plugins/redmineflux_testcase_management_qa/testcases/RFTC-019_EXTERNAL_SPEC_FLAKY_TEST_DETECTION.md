@@ -404,3 +404,44 @@ shared environment-setup detail). Methods used:
   errors.
 
 Full detail recorded inline against each case above. Summary: **18 PASS, 0 FAIL** — no bugs found in rftc-019.
+
+## Addendum — Purely manual, zero-CI/zero-API proof that flip detection is source-agnostic (2026-11-02)
+
+User explicitly asked to verify (in Hindi): "flaky ka data CI/CD pe depend karta hai na?" — i.e., confirm flaky
+detection does not require CI/CD or API involvement, using real UI clicks only (no `CiRunBootstrapService`,
+no `CiResultIngestService`, no `bin/rails runner` fixture creation this time).
+
+**Method — entirely through the browser, zero backend shortcuts:**
+1. Created Run #242 "MANUAL-NoCI-Demo-Run1" via the real "Add Run" UI modal (environment `test1`, suite
+   "RFTC-019 QA Fixtures", 14 cases).
+2. Recorded **Passed** for issue #6789 (QA-RFTC019-F1) via the genuine "Add Result" AJAX popup (clicked the
+   "Untested" link on the Run page — not a direct URL to `/issue_status_results/new`, which loads as a broken
+   standalone page where the dynamic Defects field never reveals).
+3. Created Run #243 "MANUAL-NoCI-Demo-Run2" the same way.
+4. Recorded **Failed** for the same issue #6789 in Run #243 via the same proper Add Result popup. Selecting
+   "Failed" correctly revealed "Report Defect" + a "Defects*" field; clicked "Report Defect", filled the Add
+   Defect modal's Subject, clicked Create — new defect #6823 was created and auto-populated into the parent
+   popup's Defects* field — then Submit finalized the Failed result.
+
+**Verification — read directly from the live server, not just the UI:**
+```ruby
+proj = Project.find_by(identifier: 'rftc-016-ci-qa')
+runs = Run.where(project_id: proj.id)
+timelines = RedminefluxTestcaseManagement::Reporting::RollupMath.each_result_timeline_cell(runs, project: proj, user: User.find(1))
+timelines[[6789, 'test1']]
+# => [{run: 242, status: "Passed", is_failure: false}, {run: 243, status: "Failed", is_failure: true}]
+```
+This is the exact same `RollupMath` timeline engine that processes CI-ingested rows — it picked up both
+manually-created rows identically, registering one genuine Pass→Fail flip.
+
+**Why it doesn't appear on Quality HQ's "Flaky Tests" top-10 panel:** `flaky_min_runs` (plugin setting,
+`Setting.plugin_redmineflux_testcase_management['flaky_min_runs']`, default **4** — see RFTC019-10/12 above)
+requires at least 4 executed results per issue+environment before an issue is ranked as flaky at all. Our 2
+manual results are below that threshold, so the panel correctly withholds judgment per the code's own
+documented intent ("too little history is not evidence either way") — this is expected behavior, not a bug,
+and is consistent with RFTC019-1's original design-only case.
+
+**Conclusion:** Flaky-test detection reads `IssueStatusResult` rows from the database regardless of how they
+were created — manual UI click, CI ingest, or direct API call. The only gate is the row-count threshold
+(`flaky_min_runs`), which applies identically no matter the source. No CI/CD or API call was made anywhere in
+this addendum's verification.

@@ -1,7 +1,7 @@
 # BUG-TCM-127
 
 - Bug ID: BUG-TCM-127
-- Production Redmine Issue ID: #127360 (linked to testcases #127284/RFTC-022 suite #521, #127289/RFTC-029 suite #522, and #127292/RFTC-035 suite #523, all in Run #659 "Testcase Release 7.3.0 Sign-off" — one defect issue linked across all three, reflecting the plugin-wide scope)
+- Production Redmine Issue ID: #127360 — "BUG-TCM-127: Anonymous access to any rftc_require_login!-gated TCM page returns a bare 403 instead of redirecting to login (plugin-wide)", assigned Vaishnavi Bhawsar (linked to testcases #127284/RFTC-022 suite #521, #127289/RFTC-029 suite #522, and #127292/RFTC-035 suite #523, all in Run #659 "Testcase Release 7.3.0 Sign-off" — one defect issue linked across all three, reflecting the plugin-wide scope)
 - Title: Anonymous (logged-out) access to any `rftc_require_login!`-gated TCM page returns a bare 403 Forbidden instead of redirecting to the login page
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

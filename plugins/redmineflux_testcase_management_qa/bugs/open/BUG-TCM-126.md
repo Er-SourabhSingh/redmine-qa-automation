@@ -1,7 +1,7 @@
 # BUG-TCM-126
 
 - Bug ID: BUG-TCM-126
-- Production Redmine Issue ID: #127358 (linked to testcase #127289, Run #659 "Testcase Release 7.3.0 Sign-off", RFTC-029 suite #522)
+- Production Redmine Issue ID: #127358 — "BUG-TCM-126: Activity feed's per-event timestamp swaps month and day whenever both are ≤12", assigned Vaishnavi Bhawsar (linked to testcase #127289, Run #659 "Testcase Release 7.3.0 Sign-off", RFTC-029 suite #522)
 - Title: Activity feed's per-event timestamp swaps month and day whenever both are ≤12 (e.g. shows "2026-02-11" for an event that actually happened on Nov 2, 2026)
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

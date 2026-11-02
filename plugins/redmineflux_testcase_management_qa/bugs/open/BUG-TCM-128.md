@@ -1,7 +1,7 @@
 # BUG-TCM-128
 
 - Bug ID: BUG-TCM-128
-- Production Redmine Issue ID: #127359 (linked to testcase #127293, Run #659 "Testcase Release 7.3.0 Sign-off", RFTC-035 suite #523)
+- Production Redmine Issue ID: #127359 — "BUG-TCM-128: Automation Dashboard's Pass Rate counts Untested/Blocked/Retest/Skipped results as 'Passed'...", assigned Vaishnavi Bhawsar (linked to testcase #127293, Run #659 "Testcase Release 7.3.0 Sign-off", RFTC-035 suite #523)
 - Title: Automation Dashboard's Pass Rate counts Untested/Blocked/Retest/Skipped results as "Passed," inflating the pass rate for sources with zero genuine passes
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

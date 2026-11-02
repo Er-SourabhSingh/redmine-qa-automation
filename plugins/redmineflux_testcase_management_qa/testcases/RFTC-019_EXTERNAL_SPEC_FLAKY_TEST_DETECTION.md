@@ -6,16 +6,16 @@
 >
 > **ID prefix**: every case here is `RFTC019-<n>`.
 >
-> **Pre-release test DESIGN, not yet independently executed.** This feature's code lives on branch
-> `release/7.3.0` (commit `329311d`) — **not yet merged to `master`**. The developer's own planning doc
-> (`backlog/planning/rftc-019-feature-flaky-test-detection.md`) records a "Quality Gates: manually verified
-> live via Playwright" pass by the developer themselves, but that is not independent QA execution. Every case
-> below was authored from a direct read of `lib/.../reporting/rollup_math.rb` (`each_result_timeline_cell`,
-> `flaky_tally`, `flaky_min_runs`), `app/controllers/quality_hq_controller.rb`, `app/views/quality_hq/_flaky.html.erb`,
-> `app/views/settings/_testcase_configuration.html.erb`, `config/locales/en.yml`, and the shipped
-> `test/unit/rollup_math_timeline_test.rb` / `test/functional/quality_hq_controller_test.rb` — not executed
-> against a running instance this session. **Actual Result is "Not Executed" on every case** until an
-> independent live pass is run.
+> **FULLY EXECUTED 2026-11-02 — 18/18 PASS, zero bugs found.** The branch (`release/7.3.0`, commit `329311d`)
+> was checked out into the local Docker instance (`localhost:3000`), migrations run, app restarted. All 18
+> scenarios were independently executed this session: RFTC019-1 through 7b, 11, 13, 16, 17 via real fixture
+> data (genuine `Run`/`IssueStatusResult` rows created through `CiRunBootstrapService`/`CiResultIngestService`,
+> the same real code path a CI pipeline uses) and a direct call to the real
+> `RedminefluxTestcaseManagement::Reporting::RollupMath.flaky_tally` against that data via `bin/rails runner`;
+> RFTC019-8/9 (SACRED SEC-001) and RFTC019-10/12/14/15 via live Playwright sessions as both `admin` and a
+> genuine `Reporter`-role non-admin user on the real `/quality_hq` page. This is independent QA execution, not
+> the developer's own "Quality Gates" self-check recorded in
+> `backlog/planning/rftc-019-feature-flaky-test-detection.md`.
 
 # Test Cases — Redmineflux Testcase Management — rftc-019: Flaky-Test Detection
 
@@ -80,8 +80,9 @@ for one project; for one test case, record Passed in run 1, Failed in run 2, Pas
 environment). Open Quality HQ.
 **Expected Result:** The test case appears in the Flaky Tests panel with `flip_count = 2`, `executed_count =
 3`, `flakiness_rate = (2 / (3-1)) * 100 = 100.0%`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture via `CiRunBootstrapService`/`CiResultIngestService`,
+3 real runs, `flaky_tally(..., min_runs: 2)`). Result: `flip_count=2, executed_count=3, flakiness_rate=100.0`
+— exact match.
 
 ---
 
@@ -91,8 +92,8 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Steps:** Record Passed in 5 consecutive runs for one test case (0 flips by construction). Open Quality HQ.
 **Expected Result:** This test case is **absent** from the Flaky Tests panel entirely — not present even at
 the last rank with `flip_count = 0`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture, 5 real runs all Passed, `flaky_tally(..., min_runs:
+2)`). The case was genuinely absent from the result set — hard filter confirmed, not a sort-to-bottom.
 
 ---
 
@@ -103,8 +104,8 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 flip inside them (e.g. Pass, Fail, Pass across 3 runs). Open Quality HQ.
 **Expected Result:** The test case does **not** appear — 3 < 4, excluded regardless of the real flip it
 contains.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture, 3 real runs Pass/Fail/Pass, `flaky_tally(...,
+min_runs: 4)`). Absent — 3 < 4 correctly excluded despite containing 2 real flips.
 
 ---
 
@@ -114,8 +115,8 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Steps:** Same setup as RFTC019-3 but add one more run (4 total executed results, still containing at least
 one flip). Open Quality HQ.
 **Expected Result:** The test case now **appears**, ranked, with the correct `flip_count`/`executed_count`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, same fixture + 1 more run, `flaky_tally(..., min_runs: 4)`).
+Appeared with `executed_count=4, flip_count=3` (Pass,Fail,Pass,Fail — 3 real transitions).
 
 ---
 
@@ -128,8 +129,9 @@ Untested in run 2 (no result recorded at all), Failed in run 3. Open Quality HQ.
 **Expected Result:** The `executed` sequence for this cell, after Untested is filtered out, is `[Pass, Fail]`
 — a flip (`flip_count = 1`), with `executed_count = 2` (the Untested run does not count toward
 `executed_count` either).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture: run 2 genuinely left seeded-Untested, no ingest
+call made for it). Result: `flip_count=1, executed_count=2` — Untested run transparently removed, not a
+reset, not counted.
 
 ---
 
@@ -138,8 +140,8 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 **Priority:** P2 — same exclusion class as RFTC019-5, different status
 **Steps:** Same as RFTC019-5 but record the middle run's result as explicitly **Skipped** (not left untested).
 **Expected Result:** Identical outcome to RFTC019-5 — `executed = [Pass, Fail]`, `flip_count = 1`.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture, run 2 explicitly ingested as `status: 'skipped'`).
+Identical result to RFTC019-5: `flip_count=1, executed_count=2`.
 
 ---
 
@@ -154,8 +156,9 @@ Quality HQ.
 **Expected Result:** The Flaky Tests panel shows **one row** for this issue with `flip_count = 3` (1 + 2
 summed across both environments) and `executed_count = 5` (2 + 3 summed) — not two separate rows, and not
 just one environment's numbers.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture: same issue, Chrome Pass→Fail + Firefox
+Pass→Fail→Pass, 5 real runs). Exactly ONE row returned: `flip_count=3, executed_count=5` — both
+environments genuinely summed into one per-issue record, confirmed via `tally.count { subject == ... } == 1`.
 
 ---
 
@@ -169,8 +172,9 @@ individually qualify). Open Quality HQ.
 **Expected Result:** The issue appears with `flip_count`/`executed_count` reflecting **only** the Chrome
 environment's numbers — Firefox's 2 executed results and its flip are not summed in, since Firefox's own
 cell never cleared the 4-run gate.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture: Chrome 4 executed Pass/Fail/Pass/Fail, Firefox only
+2 executed Pass/Fail, `min_runs: 4`). Result: `flip_count=3, executed_count=4` — exactly Chrome's own
+numbers; Firefox's cell never cleared the per-environment gate so contributed nothing to the sum.
 
 ---
 
@@ -182,8 +186,12 @@ flaky ranking; mirrors the shipped `test_flaky_respects_project_isolation` funct
 user with `:view_report` on Project A only (not Project B). Open Quality HQ.
 **Expected Result:** Project B's project name, the flaky issue's subject, and its row are **all absent** from
 the response — not filtered client-side, never present in the HTML at all.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, live Playwright). Built a genuine qualifying flaky case
+(`QA-RFTC019-CrossProject`, 2 real runs) in `alpha-web`. Logged in as `qa.limited` (has `:view_report` on
+`rftc-016-ci-qa` only, confirmed `false` on `alpha-web`). Reloaded `/quality_hq`: "Projects Tracked" dropped
+from 7 to 2, "Alpha Web Platform" absent from every panel and the project table entirely — not filtered
+client-side, genuinely never scanned since it's excluded from `permitted_projects` before `flaky_rows` ever
+runs.
 
 ---
 
@@ -196,8 +204,13 @@ member of. Log in as a non-admin member with no private-issue visibility (e.g. a
 not a role with private-issue visibility by default). Open Quality HQ.
 **Expected Result:** The private issue's subject/row never appears for this viewer, while any other
 non-private flaky issue in the same project still does.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, live Playwright). Built a genuine qualifying flaky case
+(`QA-RFTC019-Private`, `is_private: true`, 2 real runs) in `rftc-016-ci-qa`. Added the plugin's own seed user
+`reporter` to this project with a genuine **Reporter** role (not Manager, which has private-issue visibility
+by default) and confirmed `view_report: true`. Logged in as `reporter`, reloaded `/quality_hq`:
+`QA-RFTC019-Private` never appeared in the Flaky Tests table, while every other non-private flaky fixture
+from the same project (F1, F3, F7, F7b, F16, the XSS case) all correctly appeared for this same viewer —
+proving the boundary is specifically private-issue visibility, not a blanket project-level block.
 
 ---
 
@@ -209,8 +222,12 @@ threshold of 4, per RFTC019-3): lower `flaky_min_runs` to 3 in plugin settings, 
 appears. Then raise it back to 5, reload — case disappears again (3 < 5).
 **Expected Result:** The ranking changes live with the setting, in both directions, with no caching lag (this
 panel is explicitly documented as computed live per-request, never cached).
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, live Playwright via the real Admin → Plugin Settings UI). With
+`flaky_min_runs=2`, all this session's low-`executed_count` fixtures ranked. Changed the real setting field
+to `7` and reloaded `/quality_hq` immediately: every fixture below 7 executed results vanished instantly,
+replaced by other real historical cases with ≥7 executions (e.g. `#24 Apply valid discount code`, 10
+executed) — genuine live recomputation, zero caching lag, confirmed with no server restart between the
+setting change and the reload.
 
 ---
 
@@ -224,8 +241,9 @@ field's value) and save `flaky_min_runs = 1`; confirm via a fixture needing only
 never show a flip since `each_cons(2)` needs ≥2 entries — see RFTC019-17). `0`, `-5`, and `abc` all silently
 fall back to the default of 4 (`value.positive? ? value : 4`, with the non-numeric guard first) — no error,
 no crash, just the documented fallback.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, `bin/rails runner`, bypassing the UI's `min="2"` client-side
+attribute by writing the Setting hash directly). `'1'` → `flaky_min_runs == 1`; `'0'` → `4`; `'-5'` → `4`;
+`'abc'` → `4`. All 4 cases matched exactly, no error, no crash on any input.
 
 ---
 
@@ -237,8 +255,10 @@ criteria, open Quality HQ.
 **Expected Result:** The Flaky Tests panel shows the standard `text_qhq_metric_unavailable` empty-state
 message — the same empty-state component the Most Failed / Slow Tests panels already use — not a blank
 table, not an exception.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, live Playwright). Set `flaky_min_runs` to `1000` via the real
+Admin UI (high enough that zero cases anywhere qualify) and reloaded `/quality_hq`: the Flaky Tests panel
+showed exactly **"This metric isn't available yet."** — the identical empty-state message the feature
+showed before rftc-019 existed — no blank table, no exception, no stack trace.
 
 ---
 
@@ -250,8 +270,9 @@ branch `release/7.3.0`, not yet live-verified independently of the developer's o
 executed_count too, so the rate ties exactly), differing only in issue id. Open Quality HQ twice (reload).
 **Expected Result:** The lower-`issue_id` case consistently ranks above the higher-`issue_id` one, on every
 reload — no flapping order between page loads.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture: 2 issues, each Pass→Fail across 2 real runs,
+identical `flip_count=1`/`executed_count=2`/`flakiness_rate=100.0`). The issue created first (lower
+`issue_id`) consistently ranked first — `tally.index` confirmed the order matched `issue_id` ASC exactly.
 
 ---
 
@@ -265,8 +286,12 @@ Open Quality HQ with a dialog/alert listener attached.
 **Expected Result:** No `alert()` fires. The raw HTTP response shows the payload HTML-escaped
 (`&lt;img src=x onerror=...`) inside the `link_to` anchor text, not as a live tag — `link_to`'s default
 auto-escaping should hold, matching the already-fixed table-side escaping class for Most Failed Tests.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture + live Playwright with a console-message listener).
+Created `<img src=x onerror=alert('flaky-xss')>` as a real qualifying flaky case (5 flips, 6 executed, ranked
+#1). Loaded `/quality_hq`: zero console messages/errors, the accessibility tree showed the literal text
+`"#6815 <img src=x onerror=alert('flaky-xss')>"` as the link's name (proof it rendered as inert escaped text,
+not a live `<img>` element, which would show as an image role) — confirmed again visually in a screenshot,
+rendered as plain text in both the Flaky Tests and Most Failed Tests tables. No `alert()` fired.
 
 ---
 
@@ -281,8 +306,10 @@ HQ after this feature is deployed.
 **Expected Result:** Both pre-existing panels still render their real ranked data exactly as before, with 0
 console errors — the `scanned_projects` reordering did not silently drop or duplicate project scanning for
 either sibling metric.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, live Playwright, every `/quality_hq` load this session). Most
+Failed Tests and Slow Tests both rendered full real ranked data (10 rows each) on every single reload
+throughout this entire test pass, alongside the new Flaky Tests panel, with 0 console errors recorded at any
+point — no sibling regression from the `scanned_projects` reordering.
 
 ---
 
@@ -297,8 +324,12 @@ first). Record Passed in the chronologically-first run (named "Run B"), Failed i
 run (named "Run A"), for the same test case.
 **Expected Result:** The flip sequence is `[Pass (Run B, created first), Fail (Run A, created second)]` — by
 actual `created_at` order, not by the misleading name order.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture, 3 runs with names deliberately scrambled relative to
+creation order: created `QA19-F16-RunB`[Pass] → `QA19-F16-RunA`[Fail] → `QA19-F16-RunC`[Fail]). Queried via
+`Run.order(:created_at, :id)` exactly as `flaky_rows` does: `flip_count=1`, matching the real chronological
+sequence `[Pass,Fail,Fail]` — NOT the alphabetical-by-name sequence `[Fail,Pass,Fail]` (RunA,RunB,RunC)
+which would have produced `flip_count=2`. The two orderings were deliberately designed to diverge (a simple
+reversal can't distinguish them, since reversing never changes a flip count), so this result is conclusive.
 
 ---
 
@@ -311,55 +342,65 @@ environment, with no other history anywhere. Open Quality HQ.
 **Expected Result:** The test case does not appear in the Flaky panel — `executed.size == 1 >= 1` passes the
 gate, but `flip_count` stays 0 (no consecutive pair exists), and the `.select { flip_count.positive? }` filter
 excludes it regardless.
-**Actual Result:** Not Executed — test design authored ahead of independent QA execution; feature lives on
-branch `release/7.3.0`, not yet live-verified independently of the developer's own Quality Gates note.
+**Actual Result:** ✅ **PASS** (2026-11-02, real fixture, exactly 1 real run/result, `flaky_tally(...,
+min_runs: 1)`). Absent from the result set — the threshold gate alone was not sufficient to produce a
+spurious single-point "flaky" result, exactly as predicted.
 
 ---
 
 ## Not Executed
 
-Every case above — this entire file is a pre-release test design, not an executed pass. In addition, the
-following could not be reasoned about from a source read alone and need a live pass:
-
-- Exact on-screen rendering/number formatting of `flakiness_rate` (e.g. whether `100.0%` or `100%` is shown
-  for a round number) — `round(2)` in Ruby can return an integer-valued float; the view's literal
-  `<%= row[:flakiness_rate] %>%` interpolation behavior for that case should be visually confirmed.
-- Interaction with the `QHQ_INLINE_FALLBACK_CAP` (10) / `QHQ_RANKED_LIST_LIMIT` (10) caps on an instance with
-  more than 10 permitted projects or more than 10 qualifying flaky cases in one project — not practical to
-  construct from a source read alone, needs a live instance with that much fixture data.
-- The plugin's own shipped `test/unit/rollup_math_timeline_test.rb` and the two new functional tests have
-  **not been run by the actual Minitest runner** in this branch's build container (per the developer's own
-  "Known gap" note in the sibling rftc-029 doc, which applies to all five of this commit's features) — an
-  independent CI/test run of that suite is still owed before merge, separate from this manual test design.
+Nothing — all 18 scenarios were independently executed 2026-11-02 (see each case's own Actual Result above).
+One formatting question from the original design is now resolved by observation: `flakiness_rate` always
+rendered with one decimal place (`100.0%`, `75.0%`, `80.0%`), never a bare integer `100%`, across every
+fixture observed this session. The `QHQ_INLINE_FALLBACK_CAP`/`QHQ_RANKED_LIST_LIMIT` (10) interaction was
+also incidentally observed: this session's own fixtures regularly pushed the Flaky Tests table to its full
+10-row cap, requiring a couple of fixtures (the XSS case) to be deliberately boosted to a higher flip count
+to climb back into the visible top 10 — confirming the cap is real and genuinely limits the ranked list to 10
+rows, consistent with the documented behavior. The plugin's own shipped Minitest suite still has not been run
+by an actual test runner in this branch's container (a pre-existing environment gap noted across all five
+7.3.0 features, not specific to this one) — that remains owed separately from this independent manual pass.
 
 ## Coverage Summary
 
-**17 scenarios designed (0 executed)** — positive core behavior (flip detection, threshold boundaries,
-Untested/Skipped transparency, multi-environment aggregation), both SACRED security boundaries (cross-project
-isolation, same-project private-issue visibility), a mandatory XSS check given this plugin's confirmed history
-on an adjacent ranked table, a sibling-panel regression guard called for by the developer's own planning-doc
-note, and a negative/boundary cluster (min-runs off-by-one in both directions, server-side setting validation,
-empty state, deterministic tie-break, single-data-point non-flakiness). No PASS/FAIL recorded — this is a
-design-only file, authored from `lib/.../reporting/rollup_math.rb`, `quality_hq_controller.rb`, the shipped
-views/locale strings, and the shipped (not-yet-CI-run) unit/functional tests on branch `release/7.3.0`
-(commit `329311d`). An independent live execution pass (once this branch is merged/deployed to the QA
-environment) is required before any of these can be marked Pass/Fail, and before this feature can be
-considered genuinely QA-verified rather than developer-self-verified.
+**18/18 scenarios executed — 18 PASS, zero bugs found.** All core behavior confirmed correct: flip detection
+against known fixtures, both threshold boundaries (3 < 4 excluded, 4 ≥ 4 included), Untested and Skipped both
+transparently removed before flip-counting, multi-environment aggregation into one per-issue row (with
+correct per-environment gating before the sum), both SACRED security boundaries (cross-project isolation via
+`permitted_projects`, same-project private-issue visibility), the mandatory XSS check (safe, matching the
+already-fixed table-escaping class), the sibling-panel regression guard (Most Failed/Slow Tests unaffected),
+and the full negative/boundary cluster (settings fallback on blank/zero/negative/garbage input, the correct
+empty state, a conclusively deterministic tie-break, and single-data-point non-flakiness). This is a
+materially stronger result than the sibling RFTC-018 suite (17/18, 1 confirmed bug) — rftc-019 shipped with
+no defects found across a thorough independent pass.
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
-Partial live verification performed this session (not all 18 designed scenarios executed):
+Full execution pass, superseding the earlier partial pass recorded in this section. Environment: branch
+`release/7.3.0`, migrations run, app restarted (see RFTC-018's own Live Verification Pass section for the
+shared environment-setup detail). Methods used:
 
-- **PASS — core Flaky Tests panel renders real, ranked data on Quality HQ** (`/quality_hq`), confirming the
-  stub ("not available") is genuinely replaced: real test cases shown (e.g. `#23 test_login_valid`,
-  `#26 Checkout flow renders correctly`, `#24 Apply valid discount code at checkout`, plus entries from a second
-  project `Alpha Web Platform`), each with a rank, project, and test case — not an empty/error state.
-- **PASS — the Flaky-test minimum-runs setting exists and is wired up**: `/settings/plugin/redmineflux_testcase_management`
-  shows a real "Flaky-test minimum runs" numeric field, default `4`, with help text "A test case needs at least
-  this many executed runs (in some environment) before it is considered for flakiness; blank falls back to 4" —
-  matches the spec doc exactly.
+- **RFTC019-1 through 7b, 11, 13, 16, 17** (13 scenarios): real fixture data created via
+  `CiRunBootstrapService`/`CiResultIngestService` (the same real code path a CI pipeline uses) against a
+  dedicated `RFTC-019 QA Fixtures` test suite in project `rftc-016-ci-qa`, then
+  `RedminefluxTestcaseManagement::Reporting::RollupMath.flaky_tally` called directly via `bin/rails runner`
+  with explicit `min_runs:` overrides per scenario (bypassing the global Setting for precision, except for
+  RFTC019-11 itself which specifically tests the Setting-reading layer).
+- **RFTC019-8/9** (SACRED SEC-001): live Playwright sessions. RFTC019-8 built a qualifying flaky fixture in a
+  genuinely different project (`alpha-web`) and logged in as `qa.limited` (no `:view_report` there) —
+  confirmed the whole project vanished from Quality HQ, not just its flaky row. RFTC019-9 built a private,
+  qualifying flaky fixture in the SAME project and logged in as a genuine `Reporter`-role seed user
+  (`reporter`, newly added as a project member for this check) — confirmed the private issue alone was
+  hidden while every sibling non-private fixture stayed visible.
+- **RFTC019-10/12** (settings live-adjustment, empty state): live Playwright via the real Admin → Plugin
+  Settings UI, changing `flaky_min_runs` to `7` then `1000` and reloading `/quality_hq` each time, confirming
+  immediate recomputation and the correct empty-state message respectively. Restored to `4` (the documented
+  default) afterward.
+- **RFTC019-14** (XSS): a real qualifying flaky fixture with an `<img onerror=...>` subject, confirmed
+  rendering as inert text via both a console-message listener (zero messages) and the accessibility tree
+  (literal escaped text, not a live `img` element), then independently re-confirmed visually in a screenshot.
+- **RFTC019-15** (regression guard): observed directly on every `/quality_hq` reload throughout this pass —
+  Most Failed Tests and Slow Tests both rendered full real data alongside Flaky Tests every time, 0 console
+  errors.
 
-**Not yet live-verified this pass:** flip-count correctness against a known fixture, the min-runs threshold
-boundary, Untested/Skipped gap handling, multi-environment independence, cross-project/private-issue isolation
-(SEC-001 SACRED — important, not yet done), settings live-adjustment effect on the ranking, and XSS safety of the
-ranking table. A future session should pick these up before this suite can be marked fully regressed.
+Full detail recorded inline against each case above. Summary: **18 PASS, 0 FAIL** — no bugs found in rftc-019.

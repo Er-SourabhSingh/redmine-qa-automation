@@ -1601,3 +1601,30 @@
   a real external CI pipeline" task — admin/admin logs into Jenkins at `localhost:8081`, a new Secret-text
   credential holds the local instance's real API key, and a plain Pipeline job with `curl` steps can hit any
   `/testcase_ci/*.json` endpoint for real, independent of the CLI's own feature coverage.
+- **(2026-11-02) RFTC-019 (Flaky-Test Detection) fully executed, 18/18 PASS, zero bugs found** — the most
+  solid of the 7.3.0 features so far. Reusable fixtures left in place for future sessions: a dedicated test
+  suite `RFTC-019 QA Fixtures` in project `rftc-016-ci-qa` (small, isolated from the project's large pre-
+  existing `CI Ingest` suite, used to avoid seeding hundreds of Untested rows per bootstrapped run); the seed
+  user `reporter` (login `reporter`, password `12345678`) added as a genuine **Reporter**-role member of
+  `rftc-016-ci-qa` specifically because `qa.limited` (this project's usual limited-permission test user) is a
+  **Manager**, which has private-issue visibility by default — any future same-project private-issue
+  visibility test on this project should reuse `reporter`, not `qa.limited`. Also added `admin` as a Manager
+  member of `alpha-web` locally (was not a member before, needed for `CiRunBootstrapService` fixture work
+  there — the bootstrap service requires a genuine project member who can `execute_testcase`, admin's global
+  flag alone is not sufficient for the run-assignee check).
+- **(2026-11-02) Calling `RollupMath.flaky_tally`/`each_result_timeline_cell` directly with an explicit
+  `min_runs:` override (bypassing the global `Setting.plugin_redmineflux_testcase_management['flaky_min_runs']`)
+  is a precise, reusable technique for testing threshold boundaries without mutating global state between
+  scenarios** — only test the Setting-reading layer itself (`RollupMath.flaky_min_runs`) separately, by
+  temporarily overwriting and restoring the Setting hash in an `ensure` block.
+- **(2026-11-02) Designing a chronological-vs-name-order test case needs a non-palindromic status sequence,
+  not a simple two-element swap** — reversing a sequence never changes its flip count (the "different"
+  relation between adjacent pairs is symmetric), so a 2-run or naively-reversed 3-run fixture cannot actually
+  distinguish "used real `created_at` order" from "accidentally used name order." Needed 3 runs with a
+  genuinely different permutation (not a reversal) to produce two different flip counts depending on which
+  ordering was used — confirmed working for RFTC019-16.
+- **(2026-11-02) The real namespace for this plugin's rollup math is
+  `RedminefluxTestcaseManagement::Reporting::RollupMath`, not a bare top-level `RollupMath` constant** —
+  `lib/redmineflux_testcase_management/reporting/rollup_math.rb` wraps it in
+  `module RedminefluxTestcaseManagement; module Reporting; ... end; end`. A bare `RollupMath.foo` call from
+  `rails runner` raises `uninitialized constant RollupMath`.

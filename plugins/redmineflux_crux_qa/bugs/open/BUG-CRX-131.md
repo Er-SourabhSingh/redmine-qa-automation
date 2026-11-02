@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-131
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127324
 - Title: Asking the Time Agent for a specific timesheet submission's audit log fails 2/2 with two different wrong answers — a false "no entries" claim and fetching an unrelated audit entry — while the native Audit Log genuinely has the real, correct entries both times
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Time Agent)

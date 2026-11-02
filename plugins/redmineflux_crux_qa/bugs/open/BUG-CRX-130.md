@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-130
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127323
 - Title: Admin's unconditional approve bypass fails on a resubmitted-after-rejection submission — two different false refusals across two attempts, directly contradicting native Admin Dashboard data
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Time Agent)

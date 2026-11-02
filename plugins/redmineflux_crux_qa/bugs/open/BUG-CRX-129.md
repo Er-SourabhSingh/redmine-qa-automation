@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-129
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127322
 - Title: "Submit my timesheet for this week" via the Time Agent fails 2 of 3 times, with two distinct failure modes — a wrong context/week confirm card, and an immediate context-amnesia relapse right after correctly naming the team one turn earlier
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Time Agent)

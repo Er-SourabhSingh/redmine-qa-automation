@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-128
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127321
 - Title: A plain "change team member's role to X" request against a Timesheet team fails 3/3 times via 4 distinct failure modes — wrong tool/wrong user, team misread as project, and a false "I don't have access to this tool" claim when explicitly pinned to the Time Agent
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Time Agent / Auto-mode)

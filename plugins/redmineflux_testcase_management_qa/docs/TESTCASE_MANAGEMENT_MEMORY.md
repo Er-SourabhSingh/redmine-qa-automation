@@ -1698,3 +1698,18 @@
   ['testcase_management']` to restore** — always re-enable immediately after the check on a shared project; use a
   low-traffic project (`compat-fresh` worked well) rather than the main `rftc-016-ci-qa` fixture project, to avoid
   interfering with other suites' concurrent or later use of that project's TCM pages.
+- **(2026-11-02) ALWAYS check for a BUG-TCM-NNN ID collision before writing a new bug file in a Write call** —
+  another (apparently concurrent) session had already committed `b6a9543` using BUG-TCM-129 for a real,
+  unrelated bug (step order on PostgreSQL) by the time this session independently picked the same number for a
+  different bug. The `Write` tool did not block the overwrite. Caught it via `git diff`/`git log -- <path>` on
+  the bug file right after writing it, before committing — if either shows unexpected pre-existing history or a
+  diff you didn't expect, STOP, `git checkout -- <path>` to restore the other session's version, and re-pick the
+  next number after checking the true max across `bugs/open/` + `bugs/closed/` + `bugs/_index.md` (not just one
+  of those three, since they can drift out of sync between concurrent sessions).
+- **(2026-11-02) `QualityHqController#index` computes "Most Failed"/"Slow Tests"/"Flaky Tests" with ZERO caching,
+  by deliberate design** (unlike the per-project summary row, which uses `QualityHqRollupCache`) — every real
+  request re-scans every Run in up to 10 projects (`QHQ_INLINE_FALLBACK_CAP`) via `RollupMath.each_latest_result_cell`'s
+  2-queries-per-run pattern, with the 3 panels never sharing a single scan. On `rftc-016-ci-qa`'s current data
+  volume (~140 runs, 2000+ results) this costs 1,600+ queries and 5-21 seconds on EVERY load, confirmed via real
+  Rails log lines. Filed as **BUG-TCM-130**. If `rftc-016-ci-qa`'s data volume keeps growing from future QA
+  cycles, expect this to get worse, not self-resolve.

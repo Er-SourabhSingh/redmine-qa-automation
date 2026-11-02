@@ -39,3 +39,22 @@
 ## Duplicate check
 
 - Duplicate found: No new root cause filed as a separate class — this is a **recurrence of the BUG-CRX-078 cost-inefficiency/dead-end-turn class** (see also BUG-CRX-115, the Time Agent's settings-question cache-rebuild recurrence), on a new trigger path (the propose/confirm pipeline itself failing to materialize a proposal, rather than excess reasoning rounds before a successful tool call). Filed as a separate bug per this repo's standing convention of filing recurrences of an already-identified defect class on a new trigger path.
+
+## Retest — 2026-11-02 — STILL OPEN (partially fixed, different failure shape)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent:
+
+- **Step 1/2** (create with explicit "active=true"): now works cleanly — the original "I described a change
+  without actually proposing it" dead-end is GONE. Produced a genuine `Write`/`Timesheet Schema Create` confirm
+  card with `Active: True`. Cancelled (not needed as a fixture). **This half is fixed.**
+- **Step 3/4** (same chat, "Please delete schema ID 3." — schema ID 3, "Crux No-Level Schema," still exists):
+  no longer reproduces the original "described a change without actually proposing it" text either, but still
+  fails — a **different** dead-end: *"I couldn't find a tool for this here, so I can't do it from this chat. It
+  can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this
+  deployment's tool setup."* This is a false capability denial — the identical `schema_delete` action genuinely
+  worked moments earlier in a FRESH chat this session (see BUG-CRX-117's retest). Confirmed via DB/native check:
+  schema ID 3 remains undeleted. Cost: 107,053 in / 585 out / $0.04.
+
+**Not fully fixed** — the original dead-end text is gone from the create path, but the delete path in a long,
+reused chat still produces a different kind of false "no tool" denial for an action proven to work in a fresh
+chat (consistent with this repo's established long-chat-degradation pattern — see `CRUX_MEMORY.md`).

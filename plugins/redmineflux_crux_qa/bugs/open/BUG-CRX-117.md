@@ -39,3 +39,15 @@
 ## Duplicate check
 
 - Duplicate found: No — this is a new, previously untested capability (schema delete) failing on its own distinct mechanism (tool-discovery dispatch failure), not a recurrence of an existing filed defect class.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent, fresh chat.
+First attempt in a reused chat (that had just created the fixture schema) hit a stale-session false denial
+("unable to access the schema creation tools... discovered tool group... having difficulty loading them in this
+session") — but a brand-new fresh chat created a disposable schema ('Crux Retest 117 B Schema', ID 5) cleanly, then
+"Delete the approval schema 'Crux Retest 117 B Schema'." produced a genuine `Write` / `Timesheet Schema Delete`
+confirm card (`Schema: 5`). Confirmed — response: *"✓ ... deleted."* Verified natively on `/approval_schemas`: the
+schema is genuinely gone. **Confirmed fixed** for the real delete path; the one stale-session false-denial
+instance is noted but not re-filed (fresh-chat delete is the repo's established methodology baseline and worked
+cleanly).

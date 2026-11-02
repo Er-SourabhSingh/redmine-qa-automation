@@ -41,3 +41,15 @@
 ## Duplicate check
 
 - Duplicate found: No — distinct from BUG-CRX-110 (team-member request silently dropped when bundled with project creation) in trigger (schema level descriptions, not team membership) and distinct from BUG-CRX-116 (zero-level validation mismatch), though both share the general "Time Agent silently accepts a request it cannot actually fulfill" pattern seen elsewhere in this plugin family (e.g. BUG-CRX-110, BUG-CRX-114).
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `admin`, Time Agent, fresh chat: same
+multi-level description request ('Crux Retest 118 Schema', level 1 Manager/"First check", level 2
+Developer/"Final check"). The confirm card now shows `Description: First check, Final check` (concatenated into
+the schema-level description — an improvement over the original's complete silence, but still not what was
+asked: per-level descriptions). Confirmed (ID 6). Native Show page (`/approval_schemas/6`) still renders both
+levels with the generic placeholder text ("Approval by Manager" / "Approval by Developer"), and the native Edit
+form's per-level "Description (Optional)" textboxes are confirmed genuinely empty for both levels. **Not fixed** —
+per-level descriptions are still never persisted; the only change is that the concatenated text now surfaces
+somewhere (the schema-level Description) instead of being silently dropped entirely.

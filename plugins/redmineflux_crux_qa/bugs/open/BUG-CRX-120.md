@@ -42,3 +42,11 @@
 ## Duplicate check
 
 - Duplicate found: No — related to BUG-CRX-116 (both touch schema-create defaults/validation) but distinct in mechanism: BUG-CRX-116 is about a missing *validation* (0 levels allowed), this is about a mismatched *default field value* (Active) between the native and Crux creation paths.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Confirmed via two separate schema-create confirm
+cards this session (BUG-CRX-117's retest fixture and BUG-CRX-118's retest fixture, neither mentioning
+active/inactive): both now show `Active: True` on the confirm card itself, and the resulting schemas (IDs 5 and 6)
+both show Status = **Active** on `/approval_schemas` immediately after creation, with no separate activation step
+needed. **Confirmed fixed** — Crux-created schemas now match the native UI's always-active default.

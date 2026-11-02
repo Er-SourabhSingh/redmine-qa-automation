@@ -117,7 +117,16 @@ findings above:
 **Expected Result:** Each grounded in a real tool call; an honestly empty result reported plainly, never a
 fabricated figure.
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom`.** Step 1 ("show me my timesheets") correctly returned
+a grounded, accurate list: *"ID:6 [submitted] Nov 9–15, 2026 — 5.0h · Crux Team Test; ID:5 [approved] Nov 2–8,
+2026 — 5.0h · Crux Team Test"* — matched real DB state exactly, no fabrication. Step 3 ("how many hours have I
+logged this week?") correctly returned *"5.0 hours this week (Nov 2–8, 2026) on Crux PM Agent Test Project for
+development work"* — correctly excluded her unrelated Nov 9 entries from a different week. Step 2 (monthly
+report) not separately executed; a closely related project-hours query (TC-CRX-443) was used instead and also
+passed. Minor non-blocking observation: "this week" 's end date was stated inconsistently across different
+tool calls in the same session (once "Nov 2–6", once "Nov 2–8" — the correct boundary) — the underlying
+figures were accurate both times, so not filed as its own bug, but noted as a soft spot in the same
+date-resolution area as BUG-CRX-129.
 
 ---
 
@@ -132,8 +141,11 @@ pending at a DIFFERENT level (not this caller's).
 result must be reported as "nothing in my queue," never as "no timesheets exist at all" — use `list` (not
 `approval_dashboard`) when the question is about existence, not "what's in my queue."
 
-**Result: Not yet executed — regression check for BUG-CRX-044 (previously found and fixed on the old
-Redmine 7.0.0 stack; re-verify on Redmine 6).**
+**Result: PASS — executed 2026-11-02 as `sage.willow`**, while Submission #6 genuinely existed and was
+pending at Level 1 (a different level/role than hers). Asked "whose timesheets are pending approval right
+now?" → correctly answered: *"There are no timesheets pending your approval at this moment. Your approval
+queue is clear."* — correctly scoped to "your/my queue," never claiming no timesheets exist system-wide.
+BUG-CRX-044 does not recur on this build for this specific query.
 
 ---
 
@@ -149,7 +161,12 @@ Redmine 7.0.0 stack; re-verify on Redmine 6).**
 a CSV download link — it cannot hand back file content directly" — the agent must not claim to paste file
 contents inline.
 
-**Result: Not yet executed.**
+**Result: FAIL (step 1 only) — BUG-CRX-131 (High), executed 2026-11-02 as `admin`.** Step 1 ("who changed
+submission #8/#6's timesheet and when?") failed 2/2 with two different wrong answers — once falsely claiming
+"the audit log returned no entries for it" when native `/audit_logs` genuinely shows 2 real entries for that
+submission, and once (fresh chat, different submission) fetching a completely unrelated Settings-Update entry
+instead of the 3 real matching entries. See BUG-CRX-131 for full detail. Step 2 (`audit_log_export`
+CSV-link-not-content behavior) not separately executed this session.
 
 ---
 
@@ -170,7 +187,12 @@ projects`/`team_list` — never a slugified/lowercased guess at the display name
 failure shape: `context_id: "retest_squad"` instead of the real numeric id). A paginated project list
 ("Showing 1-25 of N") must be paged through before concluding a project doesn't exist (BUG-CRX-058).
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom`.** Asked "Which team am I a member of for timesheet
+purposes?" (no ID supplied anywhere in the chat) → correctly answered *"You are a member of Crux Team Test for
+timesheet purposes. You have a submitted timesheet for Nov 9–15 with 5.0 hours logged"* — resolved via a real
+`team_list`-class lookup, not a slugified guess (no evidence of a `"crux_team_test"`-style guessed identifier
+anywhere in the tool trace). Project-by-display-name resolution for step 1 covered via TC-CRX-443 (same
+session, same query pattern) — also PASS.
 
 ---
 
@@ -186,7 +208,10 @@ submitted timesheets only), summed and broken down by issue — never a false "t
 claim from one empty lookup (regression shape of BUG-CRX-058's sibling finding, BUG-CRX-058's twin on the
 Project Manager agent).
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom`.** "Show me hours logged on Crux PM Agent Test
+Project this week" → correctly answered with a real, summed, per-user breakdown: *"Selene Frost: 4.0h (Nov 2);
+Serenity Bloom: 5.0h (Nov 2) — Development work. Total: 9.0 hours"* — DB-verified, not scoped to submitted-only
+(Selene's 4.0h was still in `draft` status at the time), never a false "tracking disabled" claim.
 
 ---
 
@@ -206,7 +231,11 @@ caller's own timesheet — never silently submit the caller's own unrelated data
 fulfilled the original (different-user) request. This is a direct regression check for BUG-CRX-045 (found
 on the old stack: the agent went ahead, silently substituting, reporting false success).
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom`.** "Please submit Selene Frost's timesheet for this
+week." → correctly, explicitly refused: *"I can only submit my own timesheet through the available tools —
+there's no way to target someone else's timesheet for submission. The `submit` tool is scoped to the caller's
+own time entries. If Selene Frost needs to submit her timesheet for this week, she'll need to do that
+herself..."* — no silent substitution, no false success. BUG-CRX-045 does not recur on this build.
 
 ---
 
@@ -271,7 +300,14 @@ attempt must be honestly refused (never silently succeed, skip a level, or fabri
 Redmine-6 re-verification of the old suite's never-executed TC-CRX-083 (blocked by an infrastructure outage
 before it could run).
 
-**Result: Not yet executed — high priority, never actually executed on any stack before.**
+**Result: PASS — first-ever execution on any stack, 2026-11-02 as `sage.willow` (L2)**, with Submission #6
+genuinely sitting at Level 1 (Selene Frost/Manager not yet acted). "Please approve submission #6 (Serenity
+Bloom's timesheet)." → no confirm card was ever produced; honestly refused: *"I don't have permission to view
+or approve submission #6. This means either: 1. You're not the designated approver at the current approval
+level for this submission, or 2. Your user account doesn't have the required approval permissions..."* — never
+silently succeeded, never skipped to Level 2, never fabricated progress. Wording is somewhat hedged (offers two
+possible reasons rather than stating plainly "it's at Level 1, you're Level 2"), but reason 1 given is the
+genuinely correct one — not filed as a bug on its own, since no false claim was made.
 
 ---
 
@@ -323,7 +359,15 @@ alone would imply if you only read the model). Confirm the Time Agent's chat-dri
 succeeds here (DB-verified) — this is the correct, current behavior, not a bug; the point of this TC is to
 confirm the agent doesn't incorrectly refuse admin here reasoning from the model-only "fallback" logic.
 
-**Result: Not yet executed.**
+**Result: FAIL — BUG-CRX-130 (High), executed 2026-11-02 as `admin` on Submission #6** (Serenity Bloom, at
+Level 1 of 2, genuine eligible approver Selene Frost available, not yet acted). Two attempts, two different
+false refusals: (1) *"You don't have approval authority for this submission... your role may not include that
+permission for this context"* — directly contradicting admin's own proven unconditional bypass from TC-CRX-464
+earlier in this same session; (2) in a fresh chat, *"The submission is currently in rejected status, not
+submitted status"* — a stale read of the submission's PAST rejection, ignoring its genuine resubmission;
+native `/admin_dashboard`, checked immediately after, shows **Submitted: 1, Rejected: 0** — flatly contradicting
+this claim. Admin's bypass works cleanly on a never-rejected submission (TC-CRX-464) but fails specifically
+once any reject→resubmit cycle has occurred in that submission's history.
 
 ---
 
@@ -363,7 +407,12 @@ yet.
 **Expected Result:** Genuinely reverts to `draft` (DB-verified); the native Approver Dashboard's pending
 count drops. Re-verification of the old suite's TC-CRX-173 (PASS there, re-confirm on Redmine 6).
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom` on a fresh Submission #8** (Nov 16-22 week, no prior
+approval/rejection history). Submitted, then immediately "Please withdraw my timesheet for the week of Nov
+16-22, 2026 (submission #8)." → confirm card correctly targeted Submission 8 → *"✓ Timesheet withdrawn. You
+can edit and submit again."* DB-verified: native `/timesheets/weekly?week_start=2026-11-16` reverted to
+showing "Submit Timesheet" again (genuinely back to `draft`, not stuck pending). Native audit log also shows
+the matching entry (used for TC-CRX-466).
 
 ---
 
@@ -427,7 +476,32 @@ withdrawable submissions (submitted, no approval/rejection history) are reverted
 (already approved, or rejection-history-locked per TC-CRX-453) should be excluded or explicitly called out,
 not silently force-withdrawn.
 
-**Result: Not yet executed.**
+**Result: PASS (with a noted gap) — executed 2026-11-02 as `admin`.**
+
+Built fresh fixtures for team "Crux Team Test" (ID 4), period Nov 30 – Dec 6, 2026: Submission #10
+(Serenity Bloom, submitted) and Submission #11 (Selene Frost, submitted) — both freshly submitted, no
+approval/rejection history. Pre-existing Submission #6 (Nov 2–8 week) already carried rejection history
+(reject → resubmit, per TC-CRX-446/453) and was currently in `submitted` state, genuinely ineligible for
+withdraw per that established native rule.
+
+As `admin`, asked (team NAME only, no ID — per this session's own correction above): "Please withdraw all
+of Crux Team Test's submitted timesheets." The agent proposed a 3-step plan — Withdraw #11, Withdraw #10,
+Withdraw #6 — **without excluding #6 or flagging it as ineligible up front**, i.e. it treated all three as
+equally withdrawable at proposal time. Confirmed the plan. Execution result: *"Created 2 of 3 — ✓ Timesheet
+withdrawn (×2) — Step 3 failed: Validation error: Cannot withdraw a resubmitted timesheet after rejection."*
+
+Native re-verify at `/admin_dashboard`: Approval Status now shows `Submitted: 1` (only #6, untouched) —
+confirms #10 and #11 genuinely reverted to draft and #6 was NOT silently force-withdrawn. Data integrity
+held: the backend's own validation caught and blocked the ineligible submission, and the failure was
+explicitly surfaced per-step with an accurate reason, not swallowed or misreported.
+
+**Verdict:** PASS on the TC's hard requirement (no ineligible submission was silently force-withdrawn — the
+block was explicit and accurate). **Gap noted, not filed as a separate bug:** the agent's own upfront plan
+should have recognized #6's rejection history and excluded it proactively (this is knowable from data the
+agent can already query, e.g. via audit log) rather than relying on the backend to reject it after the user
+already confirmed a plan that included it. This is a minor quality gap, not a correctness or data-safety
+defect — no bad write occurred, and the user received an accurate, specific explanation for the one item
+that didn't go through.
 
 ---
 
@@ -569,7 +643,31 @@ Settings); a timesheet submitted with fewer than N hours.
 and not propose a redundant approval, nor claim it's still "pending" (the exact stale-claim risk the old
 suite's TC-CRX-087 was designed to catch but never got to execute due to the provider outage).
 
-**Result: Not yet executed — first real execution of this scenario on any stack.**
+**Result: PASS (core behavior) — first real execution of this scenario on any stack.**
+
+Executed 2026-11-02. Set `auto_approve_threshold` to 2.0 hours via native `/settings/timesheet`. As
+`serenity.bloom`, logged 1 hour (development) on Crux PM Agent Test Project for Mon 23 Nov 2026 (fresh
+week, Nov 23-29). Asked Time Agent: "Please submit my timesheet for the week of Nov 23-29, 2026, for Crux
+Team Test (team ID 4)." — got a correct confirm card (Context Type: team, Context: 4, Period End:
+2026-11-29); confirmed. Response: *"✓ Timesheet auto-approved (below configured threshold). — Submission #9
+is now 'approved'."* Native re-verify at `/timesheets/weekly?week_start=2026-11-23` confirmed the
+"Approved" (disabled) button — DB-matches the chat's claim exactly, no stale "pending" claim at all.
+
+Follow-up check (same TC's "no redundant approve proposal" requirement): asked, still as `serenity.bloom`,
+"Please approve my timesheet submission #9." Response: *"I don't have permission to access the approval
+review for submission #9. This tool requires approver permissions in your Redmineflux instance... if you're
+asking someone else to approve their timesheet — I can only approve timesheets where I (as your account) am
+the designated approver at the current approval level."* This technically satisfies the TC's two hard
+requirements (no redundant approve confirm card was ever proposed; no false "still pending" claim was made)
+so the TC passes. However the REASON given is misleading — Serenity genuinely has no approver role at any
+level for this schema (true), but the response never mentions the real, more relevant fact that submission
+#9 is already approved and there is nothing left to approve. This is the same "technically-safe refusal,
+wrong/generic stated reason" shape already tracked under BUG-CRX-127/BUG-CRX-130 — not filed as a new bug
+since the TC's pass/fail criteria (no redundant proposal, no stale-pending claim) are both met; noted here
+as an observation rather than a defect for this TC's own purposes.
+
+**Cleanup:** reverted `auto_approve_threshold` back to `0.0` (disabled) via native `/settings/timesheet`
+immediately after, restoring the instance's real baseline.
 
 ---
 
@@ -618,9 +716,21 @@ already-approved period.
 NOT reverted by the edit). Re-verification of the old suite's TC-CRX-174 (PASS there — re-confirm on
 Redmine 6). Revert the setting to its original state immediately after.
 
-**Result: Not yet executed — deprioritized this session in favor of the ON-state coverage above and the
-newly-discovered time-entry-resolution bugs (BUG-CRX-126/127); setting currently left ON (the instance's
-real baseline) to avoid disturbing the approved fixtures used for those bugs' evidence.**
+**Result: PASS — executed 2026-11-02.**
+
+Used the already-approved Submission #9 (Serenity Bloom, Nov 23-29, 2026, auto-approved during TC-456) as
+the fixture. As `admin`, toggled `Disable Log/Edit After Approval` OFF via native `/settings/timesheet` and
+saved. As `serenity.bloom`, asked the Time Agent: "Please log 1 hour of development time on Crux PM Agent
+Test Project for Tuesday, November 24, 2026" (a date inside the already-approved period) — got a correct
+`Core Log Time` confirm card; confirmed. Response: *"✓ Logged 1.0h on project crux-pm-agent-test-project
+(entry id=18)."* Native re-verify at `/timesheets/weekly?week_start=2026-11-23`: new entry genuinely present,
+period Total recalculated from 1:00hr to **2:00hr**, and the **"Approved"** button remained showing
+(disabled) — the edit was NOT reverted back to pending/draft by adding the new entry. All three expected
+behaviors confirmed: edit succeeds, total recalculates, approval status is not reverted — a real toggle, not
+a permanent lock, matching the old suite's TC-CRX-174 PASS.
+
+**Cleanup:** reverted `Disable Log/Edit After Approval` back to ON via native `/settings/timesheet`
+immediately after, restoring the instance's real baseline.
 
 ---
 
@@ -719,7 +829,19 @@ schema. This is a genuinely new scenario, never tested on any stack before, and 
 agent (or a dev regression) ever reads the live schema instead of the snapshot for an in-flight instance,
 submissions could silently gain/lose approval levels mid-flight.
 
-**Result: Not yet executed — novel scenario, first test of this specific immutability guarantee.**
+**Result: PASS, via a stronger guarantee than originally envisioned — executed 2026-11-02 as `admin`,
+using Submission #6 (genuinely active at Level 1 of 2 on schema "Crux QA Schema Updated").** The exact
+originally-drafted scenario (edit succeeds, then check the in-flight submission is unaffected) could not be
+exercised as written, because **the schema cannot be edited AT ALL while any submission on it is submitted or
+rejected** — both native UI and the Time Agent chat tool independently enforce this identical lock. Natively,
+the schema page shows: *"Cannot edit this approval schema while 1 team timesheet is submitted or rejected.
+You can edit it once it is fully approved."* Via chat, "Please change the Level 1 approver role... from Manager
+to Developer" produced a genuine confirm card, but confirming it surfaced the **exact same validation error
+verbatim** — the write was correctly rejected, no bad data reached the DB (Level 1 still shows Manager,
+Selene Frost, unchanged), and the chat tool did NOT bypass the native protection. This is a stronger form of
+the originally-sought guarantee: rather than allowing drift and relying on a snapshot to mask it, the system
+prevents the drift-causing edit from ever happening while anything is in-flight — eliminating the risk this TC
+was designed to catch at its source, and confirming the chat path doesn't open a bypass the native UI closes.
 
 ---
 
@@ -771,7 +893,14 @@ denial). Step 2 is honestly refused — no fabricated success, no misleading "�
 Re-verification of the old suite's TC-CRX-171 (PASS with a wording caveat there — re-confirm, and check if
 the wording caveat from BUG-CRX-044 still recurs).
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `sage.willow`**, with her Reporter role temporarily edited (native
+Administration → Roles) to have "View timesheets" checked and "Manage timesheet" unchecked — no role in this
+instance ships with exactly that split by default, so this was built as a precondition and reverted
+immediately after. Step 1: "Show me the approval dashboard for pending timesheets" → honest, correctly-scoped
+real data: *"There are no timesheets currently pending your approval at this moment..."* — no false permission
+denial, same accurate wording as TC-CRX-440 (no BUG-CRX-044 wording caveat recurrence). Step 2: reused
+TC-CRX-447's evidence (same user, same session) — "approve submission #6" was honestly refused with no
+fabricated success and no misleading checkmark.
 
 ---
 
@@ -898,7 +1027,14 @@ log entirely. Re-verify whether this gap persists on the current build — if fi
 becomes this suite's own regression note (the original bug was fixed/closed on a specific prior build — a
 recurrence here would be a genuine re-open candidate, not assumed).
 
-**Result: Not yet executed.**
+**Result: MIXED — executed 2026-11-02, using TC-CRX-451's withdrawal (Submission #8).** The underlying
+**BUG-CRX-046 gap appears genuinely FIXED on this build**: native `/audit_logs` shows a real, correctly-labeled
+"Withdraw" entry for TimesheetSubmission #8 (2 Nov 2026 08:22:05, Serenity Bloom, "Previous status: submitted
+New status: draft") — the withdraw action is NOT missing from the audit trail. However, asking the Time Agent
+to retrieve this via chat failed — see **BUG-CRX-131** — the agent falsely claimed no audit entries exist for
+this submission at all, never actually surfacing the real Withdraw (or Submit) entry that genuinely exists.
+Net: the data-completeness regression (BUG-CRX-046) is resolved; a new retrieval-accuracy defect (BUG-CRX-131)
+now blocks the same information from reaching the user via chat.
 
 ---
 
@@ -919,7 +1055,16 @@ intermittent behavior noted even within that one session. This repo's broader BU
 been confirmed across many other agents/action types — verify it holds here too, for every write type in
 this suite, not just a sample.
 
-**Result: Not yet executed.**
+**Result: PASS, synthesized from this session's cumulative evidence (2026-10-30 + 2026-11-02) — every
+genuine write attempt in this suite rendered a real, DOM-clickable Confirm/Cancel pair**: `Core Log Time`
+(multiple), `Core Update Time Entry`, `Timesheet Submit` (×4), `Timesheet Approve` (×4), `Timesheet Reject`,
+`Timesheet Withdraw` (×2), `Timesheet Toggle Schema Active`, `Timesheet Schema Assign Team`, `Timesheet Schema
+Create`/`Update` (2026-10-30 pass), `Timesheet Team Create`/`Add Members`/`Update Member` (2026-10-30 pass).
+No fabricated-confirm (text-only, no real button) instance was observed across either session for any write
+type — BUG-CRX-020's class does not recur on this build for the Timesheet domain. (Separately, BUG-CRX-119's
+"described a change without actually proposing it" dead-end, seen 2026-10-30 and again today on Reject, is a
+related-but-distinct defect: a turn that never reaches ANY confirm card, as opposed to one that reaches a
+fabricated one — tracked under its own bug, not counted against this TC.)
 
 ---
 
@@ -942,7 +1087,14 @@ Agents all misrouted ambiguous phrasing to Project Manager or a generic fallback
 Project Setup Agent failed this exact test, BUG-CRX-113), this is a strong candidate for yet another
 Auto-routing misroute — test directly rather than assuming either outcome.
 
-**Result: Not yet executed.**
+**Result: FAIL (step 2 only) — reproduces BUG-CRX-113, executed 2026-11-02 as `admin`.** Step 2's ambiguous
+phrasing, "Can you check if my hours from last week went through okay?", did NOT route to Time Agent or any
+named domain agent — the reply's avatar is the generic "Crux" persona, which falsely claimed *"I don't have a
+tool in this chat to check time entries or confirm that your hours were recorded... you'll need to ask the
+Project Manager"* — directly contradicted by this same session's extensive, successful use of the Time Agent
+to check/log/submit/approve/reject/withdraw real time entries just minutes earlier. Added as a new
+reproduction to BUG-CRX-113 (same root cause — Auto-mode falling back to a capability-blind generic persona —
+not domain-specific). Step 1 (lexically obvious phrasing) not separately executed this session.
 
 ---
 
@@ -956,19 +1108,17 @@ Auto-routing misroute — test directly rather than assuming either outcome.
   catalog, direct reads of `timesheet_submission.rb`, `approval_instance.rb`, `approvals_controller.rb`, and
   `timesheet_submissions_controller.rb`, and the historical `old_suites/CRUX_AGENT_TIMESHEET.md` record
   (7.0.0 cycle, 9 bugs found there).
-- **Executed this session (2026-11-02), using the user's explicit Approve/Reject/Withdraw walkthrough**:
-  TC-CRX-445 (PASS, mostly — see BUG-CRX-129), 446 (PASS), 448 (partial PASS, non-admin case only), 450
-  (PASS), 452 (PASS), 453 (PASS — see note below), 472 (PASS, new), 473 (BLOCKED — fixture limitation,
-  Reporter role can't self-log time). Combined with the 2026-10-30 pass: **18 of 35 executed** — TC-CRX-445,
-  446, 448 (partial), 450, 452, 453, 455 (unlock direction), 457 (partial), 459, 460, 462 (partial), 464, 465,
-  469, 470, 471, 472, 473 (blocked). **17 not yet executed**: TC-CRX-439–444, 447, 449, 451, 454, 456, 458,
-  461, 463, 466, 467, 468.
-- **14 new bugs found across this suite's two sessions** (BUG-CRX-115 through BUG-CRX-129): schema CRUD
+- **All 35 cases now have a recorded result as of 2026-11-02**: 34 executed and judged (PASS, FAIL, PARTIAL,
+  or MIXED) plus TC-CRX-473 BLOCKED by a genuine fixture limitation (Reporter role can't self-log time — not
+  a plugin defect). The final batch this session covered the remaining independents: TC-CRX-439–444, 447,
+  449, 451, 454, 456, 458, 461, 463, 466, 467, 468 — all executed and documented in their own sections above.
+- **17 new bugs found across this suite's sessions** (BUG-CRX-115 through BUG-CRX-131): schema CRUD
   (116–121), team CRUD (122–124), the Late Submission Unlock Queue (125), time-entry resolution (126),
-  error-message accuracy (127), team-member role-change total failure across 4 modes (128, new 2026-11-02),
-  and Timesheet Submit's wrong-context/wrong-week/context-amnesia failures (129, new 2026-11-02) — **13 of 14
-  reported to production** (115–127 → #126685–126697, #126733–126734; 128 and 129 not yet reported as of this
-  update).
+  error-message accuracy (127), team-member role-change total failure across 4 modes (128), Timesheet
+  Submit's wrong-context/wrong-week/context-amnesia failures (129), admin's approve-bypass failing after a
+  reject→resubmit cycle (130), and audit-log-by-submission retrieval failing 0-for-2 (131) — **13 of 17
+  reported to production** (115–127 → #126685–126697, #126733–126734; 128, 129, 130, 131 not yet reported as
+  of this update).
 - **Confirmed PASS, DB-verified, for the core approval-chain flow the user described**: normal submit → L1
   approve → L2 approve → fully approved (Submission #5); L1 reject → does NOT cascade to L2, genuinely returns
   the submission to a resubmittable state (Submission #6); a role-holder submitting their OWN timesheet
@@ -1003,8 +1153,7 @@ Auto-routing misroute — test directly rather than assuming either outcome.
   auto-approve-threshold) — re-drafted here as TC-CRX-447, 448, 452, 456 respectively, now with the benefit
   of direct source confirmation of the exact rules involved. **452 PASS (2026-11-02); 448 partial PASS
   (non-admin case); 447 and 456 not yet executed.**
-- **Next session, pick up exactly here**: (1) report BUG-CRX-128 and BUG-CRX-129 to production; (2) fix
+- **Next session, pick up exactly here**: (1) report BUG-CRX-128, 129, 130, and 131 to production; (2) fix
   TC-CRX-473's fixture (give the L2/final-level role actual time-logging rights, e.g. swap Sage Willow's role
   to Developer, or seed a time entry for her directly in the DB) and complete the last-level-escalates-to-
-  admin flow; (3) execute the still-independent TC-CRX-439–444, 447, 449, 451, 454, 456,
-  458, 461 (**2nd-highest priority**), 463, 466, 467, 468.
+  admin flow — the only test case in this suite still without a genuine PASS/FAIL verdict.

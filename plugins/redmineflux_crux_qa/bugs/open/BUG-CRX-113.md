@@ -61,10 +61,25 @@ resulting generic fallback fabricates a flatly false claim about the platform's 
   configure it for you. You can reach them by starting a message with @Project Manager or asking me again
   that way..."*
 
+## Follow-up — reproduces on the Timesheet domain too (2026-11-02, TC-CRX-468)
+
+As `admin`, fresh chat, Crux mode Auto. Ambiguous phrasing deliberately avoiding "timesheet"/"approve" as the
+first clear signal (per TC-CRX-468's step 2): *"Can you check if my hours from last week went through okay?"*
+→ same failure shape: the reply's avatar/name is the generic **"Crux"** persona, not "Time Agent", and it
+falsely claimed: *"I don't have a tool in this chat to check time entries or confirm that your hours were
+recorded. To verify your timesheet from last week, you'll need to ask the Project Manager..."* — again
+inventing a wrong-agent workaround (Project Manager, not even the real owner of timesheet questions), and again
+demonstrably false: this exact session used the Time Agent to check/log/submit/approve/reject/withdraw real
+time entries dozens of times in the hours immediately before this query. Confirms the bug is not isolated to
+project-creation phrasing — it reproduces across at least two unrelated domains (Project Setup and Timesheet)
+whenever Auto-mode's routing fails to match a sufinciently-paraphrased request.
+
 ## Duplicate check
 
 - Duplicate found: No new root cause filed as its own bug — related in shape to BUG-CRX-094/096/109
   (Auto-mode misrouting to the wrong agent on ambiguous phrasing) but distinct and more severe: those three
   always still reached a real, honest domain agent; this one reaches no domain agent at all and produces an
   outright false capability claim, the first instance of this specific combined failure mode in this QA
-  cycle.
+  cycle. Reproduced again 2026-11-02 on the Timesheet domain (TC-CRX-468) — same symptom, different trigger
+  phrase and domain — kept under this same bug rather than filed separately, since the root cause (Auto-mode's
+  routing failing over to a capability-blind generic fallback) is identical, not domain-specific.

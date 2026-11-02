@@ -58,3 +58,14 @@ Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `ad
 **Not fully fixed** — the original dead-end text is gone from the create path, but the delete path in a long,
 reused chat still produces a different kind of false "no tool" denial for an action proven to work in a fresh
 chat (consistent with this repo's established long-chat-degradation pattern — see `CRUX_MEMORY.md`).
+
+## Retest — 2026-11-02 (3rd round) — FIXED
+
+Pulled crux-core `3812e0f→65053f8` (CRC-75, "Time Agent approves only what the plugin allows, never refuses a
+write from memory — BUG-CRX-130, 119") and redmineflux-mcp `9f477f2→bc13576`. Containers restarted. Re-ran the
+exact same-chat sequence that triggered the false denial last round: created a new schema ("Crux Retest 119
+Round3", ID 7), then in the **same chat** asked "Please delete schema ID 7." — this time it correctly produced a
+two-step confirm flow (a plain-text "Proposal: Delete Approval Schema #7" first, then, after "Yes, confirm
+delete," a genuine `Timesheet Schema Delete` confirm card with `Schema: 7`). Confirmed — *"✓ Approval schema #7
+deleted."* No false "I couldn't find a tool for this here" denial this round. **Confirmed fixed** — the
+same-chat memory issue behind the false refusal is resolved.

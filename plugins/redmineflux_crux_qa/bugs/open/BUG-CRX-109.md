@@ -85,3 +85,15 @@ Developer commit (CRC-71, "109: gated route to the Budget Agent") pulled + conta
 mode, admin, fresh chat: "Is the Development category in project ID 5 over its limit right now?" — still routed
 to **Project Manager**, which again correctly explained categories have no built-in limit concept but never
 mentioned or handed off to the Budget Agent. **Not fixed.**
+
+## Retest — 2026-11-02 (3rd round) — STILL OPEN (not fixed — different trigger phrasing than the one the fix targeted)
+
+Pulled crux-core `3812e0f→65053f8` (CRC-74, "agent audit — Auto routing gaps..."). This commit's own changelog
+explicitly lists a new gated route: *"approve 20 hours for Development category" went to the Project Manager...
+A gated route to the Budget Agent: approve … hours … category."* — a narrower phrase pattern (an approve-hours
+action) than this bug's own repro phrasing (a read-only "is X over its limit" / "spending" question, no "approve"
+or "hours" wording at all). Re-ran the exact original repro: "Is the Development category in project ID 5 over
+its limit right now?" (Auto mode, fresh chat) — still routes to **Project Manager**, and the response has
+regressed further, from an honest clarifying question to a flat *"I couldn't find a tool for this here, so I
+can't do it from this chat."* **Not fixed** — CRC-74's new gated route only covers the "approve ... hours ...
+category" action phrasing, not this bug's read-only "over its limit"/"spending" question phrasing.

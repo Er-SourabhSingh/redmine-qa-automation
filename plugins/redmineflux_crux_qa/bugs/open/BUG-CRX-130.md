@@ -94,3 +94,22 @@ Now the **API itself** rejects admin's unconditional approve-bypass for a submis
 a genuine server-side regression rather than an agent-reasoning gap. **Not fixed — escalate**, since this also
 threatens TC-CRX-464's previously-PASS admin-bypass coverage and should be regression-checked against a
 never-rejected submission before the next report.
+
+## Retest — 2026-11-02 (3rd round) — STILL OPEN (chat-level reasoning fixed, backend 422 unchanged)
+
+Pulled crux-core `3812e0f→65053f8` (CRC-74/75, explicitly "Time Agent approves only what the plugin allows, never
+refuses a write from memory — BUG-CRX-130, 119") and redmineflux-mcp `9f477f2→bc13576` ("approve and show use the
+plugin's own can_approve"). Containers restarted. Re-ran as `admin`, Time Agent: "Please approve submission #6
+(Serenity Bloom's timesheet for Crux Team Test)." — the agent's **reasoning is now accurate and honest**: it
+correctly stated the submission was rejected once at Level 1 by Selene Frost, named the real reason, and asked
+*"Are you sure you want to approve this submission as-is?"* instead of fabricating a false "no approval authority"
+or "still rejected" claim. Replying "Yes, proceed... I'm admin, approve it." produced a genuine `Timesheet
+Approve` confirm card (`Submission: 6`). On **Confirm**, the identical backend rejection from the prior round
+persists: *"Validation error: Not authorised to approve at this level."*
+
+**Root cause confirmed isolated to `redmineflux_timesheet` (the plugin's own API), not crux-core/mcp** — this repo
+is still at `ca1f81b`, unchanged since the original regression was found, and no commit targeting this specific
+422 exists there yet. The crux-core/mcp layer fixes genuinely improved the chat-level honesty (no more false
+refusal text), but cannot fix a real backend authorization bug in a repo they don't own. **Still not fixed** —
+escalate to whoever owns `redmineflux_timesheet` next; crux-core/mcp-side work on this bug is effectively done
+until that plugin fix lands.

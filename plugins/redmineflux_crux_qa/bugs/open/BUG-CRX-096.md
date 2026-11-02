@@ -48,3 +48,12 @@ mode, admin: "can you move the 'EUR Currency Test Deal' to the Qualified stage?"
 **Project Manager**, which replied: *"I don't have tools to manage CRM deals or pipeline stages in this chat...
 ask an admin whether there's a CRM agent available in Ask Crux for that task."* — still a false/uncertain
 capability denial, still never reaches Sales Agent. **Not fixed.**
+
+## Retest — 2026-11-02 (3rd round) — STILL OPEN (not fixed)
+
+Pulled crux-core `3812e0f→65053f8` (CRC-74, "agent audit — Auto routing gaps..."). CRC-74's own changelog lists
+"Show me the sales pipeline" as the one CRM-routing fix in this batch — "move the deal to X stage" phrasing is not
+among its 46 re-tested questions. Re-ran the exact original repro, Auto mode, admin, fresh chat: "can you move the
+'EUR Currency Test Deal' to the Qualified stage?" — still routes to **Project Manager**, now with a flatter
+denial than before: *"I couldn't find a tool for this here, so I can't do it from this chat..."* Never reaches
+Sales Agent. **Not fixed.**

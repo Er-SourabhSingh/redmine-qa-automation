@@ -50,3 +50,15 @@ restarted. Two variants retested as `luna.blossom`, Auto mode, fresh chats:
   check that isn't firing for this exact bare phrasing (or fires only once a project is already in scope). **Not
   fully fixed** — the project-named case works, the original bare-phrasing repro from this bug's own steps still
   reproduces.
+
+## Retest — 2026-11-02 (3rd round) — STILL OPEN (bare phrasing unfixed)
+
+Pulled crux-core `3812e0f→65053f8` (CRC-74, "agent audit — Auto routing gaps..."). Re-ran the exact bare-phrasing
+repro, Auto mode, admin, fresh chat: "What's on my To Do list?" — still falls to the generic tool-less "Crux"
+persona: *"I don't have tools available in this chat to look up your To Do list... Ask me again by starting your
+message with @crux — that will load the Project Manager agent..."* No automatic handoff card was offered this
+time either (contrast with BUG-CRX-113's retest the same round, which did get a genuine handoff proposal for a
+similarly-shaped bare request — routing behavior appears inconsistent between runs/phrasings rather than reliably
+fixed). CRC-74's own changelog doesn't list "what's on my to do list" among its 46 re-tested routing phrases.
+**Not fixed** — the bare, no-project phrasing still requires the user to manually retype with an "@crux" prefix
+instead of being routed automatically.

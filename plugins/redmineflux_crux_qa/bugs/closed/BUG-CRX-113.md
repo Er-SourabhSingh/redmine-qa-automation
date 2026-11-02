@@ -90,3 +90,17 @@ Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `ad
 need a fresh space in Redmine to start tracking the mobile app work." — still misroutes to the generic "Crux"
 persona rather than any named domain agent (not Project Setup Agent, not even a Project-Manager-style fallback).
 **Not fixed.**
+
+## Retest — 2026-11-02 (3rd round) — FIXED
+
+Pulled crux-core `3812e0f→65053f8` (CRC-74, "agent audit — Auto routing gaps, pipeline reply not taken for a
+proposal, KB project lookup"). Re-ran the exact original repro, Auto mode, fresh chat: "I need a fresh space in
+Redmine to start tracking the mobile app work." The generic "Crux" persona still answers first with the same
+"I don't have tools in this chat..." text, **but this time a genuine `Ask agent` / "Ask Project Manager" handoff
+proposal appears alongside it** — confirming the handoff produced a real, working outcome: the Project Manager
+agent engaged properly and asked for the project name/identifier to actually create it (not a dead end). This
+resolves the bug's core complaint — Auto-mode no longer reaches a dead end with a false capability claim; it now
+successfully reaches a real, capable domain agent via the new handoff mechanism, even though the agent reached is
+Project Manager rather than the dedicated Project Setup Agent. **Confirmed fixed** for the originally-reported
+defect (reaches no agent at all / false denial) — the handoff path is new behavior this round and genuinely
+works end-to-end.

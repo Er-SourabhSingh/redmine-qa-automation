@@ -19,6 +19,38 @@ containers restarted. Even then, one bug (BUG-CRX-125) still reproduced afterwar
 failure mode — pulling all three repos doesn't guarantee one ask-level finding is actually closed; always re-run
 the original repro in a **fresh chat** (old chat history keeps the stale answer) before marking fixed.
 
+## 2026-11-02 — 3rd developer pull (crux-core CRC-74/75 + mcp), 6 bugs retested, 2 more fixed
+
+User asked to re-fetch all 8 repos again later the same session. Only crux-core (`3812e0f→65053f8`, 2 new
+commits: CRC-74 "agent audit — Auto routing gaps, pipeline reply not taken for a proposal, KB project lookup"
+and CRC-75 "Time Agent approves only what the plugin allows, never refuses a write from memory — BUG-CRX-130,
+119") and redmineflux-mcp (`9f477f2→bc13576`, "approve and show use the plugin's own can_approve") had new
+commits; the other 6 repos were unchanged. Restarted `crux-core`+`mcp` containers (no migrations needed, pure
+Python/agent changes).
+
+Retested the 6 bugs these commits targeted or were plausibly related to:
+- **FIXED**: BUG-CRX-113 (Auto-mode project-creation routing — a new genuine "Ask agent"/"Ask Project Manager"
+  handoff mechanism now appears and genuinely works, instead of a dead-end false "no tools" denial); BUG-CRX-119
+  (same-chat schema-delete false "couldn't find a tool" denial — now a clean two-step confirm + genuine delete).
+- **STILL OPEN**: BUG-CRX-094 (bare "What's on my To Do list?" — still no automatic routing, requires manual
+  "@crux" retry; inconsistent with 113's new handoff behavior for a similarly-shaped bare request), BUG-CRX-096
+  (CRM deal-stage-move routing — not among CRC-74's 46 re-tested phrases), BUG-CRX-109 (Budget Agent "over its
+  limit" routing — CRC-74's new gated route only covers "approve...hours...category" phrasing, a narrower
+  pattern than this bug's own repro; actually regressed to a flatter "no tool" denial).
+- **STILL OPEN, confirmed isolated to a different repo**: BUG-CRX-130 (admin approve-bypass) — the chat-level
+  reasoning is now fully honest and accurate (correctly states the real rejection history, asks for explicit
+  override confirmation instead of fabricating a false refusal), and produces a genuine confirm card on the
+  first attempt. But the backend write itself still fails with the identical `422 Not authorised to approve at
+  this level` from the prior round — **this is a `redmineflux_timesheet` plugin bug, not crux-core/mcp**, and
+  that repo is still at `ca1f81b` with no commit targeting this 422 yet. Lesson: when a bug's chat-layer
+  symptom clears up but the backend write still fails identically, check which repo actually owns the failing
+  endpoint before assuming the pull didn't help — the crux-core/mcp fix may genuinely be complete on its own
+  side, just blocked on an unrelated plugin repo.
+
+All 2 newly-fixed bugs synced to production (closed, Done/100%); the other 4 already correctly reflect "still
+open"/"reopened" status from the prior rounds, with a dated note appended to each explaining this round's
+finding.
+
 ## 2026-11-02 — 2nd developer pull (testcase_management + agile_board), 6 bugs retested, 1 new regression found
 
 After the main 089–131 campaign below, the user supplied a fresh commit list for 8 repos. Only

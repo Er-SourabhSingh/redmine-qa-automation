@@ -241,7 +241,14 @@ resets `current_level` to 1 and increments `cycle_number` — i.e. the FULL appr
 the start, not resuming from wherever it was rejected. Verify via the native Approver Dashboard that the
 resubmitted item shows "Level 1 of N" again, not stuck at the rejection level.
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom` on Submission #6** (rejected by Selene Frost in
+TC-CRX-450). "Please resubmit my timesheet for the week of Nov 09-15, 2026, for Crux Team Test (team ID 4)"
+→ confirm card correctly showed `Context Type: team`/`4`, `Period End: 2026-11-15` → *"✓ Timesheet resubmitted
+for approval. — Submission #6 is now 'submitted'."* (same submission ID reused, not a new one — consistent
+with `restart!` resetting the existing record). DB-verified via Selene Frost's own "pending for my approval"
+query: *"Currently at approval level 1 of 2. This submission is waiting for your sign-off."* — genuinely
+restarted at Level 1, not stuck at wherever the rejection happened (there was only 1 level to begin with in
+that rejection, so this also confirms the cycle number advanced rather than silently resuming).
 
 ---
 
@@ -397,7 +404,15 @@ own "What good output looks like" guidance only explicitly discusses the after-a
 specifically for the agent incorrectly ALLOWING this withdrawal (reasoning only from the simpler
 after-approval rule) or fabricating a wrong refusal reason.
 
-**Result: Not yet executed — high priority, a genuinely new rule this suite is the first to test anywhere.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom` on Submission #6**, sitting at Level 1 of 2 with zero
+approvals this cycle after being rejected once and resubmitted (TC-CRX-446). "Please withdraw my timesheet
+submission #6 for the week of Nov 09-15, 2026" → confirm card correctly targeted Submission 6 → on confirm,
+the agent surfaced the **exact** expected validation error verbatim: *"Validation error: Cannot withdraw a
+resubmitted timesheet after rejection."* — the agent did NOT incorrectly allow the withdrawal and did NOT
+fabricate a wrong reason (e.g. did not claim it was blocked by an approval, which would have been the wrong
+guard). DB-verified: the weekly view still shows a disabled "Waiting for Approval" button, confirming the
+submission was genuinely untouched by the rejected write attempt. First time this genuinely new,
+previously-undocumented rule has been verified on any stack.
 
 ---
 
@@ -942,11 +957,12 @@ Auto-routing misroute — test directly rather than assuming either outcome.
   `timesheet_submissions_controller.rb`, and the historical `old_suites/CRUX_AGENT_TIMESHEET.md` record
   (7.0.0 cycle, 9 bugs found there).
 - **Executed this session (2026-11-02), using the user's explicit Approve/Reject/Withdraw walkthrough**:
-  TC-CRX-445 (PASS, mostly — see BUG-CRX-129), 448 (partial PASS, non-admin case only), 450 (PASS), 452
-  (PASS), 472 (PASS, new), 473 (BLOCKED — fixture limitation, Reporter role can't self-log time). Combined
-  with the 2026-10-30 pass: **16 of 35 executed** — TC-CRX-445, 448 (partial), 450, 452, 455 (unlock
-  direction), 457 (partial), 459, 460, 462 (partial), 464, 465, 469, 470, 471, 472, 473 (blocked).
-  **19 not yet executed**: TC-CRX-439–444, 446, 447, 449, 451, 453, 454, 456, 458, 461, 463, 466, 467, 468.
+  TC-CRX-445 (PASS, mostly — see BUG-CRX-129), 446 (PASS), 448 (partial PASS, non-admin case only), 450
+  (PASS), 452 (PASS), 453 (PASS — see note below), 472 (PASS, new), 473 (BLOCKED — fixture limitation,
+  Reporter role can't self-log time). Combined with the 2026-10-30 pass: **18 of 35 executed** — TC-CRX-445,
+  446, 448 (partial), 450, 452, 453, 455 (unlock direction), 457 (partial), 459, 460, 462 (partial), 464, 465,
+  469, 470, 471, 472, 473 (blocked). **17 not yet executed**: TC-CRX-439–444, 447, 449, 451, 454, 456, 458,
+  461, 463, 466, 467, 468.
 - **14 new bugs found across this suite's two sessions** (BUG-CRX-115 through BUG-CRX-129): schema CRUD
   (116–121), team CRUD (122–124), the Late Submission Unlock Queue (125), time-entry resolution (126),
   error-message accuracy (127), team-member role-change total failure across 4 modes (128, new 2026-11-02),
@@ -966,8 +982,9 @@ Auto-routing misroute — test directly rather than assuming either outcome.
      old suite's documented KB expectation ("only admin can complete" a self-approval scenario) — a real
      risk that the agent's own training reflects the outdated rule. **Not yet executed.**
   2. **TC-CRX-453** — withdrawal is also blocked by any rejection history alone, even with zero approvals —
-     a distinct guard from the already-known after-approval block, found only via direct source read. **Not
-     yet executed.**
+     a distinct guard from the already-known after-approval block, found only via direct source read.
+     **PASS, executed 2026-11-02** — the Time Agent surfaced the exact `cannot_withdraw_resubmitted_after_
+     rejection` validation error verbatim and did not fabricate a wrong reason or incorrectly allow it.
   3. **TC-CRX-461** — schema-snapshot immutability: editing a schema mid-flight must not retroactively alter
      an already-active approval instance. **Not yet executed.**
 - **A 4th and 5th novel scenario emerged mid-session, not anticipated by the original draft at all**:
@@ -984,10 +1001,10 @@ Auto-routing misroute — test directly rather than assuming either outcome.
 - **4 TCs from the old suite that were BLOCKED and never actually executed on any stack at all** (TC-CRX-083
   sequential-order, TC-CRX-084 self-approval, TC-CRX-085 withdraw-after-approval, TC-CRX-087
   auto-approve-threshold) — re-drafted here as TC-CRX-447, 448, 452, 456 respectively, now with the benefit
-  of direct source confirmation of the exact rules involved. **None yet executed.**
+  of direct source confirmation of the exact rules involved. **452 PASS (2026-11-02); 448 partial PASS
+  (non-admin case); 447 and 456 not yet executed.**
 - **Next session, pick up exactly here**: (1) report BUG-CRX-128 and BUG-CRX-129 to production; (2) fix
   TC-CRX-473's fixture (give the L2/final-level role actual time-logging rights, e.g. swap Sage Willow's role
   to Developer, or seed a time entry for her directly in the DB) and complete the last-level-escalates-to-
-  admin flow; (3) execute the still-independent TC-CRX-439–444, 446, 447, 449, 451, 453 (**453 remains the
-  highest-priority novel check — withdraw blocked by rejection history alone, not yet tested**), 454, 456,
+  admin flow; (3) execute the still-independent TC-CRX-439–444, 447, 449, 451, 454, 456,
   458, 461 (**2nd-highest priority**), 463, 466, 467, 468.

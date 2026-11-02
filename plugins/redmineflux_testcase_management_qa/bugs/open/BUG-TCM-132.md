@@ -1,7 +1,7 @@
 # BUG-TCM-132
 
 - Bug ID: BUG-TCM-132
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127388 — "BUG-TCM-132: CSV import silently drops the \"Estimated time\" and \"% Done\" columns", assigned Vaishnavi Bhawsar, Target Version "Testcase Management plugin Release 7.3.0"
 - Title: CSV import silently drops the "Estimated time" and "% Done" columns — the preview says OK, but every imported test case is saved with no estimated time and 0% done
 - Severity: Medium
 - Redmine version: 7.0 (Docker `redmine:7.0-bookworm`)

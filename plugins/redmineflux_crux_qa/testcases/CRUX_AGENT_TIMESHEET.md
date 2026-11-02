@@ -220,7 +220,13 @@ caller.
 **Expected Result:** Per the persona, the agent checks `time_entries` for that period FIRST; if empty, says
 so plainly ("no time logged for that period — nothing to submit yet") instead of proposing a doomed submit.
 
-**Result: Not yet executed.**
+**Result: PASS (mostly) — executed 2026-11-02 as `serenity.bloom` and `sage.willow`.** Both users, with
+genuinely zero time logged for the target week, got an honest refusal ("There are no time entries logged...
+I won't create an empty timesheet" / "there's nothing to submit yet") instead of a doomed proposal — correct.
+**However, one reproduction (Serenity Bloom, attempt 1) instead produced a real, confirmable `Timesheet
+Submit` card with a fabricated `Week Start: 2026-10-27` and `Context Type: project`/`1` despite the same
+zero-hours precondition** — filed as **BUG-CRX-129**. So the refusal-when-empty behavior is correct most of
+the time but not 100% reliable; see BUG-CRX-129 for the full failure-mode breakdown of `Timesheet Submit`.
 
 ---
 
@@ -282,9 +288,16 @@ blocked for every user including admin, full stop. This TC verifies the Time Age
 honors this real, current rule (refuses honestly) rather than either fabricating success or reproducing the
 OLD KB's now-inaccurate expectation.
 
-**Result: Not yet executed — important: if the agent's own training/persona knowledge still reflects the
-old KB wording, this could surface as a confident-but-wrong claim about admin being able to self-approve.
-Watch specifically for this.**
+**Result: PARTIALLY PASS — executed 2026-11-02, non-admin case only.** As `selene.frost` (the team's L1/Manager
+approver), logged and submitted her OWN timesheet (Submission #7) for the team where her role matches the
+current (L1) approval level. The agent correctly recognized the self-approval block WITHOUT being told about
+it explicitly: when Selene herself asked "any timesheets pending for my approval?" immediately after her own
+submission, it correctly reported "No timesheets are currently pending your approval" (not a false "all
+clear" per BUG-CRX-125's pattern — DB-verified: submission #7 genuinely sat at **Level 2 of 2** per Sage
+Willow's own query, confirming the self-level was skipped, not just hidden). Sage Willow then approved it
+cleanly at Level 2, reaching `Timesheet fully approved`. **Admin-specifically self-approving was not tested
+this session** — this TC's original admin-specific scenario remains open; see new TC-CRX-472 for the full
+non-admin self-submit-skip writeup.
 
 ---
 
@@ -317,7 +330,15 @@ confirm the agent doesn't incorrectly refuse admin here reasoning from the model
 submission's status becomes `rejected` (DB-verified), and the reason is visible via `audit_log`/
 `approval_review`. Sets up TC-CRX-446's resubmission test.
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `selene.frost` (L1 approver), rejecting `serenity.bloom`'s Submission
+#6 with comment "Missing project details".** First attempt hit the recurring BUG-CRX-119 dead-end ("I
+described a change without actually proposing it"); identical retry in the same chat then produced a correct
+confirm card (Submission: 6, Comment: "Missing project details") and executed ("✓ Timesheet rejected").
+DB-verified via the submitter's own weekly view: the "Waiting for Approval"/"Approved" buttons were replaced
+by "Submit Timesheet" again — genuinely reverted to a resubmittable state, not stuck pending at any level.
+**Also confirms the walkthrough's cascade rule**: `sage.willow` (L2), asked immediately after, correctly
+reported "No timesheets are currently pending your approval" — the rejection did NOT cascade to L2, matching
+the explicitly-described flow exactly.
 
 ---
 
@@ -350,7 +371,13 @@ level's approval.
 check, honestly refused with a message equivalent to *"Cannot withdraw after approval."* Re-verification of
 the old suite's TC-CRX-085/173 gap.
 
-**Result: Not yet executed.**
+**Result: PASS — executed 2026-11-02 as `serenity.bloom` on her own fully-approved Submission #5.** First
+attempt resolved "this week" to a fabricated, non-existent date range ("October 27 – November 2") — see
+BUG-CRX-129's follow-up section. Once told the submission ID and week explicitly, the agent correctly
+refused: *"I can't withdraw submission #5 — it's already been approved... Withdrawal is only possible while a
+timesheet is in submitted status and hasn't yet been approved by any level... contact one of the approvers to
+reject it first."* Matches native behavior exactly — the weekly view shows only a disabled "Approved" button
+with no Withdraw option once both levels have signed off.
 
 ---
 
@@ -386,6 +413,59 @@ withdrawable submissions (submitted, no approval/rejection history) are reverted
 not silently force-withdrawn.
 
 **Result: Not yet executed.**
+
+---
+
+### TC-CRX-472: A role-holder submitting their OWN timesheet skips their own level and escalates to the next level directly (explicit user-confirmed business flow)
+
+**User Role:** The L1 (Manager) role-holder of a 2-level team schema, submitting their own timesheet.
+
+**Precondition:** Team "Crux Team Test" (ID 4), 2-level schema "Crux QA Schema Updated" (L1=Manager,
+L2=Reporter). `selene.frost` holds the Manager role in this team.
+
+**Steps:**
+1. As `selene.frost`, log time and submit her own timesheet for the current week, for this team.
+2. As `selene.frost` again, ask "any timesheets pending for my approval?"
+3. As `sage.willow` (the L2/Reporter holder), ask the same question, then approve.
+
+**Expected Result:** Per the explicit walkthrough: *"approval 1 submit kregat to approval 1 approve nhi kr
+sakta then approval 2 pe jaygi"* — since Selene cannot approve her own submission at L1, it must skip
+directly to L2 rather than getting stuck or silently approving itself.
+
+**Result: PASS — executed 2026-11-02.** Submission #7 (Selene Frost, 4.0 hours) was created via `Timesheet
+Submit` (Context Type: team, Context: 4 — correct after one retry needed to supply the team ID explicitly,
+see BUG-CRX-129). Selene's own "pending for my approval" query correctly returned "No timesheets are
+currently pending your approval." Sage Willow's identical query correctly returned: *"ID: 7 — Selene Frost,
+Crux Team Test (Week 45, 2026) — 4.0 hours — at Level 2 of 2. This is the final approval level."* —
+confirming the submission genuinely skipped L1 and sat at L2, not merely hidden from Selene while still
+nominally "at L1." Sage Willow approved cleanly; `✓ Fully approved: Timesheet fully approved`. Matches the
+described flow exactly.
+
+---
+
+### TC-CRX-473: The LAST-level role-holder submitting their OWN timesheet escalates directly to admin (explicit user-confirmed business flow) — BLOCKED, fixture limitation
+
+**User Role:** The L2/final-level (Reporter) role-holder of a 2-level team schema, submitting their own
+timesheet.
+
+**Precondition:** Same team/schema as TC-CRX-472. `sage.willow` holds the Reporter role (L2, final level).
+
+**Steps:**
+1. As `sage.willow`, attempt to log time for herself and submit her own timesheet for this team.
+2. Per the walkthrough: *"agar last level approal submit krta he to admin ke pass aprroval ke liye
+   jayegi"* — expect the submission to escalate directly to admin, since there is no further level to skip
+   to and she cannot approve her own final-level submission.
+
+**Result: BLOCKED — not executable with the current fixture.** `sage.willow`'s Reporter role genuinely lacks
+the native "Log spent time" permission (confirmed via Administration → Roles and Permissions → Reporter →
+Time tracking: "Log spent time" is unchecked) — so `Core Log Time` correctly refused with *"You do not have
+permission to create or submit time entry"* (accurate, not a bug). Attempting to have `admin` log the time
+entry on Sage Willow's behalf via the native `/timesheets/weekly` "Log time" dialog also failed server-side
+with *"User is invalid"*, even though the dialog's own "User" dropdown lists her as a selectable option — a
+UI/validation mismatch worth a follow-up look, but not pursued further this session since it's outside this
+TC's scope. **This scenario needs either a fixture change (assign the L2/final role to a role that CAN log
+its own time, e.g. Developer) or a native DB-level seed of a time entry for Sage Willow before it can be
+exercised.** Flagged for next session.
 
 ---
 
@@ -590,6 +670,19 @@ User both correct. All three were caught via the confirm-table check and cancell
 bad writes reached the database. All reported to production (#126694, #126695, #126696). Team
 member-remove and schema-assignment-by-name were not separately executed this session (deprioritized in
 favor of the Update Member resolution bugs' depth).
+
+**Follow-up (2026-11-02):** a plain "change team member's role to X" request (no team CRUD framing, just the
+role change in isolation) was retried 3 times to build a fixture for the approval-flow suite. **A 4th, broader
+bug found: BUG-CRX-128** — the exact same request failed via 4 distinct failure modes across 3 attempts: (1)
+Auto-mode routed to "the Project Manager" and proposed `Workload Member Update` on a completely wrong user
+(Daisy Skye, not Selene Frost) in a completely wrong plugin domain; (2) a fresh-chat retry, also Auto-routed,
+misread the TEAM name as if it must be a PROJECT name and asked to pick from 7 unrelated projects; (3)
+explicitly pinned to the Time Agent persona, it correctly identified the team/user/current role but got stuck
+asking for a numeric role ID, falsely claiming "the team management tools don't have a built-in role list";
+(4) once given the ID, it reversed course entirely and claimed it has no access to the role-update tool at
+all — directly contradicted by BUG-CRX-123/124 using the same tool minutes earlier. Schema/team/member
+ID/role resolution for this capability is now 0-for-4 reliable across this session's two testing passes.
+Worked around by setting the role natively for fixture purposes.
 
 ---
 
@@ -841,20 +934,31 @@ Auto-routing misroute — test directly rather than assuming either outcome.
 ## Evidence Map
 
 - Case IDs: TC-CRX-439 through TC-CRX-468 (30 cases, originally drafted) **plus TC-CRX-469–471 (3 cases added
-  this session** for scenarios the original draft didn't anticipate: Time Entry Update/Delete resolution,
-  error-message accuracy, and the Late Submission Unlock Queue) — **33 cases total**. All drafted/extended
-  from `agents/timesheet.md`'s real 20-tool/discovery-gated catalog, direct reads of
-  `timesheet_submission.rb`, `approval_instance.rb`, `approvals_controller.rb`, and
+  2026-10-30)** for scenarios the original draft didn't anticipate (Time Entry Update/Delete resolution,
+  error-message accuracy, the Late Submission Unlock Queue), **plus TC-CRX-472–473 (2 cases added
+  2026-11-02)** for the explicit self-submit-skip and last-level-escalates-to-admin flows the user walked
+  through — **35 cases total**. All drafted/extended from `agents/timesheet.md`'s real 20-tool/discovery-gated
+  catalog, direct reads of `timesheet_submission.rb`, `approval_instance.rb`, `approvals_controller.rb`, and
   `timesheet_submissions_controller.rb`, and the historical `old_suites/CRUX_AGENT_TIMESHEET.md` record
-  (7.0.0 cycle, 9 bugs found there), 2026-10-30.
-- **Executed this session: 10 of 33** — TC-CRX-457 (partial), 459, 460, 462 (partial), 464, 465, 469, 470,
-  471, and TC-CRX-455's unlock direction. **Not yet executed: 23** — TC-CRX-439–446, 447–454 (all of
-  Read-Surface/Resolution-Honesty/Submit/Approve-Reject/Withdraw — deferred pending the user's own
-  Approve/Reject/Withdraw flow walkthrough, per standing instruction), 456, 458, 461, 463, 466, 467, 468.
-- **12 new bugs found this session on the executed subset** (BUG-CRX-115 through BUG-CRX-127, excluding none
-  — every one of this range came from this suite's domain): schema CRUD (116–121), team CRUD (122–124), the
-  Late Submission Unlock Queue (125), time-entry resolution (126), and error-message accuracy (127) — **11 of
-  12 reported to production** (115–125 → #126685–126697; 126 and 127 still local-only as of this update).
+  (7.0.0 cycle, 9 bugs found there).
+- **Executed this session (2026-11-02), using the user's explicit Approve/Reject/Withdraw walkthrough**:
+  TC-CRX-445 (PASS, mostly — see BUG-CRX-129), 448 (partial PASS, non-admin case only), 450 (PASS), 452
+  (PASS), 472 (PASS, new), 473 (BLOCKED — fixture limitation, Reporter role can't self-log time). Combined
+  with the 2026-10-30 pass: **16 of 35 executed** — TC-CRX-445, 448 (partial), 450, 452, 455 (unlock
+  direction), 457 (partial), 459, 460, 462 (partial), 464, 465, 469, 470, 471, 472, 473 (blocked).
+  **19 not yet executed**: TC-CRX-439–444, 446, 447, 449, 451, 453, 454, 456, 458, 461, 463, 466, 467, 468.
+- **14 new bugs found across this suite's two sessions** (BUG-CRX-115 through BUG-CRX-129): schema CRUD
+  (116–121), team CRUD (122–124), the Late Submission Unlock Queue (125), time-entry resolution (126),
+  error-message accuracy (127), team-member role-change total failure across 4 modes (128, new 2026-11-02),
+  and Timesheet Submit's wrong-context/wrong-week/context-amnesia failures (129, new 2026-11-02) — **13 of 14
+  reported to production** (115–127 → #126685–126697, #126733–126734; 128 and 129 not yet reported as of this
+  update).
+- **Confirmed PASS, DB-verified, for the core approval-chain flow the user described**: normal submit → L1
+  approve → L2 approve → fully approved (Submission #5); L1 reject → does NOT cascade to L2, genuinely returns
+  the submission to a resubmittable state (Submission #6); a role-holder submitting their OWN timesheet
+  correctly skips their own level and escalates straight to the next level (Submission #7, Selene
+  Frost/Manager → Sage Willow/Reporter). The 4th flow (last-level holder self-submits → escalates to admin)
+  is blocked by this fixture's role permissions, not by a plugin defect — see TC-CRX-473.
 - **3 genuinely novel scenarios this suite is the first to test on any stack** (not in the old suite, not
   previously executed due to the 2026-09-17 provider outage, or newly discovered via this session's own
   source read):
@@ -881,9 +985,9 @@ Auto-routing misroute — test directly rather than assuming either outcome.
   sequential-order, TC-CRX-084 self-approval, TC-CRX-085 withdraw-after-approval, TC-CRX-087
   auto-approve-threshold) — re-drafted here as TC-CRX-447, 448, 452, 456 respectively, now with the benefit
   of direct source confirmation of the exact rules involved. **None yet executed.**
-- **Next session, pick up exactly here**: (1) report BUG-CRX-126 and BUG-CRX-127 to production (only two
-  remaining un-reported bugs from this session); (2) get the user's explicit Approve/Reject/Withdraw flow
-  walkthrough (standing precondition, never yet provided) and then execute TC-CRX-439–454 in dependency
-  order (precondition fixture → Submit → Approve/Reject → Withdraw, **453 is the highest-priority novel
-  check**); (3) execute the remaining independent sections — TC-CRX-456, 458, 461 (**2nd-highest priority**),
-  463, 466, 467, 468.
+- **Next session, pick up exactly here**: (1) report BUG-CRX-128 and BUG-CRX-129 to production; (2) fix
+  TC-CRX-473's fixture (give the L2/final-level role actual time-logging rights, e.g. swap Sage Willow's role
+  to Developer, or seed a time entry for her directly in the DB) and complete the last-level-escalates-to-
+  admin flow; (3) execute the still-independent TC-CRX-439–444, 446, 447, 449, 451, 453 (**453 remains the
+  highest-priority novel check — withdraw blocked by rejection history alone, not yet tested**), 454, 456,
+  458, 461 (**2nd-highest priority**), 463, 466, 467, 468.

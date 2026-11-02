@@ -37,3 +37,14 @@ The agent-picker's own description text for QA Agent reads: *"reports coverage a
 ## Duplicate check
 
 - Duplicate found: No. This is a UI/documentation-vs-behavior mismatch, not previously filed — distinct from every routing/data-correctness bug in this suite (BUG-CRX-079 through 094), none of which concern the agent picker's own self-description text.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (crux-core CRC-71, "persona comes from its .md file ... testcases-qa.md has a persona, and the
+seed is updated too") pulled + containers restarted. Re-checked the agent-picker dropdown as `luna.blossom`: the
+QA Agent entry still reads *"QA Agent — reports coverage and run status, never creates a case."* — unchanged
+text. Re-confirmed the contradiction still holds: asking QA Agent (pinned) "in the Crux QA Agent Test Project,
+can you create a test case titled 'Retest check 095'?" produced a genuine `Testcases Management Create Testcase`
+confirm card (cancelled before confirming, capability not in doubt — already proven working elsewhere this
+session). **Not fixed** — the picker's own self-description still directly contradicts its demonstrated
+behavior.

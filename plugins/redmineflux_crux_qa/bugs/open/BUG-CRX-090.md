@@ -41,3 +41,13 @@ Distinct from BUG-CRX-084 (that bug is about the *write* path — no tool to lin
 ## Duplicate check
 
 - Duplicate found: No — distinct from BUG-CRX-084 (write-path capability gap) and BUG-CRX-089 (wrong data model substituted for a different feature, To-Do). First instance of a confident false claim specifically contradicting the plugin's own Traceability Matrix feature.
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit (crux-core CRC-70/CRC-71) pulled + containers restarted. Re-ran as `luna.blossom`, Auto mode
+(routed correctly to QA Agent): "in the Crux QA Agent Test Project, can you show me the traceability matrix —
+which requirements are covered by which test cases and defects?" — response correctly listed Requirement 1 (User
+must be able to reset password via email) → Testcase #7 (linked defect #10, Waiting for Customer Response) and
+Testcase #13 (no defect) — matching the real `requirement_issues` link exactly, no false "no requirement links"
+claim. Only "Checked 2 things" — also resolves the old 10-tool-call/token-budget-cutoff inefficiency. **Confirmed
+fixed.**

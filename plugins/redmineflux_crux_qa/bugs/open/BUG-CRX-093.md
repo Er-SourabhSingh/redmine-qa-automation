@@ -54,3 +54,13 @@ run_issues: run_id=1 -> issue 6
 
 - Duplicate found: No — this is a new, distinct instance of the "wrong project in long session" defect class. Not a duplicate of BUG-CRX-080, which was found, fixed and confirmed-fixed this same round for the 5 testcase *write* tools it names (Create Test Suite, Update Environment, Update Report, Create Status Result, Report Defect's existing-defect-link path). This bug reproduces the identical root-cause shape on two different, newer *read* tools (`list_requirements`, `list_runs`) that the round-21 fix's own stated scope ("for every testcase write") does not cover, and one of the two manifestations (hallucinated project id 9) is strictly worse than anything BUG-CRX-080 itself ever showed (BUG-CRX-080's wrong values were always *other real projects*, never a nonexistent id).
 - Existing bug reference (if duplicate): Related to BUG-CRX-080 (same root cause class, disjoint tool set) and BUG-CRX-090 / BUG-CRX-087 (this is the mechanism behind their continued failure in long sessions after the round-21 fix — see retest notes on both).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit (crux-core CRC-70 `field_check.read_project`) pulled + containers restarted. Re-ran as
+`luna.blossom`, same-chat sequence: turn 1 named "crux pm agent test project" (generic status question); turn 2,
+no project named, asked the traceability matrix question again. Response correctly resolved to the PM project
+(not QA): *"The Crux PM Agent Test Project has no requirements defined."* — true for PM project (no
+`requirement_issues` row for project 1) and no longer mislabels QA-project data under the PM name. The
+"most-recently-named-project-in-chat" precedence rule is now genuinely applied to read tools. **Confirmed
+fixed.**

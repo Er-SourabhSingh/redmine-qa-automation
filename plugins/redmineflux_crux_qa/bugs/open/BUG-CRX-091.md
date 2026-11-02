@@ -46,3 +46,10 @@ Distinct from BUG-CRX-078 (that bug is a single-turn full-cache-miss cost spike,
 ## Duplicate check
 
 - Duplicate found: No — same broad "excessive tool calls / inefficient" theme as BUG-CRX-065 and BUG-CRX-078, but the first instance of a request failing to converge across *multiple user-forced continuation turns* rather than within a single turn. Not a duplicate of BUG-CRX-080 (wrong project) — that's a separate, compounding defect on the same repro.
+
+## Retest — 2026-11-02 — NOT RETESTED (deferred)
+
+Developer's fix commits for this round (CRC-71, BUG-CRX-094 to 114) do not explicitly list 091 in their per-bug
+fix table or live-verification table. Retesting this bug's own repro (multiple forced "please continue" turns,
+$0.13-0.25+ each) is expensive and inherently flaky to reproduce cleanly; deferred to a dedicated session rather
+than attempted under this batch's time budget. Status left as-is pending a focused retest.

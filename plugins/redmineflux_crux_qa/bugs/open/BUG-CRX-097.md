@@ -38,3 +38,21 @@ Confirm card correctly showed `Project`, `Report: 3`, `Report Type: summary`, `R
 ## Duplicate check
 
 - Duplicate found: Same general shape as `BUG-CRX-086` (silent partial write — a multi-field update where only some fields actually persist while the tool reports unqualified success) and the misleading-✓ family (`BUG-CRX-082`), but this is the **first instance on the Reports domain specifically**, and the first where the omitted field (`report_type`) is silently dropped with **no error raised at all** (BUG-CRX-086's silent loss was at least accompanied by a — false — error message; here there is no error of any kind, just a confident success claim covering a change that didn't fully happen).
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (MCP `update_report` gains `report_type`; CRC-71 "any write argument missing from the tool's
+schema goes back to the model, never onto a card") pulled + containers restarted. Fresh chat, QA Agent pinned, as
+`luna.blossom`: created report #4 ("QA Report Retest 097B", testcase type, run #3) — succeeded cleanly. Then: "update
+report ID 4 ... to be a summary-type report covering run ID 1 ... instead." Confirm card now genuinely shows
+`Report Type: summary`, `Run Ids: [1]` (the field is no longer silently dropped from the card). On Confirm: *"✓
+Report #4 'QA Report Retest 097B' updated successfully."* — but verified natively on
+`/projects/crux-qa-agent-test-project/testcase_reports/4`: heading still reads **"Testcase Summary"** (the
+`testcase`-type rendering), not the `summary`-type page. **Not fixed** — the confirm card now honestly shows the
+field, but the underlying write still silently fails to persist `report_type`, with the same unqualified "✓
+updated successfully" message as before.
+
+(Note: also hit 2 unrelated Auto-mode misroutes while chasing a clean repro for this bug in a long chat — a
+follow-up "update report" message got routed to Scrum Agent and then generic "Crux," both falsely claiming no
+testcase tools exist. Not re-filed here; consistent with the already-documented Auto-routing defect class
+(BUG-CRX-094/096/109/113) and this suite's own observation that long chats degrade tool/project resolution.)

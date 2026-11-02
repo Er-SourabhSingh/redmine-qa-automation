@@ -37,3 +37,16 @@ Auto first answered as a tool-less "plain chat" ("I don't have tools available i
 ## Duplicate check
 
 - Duplicate found: Related but not identical to the already-**closed** `BUG-CRX-014` ("domain-agent mis-routing to the Project Manager, false 'no write tools' claim") from the old Redmine 7.0.0 / crux-core 0.92.0 stack — that bug was fixed/closed on the old environment; this is a new recurrence of the same defect class on the current Redmine 6 / crux-core 0.130.0 stack, Testcase-Management domain specifically. The CRM-domain recurrence of the identical Auto-routing defect class is filed separately as **BUG-CRX-096** (different plugin domain, different fixture, kept in its own file per explicit user instruction rather than one combined bug). Also related to, but distinct from, `BUG-CRX-089` (QA Agent's own wrong-data-model substitution once it IS the one answering) — this bug is about Auto's **agent selection** being wrong in the first place, a step before BUG-CRX-089's defect even has a chance to fire.
+
+## Retest — 2026-11-02 — STILL OPEN (partially fixed)
+
+Developer commit (crux-core CRC-71, "gated route to the QA Agent" for To Do phrases) pulled + containers
+restarted. Two variants retested as `luna.blossom`, Auto mode, fresh chats:
+- **With project named** ("in the Crux QA Agent Test Project, what's on my To Do list?"): now correctly routes to
+  QA Agent (confirmed working, see BUG-CRX-089's retest — same message).
+- **Bare, no project named** ("What's on my To Do list?"): **still fails** — falls to the generic tool-less
+  "Crux" persona: *"I don't have tools available in this chat to look up your To Do list or assignments... Ask
+  @crux with a message starting with @crux..."* — the CRC-71 fix's gated route evidently requires a plugin-catalog
+  check that isn't firing for this exact bare phrasing (or fires only once a project is already in scope). **Not
+  fully fixed** — the project-named case works, the original bare-phrasing repro from this bug's own steps still
+  reproduces.

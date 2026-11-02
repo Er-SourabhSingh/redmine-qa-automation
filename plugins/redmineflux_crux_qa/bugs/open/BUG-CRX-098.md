@@ -40,3 +40,18 @@ Because the validation happened to catch this specific case (admin isn't a proje
 ## Duplicate check
 
 - Duplicate found: Same broad "defaults/guesses a field value instead of preserving existing state or asking" shape as the closed `BUG-CRX-079` wrong-ID-hallucination family, but **not a duplicate** — BUG-CRX-079 was about guessing a numeric ID when resolving a *named* value (priority, project, suite, a named user), already confirmed fixed for those fields in round-21. This is a different trigger: the user never named an assignee at all, and the agent invented one (defaulting to the current chat session's own user) for a field it wasn't asked to touch. Filed as a new bug rather than reopening the closed BUG-CRX-079, since this is an unexercised path (partial-update-preserves-unmentioned-fields) that round-21's fix did not appear to cover.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (MCP `update_run`: "when the message doesn't ask who should test, the assignee is left out. MCP
+then keeps each environment's current assignee, read from the new apis endpoint") pulled + containers restarted.
+Re-ran as `luna.blossom` (not admin this time), QA Agent pinned, fresh chat: "update the 'Sprint 1 Regression' run
+to use the Canary environment instead." This time the agent first asked a clarifying question (an improvement —
+*"Should I remove the Staging environment assignment entirely, keeping only Canary?"*) rather than silently
+guessing immediately. Answered "Just change the environment to Canary, keep everything else as is." — the
+resulting confirm card showed `Run Assignments: [{'environment': 'Canary', 'assignee_id': 1}]`. Native ground
+truth (checked beforehand): this run's real existing assignee is **Daisy Skye**, not user id 1 (admin) — and the
+chat user here was luna.blossom (id 5), so id 1 isn't even "the current chat user" as the original bug described;
+it's a different wrong default. **Not fixed** — an unmentioned assignee field still gets silently substituted
+with a wrong value instead of preserving the real existing assignee. Cancelled before confirming, no bad write
+occurred.

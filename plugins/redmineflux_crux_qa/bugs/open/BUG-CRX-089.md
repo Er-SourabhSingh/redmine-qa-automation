@@ -40,3 +40,14 @@ This **supersedes** this suite's own earlier finding on TC-CRX-342 (originally l
 ## Duplicate check
 
 - Duplicate found: No new defect class — same false-capability/wrong-substitution family as BUG-CRX-029/032/034/050/061/062/065/066-069 (confident wrong/false answers about a real capability), but the first instance where the agent substitutes an entirely different, unrelated data model (generic issue assignment) for a well-defined native feature (Run-based To-Do) rather than simply denying or stalling. Not a duplicate of BUG-CRX-087 (that's a run-scoped read fabricating an extra row; this is answering an entirely different question than what was asked, using the wrong underlying data).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit (crux-core CRC-70) pulled + redmine/mcp/crux-core containers restarted. Re-ran as `luna.blossom`,
+QA Agent pinned, fresh chat: "in the Crux QA Agent Test Project, what's on my To Do list?" — response correctly
+used the real pending-runs concept: *"Your To Do list ... has 5 pending run assignments: 1. Run #1 Sprint 1
+Regression ... 2/2 executed (all done) 2. Run #1 ... Staging ... assigned to Daisy Skye, 1/2 executed 3. Run #8
+Overdue Run Fixture ... 0/2 executed (⚠️ overdue as of today) 4. Run #7 Bulk Status Fixture Run ... 2/2 executed 5.
+Run #3 Sprint 2 Targeted Test ... 0/0 executed (no test cases in this run)"* — matches native
+`/testcase_todos?project_id=crux-qa-agent-test-project` exactly (Total Runs: 12 bar chart, same runs/assignees).
+**Confirmed fixed.**

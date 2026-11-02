@@ -70,3 +70,11 @@ bug when it blocks the agent's own central use case (see BUG-CRX-105, Scrum Agen
   information a real user doesn't have and the agent has no way to resolve" — but a distinct root cause
   (missing lookup tool vs. missing writable field) and a distinct domain. Kept as its own bug file per the
   one-bug-per-domain rule.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (CRC-71, "107: The Budget Agent gets `list_projects` and `list_issue_categories`") pulled +
+containers restarted. Re-ran as `admin`, Budget Agent: "What categories are available for project ID 5, so I know
+which one to approve budget hours for?" — response unchanged: *"I don't have a tool available to list the issue
+categories for a project... you'll need to check in Redmineflux directly..."* — identical honest-gap disclosure
+as the original bug, no new category-listing tool exercised. **Not fixed.**

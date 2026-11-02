@@ -73,4 +73,13 @@ answer.
   instance that fails on a project's exact display name given in the very first message of a fresh chat,
   with no error of any kind and no lucky permission check to catch it — the Budget Agent has no
   project-name-resolution safeguard at all, unlike the Scrum Agent (TC-CRX-373) or QA Agent (their own
-  "Getting the ids right" rules). Kept as its own bug file per this repo's one-bug-per-domain rule.
+  "Getting the ids right" rules).
+
+## Retest — 2026-11-02 — FIXED
+
+Developer commit (CRC-71, "106: `read_project` covers every agent's calls... The project named in this message
+wins") pulled + containers restarted. Re-ran as `admin`, Budget Agent, fresh chat: "What's the budget status for
+the Crux Budget Agent Test Project?" — response no longer silently guesses: *"I need to find the project ID...
+Could you provide the project ID for 'Crux Budget Agent Test Project'? ... What's the project ID?"* — a genuine,
+honest clarifying question, matching this bug's own "Expected result" (b). Supplying the real id (5) then
+returned correct, real figures for project 5. **Confirmed fixed** — no more silent wrong-project substitution. Kept as its own bug file per this repo's one-bug-per-domain rule.

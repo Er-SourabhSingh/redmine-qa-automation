@@ -78,3 +78,10 @@ either rephrase with an explicit "budget" keyword or manually pin the Budget Age
   reported to production. This is the first confirmed instance on the **Budget Agent/Budget & Audit
   domain**. Contrasts with the Scrum Agent (TC-CRX-397), where the identical style of test found no
   misrouting — so this is domain-specific, not a universal Auto-mode failure.
+
+## Retest — 2026-11-02 — STILL OPEN (not fixed)
+
+Developer commit (CRC-71, "109: gated route to the Budget Agent") pulled + containers restarted. Re-ran Auto
+mode, admin, fresh chat: "Is the Development category in project ID 5 over its limit right now?" — still routed
+to **Project Manager**, which again correctly explained categories have no built-in limit concept but never
+mentioned or handed off to the Budget Agent. **Not fixed.**

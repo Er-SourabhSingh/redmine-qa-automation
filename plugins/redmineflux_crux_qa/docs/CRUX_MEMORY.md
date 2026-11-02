@@ -19,6 +19,40 @@ containers restarted. Even then, one bug (BUG-CRX-125) still reproduced afterwar
 failure mode — pulling all three repos doesn't guarantee one ask-level finding is actually closed; always re-run
 the original repro in a **fresh chat** (old chat history keeps the stale answer) before marking fixed.
 
+## 2026-11-02 — 2nd developer pull (testcase_management + agile_board), 6 bugs retested, 1 new regression found
+
+After the main 089–131 campaign below, the user supplied a fresh commit list for 8 repos. Only
+`redmineflux_testcase_management` (265cb0b→99ea5a7, includes `dcd0b6c`) and `agile_board` (0af7030→6eec266,
+includes `851b1f1`) were actually behind — the other 6 (crux-core, mcp, crux plugin, timesheet,
+budget_and_audit, crm) were already at the required commit from earlier pulls this session. Pulled both,
+ran `redmine:plugins:migrate` (new migrations: `steps.step`/`steps.expected` column widening;
+`rf_agile_boards.managed_tracker_ids`; `issues.agile_position`), restarted the `redmine` container.
+
+**IMPORTANT — this container's `rake` tasks need `SECRET_KEY_BASE` passed explicitly**, even though the web
+app itself works fine without it: `docker compose exec -e SECRET_KEY_BASE=<value from `docker compose exec
+redmine env | grep REDMINE_SECRET_KEY_BASE`> redmine bundle exec rake redmine:plugins:migrate`. Without it,
+the task aborts with `ArgumentError: Missing secret_key_base for 'production' environment` — the bitnami
+entrypoint sets `REDMINE_SECRET_KEY_BASE` for the server process but a plain `exec` into the container for a
+one-off rake task doesn't get it mapped to Rails' expected `SECRET_KEY_BASE` env var.
+
+Retested the 6 bugs these 2 commits specifically targeted:
+- **FIXED**: BUG-CRX-097 (report_type update — no more silent false success, now honestly declines),
+  BUG-CRX-100 (real epics — sub-issue-based rule replaced "any parentless issue"), BUG-CRX-103 (board config
+  filter shape — board's read/redirect path no longer crashes opening a saved config).
+- **STILL OPEN**: BUG-CRX-105 (story_points — confirm card now accepts the field, but the write-time
+  whitelist still rejects it with the identical error text as before — a half-fix).
+- **STILL OPEN, REGRESSED**: BUG-CRX-098 — the "defaults assignee to current user" shape is gone, but an
+  environment-only Update Run request now **silently wipes both Environment and Assignee to blank**,
+  masked by a validation error that implies nothing was saved. This is a genuine data-corruption regression,
+  not just a wrong-default — escalated in the bug file and flagged to the user for priority dev attention.
+  Fixture (`Sprint 1 Regression`, run #1) was restored natively via a follow-up chat request naming both
+  fields explicitly.
+- Re-confirmed BUG-CRX-099 independently (already closed) — still correctly gives the honest "tool doesn't
+  expose run_type_id" explanation, no regression.
+
+All 6 production issues synced (3 closed, kept 2 reopened/re-affirmed, 1 severity-escalated note added) in
+the same session.
+
 ## 2026-11-02 full campaign — retested all of BUG-CRX-089 through BUG-CRX-131 (43 bugs)
 
 After the initial 6-bug batch below, the user clarified the developer's CRC-70/71/72/73 commits actually claimed

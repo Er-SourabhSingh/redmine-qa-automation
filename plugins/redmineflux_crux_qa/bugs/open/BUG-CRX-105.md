@@ -93,3 +93,15 @@ is_private, priority_id, sprint_craft_id, tracker_id or custom_field_N"* — the
 original bug. Verified natively on `/issues/15`: Story Points still shows "-" (unset). **Not fixed** — the
 confirm-card UI now accepts the field (a half-step), but the actual write-time whitelist still rejects it with
 the identical message.
+
+## Retest — 2026-11-02 (2nd pull, agile_board 0af7030→6eec266, includes 851b1f1 "API v1: real epics, board config filters in the board's shape, story points") — STILL OPEN (not fixed)
+
+Pulled `agile_board` to `6eec266`, ran `redmine:plugins:migrate`, restarted the `redmine` container. Re-ran as
+`admin`, Scrum Agent pinned, fresh chat: "can you set the story points on card #15 to 5?" — confirm card again
+shows `Field: story_points`, `Value: 5`. Confirming produced the **exact same error, verbatim**: *"Error: field
+'story_points' is not editable via this endpoint. Allowed fields: assigned_to_id, category_id, done_ratio,
+fixed_version_id, is_private, priority_id, sprint_craft_id, tracker_id or custom_field_N."* Native check on
+`/issues/15`: Story Points still unset. Despite this commit's own message citing "story points" explicitly, the
+`update_issue_field` endpoint's write-time whitelist has still not been updated to include it — the crux-core/MCP
+proposal layer accepts the field, but the actual Agile Board API write path rejects it identically to every prior
+attempt. **Not fixed.**

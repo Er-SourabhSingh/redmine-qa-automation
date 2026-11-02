@@ -96,3 +96,15 @@ grouped by priority, filtered to open Bug-tracker issues) via chat — succeeded
 [kanban]."* Opened it natively: `GET /projects/crux-scrum-agent-test-project/agile_board?board_config_id=2` →
 genuine **HTTP 500 Internal Server Error**, identical crash to the original repro. **Not fixed** — the filters
 are still being written in a shape the board's render path can't consume.
+
+## Retest — 2026-11-02 (2nd pull, agile_board 0af7030→6eec266, includes 851b1f1 "API v1: real epics, board config filters in the board's shape, story points") — FIXED
+
+Pulled `agile_board` to `6eec266`, ran `redmine:plugins:migrate`, restarted the `redmine` container. Re-ran as
+`admin`, Scrum Agent, fresh chat: "create a saved board view called 'Retest 103 Board Config' filtered to only
+show open Bug-tracker issues." Confirm card still shows the flat shape (`Filters: {'status': 'open', 'tracker':
+'Bug'}`), but confirming created config #3 cleanly. Opened it natively:
+`GET /projects/crux-scrum-agent-test-project/agile_board?board_config_id=3` — **loads successfully, no 500** —
+redirects to the real nested filter params (`f[]=status_id&f[]=tracker_id&op[status_id]=o&op[tracker_id]=%3D&
+v[tracker_id][]=1`) and the board renders correctly with the filter banner "Status: open • Tracker: Bug" applied
+(2 fixture cards correctly shown, filtered as requested). **Confirmed fixed** — whatever shape the write stores,
+the board's own read/redirect path now correctly converts it into working filter params instead of crashing.

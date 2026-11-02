@@ -84,3 +84,14 @@ active sprint, not unassigned."* This phrasing itself proves the underlying `lis
 unassigned" filter on top to mask the bad data, not a genuine backend fix (a real "has sub-issues" filter would
 never have returned these two parentless, childless cards as epic candidates at all, sprint-assigned or not).
 **Not fixed** — the symptom is hidden one layer up in the agent's phrasing, but the API defect is unchanged.
+
+## Retest — 2026-11-02 (2nd pull, agile_board 0af7030→6eec266, includes 851b1f1 "API v1: real epics, board config filters in the board's shape, story points") — FIXED
+
+Pulled `agile_board` to `6eec266` (fast-forward from `0af7030`, includes `851b1f1`), ran `redmine:plugins:migrate`
+(2 new migrations: `managed_tracker_ids` on `rf_agile_boards`, `agile_position` on `issues`), restarted the
+`redmine` container. Re-ran as `admin`, Scrum Agent pinned, fresh chat, project ID 4: "What epics are open?" —
+response: *"There are no open epics in the Crux Scrum Agent Test Project (ID 4)."* — a flat, direct answer with
+no "not unassigned"-style masking reasoning this time. Native ground truth re-confirmed: the project still
+genuinely has 2 plain, parentless `Bug`-tracker issues (#15, #16) with zero sub-issues — exactly the fixture that
+previously got mislabeled as epics. The agent no longer reports them as epics at all, consistent with the
+commit's "real epics" (sub-issue-based) rule replacing the old "any parentless issue" rule. **Confirmed fixed.**

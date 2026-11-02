@@ -1538,3 +1538,37 @@
   `localhost:3000` (Quality HQ dashboard, a project's Reports list). **A commit touching only README/locale/CSS
   files is a safe pattern to fast-verify visually rather than re-running the full automation suite** — useful
   precedent for any future post-closure doc/cosmetic-only pulls on this plugin.
+
+## Release 7.3.0 (2026-11-02 onward)
+
+- **(2026-11-02) A production ticket's "Done" journal note does NOT mean the code is on `master`.** All 5
+  "In QA, 90% done" feature tickets for Release 7.3.0 (rftc-018/019/022/029/035) had their actual implementation
+  only on `origin/release/7.3.0` (commit `329311d`) — `master` was still 2 commits behind with none of it.
+  **Always check `git log origin/master..origin/release/<X>` (or equivalent) before concluding a feature "isn't
+  implemented" from a `master`-only grep** — this plugin routinely develops a release's features on its own
+  release branch before merging to master, confirmed again here after the same pattern wasn't an issue for
+  7.1.0/7.2.0 (those were already merged by the time QA touched them).
+- **(2026-11-02) Each new feature on this branch shipped its own `backlog/planning/rftc-0NN-feature-*.md` doc**
+  — far more detailed than the production ticket's own description/journal (data model, code changes, rejected
+  alternatives, bugs the dev caught and fixed pre-commit, and an explicit "Quality Gates" self-verification
+  note). **Always check `backlog/planning/` for a matching doc before writing test cases from the ticket alone**
+  — it is a dramatically better source, and explicitly says so itself ("Spec: not yet written" on the ticket
+  refers to this doc not existing yet at ticket-creation time, not that it never gets written).
+- **(2026-11-02) This plugin's entire Milestones feature was removed** (`db/migrate/20261027000000_remove_testcase_milestones.rb`,
+  irreversible: drops `testcase_milestones`, `runs.milestone_id`, `testcase_reports.milestone_id`,
+  `testplans.testcase_milestone_id`) shortly before 7.3.0. **Any future ticket mentioning "milestone" needs this
+  checked first** — rftc-033/034 (milestone summary/burndown) are both blocked on this, still "New"/0% as of
+  2026-11-02, and cannot be built as literally specced without the dev/PM resolving the conflict.
+- **(2026-11-02) A "Done, Quality Gates: manually verified live via Playwright" note in a planning doc is the
+  DEVELOPER'S OWN self-verification, not independent QA.** Every one of the 5 built 7.3.0 features' planning
+  docs says this almost verbatim. Treat it the same way this repo always has for dev-reported fixes — as a
+  starting point to independently re-verify, not a substitute for QA's own pass. First code-reading pass (no
+  live execution yet) already surfaced 3 real-looking concerns purely from static analysis: a case-sensitivity
+  mismatch in `AutomationSource` resolution (RFTC-018), a UI dead-end for the close-session-with-no-outcome
+  negative case (RFTC-029), and an inconsistent Pass Rate denominator on the Automation Dashboard (RFTC-035) —
+  none confirmed live yet, see `testcases/RFTC-018/-029/-035_EXTERNAL_SPEC_*.md` for detail.
+- **(2026-11-02) 7 parallel fork agents writing 7 independent files is a fast, safe way to author test case
+  designs from source code** (no shared mutable state, no browser contention) — but deliberately did NOT have
+  any fork touch Playwright/live execution in parallel, since this plugin's Playwright MCP browser session is a
+  single shared resource and 7 concurrent live-test passes would race each other. Live verification of these 7
+  suites is a separate, sequential follow-up task, not yet done.

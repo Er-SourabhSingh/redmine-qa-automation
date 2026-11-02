@@ -59,3 +59,17 @@ defect.
 ## Duplicate check
 
 - Duplicate found: No new root cause — same general wrong-ID-resolution class as BUG-CRX-122/123/124 (all found this session on Time Agent write flows), but the first instance on time-entry resolution specifically, and the most severe in consequence (a non-admin's request could silently modify an administrator's unrelated data). Kept as its own bug per the one-bug-per-concrete-finding convention.
+
+## Retest — 2026-11-02 — FIXED (different, honest behavior — no more silent wrong-entry substitution)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Re-ran as `luna.blossom`: logged a fresh time
+entry (3.0h, Development, Crux PM Agent Test Project, 2026-11-02, entry id 21), then in a **fresh chat** asked
+"Please update my time entry on 2026-11-02 for the Crux PM Agent Test Project (development activity, 3 hours) to
+4 hours instead." The silent wrong-entry substitution (the original bug — resolving to entry #1, an
+administrator's unrelated entry) is **GONE**. The agent now correctly identifies the right entry by its
+description (*"I can see your entry (3.0h, Development work on 2026-11-02)..."*) but honestly discloses it has no
+way to get the entry's numeric ID from the list tool, and asks the user to supply it rather than guessing.
+Supplying "The time entry ID is 21." then produced a correct confirm card: `Time Entry: 21`, `Hours: 4` — the
+real, caller-owned entry. Cancelled (no change needed for verdict). **Confirmed fixed** for the original
+defect — no more silent cross-user wrong-entry writes; the agent now asks rather than guesses when it can't
+resolve the ID on its own.

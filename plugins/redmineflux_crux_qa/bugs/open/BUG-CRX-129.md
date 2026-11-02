@@ -106,3 +106,14 @@ the initial "this week" date resolution is defective.
   shape (conversational state loss, not entity misresolution) on a different tool (`Timesheet Submit`). Also
   distinct from BUG-CRX-128 (Team Update Member routing/tool-discovery failures) — different tool, different root
   symptom (wrong field values, not wrong tool or false capability denial).
+
+## Retest — 2026-11-02 — NOT RETESTED (deferred — fixture week already consumed)
+
+Developer commits (CRC-72/73 range) pulled + containers restarted. Could not retest under original conditions:
+logged in as `serenity.bloom`, the current real-world week (2–8 Nov 2026 — the same week this bug's fixture used)
+is already fully **Approved** (Submission #5 from this bug's own original investigation), so "submit my timesheet
+for this week" can no longer be meaningfully tested against a pending/unsubmitted state this round — the native
+weekly page shows a disabled "Approved" button, not a submittable one. Reconstructing a clean not-yet-submitted
+"this week" fixture would require either advancing past the next real calendar week or creating a second team
+membership with fresh hours, both more involved than this pass's budget allows. Deferred to a dedicated follow-up
+session with a fresh week fixture; verdict left as-is pending that retest.

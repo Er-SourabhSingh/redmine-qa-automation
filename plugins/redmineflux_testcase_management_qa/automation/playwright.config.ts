@@ -33,7 +33,14 @@ export default defineConfig({
 
   projects: [
     { name: 'provision', testMatch: /provision\.setup\.ts/ },
-    { name: 'auth', testMatch: /auth\.setup\.ts/, dependencies: ['provision'] },
+    // SKIP_PROVISION=1 skips provision.setup.ts — its fixtures (Reports/Permissions/Helpdesk
+    // projects) don't exist on a fresh instance, and the CSV Import suite only needs the one
+    // project in PROJECT_ID plus Admin.
+    {
+      name: 'auth',
+      testMatch: /auth\.setup\.ts/,
+      dependencies: process.env.SKIP_PROVISION ? [] : ['provision'],
+    },
 
     {
       name: 'admin',

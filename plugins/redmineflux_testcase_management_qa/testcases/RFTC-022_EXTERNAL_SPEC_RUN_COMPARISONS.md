@@ -327,9 +327,17 @@ Strong live verification performed this session (most of the highest-risk scenar
 - **PASS — picker-only state** renders cleanly ("Pick a base run and a compare run to see the difference"), no
   crash with neither run selected.
 - **PASS — real two-run diff**: compared "Jenkins CI Build 1" vs "Jenkins CI Build 2" (project `rftc-016-ci-qa`) —
-  0 New Failures, 0 Newly Fixed, 1 Still Failing (`#24 Apply valid discount code at checkout`), 4 Still Passing,
-  0 New Tests, 0 No Longer Run. Drill-down table correctly shows Test Case/Environment/Base run/Compare run
-  columns with real data. Summary-tile sum sanity confirmed: 0+0+1+4+0+0 = 5 cells, matching the fixture size.
+  at the time of this check, 0 New Failures, 0 Newly Fixed, 1 Still Failing (`#24 Apply valid discount code at
+  checkout`), 4 Still Passing, 0 New Tests, 0 No Longer Run. Drill-down table correctly shows Test Case/
+  Environment/Base run/Compare run columns with real data. Summary-tile sum sanity confirmed: 0+0+1+4+0+0 = 5
+  cells, matching the fixture size at that time. **Note (added during the Full Live Execution pass below): these
+  two runs (#8/#41) were later reused as fixtures by the RFTC-018 (Automation Sources) suite's own live
+  execution, which wrote new results to issue #24 in run #8 — so this exact tally (1 Still Failing/4 Still
+  Passing) is now stale and will not reproduce if re-run today. This is NOT a product defect — it is this QA
+  session reusing a shared fixture run across two different test suites. The Full Live Execution pass below
+  independently re-verified `suite_diff`'s correctness cell-by-cell against raw `IssueStatusResult` ground truth
+  on dedicated, non-shared fixture runs, and it matched exactly (10/10 cells) — the engine itself was never in
+  doubt, only this one example's numbers aged.**
 - **PASS — self-comparison (base == compare) is fully deterministic**, exactly as predicted by the code trace in
   this file's own design notes: comparing "Jenkins CI Build 1" against itself produced the identical tally
   (0/0/1/4/0/0) — every executed cell correctly landed in Still Failing/Still Passing, confirming `suite_diff`'s
@@ -399,3 +407,24 @@ All 18 cases fully executed this pass, closing every gap left by the earlier par
   engine too (same class of check as BUG-TCM-097/RFTC021-5).
 
 **Result: 17/18 PASS, 1 FAIL → BUG-TCM-127 (Low, plugin-wide anonymous-access 403-not-redirect gap).**
+
+### Independent ground-truth data verification (requested follow-up, 2026-11-02)
+
+Separately from classifying buckets correctly, two things were directly checked end-to-end against raw data
+rather than trusted from the page alone:
+
+1. **The run picker itself only ever lists this project's own runs.** Read the live `<select name="base_run_id">`
+   DOM directly: exactly **140 options** (excluding the blank "Select a run"). Queried the database independently:
+   `Run.where(project_id: rftc-016-ci-qa.id).count` = **140**, exact match. The `alpha-web` run used for the
+   SEC-001 check (id 94, "CI Build 1423") does **not** appear anywhere in the dropdown — confirmed by searching
+   the full option-text list for its name (not found). This is on top of RFTC022-12's URL-tampering check — the
+   two checks cover different attack/error surfaces (what the UI *offers* vs. what a crafted URL can *force*).
+2. **The diff numbers themselves were cross-checked cell-by-cell against raw `IssueStatusResult` rows**, not just
+   re-read from the rendered page. For the dedicated `RFTC022-Base-Run`/`RFTC022-Compare-Run` fixtures: pulled
+   every `(issue_id, environment)` pair's true latest result directly from the database (own independent "last
+   result wins" reduction, not reusing any plugin code), by hand classified each pair into a bucket using the
+   same rule `suite_diff` documents, and compared against `suite_diff`'s actual output. **All 10 countable cells
+   matched exactly**, bucket-for-bucket, including the two-way split for the environment-keyed case (#6830
+   Chrome → no_longer_run, #6830 Firefox → new_test) and the Untested/Untested noise row (#6830 under `test1`)
+   correctly excluded from every bucket. This directly confirms the feature returns genuinely correct data, not
+   just internally-consistent-looking data.

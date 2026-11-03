@@ -76,3 +76,25 @@ which appears to be driving multiple unproductive reasoning rounds before the re
   not previously covered by that fix's scope). Consistent with this repo's standing convention of filing
   recurrences of an already-fixed defect class as new bugs when the specific trigger differs (see
   BUG-CRX-027, BUG-CRX-056/077, BUG-CRX-082, BUG-CRX-112 for the same pattern on other defect classes).
+
+## Retest — 2026-11-03 — FIXED
+
+Re-ran the exact original repro, `luna.blossom` (non-admin), Time Agent pinned, fresh chat: "Please change the
+auto-approve threshold to 5 hours." Captured the real crux-core container log for this turn directly
+(`docker logs crux-redmine6-crux-core-1 --since 2m`), the same evidence method the original bug used:
+
+```
+mcp call tool=tools/list duration_ms=249.6 ok=true tools=497
+openrouter generation tokens_in=12889 tokens_out=81 cost_usd=0.0163735 cache_read=0 cache_write=12318
+chat turn agent=timesheet ... tokens_in=12889 tokens_out=81 tool_calls=0 outcome=success
+mcp call tool=redmineflux_timesheet_settings_update duration_ms=86.7 ok=true
+```
+
+**A single LLM round-trip** (not 8) to reach the confirm card — the original's 6 unproductive no-new-tool-call
+reasoning rounds and the second partial cache-miss are both gone. Total cost for the whole turn: **$0.016**,
+versus the original's **$0.05** (108,627 input tokens). The `tools/list` 497-tool dump still happens once (that
+part is unchanged — it's the discovery-gated group's normal cost, not the inefficiency this bug targeted), but the
+turn now converges immediately into a correct `Timesheet Settings Update` confirm card instead of cycling through
+multiple redundant LLM calls first. Confirming it produced a genuine `Permission denied` (admin-only), matching the
+expected honest refusal. **Confirmed fixed** — the multi-round-trip inefficiency is resolved; cost is back in the
+same range as comparable single-tool-call turns elsewhere in this QA cycle.

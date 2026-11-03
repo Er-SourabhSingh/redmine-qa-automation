@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-140
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127507
 - Title: KB Agent's write tools (`update_space`, `delete_space`, `create_node`, `update_node`) silently fabricate a wrong project identifier string on later-turn confirm cards in a multi-turn chat — causing genuine write failures ("Project not found") in most cases, and in one case (`delete_space`) a genuinely wrong REAL RECORD being targeted instead — reproduced repeatedly across 4 different tools; fresh-chat/first-message writes are unaffected
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, KB Agent) / redmineflux_knowledgebase (native plugin)

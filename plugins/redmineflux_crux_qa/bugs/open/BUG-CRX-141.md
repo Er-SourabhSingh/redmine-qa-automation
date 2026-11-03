@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-141
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127508
 - Title: KB Agent's `update_node` silently edits a PUBLISHED page's live title/content with no new version
   snapshot created and no draft intermediate state — directly contradicting the plugin's own documented
   versioning rule ("Versions are created only on publish or update") and leaving the page's "Current Version"

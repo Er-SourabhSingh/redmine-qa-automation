@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-143
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127510
 - Title: KB Agent falsely tells a Reporter-role user they lack `view_knowledgebase` permission and need an
   admin to grant it — the user genuinely already has full native view access to the space and its published
   page content; the refusal is entirely fabricated

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-142
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127509
 - Title: KB Agent repeatedly produces a fabricated-prose "proposal" with no real Confirm/Cancel button at all
   — the agent says "Please confirm this action to proceed" (or equivalent) but never actually calls the real
   write tool, leaving the user with nothing they can click to approve; reproduced 3 times in one suite across

@@ -48,3 +48,12 @@ can you create a test case titled 'Retest check 095'?" produced a genuine `Testc
 confirm card (cancelled before confirming, capability not in doubt — already proven working elsewhere this
 session). **Not fixed** — the picker's own self-description still directly contradicts its demonstrated
 behavior.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all of round 3) — FIXED
+
+Round 2's retest above was against a stale pre-CRC-74 image (`docker compose restart` never actually rebuilds
+`crux-core`/`mcp` — see `CRUX_MEMORY.md`). After a genuine `docker compose up -d --build --force-recreate
+crux-core mcp`, re-checked the agent-picker dropdown as `admin`: QA Agent's description now reads *"precise and
+evidence-first — reports coverage and run status, and creates or changes test cases, suites and runs only
+through a confirm card"* — no more "never creates a case" claim, and the new wording accurately describes its
+real, confirm-gated behavior. **Confirmed fixed.**

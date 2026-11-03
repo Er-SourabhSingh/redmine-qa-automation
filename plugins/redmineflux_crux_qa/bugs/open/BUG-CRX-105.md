@@ -105,3 +105,13 @@ fixed_version_id, is_private, priority_id, sprint_craft_id, tracker_id or custom
 `update_issue_field` endpoint's write-time whitelist has still not been updated to include it — the crux-core/MCP
 proposal layer accepts the field, but the actual Agile Board API write path rejects it identically to every prior
 attempt. **Not fixed.**
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's retest above was against a stale pre-`ae29b57` mcp image (`docker compose restart` never actually
+rebuilds `crux-core`/`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`,
+re-ran the exact repro, Scrum Agent pinned, fresh chat: "can you set the story points on card #15 to 5?" —
+confirm card shows `Field: story_points`, `Value: 5`. Confirming now succeeds cleanly: *"✓ #15 updated: Project:
+Crux Scrum Agent Test Project, Field: story_points, Value: 5."* Verified natively on `/issues/15`: Story Points
+genuinely shows "5," and the issue's own journal records "Story Points set to 5.0 — Updated story_points via
+Agile Board API." **Confirmed fixed.**

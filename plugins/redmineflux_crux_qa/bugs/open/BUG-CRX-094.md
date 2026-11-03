@@ -62,3 +62,15 @@ similarly-shaped bare request — routing behavior appears inconsistent between 
 fixed). CRC-74's own changelog doesn't list "what's on my to do list" among its 46 re-tested routing phrases.
 **Not fixed** — the bare, no-project phrasing still requires the user to manually retype with an "@crux" prefix
 instead of being routed automatically.
+
+## Retest — 2026-11-03 (4th round, after discovering crux-core/mcp were running a stale image all of round 3) — FIXED
+
+Discovered that `docker compose restart crux-core mcp` never actually rebuilds the image — round 3's retest above
+was run against a stale pre-CRC-74 image despite the repo being pulled to `65053f8`. Ran a genuine
+`docker compose up -d --build --force-recreate crux-core mcp`, confirmed via `docker images`/container uptime that
+the new image is actually running, then re-ran the exact bare-phrasing repro, Auto mode, admin, fresh chat:
+"What's on my To Do list?" — now correctly routes to **QA Agent** (avatar "QA," no manual "@crux" needed) and
+returns the real plugin To-Do concept: *"You have 4 pending run assignments across the Crux QA Agent Test
+Project: Run #1 Sprint 1 Regression..., Run #8 Overdue Run Fixture... (overdue), Run #7 Bulk Status Fixture
+Run... (complete), Run #3 Sprint 2 Targeted Test..."* — real run data, not generic issue assignment. **Confirmed
+fixed** now that the fix is genuinely running.

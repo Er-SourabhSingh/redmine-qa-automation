@@ -57,3 +57,11 @@ among its 46 re-tested questions. Re-ran the exact original repro, Auto mode, ad
 'EUR Currency Test Deal' to the Qualified stage?" — still routes to **Project Manager**, now with a flatter
 denial than before: *"I couldn't find a tool for this here, so I can't do it from this chat..."* Never reaches
 Sales Agent. **Not fixed.**
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all of round 3) — FIXED
+
+Round 3's retest above was against a stale pre-CRC-74 image (`docker compose restart` never actually rebuilds
+`crux-core`/`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran the
+exact original repro, Auto mode, admin, fresh chat: "can you move the 'EUR Currency Test Deal' to the Qualified
+stage?" — now correctly routes to **Sales Agent** and produces a genuine `Crm Update Deal Stage` confirm card
+(`Deal: 2`, `Stage: Qualified`). Cancelled (not needed as a write). **Confirmed fixed.**

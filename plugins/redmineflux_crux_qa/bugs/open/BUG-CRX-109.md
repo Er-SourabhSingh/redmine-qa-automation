@@ -97,3 +97,15 @@ its limit right now?" (Auto mode, fresh chat) — still routes to **Project Mana
 regressed further, from an honest clarifying question to a flat *"I couldn't find a tool for this here, so I
 can't do it from this chat."* **Not fixed** — CRC-74's new gated route only covers the "approve ... hours ...
 category" action phrasing, not this bug's read-only "over its limit"/"spending" question phrasing.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all of round 3) — FIXED
+
+Round 3's retest above was against a stale pre-CRC-74 image (`docker compose restart` never actually rebuilds
+`crux-core`/`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran the
+exact original repro, Auto mode, admin, fresh chat: "Is the Development category in project ID 5 over its limit
+right now?" — now correctly routes to **Budget Agent** and gives an accurate, data-backed answer: *"Yes, the
+Development category (ID 67) in project ID 5 is over budget: ... Remaining: −21 hours ⚠️. The Development
+category has exceeded its cap by 21 hours. The project overall is also over budget, with a total spend of 103
+hours against 82 hours approved."* **Confirmed fixed** — the read-only "over its limit" phrasing now routes
+correctly, not just the narrower "approve ... hours ... category" action phrasing CRC-74's own changelog called
+out.

@@ -476,6 +476,16 @@ be genuinely refused/blocked — not silently accepted. This is the specific sce
 TC-CRX-099 flagged as "never genuinely exercised" (it was blocked by a fabricated-success bug, BUG-CRX-028,
 before the real capacity math was ever tested) — a priority regression/first-real-exercise test.
 
+**Result: FOUND BUG — the documented refusal path doesn't exist.** Settings correctly updated to disable
+overload (*"✓ Settings updated. Allow Overload: No"*, with the tool's own built-in BUG-RFM-010 warning).
+Confirm card for the 60h request correctly showed `Workload: 1`, `Issue: 26`, `Workload User: 1`, `Planned
+Hours: 60`. Confirming succeeded cleanly: *"✓ Planned hours updated (allocation_id: 4)."* Native-verified
+genuinely over-capacity: Luna Blossom now shows **60.00h planned / 28.00h available** (workload-level:
+Available 60h vs. Planned 116h). No refusal, no warning, no clip. This is the first genuine exercise of this
+scenario on the current build (the legacy suite's equivalent TC was blocked by an unrelated bug before it
+could ever test this) — confirms the vendor-documented capacity enforcement simply doesn't exist for
+`update_planned_hours`. Filed as **BUG-CRX-146**.
+
 ---
 
 ## Leave Lifecycle

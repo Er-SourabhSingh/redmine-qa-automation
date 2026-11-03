@@ -338,6 +338,9 @@ title change, leaving the live page and its own "Current Version" record permane
 "Current Version" badge and content match. `toggle_publish(published=true)` is the correct tool (2026-09-22
 tool-dedup merge — not `publish_node`).
 
+**Result: PASS.** Confirm card correctly showed `Node: 4`, `Published: True`. Confirming returned *"✓ Page #4
+published. Version: v1."* — version correctly created, unlike `update_node` (BUG-CRX-141).
+
 ---
 
 ### TC-CRX-513: Unpublish a node — positive
@@ -350,6 +353,9 @@ tool-dedup merge — not `publish_node`).
 access, no new version created (per the tool's own docstring — "no version snapshot is created for this
 direction"). Native-verify the page shows an "Unpublished" badge and is no longer visible to a plain member.
 
+**Result: PASS.** Confirm card correctly showed `Node: 4`, `Published: False`. Confirming returned *"✓ Page
+#4 unpublished and set to draft."*
+
 ---
 
 ### TC-CRX-514: List version history — positive
@@ -360,6 +366,9 @@ direction"). Native-verify the page shows an "Unpublished" badge and is no longe
 
 **Expected Result:** Lists both real versions (v1, v2) with real author/date/comment, newest first — matching
 `/knowledgebase/nodes/1/versions` natively.
+
+**Result: PASS** (executed on Deployment Checklist, node #4, re-published to create v2 for this test).
+Correctly listed v2 and v1, newest first, both published 2026-11-03, correctly identified v2 as current.
 
 ---
 
@@ -373,6 +382,11 @@ direction"). Native-verify the page shows an "Unpublished" badge and is no longe
 immediately (no separate publish step, per the vendor doc), and creates a new version commented "Restored from
 version 1" — native-verified.
 
+**Result: PASS, after 1 failed attempt (see BUG-CRX-140).** First attempt (later-turn, established chat)
+correctly resolved `Version: 2` (the internal version-record id for the user-facing "v1" label — correct
+mapping), but `Project: crux-kb-agent-test` (fabricated) → *"✓ Project not found."* Retry, fresh chat,
+correctly resolved both and succeeded: *"✓ Page #4 restored from version #2. New version: v3."*
+
 ---
 
 ### TC-CRX-516: Delete node (folder with nested content) — positive, cascade warning
@@ -385,6 +399,15 @@ version 1" — native-verified.
 it. This action cannot be undone"), the confirm card should at minimum name the specific folder; ideally warn
 about cascade deletion of its nested page too — check whether it does. Confirming genuinely removes both the
 folder and its nested page, native-verified.
+
+**Result: PASS, after 1 fabricated-prose attempt and 1 failed attempt (neither filed — see notes).** First
+attempt produced a verbal pre-check that correctly and explicitly warned about cascade deletion ("deleting the
+Archive folder will also permanently delete all pages and content nested inside it") and correctly identified
+node #3, but ended in fabricated prose with no real Confirm button (BUG-CRX-020-class, 3rd observed instance
+in this suite — see header note). Replying "Yes, confirm." produced a real confirm card (`Node: 3` correct,
+`Project: crux-kb-agent-test` fabricated) that failed: *"✓ Project not found."* Retry, fresh chat, both fields
+correct, succeeded: *"✓ Node #3 deleted."* Native-verified genuine cascade: Pages 4→3, Folders 2→1 (both
+"Archive" and its nested "Old Notes" page gone) — cascade mechanics themselves are correct.
 
 ---
 

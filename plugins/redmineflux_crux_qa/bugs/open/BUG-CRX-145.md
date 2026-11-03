@@ -2,9 +2,10 @@
 
 - Bug ID: BUG-CRX-145
 - Production Redmine Issue ID:
-- Title: Capacity Agent's `member_update` confirm card consistently resolves the WRONG team member — defaults
-  to "Daisy Skye" regardless of which member was actually named in the request ("Luna Blossom's... membership
-  (member 10)") — reproduced 3 of 3 times, independent of which user is asking or chat depth
+- Title: Capacity Agent's `member_update`/`member_remove` confirm cards consistently resolve the WRONG team
+  member — default to "Daisy Skye" regardless of which member was actually named in the request ("Luna
+  Blossom's... membership (member 10)") — reproduced 4 of 4 times across 2 different tools, independent of
+  which user is asking or chat depth
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Capacity Agent) / redmineflux_workload (native plugin)
 - Plugin version: crux-core 0.130.0
@@ -49,6 +50,15 @@ unchanged on `/rf_teams/7` after all three cancellations.
 Had any of these been confirmed, Daisy Skye would have silently been granted `can_approve_leave` on Team #7 —
 a real permission escalation for the wrong person — while the user believed they were updating Luna Blossom's
 permissions.
+
+**4th reproduction, different tool (`member_remove`), 2026-11-03 (same investigation)**: as `daisy.skye`,
+fresh chat: "Remove member 10 (Luna Blossom) from the Crux Capacity Agent Test Team." produced a confirm card
+showing `Team: 7` (correct) but `Membership: Daisy Skye (now Reporter)` — **still wrong, still defaulting to
+Daisy Skye** instead of the explicitly-named Luna Blossom/member 10. Had this been confirmed, Daisy would have
+removed **herself** from the team instead of removing Luna Blossom as requested — a destructive action on the
+wrong target. Cancelled before any write; native-verified both members still genuinely present on `/rf_teams/7`
+afterward. This confirms the wrong-member-resolution defect is not isolated to `member_update` — it affects at
+least two different write tools that take a membership id parameter.
 
 ## Evidence
 

@@ -262,6 +262,13 @@ added by admin first if it was correctly refused.
 **Expected Result:** Same permission question — `member_remove` is destructive and docstring-claimed
 manage_workload-gated but code-gated only at `_require_view`.
 
+**Result: FOUND BUG — 4th reproduction of BUG-CRX-145, now on a 2nd tool.** Asked to "Remove member 10 (Luna
+Blossom)" — confirm card showed `Team: 7` (correct) but `Membership: Daisy Skye` (wrong — should be Luna
+Blossom/member 10). Had this been confirmed, Daisy would have destructively removed **herself** instead of
+Luna, the person actually named. Cancelled before any write; native-verified both members still present
+afterward. Captured as a 4th reproduction inside **BUG-CRX-145**, confirming the wrong-member-resolution
+defect spans at least 2 different write tools, not just `member_update`.
+
 ---
 
 ### TC-CRX-535: `member_remove`/`member_update` — Member # vs. User # resolution (documented historical confusion point)

@@ -1,17 +1,35 @@
 # Test Cases — Redmineflux Crux — KB Agent (Knowledge Base plugin) Full CRUD
 
-> **Execution in progress, started 2026-11-03.** Spaces section (TC-CRX-498–503) complete: 5 PASS/PARTIAL PASS,
-> 1 FOUND BUG:
-> - **BUG-CRX-140** (Critical) — `delete_space`'s confirm card genuinely targets the wrong real space (#1
->   "Engineering Docs", content-bearing) instead of the explicitly-named, already-resolved space (#2 "Release
->   Notes") — reproduced 2/2. Both attempts caught and cancelled before any data loss.
-> - Two related, non-reproducible single-instance anomalies noted but not filed separately (per established
->   precedent for this defect shape): a fabricated text-only "confirm" with no real button on one
->   `create_space` attempt (BUG-CRX-020-class), and an unstable/fabricated project-identifier string across
->   different confirm cards in the same chat for the same project (ultimately captured concretely as part of
->   BUG-CRX-140 once it affected a destructive action).
+> **Execution complete, 2026-11-03. All 25 TCs executed (TC-CRX-498–522)** — 19 PASS/PARTIAL PASS, 4 new bugs
+> found:
+> - **BUG-CRX-140** (Critical) — KB Agent write tools (`update_space`, `delete_space`, `create_node`,
+>   `update_node`) silently fabricate a wrong project identifier on later-turn confirm cards in an established
+>   chat — usually causing a clean "Project not found" failure, but on `delete_space` once combined with a
+>   wrong *space* id to target a different, real, content-bearing space for destructive deletion. Fresh-chat/
+>   first-message writes are consistently unaffected. All destructive attempts caught and cancelled/retried
+>   before any data loss.
+> - **BUG-CRX-141** (High) — `update_node` silently edits a Published page's live title/content with no new
+>   version snapshot and no draft intermediate state, leaving the page's own "Current Version" record
+>   permanently out of sync with what readers actually see.
+> - **BUG-CRX-142** (Medium) — KB Agent repeatedly produces a fabricated-prose "please confirm" response with
+>   no real Confirm/Cancel button — reproduced 3 times across 3 different scenarios in this one suite.
+> - **BUG-CRX-143** (Medium) — KB Agent falsely tells a Reporter-role user she lacks `view_knowledgebase`
+>   permission (which she genuinely has, native-verified) on two separate refusal paths — the correct action
+>   (refuse) was taken both times, but the stated reason was fabricated both times.
 >
-> Nodes, Permissions, Auto-Mode, and Context-Resolution sections (TC-CRX-504 onward) not yet executed.
+> **The suite's two pre-identified GAPs (from `docs/CRUX_EXTERNAL_KB_NOTES.md` §5) are both closed, cleanly:**
+> the invalid-parent structural constraint (TC-CRX-509) is correctly enforced before any write is even
+> proposed, and the draft-visibility privacy boundary (TC-CRX-519, flagged High) genuinely holds — a
+> Reporter-role user was never able to see a real draft's confidential content, across 2 attempts.
+>
+> **Also confirmed cleanly working**: multi-user permission enforcement (Reporter correctly refused both
+> `create_space` and `create_node`, with a real API-level permission check); publish/unpublish/version-history/
+> restore_version/cascade-delete all have correct underlying mechanics once a write genuinely reaches the
+> right record; Auto-mode routing (both bare and ambiguous phrasing) correctly reaches KB Agent; and — a
+> notable negative-class result — the KB Agent does **not** share the Invoicing Agent's wrong-*project*-
+> resolution defect (BUG-CRX-080/093/101/133): a later-turn write in an Auto-mode chat correctly reused the
+> already-established project (TC-CRX-522), even though BUG-CRX-140's narrower identifier-corruption issue
+> still applies independently.
 >
 > KB Agent had no dedicated Crux-chat test coverage until now (the native
 > `redmineflux_knowledgebase` plugin has its own separate QA suite under
@@ -491,6 +509,9 @@ Knowledge Base Agent Test Project?"
 **Expected Result:** Auto mode correctly routes to **KB Agent** (visible agent avatar), returns the real page
 content — no misroute to Project Manager or a generic fallback.
 
+**Result: PASS.** Correctly routed to KB Agent ("KA" avatar), returned accurate real content including the
+page's post-edit title ("New Hire Onboarding Guide") and the correct, verbatim content.
+
 ---
 
 ### TC-CRX-521: Auto mode — ambiguous phrasing vs. Project Manager/Docs-Writer
@@ -502,6 +523,9 @@ Project?" (plausibly reachable by Project Manager's own cross-domain status tool
 
 **Expected Result:** Routes to KB Agent specifically (the real space list is KB-specific data Project Manager
 has no tool for) — no misroute, no fabricated "no spaces" from the wrong agent.
+
+**Result: PASS.** Correctly routed to KB Agent, accurately reported "2 spaces: Engineering Docs — 4 nodes,
+Release Notes — 0 nodes" — exact match to real state at the time of the question.
 
 ---
 
@@ -521,3 +545,11 @@ Engineering Docs space." (a later-turn write, mirroring BUG-CRX-133's exact repr
 replaced by an unrelated project. Given this defect class has now recurred on 2 different tools within the
 Invoicing Agent alone (BUG-CRX-133, `send_invoice` + `update_invoice`), this is a focused regression check for
 whether the KB Agent (a different domain entirely) shares the same underlying context-resolution weakness.
+
+**Result: PASS — no BUG-CRX-133-class defect found on the KB Agent.** Executed in Auto mode, 3rd turn of an
+established chat (after 2 prior successful Auto-routed reads). The confirm card (after a fabricated-prose
+pre-check — see BUG-CRX-142) correctly showed `Project: Crux Knowledge Base Agent Test Project`, `Space: 1` —
+the project was genuinely reused from context, not replaced by an unrelated one. Confirming succeeded: *"✓
+Node created: #7 [page] 'Context Test' in space #1."* The KB Agent does not appear to share the Invoicing
+Agent's wrong-*project*-resolution defect (BUG-CRX-133) — its own context-carryover issue (BUG-CRX-140) is a
+different, narrower failure mode (identifier corruption, not switching to a different real project).

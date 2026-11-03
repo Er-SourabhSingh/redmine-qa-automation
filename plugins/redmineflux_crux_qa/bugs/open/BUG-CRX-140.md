@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-140
 - Production Redmine Issue ID:
-- Title: KB Agent's `delete_space` confirm card genuinely targets the WRONG space — a real, named space with real content ("Engineering Docs", space #1) is proposed for deletion instead of the space the user explicitly named and which was already correctly resolved earlier in the same chat ("Release Notes", space #2) — reproduced 2/2
+- Title: KB Agent's write tools (`update_space`, `delete_space`, `create_node`, `update_node`) silently fabricate a wrong project identifier string on later-turn confirm cards in a multi-turn chat — causing genuine write failures ("Project not found") in most cases, and in one case (`delete_space`) a genuinely wrong REAL RECORD being targeted instead — reproduced repeatedly across 4 different tools; fresh-chat/first-message writes are unaffected
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, KB Agent) / redmineflux_knowledgebase (native plugin)
 - Plugin version: crux-core 0.130.0
@@ -51,6 +51,32 @@ Both deletion attempts were caught and cancelled before any data loss — verifi
 `/projects/crux-kb-agent-test-project/knowledgebase` that both `Engineering Docs` (space #1) and `Release
 Notes` (space #2) still genuinely exist, untouched.
 
+**Further reproductions, 2026-11-03 (same investigation) — root-cause pattern now clear.** The same
+project-identifier fabrication recurred on `create_node` (once, failed then succeeded on retry) and on
+`update_node` (twice in a row, both failed — see Console/log for exact strings). Across roughly 7 write-tool
+confirm cards observed in this investigation, a clear pattern emerged:
+
+- **Fresh chat, first message in that chat** → the confirm card always correctly shows either the project's
+  real identifier (`crux-kb-agent-test-project`) or its real display name (`Crux Knowledge Base Agent Test
+  Project`) — and the write always succeeds.
+- **A later-turn write in a chat that had already correctly resolved the project in an earlier turn** →
+  the confirm card instead shows a corrupted/fabricated variant — observed forms include
+  `crux-knowledge-base-agent-test-project` (a plausible-looking but nonexistent full slugification of the
+  display name) and `crux-kb-agent-test` (a truncated, also-nonexistent variant) — and the write then
+  genuinely fails with *"✓ Project not found"* (note the misleading ✓ prefix on a failure, the established
+  BUG-CRX-009/018/054/067/082/086 class) in most cases, or (the `delete_space` case) targets a different, real
+  record's numeric id instead of failing cleanly.
+
+This is now confirmed across **4 different write tools** (`update_space`, `delete_space`, `create_node`,
+`update_node`) — a systemic, context-carryover defect in how the KB Agent resolves/re-derives the project
+argument for a write call made later in an already-established chat, rather than reusing the already-correct
+value from earlier in the same chat. It shares its general shape with the wrong-project-resolution family
+already documented elsewhere this cycle (BUG-CRX-080/093/101/133) — a later-turn write re-deriving the project
+instead of reusing context — but manifests differently here: instead of switching to a different, real,
+unrelated project (as in the BUG-CRX-133 family), the KB Agent corrupts the identifier string itself into a
+plausible-looking but nonexistent value, which usually fails cleanly but, combined with a wrong numeric
+record id (`delete_space`), can silently target a different real record instead.
+
 ## Evidence
 
 ### Screenshot
@@ -67,18 +93,28 @@ Notes` (space #2) still genuinely exist, untouched.
   varied across the session's several confirm cards — see Secondary observation above).
 - Native verification, `/projects/crux-kb-agent-test-project/knowledgebase`: both `Engineering Docs` (2 Pages,
   1 Folder) and `Release Notes` (0 Pages, 0 Folders) genuinely still exist after cancelling both attempts.
+- `create_node` (folder "Runbooks"), later-turn in an established chat: `Project:
+  crux-knowledge-base-agent-test-project` → *"✓ Project not found..."* (native-verified: not created). Retry,
+  same chat: `Project: Crux Knowledge Base Agent Test Project` → *"✓ Node created: #5 [folder] 'Runbooks' in
+  space #1."*
+- `update_node` (node #1, title+content), later-turn in an established chat, attempt 1: `Project:
+  crux-knowledge-base-agent-test-project` → *"✓ Project not found..."* (native-verified: node #1's title and
+  content genuinely unchanged). Attempt 2, same chat: `Project: crux-kb-agent-test` → *"✓ Project not
+  found..."* again.
+- `update_node` (node #1, title only), **fresh chat, first message**: `Project: Crux Knowledge Base Agent Test
+  Project` (correct) → *"✓ Node #1 'New Hire Onboarding Guide' updated."* — succeeded cleanly, confirming the
+  fresh-chat/first-message vs. later-turn pattern.
 
 ## Duplicate check
 
-- Duplicate found: No. This is the first confirmed instance on the KB Agent of a write tool's confirm card
-  resolving a completely different, real **target record id** (not just a wrong project) for a **destructive**
-  action — distinct from the already-documented wrong-*project*-resolution family (BUG-CRX-080/093/101/133,
-  which substitutes the wrong *project* but the record id itself, once scoped to a project, is usually
-  correct or cleanly "not found"). Here, the project field is unstable AND the actual record id targeted is a
-  different, real, unrelated record within whichever project ends up resolved — meaning even a user who
-  correctly reads the (admittedly wrong) project name on the confirm card could still be misled, because nothing
-  on the card names the space by its real title ("Engineering Docs") — only a bare numeric id a user has no
-  easy way to recognize as wrong without separately checking. Given this is a **destructive, irreversible**
-  action (cascade-deletes all nested content) targeting the wrong real record, this is one of the more severe
-  findings of this QA cycle — kept as its own bug given the distinct mechanism (wrong target *record*, not
-  just wrong project) and severity (Critical: destructive + silent + reproducible).
+- Duplicate found: No. Shares its general shape with the wrong-project-resolution family already documented
+  this cycle (BUG-CRX-080/093/101/133 — a later-turn write re-deriving the project instead of reusing it from
+  earlier in the same chat), but is kept as its own bug because the manifestation is meaningfully different
+  and specific to the KB Agent: instead of switching to a different, real, unrelated project (the BUG-CRX-133
+  family's exact shape), the KB Agent corrupts the project identifier string into a plausible-looking but
+  nonexistent value across 4 different write tools, usually causing a clean (if misleadingly ✓-prefixed)
+  failure — except in the `delete_space` case, where the corruption combines with a wrong numeric *record* id
+  to silently target a different, real, content-bearing record for a **destructive, irreversible** action.
+  That combination — not just a wrong project, but a wrong real target record for a cascade-delete — is what
+  makes this the more severe of the two shapes and worth its own bug file rather than folding into the
+  BUG-CRX-133 family.

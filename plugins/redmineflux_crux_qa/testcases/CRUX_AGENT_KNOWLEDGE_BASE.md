@@ -237,6 +237,11 @@ smoke-test the health endpoint.'"
 **Expected Result:** Confirm card shows the exact title/content; confirming creates it as a **draft** page
 (per the tool's own documented behavior — "Pages are created as 'draft'"), native-verified.
 
+**Result: PASS.** Confirm card correctly showed `Space: 1`, `Title: Deployment Checklist`, `Node Type: page`,
+`Content:` verbatim. Confirming returned *"✓ Node created: #4 [page] 'Deployment Checklist' in space #1...
+use redmineflux_kb_toggle_publish(published=True) to make it visible to readers."* — correctly created as
+draft.
+
 ---
 
 ### TC-CRX-507: Create node (folder) — positive
@@ -247,6 +252,14 @@ smoke-test the health endpoint.'"
 
 **Expected Result:** Confirm card shows the folder name, no content field offered/accepted (folders can't hold
 content); confirming creates it, native-verified as a folder (📁 icon, no publish lifecycle).
+
+**Result: PARTIAL PASS — see BUG-CRX-140 (3rd reproduction, project-identifier instability).** First attempt's
+confirm card correctly showed `Space: 1`, `Title: Runbooks`, `Node Type: folder`, but `Project:
+crux-knowledge-base-agent-test-project` (fabricated identifier) — confirming failed: *"✓ Project not found."*
+Native-verified Runbooks was NOT created. Immediate retry (same chat) produced a correct confirm card and
+succeeded: *"✓ Node created: #5 [folder] 'Runbooks' in space #1."* The underlying folder-creation mechanics
+themselves are correct (no content field ever offered for a folder); this failure was captured as a 3rd
+reproduction inside BUG-CRX-140, not filed separately.
 
 ---
 
@@ -300,6 +313,18 @@ the content: 'Updated 2026-11-03 with new VPN setup steps.'"
 **draft** per the documented lifecycle ("Editing a published page creates a draft, but the page stays live
 until Update is clicked" — native-verify whether the already-published version stays visible to readers while
 a draft edit is pending, per the vendor doc's exact wording).
+
+**Result: FOUND 2 BUGS.** First 2 attempts, later-turn in an already-established chat, showed a fabricated
+project identifier on the confirm card (`crux-knowledge-base-agent-test-project`, then `crux-kb-agent-test`)
+and both genuinely failed: *"✓ Project not found."* Native-verified node #1 was unchanged after both. Captured
+as part of **BUG-CRX-140**. A third attempt, fresh chat/first message (title-only, no content change),
+correctly showed `Project: Crux Knowledge Base Agent Test Project` and succeeded: *"✓ Node #1 'New Hire
+Onboarding Guide' updated."* — but native verification then revealed a **second, distinct defect**: the
+page's live title changed immediately (still showing status "Published," no draft intermediate state), while
+its version history still showed only **"1 Releases"**, version 1 still titled "Onboarding Guide" (the OLD
+title), still marked "Current Version," content unchanged — no new version was ever created to record the
+title change, leaving the live page and its own "Current Version" record permanently out of sync. Filed as
+**BUG-CRX-141**.
 
 ---
 

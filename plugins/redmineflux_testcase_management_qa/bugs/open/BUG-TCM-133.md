@@ -1,7 +1,7 @@
 # BUG-TCM-133
 
 - Bug ID: BUG-TCM-133
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127416 — "BUG-TCM-133: On MySQL, a step longer than 40000 characters passes the import preview as OK and is silently not created", assigned Vaishnavi Bhawsar, Target Version "Testcase Management plugin Release 7.3.0"
 - Title: On MySQL, a step longer than 40000 characters passes the import preview as OK and is rejected only while importing — the error is on the progress page for under a second, and the case is silently not created
 - Severity: Medium
 - Redmine version: 7.0 (Docker `redmine:7.0-bookworm`), MySQL 8.0.46 (utf8mb4)

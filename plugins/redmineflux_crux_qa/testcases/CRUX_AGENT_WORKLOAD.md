@@ -187,6 +187,9 @@ org-wide. No team created (native-verify `/rf_teams` doesn't show it).
 **Expected Result:** Confirm card names the skill; confirming creates it (`resource_type: "skill"`),
 native-verified on `/rf_skills`.
 
+**Result: PASS.** Confirm card correctly showed `Resource Type: skill`, `Name: PostgreSQL`. Confirming
+returned *"✓ Skill created: #2 PostgreSQL."*
+
 ---
 
 ### TC-CRX-531: Delete team — destructive, named explicitly, cascade warning
@@ -370,6 +373,9 @@ genuinely created) rather than the main fixture Workload #1.
 **Expected Result:** Confirm card names the real issue and workload; confirming returns a real
 `workload_issue_id`, native-verified the issue now appears under Luna Blossom's allocation.
 
+**Result: PASS.** Confirm card correctly showed `Workload: 1`, `Issue: 26`. Confirming returned *"✓ Issue
+added: #26 Capacity Agent fixture issue - sprint 1 work item → Workload #1 (workload_issue_id: 1)."*
+
 ---
 
 ### TC-CRX-542: Update planned hours — positive, allocation-ID contract check (historical BUG-CRX-018 regression)
@@ -383,6 +389,10 @@ exact ID the Workload Add Issue tool just returned"), this should succeed cleanl
 `allocation_id` the agent can reuse in later calls without a fabricated-ID mismatch. Regression-check this
 specific historical bug class on the current build.
 
+**Result: PASS.** Confirm card correctly showed `Workload: 1`, `Issue: 26`, `Workload User: 1`, `Planned
+Hours: 12`. Confirming returned *"✓ Planned hours updated (allocation_id: 1)"* — real id returned, no
+mismatch.
+
 ---
 
 ### TC-CRX-543: Allocation resize — positive, using the real allocation_id from TC-CRX-542
@@ -393,6 +403,9 @@ specific historical bug class on the current build.
 
 **Expected Result:** Succeeds using the real `allocation_id` from the prior turn — no ID-mismatch regression of
 BUG-CRX-018.
+
+**Result: PASS.** Confirm card correctly reused `Allocation: 1` (from TC-CRX-542). Confirming returned *"✓
+Allocation resized."*
 
 ---
 
@@ -406,6 +419,17 @@ BUG-CRX-018.
 doesn't actually support split allocations — a unique-constraint violation), this should render a clean "not
 yet supported on this server" message — **not** a raw 500 or an unhandled DB error leaking to the user.
 
+**Result: PASS, with a notable positive deviation from the documented BUG-RFM-011 state.** First attempt's
+confirm card showed `Allocation: 26` — a wrong id (issue #26's number leaked into the allocation field instead
+of the real `allocation_id` 1); cancelled. Retried with the explicit correct id ("Split allocation ID 1 into
+8 and 8 hours.") — confirm card correctly showed `Allocation: 1`. Confirming returned *"✓ Allocation split
+successfully. Insert position: 2."* — **the split genuinely succeeded**, native-verified on the workload's
+Gantt: two real, separate 8.00h allocations for the same issue/user now exist. Contrary to the documented
+BUG-RFM-011 (DB schema doesn't support split allocations, unique-constraint violation expected), this build
+genuinely supports it — a positive fix-confirmation, not the expected negative/friendly-error path. The
+wrong-allocation-id-shown-on-first-attempt anomaly is noted but not separately filed (single instance, not yet
+reproduced).
+
 ---
 
 ### TC-CRX-545: Allocation update_dates / reset — positive
@@ -417,6 +441,10 @@ automatic scheduling."
 
 **Expected Result:** Both succeed cleanly; `reset` genuinely clears the manual override, native-verified.
 
+**Result: PASS, both legs.** `update_dates`: confirm card `Allocation: 1`, `Start Date: 2026-11-05`, `End
+Date: 2026-11-10` → *"✓ Allocation dates updated."* `reset`: confirm card `Allocation: 1` → *"✓ Allocation
+reset to auto position."*
+
 ---
 
 ### TC-CRX-546: Remove issue from workload — destructive, positive
@@ -426,6 +454,9 @@ automatic scheduling."
 **Steps:** "Remove issue #26 from the Crux Capacity Sprint 1 workload."
 
 **Expected Result:** Confirm card names the real issue/workload; confirming removes it, native-verified.
+
+**Result: PASS.** Confirm card correctly showed `Workload: 1`, `Issue: 26`. Confirming returned *"✓ Issue
+removed from workload."*
 
 ---
 

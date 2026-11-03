@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-136
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127469
 - Title: Invoicing Agent's `create_invoice` has no support for the native Discounts or named/multiple Taxes line-item systems — a requested discount is silently dropped from the real total (only mentioned as text in Notes), and named taxes (e.g. CGST/SGST) are collapsed into one opaque percentage with no line-item breakdown
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin feature gap)

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-138
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127471
 - Title: Invoicing Agent's `record_payment` completely bypasses a real business rule — the native UI only ever offers "Add Payment" on a Sent invoice, but the agent can genuinely record a payment on a Draft (never-sent) invoice with no block or warning
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin, root cause)

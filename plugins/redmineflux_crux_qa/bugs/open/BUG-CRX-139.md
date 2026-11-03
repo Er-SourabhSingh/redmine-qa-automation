@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-139
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127472
 - Title: Invoicing Agent's `create_invoice` silently substitutes a completely different, real user for the line item's `user_id` when the one given isn't a formal project member — explicitly confirmed `user_id: 1` (Redmine Admin) on the agent's own confirm card, but 3/3 created invoices genuinely persist "Daisy Skye" (user id 6) instead
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin, root cause)

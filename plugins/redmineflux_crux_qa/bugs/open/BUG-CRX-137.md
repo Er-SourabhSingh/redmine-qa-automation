@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-137
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127470
 - Title: Invoicing Agent's `create_invoice` can never genuinely link a line item to a real Redmine issue — the native "Invoice Issues" checkbox mechanism is unreachable via chat; "for issue #X" only ever produces a plain-text description mentioning the number
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent)

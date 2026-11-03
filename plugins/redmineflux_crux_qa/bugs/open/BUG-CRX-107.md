@@ -78,3 +78,12 @@ containers restarted. Re-ran as `admin`, Budget Agent: "What categories are avai
 which one to approve budget hours for?" — response unchanged: *"I don't have a tool available to list the issue
 categories for a project... you'll need to check in Redmineflux directly..."* — identical honest-gap disclosure
 as the original bug, no new category-listing tool exercised. **Not fixed.**
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+The retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/`mcp`).
+After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `admin`, Budget Agent
+pinned, fresh chat: "What categories are available for project ID 5, so I know which one to approve budget hours
+for?" — the agent now correctly lists all real categories with their ids: `id=67: Development`, plus the full
+sibling list (Development - Chrome Extension, Mobile Application, Backend, Frontend, etc.) — a genuine
+`list_issue_categories` call, no more "I don't have a tool" disclosure. **Confirmed fixed.**

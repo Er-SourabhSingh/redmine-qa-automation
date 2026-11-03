@@ -82,3 +82,12 @@ a plain-text pre-confirm proposal, then a real Confirm/Cancel card after replyin
 produced the exact same backend rejection as the original bug: `Validation error: Identifier is invalid`. The
 MCP's client-side `_SAFE_ID_PATTERN` check still has not been tightened to match Redmine's real lowercase-only,
 non-numeric identifier rule. **Not fixed.** Clicked Cancel/no retry after the error — no bad data persisted.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+The retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/`mcp`).
+After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `admin`, Project Setup
+Agent, fresh chat: "Create a project called 'Crux Retest 111 Round4', identifier 'CruxRetest111R4'." — the
+mixed-case identifier is now **auto-lowercased on the confirm card itself** (`Identifier: cruxretest111r4`), with
+no client-side warning needed since the correction happens silently and correctly. Confirmed — *"✓ Created
+project cruxretest111r4"* — genuine success, no validation error. **Confirmed fixed.**

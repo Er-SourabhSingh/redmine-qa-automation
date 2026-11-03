@@ -4,9 +4,10 @@
 > Crux-chat test coverage until now (the native `redmineflux_invoice` plugin has its own separate QA suite
 > under `plugins/redmineflux_invoice_qa/testcases/`, which covers the native UI, not the chat agent).
 >
-> **All 17 TCs executed (16 + 1 precondition confirmation); 1 (DEF-2 fallback rate) came back BLOCKED on a
-> missing fixture precondition (no customer linked to the project), not a defect — 4 new bugs found, all
-> filed:**
+> **Updated 2026-11-03 (2nd pass, per explicit user request to test Discount/Tax/issue-linking like the
+> native UI offers): all 19 TCs executed (18 + 1 precondition confirmation); 1 (DEF-2 fallback rate) came
+> back BLOCKED on a missing fixture precondition (no customer linked to the project), not a defect — 6 new
+> bugs found total, all filed:**
 > - **BUG-CRX-132** (High) — `create_invoice` never sets/warns about `due_date`; viewing the resulting
 >   invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for
 >   nil`) — 100% reproducible, reachable via the agent and the native UI alike (Due Date isn't required on
@@ -22,6 +23,13 @@
 >   Sent invoice with genuine line items and a client email it had already been sent to was permanently
 >   deleted with zero warning, moments after the same invoice's Update path correctly refused the identical
 >   non-Draft status.
+> - **BUG-CRX-136** (High) — `create_invoice` has no access to the native Discounts or named/multiple Taxes
+>   line-item systems — a requested 10% discount was silently dropped from the real total (only mentioned as
+>   text in Notes, a $47.20 discrepancy vs. the correct total), and CGST+SGST were collapsed into one opaque
+>   flat percentage with zero line-item breakdown.
+> - **BUG-CRX-137** (Medium) — `create_invoice` can never genuinely link a line item to a real Redmine issue
+>   — the native "Invoice Issues" checkbox mechanism is completely unreachable via chat; "for issue #X" only
+>   ever produces a plain-text description mentioning the number, with no real structural link.
 >
 > **Everything else tested cleanly**: the no-permission dashboard refusal correctly names `view_invoices`
 > specifically; the no-permission payment-write path is genuinely enforced once a real invoice exists
@@ -34,7 +42,8 @@
 > mechanism works exactly as the code predicts (silent same-click retry for compatible fields, honest error
 > for incompatible ones, always-retry for delete); Update correctly refuses non-Draft invoices; payment
 > amount validation and the Draft/Sent revert-on-delete dual mechanism both work exactly as documented;
-> single-user `set_team_rate` works correctly end-to-end.
+> single-user `set_team_rate` works correctly end-to-end; Client Name and Client Address are both genuinely
+> supported `create_invoice` fields, correctly resolved and persisted.
 >
 > **BLOCKED (not a defect)**: TC-CRX-486 (DEF-2 fallback-rate warning) — this fixture project has no customer
 > linked yet, so `generate_invoice` correctly refuses with "Client email cannot be blank" before DEF-2's own
@@ -317,6 +326,54 @@ created). **The validation itself is correct; the missing real confirm button on
 recurrence of the BUG-CRX-020 defect class** on a trigger this QA cycle hasn't covered before (a
 tax-rate-flagging clarification message specifically) — worth filing if reproduced a second time with a
 different trigger.
+
+---
+
+### TC-CRX-492: Create invoice — Discounts and named/multiple Taxes (native line-item systems)
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Invoicing Agent pinned: "Create an invoice for the Crux Invoice Agent Test Project,
+client email buyer@example.com, one line item: 'Consulting', quantity 4, rate 100, user id 1. Apply a 10%
+'Early Bird Discount' and add CGST tax at 9% and SGST tax at 9%." (the native "New Invoice" form has a
+genuine, separate Discounts table — Label/Rate %/Amount — and a Taxes table with the same shape, placeholder
+example "e.g., CGST, SGST," confirming multiple independently-named taxes are a real, intended use case).
+
+**Expected Result:** The discount should genuinely reduce the total by 10% of the subtotal, and CGST/SGST
+should appear as two separate, labeled rows in the native Taxes table.
+
+**Result: FOUND BUG — filed as BUG-CRX-136.** Confirm card showed `Tax Rate: 18` (CGST 9% + SGST 9% silently
+summed into one flat number) and `Notes: "Early Bird Discount: 10%"` (the discount shoved into free text,
+not applied anywhere in the calculation). Confirming created Invoice #3 — total $472.00, exactly
+`$400 × 1.18` with **zero discount effect** (correct total, had the discount genuinely applied before tax,
+would be $424.80 — a $47.20 discrepancy). Native-verified on `/invoices/3/edit`: both the **Discounts** and
+**Taxes** tables are genuinely empty (0 rows each) — the tool has no access to either native line-item
+system at all.
+
+---
+
+### TC-CRX-493: Create invoice — Client Name/Address and issue-linked line item
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Invoicing Agent pinned: "Create an invoice for the Crux Invoice Agent Test Project,
+client name 'Autumn Grace Co', client address '12 Market Street', client email buyer2@example.com, for
+issue #25, quantity 3, rate 150, user id 1." (the native form has a genuine "Invoice Issues" checkbox
+section listing real open issues, intended to let a user pull a real issue into the invoice as a genuinely-
+linked item).
+
+**Expected Result:** Client Name/Address should resolve correctly (not previously tested), and "for issue
+#25" should result in the native Invoice Issues checkbox for #25 being genuinely checked/linked on the
+created invoice.
+
+**Result: PARTIAL PASS — Client Name/Address genuinely work; issue-linking does not (filed as
+BUG-CRX-137).** Confirm card correctly resolved `Client Name: Autumn Grace Co`, `Client Address: 12 Market
+Street`, `Client Email: buyer2@example.com` — all three genuinely supported. However the line item itself
+was `{'description': 'Issue #25', ...}` — a plain-text description, not a real reference. Confirming created
+Invoice #4 (total $450, correct math for this part). Native-verified on `/invoices/4/edit`: the Invoice
+Issues checkbox for `#25: DEF-2 fixture issue - fallback rate test (Bug)` is genuinely **unchecked** — no
+real structural link to the issue exists anywhere, only the cosmetic text "Issue #25" inside the Description
+field.
 
 ---
 

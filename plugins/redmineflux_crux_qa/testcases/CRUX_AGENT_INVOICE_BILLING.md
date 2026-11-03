@@ -9,9 +9,11 @@
 > back BLOCKED on a missing fixture precondition (no customer linked to the project), not a defect — 6 new
 > bugs found total, all filed:**
 >
-> **Updated 2026-11-03 (3rd pass, per explicit user request to exhaustively test payment lifecycle rules and
-> user resolution on line items): 2 more TCs executed (TC-CRX-494, TC-CRX-495), both found genuine defects —
-> 8 bugs found total this suite:**
+> **Updated 2026-11-03 (3rd pass, per explicit user request to exhaustively test payment lifecycle rules, user
+> resolution on line items, multi-user/multi-item invoices, the Notes field, and the Update/Edit flow): 4 more
+> TCs executed (TC-CRX-494 through TC-CRX-497) — 2 found genuine new defects, 1 confirmed a clean PASS, 1 found
+> a duplicate recurrence of an already-filed bug on a new tool — 8 bugs found total this suite (2 newly filed,
+> 1 existing bug given a second confirmed reproduction):**
 > - **BUG-CRX-132** (High) — `create_invoice` never sets/warns about `due_date`; viewing the resulting
 >   invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for
 >   nil`) — 100% reproducible, reachable via the agent and the native UI alike (Due Date isn't required on
@@ -42,6 +44,19 @@
 >   person ("Daisy Skye") instead — reproduced 3 of 3 times across three separate invoices. Unlike the prior
 >   wrong-ID-resolution bugs on this cycle, the confirm card itself is correct here; the divergence happens
 >   silently between confirmation and the actual write.
+> - **BUG-CRX-133** (Medium-High, 2nd reproduction) — the exact same wrong-project-resolution defect (Crux
+>   Invoice Agent Test Project silently replaced by the unrelated "Crux PM Agent Test Project") recurred on
+>   `update_invoice`, not just `send_invoice` — confirming this is a chat-session-wide context-resolution
+>   defect across the whole Invoicing Agent domain, not isolated to one tool. No bad write occurred (the write
+>   failed safely once the wrong project genuinely had no matching invoice id). Kept inside the existing bug
+>   file per the one-bug-per-domain rule, not filed separately.
+>
+> **Also confirmed this pass**: multi-user/multi-line-item invoices resolve cleanly when every referenced user
+> genuinely IS a formal project member (two line items, two different real users, both correctly persisted,
+> Notes field verbatim) — isolating BUG-CRX-139 specifically to the non-member-user_id case; and
+> `update_invoice` correctly and honestly refuses to add line items or discounts (no fabricated fake success),
+> confirming the same missing-tool-parameters root cause already identified in BUG-CRX-136/137 extends
+> consistently to the update path too.
 >
 > **Everything else tested cleanly**: the no-permission dashboard refusal correctly names `view_invoices`
 > specifically; the no-permission payment-write path is genuinely enforced once a real invoice exists
@@ -654,3 +669,67 @@ card, every single one, when inspected on its native Edit page, shows the line i
 `user_id: 1`, but the real write silently falls back to a different, real person, with zero disclosure
 anywhere — not even a different value reported back in the "✓ Invoice created" success message (which never
 mentions the user at all). Filed as **BUG-CRX-139**.
+
+---
+
+## Multi-User / Multi-Line-Item Invoices, Notes Field, Update Flow
+
+---
+
+### TC-CRX-496: Create invoice with two line items, each attributed to a different, genuine project member — Notes field verification
+
+**User Role:** `admin`. **Precondition:** two real, formally-added project members (`luna.blossom`, user id 5;
+`daisy.skye`, user id 6).
+
+**Steps:** Invoicing Agent pinned: "Create an invoice for the Crux Invoice Agent Test Project with two line
+items: first item 'Backend development' quantity 5 rate 120 user id 5 (Luna Blossom), second item 'QA testing'
+quantity 3 rate 90 user id 6 (Daisy Skye). Set the notes to 'Multi-user invoice test - verifying both line
+items resolve to the correct users.'" Provide client email when asked. Confirm. Natively open the created
+invoice's Edit page and inspect both line items' `User` dropdowns and the Notes field.
+
+**Expected Result:** Both line items should persist with their correct, distinct, genuinely-requested user —
+unlike TC-CRX-495 (where the requested user wasn't a formal project member), both ids here ARE formal members,
+so this isolates whether multi-user resolution itself works when the users are valid. The Notes field should
+persist verbatim.
+
+**Result: PASS — clean.** Confirm card correctly showed `Line Items: [{..., 'user_id': 5}, {..., 'user_id':
+6}]`. Confirming returned: *"✓ Invoice created: #5 — INV-2026-0005 for payer@example.com (status: draft,
+total: 870.0)"* (870.0 = 5×120 + 3×90, correct math). Native verification on `/projects/crux-invoice-agent-
+test-project/invoices/5/edit`: first line item ("Backend development") genuinely shows **Luna Blossom**
+selected, second line item ("QA testing") genuinely shows **Daisy Skye** selected — both correct, no cross-
+contamination. The Notes field genuinely shows the full requested text verbatim. Confirms BUG-CRX-139 is
+specifically about a user_id that isn't a formal project member, not a general multi-user resolution defect —
+multi-user invoices work correctly when all referenced users are valid project members.
+
+---
+
+### TC-CRX-497: Update an existing invoice via the agent — field-support boundary, and a wrong-project-resolution recurrence on `update_invoice`
+
+**User Role:** `admin`. **Precondition:** invoice #5 (Draft, from TC-CRX-496) in the same chat session (two
+prior turns had already established `Crux Invoice Agent Test Project` as the chat's working project).
+
+**Steps:**
+1. Same chat as TC-CRX-496 (continuing it, project already established): "Update invoice #5 for the Crux
+   Invoice Agent Test Project: add a new line item 'Code review' quantity 2 rate 100 user id 5, add a 10%
+   discount labeled 'Loyalty Discount', and update the notes to '...'."
+2. Follow-up in the same chat, without re-naming the project: "Just update the notes field on invoice #5 to
+   '...' and set the client address to '221B Baker Street, London'."
+
+**Expected Result:** (1) Since `update_invoice` genuinely has no line-item/discount parameters (consistent
+with BUG-CRX-136/137's root cause), the agent should honestly refuse rather than fabricate a fake success.
+(2) The second, invoice-level-only update (Notes + Client Address — both genuinely supported `update_invoice`
+fields) should resolve to the same project this chat had already been operating on for two prior turns, per
+the repo-wide context-resolution rule already enforced elsewhere (BUG-CRX-080/093/101/133).
+
+**Result: (1) PASS (honest refusal) — (2) FOUND recurrence of BUG-CRX-133.** For (1), the agent did NOT
+fabricate a confirm card: it explicitly explained *"the `update_invoice` function does not support adding new
+line items or applying discounts directly... The Invoice plugin's API does not provide a way to: Add new line
+items... Apply discounts..."* and asked how to proceed — an honest, correct response given the real tool
+limitation. For (2), the confirm card showed `Project: Crux PM Agent Test Project` — the exact same wrong,
+unrelated project (id 1) as BUG-CRX-133's original finding — despite this chat having operated on `Crux
+Invoice Agent Test Project` (id 10) for two prior turns with no project re-naming needed in between. Confirming
+it returned: *"✓ Invoice #5 not found in project 'crux-pm-agent-test-project' (#1)..."* — the write failed
+safely (no bad write — confirmed invoice #5's real Notes/Client Address genuinely unchanged on
+`/projects/crux-invoice-agent-test-project/invoices/5/edit`), but the context-resolution defect itself is real.
+Per the repo's one-bug-per-domain convention, this is **not a new bug** — added as a second reproduction,
+different tool (`update_invoice` vs. `send_invoice`), inside the existing **BUG-CRX-133**.

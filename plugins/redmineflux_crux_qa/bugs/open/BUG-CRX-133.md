@@ -43,11 +43,26 @@ doesn't restate the project.
 **✓** success prefix — the same already-well-documented false-success-icon defect class as
 BUG-CRX-009/018/054/067/082/086.
 
+**Second reproduction, different tool, 2026-11-03 (later session)**: the identical defect was independently
+reproduced on `update_invoice` (not just `send_invoice`). Fresh chat established `Crux Invoice Agent Test
+Project` across two prior turns (creating, then updating, invoice #5 in that project). A third message in the
+same chat — "Just update the notes field on invoice #5 to '...' and set the client address to '...'" (no
+project re-named) — produced a confirm card showing `Project: Crux PM Agent Test Project` (the exact same
+wrong project, id 1, as the original finding). Confirming it returned the exact same error shape: *"✓ Invoice
+#5 not found in project 'crux-pm-agent-test-project' (#1). Verify the invoice ID belongs to this project..."*
+Native verification on `/projects/crux-invoice-agent-test-project/invoices/5/edit` confirmed invoice #5's real
+Notes and Client Address fields were genuinely unchanged — no bad write occurred, same as the original finding,
+again only because the wrong project doesn't happen to have a clashing invoice id. Confirms this is a
+chat-session-wide context-resolution defect affecting the Invoicing Agent generally, not isolated to the
+`send_invoice` tool.
+
 ## Evidence
 
 ### Screenshot
 
 ![Wrong project resolved on Send Invoice](../../screenshots/BUG-CRX-133/wrong-project-send-invoice.png)
+
+![Second reproduction: wrong project resolved on Update Invoice](../../screenshots/BUG-CRX-133/update-invoice-wrong-project-2nd-repro.png)
 
 ### Console / log
 

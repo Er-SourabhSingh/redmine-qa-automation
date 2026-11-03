@@ -703,6 +703,30 @@ gap. Filed as **BUG-CRX-148**.
 
 ---
 
+### TC-CRX-566: Grant and revoke per-team permissions (`manage_workload` + `can_approve_leave`) by name only
+
+**User Role:** `admin`. **Precondition:** Daisy Skye's Team #7 membership at baseline (`manage_workload:
+Disabled`, `can_approve_leave: Disabled`).
+
+**Steps:**
+1. Fresh chat: "Give Daisy Skye the ability to manage workload and approve leave on the Crux Capacity Agent
+   Test Team."
+2. Fresh chat: "Remove Daisy Skye's ability to manage workload and approve leave on the Crux Capacity Agent
+   Test Team."
+
+**Expected Result:** Both the grant and the revoke should correctly resolve Daisy Skye's real membership (not
+conflated with anyone else, per BUG-CRX-145) and genuinely flip both flags, in either direction, using only
+natural-language names — no numeric ids required for this specific param (unlike `role_id` in TC-CRX-565).
+
+**Result: PASS, both directions.** Grant: confirm card correctly showed `Team`, `Membership: Daisy Skye`,
+`Manage Workload: True`, `Can Approve Leave: True`. Confirming succeeded: *"✓ Member updated: #11 | Daisy Skye
+| manage_workload=True, can_approve_leave=True."* Native-verified both genuinely "Enabled." Revoke (fresh
+chat): confirm card correctly showed both `False`. Confirming succeeded: *"✓ Member updated: #11 | Daisy Skye
+| manage_workload=False, can_approve_leave=False."* Native-verified both genuinely "Disabled" again — Daisy
+restored to the clean baseline. No BUG-CRX-145 wrong-member recurrence in either direction this time.
+
+---
+
 ### TC-CRX-564: Multiple tickets on one workload, managed together in a single batched request
 
 **User Role:** `admin`. **Precondition:** 2nd fixture issue #27 "Capacity Agent fixture issue 2 - sprint 1

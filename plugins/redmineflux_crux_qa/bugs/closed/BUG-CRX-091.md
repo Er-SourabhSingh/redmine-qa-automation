@@ -53,3 +53,20 @@ Developer's fix commits for this round (CRC-71, BUG-CRX-094 to 114) do not expli
 fix table or live-verification table. Retesting this bug's own repro (multiple forced "please continue" turns,
 $0.13-0.25+ each) is expensive and inherently flaky to reproduce cleanly; deferred to a dedicated session rather
 than attempted under this batch's time budget. Status left as-is pending a focused retest.
+
+## Retest — 2026-11-03 — FIXED
+
+Re-ran the exact original repro as `luna.blossom`, QA Agent pinned, fresh chat: "in the Crux QA Agent Test Project,
+for the 'Sprint 1 Regression' run, can you mark test case 'Reset password with valid email' as Blocked and link it
+to the existing defect 'Password reset email not being sent on valid request'?" (same run, testcase, and real
+pre-existing defect issue #10 used in the original repro).
+
+The request now converges in **a single turn** — no forced "please continue," no re-discovery loop. The confirm
+card produced immediately: `Project: Crux QA Agent Test Project`, `Testcase: 6`, `Run: 1`, `Testsuite: 1`,
+`Environment: Canary`, `Case Status: 5`, `Defect Issue: 10` — all correctly resolved. Confirmed; total cost for the
+entire request was **$0.04** (vs. the original's $0.13–0.25+ across 3-5 forced continuation turns). Response: *"✓
+Testcase #6 marked 'Blocked' with defect #10 'Password reset email not being sent on valid request' linked and
+visible in run."* Native verification on `/runs/1?project_id=crux-qa-agent-test-project`: testcase #6 shows status
+"Blocked" with Defect ID "#10" linked, Defect Count: 1. **Confirmed fixed** — the request now resolves efficiently
+and correctly in one turn, matching the "create a new defect" variant's own clean behavior that this bug originally
+contrasted against.

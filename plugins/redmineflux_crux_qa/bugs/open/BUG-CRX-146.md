@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-146
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127552
 - Title: Capacity Agent's `update_planned_hours` silently accepts a genuinely over-capacity allocation even
   with "Allow Workload Overload" explicitly disabled — the refusal path documented by the vendor ("When
   disabled, planned hours must stay within capacity") is never actually enforced; first genuine exercise of

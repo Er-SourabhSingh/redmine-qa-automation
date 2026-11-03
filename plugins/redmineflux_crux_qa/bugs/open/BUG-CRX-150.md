@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-150
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127555
 - Title: Capacity Agent's `workload_capacity` reports a severely inflated, false-overloaded utilization figure
   when asked about a date sub-range narrower than the workload's full span — keeps the FULL-workload planned
   hours as the numerator while prorating only the capacity denominator to the sub-range, falsely flagging a

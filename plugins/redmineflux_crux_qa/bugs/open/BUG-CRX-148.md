@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-148
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127553
 - Title: Capacity Agent's `member_update` fabricates a plausible-looking but WRONG role id when asked to set a
   member's role by name alone ("Developer") — proposed role id 2 ("Anonymous," a built-in system role), not
   the real Developer role (id 3) — instead of looking up the real mapping or honestly asking

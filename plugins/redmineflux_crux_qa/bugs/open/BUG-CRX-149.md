@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-149
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127554
 - Title: Capacity Agent's `leave_create` NEVER auto-approves a leave request — always creates status `pending`,
   even when the actor is a Redmine admin or holds `can_approve_leave` on the target's team — contradicting the
   plugin's own documented/web-UI auto-approval design

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-144
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127550
 - Title: Capacity Agent falsely claims team/member-management tools "aren't available in my current toolset"
   and that "discovery isn't finding the expected group" — a regression of the historical BUG-CRX-034 defect
   class — reproduced specifically in a chat with several prior turns, not in a fresh chat's first message

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-145
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127551
 - Title: Capacity Agent's `member_update`/`member_remove` confirm cards consistently resolve the WRONG team
   member — default to "Daisy Skye" regardless of which member was actually named in the request ("Luna
   Blossom's... membership (member 10)") — reproduced 4 of 4 times across 2 different tools, independent of

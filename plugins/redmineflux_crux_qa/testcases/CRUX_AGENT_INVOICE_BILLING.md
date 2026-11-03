@@ -4,7 +4,9 @@
 > Crux-chat test coverage until now (the native `redmineflux_invoice` plugin has its own separate QA suite
 > under `plugins/redmineflux_invoice_qa/testcases/`, which covers the native UI, not the chat agent).
 >
-> **9 of 17 TCs executed this pass (plus 1 precondition confirmation) — 3 new bugs found, all filed:**
+> **All 17 TCs executed (16 + 1 precondition confirmation); 1 (DEF-2 fallback rate) came back BLOCKED on a
+> missing fixture precondition (no customer linked to the project), not a defect — 4 new bugs found, all
+> filed:**
 > - **BUG-CRX-132** (High) — `create_invoice` never sets/warns about `due_date`; viewing the resulting
 >   invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for
 >   nil`) — 100% reproducible, reachable via the agent and the native UI alike (Due Date isn't required on
@@ -16,6 +18,10 @@
 >   for a nonexistent user id, surfacing a misleading "database may not be migrated" remediation message
 >   unrelated to the real cause. The sibling valid-user write in the same two-step batch succeeded correctly
 >   and its own success reporting was honest.
+> - **BUG-CRX-135** (High) — Delete invoice has no status check at all, unlike Update (Draft-only); a real
+>   Sent invoice with genuine line items and a client email it had already been sent to was permanently
+>   deleted with zero warning, moments after the same invoice's Update path correctly refused the identical
+>   non-Draft status.
 >
 > **Everything else tested cleanly**: the no-permission dashboard refusal correctly names `view_invoices`
 > specifically; the no-permission payment-write path is genuinely enforced once a real invoice exists
@@ -24,12 +30,15 @@
 > ambiguous) correctly reached Invoicing Agent with accurate real data, no misroute; tax-rate validation
 > (0–100) is correctly enforced server-side (though the first-step proposal was fabricated prose with no real
 > Confirm button — a BUG-CRX-020-class recurrence, not severe enough to file alone on a single instance);
-> `get_pdf_link` returns a relative path only, no raw bytes, works regardless of status.
+> `get_pdf_link` returns a relative path only, no raw bytes, works regardless of status; the CRM-redirect
+> mechanism works exactly as the code predicts (silent same-click retry for compatible fields, honest error
+> for incompatible ones, always-retry for delete); Update correctly refuses non-Draft invoices; payment
+> amount validation and the Draft/Sent revert-on-delete dual mechanism both work exactly as documented;
+> single-user `set_team_rate` works correctly end-to-end.
 >
-> **Not yet executed this pass** (deferred to a follow-up session): TC-CRX-480/481/482 (CRM-redirect customer
-> CRUD), TC-CRX-484 (update non-draft invoice), TC-CRX-485 (delete a Sent/Paid invoice — the documented
-> no-status-check lifecycle gap), TC-CRX-486 (DEF-2 fallback-rate warning on `generate_invoice`),
-> TC-CRX-488/489 (payment amount validation / revert-to-Draft on last-payment delete).
+> **BLOCKED (not a defect)**: TC-CRX-486 (DEF-2 fallback-rate warning) — this fixture project has no customer
+> linked yet, so `generate_invoice` correctly refuses with "Client email cannot be blank" before DEF-2's own
+> behavior can even be exercised; needs a customer-linking step first in a follow-up session.
 >
 > Starts at **TC-CRX-475** per the plugin-wide continuous numbering rule (CLAUDE.md §4a) — current max
 > before this suite was TC-CRX-474.
@@ -232,7 +241,13 @@ next reply re-proposes... for a fresh confirm" (a second visible confirm step). 
 shows and flag any mismatch with the persona doc as a documentation defect (not a functional bug) if the
 single-click behavior is in fact correct and just undocumented.
 
-**Result:**
+**Result: PASS.** As `admin`: the confirm card was labeled "Invoice Create Customer" (`First Name: Jordan`,
+`Last Name: Price`, `Email`, `Phone`) — a single confirm click, no second visible confirm step. The result:
+*"✓ Contact 'Jordan Price' created (ID: 3)."* — note it reports "Contact," not "Customer," confirming the
+silent redirect fired. Native-verified at `/contacts/3`: a genuine CRM Contact "Jordan Price," correct email
+and phone. **Confirms the actual code behavior (silent same-click retry) over the persona doc's described
+"second visible confirm" behavior** — worth a documentation fix in `agents/invoice-billing.md`, not a
+functional bug.
 
 ---
 
@@ -249,7 +264,12 @@ honestly surface `"Error: customer management has moved to the CRM plugin... use
 the final result, not a false success and not a silent drop of the `company_name` field via a retry that
 fires anyway.
 
-**Result:**
+**Result: PASS.** Confirm card correctly included `Company Name: Stone Logistics`. Confirming produced:
+*"Error: customer management has moved to the CRM plugin on this instance — use
+redmineflux_crm_create_contact(first_name='Avery', email='avery.stone@example.com', ...) instead (same
+underlying contact record)."* — exactly as expected: no auto-retry fires when an incompatible field is
+present, and the field isn't silently dropped — the error is honest and the user is pointed at the exact
+right tool. No bad write occurred (confirmed no new contact was created for this attempt).
 
 ---
 
@@ -264,7 +284,9 @@ lookup).
 through `redmineflux_crm_delete(entity_type:'contact', ...)` — should succeed silently in one confirm click,
 genuinely deleting the CRM contact. Verify natively on the CRM contact list that it's actually gone.
 
-**Result:**
+**Result: PASS.** Targeted contact id 3 (Jordan Price, from TC-CRX-480). Confirm card: `Customer: 3`.
+Confirming: *"✓ Contact 'Jordan Price' (#3) deleted."* Native-verified: `/contacts/3` now returns a genuine
+404 — the CRM contact was really deleted, in one confirm click, no second visible confirm step needed.
 
 ---
 
@@ -309,7 +331,10 @@ is in `sent` status).
 **Expected Result:** Honest `422`-equivalent refusal: *"Only draft invoices can be edited (this invoice is
 sent)."* — not a silent no-op reported as success.
 
-**Result:**
+**Result: PASS.** Used invoice #1 (Sent, per TC-CRX-487). Confirm card correctly proposed `Project`,
+`Invoice: 1`, `Tax Rate: 15`. Confirming returned: *"Validation error: Only draft invoices can be edited
+(this invoice is sent) Correct the value(s) above and try again."* — exact match to the expected rule,
+honest refusal, no silent no-op.
 
 ---
 
@@ -326,7 +351,13 @@ warning or block, this confirms a real data-integrity gap (same family as other 
 the write path" bugs already found this QA cycle) — flag as a candidate new bug if reproduced, rather than
 assuming it's expected just because the code allows it.
 
-**Result:**
+**Result: CONFIRMED REAL GAP — filed as BUG-CRX-135.** Used invoice #1 (Sent status, per TC-CRX-487), right
+after TC-CRX-484 proved Update correctly refuses it. Confirm card showed only `Project` and `Invoice: 1` —
+no warning that the invoice is Sent, not Draft. Confirming returned: *"✓ Invoice #1 deleted successfully
+from project #10."* Native-verified: `/invoices?project_id=crux-invoice-agent-test-project` now shows "No
+invoices found" — the real, Sent, client-facing invoice (with genuine line items, tax, and client email) was
+permanently deleted with zero warning, in direct contrast to the same invoice's Update path refusing moments
+earlier for the identical non-Draft status. Filed as **BUG-CRX-135**.
 
 ---
 
@@ -345,7 +376,16 @@ generated line item's rate should genuinely be 12, not 0 or silently omitted. If
 or omits this warning, that's a bug in its own right (fabricating a clean-looking invoice over a known real
 caveat).
 
-**Result:**
+**Result: BLOCKED — missing precondition, not a defect in the behavior tested.** Built the fixture (issue
+#25, category "Billing Test" with approved hours, 5h logged by `admin` — a user with no team rate on this
+project) and asked the Invoicing Agent to generate an invoice for that period. The confirm card only ever
+exposed `Project`/`Date From`/`Date To` (no `Client Email` field at all, matching the research finding that
+`generate_invoice` snapshots client info from the project's own linked `ProjectCustomer` rather than taking
+it as a parameter). Confirming repeatedly returned: *"Validation error: Client email cannot be blank; Client
+email must be a valid email address."* — this project has no customer/contact linked to it yet, so there is
+no client email to snapshot. This is a genuine missing precondition in this fixture (no `ProjectCustomer`
+link set up), not a defect in `generate_invoice` or the DEF-2 fallback-rate behavior itself — deferred to a
+follow-up session that first links a customer to the project via the native UI/CRM before retrying this TC.
 
 ---
 
@@ -393,7 +433,10 @@ the real balance due).
 **Expected Result:** Honest model-level validation error naming the currency + actual balance due — not a
 silently-capped payment and not a fabricated success.
 
-**Result:**
+**Result: PASS.** Used invoice #2 (INV-2026-0002, Draft, total $200.00, 0% tax). Confirm card correctly
+proposed `Invoice: 2`, `Amount: 500`. Confirming returned: *"Validation error: Amount cannot exceed the
+remaining balance of USD 200.00 Correct the value(s) above and try again."* — honest, names the currency and
+the real balance due exactly. No bad write.
 
 ---
 
@@ -408,7 +451,11 @@ paid in full directly from Draft (Draft → Paid via one payment, no Send step i
 corrects → `draft` when the invoice has no real send history), the invoice should genuinely revert to
 **Draft**, not Sent. Verify natively on the invoice's own status field after the delete.
 
-**Result:**
+**Result: PASS.** Invoice #2 (never sent) was paid in full directly from Draft via a $200 payment (status
+genuinely moved Draft → Paid, native-verified). Deleting that payment returned: *"✓ Payment #1 deleted from
+invoice #2. Invoice status is now: DRAFT | Balance due: 200.0"* — native-verified on `/invoices`: Status
+column genuinely shows "Draft," not "Sent." The dual-mechanism correctly identified this invoice had no real
+send history and reverted to the correct state.
 
 ---
 

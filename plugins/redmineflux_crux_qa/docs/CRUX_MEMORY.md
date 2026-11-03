@@ -2,6 +2,36 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## Invoicing Agent suite setup (2026-11-03) — fixture, permissions, and a native plugin landmine
+
+New suite `testcases/CRUX_AGENT_INVOICE_BILLING.md`. Fixture: `Crux Invoice Agent Test Project`
+(`crux-invoice-agent-test-project`) with both "Redmineflux Invoice" and "Redmineflux Crux" modules enabled.
+Permissions (verified via `/roles/<id>/edit`, not assumed): **Manager** and **Developer** roles both already
+hold `View invoices` + `Manage invoices` (full access); **Reporter** holds neither — the genuine no-permission
+role on this instance. `luna.blossom` added as Manager (with-permission), `daisy.skye` as Reporter
+(no-permission).
+
+**CRM plugin is installed on this instance** — Invoice's own `manage_customers`/`view_customers` permissions
+don't exist at all here (only registered when CRM is absent), and every `/api/customers*` endpoint
+unconditionally 403s with a redirect message. Customer CRUD via the Invoicing Agent always goes through a
+**pure-code, same-confirm-click auto-retry** inside `proposals.confirm()` (`_invoice_crm_customer_retry`) —
+NOT a second visible confirm step as the persona doc (`agents/invoice-billing.md`) implies. Auto-retry only
+fires for `create`/`update_customer` when every field is in `{first_name, last_name, email, phone,
+job_title}`; `delete_customer` always auto-retries. A field outside that set (e.g. `company_name`) falls
+through to an honest `"Error: ...moved to CRM..."` text with no retry.
+
+**Landmine confirmed live**: `create_invoice` never asks for or sets `due_date` anywhere in its flow, and the
+native "New Invoice" form doesn't require it either (no asterisk) — but `redmineflux_invoice`'s own
+`invoice_macro_processor.rb` calls `invoice.due_date.strftime(...)` with no nil guard. **Any invoice created
+without a due date will crash its own native show page with a genuine 500**, 100% reproducible (filed as
+BUG-CRX-132). When building further Invoice fixtures, always set a due date explicitly, or expect `/invoices/
+<id>` to be unreachable natively for that record.
+
+**DEF-2 (documented upstream, not yet retested this round)**: when no team rate is configured,
+`generate_invoice`'s real server-side fallback rate is a hardcoded **12/hr**, not 0 as
+`INVOICE_FEATURES_LIST.md` and the vendor KB both incorrectly claim. The MCP tool already surfaces its own
+`⚠️ WARNING (DEF-2)` block when this fires — confirm the agent doesn't suppress it, next time this TC is run.
+
 ## ⚠️ CRITICAL — `crux-core`/`mcp` are `build:`-based Docker services, NOT live-mounted. `restart` alone never picks up a `git pull` (2026-11-03)
 
 `docker-compose.yml` mounts `./plugins` live into the `redmine` service (`volumes: - ./plugins:/usr/src/redmine/

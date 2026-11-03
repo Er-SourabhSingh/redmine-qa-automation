@@ -641,6 +641,32 @@ it claims delivery as a definite fact.
 
 ---
 
+## Self-Allocation Permission Check (user-directed follow-up)
+
+---
+
+### TC-CRX-562: Plain member (no `manage_workload`) manages HER OWN allocation on a workload she's a genuine member of
+
+**User Role:** `daisy.skye` (Team #7 membership: `manage_workload: Disabled`, `can_approve_leave: Disabled`,
+confirmed natively).
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Set my planned hours to 10 for issue #26 on the Crux Capacity
+Sprint 1 workload."
+
+**Expected Result:** Per the vendor doc ("Non-management users can see workload information for their teams
+and manage their own leave") — note this narrowly permits self-managing *leave*, not workload/allocation
+hours — a plain member without `manage_workload` should be refused even for her own allocation.
+
+**Result: FOUND BUG.** No proactive self-refusal this time (unlike team/member-management requests tested
+elsewhere, which did self-check). Confirm card showed `Workload: 1`, `Issue: 26`, `Workload User: 2` (Daisy's
+own row), `Planned Hours: 10`. Confirming succeeded: *"✓ Planned hours updated (allocation_id: 5)."*
+Native-verified: Daisy genuinely now shows **10.00h planned**. This is the first clean, concrete proof that
+the permission-gating inconsistency flagged in source research (`update_planned_hours` gated only at
+`_require_view`, never re-checking the per-team `manage_workload` flag) is real and exploitable — not just a
+theoretical code-review observation. Filed as **BUG-CRX-147**.
+
+---
+
 ## Auto-Mode Routing & Context Resolution
 
 ---

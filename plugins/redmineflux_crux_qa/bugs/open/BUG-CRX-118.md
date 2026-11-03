@@ -53,3 +53,15 @@ levels with the generic placeholder text ("Approval by Manager" / "Approval by D
 form's per-level "Description (Optional)" textboxes are confirmed genuinely empty for both levels. **Not fixed** —
 per-level descriptions are still never persisted; the only change is that the concatenated text now surfaces
 somewhere (the schema-level Description) instead of being silently dropped entirely.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/
+`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `admin`, Time
+Agent pinned, fresh chat: same request shape ('Crux Retest 118 Round4 Schema', description 'QA retest schema',
+level 1 Manager/"First check", level 2 Developer/"Final check"). The confirm card now shows a genuine structured
+`Levels` field: `[{'role_id': 4, 'description': 'First check'}, {'role_id': 3, 'description': 'Final check'}]` —
+real per-level description fields, not a schema-level concatenation. Confirmed — *"✓ Approval schema 'Crux Retest
+118 Round4 Schema' created (ID: 8, Active). Levels: Level 1: Manager — First check Level 2: Developer — Final
+check."* Native Show page (`/approval_schemas/8`) confirms both levels genuinely display their real descriptions
+("Manager — First check", "Developer — Final check"), not the generic placeholder text. **Confirmed fixed.**

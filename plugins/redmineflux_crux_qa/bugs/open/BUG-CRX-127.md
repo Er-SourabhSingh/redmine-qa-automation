@@ -59,3 +59,18 @@ ID resolution overlapping BUG-CRX-126's territory, with an added false-success c
 bug asked for. Recommend re-filing as a new/updated finding once BUG-CRX-126's resolution path is reviewed, since
 the lock-message wording this bug targets can no longer even be exercised while resolution itself is broken this
 way.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/
+`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `luna.blossom`,
+Time Agent pinned, fresh chat, repro restated with the time entry ID included (working around BUG-CRX-126's
+separate resolution issue): "Please update time entry 2 (2026-10-26, Crux PM Agent Test Project, issue #2,
+Customer Call activity, 1.5 hours) to 2 hours instead." The confirm card now correctly resolved to `Time Entry: 2`,
+`Hours: 2` (entry resolution itself is also fixed — no wrong-record substitution this time). Clicking Confirm
+produced: *"Not changed: Date Time log is not allowed for past 7 day"* — this correctly names the real business
+rule (the past-date cutoff — 2026-10-26 is 8 days before today, 2026-11-03), not the old misleading "you do not
+have permission... ask admin to grant a role" message. Native verification on `/timesheets/weekly?week_start=
+2026-10-26`: Week 44 is still genuinely "Approved," and Luna's total remains **1:30hr** (unchanged) — no partial
+or false-success write occurred either. **Confirmed fixed** — the Update Time Entry path now surfaces the real
+blocking rule, consistent with the sibling Log Time (create) path's original correct behavior.

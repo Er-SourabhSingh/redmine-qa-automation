@@ -77,3 +77,20 @@ named both fields, which worked correctly and persisted (DB/native-verified).
 when not asked for one), but attempting an environment-only update now corrupts the run's real environment and
 assignee to blank, with a misleading error message that gives no indication a partial write happened. Flagging
 for priority escalation — this is a genuine data-integrity defect, not just a UX/wrong-default issue.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's regression retest above was against a stale image (`docker compose restart` never actually rebuilds
+`crux-core`/`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-verified the
+fixture first: run #1 "Sprint 1 Regression" — `Environment: Staging`, `Assignee: Daisy Skye` (native-confirmed).
+
+Re-ran as `admin`, QA Agent pinned, fresh chat: *"in the Crux QA Agent Test Project, can you update the 'Sprint 1
+Regression' run to use the Canary environment instead? Don't change anything else."* First got a plain-text
+two-step proposal (not a real card), replied "Yes, confirm." — this produced a genuine `Testcases Management
+Update Run` confirm card showing only `Run Assignments: [{'environment': 'Canary'}]` — no assignee field proposed,
+consistent with round 2's improvement. Clicked the real Confirm button.
+
+Native verification on `/runs/1?project_id=crux-qa-agent-test-project` afterward: `Environment: Canary`,
+`Assignee: Daisy Skye` — **both fields correct**, the assignee was genuinely preserved this time and the write
+completed cleanly with no corruption-to-blank and no misleading error. **Confirmed fixed** — both the original
+wrong-default defect and round 2's data-corruption regression are resolved.

@@ -63,3 +63,20 @@ duration counters) instead of the new `late_unlock_queue` array the fix actually
 — still a false "all clear" against a genuinely non-empty queue. **Not fixed** — the underlying API data is now
 correct, but the agent's reasoning still lands on the wrong field. Reverted `Allowed Past Days Timelog` back to 7
 after this retest.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/
+`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-verified the fixture:
+native `/admin_dashboard` showed **2 overdue blocked submissions** still pending from prior sessions — Luna
+Blossom/Retest Squad (Week 42, deadline 2026-10-19, 15 days overdue) and Daisy Skye/Crux PM Agent Test Project
+(Week 44, deadline 2026-11-02, 1 day overdue).
+
+Re-ran as `admin`, Time Agent pinned, fresh chat: "Show me the Late Submission Unlock Queue - which users have
+overdue blocked timesheet submissions pending unlock?" — the agent now correctly reports: *"The Late Submission
+Unlock Queue shows 2 overdue blocked submissions pending unlock: 1. Submission ID: 13 — Luna Blossom — Retest
+Squad — Period: Week 42, 2026 — Deadline: 2026-10-19 (15 days overdue) — Status: Draft. 2. Submission ID: 1 —
+Daisy Skye — Crux PM Agent Test Project — Period: Week 44, 2026 — Deadline: 2026-11-02 (1 day overdue) — Status:
+Draft. Both submissions are deadline-locked (blocked from editing)..."* — this matches the native dashboard
+exactly, both records and their overdue durations. **Confirmed fixed** — the agent now correctly reads the real
+`late_unlock_queue` data instead of the unrelated queue-health counters.

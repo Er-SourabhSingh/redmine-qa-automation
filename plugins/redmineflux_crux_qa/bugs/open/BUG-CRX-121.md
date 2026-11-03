@@ -52,3 +52,24 @@ false "immutable after creation" denial is **GONE** — the agent now produces a
 — the agent no longer falsely claims the field is immutable, but the underlying capability gap remains: the
 `schema_update` tool still has no way to change a level's role, and now silently no-ops rather than explaining
 this, which is arguably a regression in transparency even though the false "immutable" claim itself is resolved.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+Round 2's retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/
+`mcp`). After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `admin`, Time
+Agent pinned, fresh chat, same repro on schema 2: "Update the approval schema 'Crux QA Schema Updated' - change
+level 2's approver role from Reporter to Developer." The confirm card now shows a genuine structured `Levels`
+field: `[{'level_number': 2, 'role_id': 3}]` — the write tool genuinely accepts and proposes a level-role change
+(no false "immutable" claim, no silent no-op). Confirming produced: *"Validation error: Cannot edit this approval
+schema while 1 team timesheet is submitted or rejected. You can edit it once it is fully approved."* — checked
+natively, the schema's own Edit link (`/approval_schemas/2/edit`) shows this **exact same message**, confirming
+this is a genuine, correctly-enforced business rule (the schema is in active use), not an agent-only false denial.
+
+To confirm the capability itself works end-to-end (not just that the proposal is now honest), repeated the same
+request against an unencumbered schema (ID 8, created fresh this session, not yet assigned to any context): "change
+level 1's approver role from Manager to Reporter." Confirm card showed `[{'level_number': 1, 'role_id': 5}]`;
+confirming succeeded cleanly: *"✓ Approval schema #8 updated. Levels: Level 1: Reporter — First check Level 2:
+Developer — Final check."* Native Show page (`/approval_schemas/8`) confirms Level 1 genuinely shows "Reporter"
+(was "Manager"). **Confirmed fixed** — both the false "immutable" claim and the underlying missing-capability gap
+are resolved; the tool's behavior now matches the native UI exactly, including its legitimate business-rule
+restrictions.

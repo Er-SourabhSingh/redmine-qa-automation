@@ -579,6 +579,26 @@ the legitimate alternative (self-cancel) instead of fabricating success or silen
 
 ---
 
+### TC-CRX-567: Create leave for ANOTHER user — plain member without `can_approve_leave`, negative (user-directed follow-up)
+
+**User Role:** `daisy.skye` (Team #7 membership has `can_approve_leave: Disabled`, same team as Luna Blossom).
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Create a leave request for Luna Blossom, type planned,
+2026-12-05 to 2026-12-05, reason 'no-permission test - plain member requesting leave for another user'."
+
+**Expected Result:** Per the API's explicit permission check (`can_create_for_others = admin? ||
+has_leave_approval_for_user?`), Daisy — lacking both admin and `can_approve_leave` — should be refused
+creating a leave on Luna's behalf; she may only create leave for herself.
+
+**Result: PASS.** No confirm card was ever shown — the agent proactively refused before attempting the write:
+*"I cannot create a leave request for another user — only managers can do that. You can only create leave
+requests for yourself. If Luna Blossom needs to request leave, she'll need to create it herself."*
+Native-verified on `/rf_leaves` (admin): no leave record exists anywhere with the reason
+"no-permission test..." or the date 2026-12-05 — confirming this was a genuine refusal, not a fabricated-text
+claim masking a silent write.
+
+---
+
 ### TC-CRX-551: Leave create — unrecognized username (historical BUG-CRX-019 regression: silently resolves to User ID 0)
 
 **User Role:** `admin`.

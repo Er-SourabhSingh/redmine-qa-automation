@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-132
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127459
 - Title: Invoicing Agent's `create_invoice` never sets/warns about `due_date` — viewing the resulting invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for nil`)
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin, root cause)

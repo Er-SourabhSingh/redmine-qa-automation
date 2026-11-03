@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-133
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127460
 - Title: Invoicing Agent's "Send Invoice" silently targets a different, unrelated project when the current message doesn't re-name it — same wrong-project-resolution defect class as BUG-CRX-080/093/101, now on the Invoicing Agent
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent)

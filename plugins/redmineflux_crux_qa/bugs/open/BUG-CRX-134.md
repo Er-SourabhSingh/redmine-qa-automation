@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-134
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127461
 - Title: Invoicing Agent's "Set Team Rate" crashes with a raw, unhandled 500 (DB foreign-key violation) for a nonexistent user id — surfaces a misleading "database may not be migrated" remediation message that has nothing to do with the real cause
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin, root cause)

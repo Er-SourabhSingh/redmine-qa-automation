@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-135
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127462
 - Title: Invoicing Agent (and the native plugin's own `destroy` action) can delete a Sent/Paid invoice with zero status check or warning — directly inconsistent with the same invoice's `update` path, which correctly refuses to edit anything but Draft
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Invoicing Agent) / redmineflux_invoice (native plugin, root cause)

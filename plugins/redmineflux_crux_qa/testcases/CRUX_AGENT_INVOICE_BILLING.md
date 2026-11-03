@@ -4,7 +4,7 @@
 > Crux-chat test coverage until now (the native `redmineflux_invoice` plugin has its own separate QA suite
 > under `plugins/redmineflux_invoice_qa/testcases/`, which covers the native UI, not the chat agent).
 >
-> **8 of 17 TCs executed this pass — 2 new bugs found, both filed:**
+> **9 of 17 TCs executed this pass (plus 1 precondition confirmation) — 3 new bugs found, all filed:**
 > - **BUG-CRX-132** (High) — `create_invoice` never sets/warns about `due_date`; viewing the resulting
 >   invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for
 >   nil`) — 100% reproducible, reachable via the agent and the native UI alike (Due Date isn't required on
@@ -12,6 +12,10 @@
 > - **BUG-CRX-133** (Medium-High) — "Send Invoice" silently targeted a different, unrelated project when the
 >   current message didn't re-name it — the same wrong-project-resolution defect class already found on 3
 >   other domains this QA cycle (BUG-CRX-080/093/101), now a 4th domain.
+> - **BUG-CRX-134** (Medium) — "Set Team Rate" crashes with a raw, unhandled 500 (DB foreign-key violation)
+>   for a nonexistent user id, surfacing a misleading "database may not be migrated" remediation message
+>   unrelated to the real cause. The sibling valid-user write in the same two-step batch succeeded correctly
+>   and its own success reporting was honest.
 >
 > **Everything else tested cleanly**: the no-permission dashboard refusal correctly names `view_invoices`
 > specifically; the no-permission payment-write path is genuinely enforced once a real invoice exists
@@ -25,8 +29,7 @@
 > **Not yet executed this pass** (deferred to a follow-up session): TC-CRX-480/481/482 (CRM-redirect customer
 > CRUD), TC-CRX-484 (update non-draft invoice), TC-CRX-485 (delete a Sent/Paid invoice — the documented
 > no-status-check lifecycle gap), TC-CRX-486 (DEF-2 fallback-rate warning on `generate_invoice`),
-> TC-CRX-488/489 (payment amount validation / revert-to-Draft on last-payment delete), TC-CRX-490 (bulk team
-> rate update partial-success honesty).
+> TC-CRX-488/489 (payment amount validation / revert-to-Draft on last-payment delete).
 >
 > Starts at **TC-CRX-475** per the plugin-wide continuous numbering rule (CLAUDE.md §4a) — current max
 > before this suite was TC-CRX-474.
@@ -413,6 +416,22 @@ corrects → `draft` when the invoice has no real send history), the invoice sho
 
 ---
 
+### (Precondition confirmation, not numbered) Single-user `set_team_rate` via discoverable group — PASS
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Invoicing Agent pinned: "Set the hourly bill rate for Luna Blossom to $75 on the Crux
+Invoice Agent Test Project." (requires `crux_discover_tool_groups` → `crux_discover_group_tools` to reach
+`set_team_rate`, per the agent's own discoverable-group mechanism).
+
+**Result: PASS.** Confirm card correctly resolved `Project: Crux Invoice Agent Test Project`, `User: 5`
+(Luna Blossom's real user id), `Hourly Rate: 75`. Confirming returned: *"✓ Team rate set: Luna Blossom →
+75.0/hr on project #10 (rate_id: #1)."* Native-verified on `/projects/crux-invoice-agent-test-project/
+team_rates`: Luna Blossom's Bill Rate field genuinely shows **75.0**, Daisy Skye's remains **0.00** —
+confirms the write targeted the correct user only, no cross-contamination.
+
+---
+
 ### TC-CRX-490: Bulk update team rates — one valid + one invalid user id — honest partial-success reporting
 
 **User Role:** `admin`. **Precondition:** at least one real project member and one clearly-invalid/nonexistent
@@ -426,7 +445,19 @@ user id.
 valid user's rate updated AND the invalid user id reported as an individual error — not an all-or-nothing
 false success (claiming both succeeded) or false failure (claiming both failed when one genuinely worked).
 
-**Result:**
+**Result: PARTIAL PASS — partial-success reporting is honest, but the invalid-id failure is a raw unhandled
+500, not a clean validation error.** As `admin`: "Set the hourly rate to $90 for user 6 and user 999999 on
+the Crux Invoice Agent Test Project." produced two separate `Invoice Set Team Rate` confirm cards (not a
+single `bulk_update_team_rates` call — the agent chose to call `set_team_rate` twice instead). Confirming
+both: Step 1 (user 6, Daisy Skye) — *"✓ Team rate set: Daisy Skye → 90.0/hr on project #10 (rate_id: #2)"* —
+native-verified on Team Rates page, genuinely 90.0. Step 2 (user 999999) — *"Step 2 failed: Server error
+(500): Internal Server Error... If this is a fresh Redmineflux instance, the invoice plugin database tables
+may not have been migrated yet. Ask your administrator to run: bundle exec rake redmine:plugins:migrate..."*
+— **the reporting is honestly partial** (step 1's genuine success isn't hidden or rolled back by step 2's
+failure), but step 2's failure is a **raw, unhandled 500** (confirmed via server log: `ActiveRecord::
+InvalidForeignKey — PG::ForeignKeyViolation... Key (user_id)=(999999) is not present in table "users"`) with
+a **misleading generic remediation message** that has nothing to do with the real cause (an invalid user id,
+not an unmigrated database). Filed as **BUG-CRX-134**.
 
 ---
 

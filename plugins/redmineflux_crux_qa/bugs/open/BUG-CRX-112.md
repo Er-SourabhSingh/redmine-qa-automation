@@ -93,3 +93,15 @@ No specific developer commit claimed this one fixed in the CRC-70/71/72/73 range
   plain-text "Project proposal:" with no structured confirm card.
 
 **Reproduced 2/2, unchanged from the original bug.** Still not fixed.
+
+## Retest — 2026-11-03 (after discovering crux-core/mcp were running a stale image all this time) — FIXED
+
+The retest above was against a stale image (`docker compose restart` never actually rebuilds `crux-core`/`mcp`).
+After a genuine `docker compose up -d --build --force-recreate crux-core mcp`, re-ran as `daisy.skye`, Project
+Setup Agent, fresh chat: "Create a project called 'Daisy Unauthorized Round4 Test'." — now produces a genuine
+"Create project" confirm card with real, clickable Confirm/Cancel buttons (`Identifier:
+daisy-unauthorized-round4-test`). Confirming it correctly surfaces the real 403-equivalent denial: *"write
+failed: tool 'redmineflux_core_create_project' failed: ... You do not have permission to create or submit
+project. To fix this, ask your Redmineflux administrator to: Grant you the required role/permission..."* —
+exactly the expected behavior, matching every other permission-gated write already confirmed working this cycle.
+**Confirmed fixed.**

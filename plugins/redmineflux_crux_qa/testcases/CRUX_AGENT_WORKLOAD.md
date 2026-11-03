@@ -839,6 +839,79 @@ real issues (#26, #27) across both team members, correctly resolved and separate
 
 ---
 
+## Availability & Skill-Based Capacity Queries (user-directed follow-up) — found BUG-CRX-150
+
+---
+
+### TC-CRX-568: "Who is available, who is unplanned, who is overbudget/optimal" — broad availability sweep
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Capacity Agent pinned: "On the Crux Capacity Agent Test Team, which members are
+available right now, which ones have no planned workload at all, and is anyone overbudget or over capacity
+this week?" (bare "this week," no explicit dates supplied).
+
+**Expected Result:** Correctly identifies both members' availability status, correctly reports neither has
+zero planned work, and correctly reports nobody is overloaded — matching the real native capacity data for
+whatever date scope it resolves "this week" to.
+
+**Result: PASS (data matched the full-sprint view it used).** *"Luna Blossom — 60h planned / 88h available
+(68% utilized) — AVAILABLE (28h capacity) ... Daisy Skye — 25h planned / 88h available (28% utilized) —
+AVAILABLE (63h capacity) ... Neither member has zero planned work ... Nobody is overloaded."* Native-verified
+against `/rf_teams/7/rf_workloads/1` (full sprint 2026-11-03→2026-11-17): exact match (60h/88h/28h Luna,
+25h/88h/63h Daisy, 48% team utilization). Correct, though it silently used the full-sprint range rather than
+the literal calendar week for "this week" — see TC-CRX-569 for why this distinction matters.
+
+---
+
+### TC-CRX-569: Same question, explicit week dates matching the native "This Week" filter — FOUND BUG-CRX-150
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Who is overbudget or over capacity on the Crux Capacity Agent
+Test Team this week (2026-11-02 to 2026-11-08)?" — same question, this time with the exact dates that match
+the native team page's own "This Week" filter button.
+
+**Expected Result:** Should match the native `/rf_teams/7` "This Week" view exactly: Luna 32h/40h (80%,
+Available), Daisy 25h/40h (63%, Available) — nobody overloaded.
+
+**Result: FAIL — new BUG-CRX-150 filed.** Agent answered: *"Luna Blossom — ⚠ 170% utilization — 60.0h planned
+vs. 35.2h available capacity. Over by ~25 hours ... significantly overcommitted ... Would you like me to ...
+redistribute tasks between them?"* This directly contradicts the native "This Week" filter for the identical
+team and identical dates (32h/40h, Available — no overload at all). Root cause: the planned-hours figure (60h)
+stayed fixed at the full-sprint total instead of being re-scoped to the narrower requested week, while the
+capacity denominator WAS reprorated down (88h → 35.2h) — the mismatched numerator/denominator combination
+produces a false, inflated overload claim that would lead to genuinely bad staffing advice (redistributing
+work away from someone who isn't actually overloaded). See BUG-CRX-150 for full detail.
+
+---
+
+### TC-CRX-570: Skill-based query — who has a given skill, at what level, and is their workload planned/available
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Who on the Crux Capacity Agent Test Team has the Ruby on Rails
+skill, what's their experience level, and is their workload planned or are they available for more work?"
+
+**Precondition note:** Skills "Ruby on Rails" (#1) and "PostgreSQL" (#2) exist (created in this suite's setup)
+but were never actually assigned to either Luna or Daisy via `user_skills_update` in any prior TC — both
+members' team page shows "No skills" in the Skills column.
+
+**Expected Result:** Since neither member genuinely has this skill assigned, the agent should honestly report
+that no team member currently has the Ruby on Rails skill recorded, rather than fabricating a plausible-sounding
+skill match or experience level.
+
+**Result: PASS.** Agent genuinely looked up the data ("Checked 5 things") then answered: *"No team members on
+the Crux Capacity Agent Test Team have the Ruby on Rails skill assigned. The team currently has no skills
+assigned to any members..."* — then, rather than stopping there, correctly answered the availability half too:
+*"...available for more work. The team's current workload (Crux Capacity Sprint 1, running Nov 3–17, 2026)
+shows only 48% utilization — with 85 planned hours against 176 available hours. They have 91 hours of
+available capacity remaining."* Both halves match native ground truth exactly (`/rf_teams/7`: both members'
+Skills column reads "No skills"; `/rf_workloads/1`: 85h planned / 176h available / 48% team utilization) — no
+fabricated skill or experience-level match, honestly distinguished "nobody has this skill" from guessing one.
+
+---
+
 ## Auto-Mode Routing & Context Resolution
 
 ---

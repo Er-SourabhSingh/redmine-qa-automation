@@ -653,17 +653,56 @@ confirmed natively).
 **Steps:** Fresh chat, Capacity Agent pinned: "Set my planned hours to 10 for issue #26 on the Crux Capacity
 Sprint 1 workload."
 
-**Expected Result:** Per the vendor doc ("Non-management users can see workload information for their teams
-and manage their own leave") — note this narrowly permits self-managing *leave*, not workload/allocation
-hours — a plain member without `manage_workload` should be refused even for her own allocation.
+**Expected Result:** Per the real backend rule (confirmed in TC-CRX-563 below): "Requires workload management
+permission **or own `workload_user_id`**" — a plain member genuinely managing her own allocation should be
+allowed even without `manage_workload`.
 
-**Result: FOUND BUG.** No proactive self-refusal this time (unlike team/member-management requests tested
-elsewhere, which did self-check). Confirm card showed `Workload: 1`, `Issue: 26`, `Workload User: 2` (Daisy's
-own row), `Planned Hours: 10`. Confirming succeeded: *"✓ Planned hours updated (allocation_id: 5)."*
-Native-verified: Daisy genuinely now shows **10.00h planned**. This is the first clean, concrete proof that
-the permission-gating inconsistency flagged in source research (`update_planned_hours` gated only at
-`_require_view`, never re-checking the per-team `manage_workload` flag) is real and exploitable — not just a
-theoretical code-review observation. Filed as **BUG-CRX-147**.
+**Result: PASS — this is correct, intended behavior, not a bug.** Confirm card showed `Workload: 1`, `Issue:
+26`, `Workload User: 2` (Daisy's own row), `Planned Hours: 10`. Confirming succeeded: *"✓ Planned hours updated
+(allocation_id: 5)."* Native-verified: Daisy genuinely now shows **10.00h planned**. Initially misread as a
+permission bypass and filed as BUG-CRX-147, but TC-CRX-563 (immediately following, at the user's explicit
+direction) proved the real rule explicitly allows self-management without `manage_workload` — **BUG-CRX-147
+was invalidated and withdrawn the same day** (see `bugs/_duplicates.md`).
+
+---
+
+### TC-CRX-563: Plain member (no `manage_workload`) attempts to set a DIFFERENT member's hours — the real permission boundary
+
+**User Role:** `daisy.skye` (same session as TC-CRX-562).
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Set planned hours to 20 for Luna Blossom on issue #26 on the
+Crux Capacity Sprint 1 workload."
+
+**Expected Result:** Per the hypothesis this TC exists to test (`manage_workload` should only gate managing
+*someone else's* allocation, not your own) — this should be genuinely refused.
+
+**Result: PASS — confirms the real backend rule exactly.** Confirm card correctly resolved `Workload User: 1`
+(Luna's own row, not Daisy's). Confirming surfaced a genuine backend refusal, rendered directly under the
+confirm card: *"Requires workload management permission or own workload_user_id. To fix this, ask your
+Redmineflux administrator to: Grant you the required role/permission for this action..."* — the exact real
+enforcement rule, confirming TC-CRX-562's result is correct and BUG-CRX-147 was a false finding. Together,
+TC-CRX-562 + TC-CRX-563 fully characterize the real permission boundary: a plain member may manage only their
+own allocation; `manage_workload` is required only to manage someone else's.
+
+---
+
+### TC-CRX-564: Multiple tickets on one workload, managed together in a single batched request
+
+**User Role:** `admin`. **Precondition:** 2nd fixture issue #27 "Capacity Agent fixture issue 2 - sprint 1
+second work item" created, assigned to Daisy Skye.
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Add issue #27 to the Crux Capacity Sprint 1 workload, and set
+planned hours to 15 for Daisy Skye on it."
+
+**Expected Result:** Both steps (add + set hours) should be correctly batched and both succeed, with the
+workload then genuinely holding 2 distinct issues (#26 for Luna, #27 for Daisy) under correctly-resolved,
+separate `workload_user_id`s.
+
+**Result: PASS.** Confirm card correctly proposed both actions in one batch: `add_issue` (`Workload: 1`,
+`Issue: 27`) and `update_planned_hours` (`Workload: 1`, `Issue: 27`, `Workload User: 2`, `Planned Hours: 15`).
+Confirming both succeeded cleanly: *"✓ Created 2 of 2"* — *"✓ Issue added: #27... → Workload #1
+(workload_issue_id: 3)"*, *"✓ Planned hours updated (allocation_id: 6)."* The workload now genuinely holds 2
+real issues (#26, #27) across both team members, correctly resolved and separately tracked.
 
 ---
 

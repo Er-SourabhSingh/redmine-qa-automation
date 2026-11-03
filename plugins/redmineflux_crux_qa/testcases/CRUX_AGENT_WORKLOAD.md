@@ -194,13 +194,21 @@ returned *"✓ Skill created: #2 PostgreSQL."*
 
 ### TC-CRX-531: Delete team — destructive, named explicitly, cascade warning
 
-**User Role:** `admin`. **Precondition:** TC-CRX-528's "Crux Capacity Sub Team" exists, empty (no workloads).
+**User Role:** `admin`. **Precondition:** a disposable team "Crux Capacity Disposable Team" created fresh for
+this test (TC-CRX-528 wasn't run as a prerequisite — tested directly instead).
 
-**Steps:** "Delete the Crux Capacity Sub Team."
+**Steps:** "Create a new team called 'Crux Capacity Disposable Team'." → confirm → "Delete the Crux Capacity
+Disposable Team." → confirm.
 
 **Expected Result:** Per the tool's own docstring ("Deleting a team cascades to all associated
 workloads/memberships"), confirm card names the specific team; confirming genuinely removes it,
 native-verified.
+
+**Result: PASS.** Create: confirm card `Resource Type: team`, `Name: Crux Capacity Disposable Team` → *"✓
+Team created: #8..."*. Delete: confirm card `Resource Type: team`, `Resource: 8` (correct id) → *"✓ Team
+deleted successfully."* Native-verified gone from `/rf_teams`. No explicit cascade-content warning shown on
+the confirm card itself (team had no workloads to cascade, so not fully exercised), but the core delete
+mechanics are correct.
 
 ---
 
@@ -542,6 +550,10 @@ reason 'regression check'."
 clean "zero or multiple matches" error), this should be honestly refused with a clear "user not found" error —
 **not** silently create a leave request for user ID 0. Regression-check this specific historical bug class.
 
+**Result: PASS.** Confirm card showed the exact (wrong/nonexistent) username, type, dates, reason — no proactive
+refusal at confirm-card stage — but confirming anyway produced `Error: No user found with login 'nonexistent_user_zzz'.`
+Native-verified `/rf_leaves` shows "No leave requests found" — no silent resolution to user id 0. BUG-CRX-019 fix holds.
+
 ---
 
 ### TC-CRX-552: Leave calculate_days / team_on_leave — positive reads
@@ -552,6 +564,11 @@ clean "zero or multiple matches" error), this should be honestly refused with a 
 
 **Expected Result:** `leave_calculate_days` correctly excludes weekends/holidays per the active scheme;
 `team_on_leave` returns real approved-leave data for that date, not fabricated.
+
+**Result: PASS, both legs.** "How many working days between 2026-11-20 and 2026-11-24?" → "3 working days (total
+5 days, with 2 non-working days excluded)" — correct (Nov 20=Fri, 21=Sat, 22=Sun, 23=Mon, 24=Tue → 3 working
+days). "Who's on leave on 2026-11-20?" → "Nobody is on leave on 2026-11-20." — correct (no leave records existed
+at that point).
 
 ---
 
@@ -571,6 +588,12 @@ button), this should show a **genuine** confirm card and, once confirmed, genuin
 Test Scheme" — native-verify only one scheme is active afterward. Regression-check both the real exclusivity
 behavior and the fabricated-confirm defect class specifically on this tool.
 
+**Result: PASS.** Created Scheme #2 "Crux Capacity Test Scheme 2" → "✓ Holiday scheme created: #2...". "Activate
+the Crux Capacity Test Scheme 2." → genuine confirm card (`Scheme: 2`) → confirmed → "✓ Scheme activated".
+Native-verified on `/rf_settings`: Scheme 2 shows "Active - Only one scheme can be active" (checked/disabled),
+original Scheme 1 shows "Click to set as active scheme" (unchecked) — exclusivity confirmed, no BUG-CRX-028
+fabricated-confirm recurrence.
+
 ---
 
 ### TC-CRX-554: Delete the currently active holiday scheme — negative, documented refusal
@@ -581,6 +604,10 @@ behavior and the fabricated-confirm defect class specifically on this tool.
 
 **Expected Result:** Per the tool's own docstring ("cannot delete the currently active scheme"), this should
 be honestly refused — never tested in the legacy suite, first exercise of this specific refusal path.
+
+**Result: PASS.** No confirm card shown; agent proactively refused: "The currently active scheme is [...]
+(Scheme #2). Deleting the active scheme is not permitted — you must first activate a different scheme, then
+delete the old one."
 
 ---
 
@@ -604,6 +631,11 @@ the admin-vs-manager distinction cleanly.
 "Delete that holiday."
 
 **Expected Result:** Both succeed cleanly for an admin; native-verified created then genuinely removed.
+
+**Result: PASS.** "Add a company holiday called 'Crux QA Day' on 2026-12-25 to the Crux Capacity Test Scheme 2."
+→ confirm card (`Scheme: 2`, `Name: Crux QA Day`, `Date: 2026-12-25`, `Holiday Type: company`, all correct) →
+confirmed → "✓ Holiday created: #1 Crux QA Day on 2026-12-25". "Delete the Crux QA Day holiday." → confirm card
+(`Holiday: 1`, correct) → confirmed → "✓ Holiday deleted".
 
 ---
 

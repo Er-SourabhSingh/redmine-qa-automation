@@ -85,6 +85,10 @@
 **Expected Result:** Per `redmineflux_workload_dashboard`'s `_require_admin` gate and the vendor doc ("Dashboard
 is available to administrators only"), a non-admin should be honestly refused — not shown fabricated KPIs.
 
+**Result: PASS.** Correctly refused: *"The workload dashboard is restricted to administrators only. Your
+current account (daisy.skye) doesn't have admin access."* — offered legitimate alternatives (team capacity,
+own workloads) instead of fabricating data.
+
 ---
 
 ### TC-CRX-524: Dashboard — admin, positive
@@ -111,6 +115,10 @@ fixture state exactly (2 members, nothing allocated yet).
 **Expected Result:** Per `redmineflux_workload_capacity`'s `_require_manage` gate, Daisy (genuinely lacking
 `manage_rf_teams`) should be refused with a real permission error — not shown fabricated capacity numbers for
 a team she's an actual member of.
+
+**Result: PASS.** Correctly refused: *"You're a member of the Crux Capacity Agent Test Team, but viewing
+capacity requires the Manage Workload role... Your Redmineflux administrator can grant you that permission."*
+No fabricated numbers shown; legitimate alternative (specific workload lookup) offered instead.
 
 ---
 
@@ -211,6 +219,14 @@ the key test**: does the backend Rails API independently block it, or does chat 
 write? If the member is genuinely added, this is a real permission-bypass bug matching the already-known
 defect class (BUG-CRX-003/012/040's pattern).
 
+**Result: PASS — real protection exists, via a different gate than expected.** The agent first proactively
+self-refused citing a missing `Manage Workload` permission (not yet a genuine backend test). Pushed further
+("Please try it anyway") revealed the real mechanism: resolving "Luna Meadow" to a user id requires
+`search_users`, which genuinely IS `_require_manage`-gated — *"Access denied — you need the `manage_rf_teams`
+permission to search for users to add to a team."* So in practice, Daisy can never reach `member_add` at all
+via the normal chat workflow, because the prerequisite user-search step is itself correctly gated — even
+though `member_add` itself is coded as `_require_view`-only as source research found.
+
 ---
 
 ### TC-CRX-533: Update member flags — plain Reporter attempts
@@ -224,6 +240,14 @@ write itself goes through regardless of permission.)
 **Expected Result:** Same permission question as TC-CRX-532 — `member_update` is docstring-claimed
 manage_workload-gated but code-gated only at `_require_view`. Test whether Daisy can genuinely alter another
 member's permission flags.
+
+**Result: BLOCKED on permission (same proactive self-refusal pattern) — but FOUND BUG while pushing further.**
+Daisy was first proactively refused citing missing Manage Workload permission. Pushing ("try it anyway")
+surfaced a confirm card — but it targeted the **wrong team and wrong member entirely** (`Team: 1`,
+`Membership: Daisy Skye` — neither Team #7 nor Luna Blossom, the ones actually named). Reproduced 3/3 across
+different users/chat-depths. The permission question itself remains unanswered (the write never reached a
+genuinely-correct target to test against), but this wrong-target confirm card is itself a serious, separately
+filed defect: **BUG-CRX-145**.
 
 ---
 

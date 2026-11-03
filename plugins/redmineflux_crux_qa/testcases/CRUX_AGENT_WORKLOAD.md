@@ -504,38 +504,78 @@ could ever test this) — confirms the vendor-documented capacity enforcement si
 
 **User Role:** `luna.blossom`.
 
-**Steps:** Fresh chat, Capacity Agent pinned: "Request leave from 2026-11-20 to 2026-11-21, type planned,
-reason 'personal errands'."
+**Steps:** Fresh chat, Capacity Agent pinned: "Create a leave request for myself, type planned, 2026-11-30 to
+2026-11-30, reason 'rule D test - approver creating own leave'."
 
-**Expected Result:** Confirm card shows the exact dates/type/reason; confirming creates a genuine pending leave
-request for Luna, native-verified on `/rf_leaves`.
+**Expected Result:** Confirm card shows the exact dates/type/reason (`User: 0` = self-sentinel); confirming
+creates a genuine leave request for Luna, native-verified on `/rf_leaves`.
 
----
-
-### TC-CRX-549: Approve leave — `can_approve_leave`-flagged member, positive
-
-**User Role:** `luna.blossom` (has `can_approve_leave: Enabled` on Team #7). **Precondition:** TC-CRX-548's
-leave request exists, pending (requested by Luna herself — ideally use a different user's request if
-self-approval should be blocked; note this as an observation if Luna can approve her own request).
-
-**Steps:** "Approve [the leave request]."
-
-**Expected Result:** Since Luna's own per-team flag genuinely has `can_approve_leave`, this should succeed;
-also worth noting whether self-approval is honestly flagged as unusual.
+**Result: PASS (record created) — but see BUG-CRX-149.** Confirmed → *"✓ Leave created: #5 | Luna Blossom |
+Planned Leave | 2026-11-30 → 2026-11-30 (1.0 days) | Status: pending"*. The write itself is genuine and
+native-verified, but per BUG-CRX-149 this plugin's `leave_create` API path never auto-approves regardless of
+actor — so "pending" here happens to be correct per business rule D (an approver's own leave must still go to
+admin), but not for the reason the design intends (it would be pending even if the business rule said
+otherwise, as proven by TC-CRX-549a below).
 
 ---
 
-### TC-CRX-550: Approve/reject leave — plain member without `can_approve_leave`, negative
+### TC-CRX-549: Leave approval business-rule matrix (rules A–D, user-directed deep dive) — found BUG-CRX-149
 
-**User Role:** `daisy.skye` (Team #7 membership has `can_approve_leave: Disabled`). **Precondition:** a
-pending leave request exists (e.g. Daisy requests her own leave first, or use another pending one).
+**User Roles:** `admin`, `luna.blossom` (`can_approve_leave: Enabled` on Team #7), `daisy.skye`
+(`can_approve_leave: Disabled` on Team #7). All requests phrased with names only, no IDs supplied.
 
-**Steps:** "Reject [the leave request] because the dates conflict with a deadline."
+**Business rules under test** (as described by the user): (A) admin creating a leave for another user, or for
+themselves, should auto-approve immediately; (B) a non-admin user without `can_approve_leave` creating her own
+leave should land pending, awaiting her team's approver; (C) a `can_approve_leave` holder creating a leave for
+another team member should auto-approve immediately; (D) a `can_approve_leave` holder creating a leave for
+**herself** should land pending, awaiting admin (nobody can self-approve).
 
-**Expected Result:** Per the tool's own docstring ("approve/reject require `can_approve_leave` or admin"),
-Daisy should be genuinely refused. This flag is enforced server-side per the docstring, not at the MCP layer
-— test whether the backend genuinely blocks it (the per-team-flag equivalent of TC-CRX-532's team-management
-gating question, now for leave approval specifically).
+**Steps and Results:**
+
+- **Rule A1** (admin → Daisy Skye, sick, 2026-11-26): confirm card resolved `Username: daisy.skye` correctly →
+  confirmed → *"✓ Leave created: #1 | Daisy Skye | Sick Leave | 2026-11-26 → 2026-11-26 (1.0 days) | **Status:
+  pending**"*. Native-verified on `/rf_leaves` (admin, Team Approvals tab): sitting in **Pending Approvals**,
+  awaiting Luna Blossom. **Expected auto-approved — FAIL**, see BUG-CRX-149.
+- **Rule A2** (admin → self, planned, 2026-11-27): confirm card `User: 0` (self) → confirmed → *"✓ Leave
+  created: #3 | Redmine Admin | Planned Leave | 2026-11-27 → 2026-11-27 (1.0 days) | **Status: pending**"*.
+  **Expected auto-approved — FAIL**, see BUG-CRX-149.
+- **Rule C** (Luna, can_approve_leave → Daisy, same team, planned, 2026-11-28): confirm card resolved
+  `User: 6` (Daisy's real user id) correctly → confirmed → *"✓ Leave created: #4 | Daisy Skye | Planned Leave |
+  2026-11-28 → 2026-11-28 (0.0 days — correct, Saturday) | **Status: pending**"*. **Expected auto-approved —
+  FAIL**, see BUG-CRX-149. Luna then approved it herself via a follow-up chat request ("Approve Daisy Skye's
+  planned leave for 2026-11-28.") — genuinely succeeded with no confirm card shown for the approve action
+  itself (worth noting as an inconsistency vs. other writes, but the write was real and correctly
+  native-verified on `/rf_leaves` under Approved Leaves, Approved By = Luna Blossom — not a fabricated-success
+  case).
+- **Rule D** (Luna, can_approve_leave → self, planned, 2026-11-30 — see TC-CRX-548): *"Status: pending"* —
+  correct per business rule, but see BUG-CRX-149 for why this isn't proof the rule itself is implemented.
+- **Rule B** (Daisy, no can_approve_leave → self, sick, 2026-12-01): *"✓ Leave created: #6 | Daisy Skye | Sick
+  Leave | 2026-12-01 → 2026-12-01 (1.0 days) | Status: pending"*. **Correct, PASS.**
+
+**Overall Result: FAIL on rules A and C — new BUG-CRX-149 filed** (leave_create's underlying API path never
+auto-approves regardless of actor permission; root-caused to `workload_leaves_controller.rb`'s `create` action
+hard-coding `status = 'pending'` with no approve branch, unlike the plugin's own web-UI form controller which
+does auto-approve the identical action). Rules B and D happen to produce the "correct" pending result, but
+only because the API never auto-approves anyone — not because the business logic was genuinely evaluated.
+
+---
+
+### TC-CRX-550: Reject own leave request — plain member without `can_approve_leave`, negative, honest refusal
+
+**User Role:** `daisy.skye` (Team #7 membership has `can_approve_leave: Disabled`).
+
+**Steps:** "Reject my sick leave for 2026-12-01 because the dates conflict with a deadline." (her own leave
+#6, pending from TC-CRX-549's Rule B test)
+
+**Expected Result:** Per the tool's own docstring ("approve/reject require `can_approve_leave` or admin") and
+the API's explicit self-reject/self-approve guard, Daisy should be honestly refused, not silently allowed or
+fabricated-successful.
+
+**Result: PASS.** Agent found the leave (#6) via a genuine lookup ("Checked 1 thing"), then honestly refused:
+*"I cannot reject your own leave request — only a leave approver can reject leaves. If you need to cancel it
+yourself, I can do that, or you'll need to contact someone with leave approval permission in your team to
+reject it."* — correctly distinguished self-reject (never allowed) from a genuine approver action, and offered
+the legitimate alternative (self-cancel) instead of fabricating success or silently no-op'ing.
 
 ---
 

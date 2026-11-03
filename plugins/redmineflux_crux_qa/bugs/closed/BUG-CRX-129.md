@@ -117,3 +117,21 @@ weekly page shows a disabled "Approved" button, not a submittable one. Reconstru
 "this week" fixture would require either advancing past the next real calendar week or creating a second team
 membership with fresh hours, both more involved than this pass's budget allows. Deferred to a dedicated follow-up
 session with a fresh week fixture; verdict left as-is pending that retest.
+
+## Retest — 2026-11-03 — FIXED
+
+Built a fresh fixture: created a new team ("Crux Retest 129 Team", ID 6), assigned the existing "Crux QA Schema
+Updated" approval schema to it, added `serenity.bloom` as a Developer member, and logged a genuine 3h time entry
+against issue #2 (Crux PM Agent Test Project, development activity) for the current week (2026-11-03) — giving her
+a second, not-yet-submitted team context alongside her existing fully-approved "Crux Team Test" (ID 4) membership
+for the same week.
+
+Re-ran as `serenity.bloom`, Time Agent pinned, fresh chat: "Please submit my timesheet for this week." The agent
+now correctly discovered the real 5 hours logged this week and **accurately listed both of her genuine team
+memberships** (`ID: 6 — Crux Retest 129 Team`, `ID: 4 — Crux Team Test`), asking a legitimate disambiguation
+question since she now has two real contexts to choose from — not a fabricated wrong one, and not an amnesia
+relapse. Replying "Crux Retest 129 Team." produced a correct confirm card: `Context Type: team`, `Context: 6`,
+`Week Start: 2026-11-02` — all genuinely correct. Confirmed: *"✓ Timesheet submitted for approval. — Submission #14
+is now 'submitted'."* Native verification on `/timesheets/weekly` afterward shows a disabled "Waiting for
+Approval" button for the current week — the submission genuinely persisted. **Confirmed fixed** — no wrong
+context/week fabrication, and no context-amnesia relapse after answering the agent's own clarifying question.

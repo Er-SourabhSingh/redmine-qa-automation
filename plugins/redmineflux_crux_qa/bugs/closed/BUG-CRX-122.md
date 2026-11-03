@@ -54,3 +54,15 @@ genuinely `willow.belle`) — no wrong-team-id substitution observed in this sim
 **undetermined** — it may be fixed, but could not be confirmed under its original conditions this round. The new
 `team_create` false-denial regression is noted here for follow-up but not filed as its own bug (overlaps the
 already-documented discovery-flakiness class, e.g. BUG-CRX-117/123's first-attempt failures).
+
+## Retest — 2026-11-03 — FIXED
+
+Re-ran the exact original two-turn repro, `admin`, Time Agent pinned, fresh chat: (1) "Please make a new timesheet
+team called 'Crux Retest 122 Team'." — `team_create` now works cleanly (the round-2 false-denial regression is
+gone): *"✓ Team 'Crux Retest 122 Team' created (ID: 5)."* — native-verified on `/timesheet/teams` (team 5 genuinely
+exists, named correctly; no stale team 2/3). (2) Immediately, same chat: "Add Sage Willow to the 'Crux Retest 122
+Team' team with role Reporter." — the confirm table now shows **`Team: Crux Retest 122 Team`** (resolved by name,
+not a raw/stale numeric ID) and `User Ids: 18` (independently verified correct — user 18 is genuinely
+`sage.willow`). Confirmed; native check on `/timesheet/teams/5` shows Sage Willow genuinely listed as a Member with
+role Reporter. **Confirmed fixed** — both the original stale-ID resolution and the round-2 `team_create` regression
+are resolved.

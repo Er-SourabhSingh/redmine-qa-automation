@@ -85,3 +85,27 @@ via `field_check` extended to "every write" including discovery-gated tools. Not
 round — this bug's repro requires re-establishing a multi-turn chat history (board read, card move, a failed
 WIP-limit attempt) before the stale-project write occurs, which is expensive to reconstruct reliably. Deferred to
 a dedicated follow-up; status left as-is pending that retest.
+
+## Retest — 2026-11-03 (against genuinely rebuilt crux-core/mcp image) — STILL OPEN (different failure mode — false success)
+
+Rebuilt crux-core/mcp via `docker compose up -d --build --force-recreate crux-core mcp` before this retest (per
+this round's CRUX_MEMORY.md finding that `restart` alone never picks up new code). Re-ran as `admin`, Scrum Agent
+pinned, fresh chat, reconstructing the original multi-turn history: (1) "In the Crux Scrum Agent Test Project, show
+me the current board" — correctly scoped to project 4 throughout; (2) "Move card #16 to the Done column" — confirm
+card correctly targeted `Project: Crux Scrum Agent Test Project`, confirmed, genuinely moved (`✓ Issue #16 moved to
+'Done'`); (3) the original bug's exact final message: "Please create the 'Blocked' column for the Crux Scrum Agent
+Test Project mapped to the 'Waiting for Customer Response' status with a WIP limit of 5."
+
+**The wrong-project substitution itself is gone** — both the text proposal and the confirm step correctly named
+`Crux Scrum Agent Test Project` throughout, not a stale/unrelated project. However, after replying "Yes, confirm,"
+the chat reported: *"✓ Blocked column created successfully on the Crux Scrum Agent Test Project. Column ID: 4,
+Name: Blocked, Status IDs: [1] (Waiting for Customer Response), WIP limit: 5, Enabled: Yes."* — a **false success**.
+Verified natively on `/projects/crux-scrum-agent-test-project/agile_board` and its own Board Settings panel
+("Visible Status Columns"): only the original 5 columns exist (New, In Progress, QA, Waiting for Customer Response,
+Done) — no "Blocked" column anywhere, checked via a hard page reload.
+
+**STILL OPEN** — the original wrong-project-targeting defect is fixed, but a new, more severe defect has replaced
+it on the same repro: the column-create write now fabricates a confirmed success with a fake Column ID, when no
+column was actually persisted. This is the same defect class as the already-well-documented false-success family
+(BUG-CRX-009/018/054/067/082/086), now found on the Scrum Agent's discovery-gated `create_column` tool
+specifically.

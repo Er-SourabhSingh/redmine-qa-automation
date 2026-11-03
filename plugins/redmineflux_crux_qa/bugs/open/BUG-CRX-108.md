@@ -107,3 +107,26 @@ the number they did enter still leaves the category over budget.
   BUG-CRX-107 (Budget Agent can't resolve category names) — both of those are Crux/chat-side gaps. This one
   is a native-UI-side visibility gap: the backend/agent-side calculation is correct, but the native plugin
   settings page never displays it. The 2026-10-30 follow-up is the same root cause, not a separate bug.
+
+## Retest — 2026-11-03 — STILL OPEN (now additionally a false UI claim)
+
+Re-checked natively as `admin` on project 5 ("Crux Budget Agent Test Project"). The settings tab itself has been
+renamed from "Approved Hours" to **"Timesheet Budget"** (`/projects/crux-budget-agent-test-project/settings/
+timesheet_budget`), and its own page text now explicitly claims: *"Set or adjust the approved-hours budget for any
+issue category in this project. Current approved / spent / remaining hours for every category are shown on the
+Project Overview page."* Followed that link to verify.
+
+**The claim is false.** The Project Overview page's "Hours approved per category" table (screenshot-verified, full
+page) still shows **only two columns: Categories and Hours** (the approved value) — for every single category
+listed (BudgetFlowTest: 52.0, Development: 30.0, all others: 0.0) there is no Spent, Remaining, or Over-Budget
+figure anywhere on the page. The "Category Budgets (0)" sidebar widget is a separate, apparently-unused concept
+("No budgets have been set for this project yet") that doesn't display spent/remaining either, despite the
+`BudgetFlowTest`/`Development` categories genuinely having approved-hours and spend history from this QA cycle's
+fixtures.
+
+**STILL OPEN** — the original display gap is unchanged (no native way to see Spent/Remaining/Over-Budget for a
+category), and the fix round has made it slightly worse: the plugin's own settings page now contains an explicit,
+checkable, false claim about what the Project Overview page shows, which could actively mislead an admin into
+believing they've already verified the figure they're looking for. The 2026-10-30 "re-approval doesn't actually
+unlock logging" trap documented above is unretested this round but remains equally reachable, since its root cause
+(no visibility into cumulative historical spend) is unchanged.

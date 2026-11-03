@@ -686,6 +686,23 @@ own allocation; `manage_workload` is required only to manage someone else's.
 
 ---
 
+### TC-CRX-565: Update a member's team role by name only ("Developer") — role-id resolution
+
+**User Role:** `admin`.
+
+**Steps:** Fresh chat, Capacity Agent pinned: "Change Daisy Skye's role on the Crux Capacity Agent Test Team to
+Developer." (name-only — no numeric role id supplied anywhere, matching how a real user would phrase this).
+
+**Expected Result:** The agent should resolve "Developer" to the real role id (3, confirmed via Administration
+→ Roles) or honestly ask for it — never silently propose a different, wrong, specific id.
+
+**Result: FOUND BUG.** Confirm card showed `Role: 2` — role id 2 is genuinely "Anonymous," not Developer (id
+3). Cancelled before confirming; native-verified Daisy's role unchanged. The identical request, retried fresh,
+instead correctly asked the user for the numeric id rather than guessing — an inconsistent, not permanent,
+gap. Filed as **BUG-CRX-148**.
+
+---
+
 ### TC-CRX-564: Multiple tickets on one workload, managed together in a single batched request
 
 **User Role:** `admin`. **Precondition:** 2nd fixture issue #27 "Capacity Agent fixture issue 2 - sprint 1

@@ -8,6 +8,10 @@
 > native UI offers): all 19 TCs executed (18 + 1 precondition confirmation); 1 (DEF-2 fallback rate) came
 > back BLOCKED on a missing fixture precondition (no customer linked to the project), not a defect — 6 new
 > bugs found total, all filed:**
+>
+> **Updated 2026-11-03 (3rd pass, per explicit user request to exhaustively test payment lifecycle rules and
+> user resolution on line items): 2 more TCs executed (TC-CRX-494, TC-CRX-495), both found genuine defects —
+> 8 bugs found total this suite:**
 > - **BUG-CRX-132** (High) — `create_invoice` never sets/warns about `due_date`; viewing the resulting
 >   invoice's native show page genuinely crashes with a 500 (`NoMethodError: undefined method 'strftime' for
 >   nil`) — 100% reproducible, reachable via the agent and the native UI alike (Due Date isn't required on
@@ -30,6 +34,14 @@
 > - **BUG-CRX-137** (Medium) — `create_invoice` can never genuinely link a line item to a real Redmine issue
 >   — the native "Invoice Issues" checkbox mechanism is completely unreachable via chat; "for issue #X" only
 >   ever produces a plain-text description mentioning the number, with no real structural link.
+> - **BUG-CRX-138** (High) — `record_payment` completely bypasses the native Draft-vs-Sent business rule; the
+>   native UI only ever offers "Add Payment" once an invoice has genuinely been sent, but the agent recorded a
+>   real payment against a never-sent Draft invoice with zero block or warning.
+> - **BUG-CRX-139** (High) — `create_invoice`'s confirm card genuinely shows `user_id: 1` (Admin) for a line
+>   item and the user approves exactly that, but the real database write silently persists a different, real
+>   person ("Daisy Skye") instead — reproduced 3 of 3 times across three separate invoices. Unlike the prior
+>   wrong-ID-resolution bugs on this cycle, the confirm card itself is correct here; the divergence happens
+>   silently between confirmation and the actual write.
 >
 > **Everything else tested cleanly**: the no-permission dashboard refusal correctly names `view_invoices`
 > specifically; the no-permission payment-write path is genuinely enforced once a real invoice exists
@@ -583,3 +595,62 @@ per source).
 invoice #1 (INV-2026-0001): Download path: `/api/projects/10/invoices/1/pdf`..."* — a relative path only, no
 raw PDF bytes/base64 anywhere in the response, and it worked cleanly on a Sent invoice (no status-gating
 observed).
+
+---
+
+## Payment Lifecycle — Draft vs. Sent Enforcement
+
+---
+
+### TC-CRX-494: Record a payment against a Draft (never-sent) invoice — should be blocked like the native UI
+
+**User Role:** `admin`. **Precondition:** native UI behavior first confirmed directly — a Draft invoice's show
+page action links are only `Edit` / `Send Invoice` / `Download PDF`; sending it via the native "Send Invoice" →
+"Send Email" flow is what causes an `Add Payment` link to appear for the first time, confirming payment-
+recording is deliberately gated to Sent (or later) status only.
+
+**Steps:** Create a fresh invoice via the Invoicing Agent and leave it Draft (do not send it). Fresh/same chat,
+Invoicing Agent pinned: "Record a payment of $100 against invoice #<id> for the Crux Invoice Agent Test
+Project, payment date 2026-11-03, method bank transfer." Confirm the resulting `Invoice Record Payment` card.
+
+**Expected Result:** Since the native UI deliberately hides/blocks payment recording until an invoice has
+genuinely been sent, `record_payment` should enforce the identical rule — refuse with a clear message (e.g.
+"Cannot record a payment on a Draft invoice — send it first") rather than silently succeeding.
+
+**Result: FOUND BUG.** The confirm card proposed the payment normally with no mention of the invoice's Draft
+status. Confirming returned: *"✓ Payment recorded: #2 — 100.0 on 2026-11-03 via bank transfer."* Native
+verification on `/invoices?project_id=crux-invoice-agent-test-project` confirmed invoice #4's own Status
+column still genuinely reads **"Draft"** — a real payment record now exists against an invoice that was never
+sent and that the client has never seen, with zero warning or block anywhere in the agent's flow. Filed as
+**BUG-CRX-138**.
+
+---
+
+## Line-Item User Resolution — Confirm Card vs. Persisted Value
+
+---
+
+### TC-CRX-495: Create invoice with a line item `user_id` that isn't a formal project member — confirm card vs. actual persisted user
+
+**User Role:** `admin` (Redmine user id 1, NOT a formally-added project member of the target project — only
+`luna.blossom` and `daisy.skye` are explicit members). **Precondition:** native line-item `User` dropdown
+confirmed restricted to the project's real formal members only (`-- Select User --`, `Daisy Skye`, `Luna
+Blossom` — Admin excluded entirely, even though Admin has full administrative access).
+
+**Steps:** Invoicing Agent pinned: create an invoice with a line item explicitly specifying `user_id: 1` (e.g.
+"...one line item: 'Consulting', quantity 4, rate 100, user id 1."). Confirm the invoice. Natively open the
+created invoice's Edit page (`/projects/<project>/invoices/<id>/edit`) and inspect the line item's `User`
+dropdown.
+
+**Expected Result:** The persisted user should genuinely be user id 1 (Admin), matching what the agent's own
+confirm card showed and what was confirmed. If user id 1 is genuinely not a valid choice (e.g. because the
+native dropdown is restricted to formal project members), the agent should refuse or warn *before* showing a
+confirm card claiming `user_id: 1` will be used — not silently confirm one value and persist a different one.
+
+**Result: FOUND BUG — reproduced 3 of 3 times.** Across three separately-created invoices (#2, #3, #4), each
+created with the same explicit `user_id: 1` in the request and the same `'user_id': 1` shown on each confirm
+card, every single one, when inspected on its native Edit page, shows the line item's `User` dropdown with
+**"Daisy Skye"** (real user id 6) genuinely selected — never Admin. The agent proposes and gets confirmation on
+`user_id: 1`, but the real write silently falls back to a different, real person, with zero disclosure
+anywhere — not even a different value reported back in the "✓ Invoice created" success message (which never
+mentions the user at all). Filed as **BUG-CRX-139**.

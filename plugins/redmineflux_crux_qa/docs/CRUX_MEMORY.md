@@ -2,6 +2,35 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## ⚠️ CRITICAL — `crux-core`/`mcp` are `build:`-based Docker services, NOT live-mounted. `restart` alone never picks up a `git pull` (2026-11-03)
+
+`docker-compose.yml` mounts `./plugins` live into the `redmine` service (`volumes: - ./plugins:/usr/src/redmine/
+plugins`), so a `git pull` in any `plugins/redmineflux_*` repo + `docker compose restart redmine` genuinely picks
+up the new code immediately. **`crux-core` and `mcp` are NOT like this** — both are `build: context: ...` services
+with no source-code volume; their code is baked into the Docker image at build time. **Every `docker compose
+restart crux-core mcp` only restarts the same old image — it does NOT rebuild it, so a `git pull` in
+`services/redmineflux-crux-core` or `services/redmineflux-mcp` has ZERO effect on the running containers until
+you explicitly run `docker compose up -d --build crux-core mcp`.** Even that is not always enough — in practice
+`--build` alone didn't recreate the already-running containers; `docker compose up -d --force-recreate crux-core
+mcp` (after the image is rebuilt) was needed to actually swap in the new image. Verify with
+`docker images --format "table {{.Repository}}\t{{.CreatedSince}}"` (should show "X seconds/minutes ago" right
+after a rebuild) and `docker compose ps` (container uptime should reset to near-zero after a real recreate).
+
+**This cost an entire session of wasted retest effort on 2026-11-02**: a large batch of crux-core/mcp-dependent
+bug retests (094, 095, 096, 098, 102, 105, 107, 109, 111, 112, 113, 118, 119, 121, 125, 127, 130, and likely
+several of the earlier "FIXED" verdicts too) were run against a stale image the entire day, since every pull that
+session was followed only by `restart`, never `--build`. The developer's own production journal notes caught
+several of these ("Moved back to In QA. The reopen came from an older build on the test machine: the fix wasn't
+pulled there... rebuild the MCP image.") — their repeated "(rebuild the image)" annotations on build info were
+the actual signal this was happening, missed until explicitly investigated. **Going forward: after ANY
+`git pull` in `services/redmineflux-crux-core` or `services/redmineflux-mcp`, always run
+`docker compose up -d --build --force-recreate crux-core mcp` (not just `restart`), and confirm via
+`docker images`/`docker compose ps` uptime before retesting anything.** Only `redmineflux_*` plugin pulls are safe
+with a plain `restart redmine` (though a new migration still needs `rake redmine:plugins:migrate` first — see the
+`SECRET_KEY_BASE` note below, and watch for a stale-`schema.rb`-ownership permission crash-loop on `redmine`
+after a manual exec'd migrate: `chmod 666` the file if `redmine` crash-loops with `Errno::EACCES` on
+`db/schema.rb` right after a manual migration).
+
 ## Retesting a developer fix — the fix can live in 3 separate repos, pull all 3 (2026-11-02)
 
 This plugin's "Ask Crux" chat behavior is split across **three independent git repos**, each its own Docker
@@ -18,6 +47,24 @@ observable in chat for BUG-CRX-125 until the matching MCP + crux-core commits we
 containers restarted. Even then, one bug (BUG-CRX-125) still reproduced afterward with an improved-but-still-wrong
 failure mode — pulling all three repos doesn't guarantee one ask-level finding is actually closed; always re-run
 the original repro in a **fresh chat** (old chat history keeps the stale answer) before marking fixed.
+
+## BUG-CRX-130 reclassified as NOT A BUG — its own premise was wrong, not the agent (2026-11-03)
+
+Per explicit user correction, confirmed independently by the developer's own production journal note on this
+issue (round 27): **admin never had an unconditional approve-bypass.** The real, intended plugin rule
+(`ApprovalEngine#can_approve?`) is: admin may approve at a level only when **no real user holds that level's
+approver role** in the submission's team/project. The bug's own "Expected result" — admin bypasses
+unconditionally — was an over-generalization from TC-CRX-464's PASS result, which happened to succeed because no
+eligible Level-2 approver existed for that team at the time, not because admin bypasses the rule unconditionally.
+Submission #6's Level 1 = Manager, genuinely held by Selene Frost, so every "failure" logged against this bug in
+the entries below (STILL OPEN, REGRESSED, etc.) was the plugin correctly enforcing its own real rule, surfaced
+with varying honesty by the chat layer across rounds — not a defect in the underlying permission logic itself.
+Re-confirmed twice after the correction (including after a full crux-core/mcp rebuild — see the critical note
+above — and a further `redmineflux_timesheet` pull to `f685938`) that the Time Agent now gives an accurate,
+honest decline naming the real rule. `TC-CRX-449`/`464` in `CRUX_AGENT_TIMESHEET.md` corrected to match. Added a
+note (not a status change — left to the developer) on production issue #127323 explaining this. The entries
+below (dated 2026-11-02) are kept as-is for the historical record of what was actually observed each round, but
+should be read through this correction, not taken at face value as "the agent is still broken here."
 
 ## 2026-11-02 — 3rd developer pull (crux-core CRC-74/75 + mcp), 6 bugs retested, 2 more fixed
 

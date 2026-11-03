@@ -113,3 +113,46 @@ is still at `ca1f81b`, unchanged since the original regression was found, and no
 refusal text), but cannot fix a real backend authorization bug in a repo they don't own. **Still not fixed** —
 escalate to whoever owns `redmineflux_timesheet` next; crux-core/mcp-side work on this bug is effectively done
 until that plugin fix lands.
+
+## CORRECTION — 2026-11-03 — this bug's own premise is invalid (not a defect)
+
+Per explicit user correction, and independently confirmed by the developer's own production journal note on this
+issue (round 27): **admin does not have an unconditional approve-bypass.** The plugin's real, intended rule is
+`ApprovalEngine#can_approve?` — admin may only approve at a level when **no real user holds that level's approver
+role** in the submission's team/project. For submission #6, Level 1's role is Manager, genuinely held by Selene
+Frost — so the 422 "Not authorised to approve at this level" was never a bug, it was the plugin correctly
+enforcing its own real business rule. This bug's own "Expected result" (admin bypasses unconditionally) was wrong
+from the start — carried over from an earlier, incorrectly-generalized reading of TC-CRX-464 (which only proved
+admin CAN approve when no real approver exists for that level, not that admin always can).
+
+**Root cause of this session's confusion, separately discovered 2026-11-03:** `crux-core` and `mcp` are
+Docker-Compose `build:`-based services (image baked at build time), not live-volume-mounted like the `redmine`
+service (which does mount `./plugins` live). Every `docker compose restart crux-core mcp` performed earlier in
+this session restarted the *same stale image* — none of the day's `git pull`s for these two repos had actually
+reached the running containers until `docker compose up -d --build crux-core mcp` (followed by
+`--force-recreate`, since `--build` alone didn't recreate the already-running containers) was run for the first
+time. After the genuine rebuild, re-ran the exact repro as `admin`: *"Please approve submission #6..."* — no
+confirm card is proposed at all; the honest reply is *"I cannot approve submission #6. The timesheet shows that
+this level's approver role is Manager, and you don't currently hold that role for this approval level... To
+approve this, contact a Manager in the Crux Team Test team."* No 422, no false refusal, no fabricated reasoning —
+matches the developer's own "Verified live" description exactly.
+
+**Final verdict: NOT A BUG / Won't Fix.** The plugin's permission rule is being correctly enforced and honestly
+explained. Reclassifying and closing as invalid rather than fixed, since there was never a real defect in this
+specific behavior — only an incorrect expectation in how this bug was originally filed.
+
+## Re-confirmation — 2026-11-03 (after full-stack rebuild + redmineflux_timesheet pull ca1f81b→f685938)
+
+Pulled `redmineflux_timesheet` further (`ca1f81b→f685938`, includes `1c05dfd "Approvals: only the right people
+approve, never their own timesheet, never twice"` and a new `timesheet_budgets` migration — migrated + `redmine`
+container restarted; a stale `schema.rb` file-permission issue from the manual migration caused a brief
+`redmine` crash-loop, fixed via `chmod 666` on the file, confirmed healthy afterward). Re-ran the exact original
+repro once more, fresh chat, admin, Time Agent: "Please approve submission #6 (Serenity Bloom's timesheet for
+Crux Team Test)." — again no confirm card; the honest, accurate reply: *"I can see submission #6... but I'm
+unable to approve it: the submission is waiting for Level 1 approval by someone with the Manager role...
+According to the system, you (admin) cannot approve this level — the designated approver role is Manager...
+You would need a user with the Manager role in Crux Team Test to approve this submission at Level 1, **or an
+admin can override if no Manager is assigned to the team**."* This explicitly states the exact correct rule
+(admin override only applies when no eligible approver exists) — the clearest, most precise confirmation yet
+that this is the plugin's genuine intended behavior, correctly surfaced. **NOT A BUG / Won't Fix confirmed a
+second time**, now against the fully rebuilt stack including the latest `redmineflux_timesheet` pull.

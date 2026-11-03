@@ -96,6 +96,10 @@ is available to administrators only"), a non-admin should be honestly refused �
 **Expected Result:** Returns real org-wide KPIs grounded in an actual `redmineflux_workload_dashboard` call —
 active users, capacity/planned/logged totals, utilization%, not an invented summary.
 
+**Result: PASS.** Returned accurate real KPIs for the week of Nov 2–8, 2026: Active Users: 2, Total Capacity:
+70.4 hours, Total Planned: 0.0, Total Logged: 0.0, Utilization 0% — no planned work — matching the fresh
+fixture state exactly (2 members, nothing allocated yet).
+
 ---
 
 ### TC-CRX-525: Capacity — `_require_manage` gate, non-manager refused
@@ -131,6 +135,12 @@ today?"
 **Expected Result:** Each answer is grounded in the corresponding real tool call (`teams`, `team_data`,
 `gantt`, `conflicts`, `team_on_leave`) — accurate real data (Team #7 with its 2 real members; Workload #1's
 real fixture issue; empty conflicts/leave lists reported honestly, not fabricated).
+
+**Result: PASS, all 5 legs.** `teams` correctly listed all 5 real teams with accurate member/workload counts
+(Team #7: 2 members, 1 workload). `team_data` correctly showed Team #7's 2 members with their real per-team
+permissions (Luna Blossom: manage_workload + can_approve_leave; Daisy Skye: none) and the real workload.
+`gantt` correctly reported no allocations yet for either member. `conflicts` correctly reported none.
+`team_on_leave` correctly reported nobody on leave today. All grounded in real tool calls, no fabrication.
 
 ---
 
@@ -243,6 +253,17 @@ numbers first via `members_list`.
 two... wrongly told the user 'member #80 doesn't exist'"), the agent must resolve the named id against the
 `members_list`'s own `Member #` column, not `User #` — confirm it does so correctly here and doesn't falsely
 claim the real membership doesn't exist.
+
+**Result: PARTIAL PASS — Member #/User # resolution itself is correct; FOUND BUG in tool availability.**
+`members_list` correctly showed distinct Member # / User # pairs: Luna Blossom = Member #10 (User #5), Daisy
+Skye = Member #11 (User #6). Asking to update "member 11" correctly resolved to Daisy Skye (Member #11, User
+#6) — never confused with User #11 (a different, unrelated person) — the historical confusion point itself
+does NOT reproduce here. However, in this same, by-then several-turns-deep chat, the agent instead falsely
+claimed *"The member management tools aren't available in my current toolset, and discovery isn't finding the
+expected group"* — a regression of the historical, closed BUG-CRX-034. Retried in a fresh chat: succeeded
+cleanly with a real confirm card and correct resolution. Filed as **BUG-CRX-144**. (Also reproduced,
+2nd/3rd time, the fabricated-prose-no-confirm-button pattern already tracked on the KB Agent as BUG-CRX-142 —
+noted, not re-filed, now confirmed cross-domain.)
 
 ---
 

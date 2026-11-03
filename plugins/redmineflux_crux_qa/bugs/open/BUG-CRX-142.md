@@ -79,3 +79,11 @@ offered other than guessing to retry.
   single-instance precedent). This is the same general defect class, but reproduced **3 times within one
   suite** on the KB Agent specifically — frequent enough to no longer qualify as a single non-reproducible
   instance, and therefore filed as its own bug rather than left as an unfiled observation.
+
+**Cross-domain confirmation, 2026-11-03**: the identical fabricated-prose-no-confirm-button pattern reproduced
+twice more on the **Capacity Agent** (Workload plugin) during `member_update` testing — once proposing to
+enable `manage_workload` for Member #11, once proposing to disable it — both with no real Confirm button,
+both resolved only after an explicit "Yes, confirm." follow-up. This confirms the defect is not isolated to
+the KB Agent's own tool-calling path but a shared, cross-domain weakness in how Crux's own confirm-gate
+(CRX-35) proposal step sometimes fails to actually invoke the underlying write tool despite generating
+proposal-shaped prose.

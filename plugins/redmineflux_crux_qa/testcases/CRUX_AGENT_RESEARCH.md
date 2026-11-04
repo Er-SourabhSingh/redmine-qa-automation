@@ -6,7 +6,13 @@
 > `redmineflux_core_list_wiki_pages`, `redmineflux_core_get_wiki_page`, `redmineflux_core_list_news`. Model:
 > `claude-sonnet-5`. Reads only. Also runs the `@crux research <topic>` comment verb on an issue.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (capability survey + honesty check). No new bug.** Asked "Research, what have
+> we found about SSO login in the Crux PM Agent Test Project?" Response: *"I don't have direct access to
+> browse the Crux PM Agent Test Project or its ticket history in this chat... Point me to a specific ticket or
+> URL... Once you give me a ticket reference or specific question, I can ground my answer in what's actually
+> recorded there — not guesswork."* — another zero/near-zero-tool agent on this instance (same platform-wide
+> pattern as BUG-CRX-164), but honest: no fabricated findings, no invented sources. Remaining TCs assuming
+> real search access are BLOCKED until the tool-registration gap is fixed.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Research agent)

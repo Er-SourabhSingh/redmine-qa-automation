@@ -746,3 +746,26 @@ questioned. Filed as **BUG-CRX-159**. Once told plainly that holidays don't take
 course and produced the genuine confirm card — confirmed → the real, intended validation fired correctly:
 `"Validation error: Holiday Name has already been taken."` Native-verified on `/rf_helpdesk_holidays`: only one
 "Diwali" record exists — the duplicate was genuinely rejected, not silently created.
+
+---
+
+### TC-CRX-600: Support package discoverability probe — the plan's open question
+
+**User Role:** `admin`.
+
+**Steps:** "Create a new support package called 'Gold Support Package' with 10 standard hours." (Support
+packages are not mentioned anywhere in the Support Agent persona file's static or discovery text — this TC
+checks whether `crux_discover_group_tools("helpdesk")` even reaches this group at all.)
+
+**Expected Result:** The agent should genuinely discover `create_support_package` rather than falsely claiming
+no such capability exists.
+
+**Result: PASS on discoverability, FAIL on actually using it — found BUG-CRX-160.** Discoverability concern was
+unfounded: the agent genuinely discovered `redmineflux_helpdesk_create_support_package` ("Checked 2 things")
+and gave a fully accurate explanation of its real field set (name + optional description only, no "standard
+hours" field — confirmed correct against source), correctly distinguishing support packages (global labels)
+from prepaid-hours setup. However, the follow-up request to actually create one ("Create the support package
+called 'Gold Support Package' with a description...") proposed Crux's own unrelated `crux_create_work_package`
+tool instead — reproduced a second time even when the exact correct tool name was stated explicitly in the
+message. Filed as **BUG-CRX-160**. Both proposals were cancelled rather than confirmed; native-verified no
+stray work package was created at `/crux/work_packages`.

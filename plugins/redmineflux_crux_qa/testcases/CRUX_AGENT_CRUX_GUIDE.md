@@ -6,7 +6,26 @@
 > the product, never reads live ticket/project data** — a deliberately narrower agent than Project Manager,
 > and the narrowness itself is the main thing worth testing.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (core checks). 1 new bug: BUG-CRX-170 (cross-agent session-state leak, not
+> specific to this agent's own reasoning).**
+
+### Core checks executed
+
+**Quick product question, correct and grounded (TC-695/697 combined) — PASS in a fresh chat.** Asked "What's
+the Work Packages panel?" / "how do I approve a gate in Crux?" in a genuinely new chat session. Response was
+correct and precise, matching the manifest's own summary: *"You approve a gate by opening the Work Packages
+panel, clicking the 'approve' button on the gate chip, and confirming in the modal — which shows you the real
+evidence behind that gate (the runs, cost, and acceptance proof)."*
+
+**Same question, in a chat that had earlier used Improver — FAILED, filed BUG-CRX-170.** The identical question
+in a chat where Improver had been pinned moments earlier (and left an unconfirmed, fabricated JSON proposal
+dangling per BUG-CRX-169) returned a bogus, irrelevant "nothing to confirm yet" response on 2/2 attempts after
+switching to Crux Guide — not a Crux Guide reasoning defect, but a cross-agent session-state leak. See
+BUG-CRX-170.
+
+Remaining TCs (live-data redirect, nonexistent-feature refusal, empty-docs-read honesty, zero-write-tool
+confirm) not yet executed this round — deprioritized per user instruction; the suite's most important finding
+(the cross-agent state leak) is already conclusively demonstrated.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Crux Guide agent)

@@ -692,3 +692,33 @@ Confirmed → `"✓ Customer removed from project."` Native-verified: the Projec
 correctly resolved `Customer Ids: [25]`, `Rf Sla: 1`, `Rf Support Level: 1`. Confirmed → `"✓ Customer(s) added
 to project. Record IDs: 2"`. Native-verified: Project Access row restored to `Crux Helpdesk Agent Test Project`
 / `Crux Helpdesk Standard SLA` / `Level 1 Support`.
+
+---
+
+### TC-CRX-598: Product CRUD lifecycle — create (field-mismatch bug), update, delete
+
+**User Role:** `admin`.
+
+**Steps:** "Add a new product called 'Mobile App' for project 12 so tickets can be tagged to it." (deliberately
+no product code mentioned). Then: rename it, then delete it.
+
+**Expected Result:** `create_product`'s own tool docstring marks `code` as optional, so a plain create request
+should succeed without one. Update and delete should both genuinely work (the generic `redmineflux_helpdesk_
+delete` tool explicitly supports `resource_type: "product"`, confirmed in source — there is no "products can't
+be deleted" capability gap, unlike originally assumed in this suite's planning notes).
+
+**Result: FAIL on create (found BUG-CRX-157), then PASS on update/delete once a code was supplied (plus a
+transient BUG-CRX-158 on the delete step).** First attempt: confirm card correctly showed just `Project` and
+`Name: Mobile App` (matching the tool's own "optional" `code` doc) — confirmed → genuine failure:
+`"Validation error: Product Code cannot be blank."` Root-caused: `RfProduct` model's own `validates :code,
+presence: true` contradicts the MCP tool's documented-optional contract. Filed as **BUG-CRX-157**.
+Native-verified no product was created. Retried supplying a code ("MOBAPP") — confirm card now showed
+`Code: MOBAPP` — confirmed → `"✓ Product created successfully. ID:1 | Mobile App."` Rename to "Mobile App v2":
+confirm card `Product: 1`, `Name: Mobile App v2` — confirmed → `"✓ Product updated successfully."` Delete: first
+attempt ("Now delete the Mobile App v2 product.") dead-ended with the already-documented "I described a change
+without actually proposing it..." non-actionable response (filed as **BUG-CRX-158**, a Products-domain
+recurrence of BUG-CRX-013/070/085) — immediate retry with the same intent produced a genuine `Helpdesk Delete`
+confirm card (`Resource Type: product`, `Resource: 1`), confirmed → `"✓ Product deleted successfully."`
+Native-verified on `/rf_products`: product genuinely gone ("No products yet"). Confirms the suite's own earlier
+planning-note assumption ("no delete tool exists for products — refusal test") was incorrect; the generic
+`redmineflux_helpdesk_delete` tool does support products, and it works.

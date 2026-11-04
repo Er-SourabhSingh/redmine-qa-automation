@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-159
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127606
 - Title: Support Agent falsely claims "the holiday creation tool requires a project id" and that an earlier
   holiday "was created for project 12" — `create_holiday` has no `project_id` parameter at all; holidays are
   install-wide, confirmed by the first holiday's own confirm card showing no Project field whatsoever

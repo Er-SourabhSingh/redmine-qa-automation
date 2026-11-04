@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-155
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127602
 - Title: Support Agent's `create_support_level` crashes with a Pydantic validation error when creating a
   "final tier" support level (no escalation target) — sends `escalation_to_id: ""` (empty string) instead of
   omitting the parameter or passing `null`

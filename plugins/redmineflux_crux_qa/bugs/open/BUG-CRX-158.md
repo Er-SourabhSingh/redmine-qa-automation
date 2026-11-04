@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-158
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127605
 - Title: "Now delete the Mobile App v2 product." gets "I described a change without actually proposing it..."
   in a very long-running chat; the identical intent (just slightly more explicit) succeeds cleanly on retry —
   recurrence of the already-documented dead-end/non-actionable-response class (BUG-CRX-013/070/085) on the

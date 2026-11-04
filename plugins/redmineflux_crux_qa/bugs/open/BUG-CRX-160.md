@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-160
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127607
 - Title: Asking the Support Agent to create a Helpdesk "support package" proposes Crux's own unrelated
   `crux_create_work_package` tool instead of `redmineflux_helpdesk_create_support_package` — reproduced twice,
   including once with the exact correct tool name stated explicitly in the request

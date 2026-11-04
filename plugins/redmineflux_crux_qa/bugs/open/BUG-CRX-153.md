@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-153
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127601
 - Title: Support Agent's `update_ticket` cannot resolve "High" priority to a valid id — guesses `priority_id: 2`
   then `3` across 3 attempts, including one genuine tool-check, none of which match the real active
   `IssuePriority` ids (6=low, 7=medium, 8=high, 9=immediate) on this install

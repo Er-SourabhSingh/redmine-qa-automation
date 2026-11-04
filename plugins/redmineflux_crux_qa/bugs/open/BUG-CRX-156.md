@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-156
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127603
 - Title: A genuine failure on step 2 of a 2-step plan ("Support level #2 not found for escalation target") is
   rendered with a misleading "✓" checkmark prefix, even though step 1 (creating support level #2) had already
   failed — same recurring class as BUG-CRX-018/054/067/082/151

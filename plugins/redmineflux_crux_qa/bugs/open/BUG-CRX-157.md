@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-157
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127604
 - Title: Support Agent's `create_product` tool documents `code` as optional, but the native `RfProduct` model
   requires it (`validates :code, presence: true`) — every "create a product" request that doesn't explicitly
   mention a product code fails, even though the agent correctly followed its own tool's documented contract

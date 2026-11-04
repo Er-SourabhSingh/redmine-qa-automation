@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-162
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127609
 - Title: Support Agent's `kb_create_page` always fails with a generic, uninformative validation error — the
   real server-side cause is `ActionController::InvalidAuthenticityToken: Can't verify CSRF token authenticity`
   on `RfKnowledgebasePagesController#create`, which is session-cookie-authenticated (not under the

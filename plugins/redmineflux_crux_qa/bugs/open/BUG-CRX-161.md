@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-161
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127608
 - Title: Support Agent's `create_customer` can never succeed — the tool has no `rf_organization_id` parameter
   at all, but the native `User` model unconditionally requires an organization for every helpdesk customer
   (`validates :rf_organization_id, presence: true, if: :is_helpdesk_customer?`), and no follow-up call can work

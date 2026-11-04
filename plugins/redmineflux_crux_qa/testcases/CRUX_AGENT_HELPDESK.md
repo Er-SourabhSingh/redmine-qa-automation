@@ -183,6 +183,22 @@ today, 2026-11-04).
 HD-005 comment), a past due date should at minimum produce a warning, not be silently accepted as if it were
 a sensible future deadline.
 
+**Result: FAIL — found BUG-CRX-153 and BUG-CRX-154 (the original past-date question became moot; a different,
+more severe failure blocked the write entirely).** Confirm card proposed `Priority: 2` (no tool-check shown —
+a pure guess) alongside `Ticket: 28`, `Due Date: 2026-01-01`. Confirmed → genuine server validation failure:
+`"Priority cannot be blank"` — not a past-date complaint at all. Retried with a corrected future date
+(2026-12-01); confirm card still showed `Priority: 2` unchanged; confirmed → **identical** `"Priority cannot be
+blank"` failure, proving the date was never the issue. Told the agent explicitly the date wasn't the problem —
+it then genuinely checked a tool ("Checked 1 thing") and proposed `Priority: 3`, still wrong. Native-verified
+via the real `/enumerations/issue_priorities.json` endpoint: this install's actual active priority ids are 6
+(low), 7 (medium), **8 (high)**, 9 (immediate) — none of the agent's 3 guesses (2, 2, 3) ever matched. Filed as
+**BUG-CRX-153** (wrong priority-id resolution, never converges even after a genuine tool check). Separately,
+when the agent explained the first failure to the user, it **fabricated a false root cause** — "The due date...
+is in the past... That's why the validation failed" — when the real error named Priority, not the date; this
+false diagnosis was disproven by the identical error recurring with a genuinely valid date. Filed as
+**BUG-CRX-154**. Native-verified throughout: ticket #28's Priority remained `low` and Due Date remained empty —
+no data corruption, every failed write was cleanly rejected server-side.
+
 ---
 
 ### TC-CRX-577: Merge ticket — confirm the REST-only mechanism, no in-app merge
@@ -196,6 +212,16 @@ a sensible future deadline.
 the REST API") and the agent's own static `merge_ticket` tool (listed under "Tickets — full CRUD + merge"),
 this should genuinely work via the agent (it has direct REST access, unlike a human in the web UI) — confirm
 card and real native-verified merge (one ticket closed/redirected, not two independent tickets still open).
+
+**Result: PASS.** Created a second ticket (#30, "Printer issue 3rd floor," deliberately worded as a duplicate)
+via chat with no priority specified (to sidestep BUG-CRX-153 for this unrelated test). Then: "Merge the
+duplicate printer ticket (ticket 30) into the original printer ticket (ticket 28)." Confirm card correctly
+showed `Ticket: 30`, `Merge Into: 28`. Confirmed → `"✓ Tickets merged successfully."` Native-verified both
+sides: ticket #30's Status genuinely changed to **Done**, Related Issues shows **"Is duplicate of Support
+#28,"** and its journal has **"Merged into ticket #28."** Ticket #28 remained untouched and still open
+("Waiting for Customer Response") — exactly the one-closed/one-survives merge behavior expected, confirming the
+agent's direct REST access genuinely provides the merge capability the vendor doc says has no in-app
+equivalent for a human in the web UI.
 
 ---
 

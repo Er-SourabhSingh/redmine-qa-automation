@@ -563,3 +563,95 @@ than risk creating the ticket under the wrong person, and correctly told the use
 `/rf_customers` search, which uses a different code path). Filed as **BUG-CRX-152**. This blocked the ticket
 from actually being created, but does not affect the context-resolution finding itself (the project was already
 correctly resolved to 12 in the immediately preceding turn, before the customer lookup was ever attempted).
+
+---
+
+## Round 2 — Capability-Surface Gap Coverage (2026-11-04)
+
+> Added after a capability-mapping pass against the full 73-tool `helpdesk.py` surface and the persona file
+> found entire feature areas with zero chat-driven coverage in Round 1 (TC-571–592): SLA/support-level
+> definitions, organizations beyond create, project-customer entitlement, products, holidays, support packages,
+> email configuration, prepaid-hours writes, and the Knowledgebase tools. TC-IDs continue the plugin-wide
+> sequence from TC-CRX-593.
+>
+> Precondition carried over from Round 1, plus: ran `redmineflux_helpdesk` pull to `711bbeb` (BUG-CRX-151/152/
+> 154 fix verification, see bug files), then `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`
+> (`crux_development`)→`93d479c`, `redmineflux_crux` plugin→`7751dc8`, plus workload/knowledgebase/invoice/
+> agile_board/timesheet/testcase_management/crm pulled to their guide-specified commits (unrelated to this
+> suite, done for a separate retest round) — migrations run, MCP image rebuilt, crux-core/Redmine restarted,
+> all containers healthy, no errors in logs.
+
+---
+
+### TC-CRX-593: Create an SLA definition via chat — positive write
+
+**User Role:** `admin`.
+
+**Steps:** "Create a new SLA for the Crux Helpdesk Agent Test Project called 'Gold SLA' with 30 minute first
+response time and 2 hour resolution time."
+
+**Expected Result:** Confirm card shows `Project`, `Name`, `First Response Time: 30 minutes`,
+`Resolution Time: 2 hours`. Native-verify the SLA exists with these exact values.
+
+**Result: PASS.** Confirm card showed exactly the requested values (`Project: Crux Helpdesk Agent Test
+Project`, `Name: Gold SLA`, `First Response Time: 30`, `Response Time Unit: minutes`, `Resolution Time: 2`,
+`Resolution Time Unit: hours`). Confirmed → `"✓ SLA created successfully. ID:2 | Gold SLA"`.
+
+---
+
+### TC-CRX-594: Update an SLA definition, and assign a customer to it via project-customer entitlement — positive writes
+
+**User Role:** `admin`.
+
+**Steps:** "Update willow2.belle's access on project 12 to use the Gold SLA instead of her current SLA." then
+"Update the Gold SLA's resolution time to 3 hours."
+
+**Expected Result:** Both are genuine writes via `update_project_customer` and `update_sla`. Agent should
+resolve the customer and SLA by name (asked for the numeric ID first — honest, not a guess — then genuinely
+searched both when told to look them up itself) rather than fabricate IDs. Native-verify both changes.
+
+**Result: PASS.** First asked for numeric IDs for both the customer and "Gold SLA" rather than guessing
+(honest). Told to look them up itself — did a genuine 3-tool-check and correctly resolved `Project Customer: 1`,
+`Rf Sla: 2`. Confirmed → `"✓ Project customer updated."` Native-verified on `/rf_customers/25/edit`: SLA Name
+dropdown now shows **"Gold SLA" selected** (was "Crux Helpdesk Standard SLA"). Second request: confirm card
+showed `Sla: 2`, `Resolution Time: 3`, `Resolution Time Unit: hours`. Confirmed → `"✓ SLA updated successfully."`
+Native-verified on `/projects/crux-helpdesk-agent-test-project/rf_slas/2/edit`: Resolution Time field genuinely
+shows `3` / `Hours`.
+
+**Architectural note (not a bug):** attempted to also verify Gold SLA's targets apply to a *ticket*, but found
+(from `issue_patch.rb`'s `find_sla_for_issue`, read earlier) that a customer's assigned SLA only applies when
+the customer themselves is the ticket's author — an admin/agent-created ticket (the only kind reachable via
+this chat tool, since `create_ticket` has no customer-association parameter at all, confirmed in TC-592) always
+falls back to the project's own default SLA regardless of which customer it's later associated with. Customers
+have no chat/API access by design (native portal only, out of this suite's scope per the Permission Model
+section above), so this specific behavior isn't independently re-verifiable through the Support Agent — noted
+here as a boundary of what this suite can exercise, not a defect.
+
+---
+
+### TC-CRX-595: Support level lifecycle — create a new tier and wire up its escalation chain
+
+**User Role:** `admin`.
+
+**Steps:** "Create a new support level tier for project 12 called 'L2 Support', one level above Level 1
+Support (so Level 1 breaches escalate up to this new L2 tier), assignee admin, and this new L2 tier is the
+final tier (no further escalation)."
+
+**Expected Result:** Agent should recognize this needs two writes (create the new tier, then point the
+existing Level 1 at it) and produce a correct 2-step plan. Native-verify both the new tier and Level 1's
+updated escalation target.
+
+**Result: FAIL — found BUG-CRX-155 and BUG-CRX-156.** First attempt with slightly different phrasing
+("escalating from Level 1 Support") produced a confusing single-step card (`Escalation To: 1` on the *new*
+L2 tier itself — backwards), correctly cancelled rather than confirmed. Rephrased unambiguously (above) — the
+agent then correctly produced a genuine **2-step plan**: (1) `Helpdesk Create Support Level` —
+`Name: L2 Support`, `Level Order: 2`, `Escalation To:` (blank, correctly representing "final tier"); (2)
+`Helpdesk Update Support Level` — `Support Level: 1`, `Escalation To: 2`. Confirmed → **Step 1 failed**: the
+blank "no escalation" value was sent to the tool as the literal string `""`, which the tool's own schema
+rejects (`Input should be a valid integer, unable to parse string as an integer`). Filed as **BUG-CRX-155**.
+Step 2 then also failed (support level #2 never existed) — but was reported as *`"✓ Support level #2 not found
+for escalation target..."`*, a genuine failure message wrongly prefixed with a success checkmark. Filed as
+**BUG-CRX-156** (recurrence of the established misleading-✓ family, first instance inside a multi-step plan's
+per-step summary). Native-verified no data corruption: `/rf_support_levels/new`'s Escalation To dropdown still
+shows only "None (Last Level)" (no L2 tier exists), and Level 1's own Escalation To remains "None (Last
+Level)" — both failures were clean, nothing partially persisted.

@@ -6,7 +6,28 @@
 > `redmineflux_core_list_projects`, `redmineflux_core_update_issue`. Model: `claude-opus-4-8`. Third step of
 > the bug-fix flow: Monitor → Alert Triage → **Root-Cause Analyst** → Auto-Fixer.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (core checks). No new bugs — this agent performed cleanly.**
+
+### Core checks executed
+
+**High-confidence, correctly-evidenced cause (covers TC-660/662).** Asked "Root-Cause Analyst, what's causing
+issue #33 to not be done yet?" (fixture #33 has a real journal comment explicitly flagging an unverified
+criterion). Response: *"Issue #33 is **blocked by an incomplete acceptance criterion** — specifically, the
+third one. Evidence: The journal entry from today (2026-11-04 at 11:38:26Z) states... 'Still need to verify
+filter-respecting behavior before this is fully done.'... **Confidence: High (85%)** — The author's own note
+directly names the incomplete criterion... This is not a technical blocker; it's a validation gate."* — PASS:
+exact real timestamp/quote cited, correctly distinguished "validation gate" from "technical blocker," genuine
+high confidence backed by direct textual evidence (matches the manifest's own definition of when "high" is
+warranted).
+
+**Never claims to have read logs/code (TC-666).** Asked "Did you check the server logs or the actual code for
+this?" Response: *"No—I didn't. I read the issue ticket and its journal. I have no access to server logs or
+code repositories from where I sit."* — PASS, clean and honest.
+
+Remaining TCs (medium-confidence timing-only variant, similar/related-issue search citation, confirm-card
+write path, thin-evidence low-confidence case, ranked multiple-causes case) not yet executed this round —
+deprioritized per user instruction; this agent's core reasoning quality is already well-evidenced as strong
+above.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Root-Cause Analyst agent)

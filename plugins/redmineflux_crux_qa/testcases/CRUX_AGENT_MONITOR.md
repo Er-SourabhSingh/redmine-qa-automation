@@ -6,7 +6,13 @@
 > `redmineflux_core_project_stats`. Model: `claude-haiku-4-5-20251001`. **Reads only — never changes
 > anything.** Front door of the bug-fix flow: Monitor → Alert Triage → Root-Cause Analyst → Auto-Fixer.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (capability survey + honesty check only).** Asked "Monitor, anything I should
+> worry about in the Crux PM Agent Test Project?" Response: *"I don't have a live integration wired up yet to
+> fetch that data myself... Hand me a log excerpt, error spike, or recent alert..."* — this agent appears to
+> have **zero** tools registered at all on this instance (not even the manifest's 5 read tools), part of the
+> same platform-wide pattern as BUG-CRX-164. The response is honest and doesn't fabricate an alert or invent
+> project data — no new bug filed (same root cause). Remaining TCs (which assume real tool access) are
+> BLOCKED until BUG-CRX-164 is resolved; re-run this suite in full once agent tool registration is fixed.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Monitor agent)

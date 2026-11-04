@@ -880,3 +880,50 @@ created. Worked around by creating a disposable customer fixture (`temp.deleteme
 instead, to still test the delete half: "Delete the helpdesk customer temp.deleteme." → confirm card correctly
 resolved `Resource Type: customer`, `Resource: 26`. Confirmed → `"✓ Customer deleted successfully."`
 Native-verified on `/rf_customers?search=temp.deleteme`: zero results, genuinely gone.
+
+---
+
+### TC-CRX-605: Knowledgebase read path — list pages, search
+
+**User Role:** `admin`.
+
+**Steps:** "List all knowledgebase pages for project 12." then "Search the knowledgebase for 'VPN setup'."
+(project 12).
+
+**Expected Result:** Both reads should work and report honestly (no pages exist yet at this point in the
+session).
+
+**Result: PASS.** `kb_list_pages`: genuine tool call ("Checked 1 thing"), correctly reported *"There are no
+knowledgebase pages yet in project 12"* — and accurately remembered the still-unconfirmed VPN page proposal
+from the same chat, without fabricating it as already existing. `kb_search`: asked for the project id when not
+restated (honest, not a guess), then once given, genuinely searched and correctly reported no matches — again
+accurately noting the pending unconfirmed page rather than claiming a false match.
+
+---
+
+### TC-CRX-606: Knowledgebase write path — create page (found critical BUG-CRX-162)
+
+**User Role:** `admin`.
+
+**Steps:** "Create a knowledgebase page for project 12 titled 'VPN Setup Guide' with content 'Step 1: Install
+the VPN client. Step 2: Enter your credentials. Step 3: Connect.'"
+
+**Expected Result:** `kb_create_page` should genuinely create the page, matching the pattern of every other
+Helpdesk write tool tested this cycle.
+
+**Result: FAIL — found BUG-CRX-162, a critical infrastructure-level regression.** Confirm card correctly showed
+`Project`, `Title: VPN Setup Guide`, `Content: ...`. Confirmed → generic failure: *"Validation error: rf
+knowledgebase pages could not be saved. A required field may be missing, a value may be out of range, or a
+status transition may not be allowed for your role."* Checked Rails server logs for the real cause: `POST
+/rf_knowledgebase_pages.json` → `ActionController::InvalidAuthenticityToken: Can't verify CSRF token
+authenticity` → `Filter chain halted` → `422`. Root cause: `RfKnowledgebasePagesController` is the **only**
+Helpdesk write tool exercised this entire cycle that does not route through the CSRF-exempt `Api::V1::*`
+namespace — every other write tool (tickets, SLA, support levels, organizations, project-customer entitlement,
+products, holidays, support packages, prepaid hours, canned responses, customers — 11 distinct tool groups,
+all tested successfully this session under the identical admin session) hits `/helpdesk/api/v1/...` and works
+correctly. `kb_create_page` cannot succeed via chat at all under current routing. Filed as **BUG-CRX-162** —
+likely affects every sibling KB write tool routed the same way (`kb_update_content`, `kb_delete_page`,
+`kb_reorder_page`, version publish/restore), though only creation was directly tested here. Given this blocks
+all further KB write testing (update-content replace-not-append, delete, reorder, versions), **TC-607
+(KB write path — update/delete/version lifecycle) is deferred** until BUG-CRX-162 is fixed — there is no
+reachable write to exercise those behaviors against.

@@ -118,3 +118,42 @@ record id (`delete_space`), can silently target a different real record instead.
   That combination — not just a wrong project, but a wrong real target record for a cascade-delete — is what
   makes this the more severe of the two shapes and worth its own bug file rather than folding into the
   BUG-CRX-133 family.
+
+## Retest — 2026-11-04 (STILL REPRODUCES — NOT FIXED)
+
+Developer's retest guide round (KB domain) retested against current `redmineflux_knowledgebase` /
+`redmineflux_crux` / `redmineflux-mcp` builds pulled this session (see Workload-domain retest notes for the
+exact commit set pulled; same restart cycle applied to all plugins including this one).
+
+Reproduced the exact defect shape documented above, on `delete_space` specifically, in chat session `ses-374`
+(KB Agent pinned, "Crux Knowledge Base Agent Test Project"):
+
+1. Created a fresh space "Release Notes Retest" (#3) — succeeded, confirm card and result correctly used the
+   real project identifier `crux-kb-agent-test-project` (fresh-ish context, first write-type call in this
+   chat).
+2. Updated the space's description — succeeded, correctly referenced `Space: 3`.
+3. Listed all spaces — correctly showed "Release Notes Retest (ID #3)".
+4. "Delete the Release Notes Retest space." — the confirm card showed `Project:
+   crux-knowledge-base-agent-test-project` (the same fabricated, nonexistent slug variant documented above —
+   full slugification of the display name, not the real identifier). Confirming produced *"✓ Project not found
+   (If you expected this knowledge base space #3 to exist, verify the ID with the corresponding list_* tool.)"*
+   — misleading ✓ on a genuine failure, confirmed via Rails logs: `DELETE
+   /api/knowledgebase/spaces/3.json?project_id=crux-knowledge-base-agent-test-project` →
+   `Filter chain halted as :find_project rendered or redirected` → 404.
+5. Sent a retry: "That failed with \"Project not found.\" Please retry the delete." — this time the confirm
+   card correctly showed `Project: Crux Knowledge Base Agent Test Project` (display name this time, not the
+   slug, but resolved correctly). Confirming succeeded: Rails logs confirmed `DELETE
+   /api/knowledgebase/spaces/3.json?project_id=crux-kb-agent-test-project` (correct real identifier) → space
+   genuinely deleted. Native-verified via `/projects/crux-kb-agent-test-project/knowledgebase`: only
+   "Engineering Docs" (#1) and "Release Notes" (#2) remain; "Release Notes Retest" (#3) is genuinely gone.
+
+**Conclusion: STILL REPRODUCES.** The first attempt at a later-turn `delete_space` write still fabricates the
+wrong project identifier, exactly matching the originally documented defect — the only difference from the
+original finding is that this particular retry happened to self-correct onto the right real space (no wrong
+real record was targeted this time), rather than also mis-resolving the numeric space id as the original
+report's worst-case did. That is retry-to-retry variance in the underlying corruption, not evidence of a fix —
+the root defect (later-turn write calls re-deriving instead of reusing an already-correct project identifier
+from earlier in the same chat) is unchanged. **Bug stays open.** Production issue #127507 remains in its
+current status (not synced to Done).
+
+Remaining checks (BUG-CRX-141, 142, 143) continue in this same session/project context per the retest guide.

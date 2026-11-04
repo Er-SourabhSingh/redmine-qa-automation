@@ -80,6 +80,28 @@ offered other than guessing to retry.
   suite** on the KB Agent specifically — frequent enough to no longer qualify as a single non-reproducible
   instance, and therefore filed as its own bug rather than left as an unfiled observation.
 
+## Retest — 2026-11-04 (STILL REPRODUCES — NOT FIXED)
+
+Retested per the developer's guide ("The space, folder and delete requests always give a real confirm card,
+never a 'please confirm' text without buttons") against the current build (same pull/restart cycle as
+BUG-CRX-140/141 this round), in chat `ses-376` (KB Agent pinned, Engineering Docs space).
+
+- `create_space` and `update_space` (reused from the BUG-CRX-140 retest, chat `ses-374`) and `create_node`
+  (first attempt in `ses-376`, folder with a `description` field) all produced **real** confirm cards with
+  genuine Confirm/Cancel buttons — no fabricated-prose instance on those calls this round.
+- However, a second `create_node` attempt — "Create a folder called 'Temp Retest Folder' in the Engineering
+  Docs space" (clean retry after cancelling the first, content-validation-blocked attempt) — reproduced
+  **scenario 1 of the original bug verbatim**: the response was pure prose — *"Proposal: Create folder in
+  Engineering Docs space ... Confirm to create this folder?"* — with only Copy/Keep/Ask again buttons, no
+  Confirm/Cancel UI element anywhere. Replying "Confirm" produced the exact same dead-end as originally
+  documented: *"There's nothing pending to confirm right now — the previous message didn't actually propose a
+  change. Please re-state what you'd like to create or update."*
+
+**Conclusion: STILL REPRODUCES.** The fabricated-prose-no-confirm-button defect is not fixed — it recurred on
+the very next `create_node` call after a batch of calls that all worked correctly, consistent with the
+original report's description of this as intermittent rather than tied to one specific tool. **Bug stays
+open.** Production issue #127509 remains in its current status (not synced to Done).
+
 **Cross-domain confirmation, 2026-11-03**: the identical fabricated-prose-no-confirm-button pattern reproduced
 twice more on the **Capacity Agent** (Workload plugin) during `member_update` testing — once proposing to
 enable `manage_workload` for Member #11, once proposing to disable it — both with no real Confirm button,

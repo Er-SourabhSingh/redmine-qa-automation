@@ -77,3 +77,25 @@ exact page states observed)
   BUG-CRX-140 (project-identifier/wrong-record-id confirm-card defect on write tools generally) — this bug is
   about what `update_node` does to the plugin's own documented versioning guarantee once a write does
   genuinely succeed, not about which project/record it targets.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux_knowledgebase`, `redmineflux-crux-core`, `redmineflux-mcp` (`crux_development`),
+and `redmineflux_crux` to the commits named in this round's retest guide (same pull/migrate/restart cycle as
+the Workload-domain retest). Retested in a fresh chat (`ses-375`, KB Agent pinned, so BUG-CRX-140's separate
+project-identifier defect didn't confound this check):
+
+1. Pre-edit native baseline: Node #1 "New Hire Onboarding Guide" (title from this suite's earlier fixture
+   edits), status Published, version history "1 Releases" — v1 still titled "Onboarding Guide" (old,
+   pre-earlier-edit title), marked Current Version.
+2. Sent: "Update the New Hire Onboarding Guide page ... change the title to 'New Hire Onboarding Guide -
+   Retest Edit'." Confirm card correctly showed `Project: Crux Knowledge Base Agent Test Project`, `Node: 1`,
+   `Title: New Hire Onboarding Guide - Retest Edit`. Confirmed.
+3. Native-verified `/projects/crux-kb-agent-test-project/knowledgebase/nodes/1`: heading now reads "New Hire
+   Onboarding Guide - Retest Edit", status still genuinely "Published".
+4. Native-verified `/projects/crux-kb-agent-test-project/knowledgebase/nodes/1/versions`: now genuinely shows
+   **"2 Releases"** — the Current Version entry correctly titled "New Hire Onboarding Guide - Retest Edit",
+   with the prior version ("Onboarding Guide") preserved as history below it.
+
+A new version snapshot is now created on `update_node`, exactly matching the plugin's documented versioning
+rule and closing the audit-trail gap this bug reported. **Status: FIXED.** Moved to `bugs/closed/`.

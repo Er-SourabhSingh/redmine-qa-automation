@@ -87,3 +87,19 @@ actually a more specific, page-level restriction.
   when the user genuinely already has it. Distinct from BUG-CRX-142 (fabricated confirm prose) and BUG-CRX-140
   (wrong project/record id on write confirm cards) — this is a false *diagnosis* of a permission state, on a
   successfully-reached refusal path, not a confirm-card or targeting defect.
+
+## Retest — 2026-11-04 (FIXED)
+
+Logged in as `daisy.skye` (Reporter), fresh chat `ses-377`, KB Agent pinned. Sent the exact original repro
+request: "Create a new page called 'Reporter Test Page' in the Engineering Docs space."
+
+This time the agent genuinely reached a real `Kb Create Node` confirm card (`Project: Crux Knowledge Base
+Agent Test Project`, `Space: 1`, `Title: Reporter Test Page`, `Node Type: page`) rather than refusing before
+even attempting the call — confirming it correctly resolved the project/space (no BUG-CRX-140-style
+misresolution this time, consistent with this being a first-message/fresh-chat call). Confirming produced:
+*"You do not have permission to manage knowledgebase pages. To fix this, ask your Redmineflux administrator
+to: • Grant you the required role/permission for this action • Check: Administration → Roles and Permissions
+→ [your role]"* — the correct, genuinely-missing permission (`manage knowledgebase pages`), not the fabricated
+`view_knowledgebase` claim from the original report. Daisy's genuine view access was not contradicted.
+
+**Status: FIXED.** Moved to `bugs/closed/`.

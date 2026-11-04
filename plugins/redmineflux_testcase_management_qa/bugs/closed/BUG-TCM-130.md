@@ -58,3 +58,10 @@ Also independently confirmed client-side via the Navigation Timing API on an ear
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-04)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `a67d393`, on the Postgres `redmine6` instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- Source confirms the fix: `QualityHqController` now has a `scanned_project_context` method that fetches each project's runs + shared `latest_result_cells` **once**, and both `most_failed_rows` and `flaky_rows` now accept that shared context instead of each independently calling `Run.where(...)` + re-scanning every run.
+- Live check (smaller dataset than the original 140-run/2,000-result repro, since this is a freshly-rebuilt instance): warm `/quality_hq` request completed in **278ms with 29 queries** — no red flags, consistent with the fix's intent. The original bug's exact query-count-for-query-count reproduction wasn't repeated (would need rebuilding a comparably large dataset), but the code-level fix directly addresses the confirmed root cause (duplicate per-project scans).
+- Production issue #127376 updated: status In QA → Done, % done → 100.

@@ -68,3 +68,10 @@ The preview on MySQL for the file above: 2 will be created correctly, 0 errors.
 
 - Duplicate found: No
 - Checked `bugs/_index.md` titles for import / 40000 / length. BUG-TCM-079 (hard-coded 2000 limit, closed) is a different defect; the PostgreSQL nil-limit crash was fixed by the developers without a bug file here.
+
+## Retest (2026-11-04)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `a67d393` ("Fix 5 bugs: step order, Quality HQ speed, Requirements freeze, CSV import data loss"), on a freshly-rebuilt MySQL 8.0.46 instance (Redmine 7.0.2, `localhost:3002`, project `tcm133-mysql`), using the exact same repro CSV (`21_boundary_40000_vs_40001_chars.csv`).
+- Step 4 preview now correctly shows row 2 as **Error**: "Step 1: step content exceeds the maximum length of 40000 characters (got 40001)." — matching the Expected Result verbatim. Row 1 (40000 chars) shows OK.
+- First retest attempt (same day) incorrectly looked FIXED-but-not on this exact file because the `C:\redmine v7\plugins\redmineflux_testcase_management` checkout used by this MySQL stack was still one commit behind (`eefc0a4`, before the fix). Re-pulled to `a67d393` and restarted the container; the fix then reproduced correctly on the first try.
+- Production issue #127416 updated: status In QA → Done, % done → 100.

@@ -113,3 +113,10 @@ MySQL 8.0.46 (`localhost:3002`, release/7.3.0 @ `eefc0a4`, rebuilt database), Pl
 
 - Duplicate found: No
 - Checked `bugs/_index.md` titles for estimated / % done / done ratio / csv / import. BUG-TCM-001 and 002 (silently dropped step column and duplicate header, both closed) and BUG-TCM-079 (length limit) are different defects.
+
+## Retest (2026-11-04)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `a67d393`, on the Postgres `redmine6` instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- `app/controllers/testcase_import_controller.rb`'s `estimated_hours` and `done_ratio` branches now end with `mapped_value` on its own line after the validation `if`, so the branch's return value survives (confirmed by source diff).
+- Native spec `TESTCASE_MANAGEMENT_CSV_IMPORT.spec.ts` → **TC-TCM-335** ("Estimated time, % Done, Start date and Due date are saved on import") **PASSED** on this run.
+- Production issue #127388 updated: status In QA → Done, % done → 100.

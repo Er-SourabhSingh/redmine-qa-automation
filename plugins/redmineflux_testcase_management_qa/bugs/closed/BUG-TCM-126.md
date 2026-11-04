@@ -54,3 +54,10 @@ Shows the "November 02, 2026" date-group heading directly above two rows ("Close
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-03)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `eefc0a4`, on a freshly-rebuilt PostgreSQL instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- Created a Test Suite, Test Case, Run, and 2 execution results on 2026-11-03 — day=03, month=11, both ≤12, exactly the ambiguous case this bug affected.
+- Opened `/testcase_activities?project_id=rftc-016-ci-qa`: all 6 activity rows show `2026-11-03 07:5X AM`, correctly matching the "November 03, 2026" date-group heading above them — no month/day swap (previously would have shown `2026-03-11`).
+- Production issue #127358 updated: status In QA → Done, % done → 100.

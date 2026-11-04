@@ -94,3 +94,10 @@
 - Duplicate found: No
 - Checked `bugs/_index.md`, `bugs/_duplicates.md` and a keyword search of `bugs/open` and `bugs/closed` for step order/sequence.
   Closed BUG-TCM-021 (steps lost on form re-render) and BUG-TCM-025 (no way to link a case to a suite) are different defects.
+
+## Retest (2026-11-04)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `a67d393` ("Fix 5 bugs: step order, Quality HQ speed, Requirements freeze, CSV import data loss"), on the Postgres `redmine6` instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- `lib/testcase_management/patches/issue_patch.rb` now reads `has_many :steps, -> { order(:id) }, dependent: :destroy` in both places (confirmed by source diff).
+- Native spec `TESTCASE_MANAGEMENT_CSV_IMPORT.spec.ts` → **TC-TCM-334** ("every saved case shows its steps in the saved order") **PASSED** on this run.
+- Production issue #127375 updated: status In QA → Done, % done → 100.

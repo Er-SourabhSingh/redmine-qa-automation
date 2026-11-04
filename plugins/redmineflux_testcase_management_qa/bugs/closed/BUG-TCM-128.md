@@ -50,3 +50,10 @@ Shows the live Automation Dashboard table: `SourceGamma` (1 Passed + 1 Blocked) 
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-03)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `eefc0a4`, on a freshly-rebuilt PostgreSQL instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- Ingested a single `skipped` result under a brand-new `AutomationSource` ("RetestSkipOnly") with zero other results via `POST /testcase_ci/ingest_results.json`.
+- Automation Dashboard now shows that source with **0.0% Pass Rate** (1 execution, 0 failures) — not the previous 100.0%.
+- Production issue #127359 updated: status In QA → Done, % done → 100.

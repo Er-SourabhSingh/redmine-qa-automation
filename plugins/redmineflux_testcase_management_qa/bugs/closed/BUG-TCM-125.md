@@ -57,3 +57,10 @@ irb(main)> AutomationSourceResolver.resolve!(project: project, key: 'casetestxyz
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-03)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `eefc0a4` ("Fix 5 bugs: tracker dropdown, automation source casing, activity dates, pass rate, anonymous access"), on a freshly-rebuilt PostgreSQL instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- Created a real test suite + test case, bootstrapped a run via `POST /testcase_ci/bootstrap_run.json`, then called `POST /testcase_ci/ingest_results.json` twice: once with `source: "CaseTestABC"`, once with `source: "casetestabc"` (same name, different case only).
+- Both calls' HTTP response bodies show `"source_id":1,"source_name":"CaseTestABC"` — the second (differently-cased) call resolved to the **same** source, not `nil`/ungrouped as before.
+- Production issue #127357 updated: status In QA → Done, % done → 100.

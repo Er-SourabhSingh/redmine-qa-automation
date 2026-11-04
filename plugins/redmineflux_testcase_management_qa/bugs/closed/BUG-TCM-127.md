@@ -51,3 +51,10 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-03)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `eefc0a4`, on a freshly-rebuilt PostgreSQL instance (`localhost:3000`, project `rftc-016-ci-qa`).
+- Signed out for real (clicked the actual "Sign out" link, confirmed the top nav no longer showed "Logged in as"), then navigated directly as anonymous to all 3 previously-affected routes: `/projects/rftc-016-ci-qa/run_comparisons`, `/projects/rftc-016-ci-qa/automation_dashboard`, `/projects/rftc-016-ci-qa/testcase_sessions`.
+- All 3 now redirect to `/login?back_url=<original-url>` (302), landing on a usable login form — not a bare 403 Forbidden.
+- Production issue #127360 updated: status In QA → Done, % done → 100.

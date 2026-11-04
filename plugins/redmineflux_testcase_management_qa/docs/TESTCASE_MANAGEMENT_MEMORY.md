@@ -1726,3 +1726,95 @@
   can push new commits (and new bug numbers) between your own session's start and when you're ready to file,
   and local files alone won't show that. This is the follow-up habit from the BUG-TCM-129 collision earlier this
   session.
+- **(2026-11-03) `bin/rails runner`/`bin/rails console` fail with "Missing secret_key_base" inside this Docker
+  setup via `docker exec`, even though the running Puma process itself works fine.** The entrypoint generates/
+  exports `SECRET_KEY_BASE` only within its own shell (PID 1's), not into the container's actual env namespace
+  that a fresh `docker exec` process inherits — confirmed via `printenv SECRET_KEY_BASE | wc -c` returning `0`
+  inside an exec'd shell. Don't waste time chasing a `.env` misconfiguration here; instead drive the plugin's
+  own real HTTP endpoints from an **authenticated Playwright browser session's `fetch()` call**
+  (`browser_evaluate`) with `Authorization: Basic base64(admin:password)` — this also tests through the real
+  controller/permission stack rather than a Ruby-level shortcut, which is more representative anyway. Note:
+  the session-cookie + CSRF-token path (`X-CSRF-Token` header, matching this plugin's own CI-ingest controllers'
+  `restore_session_user_for_api` pattern) returned a 401 in this environment for an unclear reason — HTTP Basic
+  worked immediately and is the more reliable fallback.
+- **(2026-11-03) `/testcase_ci/bootstrap_run.json`'s `run_assignments[].assignee_id` must be a REAL project
+  member who can execute test cases — admin does not automatically satisfy this** even though admin bypasses
+  essentially every other permission check in this plugin. The validation is a literal project-membership
+  check, not an `allowed_to?`/`admin?` shortcut, so bootstrapping a CI run as admin still needs a real member
+  (e.g. one of the QA seed users with the Developer/Reporter role) named as the assignee.
+- **(2026-11-03) BUG-TCM-125/126/127/128 confirmed FIXED** against `release/7.3.0` commit `eefc0a4` — see the
+  Retest sections in `bugs/closed/BUG-TCM-125.md` through `128.md` and the matching Run History row in
+  `TESTCASE_MANAGEMENT_HANDOFF.md` for full repro detail. Remaining open TCM bugs: BUG-TCM-129/130/131/132/133.
+- **(2026-11-04) This plugin's folder is bind-mounted from TWO SEPARATE git checkouts on this host, and they
+  can drift out of sync with each other** — `C:\redmine v6\plugins\redmineflux_testcase_management` (used by
+  the main Postgres `redmine6` stack, `localhost:3000`) and `C:\redmine v7\plugins\redmineflux_testcase_management`
+  (used by the Redmine-7.x stacks, including the MySQL one at `localhost:3002`). Pulling one does **not** pull
+  the other. This caused a real false-negative retest of BUG-TCM-133: the MySQL stack's checkout was still one
+  commit behind (`eefc0a4`) after `release/7.3.0` had already moved to `a67d393` with the actual fix, making the
+  fix look broken until the `v7` checkout was separately pulled and the container restarted. **Before retesting
+  any bug on a non-`redmine6` stack, check `git log --oneline -3` in THAT stack's own plugin checkout, not just
+  the one you already pulled.**
+- **(2026-11-04) BUG-TCM-129/130/131/132/133 confirmed FIXED** against `release/7.3.0` commit `a67d393` — see the
+  Retest sections in `bugs/closed/BUG-TCM-129.md` through `133.md` and the matching Run History row in
+  `TESTCASE_MANAGEMENT_HANDOFF.md`. **`bugs/open/` is now completely empty for this plugin** — every TCM bug ever
+  filed is closed, though this does not by itself satisfy `CLAUDE.md` §10's `Complete` bar (still needs a full
+  final-cycle regression pass, not yet run since these 9 fixes landed).
+- **(2026-11-04) `bin/rails runner`/`rake` tasks fail with "Missing secret_key_base" via a bare `docker exec`
+  on these Redmine Docker images, but the fix is simpler than it looks: the image's entrypoint takes
+  `REDMINE_SECRET_KEY_BASE` (its own declared env var name, visible via a normal `printenv`) and maps it to
+  Rails' `SECRET_KEY_BASE` only inside its own entrypoint script — a raw `docker exec` bypasses that mapping
+  entirely.** Fix: `docker exec ... sh -c 'SECRET_KEY_BASE="$REDMINE_SECRET_KEY_BASE" bundle exec rake ...'`.
+  No `/proc/1/environ` access needed (that's permission-denied anyway, and was how a credential-exposure
+  near-miss happened this session via a malformed `export $(...)` with no output — bare `export` with an
+  empty/failed command substitution prints every current env var in `export VAR='value'` form; never run
+  `export` with no effective arguments in a container that holds a real secret).
+- **(2026-11-04) Ticket #121640's security fix for TCM-04 is INCOMPLETE on `GET /runs/:id/edit`** — see
+  **BUG-TCM-134**. The fix stops the run's own field data (name/notes/assignees) from rendering to a non-member
+  of the run's project, but the controller still returns `HTTP 200` instead of 403/404, and the shared layout
+  renders with the foreign project's real name/nav chrome (project-switcher links into its Overview/Issues/Wiki/
+  etc.) before the empty `#content` div. **When verifying a "scope X to its own project" fix, don't stop at
+  "is the sensitive data absent from the response" — also check the actual HTTP status code and the page chrome
+  (title, `<h1>`, nav) for leftover disclosure of the target's identity.** A silent `render nothing`-style denial
+  without an explicit `head :forbidden`/`render_404` is easy to mistake for "fixed" if you only grep the body for
+  the sensitive fields.
+- **(2026-11-04) Guessing a plugin's internal POST/PUT param shape from the TC description alone wastes
+  real retries (hit a false-looking 500 on TC-TCM-346's first raw `curl` attempt before realizing the actual
+  cause was a wrong param shape, not an app bug).** The reliable way: drive the real form once via Playwright with
+  realistic data, then read the exact request body via `browser_network_requests` / `browser_network_request`
+  (`part: "request-body"`) — e.g. this is how `selected_testduite_and_testcase_ids={"<suite_id>":["<issue_id>"]}`
+  and `selected_testcases_ids` (comma-separated) were discovered for the Add/Edit Run form. Do this BEFORE
+  concluding a raw-`curl` 500/422 is a genuine app bug rather than a malformed request.
+- **(2026-11-04) The real "Edit Run" modal has no suite/test-case selection UI at all** (only Name/Notes/Status/
+  Type/Start-Due dates/Environment/Assignee) — suite/case composition appears to be set only at creation time.
+  A raw `PUT /runs/:id` with `selected_testduite_and_testcase_ids`/`selected_testcases_ids` params spliced in was
+  silently ignored (run's own suite/case list unchanged after), neither applied nor explicitly rejected with an
+  error. If a future TC needs to test cross-project tampering on an *existing* run's composition, this UI gap
+  means raw API probing is the only option, and a clean reject-with-error vs. silent-ignore distinction may need
+  a source read of `runs_controller.rb#update` rather than black-box testing alone — this blocked a confident
+  verdict on **TC-TCM-347** until resolved by actually reading the controller source (see the next entry).
+- **(2026-11-04) When black-box param-guessing on a write endpoint keeps returning ambiguous results (silent
+  204/200 no-ops, or a 500 that might be your own malformed request), read the controller source directly instead
+  of continuing to guess.** This resolved TC-TCM-347 cleanly: `runs_controller.rb#update` uses
+  `params[:issue][:watcher_user_ids]` (not `watcher_user_ids[]`), filters it to `@project.users.pluck(:id)` before
+  applying, and shares the exact same `rftc_validated_selection`/`rftc_suites_of` suite/case-scoping code with the
+  create path already confirmed working. Having the plugin repo checked out locally
+  (`C:\redmine v6\plugins\redmineflux_testcase_management`) makes this fast — `grep -n "def action_name"` then
+  read the method, rather than iterating curl payload shapes blind.
+- **(2026-11-04) Ticket #121640's TCM-09 fix ("Requirement read endpoints scoped to their own project") is only
+  PARTIALLY applied** — see **BUG-TCM-135**. `knowlegebase_pages_testcase`, `requirement/testcases`, and
+  `user_project` all return full cross-project data (requirement content, testcase list, member list) to ANY
+  authenticated user of ANY project, while the other 4 endpoints the same finding names
+  (`content_search_knowledgebase_testcase`, `version_change_knowledgebase`, `version_data_knowledgebase`,
+  `page_attachments`) correctly 404/422. **When a finding's register lists N endpoints as "all fixed," verify
+  every single one individually — a dev fix applied to most but not all of a named list is a realistic failure
+  mode, not a hypothetical one.** Anonymous access was correctly refused on all 7 (confirms login-required fixes
+  TCM-01/02/03/34 are solid plugin-wide); the gap is specifically per-project membership scoping.
+- **(2026-11-04) The plugin repo's own `test/security/tcm_security_test.rb` has a genuinely well-built
+  `TcmAnonymousSweepTest`** (enumerates every plugin route via `Rails.application.routes.routes`, substitutes `1`
+  for every param, asserts every response is 3xx/4xx) — but this Docker image has no `test` database configured
+  (`ActiveRecord::AdapterNotSpecified`, confirmed again this session, same blocker noted 2026-11-02 for mutation
+  testing), so `bin/rails test` cannot run it directly without first building an isolated test DB (expensive, not
+  done this session). **Workaround that worked well**: extract the same route list live via `bin/rails runner`
+  (no test DB needed, just boots the real app) and replicate the sweep via `curl` against the actual running
+  dev server — this independently re-verified all 236 non-public-by-design routes in one pass (TC-TCM-365, zero
+  offenders) without needing the test DB at all.

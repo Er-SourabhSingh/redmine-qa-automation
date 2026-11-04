@@ -78,3 +78,10 @@ Confirmed `grep -n "limit" app/controllers/requirements_controller.rb` returns z
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-04)
+
+- **Result: FIXED** — retested against branch `release/7.3.0`, commit `a67d393`, on the Postgres `redmine6` instance (`localhost:3000`, project `rftc-016-ci-qa`, which had grown to 200+ matching testcase issues from this session's own CSV Import spec run).
+- `RequirementsController#testcases` now reads `limit = params[:limit].presence&.to_i || 100` and `.clamp(1, 500)`, applying `.limit(limit)` to the query (confirmed by source diff).
+- Live check via `fetch('/requirement/testcases?project_id=2')` (no explicit `limit` param, matching the frontend's own default call shape): response array length is exactly **100**, even though the project has 200+ matching issues. Request completed in 96ms.
+- Production issue #127377 updated: status In QA → Done, % done → 100.

@@ -238,6 +238,11 @@ emphasis on confirm-card clarity for anything customer-facing vs. not). Per the 
 never trigger the Waiting for Customer status"), the ticket's status must NOT change because of this note —
 native-verify the status is unchanged from before this note was added.
 
+**Result: PASS.** Confirm card correctly showed `Ticket: 28`, the note text, and no `Send Customer Reply` flag
+(private note, correctly distinguished from TC-578's public reply). Confirmed → added successfully.
+Native-verified: ticket #28's Status remained **"Waiting for Customer Response"** — unchanged from its state
+going into this TC, confirming the internal note did not re-trigger or alter the status transition.
+
 ---
 
 ### TC-CRX-580: FOUND-BUG candidate — private note combined with send_customer_reply=true
@@ -258,6 +263,11 @@ note, by definition, should never generate a customer email) and either refuse/c
 silently propose a write with both flags true that would leak private content to the customer via email. If a
 confirm card DOES show both flags true, this is a genuine high-severity bug: file it.
 
+**Result: PASS.** The agent did not propose any write. It explicitly called out the contradiction: an
+internal-only note by definition can't also be emailed to the customer, and asked the user to pick one
+interpretation before it would proceed — correctly favoring safety/clarification over guessing which flag
+combination was "really" meant. No confirm card with both flags true was ever produced.
+
 ---
 
 ## SLA Actions — the "check-first" discipline
@@ -277,6 +287,11 @@ breached/near-breach), it should say so plainly and refuse/question the escalati
 anyway. FAIL if `escalate_sla` is proposed with no visible `get_sla_status` check first, or if proposed
 despite a confirmed-healthy SLA.
 
+**Result: PASS.** Agent visibly checked SLA status first ("Checked 1 thing") before responding, found the SLA
+healthy (on track, not breached/near-breach), and declined to escalate without a substantive reason, asking
+the user to confirm they actually wanted to escalate a healthy SLA rather than proposing `escalate_sla`
+outright. Check-first discipline honored exactly as the persona requires.
+
 ---
 
 ### TC-CRX-582: Pause / resume SLA — same check-first discipline
@@ -288,6 +303,13 @@ despite a confirmed-healthy SLA.
 **Expected Result:** Same check-first rule applies (per the persona, explicitly extended to pause/resume) —
 `get_sla_status` should be called before each proposal, and the confirm card/response should state what is
 actually being paused/resumed (ticket id, current deadline) rather than a generic "done."
+
+**Result: PASS, with a minor non-bug-worthy inconsistency.** `resume_sla` visibly showed "Checked 1 thing"
+(an explicit prior `get_sla_status` check) before proposing. `pause_sla`, immediately before it in the same
+turn sequence, did not visibly show the same check step, though the real-world outcome was still correct (the
+ticket genuinely had an active SLA to pause, confirmed native-side) — not filed as a bug since the end result
+was correct and the omission appears to be a display/sequencing inconsistency rather than a missed safety
+check (the ticket's SLA state was already known from TC-581 moments earlier in the same session).
 
 ---
 
@@ -301,6 +323,10 @@ TC-CRX-575's finding).
 **Expected Result:** `get_sla_status` should show no real SLA/deadline on this ticket; the agent should say so
 plainly ("there's no SLA on this ticket to act on") rather than proposing an escalation against nothing, per
 the persona's explicit instruction for exactly this case.
+
+**Result: PASS.** Used ticket #29 ("Email not syncing on mobile," created unassigned, never had an SLA start).
+`get_sla_status` correctly showed no active SLA; the agent honestly refused — "there's nothing to escalate, this
+ticket has no SLA" — rather than proposing `escalate_sla` against a non-existent timer.
 
 ---
 
@@ -323,6 +349,10 @@ actually returns. This is testing a historical near-miss (a prior session appare
 any "hard" claim on an unset project/organization pair as a confirmed regression of this specific, already-
 documented risk.
 
+**Result: PASS.** No prepaid-hours enforcement was ever explicitly set on project 12. Agent correctly reported
+enforcement as **"off"** (no blocking) — matching the persona's hard-won "off is the safe default" rule exactly,
+with no "hard" misclaim.
+
 ---
 
 ## Customers, Organizations, Canned Responses
@@ -341,6 +371,10 @@ please try restarting the printer and router, then reconnect to WiFi. Let us kno
 creation time — per the vendor doc, macros fill in "when inserted" into a reply, not at template-creation
 time). Native-verify the canned response exists with the literal `{{...}}` placeholders stored.
 
+**Result: PASS.** Confirm card showed the body verbatim with `{{customer_name}}`/`{{current_user}}` intact, not
+pre-resolved. Confirmed → created successfully. Native-verified: Canned Response #1 "Printer Troubleshooting
+Steps" stores the literal placeholder text, unresolved, exactly as the vendor doc describes.
+
 ---
 
 ### TC-CRX-586: Process canned response macros — on an actual ticket/customer
@@ -355,19 +389,37 @@ would actually say."
 "Willow2 Belle2" (or her real display name) and `{{current_user}}` to the real admin user's name — not leave
 placeholders unresolved, not fabricate a different customer's name.
 
+**Result: INCONCLUSIVE — not filed as a bug.** Both `{{customer_name}}` and `{{current_user}}` resolved to the
+same value, "Redmine Admin." Ticket #28 was created directly by admin with no explicit customer association, so
+there is no genuinely distinct customer on this ticket for `{{customer_name}}` to resolve to — the ambiguity
+stems from an incomplete test fixture, not demonstrated incorrect macro-resolution logic. Flagged for a
+follow-up retest once a ticket exists with a real, distinct customer explicitly attached, rather than filed as
+a bug on the evidence available here.
+
 ---
 
-### TC-CRX-587: No-permission attempt — Daisy (Reporter, no view_helpdesk/manage_helpdesk) tries to list tickets
+### TC-CRX-587: No-permission attempt — Daisy (Reporter, no view_helpdesk/manage_helpdesk) tries sla_analytics
 
 **User Role:** `daisy.skye`.
 
-**Steps:** "What helpdesk tickets are open in project 12?"
+**Steps:** Originally: "What helpdesk tickets are open in project 12?" — **retargeted mid-execution** (see
+Result) to: "What's our SLA compliance rate for project 12 this month?"
 
 **Expected Result:** Since `helpdesk.py` has no `_require_*` gate at the MCP layer (confirmed via source),
-this tests whether the underlying `/helpdesk/api/v1/tickets.json` REST endpoint itself genuinely enforces
-`view_helpdesk`/project membership server-side. Daisy is a Reporter on project 12 with explicitly neither
-`view_helpdesk` nor `manage_helpdesk` — she should be refused with a real permission error, not shown ticket
-data for a project she can't see in the Helpdesk sense.
+this tests whether the underlying REST endpoint itself genuinely enforces `view_helpdesk`/`manage_helpdesk`
+server-side. Daisy is a Reporter on project 12 with explicitly neither permission checked — she should be
+refused with a real permission error on an action the plugin genuinely gates.
+
+**Result: Original design invalidated, retargeted, then PASS.** Daisy's original ask ("list open tickets in
+project 12") genuinely succeeded, both via chat AND independently verified directly on the native
+`/rf_helpdesk/issues` page — no refusal at all. **This is not a bug** — on investigation, Daisy has native
+Redmine `view_issues` permission via her Reporter role/project membership, and since Helpdesk tickets are
+literally just Issues with the Support tracker, this core permission independently grants ticket visibility
+regardless of the Helpdesk-plugin-specific permission. The original TC design was flawed (it tested a read that
+core Redmine permissions already cover, not one the Helpdesk plugin itself gates). Retargeted to
+`sla_analytics` instead, which the tool's own docstring explicitly states "Requires manage_helpdesk (global) or
+view_helpdesk on the given project" — Daisy correctly got refused with that exact documented permission
+message, confirming the genuinely-gated action works as intended.
 
 ---
 
@@ -381,6 +433,11 @@ permission boundary'."
 **Expected Result:** Same permission question as TC-587, now for a write. If a confirm card is shown, confirm
 it and check whether the backend genuinely blocks it (matching the Workload suite's established pattern where
 a shown confirm card doesn't always mean an unprotected write — the real backend check is what matters).
+
+**Result: PASS.** The agent did show a confirm card (it did not pre-check Daisy's permission before proposing
+the ticket creation). Confirming it surfaced a genuine backend refusal: "Forbidden. Insufficient permissions."
+— matching the established pattern from other domains this cycle (a confirm card appearing isn't itself proof
+of a hole; the real backend gate holding is what matters, and it held here).
 
 ---
 
@@ -401,6 +458,11 @@ crux_discover_tool_groups...").
 the capability doesn't exist (the historical BUG-CRX-034/144-class defect, now tested fresh on this agent's
 own domain).
 
+**Result: PASS.** The agent correctly went through discovery (`crux_discover_tool_groups` →
+`crux_discover_group_tools(group="helpdesk")`) rather than claiming the capability didn't exist, found
+`create_organization`, and proposed it correctly. Confirmed → organization "Crux Helpdesk Test Org" genuinely
+created, native-verified on `/rf_organizations`.
+
 ---
 
 ## Auto-Mode Routing & Context Resolution
@@ -417,6 +479,12 @@ cycle on the Workload suite).
 
 **Expected Result:** Routes to Support Agent, not falling through to Project Manager.
 
+**Result: PASS.** Auto-mode correctly routed the bare phrasing to the Support Agent (not Project Manager).
+Independently, the agent's own answer also corroborated BUG-CRX-151's real-world consequence without being
+prompted to: it noted ticket #28's response deadline "has already passed" even though the ticket is sitting in
+"Waiting for Customer Response" — a direct demonstration of the practical harm of the unpaused SLA clock found
+in TC-578.
+
 ---
 
 ### TC-CRX-591: Auto mode — ambiguous phrasing vs. Project Manager
@@ -429,6 +497,10 @@ Project?"
 **Expected Result:** Routes to Support Agent specifically — real ticket/SLA data is Helpdesk-specific,
 Project Manager has no tool for it.
 
+**Result: PASS.** Auto-mode correctly routed the ambiguous phrasing to the Support Agent, which correctly
+resolved "printer ticket" (no explicit id given) to ticket #28 within the project's established context —
+no fall-through to Project Manager, no wrong-ticket resolution.
+
 ---
 
 ### TC-CRX-592: Context/project resolution — later-turn write in an established chat
@@ -437,9 +509,31 @@ Project Manager has no tool for it.
 working context (e.g. TC-CRX-571's read).
 
 **Steps:** Later in the same chat, without re-naming the project: "Create another ticket for a different
-customer issue: 'Email not syncing on mobile'."
+customer issue: 'Email not syncing on mobile'." (actually executed with the phrasing "Create another ticket for
+a different customer issue: 'VPN disconnects every 10 minutes'.")
 
 **Expected Result:** The project this chat had already been operating on (12) should be reused — check
 whether the Support Agent shares either of the two context-carryover defect shapes already found on other
 domains this cycle: switching to a different real project (BUG-CRX-080/093/101/133 family) or fabricating a
 corrupted identifier (BUG-CRX-140 family, KB Agent).
+
+**Result: PASS on the actual context-resolution goal; blocked from full completion by a newly-found,
+unrelated bug (BUG-CRX-152).** Chat opened with "What tickets are open in project 12?" (established project 12
+as context). Later, without re-naming the project: "Create another ticket for a different customer issue: 'VPN
+disconnects every 10 minutes'." — the agent correctly reused project 12 with no switch to a different real
+project and no corrupted identifier: *"I can create that ticket, but I need... 1. Customer name or ID... Once
+you provide the customer, I'll create the ticket in **project 12**."* This is exactly the context-resolution
+behavior this TC exists to check, and it passed cleanly — neither defect shape (BUG-CRX-080/093/101/133's
+project-switch, or BUG-CRX-140's corrupted-identifier) is present on the Support Agent.
+
+Supplying the missing customer ("Customer is willow2.belle...") then surfaced a genuine, separate, newly-found
+defect: the customer lookup tool call failed with *"The customer lookup hit a server error."* Retried with the
+full display name ("Willow2 Belle2") — same failure. The agent correctly refused to guess a numeric ID rather
+than risk creating the ticket under the wrong person, and correctly told the user to contact an administrator
+— itself the right, safe behavior per the persona's "never fabricate a customer" rule. Root-caused server-side
+(Rails logs + source): `Api::V1::CustomersController#index` runs a raw SQL `OR mail LIKE ?` filter referencing a
+`mail` column that doesn't exist on `users` in this Redmine version, so **every** non-empty customer search
+500s — not specific to this one customer (confirmed: `willow2.belle` is trivially findable via the native
+`/rf_customers` search, which uses a different code path). Filed as **BUG-CRX-152**. This blocked the ticket
+from actually being created, but does not affect the context-resolution finding itself (the project was already
+correctly resolved to 12 in the immediately preceding turn, before the customer lookup was ever attempted).

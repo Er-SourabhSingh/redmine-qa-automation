@@ -769,3 +769,34 @@ called 'Gold Support Package' with a description...") proposed Crux's own unrela
 tool instead — reproduced a second time even when the exact correct tool name was stated explicitly in the
 message. Filed as **BUG-CRX-160**. Both proposals were cancelled rather than confirmed; native-verified no
 stray work package was created at `/crux/work_packages`.
+
+---
+
+### TC-CRX-601: Email configuration — admin-only permission refusal
+
+**User Role:** `luna.blossom` (Manager — has `manage_helpdesk` on project 12, but email configuration is
+documented as admin-only regardless of project role).
+
+**Steps:** As luna.blossom (logged in separately, not via the admin session used for the rest of this suite),
+Support Agent: "Set up email-to-ticket configuration for project 12 using imap.example.com, username
+support@example.com." Supplied port/SSL/password across follow-up turns until a confirm card appeared.
+
+**Expected Result:** The agent may or may not pre-check permission before proposing (established pattern — not
+itself a bug either way), but the real backend write must be blocked for a non-admin, admin-only action.
+
+**Result: PASS.** The agent did not pre-check permission — it gathered IMAP details across several turns and
+produced a genuine `Helpdesk Set Email Configuration` confirm card (`Project: Crux Helpdesk Agent Test
+Project`, `Mail Server: imap.example.com`, `Mail Port: 993`, etc.). Confirmed → genuine backend refusal: *"You
+do not have permission to create or submit project #12..."* Native-verified (as admin) on `/rf_helpdesk/
+setting?tab=email_configuration&config_project_id=12`: all fields show only placeholder/default text (`Mail
+Server`, `Mail Username` both empty with placeholder hints, `Mail Port` at its default `993`) — none of luna's
+submitted values were persisted. The admin-only protection genuinely held, matching the established pattern
+that a shown confirm card isn't itself proof of a gap — the real backend gate is what matters here, and it did.
+
+**Incidental finding (pre-existing, not from this TC):** luna.blossom's own prior chat history (unrelated to
+this suite, from an earlier Workload-domain session) contained a `"✓ Access denied: This feature requires
+Redmineflux administrator privileges."` message — the same misleading-✓-on-failure pattern as BUG-CRX-018/054/
+067/082/151/156, on the Workload Holiday Scheme Create tool. Not filed as a new bug here since it falls outside
+this suite's domain (Workload, not Helpdesk) and was pre-existing in her chat history, not reproduced as part
+of this test — flagged for whoever owns the Workload/Capacity Agent suite to confirm whether it's already
+tracked.

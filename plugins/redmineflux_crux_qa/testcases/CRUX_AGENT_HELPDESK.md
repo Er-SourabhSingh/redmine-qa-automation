@@ -655,3 +655,40 @@ for escalation target..."`*, a genuine failure message wrongly prefixed with a s
 per-step summary). Native-verified no data corruption: `/rf_support_levels/new`'s Escalation To dropdown still
 shows only "None (Last Level)" (no L2 tier exists), and Level 1's own Escalation To remains "None (Last
 Level)" — both failures were clean, nothing partially persisted.
+
+---
+
+### TC-CRX-596: Organization update + deactivate — positive writes
+
+**User Role:** `admin`. **Precondition:** TC-589's organization "Crux Helpdesk Test Org" exists.
+
+**Steps:** "Rename the 'Crux Helpdesk Test Org' organization to 'Crux Helpdesk Test Org Renamed'." then
+"Deactivate the 'Crux Helpdesk Test Org Renamed' organization."
+
+**Expected Result:** Both `update_organization` and `toggle_active` should genuinely work. Native-verify the
+new name and the Active checkbox state on `/rf_organizations`.
+
+**Result: PASS.** Rename confirm card: `Organization: 1`, `Name: Crux Helpdesk Test Org Renamed`. Confirmed →
+`"✓ Organization updated successfully."` Native-verified on `/rf_organizations`: name genuinely changed.
+Deactivate confirm card: `Resource Type: organization`, `Resource: 1`, `Active: False`. Confirmed → `"✓
+Organization deactivated successfully."` Native-verified: Active checkbox genuinely unchecked.
+
+---
+
+### TC-CRX-597: Project-customer entitlement — remove then re-add — positive writes
+
+**User Role:** `admin`.
+
+**Steps:** "Remove willow2.belle's access to project 12." then "Give willow2.belle access to project 12 again,
+with the Crux Helpdesk Standard SLA and Level 1 Support."
+
+**Expected Result:** `remove_project_customer` and `add_project_customer` should both genuinely work and
+resolve the named customer/SLA/support level correctly. Native-verify the project-access row is gone, then
+restored, on `/rf_customers/25/edit`.
+
+**Result: PASS.** Remove: confirm card `Project: Crux Helpdesk Agent Test Project`, `Project Customer: 1`.
+Confirmed → `"✓ Customer removed from project."` Native-verified: the Project Access row genuinely reset to
+`-- Select project --` / SLA `None` / Support Level `None`. Add-back: agent did a genuine 3-tool-check and
+correctly resolved `Customer Ids: [25]`, `Rf Sla: 1`, `Rf Support Level: 1`. Confirmed → `"✓ Customer(s) added
+to project. Record IDs: 2"`. Native-verified: Project Access row restored to `Crux Helpdesk Agent Test Project`
+/ `Crux Helpdesk Standard SLA` / `Level 1 Support`.

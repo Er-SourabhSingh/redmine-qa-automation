@@ -329,6 +329,37 @@ Maps each of the 30 documented features (`CRUX_FEATURES_LIST.md`) to its coverin
 
 **2026-10-09 — new suite added, not yet executed:** `testcases/CRUX_AGENT_PROJECT_MANAGER.md` (TC-CRX-177–194, 18 TCs) covers the Project Manager agent — previously a documented coverage gap (explicitly "out of scope for #117162", never had a suite). Written on the new Redmine 6 instance (`localhost:3015`): admin-tier walkthrough (TC-CRX-177–187), a zero-permission control case (TC-CRX-188, `aurora.wren`), an incremental permission matrix (TC-CRX-189–192, `luna.blossom` stripped to a zero-CRUD baseline, core Redmine permissions granted one at a time with before/after message checks), and an administration-boundary check (TC-CRX-193/194, admin tier — tracker/role/custom-field creation and plugin-settings changes should be honestly refused regardless of the human's own permission, since no REST/MCP tool exists for any of them) under `CRUX_REQUIRE_USER_KEY=1`. All 18 TCs are currently **PENDING — blocked on an LLM provider key** (none configured on this instance yet); not counted in the summary stats table above until executed. Total TCs across the plugin once this suite runs: 194 (176 prior + 18 new), across 17 suite files.
 
+**2026-11-04 — the 2026-10-09 gap (item 2 above) is now closed.** Per explicit user instruction ("baki agents
+ke liye testsuite md file bano... devops wale ko chodke"), wrote 12 new suites covering every remaining
+bundled specialist agent except DevOps (whose own gap stays tracked separately, see
+`CRUX_AGENT_DEVOPS_AND_BUDGET.md`'s existing coverage): Reviewer, Code Reviewer, Test Author, Docs Writer,
+Monitor, Alert Triage, Root-Cause Analyst, Auto-Fixer, Research, Improver, Crux Guide, Design Agent. Each
+suite's manifest/system-prompt was read in full from `redmineflux-crux-core/agents/*.md` before writing, with
+explicit positive AND negative/boundary cases per the user's instruction ("positive negative sab ache se
+cover hona chahiye"). 103 new TCs, TC-CRX-608–710, across 12 new suite files:
+
+| Suite file | Agent | TC range |
+|---|---|---|
+| `CRUX_AGENT_REVIEWER.md` | Reviewer | TC-CRX-608–616 |
+| `CRUX_AGENT_CODE_REVIEWER.md` | Code Reviewer | TC-CRX-617–624 |
+| `CRUX_AGENT_TEST_AUTHOR.md` | Test Author | TC-CRX-625–633 |
+| `CRUX_AGENT_DOCS_WRITER.md` | Docs Writer | TC-CRX-634–642 |
+| `CRUX_AGENT_MONITOR.md` | Monitor | TC-CRX-643–650 |
+| `CRUX_AGENT_ALERT_TRIAGE.md` | Alert Triage | TC-CRX-651–659 |
+| `CRUX_AGENT_ROOT_CAUSE.md` | Root-Cause Analyst | TC-CRX-660–667 |
+| `CRUX_AGENT_AUTO_FIXER.md` | Auto-Fixer | TC-CRX-668–676 |
+| `CRUX_AGENT_RESEARCH.md` | Research | TC-CRX-677–684 |
+| `CRUX_AGENT_IMPROVER.md` | Improver | TC-CRX-685–694 |
+| `CRUX_AGENT_CRUX_GUIDE.md` | Crux Guide | TC-CRX-695–702 |
+| `CRUX_AGENT_DESIGN.md` | Design Agent | TC-CRX-703–710 |
+
+**Status: DRAFTED, not yet executed** — every TC above is Coverage Status `Covered` (a real suite/TC now
+exists) but **Latest Result: pending** until a live execution pass runs against `localhost:3015`. Builder-1/
+Builder-2 (seen in the Agent Fleet roster) are deliberately excluded — they are ad hoc custom agents created
+earlier this cycle as CRX-48 identity-test fixtures, not shipped product agents with their own manifest file,
+so they don't belong in this matrix as a product-coverage row. Total TCs across the plugin once this round
+executes: 194 (prior) + 103 (this round) = 297, across 23 current (non-historical) suite files.
+
 ## References
 
 - [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md)

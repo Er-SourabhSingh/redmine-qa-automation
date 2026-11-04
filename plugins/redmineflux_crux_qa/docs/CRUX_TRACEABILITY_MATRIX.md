@@ -353,12 +353,25 @@ cover hona chahiye"). 103 new TCs, TC-CRX-608–710, across 12 new suite files:
 | `CRUX_AGENT_CRUX_GUIDE.md` | Crux Guide | TC-CRX-695–702 |
 | `CRUX_AGENT_DESIGN.md` | Design Agent | TC-CRX-703–710 |
 
-**Status: DRAFTED, not yet executed** — every TC above is Coverage Status `Covered` (a real suite/TC now
-exists) but **Latest Result: pending** until a live execution pass runs against `localhost:3015`. Builder-1/
-Builder-2 (seen in the Agent Fleet roster) are deliberately excluded — they are ad hoc custom agents created
-earlier this cycle as CRX-48 identity-test fixtures, not shipped product agents with their own manifest file,
-so they don't belong in this matrix as a product-coverage row. Total TCs across the plugin once this round
-executes: 194 (prior) + 103 (this round) = 297, across 23 current (non-historical) suite files.
+**Status: EXECUTED 2026-11-04 (core checks across 11 of 12 suites; Design Agent fully BLOCKED by a missing
+Anthropic provider key — environment gap, not a reasoning defect).** Code Reviewer and DevOps Agent are
+explicitly **out of scope** for this round per user instruction (not yet properly developed) — Code Reviewer's
+own suite was executed and committed before that scope decision and found no new bugs, but is not pursued
+further. **8 new bugs found**: BUG-CRX-163 (Reviewer misreads a relation's direction), BUG-CRX-164 (platform-
+wide — every agent checked has far fewer live tools than its manifest promises), BUG-CRX-165 (Reviewer's
+BLOCK-labeled no-criteria verdict), BUG-CRX-166 (Test Author fabricates raw pytest/Selenium code with invented
+specifics), BUG-CRX-167 (Docs Writer fabricates a fictional SSO protocol/admin-settings page as established
+fact), BUG-CRX-168 (Alert Triage's new-issue create path dead-ends, fresh recurrence of BUG-CRX-020/142),
+BUG-CRX-169 (Improver dumps raw JSON into ordinary chat, violating its own explicit mode rule), BUG-CRX-170 (a
+chat's stuck confirm-state leaks across an agent switch, corrupting an unrelated agent's next turns). Root-
+Cause Analyst and Auto-Fixer performed cleanly with no new bugs — both showed strong grounding discipline
+(correct confidence calibration, refusing to trust a fabricated user-supplied "diagnosis"). Monitor and
+Research are effectively tool-less on this instance (same BUG-CRX-164 pattern) but responded honestly, no
+fabrication. Remaining deeper write-path/edge-case TCs in each suite were deprioritized per user instruction
+in favor of broad read/reasoning coverage across all 12 agents; re-run them once BUG-CRX-164's tool-
+registration gap is resolved. Builder-1/Builder-2 (seen in the Agent Fleet roster) are deliberately excluded —
+they are ad hoc custom agents created earlier this cycle as CRX-48 identity-test fixtures, not shipped product
+agents with their own manifest file, so they don't belong in this matrix as a product-coverage row.
 
 ## References
 

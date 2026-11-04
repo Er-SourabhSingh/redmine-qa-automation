@@ -83,3 +83,18 @@ LINE 1: ...KE $4 OR firstname LIKE $5 OR lastname LIKE $6 OR mail LIKE ...
 - Duplicate found: No. First finding on the Support Agent / Helpdesk plugin domain's customer-search path.
   Not related in mechanism to BUG-CRX-151 (SLA-pause gap on `add_conversation`) — this is a hard backend crash
   on a completely different tool/endpoint (customer lookup), not a half-implemented business rule.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux_helpdesk` (now at `711bbeb`, merge commit `c983b1f` "Bring all the budget, SLA
+and security fixes from helpdesk_budget into master"). Plugin migrations run
+(`redmine:plugins:migrate NAME=redmineflux_helpdesk`), Redmine container restarted.
+
+`Api::V1::CustomersController#index` now delegates to `RedminefluxHelpdesk::CustomerPortal.list(search:
+params[:q].to_s, viewer: User.current)` instead of the old raw `mail LIKE` SQL fragment (source comment: "Same
+search as the web list (login, name and the e-mail addresses, which live in email_addresses)").
+
+Retested via the exact original repro path: Support Agent, "Look up the helpdesk customer named willow2.belle
+and show me their details." → genuinely succeeded this time: *"Found the customer: ID: 25, Name: Willow2
+Belle2, Email: willow2.belle@example.com"* — no server error, no 500. **Status: FIXED.** Moved to
+`bugs/closed/`.

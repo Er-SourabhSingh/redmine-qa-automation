@@ -67,3 +67,19 @@ explicit, pointed correction and a genuine tool check.
   `update_ticket` tool. Filed separately per the repo's established one-bug-per-domain-recurrence convention.
   Not a duplicate of BUG-CRX-154 (same root incident, but that bug is about the agent's false root-cause
   diagnosis of the resulting failure, a distinct mechanism).
+
+## Retest — 2026-11-04 (STILL OPEN — NOT FIXED)
+
+Developer pulled `redmineflux_helpdesk` (now at `711bbeb`), migrations run, Redmine container restarted. This
+bug's mechanism is agent-side (crux-core/mcp), not the plugin's own code — the plugin pull was not expected to
+fix it, retested for completeness alongside the other 3 Helpdesk bugs from this cycle.
+
+Reproduced on a fresh ticket (#31, "Scanner not responding"): "Update the scanner ticket's (31) priority to
+High." This time the agent honestly asked for the numeric ID rather than silently guessing (a behavioral
+improvement in transparency) — but when asked to look it up itself, it explicitly said *"The helpdesk plugin
+doesn't expose an issue priorities lookup"* (itself inaccurate — core Redmine's `/enumerations/
+issue_priorities.json` is directly reachable and was used to verify ground truth) and fell back to the same
+generic, wrong, hardcoded Redmine-default guess table (1=Low, 2=Normal, 3=High, 4=Urgent, 5=Immediate),
+proposing **id 3** for "High" again. Confirmed → identical **`"Validation error: Priority cannot be blank"`**
+failure — this install's real id for High is 8 (6=low, 7=medium, 8=high, 9=immediate), unchanged from the
+original finding. **Status: Still open, not fixed.** Kept in `bugs/open/`.

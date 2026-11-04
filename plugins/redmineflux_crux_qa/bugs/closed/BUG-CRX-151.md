@@ -73,3 +73,24 @@ session, flagged for a follow-up native-UI check in `redmineflux_helpdesk_qa`).
   (`testcases/CRUX_AGENT_HELPDESK.md`, started 2026-11-04). Not related in mechanism to any Workload/KB/
   Invoicing bug found this cycle (BUG-CRX-144 through 150) — this is a distinct plugin's own documented
   automation rule, found to be only half-implemented.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux_helpdesk` (now at `711bbeb`, merge commit `c983b1f`). Plugin migrations run,
+Redmine container restarted.
+
+`issue_patch.rb`'s `handle_agent_reply_waiting_status` now explicitly pauses the SLA in the same method that
+sets the Waiting-for-Customer status:
+```ruby
+if rf_issue_sla_status && !rf_issue_sla_status.is_paused
+  rf_issue_sla_status.pause!
+  Rails.logger.info "[SLA] Issue ##{id} SLA paused — waiting for customer response"
+end
+```
+
+Retested on a fresh fixture (ticket #31 "Scanner not responding," new SLA start at 07:06 AM, to avoid reusing
+the already-breached ticket #28 from the original repro): Support Agent, public reply with `Send Customer
+Reply: True`, confirmed → `"✓ Reply added successfully."` Native-verified on the SLA Information tab
+immediately after: **`⏸ Paused since 11/04/2026 07:08 AM (UTC)`**, deadline genuinely frozen ("3h 59m remaining
+when paused... Deadline (frozen): 11/04/2026 11:08 AM (UTC)") — both halves of the documented rule (status
+change + SLA pause) now fire together. **Status: FIXED.** Moved to `bugs/closed/`.

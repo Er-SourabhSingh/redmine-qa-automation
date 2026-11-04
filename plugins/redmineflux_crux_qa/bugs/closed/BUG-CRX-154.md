@@ -67,3 +67,20 @@ would have been — it actively misdirects the user's remediation effort toward 
   more severe failure mode (active misdirection vs. a wrong guess). Not the same shape as the misleading-✓
   family (BUG-CRX-018/054/067/082, which mask a real failure behind a false success checkmark) — here the
   failure itself was shown honestly, only its stated cause was invented.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux_helpdesk` (now at `711bbeb`), migrations run, Redmine container restarted. This
+bug's mechanism is agent-side reasoning (crux-core/mcp), not the plugin's own code, but retested anyway since
+the plugin pull also triggered a fresh server/MCP context.
+
+Reproduced the identical trigger shape on a fresh ticket (#31): priority-resolution failure (still reproduces —
+see BUG-CRX-153, unfixed) plus a past due date (2026-01-01) in the same request. On the genuine
+`"Validation error: Priority cannot be blank"` failure, this time the agent did **not** fabricate a false cause.
+First asked, it honestly said it didn't have the actual error text yet and asked for it rather than inventing
+one. Given the exact error text directly, it correctly attributed the failure to the Priority field: *"The error
+shows that priority ID 3 was rejected as blank or invalid by the system. This suggests that either: 1. Priority
+3 doesn't exist in this Redmineflux instance... 2. The priority field requires a different format..."* — no
+mention of the due date at all, and no confident-but-wrong diagnosis. **Status: FIXED** (the false-diagnosis
+behavior is gone; the underlying wrong-value defect it was originally diagnosing incorrectly is tracked
+separately and remains open as BUG-CRX-153). Moved to `bugs/closed/`.

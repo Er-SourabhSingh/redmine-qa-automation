@@ -84,6 +84,9 @@
 own... never call list_tickets/etc. with an unconfirmed id"), since the user supplied the id directly this
 should succeed — accurately reports zero tickets (none created yet), not a fabricated list.
 
+**Result: PASS.** Genuine tool call ("Checked 1 thing") → *"There are no open tickets currently in the Crux
+Helpdesk Agent Test Project (project id 12)."* Correct — no tickets existed yet at this point.
+
 ---
 
 ### TC-CRX-572: Resolve a named project honestly — no id supplied, no guessing
@@ -98,6 +101,10 @@ and must ask for the id/identifier rather than guessing — this is the single m
 whole persona file (a wrong guessed id "silently returns a DIFFERENT project's tickets"). FAIL if it guesses
 any numeric id without asking.
 
+**Result: PASS.** Fresh chat, no prior context. *"I need the numeric project ID for the Crux Helpdesk Agent
+Test Project to look up its open tickets. Could you provide that ID, or do you have it available?"* — honestly
+asked rather than guessing, matching the persona's #1 rule exactly.
+
 ---
 
 ### TC-CRX-573: SLA status, analytics — positive reads
@@ -109,6 +116,10 @@ month?" then "Any tickets near breaching SLA right now?"
 
 **Expected Result:** `sla_analytics` and `get_sla_status`/`list_tickets` correctly report zero data (no
 tickets exist yet) — honestly, not fabricated.
+
+**Result: PASS.** *"Project 12... has no open tickets right now. For this month so far (Nov 1–4), there are no
+tickets at all in the analytics — response and resolution compliance metrics are not yet applicable."* Honest,
+no fabricated figures.
 
 ---
 
@@ -128,6 +139,18 @@ creates a real ticket, native-verified on `/projects/crux-helpdesk-agent-test-pr
 genuinely uses the "support" tracker (enforced automatically per the vendor doc) and has NO support level/SLA
 timer yet (first assignment sets that, per the lifecycle doc) — check this native state specifically.
 
+**Result: PASS, after one environment-config blocker found and fixed.** Agent correctly asked for the numeric
+priority ID rather than guessing one for "normal" (honest, not a bug) — answered "leave default, no
+priority_id." Confirm card then correctly showed `Project: Crux Helpdesk Agent Test Project`, `Subject`,
+`Description`. First confirm attempt failed with a genuine, correctly-surfaced validation error: *"Support
+tracker is not configured in Redmine."* Root cause (native plugin source, `tickets_controller.rb`):
+`Tracker.find_by(name: 'Support')` requires exact-case "Support", but this instance's tracker was seeded as
+lowercase "support" — a fresh-instance seed-data/case-sensitivity gap in the native plugin, not a Crux-agent
+defect (not filed as a BUG-CRX item; noted in this suite's precondition section for awareness). Renamed the
+tracker to "Support" natively, retried the identical confirm → *"✓ Ticket created successfully. ID:28 |
+Printer not connecting to network."* Native-verified: issue #28 shows heading "Support #28" (correct tracker),
+genuinely unassigned, no SLA yet.
+
 ---
 
 ### TC-CRX-575: First assignment starts the SLA — regression-check the documented lifecycle rule
@@ -140,6 +163,12 @@ timer yet (first assignment sets that, per the lifecycle doc) — check this nat
 including automatic assignment via Reply"), assigning the ticket for the first time should genuinely start
 its SLA clock. Native-verify via `get_sla_status` (through chat) AND the native ticket page afterward — both
 should show a real deadline now, not "none".
+
+**Result: PASS.** Confirm card correctly showed `Ticket: 28`. Confirmed → *"✓ Ticket updated successfully."*
+Native-verified on the ticket's SLA Information tab: genuinely started — "▶ SLA Started", Support Level
+"Level 1 Support", Agent "Redmine Admin", "Response deadline set: 11/04/2026 06:53 AM (UTC)" (60 min after the
+05:53 AM assignment, matching the SLA's configured First Response Time exactly). Lifecycle rule confirmed
+correct.
 
 ---
 
@@ -185,6 +214,14 @@ whether other devices can reach the WiFi network?' Send this to the customer."
 marked private. Per the vendor doc ("An agent's Reply Note sets the ticket to Waiting for Customer Response
 and pauses the SLA"), confirming should genuinely move the ticket to that status and pause its SLA —
 native-verify both the status AND the SLA pause state afterward, not just that a reply was posted.
+
+**Result: PARTIAL PASS — found BUG-CRX-151.** Confirm card correctly showed `Ticket: 28`, the note text,
+`Send Customer Reply: True`. Confirmed → *"✓ Reply added successfully."* Native-verified Status: genuinely
+changed to **"Waiting for Customer Response"** — correct. But the SLA pause half of this same documented rule
+does NOT happen: native SLA Information tab still shows "✓ On Track"/"Due: 11/04/2026 06:53 AM (UTC)"
+unchanged, and the agent's own `get_sla_status` call explicitly confirmed *"Ticket #28's SLA is not paused —
+it's active."* Filed as **BUG-CRX-151** — a single documented atomic behavior (status change + SLA pause) is
+only half-implemented.
 
 ---
 

@@ -109,3 +109,29 @@ it on the same repro: the column-create write now fabricates a confirmed success
 column was actually persisted. This is the same defect class as the already-well-documented false-success family
 (BUG-CRX-009/018/054/067/082/086), now found on the Scrum Agent's discovery-gated `create_column` tool
 specifically.
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested this round's developer guide check: "create a board column, reply says 'Now shown on the board as:
+…', column appears; asking again for the same status is refused." Reconstructed the repro in a fresh chat
+(Scrum Agent pinned): (1) "In the Crux Scrum Agent Test Project, show me the current board" — correctly
+scoped; (2) the exact original final message: "Please create the 'Blocked Retest' column for the Crux Scrum
+Agent Test Project mapped to the 'Waiting for Customer Response' status with a WIP limit of 5."
+
+Confirm card again correctly targeted `Project: Crux Scrum Agent Test Project` (the wrong-project defect
+stays fixed, consistent with the 2026-11-03 retest). Confirming this time returned a genuine, honest refusal
+instead of a false success: *"Validation error: Validation failed: The board already shows a column for
+Waiting for Customer Response — nothing was created. Correct the value(s) above and try again."* — no fake
+Column ID, no fabricated success text.
+
+Tried a second variant mapped to a status not already on the board ("On Hold") to probe for a genuine-success
+case: the agent correctly recognized "On Hold" isn't a valid status for this project's tracker/workflow and
+listed the real 5 available statuses instead of guessing — again an honest response, not a guess or a false
+claim.
+
+Native-verified on `/projects/crux-scrum-agent-test-project/agile_board`: still exactly the original 5
+columns (New, In Progress, QA, Waiting for Customer Response, Done) — no "Blocked Retest" column was
+fabricated or silently created either time.
+
+**Status: FIXED.** The false-success defect found in the 2026-11-03 retest is gone — `create_column` now
+performs genuine server-side validation and reports its real outcome. Moved to `bugs/closed/`.

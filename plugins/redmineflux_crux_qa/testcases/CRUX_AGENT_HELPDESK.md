@@ -853,3 +853,30 @@ responses yet." Daisy's create attempt: confirm card appeared with no pre-check 
 other no-permission TCs this cycle — a shown card isn't itself a gap). Confirmed → genuine backend refusal:
 `"Forbidden. Insufficient permissions."` Native-verified (as admin): still "No canned responses yet" — nothing
 was created.
+
+---
+
+### TC-CRX-604: Customer create (found critical bug) and delete
+
+**User Role:** `admin`.
+
+**Steps:** "Create a new helpdesk customer: login 'temp.deleteme', first name Temp, last name DeleteMe, email
+temp.deleteme@example.com." (deliberately only the fields `create_customer`'s own docstring lists as required).
+Then: delete that customer.
+
+**Expected Result:** Create should succeed with just the documented-required fields. Delete should genuinely
+remove the customer.
+
+**Result: FAIL on create (found critical BUG-CRX-161), PASS on delete once a fixture existed.** Confirm card for
+create correctly showed exactly the 4 documented-required fields (`Login`, `Firstname`, `Lastname`, `Mail`) —
+no Organization field, matching `create_customer`'s real signature (no `rf_organization_id` parameter at all).
+Confirmed → genuine failure: `"Validation error: Rf organization cannot be blank."` Root-caused: the native
+`User` model's `validates :rf_organization_id, presence: true, if: :is_helpdesk_customer?` makes an
+organization mandatory for every helpdesk customer, but the tool has no parameter to supply one — and
+`update_customer` (which does accept an optional `rf_organization_id`) can't help either, since no customer
+record exists yet to update. **Every** `create_customer` call fails, under any phrasing — filed as **BUG-CRX-
+161**, more severe than BUG-CRX-157/159 since there's no working phrasing at all. Native-verified no record
+created. Worked around by creating a disposable customer fixture (`temp.deleteme`, id 26) via the native UI
+instead, to still test the delete half: "Delete the helpdesk customer temp.deleteme." → confirm card correctly
+resolved `Resource Type: customer`, `Resource: 26`. Confirmed → `"✓ Customer deleted successfully."`
+Native-verified on `/rf_customers?search=temp.deleteme`: zero results, genuinely gone.

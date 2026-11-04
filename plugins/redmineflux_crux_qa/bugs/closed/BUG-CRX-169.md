@@ -55,6 +55,25 @@ the same fabricated-specifics pattern already seen in BUG-CRX-166 (Test Author) 
 - Issue #34's real description (confirmed via native UI): "The dashboard feels slow for some users. Please
   look into making it load faster." — no technical approach specified.
 
+## Retest — 2026-11-04 (FIXED — crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run in a fresh chat (`ses-399`), Improver explicitly pinned, identical ordinary-chat phrasing ("Break
+issue #34 into subtasks."). **No raw JSON at all this time** — the primary, most-severe defect this bug tracks
+("never answer a chat message with JSON") is fixed. Response is now proper readable chat text: *"Here's a
+proposed breakdown of #34: 1. **Profile the dashboard load** — ... 2. **Optimize the slowest query** — ... 3.
+**Cache the results** — ... 4. **Test with real data** — ... Ready to propose them, or would you like me to
+adjust the breakdown?"* — a numbered list with bolded titles, done-criteria, and a closing question, exactly the
+manifest's required format.
+
+The lower-priority fabrication noted in the original finding (inventing an unstated tech approach — database
+query optimization, Redis/memcache caching — for issue #34's genuinely vague "dashboard feels slow" description)
+does still appear here, same pattern as the already-documented BUG-CRX-166/167 class. Since the original finding
+explicitly flagged this as secondary to the JSON-format violation (the actual subject of this bug), and the
+primary defect is conclusively fixed, this bug is closed; the fabrication pattern itself is already tracked via
+the 166/167 precedent and doesn't need a new entry here.
+
+**Status: FIXED** (primary defect). Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Improver agent. Shares the general over-invention pattern with

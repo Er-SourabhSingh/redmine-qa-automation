@@ -73,6 +73,23 @@ provider") — only Criteria 2 and 3 get two tests each.
   provider and back, creating a session on success. 3. A failed SSO attempt shows a clear error, no silent
   failure." — no tech-stack or implementation detail stated anywhere.
 
+## Retest — 2026-11-04 (FIXED — crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run verbatim in a fresh chat (`ses-396`), Test Author explicitly pinned via the agent picker (note:
+`/crux/ask` and even "New chat" initially kept routing into the prior Reviewer-pinned session until the agent
+picker dropdown was used directly — a known UI quirk, not itself a defect), against the same real fixture issue
+#35. Response is now fully human-readable test cases — no pytest/Selenium/Python code at all:
+
+- 6 test cases total, one Positive + one Edge Case per each of the 3 acceptance criteria (previously only
+  Criterion 1 lacked a distinct negative/edge case — now fixed too).
+- Every case has Precondition / Steps / Expected Result in plain language.
+- No fabricated port, URL, HTML element ID, backend module path, or cookie-naming convention — preconditions and
+  steps stay grounded in what the issue actually states ("Login with SSO button", "identity provider", "clear
+  error message"), with edge cases phrased generically (e.g. "SSO identity provider is offline or unreachable")
+  rather than inventing implementation specifics.
+
+**Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Test Author agent. Distinct in shape from the Reviewer/Code

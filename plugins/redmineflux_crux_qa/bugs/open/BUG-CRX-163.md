@@ -2,9 +2,9 @@
 
 - Bug ID: BUG-CRX-163
 - Production Redmine Issue ID:
-- Title: Reviewer Agent misreads a real `blocked by` relation's raw JSON direction and reports it as the
-  issue blocking itself — and separately never factors a genuine open blocker into its acceptance-criteria
-  verdict at all
+- Title: Reviewer Agent never factors a genuine open blocker into its acceptance-criteria verdict, giving a
+  clean PASS/"ready to close" on an issue that is still blocked by another open issue (relation-direction
+  fabrication half of this finding is FIXED as of crux-core 0.150.0 — see Retest section)
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Reviewer agent)
 - Plugin version: crux-core 0.130.0
@@ -81,6 +81,26 @@ request log; see Console/log below for exact text)
 - Real Rails container log confirms the only relation-bearing call made was `GET
   /issues/35.json?include=relations` (i.e. `get_issue` with `include: "relations"`), not a separate
   `list_issue_relations` tool call — so the misread happened on this exact JSON shape.
+
+## Retest — 2026-11-04 (crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro steps re-run verbatim in a fresh chat (`ses-394`), Reviewer pinned, against the same real fixtures
+(issue #35 with 3 verified AC, real `#36 blocks #35` relation, #36 still open):
+
+1. **Step 3 (verdict) — STILL BROKEN.** "Review issue #35 against its acceptance criteria." → Reviewer returned
+   PASS on all 3 criteria and concluded *"All three acceptance criteria are verified in staging. Ready to
+   close."* — the open #36 blocker is again never mentioned anywhere in the verdict. Identical defect to the
+   original finding; not a stale-build artifact.
+2. **Step 4 (direct question) — FIXED.** "Does issue #35 have any open blocking relations?" → Reviewer now
+   correctly replied: *"Yes. Issue #36 blocks #35. Do you want me to check whether #36 is open?"* — correct
+   direction, no fabrication, no "blocks itself" claim. This half of the original finding is resolved by the
+   rebuild.
+
+**Conclusion: narrowed, not closed.** The relation-direction misread (step 4) was a genuine stale-build/rebuild
+fix. The verdict-omission defect (step 3) is a real, persistent defect — the Reviewer's own manifest
+(`agents/reviewer.md`) lists blocker-relation checking as part of "How you review," and AGENT-TEST-GUIDE.md §4's
+"not a bug" list has no entry covering an open-blocker being silently left out of a PASS verdict. Remains open,
+scope narrowed to step 3 only. Proceeding to file to production ztflux per §5 format (pending approval).
 
 ## Duplicate check
 

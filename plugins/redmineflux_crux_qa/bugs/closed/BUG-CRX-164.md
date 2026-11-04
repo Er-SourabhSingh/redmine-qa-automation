@@ -83,6 +83,18 @@ chat exchange; see Console/log below for exact text)
 
 ## Duplicate check
 
+## Retest — 2026-11-04 (FIXED — was a stale-build artifact)
+
+Per the developer's AGENT-TEST-GUIDE.md §0, this result came from an older build. Pulled crux-core
+`b6867e8→813b559` (0.150.0), MCP `93d479c→2610a4d`, rebuilt both images (`docker compose build mcp crux-core`),
+`force-recreate`d both containers, and restarted Redmine after migrating the freshly-pulled Redmineflux
+plugins. MCP's own startup log now reads: `Redmineflux MCP v1.0.0: 495 tools (93 core + 400 plugin + 2 crux).
+Detected plugins: ... (13/14)` — a dramatically higher count than what was registered during the original
+sweep. Reviewer's Agent Fleet profile now genuinely shows **"Reads: 4 tools" / "Changes: 1 change (update
+issue)"** — exactly matching its shipped manifest. **Status: FIXED.** Moved to `bugs/closed/`.
+
+## Duplicate check (original finding)
+
 - Duplicate found: No. First finding of a manifest-vs-live-deployment tool-registration mismatch, and the
   first time it's been checked across multiple agents in the same pass rather than assumed per-agent.
   Distinct from the existing "tool not in allowed_tools" capability-gap bugs (e.g. BUG-CRX-117's Time Agent

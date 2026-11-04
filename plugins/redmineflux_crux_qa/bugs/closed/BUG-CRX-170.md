@@ -62,6 +62,17 @@ agent switch**, not a general Crux Guide defect, and not caused by the specific 
   modal — which shows you the real evidence behind that gate (the runs, cost, and acceptance proof). You can
   see the Work Packages panel in two places..."*
 
+## Retest — 2026-11-04 (FIXED — crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run in the same chat as BUG-CRX-169's retest (`ses-399`): that chat genuinely contains an unconfirmed
+Improver proposal ("Ready to propose them, or would you like me to adjust the breakdown?" — never confirmed).
+Switched the pinned agent to **Crux Guide** in that same chat and asked the identical unrelated question:
+"What's the status of issue #33? And how do I approve a gate in Crux?" **No leak at all** — Crux Guide answered
+correctly and on-topic on the first attempt: a detailed, accurate walkthrough of the gate-approval flow (Work
+Packages panel → gate chip → "approve" button → evidence modal → confirm), matching the manifest's documented
+behavior, with no trace of the old "nothing to confirm yet" boilerplate. The cross-agent session-state leak does
+not reproduce on this build. **Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. Distinct from the already-documented fabricated-confirm-dead-end class (BUG-CRX-020/142/

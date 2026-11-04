@@ -55,6 +55,16 @@ both attempts with no self-correction — suggesting the dead-end is specificall
   attempt alone — the context had grown substantially from the accumulated chat history, which may itself be
   a contributing factor worth the developer's attention.
 
+## Retest — 2026-11-04 (FIXED — crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run in a fresh chat (`ses-398`), Alert Triage explicitly pinned, same exact genuinely-new-problem
+message. **First attempt now produces a real confirm card** — no fabricated "nothing to confirm" dead-end at
+all: *"I'll create this issue — confirm?"* with a full `Create issue` card (Project: Crux PM Agent Test Project,
+Tracker: Bug, Subject: "Mobile export button throws blank screen", Priority: immediate, a complete
+what/expected/actual/impact description) and Confirm/Cancel buttons. Clicked **Cancel** per AGENT-TEST-GUIDE.md
+§1's methodology; native-verified via `redmineflux_core_search` that no issue was actually created — confirming
+Cancel genuinely did nothing, as the card's own disclaimer states. **Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: Related to the already-documented **BUG-CRX-020** (original fabricated-confirm class,

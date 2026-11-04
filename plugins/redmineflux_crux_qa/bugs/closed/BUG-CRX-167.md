@@ -74,6 +74,22 @@ verifying.
 - Native check, `/settings?tab=authentication` on this exact instance: zero occurrences of "SAML", "OIDC",
   "OpenID", "SSO", or "Single Sign" anywhere on the real page.
 
+## Retest — 2026-11-04 (FIXED — crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run verbatim in a fresh chat (`ses-397`), Docs Writer explicitly pinned via the agent picker, same
+exact phrasing ("Write a wiki page explaining the new SSO login feature, from issue #35."). No fabrication at
+all this time — the agent now responds: *"I couldn't find a tool for this here, so I can't do it from this
+chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this
+deployment's tool setup."* No SAML/OIDC, no invented admin settings path, no fictional configuration steps —
+an honest capability refusal instead of a confident fabrication. This is consistent with AGENT-TEST-GUIDE.md
+§1's "unknown values must be looked up or asked for, never guessed" rule, applied here as an honest "I can't"
+rather than inventing an answer. **Status: FIXED** (the specific defect — fabricating fictional product
+documentation as established fact — no longer reproduces). Moving to `bugs/closed/`.
+
+Side note for `CRUX_MEMORY.md`, not a bug on its own: Docs Writer apparently has no wiki-page-write tool
+available in this build at all (declines any wiki-authoring request outright) — worth a quick capability check
+in a future session to confirm whether that's by design or an unrelated gap, but out of scope for this retest.
+
 ## Duplicate check
 
 - Duplicate found: No. Same general fabrication-under-pressure-to-be-thorough shape as BUG-CRX-166 (Test

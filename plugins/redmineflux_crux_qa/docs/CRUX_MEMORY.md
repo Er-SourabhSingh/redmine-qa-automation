@@ -2,6 +2,40 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## AGENT-TEST-GUIDE.md rebuild + retest round (2026-11-04) — stale-build false positives, honest-refusal fixes, Docs Writer wiki-write gap
+
+When the developer flags a sweep's findings as possibly from a stale build, actually rebuild and re-measure
+rather than taking either side's word for it — this round found a genuine mix: some findings were pure
+stale-build artifacts (BUG-CRX-164's tool-registration gap vanished entirely after rebuilding crux-core/mcp —
+Reviewer's tool count matched its manifest exactly, 4 reads/1 change, before vs. after was a dramatic jump), some
+were cleanly fixed by the developer's targeted patches (BUG-CRX-166 Test Author code fabrication, BUG-CRX-168
+Alert Triage fabricated dead-end, BUG-CRX-169 Improver raw-JSON, BUG-CRX-170 cross-agent session leak — all 1/1
+on first retest), and some genuinely persisted unchanged (BUG-CRX-165's BLOCK-on-no-criteria, in fact slightly
+worse — now renders a misleading criterion/status table too). One bug (BUG-CRX-163) split in half: the
+fabrication component fixed, the verdict-omission component didn't — worth remembering that a single bug can
+have independently-fixed and independently-broken components, and narrowing a bug's scope on retest (rather than
+just closing or leaving open) is the right move when that happens.
+
+**Docker rebuild reminder reconfirmed** (see the `build:`-based-services note below, same lesson, different
+session): `docker compose build mcp crux-core && docker compose up -d --force-recreate mcp crux-core` is required
+after any `git pull` to these two services — a plain restart serves the stale baked image every time.
+
+**An "honest refusal instead of fabrication" fix pattern showed up twice this round** — BUG-CRX-167 (Docs Writer)
+went from confidently inventing SAML/OIDC protocol details and a fake admin settings page to a clean "I couldn't
+find a tool for this here, so I can't do it from this chat" when it apparently has no wiki-write tool at all in
+this build. This is the *correct* direction for a fix (per AGENT-TEST-GUIDE.md §1: "unknown values must be
+looked up or asked for, never guessed") even though the original user-facing request (write a wiki page) still
+doesn't get fulfilled — don't conflate "the agent is now honest" with "the capability now exists." Worth a
+quick, separate capability check in a future session on whether Docs Writer is *supposed* to have a wiki-write
+tool at all.
+
+**Agent-picker quirk reconfirmed**: navigating directly to `/crux/ask` or even clicking "New chat" sometimes
+keeps the previously-pinned agent selected and can route a message into the wrong agent's existing session (one
+instance this round: a "Test Author, write test cases..." message landed in a still-open Reviewer-pinned
+session and got Reviewer's own refusal reply instead). Always verify the agent-picker button's label in the
+snapshot before sending a message that depends on a specific agent being pinned — don't trust that "New chat"
+alone resets it.
+
 ## Invoicing Agent suite setup (2026-11-03) — fixture, permissions, and a native plugin landmine
 
 New suite `testcases/CRUX_AGENT_INVOICE_BILLING.md`. Fixture: `Crux Invoice Agent Test Project`

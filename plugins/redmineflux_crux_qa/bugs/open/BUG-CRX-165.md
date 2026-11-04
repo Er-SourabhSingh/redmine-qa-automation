@@ -52,6 +52,23 @@ human skimming only the bolded verdict word into treating this the same as a rea
   verdict. If the issue has no written criteria, say so plainly and list what you would need. Never invent
   criteria."*
 
+## Retest — 2026-11-04 (crux-core 0.150.0, post-rebuild per AGENT-TEST-GUIDE.md §0)
+
+Repro re-run verbatim in a fresh chat (`ses-395`), Reviewer pinned, against the same real fixture (issue #34,
+still has no acceptance-criteria section). **Still reproduces — not a stale-build artifact.** Response (verbatim):
+
+*"**BLOCK** [table: Criterion "Acceptance criteria defined" | Status "Not met" | Evidence "No written acceptance
+criteria, checklists, or requirements in the issue description."] The issue has no acceptance criteria. I
+cannot judge whether the work is complete without knowing what success looks like... I need a clear criteria
+section to review this. Request the issue author to add one of the following: ..."*
+
+Arguably slightly worse than the original finding: the new response now also renders a formal criterion/status
+table that frames "no criteria exist" as a judged-and-failed criterion ("Acceptance criteria defined → Not
+met"), which is an even more literal blurring of "no criteria to judge" vs. "a real criterion was judged and
+found unmet" than the original bolded-word-only BLOCK label was. Manifest rule ("No criteria, no verdict...")
+is still being violated. Confirmed genuine, persistent defect — proceeding to file to production per §5 (pending
+approval).
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Reviewer agent's no-criteria handling specifically. Distinct from

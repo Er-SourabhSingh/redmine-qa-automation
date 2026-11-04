@@ -67,3 +67,15 @@ silently violated.
   enforced natively but not via the agent's tool" pattern. Worth noting both bugs together suggest the
   Invoicing Agent's tool layer systematically under-enforces invoice status transitions compared to the
   native controller/UI.
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested against invoice #7 (INV-2026-0007, Draft, created earlier this retest round): "Record a payment of
+$100 against invoice #7 for the Crux Invoice Agent Test Project, payment date 2026-11-04, method bank
+transfer." The confirm card still shows no status field, but confirming now correctly refuses: *"Validation
+error: This invoice is still a draft and has not been sent to the client. Send it first, then record the
+payment. Correct the value(s) above and try again."*
+
+Native-verified on `/invoices/7`: Payment History genuinely reads "No payments recorded yet." **Status:
+FIXED.** `record_payment` now enforces the same Sent-or-later gate the native UI's own action links imply.
+Moved to `bugs/closed/`.

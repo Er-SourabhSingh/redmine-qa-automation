@@ -78,3 +78,18 @@ integrity and audit-trail defect, not merely a cosmetic one.
   silently between confirmation and the actual database write, not during the agent's own proposal-building
   reasoning. Distinct from BUG-CRX-132/133/134/135/136/137/138 (all different tools/root causes on this
   suite). Kept as its own bug given the distinct mechanism and severity.
+
+## Retest — 2026-11-04 (STILL REPRODUCES — NOT FIXED)
+
+Retested the exact original repro: as `admin` (user id 1, not a formal project member), create an invoice
+with `user_id: 1` explicit in the line item. Confirm card again correctly showed `'user_id': 1` in the Line
+Items JSON — confirmed, creating Invoice #9 — INV-2026-0009.
+
+Native-verified on `/invoices/9/edit`: the line item's `User` dropdown still genuinely shows **"Daisy Skye"**
+selected, not Redmine Admin — the identical silent substitution as the original report. Worth noting this is
+asymmetric with this round's BUG-CRX-134 fix: `set_team_rate` now correctly validates/refuses a non-member
+user id, but `create_invoice`'s line-item `user_id` still silently substitutes instead of refusing or
+persisting the confirmed value.
+
+**Conclusion: STILL REPRODUCES.** **Bug stays open.** Production issue #127472 remains in its current status
+(not synced to Done).

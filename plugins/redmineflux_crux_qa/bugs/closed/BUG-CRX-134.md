@@ -74,3 +74,20 @@ all-or-nothing rollback or false success.
   BUG-CRX-132 (a nil-field crash on the invoice show page) and BUG-CRX-133 (wrong-project resolution) —
   different tool, different root cause (missing input validation before a DB write, not a resolution or
   rendering defect).
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested the exact original repro: "Set the hourly rate to $95 for user 999999 on the Crux Invoice Agent Test
+Project." Confirm card correctly showed `Project: Crux Invoice Agent Test Project`, `User: 999999`, `Hourly
+Rate: 95`. Confirming now returns a clean, honest validation error instead of a raw 500: *"Validation error:
+User is invalid Correct the value(s) above and try again. The user must be a member of this project: invoice
+line items and team rates can only name the project's members. Check them with
+redmineflux_core_list_project_memberships, and don't substitute another person."*
+
+Confirmed via the real Redmine container log: `POST /api/projects/10/team_rates.json` with
+`user_id=999999` now returns a clean `422 Unprocessable Content` (84ms, no exception trace) — not the raw,
+unhandled `ActiveRecord::InvalidForeignKey` 500 from the original report, and no misleading
+"database may not be migrated" remediation text.
+
+**Status: FIXED.** `set_team_rate` now validates the user is a real project member before attempting the
+write. Moved to `bugs/closed/`.

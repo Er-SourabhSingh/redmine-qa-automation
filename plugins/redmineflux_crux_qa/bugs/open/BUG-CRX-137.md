@@ -69,3 +69,24 @@ appearance of an issue reference without the underlying structural link the nati
   native feature with no corresponding tool parameter, so the agent fakes a text-only approximation).
   **Positive finding in the same test, not a defect**: Client Name and Client Address are both genuinely
   supported fields, correctly resolved and persisted.
+
+## Retest — 2026-11-04 (STILL REPRODUCES — PARTIALLY IMPROVED, NOT FIXED)
+
+Retested with the same repro shape: "...for issue #25, quantity 2, rate 150, user id 1." The confirm card this
+time showed a **genuine improvement** — the line item JSON now carries a real `'issue_id': 25` field (`[{...,
+'user_id': 1, 'issue_id': 25}]`), not just a text description — confirming `create_invoice` gained a real
+`issue_id` parameter since the original report.
+
+However, created Invoice #8 — INV-2026-0008, total $300.00 (math correct). Native-verified on
+`/invoices/8/edit`: the "Invoice Issues" section's checkbox for *"#25: DEF-2 fixture issue - fallback rate
+test (Bug)"* is **still genuinely unchecked** — the real, structural link the native UI creates (the
+checkbox-driven association) still doesn't happen, even though the tool now accepts and stores an `issue_id`
+value somewhere. The line item's own Description field now reads plain "Consulting Retest136" (no longer even
+a text workaround mentioning the issue number) — so the only trace of "issue #25" is the `issue_id` value in
+the API payload, which still doesn't translate into the native checkbox-based association a real user would
+see or rely on.
+
+**Conclusion: STILL REPRODUCES**, though with a partial improvement (a real `issue_id` parameter now exists
+on the tool, where none did before) — the underlying structural-link gap identified in the original report
+is not yet closed. **Bug stays open.** Production issue #127470 remains in its current status (not synced to
+Done).

@@ -78,3 +78,19 @@ total is factually wrong relative to what the user explicitly asked for.
   Rate 500 crash), and BUG-CRX-135 (Delete lifecycle gap). Related in spirit to the already-documented DEF-2
   fallback-rate defect (wrong/undisclosed figures silently reaching a real invoice total) but a distinct
   root cause (missing tool parameters for two entire native features, not a rate-fallback calculation).
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested the exact original repro shape: "...one line item: 'Consulting Retest136', quantity 4, rate 100.
+Apply a 10% 'Early Bird Discount' and add CGST tax at 9% and SGST tax at 9%." This time the confirm card
+genuinely shows separate `Discounts: [{'label': 'Early Bird Discount', 'rate': 10}]` and `Taxes: [{'label':
+'CGST', 'rate': 9}, {'label': 'SGST', 'rate': 9}]` fields — no longer collapsed into a flat `Tax Rate` or
+dumped into Notes. Confirming created Invoice #7 — INV-2026-0007, **total $424.80** — exactly matching the
+mathematically correct value ($400 − 10% discount = $360 × 1.18 = $424.80), not the old, wrong $472.00.
+
+Native-verified on `/invoices/7/edit`: the native **Discounts** table genuinely contains "Early Bird Discount
+(10%)" and the native **Taxes** table genuinely contains both "CGST (9%)" and "SGST (9%)" as separate labeled
+rows — both structured, native line-item systems are now reachable via the agent, not just free text.
+
+**Status: FIXED.** `create_invoice` now supports real, itemized Discounts and multiple named Taxes. Moved to
+`bugs/closed/`.

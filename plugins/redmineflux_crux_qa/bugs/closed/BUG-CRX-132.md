@@ -86,3 +86,20 @@ whenever an invoice is created with no due date — which the plugin itself allo
 - Duplicate found: No. First finding on the Invoicing Agent / `redmineflux_invoice` plugin domain — this
   suite (`CRUX_AGENT_INVOICE_BILLING.md`) is new as of 2026-11-03, no prior Invoice-domain bugs exist in
   `bugs/_index.md` or `bugs/_duplicates.md` to check against.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer's retest guide round pulled `redmineflux_invoice` (and the other named repos/services) to the
+commits specified for this round; migrations run, services restarted. Retested the exact original repro, fresh
+chat, Invoicing Agent pinned: "Create an invoice for the Crux Invoice Agent Test Project, client email
+retest132@example.com, tax rate 10%, one line item: 'Consulting Retest', quantity 2, rate 100." (supplied
+user_id 1 and the project identifier when prompted).
+
+The confirm card still doesn't show an explicit Due Date field, but the result message this time read: *"✓
+Invoice created: #6 — INV-2026-0006 for retest132@example.com (status: draft, total: 220.0, due:
+2026-12-04)"* — a real due date (30 days after the invoice date) is now genuinely set automatically, not left
+nil. Native-verified on `/invoices/6`: the show page renders correctly — no 500 — with `Due Date: 12/04/2026`
+genuinely displayed.
+
+**Status: FIXED.** `create_invoice` now defaults a real `due_date` instead of leaving it nil, closing the
+crash path in `invoice_macro_processor.rb`. Moved to `bugs/closed/`.

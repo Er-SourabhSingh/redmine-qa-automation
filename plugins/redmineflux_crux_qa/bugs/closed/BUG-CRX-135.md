@@ -58,3 +58,14 @@ tool or controller enforces it.
   enforcement. Shares the general "a write-path lifecycle rule isn't consistently enforced across sibling
   actions" shape seen elsewhere in this QA cycle (e.g. BUG-CRX-033's original Draft-only-editable gap before
   it was fixed), but this is the first instance for the Delete action specifically on this plugin.
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested against invoice #6 (INV-2026-0006, genuinely Sent as of this round's BUG-CRX-133 retest): "Delete
+invoice #6 for the Crux Invoice Agent Test Project." The confirm card still shows no status/warning field, but
+confirming now correctly refuses: *"Validation error: This invoice has already been sent to the client, so it
+cannot be deleted. Only draft or cancelled invoices can be deleted. Correct the value(s) above and try again."*
+
+Native-verified on `/invoices?project_id=crux-invoice-agent-test-project`: INV-2026-0006 is still genuinely
+present. **Status: FIXED.** `delete_invoice` now enforces the same Draft/Cancelled-only lifecycle rule as
+`update_invoice`. Moved to `bugs/closed/`.

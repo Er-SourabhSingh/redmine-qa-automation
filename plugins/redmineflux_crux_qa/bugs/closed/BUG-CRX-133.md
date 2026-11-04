@@ -81,3 +81,20 @@ chat-session-wide context-resolution defect affecting the Invoicing Agent genera
   **BUG-CRX-101** (Scrum Agent, Agile Board plugin). This is a **fresh recurrence on a fourth domain — the
   Invoicing Agent's `send_invoice` tool specifically** — kept as its own bug file per this repo's one-bug-
   per-domain rule (see `bugs/_duplicates.md` for the equivalent BUG-CRX-094/096/101 precedent).
+
+## Retest — 2026-11-04 (FIXED)
+
+Retested the exact original repro shape in chat `ses-378` (Invoicing Agent pinned): the chat had just created
+invoice #6 in `Crux Invoice Agent Test Project` one turn earlier. Sent, without re-naming the project: "Send
+invoice #6 to the client now."
+
+This time the agent did not silently substitute a different, unrelated project — instead it correctly
+recalled the right project and explicitly checked: *"I need to confirm which project this invoice belongs to.
+Is it the 'crux-invoice-agent-test-project' we just created the invoice in?"* After confirming ("Yes, that
+one."), the real `Invoice Send Invoice` confirm card correctly showed `Project: Crux Invoice Agent Test
+Project`, `Invoice: 6`. Confirming returned: *"✓ Invoice #6 (INV-2026-0006) sent. Status: sent. Client:
+retest132@example.com."* Native-verified on `/invoices?project_id=crux-invoice-agent-test-project`: invoice
+INV-2026-0006's Status column genuinely reads "Sent".
+
+No wrong-project substitution occurred — the context-carryover resolution is now correct, even if phrased as
+an extra confirmation question rather than silent reuse. **Status: FIXED.** Moved to `bugs/closed/`.

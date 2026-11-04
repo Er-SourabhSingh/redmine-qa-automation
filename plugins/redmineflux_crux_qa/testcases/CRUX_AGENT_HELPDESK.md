@@ -831,3 +831,25 @@ and proposed a correct confirm card (`Rf Organization: 2`, `Billable Activity Id
 15`). Confirmed → `"✓ Deduction rule updated... billable activities: [10, 3], minimum 15m/ticket."`
 Native-verified: the project's Prepaid Support Hours table genuinely shows `Technical Support, development ·
 min 15m` as the deduction rule.
+
+---
+
+### TC-CRX-603: Canned response delete + no-permission create attempt
+
+**User Role:** `admin` (delete), then `daisy.skye` (Reporter — no `view_helpdesk`/`manage_helpdesk`).
+
+**Steps:** As admin: "Delete the 'Printer Troubleshooting Steps' canned response." As daisy.skye (separate
+session): "Create a canned response called 'Daisy Test Response'..."
+
+**Expected Result:** Admin delete should genuinely work. The CLAUDE.md/plan's note that canned-response
+writes are "admin-only regardless of role" turned out to be imprecise on inspection of source
+(`CannedResponsesController` actually gates on `require_admin_or_manage_helpdesk` — admin OR a project
+Manager with `manage_helpdesk`, not admin alone) — corrected here rather than carried forward uncritically.
+Tested with Daisy (Reporter, has neither) as the genuine no-permission case instead.
+
+**Result: PASS on both.** Admin delete: confirm card `Resource Type: canned_response`, `Resource: 1`. Confirmed
+→ `"✓ Canned response deleted."` Native-verified on `/rf_helpdesk/setting?tab=canned_responses`: "No canned
+responses yet." Daisy's create attempt: confirm card appeared with no pre-check (same established pattern as
+other no-permission TCs this cycle — a shown card isn't itself a gap). Confirmed → genuine backend refusal:
+`"Forbidden. Insufficient permissions."` Native-verified (as admin): still "No canned responses yet" — nothing
+was created.

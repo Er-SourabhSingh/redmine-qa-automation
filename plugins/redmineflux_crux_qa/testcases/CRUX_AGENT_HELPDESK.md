@@ -800,3 +800,34 @@ Redmineflux administrator privileges."` message — the same misleading-✓-on-f
 this suite's domain (Workload, not Helpdesk) and was pre-existing in her chat history, not reproduced as part
 of this test — flagged for whoever owns the Workload/Capacity Agent suite to confirm whether it's already
 tracked.
+
+---
+
+### TC-CRX-602: Prepaid hours — add + deduction rule — positive writes
+
+**User Role:** `admin`.
+
+**Steps:** Create organization "Prepaid Test Org" (needed as a fixture). "Add 10 prepaid support hours for the
+Prepaid Test Org on project 12, comment 'initial top-up'." then "Set a prepaid-hours deduction rule for Prepaid
+Test Org on project 12: only count Development and Support activities, minimum 15 minutes per ticket."
+
+**Expected Result:** `prepaid_support_hours_add` and `set_prepaid_deduction_rule` should both genuinely work.
+Native-verify the approved/remaining hours and the deduction rule's activity list on the project's Prepaid
+Support Hours panel.
+
+**Result: PASS, with one dead-end retry along the way (same already-documented class, not a new finding).**
+Organization "Prepaid Test Org" created via the by-now-familiar create_organization flow (correctly declined to
+accept a project id, matching BUG-CRX-159's finding that organizations are global). Add hours: confirm card
+`Project: Crux Helpdesk Agent Test Project`, `Rf Organization: 2`, `Hour: 10`, `Comment: initial top-up`.
+Confirmed → `"✓ Added 10.0h... approved: 10.0h | spent: 0.0h | remaining: 10.0h."` Native-verified on the
+project's Helpdesk tab: Prepaid Support Hours table shows `Prepaid Test Org — Approved 10.00h, Used 0.00h,
+Remaining 10.00h`. Deduction rule: first attempt (in the suite's very long-running primary chat) dead-ended
+twice with the already-documented "I described a change without actually proposing it..." text (same class as
+BUG-CRX-013/070/085/158, not re-filed as a new bug — already well-established and this session's chat had grown
+extremely large by this point). Switched to a genuinely fresh chat — the agent then behaved correctly and
+honestly: asked for the Development/Support activity numeric IDs (no tool exists within the Helpdesk group to
+look these up by name, honestly disclosed rather than guessed), accepted the real ids (10, 3) once supplied,
+and proposed a correct confirm card (`Rf Organization: 2`, `Billable Activity Ids: [10, 3]`, `Minimum Minutes:
+15`). Confirmed → `"✓ Deduction rule updated... billable activities: [10, 3], minimum 15m/ticket."`
+Native-verified: the project's Prepaid Support Hours table genuinely shows `Technical Support, development ·
+min 15m` as the deduction rule.

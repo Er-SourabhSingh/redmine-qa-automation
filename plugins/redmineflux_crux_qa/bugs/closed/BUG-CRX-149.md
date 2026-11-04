@@ -96,3 +96,21 @@ silently requires a manual approval step the UI's own tooltip told the user woul
   the same plugin action — not previously documented in this suite or in `bugs/_duplicates.md`. Related in
   theme to the general "two code paths disagree" class but no existing bug covers leave auto-approval
   specifically.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (retest guide round 31). Migrations run,
+all services restarted.
+
+Retested Rule A (admin creates leave for another team member): as admin, Capacity Agent, "Create a leave
+request for Daisy Skye, sick leave, from 2027-03-15 to 2027-03-16." Confirm card correctly resolved
+`Username: daisy.skye`, `Leave Type: sick`. Confirmed → `"✓ Leave created: #7 | Daisy Skye | Sick Leave |
+2027-03-15 → 2027-03-16 (2.0 days) | **Status: approved**"` — genuinely auto-approved this time, matching the
+plugin's own documented business rule and the native web UI's identical behavior. **Status: FIXED.** Moved to
+`bugs/closed/`.
+
+(Incidental finding during retest, not re-filed separately: one earlier attempt in the same session resolved
+the username as `daisy_skye` — underscore instead of the real `daisy.skye` — and failed with "No user found."
+Retrying with the correct dotted username succeeded cleanly. Flagged for whoever retests BUG-CRX-019/551's
+username-resolution fix, in case this is a fresh recurrence worth its own bug on a future pass.)

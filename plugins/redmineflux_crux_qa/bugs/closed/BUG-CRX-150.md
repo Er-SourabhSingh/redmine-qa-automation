@@ -100,3 +100,20 @@ pull work away from a team member (Luna) who has 8+ spare hours this week, not a
   here the dates themselves were correct (matched the native filter exactly), but the two input figures
   (planned vs. capacity) were scoped to two different date ranges internally, producing a false result even
   with the right dates supplied.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (retest guide round 31). Migrations run,
+all services restarted.
+
+Retested: "What's Luna Blossom's utilization on the Crux Capacity Agent Test Team between 2026-11-10 and
+2026-11-14?" (a 5-day sub-range inside the 15-day sprint). Agent answered: *"Utilization: 62% | Planned hours:
+20.0h | Available capacity: 32.0h"*. Native-verified via the team page's own date-range filter
+(`?availability_start_date=2026-11-10&availability_end_date=2026-11-14`): Luna Blossom — **Capacity 32h,
+Allocated 20h, Available 12h**. The agent's `Planned hours` (20h) exactly matches native `Allocated`, and its
+`Available capacity` (32h) exactly matches native `Capacity` (the agent's field is labeled as total capacity,
+not remaining-free-hours — a label choice, not a data error). 20/32 = 62.5% ≈ the agent's stated 62%, fully
+internally consistent and matching native ground truth exactly — no sign of the old mismatched-numerator/
+denominator bug (previously the numerator stayed fixed at the full-sprint total while only the denominator
+shrank, producing an impossible 170% reading). **Status: FIXED.** Moved to `bugs/closed/`.

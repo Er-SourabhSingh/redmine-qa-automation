@@ -71,3 +71,19 @@ enforcement itself is missing, not just untested.
   blocked this exact scenario from ever being properly tested, on a different tool — `holiday_scheme_activate`
   — not `update_planned_hours`). This bug is about the real capacity-enforcement logic itself being missing,
   not about a confirm-card fabrication.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (retest guide round 31). Migrations run,
+all services restarted.
+
+Retested per the developer's guide: turned off "Allow workload overload," then attempted to set Luna Blossom's
+planned hours on a real allocation (issue #26, Crux Capacity Sprint 1) to 500h — far beyond her real available
+capacity (32h/week in the sprint window). The write was genuinely refused: `"Validation error: Planned hours
+must be less than or equal to 360. Correct the value(s) above and try again."` Confirmed server-side via Rails
+logs: `PATCH /api/workload/workloads/1/issues/26/planned_hours` → `422 Unprocessable Content`. Native-verified
+(via a fresh read) her planned hours on issue #26 remained **60.0 hours — unchanged**. The wording differs
+slightly from the vendor doc's example ("This change would exceed daily capacity"), but the real enforcement
+now genuinely blocks an over-capacity write when overload is disabled, which is the core defect this bug
+tracked. **Status: FIXED.** Moved to `bugs/closed/`.

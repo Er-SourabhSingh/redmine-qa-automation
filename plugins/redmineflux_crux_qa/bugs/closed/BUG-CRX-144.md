@@ -78,3 +78,17 @@ part of the agent's available tool-call budget in that chat.
   tools "aren't available"). Kept as its own bug (not reopening the closed BUG-CRX-034) per this repo's
   convention of filing fresh regressions as new bug numbers, with the added nuance — not previously documented
   on BUG-CRX-034 — that the failure is context/chat-length-dependent, not a permanent unavailability.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (per retest guide round 31). Migrations
+run, MCP image rebuilt, all services restarted.
+
+Retested the exact check from the developer's guide: in one chat (Capacity Agent pinned), asked about the Crux
+Capacity Agent Test Team's capacity first ("Checked 3 things," genuine real answer), then in the same chat asked
+to change a member's role ("Change Luna Blossom's role to Developer."). The agent proposed a genuine
+`Workload Member Update` confirm card (`Team`, `Membership: Luna Blossom (now Manager)`, `Role Name: Developer`)
+— no claim of unavailable tools at any point. Confirmed → `"✓ Member updated: Luna Blossom (user #5, membership
+#1) | Role: Developer | manage_workload=False, can_approve_leave=False."` Native-verified on `/rf_teams/1`:
+Luna Blossom's role genuinely shows "Developer". **Status: FIXED.** Moved to `bugs/closed/`.

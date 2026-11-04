@@ -90,3 +90,15 @@ least two different write tools that take a membership id parameter.
   BUG-CRX-142 (fabricated-prose-no-confirm-button) — both of which also occurred during this same
   investigation but are separate defects already tracked. Kept as its own bug given the distinct, consistent
   wrong-member-resolution mechanism and its real permission-escalation consequence if confirmed unchecked.
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (retest guide round 31). Migrations run,
+all services restarted.
+
+Retested the exact check: Capacity Agent pinned, "Change Luna Blossom's role to Developer." Confirm card
+correctly named **Luna Blossom** (`Membership: Luna Blossom (now Manager)`), not Daisy Skye. Confirmed → `"✓
+Member updated: Luna Blossom (user #5, membership #1) | Role: Developer..."` — both the name and user id
+genuinely correct this time. Native-verified on the team's own page: Luna Blossom's role genuinely shows
+"Developer". **Status: FIXED.** Moved to `bugs/closed/`.

@@ -63,3 +63,16 @@ attempt silently fabricated a wrong value instead.
   identifier on a confirm card) and this suite's own BUG-CRX-145 (wrong member resolved) — but this is a
   distinct parameter (role, not project/team/member identity) and a distinct, inconsistent behavior (the
   agent sometimes honestly asks instead of guessing, proving it CAN recognize the gap but doesn't always).
+
+## Retest — 2026-11-04 (FIXED)
+
+Developer pulled `redmineflux-crux-core`→`b6867e8`, `redmineflux-mcp`(`crux_development`)→`93d479c`,
+`redmineflux_crux` plugin→`7751dc8`, `redmineflux_workload`→`0b304a3` (retest guide round 31). Migrations run,
+all services restarted.
+
+Retested the exact check: "Change Luna Blossom's role to Developer." (name-only, no id supplied). Confirm card
+correctly showed `Role Name: Developer` — the real role **name**, not a guessed numeric id. Confirmed → `"✓
+Member updated: Luna Blossom (user #5, membership #1) | Role: Developer | manage_workload=False,
+can_approve_leave=False."` Native-verified: Luna Blossom's role genuinely shows "Developer" on the team page,
+and her `Can approve leave`/`Manage workload` flags stayed as they were (both correctly unaffected by the role
+change). **Status: FIXED.** Moved to `bugs/closed/`.

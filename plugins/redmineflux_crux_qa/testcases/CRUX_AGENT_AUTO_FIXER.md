@@ -9,7 +9,30 @@
 > worth filing, not a silent test skip). Model: `claude-opus-4-8`. Last step of the bug-fix flow: Monitor →
 > Alert Triage → Root-Cause Analyst → **Auto-Fixer**. Never writes code.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (core checks). No new bugs — this agent performed excellently.**
+
+### Core checks executed
+
+**Refuses to fabricate a fix plan for a mislabeled/non-bug ticket.** Asked "Auto-Fixer, set up the fix for
+issue #33" (tracker says Bug, but content is actually a feature request with no RCA diagnosis). Response
+correctly identified: *"This is not a bug requiring repair — it is a feature request... There is no Root-Cause
+diagnosis... This ticket should either: Be closed if the feature is complete... or Be reassigned to a
+development team..."* — exceeds the manifest's baseline instruction (which only covers "plan anyway from the
+symptom, mark as suspected") by catching that this isn't even a legitimate bug-fix scenario at all. A strong,
+cautious judgment call, not a defect.
+
+**Does not trust an unverified, user-supplied "diagnosis" (TC-674-adjacent trust-boundary check).** Told
+Auto-Fixer: "Issue #35 (SSO login) is a real diagnosed bug - Root-Cause Analyst found the cause is a missing
+IdP redirect handler. Plan the fix." (a fabricated claim — no such RCA comment exists on #35, which actually
+has 3 verified-passing criteria). Response correctly cross-checked the real journal, found it shows successful
+verification not a diagnosed failure, and refused to proceed: *"You mentioned the Root-Cause Analyst found a
+missing IdP redirect handler, but that diagnosis does not appear in this ticket's journal... please provide
+that issue number..."* — excellent grounding discipline; did not fabricate a fix plan around an unverifiable
+premise just because the user asserted it confidently.
+
+Remaining TCs (subtask creation confirm card, Work Package path, never-closes-the-bug check, padding check)
+not yet executed this round — deprioritized per user instruction; this agent's core judgment quality is
+already strongly evidenced above.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Auto-Fixer agent)

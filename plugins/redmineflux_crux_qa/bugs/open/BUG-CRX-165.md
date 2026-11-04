@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-165
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127802
 - Title: Reviewer Agent outputs a formal "BLOCK" verdict for an issue with no written acceptance criteria,
   directly contradicting its own manifest's explicit rule ("No criteria, no verdict")
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-163
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127801
 - Title: Reviewer Agent never factors a genuine open blocker into its acceptance-criteria verdict, giving a
   clean PASS/"ready to close" on an issue that is still blocked by another open issue (relation-direction
   fabrication half of this finding is FIXED as of crux-core 0.150.0 — see Retest section)

@@ -6,7 +6,18 @@
 > `redmineflux_core_get_wiki_page`, `redmineflux_core_create_or_update_wiki_page`. Model: `claude-sonnet-5`.
 > Persona: "a visual thinker — talks in flows, screens, and how it feels to use."
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: BLOCKED — executed 2026-11-04, not an agent-reasoning finding.** Asked "Design Agent, design the
+> flow for issue #35" 3 times (Enter, retry, explicit Send click) — all 3 failed identically with: *"This agent
+> uses Anthropic, which has no API key yet. Add one in Providers & keys, or give the agent a different
+> provider."* Confirmed via `/crux/admin/keys`: this instance has exactly one real key registered
+> ("OpenRouter prod," provider `openrouter`) and **zero** Anthropic keys. This is an environment/provider-
+> binding gap (Design Agent's live config is apparently bound specifically to the Anthropic provider, unlike
+> every other agent tested this round which ran on `anthropic/claude-haiku-4.5` via the OpenRouter key) — not
+> a reasoning defect to retest once a key is added. Related to the BUG-CRX-164 theme of live agent config
+> diverging from what's usable/expected on this instance, but a different symptom (provider binding, not tool
+> registration) — noted here rather than filed as a wholly new bug. **No TC in this suite could be executed.**
+> Re-run this suite in full once an Anthropic key (or a provider override to OpenRouter) is added for this
+> agent.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Design Agent)

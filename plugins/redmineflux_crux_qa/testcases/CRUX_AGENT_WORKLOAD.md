@@ -725,6 +725,10 @@ delete the old one."
 Luna, despite having `manage_rf_teams`, should still be refused since she isn't a Redmine admin. This isolates
 the admin-vs-manager distinction cleanly.
 
+**Result: PASS.** Confirm card correctly showed `Name: Luna's Rogue Scheme`. Confirming surfaced: "✓ Access
+denied: This feature requires Redmineflux administrator privileges." Native-verified on `/rf_settings`: no
+"Luna's Rogue Scheme" exists — genuinely blocked, admin-vs-manager distinction holds exactly as documented.
+
 ---
 
 ### TC-CRX-556: Holiday create/update/delete — positive, admin
@@ -760,6 +764,12 @@ instructions — "call `crux_discover_tool_groups` then `crux_discover_group_too
 first"), not falsely claim the capability doesn't exist (the exact historical BUG-CRX-034 shape — "Capacity
 Agent falsely claims Workload team-lifecycle/member-management tools aren't available").
 
+**Result: PASS.** Genuinely discovered and called `hours_report` ("Checked 2 things") → *"Workload: Crux
+Capacity Sprint 1 (Nov 03–17, 2026) — Total Planned: 85.0 hours — Luna Blossom: 60.0 hours — Daisy Skye: 25.0
+hours."* Native-verified against `/rf_workloads/1` — exact match (85h total, 60h/25h split). No false
+"tool not available" claim in this fresh chat — consistent with BUG-CRX-144's own note that the defect is
+context-dependent (established multi-turn chats only).
+
 ---
 
 ### TC-CRX-558: `send_email` — explicit intent confirmation required, queued-vs-delivered honesty
@@ -774,6 +784,14 @@ intent clearly before proposing, especially `send_email`"), the confirm card mus
 will be emailed. Since the tool is explicitly async (background job dependent, per source research), the
 result message should honestly say something like "queued" rather than overclaiming actual delivery — flag if
 it claims delivery as a definite fact.
+
+**Result: PASS on queued-vs-delivered honesty — minor gap noted on recipient visibility.** Confirm card showed
+only `Workload: 1`, with no recipient names/emails listed anywhere on the card itself. Result message was
+honest about the async nature: *"✓ Workload summary email queued for 2 recipient(s)"* — correctly said
+"queued," not "sent"/"delivered." Not filed as a separate bug (no fabrication or misleading claim occurred,
+and the final message did disclose the recipient *count*), but worth flagging: a user confirming this write has
+no way to see *who* the 2 recipients are before approving, which is a looser bar than the persona's own
+"confirm intent clearly... especially `send_email`" instruction implies.
 
 ---
 
@@ -970,6 +988,11 @@ phrase — "domain-inference chat routing never fires on a bare domain question"
 **Expected Result:** Routes to Capacity Agent, not falling through to Project Manager — regression-check this
 specific historical bug.
 
+**Result: PASS.** Correctly routed to Capacity Agent ("CA" avatar), BUG-CRX-007 fix holds. Also reproduced
+BUG-CRX-150 again, independently, from pure bare Auto-mode phrasing: *"Luna Blossom is overloaded this week...
+60.0 planned hours but only 35.2 available hours — a 170% utilization rate."* — same false-overload figure as
+TC-CRX-569, confirming the bug is phrasing-independent, not an artifact of one specific prompt.
+
 ---
 
 ### TC-CRX-560: Auto mode — ambiguous phrasing vs. Project Manager
@@ -981,6 +1004,9 @@ Team?"
 
 **Expected Result:** Routes to Capacity Agent specifically — real capacity data is Workload-specific, Project
 Manager has no tool for it.
+
+**Result: PASS.** Correctly routed to Capacity Agent, not Project Manager. Returned accurate real data: *"The
+Crux Capacity Agent Test Team has healthy capacity..."* grounded in a genuine tool call.
 
 ---
 
@@ -996,3 +1022,10 @@ workload again."
 whether the Capacity Agent shares either of the two context-carryover defect shapes already found on other
 domains this cycle: switching to a different real team (BUG-CRX-080/093/101/133 family) or fabricating a
 corrupted identifier (BUG-CRX-140 family, KB Agent).
+
+**Result: PASS.** First turn established Team #7/Workload #1 via "Show me the Crux Capacity Agent Test Team."
+Later turn, without re-naming anything: "Add issue #26 to the Crux Capacity Sprint 1 workload again." → confirm
+card correctly showed `Workload: 1`, `Issue: 26` — the exact same, correctly-reused identifiers, no team switch
+and no corrupted/fabricated identifier. Cancelled before confirming (redundant write, not needed to prove the
+context-resolution point). Does not share either the BUG-CRX-080/093/101/133 family or the BUG-CRX-140 family
+defect shape.

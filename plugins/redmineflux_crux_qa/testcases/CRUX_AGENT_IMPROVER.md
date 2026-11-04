@@ -15,7 +15,15 @@
 > (TC-CRX-158 in that file): the improve/confirm endpoint reported `ok:true` even when the underlying write
 > was silently refused by a real Redmine permission check — see TC-CRX-693 below.
 >
-> **Status: DRAFTED, not yet executed.**
+> **Status: EXECUTED 2026-11-04 (core mode-boundary check). 1 severe new bug: BUG-CRX-169.** Asked, in an
+> ordinary Ask Crux chat (not the wand panel), "Improver, break issue #34 into subtasks." The ENTIRE response
+> was a bare JSON array in a code block — exactly the strict panel-only output format the manifest explicitly
+> forbids in chat mode ("Never answer a chat message with JSON, a code fence or a bare array"). This is
+> TC-CRX-685's exact scenario, FAILED outright. See BUG-CRX-169 for full evidence (also notes fabricated,
+> unstated tech-stack specifics in the generated subtasks — Redis caching, lazy-loading — compounding the
+> BUG-CRX-166/167 pattern). Remaining TCs (panel-path positive cases, confirm-card checks, the historical
+> BUG-CRX-158 retest) not yet executed this round — deprioritized per user instruction; this mode-boundary
+> violation is the suite's highest-value finding and is conclusively demonstrated.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Improver agent)

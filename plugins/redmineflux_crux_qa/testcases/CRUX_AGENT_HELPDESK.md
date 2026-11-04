@@ -722,3 +722,27 @@ confirm card (`Resource Type: product`, `Resource: 1`), confirmed → `"✓ Prod
 Native-verified on `/rf_products`: product genuinely gone ("No products yet"). Confirms the suite's own earlier
 planning-note assumption ("no delete tool exists for products — refusal test") was incorrect; the generic
 `redmineflux_helpdesk_delete` tool does support products, and it works.
+
+---
+
+### TC-CRX-599: Holiday create + duplicate-name negative test
+
+**User Role:** `admin`.
+
+**Steps:** "Add a holiday called 'Diwali' on 2026-11-09 for project 12, so the SLA clock skips that date."
+then "Add another holiday also called 'Diwali', this time on 2027-10-29."
+
+**Expected Result:** First create should succeed (holidays are install-wide per the vendor doc, no project
+scoping). The duplicate name should be genuinely rejected server-side with a clear validation error, not
+silently accepted as a second record.
+
+**Result: PASS on both creates/validation, but found BUG-CRX-159 along the way.** First holiday: confirm card
+correctly showed only `Name: Diwali`, `Start Date`/`End Date: 2026-11-09` — no Project field at all, matching
+`create_holiday`'s real signature (no `project_id` parameter, confirmed in source). Confirmed → `"✓ Holiday
+created successfully. ID:1 | Diwali."` Second holiday request: the agent **falsely claimed** *"the holiday
+creation tool requires a project id"* and that the first holiday *"was created for project 12"* — neither is
+true; no such field exists on the tool or the record. It doubled down on this false claim even when directly
+questioned. Filed as **BUG-CRX-159**. Once told plainly that holidays don't take a project, the agent corrected
+course and produced the genuine confirm card — confirmed → the real, intended validation fired correctly:
+`"Validation error: Holiday Name has already been taken."` Native-verified on `/rf_helpdesk_holidays`: only one
+"Diwali" record exists — the duplicate was genuinely rejected, not silently created.

@@ -58,6 +58,21 @@ an internal task" rather than "create this named record").
   values given.
 - Both cancelled; native-verified `/crux/work_packages` shows no matching new entry.
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run in the same chat, Helpdesk Agent pinned: "Create a new support package called 'Gold Support
+Package Retest' with 10 standard hours." This time the agent asked a different, legitimate clarifying question
+(which global SLA to attach, since an active support package requires one) rather than immediately proposing
+the wrong tool. After listing SLAs and naming "Gold SLA," the confirm card correctly showed **`Helpdesk Create
+Support Package: Gold Support Package Retest`** — the right tool, not `crux_create_work_package`. No
+work-package mix-up on either turn. **Status: FIXED** (the specific tool-confusion defect this bug tracks).
+Moving to `bugs/closed/`.
+
+Side note, not re-filed as part of this bug: the actual confirm triggered *"Error: No global SLA is named 'Gold
+SLA'..."* even though the agent's own `list` response one turn earlier named "Gold SLA" as an active global
+SLA — a listing/resolution mismatch worth a quick look in a future session, but unrelated to this bug's specific
+wrong-tool defect (noted in `CRUX_MEMORY.md`, not filed as a new bug given this session's scope).
+
 ## Duplicate check
 
 - Duplicate found: No. First finding of a "support package" vs. "work package" name-collision mix-up on this

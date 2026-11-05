@@ -75,6 +75,13 @@ Completed 422 Unprocessable Content in 4ms
   and succeeds cleanly under the identical admin session — isolating the defect to the KB page controller's
   routing/auth path specifically.
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run verbatim in the same chat, Helpdesk Agent pinned: "Create a knowledgebase page for project 12
+titled 'VPN Setup Guide Retest' with content..." Confirm card correctly showed Project/Title/Content. Confirmed
+→ *"✓ Knowledgebase page 'VPN Setup Guide Retest' created (ID: 1) in project #12."* — no CSRF/generic validation
+failure this time, genuine success. **Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding of a CSRF-related write failure on this agent, and the first instance

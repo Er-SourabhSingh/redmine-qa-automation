@@ -2,6 +2,14 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## Side finding, not yet filed — Helpdesk Agent's SLA listing vs. resolution mismatch (2026-11-05)
+
+While retesting BUG-CRX-160, the Helpdesk Agent's `list` response for global SLAs named "Gold SLA" as an active
+option, but the very next turn's `create_support_package` confirm (using that exact name) failed with *"Error:
+No global SLA is named 'Gold SLA'."* Not investigated further this session (out of scope for the bug being
+retested) — worth a dedicated look in a future session: either the list and resolve paths query different
+scopes/filters, or there's a stale-cache issue between the two calls.
+
 ## Intermittent bugs need more retest turns than a "clean streak" suggests (2026-11-05)
 
 Retesting BUG-CRX-140 (KB Agent's wrong-project-identifier defect) this session, 3 clean write-turns in a row

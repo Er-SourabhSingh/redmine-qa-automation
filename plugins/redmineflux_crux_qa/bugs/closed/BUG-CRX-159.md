@@ -56,6 +56,14 @@ that does.
 - Agent's false claim (verbatim): *"The first Diwali holiday was created for project 12... the holiday creation
   tool requires a project id."*
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run in a fresh chat, Helpdesk Agent pinned: created "Retest Holiday A" (2026-12-25), confirm card
+correctly had no Project field. Then immediately: "Add another holiday also called 'Retest Holiday A', this
+time on 2027-01-01..." — this time the agent did **not** demand a project id or claim one was used before; it
+went straight to a correct confirm card (`Name`, `Start Date`, `End Date` only, no Project field) and succeeded.
+**Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding of a false-capability-*requirement* claim (inventing a parameter the real

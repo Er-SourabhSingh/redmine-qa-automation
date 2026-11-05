@@ -62,6 +62,16 @@ Validation error: Rf organization cannot be blank Correct the value(s) above and
   `validates :rf_organization_id, presence: true, if: :is_helpdesk_customer?`.
 - Native-verified: no customer record created (`/rf_customers?search=temp.deleteme` → 0 results).
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run in the same chat, Helpdesk Agent pinned, same minimal phrasing (login/firstname/lastname/mail only,
+no organization mentioned). This time the agent proactively asked: "I need to know which organization this
+customer should belong to... Do you have an organization name or ID in mind, or would you like me to list the
+available organizations first?" — confirming `create_customer` now has a real organization parameter. Listed
+organizations, picked "Prepaid Test Org," and the confirm card correctly showed an `Rf Organization` field.
+Confirmed → *"✓ Customer created successfully. ID:27 | Temp DeleteMeRetest."* **Status: FIXED.** Moving to
+`bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. Same general shape as BUG-CRX-157 (tool under-documents a real required field) but

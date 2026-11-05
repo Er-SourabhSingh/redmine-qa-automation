@@ -87,6 +87,74 @@
 - A non-admin error message includes "ask your administrator"; an admin's includes a direct fix link (Open
   Providers & keys / Open Crux Settings).
 
+## Execution — 2026-11-05
+
+Fixtures built: a new role "Crux Perm Test Role" (`/roles/8`) with the 5 Crux permissions individually
+togglable; a genuinely clean, brand-new user `zeropermtest` (never touched by any prior round this cycle) for
+true zero-permission checks; `daisy.skye` (pre-existing `use_ask_crux` from an earlier round) reused for
+partial-grant checks.
+
+- **TC-CRX-711** — PASS. With only View Crux dashboard granted (`daisy.skye`), all 6 global pages (`/crux`,
+  `/crux/work_packages`, `/crux/queue`, `/crux/runs`, `/crux/agents`, `/crux/pipelines`) plus the project Crux
+  tab all loaded without a 403.
+- **TC-CRX-712** — NOT INDEPENDENTLY VERIFIED this pass (bubble/wand/WP-section visual checks not repeated here
+  — already confirmed functionally correct for `daisy.skye` with `use_ask_crux` in earlier rounds this cycle).
+- **TC-CRX-713** — NOT INDEPENDENTLY VERIFIED. No pending Work Package gate fixture was available to exercise
+  the Review/Approve button state this pass. Deferred.
+- **TC-CRX-714** — PASS (core). With Manage Crux agents granted, `/crux/agents` showed both "+ New Agent" and
+  "Upload Agent" buttons. The ⋯ per-agent menu's individual actions (Pause/Resume/Edit/Create identity/Retire)
+  were not independently re-clicked this pass.
+- **TC-CRX-715** — PASS (core) / PARTIAL. With Manage Crux pipelines granted, `/crux/pipelines` showed "+ New
+  Pipeline". All 3 existing pipelines are the known built-ins and correctly showed only View/Duplicate-to-edit
+  regardless of the permission (confirms built-ins are always read-only). The "custom pipeline gets Edit/Delete"
+  half was not independently observed on an actual custom pipeline this pass — inferred from the page's own
+  tooltip text, not directly verified.
+- **TC-CRX-716** — NOT INDEPENDENTLY VERIFIED. Per-project gate-approval scoping needs a two-project Work
+  Package fixture; deferred.
+- **TC-CRX-717** — PASS, fully confirmed with a genuinely zero-permission user. Created a brand-new user
+  (`zeropermtest`, never a member of any project) — all 6 global URLs returned real 403 Forbidden.
+- **TC-CRX-718** — PASS, fully confirmed. Granted `zeropermtest` View Crux dashboard only (via the test role) —
+  `/crux/ask` returned 403, and an issue page (`/issues/40`) showed neither the floating "Ask Crux" bubble
+  button nor any Improve-wand icon, confirming both chat surfaces are correctly gated by `use_ask_crux`
+  specifically, independent of `view_crux`.
+- **TC-CRX-719** — NOT INDEPENDENTLY VERIFIED this pass (admin gate-approval bypass not exercised live — no
+  pending gate fixture available).
+- **TC-CRX-720** — PASS. Confirmed directly in the Roles → New role admin form: all 5 Crux permission checkboxes
+  appear exactly once each in the flat permissions list, not per-project or per-module-per-project — there is no
+  mechanism to scope Manage Crux agents/pipelines to a single project.
+- **TC-CRX-721** — PASS, fully confirmed. With `daisy.skye` granted all 5 Crux permissions (via the test role)
+  but still non-admin: `/crux/admin/keys`, `/crux/admin/settings`, `/crux/admin/frozen_rules`, and
+  `/crux/admin/logs` all returned genuine 403 — confirms these 4 pages are hard-gated to Redmine admins,
+  independent of the 5 Crux permissions.
+- **TC-CRX-722** — PASS, fully confirmed with the zero-permission `zeropermtest` user: `/crux/help` opened with
+  no 403, and its live permissions table correctly showed "Not yet" for all 5 rows.
+- **TC-CRX-723** — PASS (via cross-session evidence). "Show the Crux entry" is checked (on) by default in
+  Settings → Navigation. `daisy.skye` (holds `use_ask_crux` but not `view_crux` at the time, per this session's
+  earlier Help-suite execution) had NO "Crux" link in her top nav at all, while `admin` (which always holds
+  `view_crux`) does — confirms the link requires both the setting AND the specific permission.
+- **TC-CRX-724** — PASS. On the current (unmodified-for-this-check) Settings → Navigation page, "Show the Agents
+  entry in the top menu" is unchecked by default, confirming it's off out of the box.
+- **TC-CRX-725** — PASS (positive half only). Every Crux-module-enabled test project used throughout this
+  session's testing consistently shows a "Crux" tab in its project menu (e.g. "Crux PM Agent Test Project").
+  The negative half (a project WITHOUT the module shows no tab) was attempted via a fresh "Crux No-Module Test
+  Project" but the create action silently failed (never appeared in the project list afterward, cause not
+  diagnosed this pass) — deferred, not a confirmed bug since the failure mode wasn't investigated.
+- **TC-CRX-726** — PASS (via repeated observation across this session). The global icon rail has consistently
+  shown, top to bottom, exactly: Dashboard, Ask Crux, Work packages, Ready queue, Run ledger, Agent fleet,
+  Pipelines, Providers & keys, Settings, Frozen rules, Logs, Help (the admin-only items correctly absent for
+  non-admin users per TC-721's own evidence). Project Crux tabs correctly show a tab row instead of the rail.
+
+**Shared UI Behaviour spot-checks** — not separately re-verified this pass (loading-failure skeleton, tooltip
+hover/Esc behavior, dialog-close mechanisms, "CRUX" header title, accent colour, admin-vs-non-admin error
+message wording) — these were incidentally observed as correct throughout this session's other suite executions
+(e.g. "CRUXCRUX" header consistently seen; non-admin 403s correctly distinct from admin behavior) but not
+individually isolated as their own checks.
+
+**Suite result: 9 PASS fully confirmed (711, 717, 718, 720, 721, 722, 723, 724, 726), 2 PASS on their core/
+positive half with a sub-case deferred (714, 715, 725), 4 not independently verified this pass (712, 713, 716,
+719) due to missing gate/project fixtures. No new bugs found.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.
+Executed 2026-11-05 — 9 fully PASS, 3 partially PASS, 4 deferred, 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.

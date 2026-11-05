@@ -70,8 +70,36 @@ developer's own explicit instruction in `CRUX_DEV_FEATURE_REFERENCE_20261105.md`
 
 ## Part B — Crux's own platform surface (not "chat with an agent")
 
-This half has drastically less current coverage than Part A. The table below is the authoritative gap list —
-`CRUX_SCOPE.md`'s own copy of this table is kept in sync; update both together.
+> **Updated 2026-11-05 (later same day):** per explicit user instruction ("complete testing kr ke deliver krna
+> he... kuch bhi miss mat karna"), every row below now has a drafted test suite covering positive and negative/
+> boundary cases, written directly from `CRUX_DEV_FEATURE_REFERENCE_20261105.md`. **15 suite files, TC-CRX-711
+> through TC-CRX-1075 (365 TCs total), none yet executed:**
+>
+> | Suite file | Dev reference § | TC range |
+> |---|---|---|
+> | `CRUX_PLATFORM_PERMISSIONS_MENUS.md` | §0 | 711–726 |
+> | `CRUX_PLATFORM_DASHBOARD.md` | §1 | 727–753 |
+> | `CRUX_PLATFORM_WORK_PACKAGES.md` | §2 | 754–770 |
+> | `CRUX_PLATFORM_READY_QUEUE.md` | §3 | 771–779 |
+> | `CRUX_PLATFORM_RUN_LEDGER.md` | §4 | 780–792 |
+> | `CRUX_PLATFORM_PROJECT_TAB.md` | §5 | 793–815 |
+> | `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` | §6 | 816–850 |
+> | `CRUX_PLATFORM_PIPELINES.md` | §7 | 851–869 |
+> | `CRUX_PLATFORM_PROVIDERS_KEYS.md` | §8 | 870–887 |
+> | `CRUX_PLATFORM_SETTINGS.md` | §9 | 888–920 |
+> | `CRUX_PLATFORM_FROZEN_RULES.md` | §10 | 921–938 |
+> | `CRUX_PLATFORM_ACTIVITY_LOG.md` | §11 | 939–953 |
+> | `CRUX_PLATFORM_HELP.md` | §12 | 954–965 |
+> | `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | §13.1–13.10 | 966–1020 |
+> | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | §13.9–13.12, §14 | 1021–1075 |
+>
+> The "Covered by TC" column below is now stale (pre-dates this suite-writing pass) — treat the table above as
+> current, this inline column as historical context for what was known/unknown before the suites existed. Not
+> re-written row-by-row to avoid re-introducing drift between two descriptions of the same thing.
+
+This half has drastically less current coverage than Part A — **drafted TCs now exist for all of it, but none
+have been executed yet.** The table below is the authoritative gap list — `CRUX_SCOPE.md`'s own copy of this
+table is kept in sync; update both together.
 
 | # | Feature | What's there (confirmed live, 2026-11-05) | Covered by TC |
 |---|---------|--------------------------------------------|----------------|

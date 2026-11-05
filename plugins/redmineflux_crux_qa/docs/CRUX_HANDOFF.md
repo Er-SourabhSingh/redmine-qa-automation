@@ -855,17 +855,63 @@ as a whole, the issue-page Work Package section, and Improve-wand 👍/👎 feed
 point at `CRUX_FEATURES_LIST.md` Part B as the single copy of the gap table, rather than maintaining two copies
 that had already drifted out of sync within the same day.
 
+### Next Session Start Point (2026-11-05, superseded — see entries below)
+
+- ~~Get user approval to report BUG-CRX-171/172/173 to production~~ — done, see below.
+- ~~Pick which Part B row(s) to write fresh TCs for first~~ — superseded; user asked for ALL of them, done, see below.
+
+## 2026-11-05 (continued) — BUG-CRX-171/172/173 reported to production; complete platform-surface testcases drafted (365 TCs, 15 suites)
+
+Per explicit user approval ("han create r do production pe"), reported all 3 Auto-routing bugs to `ztflux`,
+category Crux Plugin: **#127882** (BUG-CRX-171, Medium), **#127883** (BUG-CRX-172, High — user chose to round up
+from the ambiguous "Medium-High" local severity), **#127884** (BUG-CRX-173, Medium). All assigned to Prashant
+Chaurasia. Local bug files and `bugs/_index.md` updated with the production issue IDs.
+
+**Then, per explicit user instruction** ("devloper ne feature list he phle tum unkeliye proper testuite bana ke
+testcase likho... positive negative sab coverage kre... kuch bhi miss mat krna hame complete testing kr ke
+deliver krna he") — drafted a **complete test suite for every section of `CRUX_DEV_FEATURE_REFERENCE_20261105.md`**
+(§0 through §14 — everything except §15's explicit "don't test" list, §16's corrections, and §17's known minor
+issues). **15 new suite files, TC-CRX-711 through TC-CRX-1075 (365 TCs total)**, each with explicit Positive and
+Negative/Boundary sections, a Fixtures-needed paragraph, and a Suite status footer:
+
+| Suite | §  | TCs |
+|---|---|---|
+| `CRUX_PLATFORM_PERMISSIONS_MENUS.md` | 0 | 711–726 (16) |
+| `CRUX_PLATFORM_DASHBOARD.md` | 1 | 727–753 (27) |
+| `CRUX_PLATFORM_WORK_PACKAGES.md` | 2 | 754–770 (17) |
+| `CRUX_PLATFORM_READY_QUEUE.md` | 3 | 771–779 (9) |
+| `CRUX_PLATFORM_RUN_LEDGER.md` | 4 | 780–792 (13) |
+| `CRUX_PLATFORM_PROJECT_TAB.md` | 5 | 793–815 (23) |
+| `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` | 6 | 816–850 (35) |
+| `CRUX_PLATFORM_PIPELINES.md` | 7 | 851–869 (19) |
+| `CRUX_PLATFORM_PROVIDERS_KEYS.md` | 8 | 870–887 (18) |
+| `CRUX_PLATFORM_SETTINGS.md` | 9 | 888–920 (33) |
+| `CRUX_PLATFORM_FROZEN_RULES.md` | 10 | 921–938 (18) |
+| `CRUX_PLATFORM_ACTIVITY_LOG.md` | 11 | 939–953 (15) |
+| `CRUX_PLATFORM_HELP.md` | 12 | 954–965 (12) |
+| `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | 13.1–13.10 | 966–1020 (55) |
+| `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | 13.9–13.12, 14 | 1021–1075 (55) |
+
+Updated `CRUX_FEATURES_LIST.md` Part B with a suite-mapping table pointing to all 15, and
+`CRUX_TRACEABILITY_MATRIX.md` with a new "Part 3 — Platform-Surface Suites" tracking all 365 TCs as NOT
+EXECUTED (none have been run yet — this round was drafting only, per the user's own 2-step framing: write
+suites first, execute next). Every suite explicitly carries forward the developer's §15 "don't test these"
+exclusions in its own scope so execution doesn't accidentally re-raise an already-known non-bug.
+
+**This is now, by a wide margin, the single largest block of undone work tracked for this plugin** — 365 drafted
+TCs across the entire non-agent Crux platform, zero executed. Per CLAUDE.md §2c/§10, `STATUS.md` cannot move to
+`Complete` until these have real results or an explicit Out-of-Scope carve-out.
+
 ### Next Session Start Point (2026-11-05, current)
 
-- **Get user approval to report BUG-CRX-171/172/173 to production** (ztflux, category Crux Plugin) — ready to
-  file, format prepared per CLAUDE.md §5, just needs the go-ahead.
-- Pick which `CRUX_FEATURES_LIST.md` Part B row(s) to write fresh TCs for first — now a 37-row list, corrected
-  against the developer's own source-derived reference. Nothing pre-ranked; ask the user for priority.
-- `CRUX_REQUIREMENTS.md` and `CRUX_USER_GUIDE.md` are still stale (0.92.0-era) — not refreshed this session,
-  `CRUX_DEV_FEATURE_REFERENCE_20261105.md` can now serve as the primary source for that refresh when it happens.
-- `CRUX_TRACEABILITY_MATRIX.md` still only tracks Part A (agents) — needs Part B rows added once TCs exist for
-  them.
+- **Execute the 15 new platform suites.** Nothing pre-prioritized among them — ask the user which to start with,
+  or propose starting with the smallest/fastest (Ready Queue, Help, Activity Log) to build momentum, vs. the
+  highest-risk (Agent Fleet Admin's create/upload/retire flows, Frozen Rules' write-blocking enforcement, the
+  two Ask Crux suites) first.
+- `CRUX_REQUIREMENTS.md` and `CRUX_USER_GUIDE.md` are still stale (0.92.0-era) — `CRUX_DEV_FEATURE_REFERENCE_20261105.md`
+  can serve as the primary source for that refresh whenever it happens; not done this session.
 - BUG-CRX-108 (production status "New", never "In QA" this cycle) — still unresolved what to do with it, carried
-  over from the previous entry.
-- Resume the 10 partially-covered new agent suites' remaining drafted TCs whenever agent-suite depth becomes the
-  priority again — still pending from 2026-11-04, independent of all the above.
+  over from an earlier entry.
+- Resume the 10 partially-covered new agent suites' remaining drafted TCs (Monitor, Research, Design, Root-Cause
+  Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) whenever agent-suite depth
+  becomes the priority again — still pending from 2026-11-04, independent of the 365 new platform TCs above.

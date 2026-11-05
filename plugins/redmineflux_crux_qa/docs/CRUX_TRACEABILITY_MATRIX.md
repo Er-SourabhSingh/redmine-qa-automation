@@ -373,6 +373,41 @@ registration gap is resolved. Builder-1/Builder-2 (seen in the Agent Fleet roste
 they are ad hoc custom agents created earlier this cycle as CRX-48 identity-test fixtures, not shipped product
 agents with their own manifest file, so they don't belong in this matrix as a product-coverage row.
 
+## Part 3 — Platform-Surface Suites (drafted 2026-11-05, not yet executed)
+
+Maps `CRUX_FEATURES_LIST.md` Part B's 37 rows (the non-agent Crux platform surface) to the 15 suites drafted
+2026-11-05 from `CRUX_DEV_FEATURE_REFERENCE_20261105.md`, per explicit user instruction for complete positive+
+negative coverage. **All rows below are NOT EXECUTED** — these are freshly drafted TCs, not yet run.
+
+| # | Feature | Suite | TC Range | Suite Verdict |
+|---|---|---|---|---|
+| B1 | Permissions, menus, shared UI (§0) | `CRUX_PLATFORM_PERMISSIONS_MENUS.md` | TC-CRX-711–726 | NOT EXECUTED (16 TCs) |
+| B2 | Global dashboard (§1) | `CRUX_PLATFORM_DASHBOARD.md` | TC-CRX-727–753 | NOT EXECUTED (27 TCs) |
+| B3 | Work packages list + detail (§2) | `CRUX_PLATFORM_WORK_PACKAGES.md` | TC-CRX-754–770 | NOT EXECUTED (17 TCs) |
+| B4 | Ready queue (§3) | `CRUX_PLATFORM_READY_QUEUE.md` | TC-CRX-771–779 | NOT EXECUTED (9 TCs) |
+| B5 | Run ledger (§4) | `CRUX_PLATFORM_RUN_LEDGER.md` | TC-CRX-780–792 | NOT EXECUTED (13 TCs) |
+| B6 | Project Crux tab incl. Graph (§5) | `CRUX_PLATFORM_PROJECT_TAB.md` | TC-CRX-793–815 | NOT EXECUTED (23 TCs) |
+| B7 | Agent fleet admin (§6) | `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` | TC-CRX-816–850 | NOT EXECUTED (35 TCs) |
+| B8 | Pipelines (§7) | `CRUX_PLATFORM_PIPELINES.md` | TC-CRX-851–869 | NOT EXECUTED (19 TCs) |
+| B9 | Providers & keys (§8) | `CRUX_PLATFORM_PROVIDERS_KEYS.md` | TC-CRX-870–887 | NOT EXECUTED (18 TCs) |
+| B10 | Settings, all 5 sub-sections (§9) | `CRUX_PLATFORM_SETTINGS.md` | TC-CRX-888–920 | NOT EXECUTED (33 TCs) |
+| B11 | Frozen rules (§10) | `CRUX_PLATFORM_FROZEN_RULES.md` | TC-CRX-921–938 | NOT EXECUTED (18 TCs) |
+| B12 | Activity log (§11) | `CRUX_PLATFORM_ACTIVITY_LOG.md` | TC-CRX-939–953 | NOT EXECUTED (15 TCs) |
+| B13 | Help & setup guide (§12) | `CRUX_PLATFORM_HELP.md` | TC-CRX-954–965 | NOT EXECUTED (12 TCs) |
+| B14 | Ask Crux full page core (§13.1–13.10) | `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | TC-CRX-966–1020 | NOT EXECUTED (55 TCs) |
+| B15 | Share, personal limit, bubble, errors, issue-page integration (§13.9–13.12, §14) | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | TC-CRX-1021–1075 | NOT EXECUTED (55 TCs) |
+
+**Total: 365 TCs across 15 suites, 0 executed.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
+in `STATUS.md` until these have real results (or an explicit Out-of-Scope decision in `CRUX_SCOPE.md` for any
+row that stays untested) — this is now the single largest block of pending work for this plugin.
+
+Known explicit exclusions (not gaps, per the developer's own §15 "don't test these"): DevOps Agent, Code
+Reviewer without DevOps installed, the 3 non-chat prototype agents, Digest, licensing/license keys (not built),
+Slack/Teams integration (off by default, no UI), Session Artifacts attached to a project/ticket (not built —
+re-scoped to Keep/Kept-answers instead), delete-a-chat/Stop-while-answering/file-upload-in-chat (not built by
+design), edit/delete-a-Work-Package-from-chat/custom-pipeline-in-chat (not built), auto-approved gates (not
+built), Bedrock provider (disabled), graph milestones in gate evidence (always empty for now).
+
 ## References
 
 - [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md)

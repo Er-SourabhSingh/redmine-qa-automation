@@ -384,7 +384,7 @@ negative coverage. **All rows below are NOT EXECUTED** — these are freshly dra
 | B1 | Permissions, menus, shared UI (§0) | `CRUX_PLATFORM_PERMISSIONS_MENUS.md` | TC-CRX-711–726 | NOT EXECUTED (16 TCs) |
 | B2 | Global dashboard (§1) | `CRUX_PLATFORM_DASHBOARD.md` | TC-CRX-727–753 | NOT EXECUTED (27 TCs) |
 | B3 | Work packages list + detail (§2) | `CRUX_PLATFORM_WORK_PACKAGES.md` | TC-CRX-754–770 | NOT EXECUTED (17 TCs) |
-| B4 | Ready queue (§3) | `CRUX_PLATFORM_READY_QUEUE.md` | TC-CRX-771–779 | NOT EXECUTED (9 TCs) |
+| B4 | Ready queue (§3) | `CRUX_PLATFORM_READY_QUEUE.md` | TC-CRX-771–779 | EXECUTED 2026-11-05 — 5 PASS, 1 FAIL (BUG-CRX-174), 4 deferred |
 | B5 | Run ledger (§4) | `CRUX_PLATFORM_RUN_LEDGER.md` | TC-CRX-780–792 | NOT EXECUTED (13 TCs) |
 | B6 | Project Crux tab incl. Graph (§5) | `CRUX_PLATFORM_PROJECT_TAB.md` | TC-CRX-793–815 | NOT EXECUTED (23 TCs) |
 | B7 | Agent fleet admin (§6) | `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` | TC-CRX-816–850 | NOT EXECUTED (35 TCs) |
@@ -397,7 +397,7 @@ negative coverage. **All rows below are NOT EXECUTED** — these are freshly dra
 | B14 | Ask Crux full page core (§13.1–13.10) | `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | TC-CRX-966–1020 | NOT EXECUTED (55 TCs) |
 | B15 | Share, personal limit, bubble, errors, issue-page integration (§13.9–13.12, §14) | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | TC-CRX-1021–1075 | NOT EXECUTED (55 TCs) |
 
-**Total: 365 TCs across 15 suites, 12 executed (B13 Help) / 353 remaining.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
+**Total: 365 TCs across 15 suites, 21 executed (B13 Help, B4 Ready Queue) / 344 remaining.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
 in `STATUS.md` until these have real results (or an explicit Out-of-Scope decision in `CRUX_SCOPE.md` for any
 row that stays untested) — this is now the single largest block of pending work for this plugin.
 

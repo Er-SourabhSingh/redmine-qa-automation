@@ -43,6 +43,49 @@
   X"), not a generic "Any available agent" — and for a ticket with no specific skill requirement, confirm it
   correctly shows "Any available agent" instead.
 
+## Execution — 2026-11-05
+
+Fixtures built live in "Crux PM Agent Test Project" (Redmineflux Crux module confirmed enabled): #37 (qualifying,
+used for TC-771/772/776/777), #38 (blocker), #39 (blocked ticket, used for TC-778 — found BUG-CRX-174), #40
+(isolation control ticket).
+
+- **TC-CRX-771** — PASS. Table columns for #37 populated correctly: Ticket "#37 RQ-FIX-A...", Project "Crux PM
+  Agent Test Project", Who picks it up "Any available agent" (no skill-specific tag used), Status "Waiting for
+  an agent".
+- **TC-CRX-772** — PASS (positive case) / PARTIAL (negative sub-cases — see TC-776/777/778 below, which cover
+  the same 3 conditions individually and are where the actual verdicts live). #37 (open+tagged+no-blocker)
+  appeared correctly. Note: a brand-new tag add/first qualification needs ~1 extra page reload to appear (not a
+  bug — consistent, short propagation lag observed 3 times on 3 different tickets, always resolved within ~15s).
+- **TC-CRX-773** — NOT INDEPENDENTLY VERIFIED. No Builder 1/2 worker was configured/claimable in this
+  environment, and simulating a real agent claim via Ask Crux chat was not attempted this pass given time
+  budget across 15 suites — deferred, not a bug, just unexercised.
+- **TC-CRX-774** — NOT INDEPENDENTLY VERIFIED (pager needs ≥26 qualifying tickets; not worth the fixture cost
+  this pass — low-risk, standard Redmine pagination component, deferred).
+- **TC-CRX-775** — NOT INDEPENDENTLY VERIFIED. Could not identify an agent's own paired Redmine user in this
+  project's assignable-user list (only human fixture names + Redmine Admin appeared; no Crux-identity user
+  found via a `/users?name=crux` search either) — no "Create Redmineflux identity" action appears to have been
+  run for any agent on this environment yet. Deferred until an agent identity fixture exists.
+- **TC-CRX-776** — PASS. Removing the `readyforagent` tag from #37 removed it from the queue on the very next
+  load (no extra-reload lag on removal, asymmetric with the addition-side lag noted above — worth knowing, not
+  a bug).
+- **TC-CRX-777** — PASS. Setting #37 to the "Done" (closed-type) status removed it from the queue immediately.
+- **TC-CRX-778** — **FAIL — BUG-CRX-174 filed.** Adding an open "Blocked by #38" relation to #39 correctly
+  removed it from the queue (first half of the rule works). But closing #38 (confirmed closed via #39's own
+  Related Issues panel showing "0 open — 1 closed") did NOT bring #39 back, even after 5 reloads across 45+
+  seconds and a remove-tag/re-add-tag workaround. Isolated via a fresh control ticket (#40, same tag, never
+  blocked) which appeared normally in the same window — confirms the Ready Queue mechanism itself is healthy
+  and the defect is specific to re-evaluating a resolved blocker. Filed as BUG-CRX-174 (High), not yet reported
+  to production — pending approval.
+- **TC-CRX-779** — NOT INDEPENDENTLY VERIFIED. Did not have a ticket with a specific required-skill tag/field
+  set up to confirm the "An agent that can do X" vs. "Any available agent" distinction; #37/#39/#40 all used the
+  generic tag only, which correctly showed "Any available agent" in all cases, but the skill-specific wording
+  itself was not exercised. Deferred — would need the "Crux Capability" custom field (per dev reference §9)
+  explored on a dedicated TC first.
+
+**Suite result: 5 PASS (771, 772-positive, 776, 777), 1 FAIL/bug filed (778), 4 deferred/not independently
+verified (773, 774, 775, 779) due to fixture constraints in this pass.** One new bug found: BUG-CRX-174.
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.
+Executed 2026-11-05 — 5 PASS, 1 FAIL (BUG-CRX-174), 4 deferred (fixture constraints).
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.

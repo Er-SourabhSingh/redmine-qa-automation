@@ -801,10 +801,71 @@ quick reference) from scratch. **Not yet done**: `CRUX_REQUIREMENTS.md` and `CRU
 the 0.92.0-era 9-agent roster — flagged in both rewritten files as needing a future refresh, not attempted this
 session. `CRUX_TRACEABILITY_MATRIX.md` also needs a matching update once Part B gets its first real TCs.
 
-### Next Session Start Point (2026-11-05, current)
+### Next Session Start Point (2026-11-05, superseded — see entry below for the current state)
 
-- **User chose "update docs first" over jumping straight into new platform-surface testing** — that's now done (`CRUX_FEATURES_LIST.md`/`CRUX_SCOPE.md` rewritten). Next: ask the user which Part B gap-table row(s) to prioritize for fresh TCs (the table is ordered roughly by section, not by priority — nothing has been pre-ranked).
-- Decide whether to retry the 3 misrouted Auto-mode questions (Root-Cause Analyst, Crux Guide, Code Reviewer topics all went to Project Manager) 2-3x each before concluding it's a real, filable bug — only 1 attempt each so far.
+- ~~Decide whether to retry the 3 misrouted Auto-mode questions~~ — done, see below.
 - File BUG-CRX-137, 139, 140, 142, 158 to... they're already on production (reopened today) — no further action needed there unless a future retest changes their status.
 - BUG-CRX-108 sits at production status "New" (never moved to "In QA" this cycle) — no action was taken on it; confirm with the user whether it should be formally reported/tracked differently, since it's the oldest of the 6 remaining open Crux bugs (found 2026-10-29).
 - Resume the 10 partially-covered new agent suites' remaining drafted TCs (Monitor, Research, Design, Root-Cause Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) whenever agent-suite depth becomes the priority again — this is still pending from 2026-11-04, independent of the platform-surface work above.
+
+## 2026-11-05 (continued) — developer sent a complete, source-derived feature reference; Auto-routing bugs confirmed and filed; CRUX_FEATURES_LIST.md corrected
+
+Per the user's suggestion, asked the developer for a complete A-to-Z Crux feature list rather than continuing to
+self-derive one from UI exploration (which had already proven to have blind spots — the user found the chat
+composer's "+" → "Attach a ticket" dialog purely by accident, a feature this session's own live-browsing pass
+had completely missed). The developer replied with `CRUX_DEV_FEATURE_REFERENCE_20261105.md` (saved verbatim) —
+a complete, source-code-derived feature list (crux-core `347ee6e`/1.1.0, Crux plugin `7751dc8`, MCP `767f695`)
+covering every page, control, setting and hidden feature, with an explicit "don't test/file these" section and
+a list of corrections to this session's own earlier `CRUX_FEATURES_LIST.md` draft.
+
+**Retested all 3 Auto-mode misroutes once more each (fresh chats) per the developer's explicit instruction to
+file them as bugs with the exact question asked — all 3 confirmed deterministic (2/2 total each, 4/4 combined
+with yesterday's first pass):**
+- **BUG-CRX-171** (filed, local only) — "What is the probable cause of issue #33?" still routes to Project
+  Manager, not Root-Cause Analyst. PM's specific answer content was reasonable (issue #33 genuinely isn't a
+  bug), but the routing decision itself is wrong.
+- **BUG-CRX-172** (filed, local only) — "How do I approve a change Crux proposes?" still routes to Project
+  Manager, not Crux Guide. Also surfaced a second, independent finding: PM's own answer describes approval as
+  happening via "the Confirm card in the dashboard UI" with an "Approve" button — a description that matches
+  neither of the two real mechanisms (the chat's own inline Confirm/Cancel buttons, exercised hundreds of times
+  this cycle, or the dashboard's separate Gate-approval-modal Review→Approve flow, which is Work-Package-specific
+  and unrelated to an ordinary write proposal).
+- **BUG-CRX-173** (filed, local only) — "Review the changes for issue #32." still routes to Project Manager, not
+  Code Reviewer. Per the developer, Code Reviewer itself being unreachable without the DevOps plugin is correct,
+  expected behavior — the bug is specifically that Auto never reaches even an honest "Code Reviewer needs
+  DevOps" refusal, silently substituting a plain ticket-status summary from PM instead.
+
+All 3 written to `bugs/open/`, added to `bugs/_index.md` and `bugs/_duplicates.md`. **Not yet reported to
+production** — per this repo's standing REDMINEFLUX-MCP-SETUP.md §4 approval-per-write policy, which applies
+regardless of the developer's own preference for immediate filing (same precedent as BUG-CRX-163/165
+yesterday) — pending explicit user approval.
+
+**Applied the developer's corrections to `CRUX_FEATURES_LIST.md`:** Code Reviewer is not core (hidden without
+DevOps, like plugin agents); "24 agents" clarified (local seed shows 26, +2 non-chat workers); run-ledger-empty
+note corrected (every chat answer/mention-reply/Improve-suggestion is a run); pipeline custom-edit actions
+confirmed (Edit/Duplicate/Delete); Chat-agents-picker default behavior corrected (none-checked = all agents
+offered, not "ops agents excluded by default" as originally drafted — this was actually backwards); Activity
+Log's Component filter corrected (not a fixed 5-option list); Help page content filled in from the dev
+reference; Session Artifacts corrected (not built at all — Keep only saves to Kept-answers, no
+attach-to-project/ticket mechanism exists); `CRUX_REQUIRE_USER_KEY` behavior corrected (the user's own key is
+always used regardless of the flag; the flag only controls whether a no-key request is refused); @-mention
+behavior detail filled in (reply appears on next page load, not live). Added 6 new Part B rows the original
+draft missed entirely: Attach-a-ticket (`+` button), slash commands, personal daily limit, the floating bubble
+as a whole, the issue-page Work Package section, and Improve-wand 👍/👎 feedback. Simplified `CRUX_SCOPE.md` to
+point at `CRUX_FEATURES_LIST.md` Part B as the single copy of the gap table, rather than maintaining two copies
+that had already drifted out of sync within the same day.
+
+### Next Session Start Point (2026-11-05, current)
+
+- **Get user approval to report BUG-CRX-171/172/173 to production** (ztflux, category Crux Plugin) — ready to
+  file, format prepared per CLAUDE.md §5, just needs the go-ahead.
+- Pick which `CRUX_FEATURES_LIST.md` Part B row(s) to write fresh TCs for first — now a 37-row list, corrected
+  against the developer's own source-derived reference. Nothing pre-ranked; ask the user for priority.
+- `CRUX_REQUIREMENTS.md` and `CRUX_USER_GUIDE.md` are still stale (0.92.0-era) — not refreshed this session,
+  `CRUX_DEV_FEATURE_REFERENCE_20261105.md` can now serve as the primary source for that refresh when it happens.
+- `CRUX_TRACEABILITY_MATRIX.md` still only tracks Part A (agents) — needs Part B rows added once TCs exist for
+  them.
+- BUG-CRX-108 (production status "New", never "In QA" this cycle) — still unresolved what to do with it, carried
+  over from the previous entry.
+- Resume the 10 partially-covered new agent suites' remaining drafted TCs whenever agent-suite depth becomes the
+  priority again — still pending from 2026-11-04, independent of all the above.

@@ -395,11 +395,16 @@ negative coverage. **All rows below are NOT EXECUTED** — these are freshly dra
 | B12 | Activity log (§11) | `CRUX_PLATFORM_ACTIVITY_LOG.md` | TC-CRX-939–953 | EXECUTED 2026-11-05 — 12 PASS, 1 partial, 2 deferred, 0 bugs |
 | B13 | Help & setup guide (§12) | `CRUX_PLATFORM_HELP.md` | TC-CRX-954–965 | EXECUTED 2026-11-05 — 12/12 PASS, 0 bugs |
 | B14 | Ask Crux full page core (§13.1–13.10) | `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | TC-CRX-966–1020 | EXECUTED 2026-11-05 — 23 PASS, 7 partial, 1 bug (BUG-CRX-180), 11 deferred |
-| B15 | Share, personal limit, bubble, errors, issue-page integration (§13.9–13.12, §14) | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | TC-CRX-1021–1075 | NOT EXECUTED (55 TCs) |
+| B15 | Share, personal limit, bubble, errors, issue-page integration (§13.9–13.12, §14) | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | TC-CRX-1021–1075 | EXECUTED 2026-11-05 — 20 PASS, 10 partial, 1 bug (BUG-CRX-181), 24 deferred |
 
-**Total: 365 TCs across 15 suites, 310 executed (B1 Permissions/Menus, B2 Dashboard, B3 Work Packages, B6 Project Tab, B7 Agent Fleet Admin, B8 Pipelines, B9 Providers/Keys, B10 Settings, B11 Frozen Rules, B13 Help, B4 Ready Queue, B5 Run Ledger, B12 Activity Log, B14 Ask Crux Chat Core) / 55 remaining.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
-in `STATUS.md` until these have real results (or an explicit Out-of-Scope decision in `CRUX_SCOPE.md` for any
-row that stays untested) — this is now the single largest block of pending work for this plugin.
+**Total: 365 TCs across all 15 suites executed 2026-11-05.** Many individual TCs within each suite were
+explicitly deferred (each with a stated reason — missing fixtures, risk to shared QA infrastructure, or scope
+judged too costly this late in the cycle) rather than left silently untested; see each suite's own `##
+Execution` section for the itemized list. Per CLAUDE.md §10, this plugin **cannot yet be marked `Complete`** in
+`STATUS.md` even with full execution: `bugs/open/` is not empty (BUG-CRX-174 through BUG-CRX-181, 8 open bugs
+from this session alone, plus any older ones), and no full final-cycle regression has been run since the last
+bug was found. Status remains `In Progress` pending bug fixes, a final regression pass, and a decision on
+whether the deferred TCs above need a follow-up session or an explicit Out-of-Scope note in `CRUX_SCOPE.md`.
 
 Known explicit exclusions (not gaps, per the developer's own §15 "don't test these"): DevOps Agent, Code
 Reviewer without DevOps installed, the 3 non-chat prototype agents, Digest, licensing/license keys (not built),

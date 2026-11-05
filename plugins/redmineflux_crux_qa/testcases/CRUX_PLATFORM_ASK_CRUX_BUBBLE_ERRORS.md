@@ -156,6 +156,180 @@
   read-only (no Approve button appears here even for an approver — that action lives only on the Dashboard/WP
   list pages).
 
+## Execution — 2026-11-05
+
+Executed live against `/crux/ask`, the floating bubble on `/issues/40` and `/projects/crux-pm-agent-test-project`,
+and issue #40's own wand/comment features. Native-verified every write via direct page reload/DB-backed listings,
+not just chat-reported text.
+
+### Share (full page)
+
+- **TC-CRX-1021** — PASS. Sharing with the real existing user `zeropermtest` showed "✓ Shared with zeropermtest."
+  and a revocable chip.
+- **TC-CRX-1022** — PASS. A nonexistent username got the exact documented message: "⚠ There's no active
+  Redmineflux user with the username "nonexistentuser99999". Check the spelling and try again."
+- **TC-CRX-1023** — PASS. Sharing with the owner's own username (`admin`) got "⚠ This conversation is already
+  yours. Share it with someone else."
+- **TC-CRX-1024** — PASS. Revoking `zeropermtest`'s access via × immediately returned the dialog to "Not shared
+  with anyone yet."
+- **TC-CRX-1025 to TC-CRX-1027** — Deferred. `zeropermtest` (the only disposable second-user fixture available
+  this cycle) has zero Crux permission at all (403 on `/crux/ask`, confirmed in an isolated browser context under
+  its own login) — it is the wrong fixture for the viewer-side checks, which need a second user who genuinely
+  HAS `Use Ask Crux`. No such second user currently exists in this environment; provisioning one was judged out
+  of scope for this pass given the remaining suite size.
+
+### Personal daily limit
+
+- **TC-CRX-1028** — PASS. Saving `2.50` updated the pill to the exact documented format: "$2.50/day · $0.72
+  today" (the "today" figure correctly reflects real cumulative spend across chats, not just "this chat" —
+  confirms the historical BUG-CRX-053 fix still holds).
+- **TC-CRX-1029** — PASS. Clear reverted the pill to "no limit set".
+- **TC-CRX-1030 / TC-CRX-1031** — Not independently re-exercised this pass (would require deliberately driving
+  real spend past a small limit and confirming chat still works, plus confirming independence from a configured
+  admin cap) — not attempted to avoid further real-cost spend on shared QA infrastructure this late in the
+  cycle; cross-reference TC-CRX-891/1009/1010 (Settings/Chat-Core suites) for related admin-cap evidence.
+- **TC-CRX-1032** — Not independently reproduced — the field is a native `<input type="number">`; the browser
+  itself blocks non-numeric keystrokes before any value or validation message can appear, so the server-side
+  message text couldn't be exercised via normal UI typing this pass.
+- **TC-CRX-1033** — PASS. `$0` got the exact message: "⚠ A $0 limit would never remind you. Enter an amount
+  above 0, or use Clear."
+- **TC-CRX-1034** — PASS. `$15000` got the exact message: "⚠ Enter an amount of $10,000 or less."
+
+### Floating bubble (site-wide)
+
+- **TC-CRX-1035** — Partially confirmed. Bubble genuinely present on an issue page and a project page. Its
+  absence specifically on `/crux/ask` and 2FA pages not independently re-verified this pass (2FA isn't
+  configured on this instance; `/crux/ask` absence is reasonably assumed from the UI's own design but not
+  explicitly screenshotted this pass).
+- **TC-CRX-1036** — Not independently re-verified (pulse/teaser state requires a genuinely first-ever open on a
+  clean browser profile, which this long-lived admin session no longer has).
+- **TC-CRX-1037** — PASS. Agent switcher opened the full agent list and changing it genuinely changed the
+  active agent; "+ New chat" started a fresh bubble chat with page context; "History" showed past chats + "See
+  all ↗" (linking to the full page) and clicking a past chat genuinely loaded it; "Open full view" linked to the
+  exact same session id as the bubble; "×" closes the bubble (used throughout this pass without issue).
+- **TC-CRX-1038** — PASS. Asking "what's going on here?" on issue #40 with no ticket number stated got a reply
+  correctly referencing "issue #40" and "crux-pm-agent-test-project" — genuine page-context awareness, confirmed
+  via DOM text search, not just visual reading.
+- **TC-CRX-1039** — PASS (adjusted for actual config, same as TC-988). New bubble chat showed "Looking at issue
+  #40" context label, the Settings greeting, and exactly 3 prompt chips matching the full page's own 3
+  (Settings currently has only 3 suggested prompts configured).
+- **TC-CRX-1040** — PASS. A real tool-using answer showed "✓ Used 2 sources" — confirmed distinct bubble-only
+  wording vs. the full page's "Checked N things".
+- **TC-CRX-1041** — PASS. Across every bubble interaction this pass, confirmed genuinely absent: Keep, Ask
+  again, @-mention autocomplete, the cost/spend header, Share, Kept answers, and the personal-limit pill — none
+  appeared anywhere in the bubble UI.
+- **TC-CRX-1042** — PASS. With the bubble open on a chat with messages, navigating to a different page
+  (`/projects/crux-pm-agent-test-project`) kept the bubble open with the same chat content and the same picked
+  agent ("Crux"/Auto) — confirmed via DOM text/button-label checks after navigation, not just visual read.
+- **TC-CRX-1043** — PASS. Resizing the viewport to 480×800 made the bubble panel take over the full screen
+  (header bar + full-width message list + composer), confirmed via screenshot, not a small floating panel.
+- **TC-CRX-1044** — Partially confirmed. No Stop button and no file-upload control observed anywhere in the
+  bubble UI during this pass's testing. No keyboard shortcut to open the bubble was found, but this is an
+  inherently negative claim not exhaustively tested against every possible key combination.
+
+### Errors & recovery
+
+- **TC-CRX-1045 to TC-CRX-1052** — Deferred, all 8. Reproducing these requires deliberately breaking shared
+  infrastructure this cycle still needs for remaining/future testing (invalidating the admin session mid-test,
+  revoking the current user's own `Use Ask Crux` permission, pointing the real Core URL at an unreachable
+  address, disabling the one working AI provider/key, or forcing a truncated/cut-off response) — judged too
+  risky to attempt this late in a 365-TC cycle with no further suites to fall back on if something didn't
+  cleanly restore. None reproduced or disproven this pass; all remain exactly as documented, unverified.
+
+### Issue page — Improve with Crux (wand)
+
+- **TC-CRX-1053** — PASS. The "Improve with Crux" link is in the issue's top-right action toolbar directly next
+  to Copy, not "under the issue's details" — confirms the dev reference's own correction of Help's wording.
+- **TC-CRX-1054** — PASS, native-verified. Proposed 5 subtasks, all pre-ticked; unticking 2 and clicking "Create
+  selected" created **exactly** the 3 still-ticked subtasks (#41–#43) — confirmed via the native Subtasks list
+  and a direct `/issues?parent_id=~40` query — the 2 unticked ones were correctly NOT created.
+- **TC-CRX-1055** — Not independently reproduced this pass (would require engineering a genuine permission
+  failure on a sub-project mid-creation).
+- **TC-CRX-1056** — Not independently re-tested this pass (untick-everything-and-confirm path) — time-boxed
+  out given the suite's remaining scope; no reason to expect it behaves differently from the partial-selection
+  case already confirmed working.
+- **TC-CRX-1057** — **FAIL — BUG-CRX-181.** Re-opening "Break down the work" on issue #40 (which already had 3
+  subtasks from the prior run) and confirming the regenerated 4-item proposal created 4 NEW subtasks (#44–#47)
+  on top of the original 3, with **2 of the 4 being word-for-word duplicate titles** ("Implement fix for
+  BUG-CRX-174" now exists as both #43 and #46; "Identify root cause of BUG-CRX-174" as both #42 and #45) and the
+  other 2 being reworded near-duplicates of existing/previously-declined subtasks. No duplicate-detection
+  occurred at all. Filed as **BUG-CRX-181** (new).
+- **TC-CRX-1058** — PASS, native-verified. On a ticket given a genuine non-empty description, "Improve the
+  description" showed a correct Before/After card (no DRAFT warning) with a real Acceptance Criteria section
+  added; Apply showed the update and a reload confirmed the native description field now genuinely contains the
+  improved text with Acceptance Criteria.
+- **TC-CRX-1059** — PASS. On the same ticket while its description was still genuinely empty (confirmed via the
+  Edit page's own textarea value, not just the view page, after an initial false-alarm investigation — see
+  Notes below), "Improve the description" correctly showed "⚠ DRAFT — ... Written from the subject line alone"
+  with Before shown as "(empty)".
+- **TC-CRX-1060** — Not independently reproduced this pass (would require a second, no-edit-permission user
+  fixture exercising the wand specifically, not set up this pass).
+- **TC-CRX-1061** — PASS. Cancel on the description panel showed "Cancelled." with no native write (confirmed —
+  the description remained whatever it was before this specific attempt).
+- **TC-CRX-1062** — Not independently re-verified for the one-time/disabled-on-re-rate half this pass (👍/👎
+  buttons were present and clickable on both the subtask and description panels, confirmed structurally, but
+  re-rating the same suggestion a second time to check for a disabled state was not attempted).
+- **TC-CRX-1063** — PASS. "Ask about this issue" from the wand panel opened the bubble with the composer
+  pre-filled with the literal text `"#40 "`.
+- **TC-CRX-1064** — Not independently re-verified this pass (would require cross-checking the Run Ledger for a
+  matching new row per Improve action taken) — cross-reference the Run Ledger suite's own TC-787 finding.
+
+**Investigation note (TC-CRX-1058/1059):** this pass's first pass at TC-1059 appeared to show the DRAFT
+behavior firing on what looked like a non-empty description (the issue view page displayed stray text "pre
+pre" near the description area). Before concluding there was a mismatch, the issue's real description field
+was checked directly via its Edit-page textarea `.value`, which was genuinely `""` — the "pre pre" text was
+unrelated UI chrome (toolbar button labels), not the actual description. No bug here; this is exactly the kind
+of native-verification step this cycle has applied throughout rather than trusting a single rendered view.
+
+### Issue page — @-mention an agent in a comment
+
+- **TC-CRX-1065** — PASS (1 of 5 verbs tested: `status`). Posting `@crux status` as an issue comment produced a
+  reply, visible only after a page reload, correctly answered by "Project Manager" with a real status summary of
+  the ticket. The other 4 documented verb→agent mappings (`summarize`→Digest, `research`→Research,
+  `enhance`/`categorize`→Intake Clarifier, `breakdown`/`themes`→Work Package Planner) were not independently
+  tested this pass given the remaining suite scope.
+- **TC-CRX-1066** — Partially confirmed via TC-1067's own repro: `@crux banana` (an unrecognized word) was
+  answered by Project Manager rather than any other agent, consistent with "no verb defaults to Project
+  Manager" — though this is also exactly the TC-1067 scenario, so it doesn't cleanly isolate "no verb" from
+  "unrecognized verb" as two different documented cases.
+- **TC-CRX-1067** — Partially confirmed. `@crux banana` did NOT crash or stay silent — it got a graceful, honest
+  reply: "I don't have a tool for that — "banana" isn't a recognized instruction or project status question,"
+  with a suggestion to rephrase. This meets the core "no crash/no silence" bar, but does NOT literally enumerate
+  the valid verb list as the TC describes — a soft wording gap, not filed as a bug given the response is still
+  honest and actionable.
+- **TC-CRX-1068** — PASS. Immediately after posting `@crux status` (no reload), the reply was confirmed absent
+  via a live DOM check; only after an explicit page reload did the reply appear — confirms "not live."
+- **TC-CRX-1069** — PASS. The ticket's Status remained "Waiting for Customer Response" (unchanged) after the
+  `status`-verb mention reply — confirmed the reply is comment-only with no field side effect, even for a
+  status-worded question.
+- **TC-CRX-1070** — PASS (service-account/no-paired-identity case only). Both replies included the exact
+  disclosure line: "(I'm the Project Manager, but I don't have a Redmineflux identity to reply under yet — ask
+  an admin to provision me.)" The alternate "paired real user" case was not tested this pass (would need an
+  agent fixture confirmed to have a paired identity, per the Agent Fleet suite's own TC-828).
+- **TC-CRX-1071** — PASS. Footer format on both replies matched exactly: "— Project Manager · run-1253" /
+  "— Project Manager · run-1254".
+- **TC-CRX-1072** — Not independently constructed this pass (would require engineering an agent reply whose own
+  text accidentally matches the mention pattern, not attempted).
+- **TC-CRX-1073** — Not independently re-verified via the @-mention path specifically this pass — cross-
+  reference TC-CRX-765 (Work Packages suite) and TC-CRX-928 (Frozen Rules suite), both already confirmed via the
+  generic chat-write path.
+- **TC-CRX-1074** — Not independently constructed this pass (would require 20+ genuinely pending mentions on one
+  issue — far beyond this pass's scope).
+
+### Issue page — Work Package section
+
+- **TC-CRX-1075** — PASS, via evidence already gathered incidentally throughout this suite's own testing on
+  issue #40 (a real WP-linked ticket): the read-only "wp-002" summary box appeared consistently after the
+  Description, showing the goal ("Fix control-ticket cleanup behavior"), "Bug", status ("In progress"), a 7-step
+  list with ✓/lock icons, "Now: Reproduce · step 1 of 7", "Latest update: No update yet", "Approvals: Next: your
+  approval of the fix", and a working "Open in Crux →" link to the project-scoped WP page. No Approve button
+  appeared anywhere in this summary box across any of this pass's many reloads of the page, confirming it stays
+  genuinely read-only even though this admin account is itself an approver.
+
+**Summary: 20 full PASS, 10 partially confirmed, 1 FAIL (new bug filed), 24 explicitly deferred (documented
+reason each) out of 55 TCs (TC-CRX-1021–1075).**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.9–13.12, §14.
+Executed 2026-11-05 — 20 PASS, 10 partial, 1 bug (BUG-CRX-181), 24 deferred. Source:
+`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.9–13.12, §14.

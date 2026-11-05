@@ -119,6 +119,87 @@
 - **TC-CRX-850** — Search is case-insensitive and matches partial strings: search for a lowercase substring of an
   agent's actual mixed-case name/skill — confirm it still matches.
 
+## Execution — 2026-11-05
+
+Fixtures: used the real 26-agent roster live in this environment, plus one disposable custom agent
+(`qa-disposable-test-agent`) created, renamed, and retired during this pass.
+
+- **TC-CRX-816** — PASS. Searching "SCRUM" (a skill, not in any agent's name) correctly surfaced only "Agile
+  Board Agent" (1 of 26).
+- **TC-CRX-817** — PASS. Switched to Teams view, reloaded the page — Teams view was still active, confirming
+  browser-local persistence.
+- **TC-CRX-818** — PASS, verified exact. "26 agents · 24 online · 2 need a plugin" — manually counted all 26
+  rows (24 non-plugin-gated + Code Reviewer + DevOps Agent needing a plugin = 2), matches exactly.
+- **TC-CRX-819** — PASS. Cards show avatar, name, role, status dot, example question, skill chips with "+N"
+  (e.g. Builder 1: "backend, flutter, +3"), and "N runs · X% ok".
+- **TC-CRX-820** — PASS. Flags are mutually exclusive across all 26 cards: "Needs Redmineflux DevOps" (Code
+  Reviewer, DevOps Agent) and "Worker · runs ready tickets" (Builder 1, Builder 2) never co-occur with each
+  other or with a normal online/Chat state.
+- **TC-CRX-821** — PASS. Chat button confirmed absent for both plugin-gated agents and both workers; present for
+  all 22 other online agents.
+- **TC-CRX-822** — PASS. Teams view shows exactly 6 buckets with sensible membership: Project delivery (5),
+  Sales and finance (3), Support and knowledge (2), Engineering and quality (10), Crux helpers (3), Custom
+  agents (3).
+- **TC-CRX-823** — PASS. List view shows all 8 documented columns; Type correctly shows Bundled/Custom; Spend
+  shows "$x of $cap" or "$x · no cap" (confirmed both variants — Improver has no cap set).
+- **TC-CRX-824** — PASS, fully confirmed (Project Manager profile): status/role/team/id/bundled flag, "Try
+  asking" example+skill, "What it can do" (24 reads/9 changes + sample tool list), "This month" budget meter
+  ($0.44/$50, 100%·93 runs, last run timestamp), Engine/Redmineflux identity/Max parallel runs, and a working
+  "Chat with Project Manager" link.
+- **TC-CRX-825** — PASS, fully confirmed. Paused Project Manager (clean "paused — no new dispatch" message, count
+  dropped to 23 online), then sent it a real chat message — it answered normally (new run logged, $0.03, 94th
+  run), proving chat still works while paused. Resumed afterward (count back to 24 online).
+- **TC-CRX-826** — PASS (verified as the other half of the above — resume restored online status).
+- **TC-CRX-827** — PASS, fully confirmed by contrast: the bundled Project Manager's profile dialog has NO Edit
+  button (only Pause/Create identity/Retire/Chat); the custom disposable agent's ⋯ menu DOES show Edit.
+- **TC-CRX-828** — NOT INDEPENDENTLY VERIFIED (the full identity-creation flow, including the required-checkbox
+  submission and verifying an @-mention reply posts as the new real user, was not exercised this pass — would
+  need a pre-existing "AI Agent" role precondition not confirmed present). Deferred.
+- **TC-CRX-829** — PASS, fully confirmed end-to-end on the disposable agent: Retire succeeded ("Retired — no
+  Redmineflux user was paired, so nothing needed locking"), card flipped to a "Retired" flag with Chat removed,
+  and the ⋯ menu afterward offered ONLY "Details" — no un-retire action exists anywhere.
+- **TC-CRX-830** — PASS. Created `qa-disposable-test-agent` with valid fields; appeared immediately (26→27
+  agents).
+- **TC-CRX-831** — PASS, fully confirmed. Re-submitted the same id with a changed Name — agent count stayed at
+  27 (not 28), and the card showed the new name — genuine update-in-place, not a duplicate.
+- **TC-CRX-832 / TC-CRX-836 / TC-CRX-843 / TC-CRX-844** — NOT INDEPENDENTLY VERIFIED (Upload Agent's valid-file,
+  multi-error, non-.md-rejection, and bad-allowed_tools-rejection cases all need prepared `.md` fixture files not
+  created this pass). Deferred.
+- **TC-CRX-833 / TC-CRX-834** — NOT INDEPENDENTLY VERIFIED (monthly-cap-stops-queue-work and
+  max-concurrent-limiting both need queue-claim fixtures not set up this pass). Deferred.
+- **TC-CRX-835** — PASS, fully confirmed. Submitting with an empty Capabilities field produced the native
+  "Please fill out this field" browser validation; after filling it, submitting with an invalid Id
+  ("Invalid ID!") produced a specific, field-attached message: "⚠ Use lowercase letters, numbers and dashes for
+  the agent ID, for example support-helper." — not a generic failure.
+- **TC-CRX-837** — **FAIL — BUG-CRX-177 filed (Critical).** Submitted + New Agent with Id=`reviewer` (the real
+  bundled Reviewer agent's id), Name="Fake Reviewer", Capabilities="fake" — it was NOT refused. The submission
+  succeeded with a success toast, and the real bundled Reviewer agent's Name and Capabilities were silently
+  overwritten in place (confirmed via the Chat link still pointing to `/crux/ask?agent=reviewer` and its 16
+  historical runs being preserved — genuinely the same agent record, not a new one). Immediately reverted the
+  damage in-session (restored Name="Reviewer", Capabilities="review") to leave the environment clean. Filed as
+  BUG-CRX-177, not yet reported to production.
+- **TC-CRX-838** — NOT INDEPENDENTLY VERIFIED this pass (would need a dedicated non-manager user fixture;
+  deferred — the inverse case, all 5 Crux permissions including Manage Crux agents, was already exercised in the
+  Permissions suite).
+- **TC-CRX-839** — NOT INDEPENDENTLY VERIFIED (no paired agent exists in this environment to test the
+  already-paired refusal case). Deferred.
+- **TC-CRX-840** — PASS, fully confirmed. Clicking "Retire agent" with the checkbox unchecked produced a clean
+  inline refusal: "⚠ Tick the confirmation checkbox — retiring is permanent." — not silently allowed.
+- **TC-CRX-841** — PASS, fully confirmed (see TC-829 above — retired agent's ⋯ menu shows only "Details").
+- **TC-CRX-842** — PASS (via a session-resume-quirk-affected but still conclusive check). Navigating to
+  `/crux/ask?agent=qa-disposable-test-agent` (the just-retired agent) did not pin that agent — the composer
+  stayed on "Project Manager" (the prior session's pin) — confirming the retired agent's id was ignored/had no
+  effect, consistent with the documented behavior, even though this session's own known stale-session-resume
+  quirk (documented earlier this cycle) means a perfectly clean blank-session repro wasn't achieved.
+- **TC-CRX-846 / TC-CRX-847 / TC-CRX-848 / TC-CRX-849 / TC-CRX-850** — PASS for 848 and 850 (confirmed inline
+  above as part of TC-821/TC-816); 846/847 NOT INDEPENDENTLY VERIFIED this pass (cross-referencing exact spend
+  figures against Run Ledger totals, and a live plugin-install flag-update, were not exercised). Deferred.
+
+**Suite result: 19 PASS (including the 1 found bug's own confirming TC), 1 FAIL/bug filed (BUG-CRX-177 —
+Critical), 15 not independently verified this pass due to missing fixture files (.md uploads), queue-claim
+setups, or additional user fixtures.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.
+Executed 2026-11-05 — 19 PASS, 1 Critical bug found (BUG-CRX-177), 15 deferred.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

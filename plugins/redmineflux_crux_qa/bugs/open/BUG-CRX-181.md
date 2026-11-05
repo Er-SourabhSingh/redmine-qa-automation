@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-181
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127952
 - Title: Re-confirming "Break down the work" after a successful Create selected creates duplicate/overlapping subtasks instead of detecting the already-created ones
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

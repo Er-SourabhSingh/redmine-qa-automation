@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-180
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127951
 - Title: A Retired agent remains selectable in Ask Crux's agent picker/@-mention and silently answers as the generic "Ask Crux" persona instead of being excluded
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

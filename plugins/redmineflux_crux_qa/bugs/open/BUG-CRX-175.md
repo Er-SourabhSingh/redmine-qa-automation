@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-175
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127946
 - Title: Run Ledger's Time column shows a raw unrounded floating-point number instead of a formatted duration
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-174
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127945
 - Title: Ready Queue permanently excludes a ticket after its blocker is resolved, even though the "no open blockers" condition is now met
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

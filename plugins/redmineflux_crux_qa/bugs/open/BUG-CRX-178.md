@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-178
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127949
 - Title: "Crux Capability" custom field exists but is enabled for zero trackers, so it never actually appears on any issue form
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

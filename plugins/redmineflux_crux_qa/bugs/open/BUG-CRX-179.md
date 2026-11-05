@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-179
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127950
 - Title: Dashboard's agent-detail modal always shows "No runs yet for this agent" in its Recent runs table, even for agents with hundreds of real runs
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

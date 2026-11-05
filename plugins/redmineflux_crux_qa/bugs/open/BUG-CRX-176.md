@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-176
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127947
 - Title: Project-scoped Crux tab (Overview + Run ledger) shows 0 agent runs despite real runs existing against that project's own ticket
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

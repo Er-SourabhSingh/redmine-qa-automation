@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-177
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #127948
 - Title: + New Agent silently overwrites a built-in (bundled) agent's Name and Capabilities when submitted with that agent's exact id, instead of refusing
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (crux-core 1.1.0, commit 347ee6e)

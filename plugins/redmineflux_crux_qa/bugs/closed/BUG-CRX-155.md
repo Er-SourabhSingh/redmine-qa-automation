@@ -62,6 +62,14 @@ escalation_to_id
 - Native-verified no support level #2 (or any) beyond the original Level 1 was created — clean failure, no data
   corruption.
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run in a fresh chat (`ses-404`), Helpdesk Agent pinned: "Create a new support level tier for project
+12 called 'L2 Support Retest', ... and this new L2 tier is the final tier (no further escalation)." The confirm
+card this time had **no "Escalation To" row at all** (the field was correctly omitted rather than sent as an
+empty string). Confirmed → *"✓ Support level created. ID:2 | L2 Support Retest."* — no Pydantic crash, genuine
+success. **Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Support Agent / Helpdesk plugin domain's Support Level tools.

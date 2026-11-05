@@ -83,3 +83,11 @@ generic, wrong, hardcoded Redmine-default guess table (1=Low, 2=Normal, 3=High, 
 proposing **id 3** for "High" again. Confirmed → identical **`"Validation error: Priority cannot be blank"`**
 failure — this install's real id for High is 8 (6=low, 7=medium, 8=high, 9=immediate), unchanged from the
 original finding. **Status: Still open, not fixed.** Kept in `bugs/open/`.
+
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run verbatim in a fresh chat (`ses-404`), Helpdesk Agent pinned: "Update the scanner ticket's (31)
+priority to High." This time the agent genuinely checked 1 thing (a real lookup, confirmed by the "▸ Checked 1
+thing" indicator) and the confirm card showed `Priority: high` (resolved by name, not a numeric guess) and
+`Ticket: 31`. Confirmed → *"✓ Ticket updated successfully."* Native-verified on `/issues/31`: Priority genuinely
+shows **high**. **Status: FIXED.** Moving to `bugs/closed/`.

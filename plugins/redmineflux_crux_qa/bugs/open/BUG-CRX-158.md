@@ -52,6 +52,26 @@ elsewhere.
 - Successful retry confirm card: `Resource Type: product`, `Resource: 1`. Result: `"✓ Product deleted
   successfully."` Native-verified gone from `/rf_products`.
 
+## Retest — 2026-11-05 (STILL REPRODUCES — new variant — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run in the same long chat (`ses-404`, by now also a long multi-turn session) on a product just created
+this round (#2, "Mobile App Retest"): "Now delete the Mobile App Retest product." → **reproduced the identical
+original dead-end** verbatim: *"I described a change without actually proposing it, so there's nothing to
+confirm yet — please tell me again exactly what to change and I'll make it a real, confirmable proposal."*
+
+Retried with the original pattern's exact successful phrasing ("Please delete the Mobile App Retest product
+(product id 2).") — this time got a **different, new symptom**: a flat false capability denial — *"I cannot
+delete products directly — that's an admin-level catalog decision outside the scope of this agent. You'll need
+to do that through the Redmineflux admin interface instead."* This directly contradicts the tool's own confirmed
+support for `resource_type: "product"` and the original bug's own successful retry. Retried a 3rd time, explicitly
+naming the tool and resource type — this time produced a genuine `Helpdesk Delete` confirm card (`Resource Type:
+product`, `Resource: 2`), confirmed successfully.
+
+**Conclusion: STILL REPRODUCES**, same general "intent fails then succeeds on retry" class as the original
+finding, but this round surfaced a new intermediate symptom (false capability denial) not seen in the original
+2-attempt pattern — now takes 3 attempts instead of 2 in this instance. **Bug stays open.** Production issue
+#127605 remains in its current status (not synced to Done).
+
 ## Duplicate check
 
 - Duplicate found: Not a duplicate — same defect *class* as the already-documented BUG-CRX-013 (original) and

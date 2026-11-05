@@ -57,6 +57,14 @@ Validation error: Product Code cannot be blank Correct the value(s) above and tr
 - Model validation (`redmineflux_helpdesk/app/models/rf_product.rb:29`): `validates :code, presence: true, ...`
 - Native-verified: no product record was created (`/rf_products` → "No products yet").
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+Repro re-run verbatim in a fresh chat (`ses-404`), Helpdesk Agent pinned: "Add a new product called 'Mobile App
+Retest' for project 12..." (no code mentioned). Confirm card again showed no `code` field (same as before).
+Confirmed → *"✓ Product created successfully. ID:2 | Mobile App Retest | Code: MOBILE-APP-RETEST (code made
+from the name)."* — the tool/plugin now auto-generates a code from the name instead of crashing. **Status:
+FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding of a documented-optional-vs-actually-required field mismatch on this

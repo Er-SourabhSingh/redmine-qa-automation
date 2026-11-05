@@ -52,6 +52,16 @@ ID with the corresponding list_* tool.)
 - Native-verified support level #1's Escalation To field: still "None (Last Level)", confirming the step
   genuinely failed despite the ✓.
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, Helpdesk Agent)
+
+The original repro's exact chain (step 1 crashing, cascading to a misleading-✓ step-2 failure) could no longer
+be reproduced since BUG-CRX-155 (the step-1 crash) is now fixed. Instead, forced an equivalent genuine failure
+directly: "Update support level 1's escalation target to support level id 999" (a real, nonexistent id).
+Confirm card correctly showed `Escalation To: 999`. Confirmed → result (verbatim, no ✓ prefix): *"Support level
+#999 not found for escalation target (If you expected this support level #1 to exist, verify the ID with the
+corresponding list_* tool.)"* — an honest failure message with no misleading checkmark. **Status: FIXED.**
+Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No new *class* — this is a recurrence of the already-documented misleading-✓-on-failure

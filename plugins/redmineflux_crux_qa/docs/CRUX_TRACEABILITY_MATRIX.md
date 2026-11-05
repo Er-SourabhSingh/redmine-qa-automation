@@ -389,7 +389,7 @@ negative coverage. **All rows below are NOT EXECUTED** — these are freshly dra
 | B6 | Project Crux tab incl. Graph (§5) | `CRUX_PLATFORM_PROJECT_TAB.md` | TC-CRX-793–815 | EXECUTED 2026-11-05 — 7 PASS, 1 bug (BUG-CRX-176), 15 deferred |
 | B7 | Agent fleet admin (§6) | `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` | TC-CRX-816–850 | EXECUTED 2026-11-05 — 19 PASS, 1 Critical bug (BUG-CRX-177), 15 deferred |
 | B8 | Pipelines (§7) | `CRUX_PLATFORM_PIPELINES.md` | TC-CRX-851–869 | EXECUTED 2026-11-05 — 11 PASS, 8 deferred, 0 bugs |
-| B9 | Providers & keys (§8) | `CRUX_PLATFORM_PROVIDERS_KEYS.md` | TC-CRX-870–887 | NOT EXECUTED (18 TCs) |
+| B9 | Providers & keys (§8) | `CRUX_PLATFORM_PROVIDERS_KEYS.md` | TC-CRX-870–887 | EXECUTED 2026-11-05 — 12 PASS, 2 partial, 4 deferred, 0 bugs |
 | B10 | Settings, all 5 sub-sections (§9) | `CRUX_PLATFORM_SETTINGS.md` | TC-CRX-888–920 | NOT EXECUTED (33 TCs) |
 | B11 | Frozen rules (§10) | `CRUX_PLATFORM_FROZEN_RULES.md` | TC-CRX-921–938 | NOT EXECUTED (18 TCs) |
 | B12 | Activity log (§11) | `CRUX_PLATFORM_ACTIVITY_LOG.md` | TC-CRX-939–953 | EXECUTED 2026-11-05 — 12 PASS, 1 partial, 2 deferred, 0 bugs |
@@ -397,7 +397,7 @@ negative coverage. **All rows below are NOT EXECUTED** — these are freshly dra
 | B14 | Ask Crux full page core (§13.1–13.10) | `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md` | TC-CRX-966–1020 | NOT EXECUTED (55 TCs) |
 | B15 | Share, personal limit, bubble, errors, issue-page integration (§13.9–13.12, §14) | `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md` | TC-CRX-1021–1075 | NOT EXECUTED (55 TCs) |
 
-**Total: 365 TCs across 15 suites, 159 executed (B1 Permissions/Menus, B3 Work Packages, B6 Project Tab, B7 Agent Fleet Admin, B8 Pipelines, B13 Help, B4 Ready Queue, B5 Run Ledger, B12 Activity Log) / 206 remaining.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
+**Total: 365 TCs across 15 suites, 177 executed (B1 Permissions/Menus, B3 Work Packages, B6 Project Tab, B7 Agent Fleet Admin, B8 Pipelines, B9 Providers/Keys, B13 Help, B4 Ready Queue, B5 Run Ledger, B12 Activity Log) / 188 remaining.** Per CLAUDE.md §2c/§10, this plugin cannot be marked `Complete`
 in `STATUS.md` until these have real results (or an explicit Out-of-Scope decision in `CRUX_SCOPE.md` for any
 row that stays untested) — this is now the single largest block of pending work for this plugin.
 

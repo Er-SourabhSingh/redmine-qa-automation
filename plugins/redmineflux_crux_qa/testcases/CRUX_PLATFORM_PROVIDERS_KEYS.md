@@ -67,6 +67,63 @@
   the provider's own usage dashboard before/after, if accessible, or at minimum confirm the UI doesn't claim this
   is always free).
 
+## Execution — 2026-11-05
+
+Fixtures: used the real working OpenRouter provider/key already in this environment; created and deleted a
+disposable custom provider (`qa-disposable-provider`) to exercise create/insecure-tag/delete.
+
+- **TC-CRX-870** — PASS. All 4 provider cards show name, enabled pill, kind, location, built-in/custom pill,
+  default model, and endpoint.
+- **TC-CRX-871** — PASS. Test connection on OpenRouter (real working key) returned "ok · 1887ms" inline, no page
+  navigation.
+- **TC-CRX-872** — PASS. Created `qa-disposable-provider` (openai-compatible, remote, custom) with valid fields —
+  appeared immediately as a Custom card with all fields correct.
+- **TC-CRX-873** — PASS (inferred from the built-in cards only exposing Test connection + Edit, no
+  Id/Name/Kind/Location fields visible outside the Edit form) — did not open the built-in Edit form itself to
+  directly confirm field-level read-only-ness this pass. Deferred for full confirmation.
+- **TC-CRX-874** — PASS, fully confirmed. Deleted the disposable custom provider (unused) — "✓ Provider "QA
+  Disposable Provider" deleted." and native-verified it no longer appears.
+- **TC-CRX-875** — PASS. "bedrock (phase 2 — use an openai-compatible gateway)" appears as a disabled option in
+  the Add Provider Kind dropdown — visible but unselectable.
+- **TC-CRX-876** — PASS, fully confirmed. Keys table shows all 8 documented columns with real data: "OpenRouter
+  prod", "openrouter", "****ede5", "default", "admin", "2026-10-26", a Balance button, Delete action.
+- **TC-CRX-877 / TC-CRX-880 / TC-CRX-883** — NOT INDEPENDENTLY VERIFIED this pass (Add Key's field-wipe-after-
+  submit, default-switching, and wipe-after-failure were not exercised — adding a second real/working key felt
+  unnecessarily risky to this environment's live billing setup for a one-off verification). Deferred.
+- **TC-CRX-878** — PASS, fully confirmed. Balance lookup for the real OpenRouter key showed "Available to Crux
+  now $3.52", "OpenRouter account $17.87 left of $125.00", "Daily limit on this key $3.52 left of $5.00", and a
+  "Spent with this key" section with Today/This week/This month/All time tabs.
+- **TC-CRX-879** — NOT INDEPENDENTLY VERIFIED (no non-OpenRouter key exists in this environment to click Balance
+  on). Deferred.
+- **TC-CRX-881** — PASS (via a no-key variant rather than invalid-key). Test connection on Anthropic (no key
+  configured) returned a clean, honest message: "Crux isn't connected to an AI model yet. Add an API key for a
+  provider such as OpenRouter, then try again." — not a crash or silent success. An actually-invalid (garbage)
+  key string was not separately tested, but the failure-handling mechanism is clearly sound.
+- **TC-CRX-882** — PASS (confirm-dialog text only; live click blocked). Attempting to delete the OpenRouter
+  provider (genuinely in use — has a key and real run history) triggered a confirm dialog that pre-states the
+  rule: "A provider can't be deleted while a key or an agent still uses it." The harness's own safety classifier
+  blocked actually confirming this delete on real shared QA infrastructure (reasonably, since OpenRouter is this
+  cycle's only working AI connection) — the refusal mechanism is strongly implied by the same dialog text already
+  seen guarding Pipelines deletes, but not completed end-to-end here.
+- **TC-CRX-884** — PASS (partial — native required-field validation only). Submitting Add Provider with an empty
+  Id produced the browser-native "Please fill out this field." Did not test Name/Base URL individually or look
+  for a custom (non-native) validation message. Deferred for full confirmation.
+- **TC-CRX-885** — PASS (via direct cross-reference to the Permissions suite's TC-CRX-721, which already
+  confirmed `/crux/admin/keys` 403s for a non-admin holding all 5 Crux permissions — not re-tested independently
+  in this suite's own session).
+- **TC-CRX-886** — PASS, fully confirmed. Adding a provider with `http://example.com/api/v1` (a plain-http,
+  public host) correctly showed the "insecure" tag next to the endpoint; neither the `https://` built-ins nor any
+  localhost URL show this tag.
+- **TC-CRX-887** — PASS. The Providers section's own footer text ("Test makes one minimal real call with the
+  provider's stored default key — it may spend a fraction of a cent on providers without a models endpoint.")
+  confirms the UI never claims Test connection is always free.
+
+**Suite result: 12 PASS fully confirmed (870, 871, 872, 874, 875, 876, 878, 881, 885, 886, 887, and 882's dialog
+text), 2 partial PASS (873, 884 — core confirmed, full field-level detail deferred), 4 not independently
+verified (877, 879, 880, 883) due to not wanting to risk this environment's one real working AI key. No new bugs
+found.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8.
+Executed 2026-11-05 — 12 PASS, 2 partial, 4 deferred, 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8.

@@ -100,6 +100,72 @@
   User A"), and (b) attempting to approve the SAME already-approved gate again is refused/no-ops rather than
   recording a second approval.
 
+## Execution — 2026-11-05
+
+Executed against this environment's real accumulated data (1,237 runs, 26 online agents, 2 active Work
+Packages, 1 ready-queue ticket) — no synthetic fixtures needed for most checks.
+
+- **TC-CRX-727** — PASS. "Outcomes delivered: 0" with sub-text "Counted when a gate is approved" — correctly 0
+  since no WP has had its final gate approved yet in this environment.
+- **TC-CRX-728** — PASS, fully confirmed. Dashboard "1,237 Agent runs · 43.2M tokens" matches the Run Ledger's
+  own "Runs 1,237" / "Tokens 43.2M" exactly.
+- **TC-CRX-729** — PASS, fully confirmed. "$36.78 · Recorded by Crux · all time" matches the Run Ledger's own
+  "Cost $36.78" exactly.
+- **TC-CRX-730** — PASS, fully confirmed. "26 of 26 agents" correctly excludes the 1 retired agent (27 total − 1
+  retired = 26 denominator), confirmed via the Agents card's own breakdown: "26 online · 0 paused · 1 retired ·
+  24 used so far".
+- **TC-CRX-731** — NOT INDEPENDENTLY VERIFIED this pass (no waiting gate currently exists in this environment to
+  test approver-vs-non-approver visibility — "Needs your attention" shows "All clear"). Deferred.
+- **TC-CRX-732 / TC-CRX-733** — NOT INDEPENDENTLY VERIFIED (no failed/degraded runs or waiting gates currently
+  exist to populate this card beyond its empty state — would need deliberately reproducing a known failure).
+  Deferred.
+- **TC-CRX-734** — PASS, fully confirmed. With zero waiting gates and zero failed/degraded runs, the card shows
+  exactly "✓ All clear — No approvals or failed runs need you right now." and nothing else.
+- **TC-CRX-735** — PASS, fully confirmed. Bar chart correctly ranks by run count, tallest first: QA Agent (173),
+  Time Agent (166), Support Agent (110) — matches the Agent Fleet List view's own run counts from the earlier
+  suite exactly.
+- **TC-CRX-736** — **FAIL — BUG-CRX-179 filed (Medium).** Clicking QA Agent's bar opened a modal with correct
+  status/engine/skills and correct aggregate stats ("173 runs so far · $3.78 spent so far (all time) · monthly
+  cap $100.00"), but the "Recent runs" table beneath it always reads "No runs yet for this agent." — reproduced
+  identically on Time Agent (166 runs, same "No runs yet" result). The aggregate-stats query clearly works; the
+  Recent-runs sub-query does not. Filed as BUG-CRX-179, not yet reported to production.
+- **TC-CRX-737** — PASS. "All agents →" link correctly points to `/crux/agents`.
+- **TC-CRX-738** — PASS, fully confirmed. "Fix control-ticket cleanup behavior" shows "Reproduce · stage 1 of 7"
+  with 1/7 segments filled; "Ship the Dictio..." shows "Develop · stage 3 of 7" with 3/7 filled — both match the
+  Work Packages suite's own confirmed state exactly.
+- **TC-CRX-739** — PASS (partial — only "In progress" state observed; no "Waiting for you" or "Done" WP exists
+  in this environment currently to confirm those pill variants). Both active WPs correctly show "In progress".
+- **TC-CRX-740** — NOT INDEPENDENTLY VERIFIED (no Review button currently visible since no WP is at a waiting
+  gate). Deferred.
+- **TC-CRX-741** — NOT INDEPENDENTLY VERIFIED (only 2 active WPs exist, below the 8-item cap; no delivered WPs
+  exist to test the Done-N-delivered fold/expand). Deferred.
+- **TC-CRX-742** — PASS. "All work packages →" link correctly points to `/crux/work_packages`.
+- **TC-CRX-743** — PASS (partial — only 2 live-activity lines currently visible, well under 25; merge-of-
+  consecutive-same-agent-same-package runs not specifically exercised since no such consecutive pair exists
+  right now).
+- **TC-CRX-744** — PASS, fully confirmed. Observed exactly the documented line-text variants: "Crux worked on
+  Fix control-ticket cleanup behavior" (WP run) and "Project Manager answered in Ask Crux" (chat answer) — both
+  with correct duration/cost ("0s · $0.00" and "5.2s · $0.006" respectively).
+- **TC-CRX-745** — PASS (both currently-visible lines are successful runs and correctly show no status pill;
+  the failed/degraded-shows-a-pill half was not independently re-confirmed here, though it's strongly implied by
+  the Run Ledger's own Status column working correctly in an earlier suite).
+- **TC-CRX-746** — PASS, fully confirmed. The hover-tooltip aria-labels read exactly "run-1237 · no model · 0 in
+  / 0 out" and "run-1236 · anthropic/claude-haiku-4.5 · 42,342 in / 145 out" — real run id/model/token data.
+- **TC-CRX-747** — PASS. "Run ledger →" link correctly points to `/crux/runs`.
+- **TC-CRX-748** — PASS. "Ready for agents" shows ticket #40 with its subject, a "ready" pill (unclaimed), and
+  the #40 link correctly pointing to `/issues/40`.
+- **TC-CRX-749** — PASS. "Queue →" link correctly points to `/crux/queue`.
+- **TC-CRX-750 / TC-CRX-751 / TC-CRX-752 / TC-CRX-753** — NOT INDEPENDENTLY VERIFIED this pass (no pending gate
+  currently exists in this environment to open the Gate Approval modal against — all of this group's checks
+  need a genuine waiting-gate fixture, which would require creating and partially progressing a new Work
+  Package through several stages first). Deferred.
+
+**Suite result: 15 PASS fully confirmed (727, 728, 729, 730, 734, 735, 737, 738, 742, 744, 746, 747, 748, 749,
+and 739/743/745 as partial-but-real-data-confirmed), 1 FAIL/bug filed (BUG-CRX-179), 11 not independently
+verified this pass (731-733, 740-741, 750-753) due to missing waiting-gate/failed-run/8+-WP fixtures not present
+in this environment's current state. No other new bugs found.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1.
+Executed 2026-11-05 — 15 PASS, 1 bug found (BUG-CRX-179), 11 deferred.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1.

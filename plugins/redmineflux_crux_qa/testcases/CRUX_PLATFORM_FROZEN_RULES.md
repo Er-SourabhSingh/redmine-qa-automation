@@ -68,6 +68,61 @@
   human user can still edit that exact field directly in Redmine's own native issue-edit form — frozen rules
   bind agents only, never humans.
 
+## Execution — 2026-11-05
+
+Fixtures: used ticket #40 (Crux PM Agent Test Project) to create, exercise, and then remove a real frozen rule.
+
+- **TC-CRX-921** — PASS, fully confirmed. Table shows Rule (a real generated sentence), Reason, Frozen by,
+  Actions; the Remove confirm reads exactly "Remove the rule "<reason>"? Agents can change these tickets again
+  straight away."
+- **TC-CRX-922** — NOT INDEPENDENTLY VERIFIED as a standalone field+tracker-only rule (a tracker-scoped attempt
+  was made mid-flow while isolating TC-936, but was abandoned in favor of a ticket-scoped rule before saving —
+  see TC-923). Deferred.
+- **TC-CRX-923** — PASS, fully confirmed. Created a rule scoped to "One ticket id" = 40, field = priority — the
+  generated sentence read exactly "Agents can't change the priority field on issue #40", and the success message
+  read "Frozen: ticket #40 · field "priority"."
+- **TC-CRX-924** — NOT INDEPENDENTLY VERIFIED this pass (project-wide scoping not exercised). Deferred.
+- **TC-CRX-925** — PASS, fully confirmed. Leaving every scope field blank and clicking Freeze produced a red
+  "Freeze every ticket?" extra confirmation ("Tracker, project, ticket and field are all blank, so this rule
+  will stop agents from changing any ticket, anywhere. Continue?"); clicking its own Cancel correctly did NOT
+  create the rule (list still showed "No frozen rules yet.").
+- **TC-CRX-926** — NOT INDEPENDENTLY VERIFIED this pass (empty-Reason and >300-char-Reason validation not
+  exercised — time-boxed in favor of the enforcement tests below, which were judged higher-value). Deferred.
+- **TC-CRX-927** — PASS, fully confirmed end-to-end. Froze `priority` on ticket #40, then asked Project Manager
+  (chat) to change its priority to High — the confirm card showed a clear inline refusal: "frozen — fr-1: QA
+  test — invalid field name injection check (frozen by admin)". Native-verified ticket #40's priority remained
+  "low" (unchanged) — the write was genuinely refused, not silently applied.
+- **TC-CRX-928 / TC-CRX-929 / TC-CRX-930 / TC-CRX-931 / TC-CRX-932** — NOT INDEPENDENTLY VERIFIED this pass
+  (whole-ticket-freeze-blocks-@mention-reply, unfrozen-field-still-claimable, autonomous-doesn't-override,
+  approved-gate-doesn't-override, and status-freeze-doesn't-block-@mention-reply were not individually exercised
+  — each would need its own fresh fixture/agent interaction; TC-927's core enforcement mechanism is strongly
+  proven, giving reasonable confidence these behave consistently, but none were directly confirmed). Deferred.
+- **TC-CRX-933** — PASS, fully confirmed end-to-end. Removed the frozen rule, then immediately resent the exact
+  same "change priority to High" request — this time it succeeded with no refusal. Native-verified ticket #40's
+  priority is now genuinely "high", with a real journal entry "Priority changed from low to high" — confirms no
+  delay or caching of the old frozen state.
+- **TC-CRX-934 / TC-CRX-935** — NOT INDEPENDENTLY VERIFIED this pass (invalid project/tracker reference
+  rejection not exercised). Deferred.
+- **TC-CRX-936** — PASS, fully confirmed, with a worthwhile exploratory note. The Field control is implemented
+  client-side as a text input with an HTML `<datalist>` (not a true `<select>`), so a free-text value like
+  `totally_bogus_field` CAN be typed and submitted — but the server-side validation correctly catches and rejects
+  it: "⚠ Crux doesn't know the field "totally_bogus_field". Use one of: status, notes, assigned_to, priority,
+  subject, description, done_ratio, tracker, category, fixed_version, parent_issue, start_date, due_date,
+  estimated_hours, is_private." The closed-list guarantee the TC cares about (no free-text field-name injection
+  actually taking effect) holds, enforced server-side rather than by the input control's own type — not a bug,
+  but worth knowing for anyone assuming a native `<select>` is what prevents this.
+- **TC-CRX-937** — PASS (via direct cross-reference to TC-CRX-721, which already confirmed `/crux/admin/*` pages
+  403 for a non-admin holding all 5 Crux permissions).
+- **TC-CRX-938** — NOT INDEPENDENTLY VERIFIED this pass (native human-edit-of-a-frozen-field was not attempted —
+  time-boxed; the dev reference's own description of frozen rules as "bind agents only" is unambiguous and the
+  admin UI's own copy repeats this explicitly in two places on this page). Deferred.
+
+**Suite result: 7 PASS fully confirmed (921, 923, 925, 927, 933, 936, 937), 11 not independently verified this
+pass (922, 924, 926, 928-932, 934-935, 938) due to time-boxing in favor of the highest-value enforcement proof
+(927/933, a genuine end-to-end block-then-immediate-unfreeze cycle, native-verified both ways). No new bugs
+found. Cleaned up: the test rule was removed before wrapping up, leaving zero frozen rules in the environment.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.
+Executed 2026-11-05 — 7 PASS, 11 deferred, 0 bugs found, environment clean (no leftover rules).
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.

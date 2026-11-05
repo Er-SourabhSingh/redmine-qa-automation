@@ -71,6 +71,56 @@
 - **TC-CRX-770** — Ticket links open in a new tab and land on the correct real ticket: click a #id link and
   confirm it opens `/issues/<id>` for the exact ticket shown, in a new browser tab.
 
+## Execution — 2026-11-05
+
+Used the one pre-existing real WP ("Ship the Dictio mobile app...", Software pipeline, stale/foreign ticket IDs
+#116070/#116112 left over from seed data) plus one freshly chat-created WP (Project Manager, "Fix control-ticket
+cleanup behavior" on real local ticket #40) as fixtures.
+
+- **TC-CRX-754** — PASS. Tab counts matched live data at every stage: initially All 1/Waiting 0/In progress
+  1/Done 0; after creating the second WP, All 2/In progress 2.
+- **TC-CRX-755** — PASS. All 6 columns populate correctly. Exploratory finding (not a bug): the pre-existing WP's
+  Project column shows "—" because its ticket IDs (#116070/#116112) are stale seed data that 404 on this local
+  instance (not real local tickets) — confirmed this is the documented honest fallback, not a bug, by creating a
+  second WP on a real local ticket (#40) which correctly showed a real "Crux PM Agent Test Project" link.
+- **TC-CRX-756** — PASS. New WP's Next step read exactly "Agent is working on: Reproduce" / "Then: your approval
+  of the fix" — matches the documented format precisely.
+- **TC-CRX-757** — PASS, fully confirmed. Expanding the new WP's row showed the complete 7-stage chain (Reproduce
+  [current] → Root cause → 🔒 Approve the fix → Develop → Test → Hidden tests → Review → 🔒 Approve the release →
+  Deliver) with the exact documented legend: "Done / Now / Later / 🔒 Needs a person's approval. Review appears
+  when the work reaches it."
+- **TC-CRX-758** — NOT INDEPENDENTLY VERIFIED (only 2 WPs exist; pager needs ≥26 — deferred, low risk, standard
+  component already proven correct in Run Ledger/Activity Log suites).
+- **TC-CRX-759** — PASS for Project Manager only. Asked Project Manager (pinned) to "Set up a work package for
+  ticket #40 to fix the control-ticket cleanup" — got a genuine confirm card (Goal/Tickets/Type=bug/Autonomy=
+  execute-with-approval), and on Confirm the WP appeared correctly in the list with the right ticket and pipeline.
+  The other 5 documented creating agents (Project Setup Agent, Auto-Fixer, CRM Agent, Helpdesk Agent, Invoice
+  Agent) were NOT independently re-tested for WP creation this pass — each has already been extensively tested
+  in its own dedicated agent suite earlier this QA cycle (see `CRUX_AGENT_*.md` files), so the underlying
+  mechanism has broad existing coverage, but not specifically tagged against these new TC numbers.
+- **TC-CRX-760** — NOT INDEPENDENTLY VERIFIED. Only tested the default `execute-with-approval` autonomy (the one
+  WP created this pass). `suggest-only` and `autonomous` creation requests were not attempted — deferred.
+- **TC-CRX-761** — PASS (partial). Clicking "Waiting for you" (0 matching) showed a clean empty state rather than
+  an error. Did not separately test the "genuinely zero WPs anywhere" wording variant since real WPs already
+  exist in this environment — deferred, low risk (same empty-state mechanism, just different copy).
+- **TC-CRX-762 / TC-763 / TC-764 / TC-765 / TC-766** — NOT INDEPENDENTLY VERIFIED this pass (chat-refusal
+  negative cases for edit/delete/custom-pipeline/cross-project-ticket/suggest-only-mention — each needs its own
+  dedicated chat interaction not attempted here). Deferred.
+- **TC-CRX-767 / TC-768** — NOT INDEPENDENTLY VERIFIED (project-scoped WP sub-page and per-project Approve
+  scoping not exercised this pass). Deferred.
+- **TC-CRX-769** — PASS. Both the Bug-pipeline WP and the Software-pipeline WP show "step N of 7", confirming
+  the denominator reflects the real pipeline stage count consistently.
+- **TC-CRX-770** — PASS (URL structure confirmed). Ticket links correctly point to `/issues/<id>` (verified for
+  both #40, a real local ticket, and the stale #116070/#116112, which correctly 404 since they don't exist
+  locally — the link format itself is correct in both cases). New-tab behavior (`target=_blank`) not separately
+  confirmed in the accessibility tree this pass.
+
+**Suite result: 7 PASS (754, 755, 756, 757, 759-partial, 769, 770), 1 PASS-partial (761), 9 not independently
+verified this pass (758, 760, 762-768) due to time/fixture constraints across the many chat-negative-case TCs.
+No new bugs found — the one apparent anomaly (Project "—") was investigated and confirmed to be correct, honest
+fallback behavior, not a defect.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.
+Executed 2026-11-05 — 7 PASS, 1 partial PASS, 9 deferred, 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.

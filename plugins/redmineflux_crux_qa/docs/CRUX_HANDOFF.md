@@ -748,9 +748,63 @@ Per explicit user approval, synced both production issues (#127801, #127802) to 
 a retest comment each. Updated testcase #127769's result in Run #607 from Failed to Passed (notes citing both
 defects' fix) — **all 12 of yesterday's new agent-suite testcases in suite #435 are now Passed.**
 
-### Next Session Start Point (2026-11-05)
+### Next Session Start Point (2026-11-05, superseded — see entries below for the current state)
 
 - Resume executing the remaining drafted TCs across the 10 partially-covered new agent suites (Monitor, Research, Design, Root-Cause Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) per yesterday's plan, now on the fresh crux-core 1.0.0 build.
 - New agent-name note from today's guide: Testcase Agent (was QA Agent) — already seen; no other name changes beyond what was already captured yesterday.
 - Side note: TCM's `391dd37` pull looks like it may bear on BUG-TCM-134/135 (new `tcm_security_test.rb`, a `20261105000000` migration) — flag to whichever session is driving TCM work next, not actioned here.
 - Open bug count for Crux is now further reduced (163 and 165 both closed) — update `STATUS.md`'s open count accordingly next session-end pass.
+
+## 2026-11-05 (continued) — full open-bug retest sweep, production sync, Auto-mode routing check, and a platform-surface scope rewrite
+
+**Full retest of all 14 bugs open at session start**, per user instruction ("okay baki bug bhi retest kro crx
+ke"), against crux-core 1.0.0: **9 CONFIRMED FIXED and closed** (153, 155, 156, 157, 159, 160, 161, 162 — all
+Helpdesk Agent), **5 remain genuinely open** (108 Budget native-UI visibility gap unchanged; 137 Invoice
+issue-linking checkbox still unreachable; 139 Invoice line-item user_id still silently substituted; 140 KB
+wrong-project-identifier — intermittent, reopened mid-sweep after a premature same-session "fixed" verdict based
+on only 3 retest turns, confirmed still broken on a 4th; 142 KB fabricated-prose-no-confirm-button — not
+reproduced in an 8-turn sample this round, downgraded confidence but not closed; 158 Helpdesk product-delete
+dead-end — still reproduces, now with an extra false-capability-denial step before succeeding on a 3rd attempt).
+Per explicit user instruction ("jo bug fixed he unko production pe closed kro jo bug nhi he unko reopen kro"),
+synced all 14 to production: the 8 fixed ones to Done/100% (#127601/602/603/604/606/607/608/609), the 5 still-open
+ones reopened with retest notes (#127470/472/507/509/605) — plus BUG-CRX-108 (#126322) left untouched since it was
+never moved to "In QA" for this round. Open bug count: 16 → 6 (108, 137, 139, 140, 142, 158).
+
+**Auto-mode routing check** (user asked whether the 12 new agent suites had ever been tested via Auto, not just
+Direct-pin — answer was honestly no, confirmed via `grep` finding zero "auto mode"/"routing" mentions across all
+12 suite files). Ran a fresh-chat-per-agent Auto routing spot-check, one representative question per agent, for
+all 12: **9/12 routed correctly** (Reviewer, Test Author, Docs Writer, Monitor, Alert Triage, Auto-Fixer, Design
+Agent, Research, Improver — Monitor and Research both confirmed to genuinely have tools now, "Checked 5 things"
+each, matching the developer's note that they're no longer tool-less). **3/12 misrouted to Project Manager**:
+"What is the probable cause of issue #33?" (should be Root-Cause Analyst — PM's actual answer was reasonable
+since #33 isn't a real bug, so this may be a borderline case, not necessarily a defect), "How do I approve a
+change Crux proposes?" (should be Crux Guide — PM's answer also described a "dashboard Approve button" mechanism
+that doesn't match what every other test this cycle has actually shown: inline Confirm/Cancel buttons in the chat
+itself, a possible second, separate inaccuracy worth checking), "Review the changes for issue #32." (should be
+Code Reviewer — PM just gave a ticket status summary, not a code/changes review). **Not yet retried for
+consistency or filed as a bug** — each was only attempted once; pending user decision on whether to retry 2-3x
+per misrouted question before filing, given BUG-CRX-007 (an older, different-shaped routing bug) is already
+closed and this would be a new, distinct finding if confirmed.
+
+**Platform-surface scope rewrite**, per explicit user request ("bhot sare functionlaity and configuration he crux
+ke itne sare section he sab kuch hame test krna sabka specfication documentation likha he ??"). Investigated and
+confirmed: `CRUX_FEATURES_LIST.md` and `CRUX_SCOPE.md` were both last written 2026-09-10 against the *old*
+Redmine 7.0.0 stack (`C:\Crux-Redmine-Docker`, crux-core 0.92.0) and never updated for the Redmine 6 cycle
+(started 2026-10-09) — meaning every non-agent Crux platform section (Dashboard, Work Packages, Ready Queue, Run
+Ledger, Pipelines, Agent Fleet admin, Providers & Keys, Settings, Frozen Rules, Activity Log, Help page, plus
+several Ask-Crux-chat-core mechanics like Keep/Share/Session-Artifacts) has either a stale "historical suite,
+never re-verified" status or **no TC coverage at all**, historical or current. Walked all of these live on the
+current build (2026-11-05) to confirm what's actually there before writing anything down, then rewrote both
+`CRUX_FEATURES_LIST.md` (full current feature inventory, Part A = 24 agents pointer, Part B = 31-row platform gap
+table) and `CRUX_SCOPE.md` (current environment identity, in/out-of-scope, the same gap table duplicated for
+quick reference) from scratch. **Not yet done**: `CRUX_REQUIREMENTS.md` and `CRUX_USER_GUIDE.md` still describe
+the 0.92.0-era 9-agent roster — flagged in both rewritten files as needing a future refresh, not attempted this
+session. `CRUX_TRACEABILITY_MATRIX.md` also needs a matching update once Part B gets its first real TCs.
+
+### Next Session Start Point (2026-11-05, current)
+
+- **User chose "update docs first" over jumping straight into new platform-surface testing** — that's now done (`CRUX_FEATURES_LIST.md`/`CRUX_SCOPE.md` rewritten). Next: ask the user which Part B gap-table row(s) to prioritize for fresh TCs (the table is ordered roughly by section, not by priority — nothing has been pre-ranked).
+- Decide whether to retry the 3 misrouted Auto-mode questions (Root-Cause Analyst, Crux Guide, Code Reviewer topics all went to Project Manager) 2-3x each before concluding it's a real, filable bug — only 1 attempt each so far.
+- File BUG-CRX-137, 139, 140, 142, 158 to... they're already on production (reopened today) — no further action needed there unless a future retest changes their status.
+- BUG-CRX-108 sits at production status "New" (never moved to "In QA" this cycle) — no action was taken on it; confirm with the user whether it should be formally reported/tracked differently, since it's the oldest of the 6 remaining open Crux bugs (found 2026-10-29).
+- Resume the 10 partially-covered new agent suites' remaining drafted TCs (Monitor, Research, Design, Root-Cause Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) whenever agent-suite depth becomes the priority again — this is still pending from 2026-11-04, independent of the platform-surface work above.

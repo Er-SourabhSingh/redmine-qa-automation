@@ -69,6 +69,23 @@ found unmet" than the original bolded-word-only BLOCK label was. Manifest rule (
 is still being violated. Confirmed genuine, persistent defect — proceeding to file to production per §5 (pending
 approval).
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, per developer's CRC-89 fix)
+
+Same developer fix as BUG-CRX-163 (see that file's 2026-11-05 Retest section) — `agents/reviewer.md` was updated
+so a no-criteria issue's reply "starts with **No verdict** and lists what is needed. It gives no PASS or BLOCK
+and no table."
+
+Repro re-run verbatim in the same chat (`ses-400`), Reviewer still pinned, against the exact same real fixture
+(issue #34, still has no acceptance-criteria section). **Confirmed FIXED**, verbatim response:
+
+*"**No verdict** Issue #34 has no written acceptance criteria. To review it, I need: **Expected result:** How
+fast should the dashboard load?... **How it is measured:**... **Who signs it off:**... The current description
+("dashboard feels slow for some users") is a symptom, not a testable requirement. Add an "Acceptance criteria" or
+"Definition of done" section to the issue, and I can judge the work."*
+
+No PASS/BLOCK label anywhere, no criterion/status table — exactly the manifest's "no criteria, no verdict" rule,
+now correctly implemented. **Status: FIXED.** Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Reviewer agent's no-criteria handling specifically. Distinct from

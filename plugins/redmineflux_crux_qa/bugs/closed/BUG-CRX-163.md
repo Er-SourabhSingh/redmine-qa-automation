@@ -102,6 +102,27 @@ fix. The verdict-omission defect (step 3) is a real, persistent defect — the R
 "not a bug" list has no entry covering an open-blocker being silently left out of a PASS verdict. Remains open,
 scope narrowed to step 3 only. Proceeding to file to production ztflux per §5 format (pending approval).
 
+## Retest — 2026-11-05 (FIXED — crux-core 1.0.0, per developer's CRC-89 fix)
+
+Developer pulled a new commit to `redmineflux-crux-core` master (`813b559->532a522`, now **1.0.0**) and
+`redmineflux-mcp` (`crux_development`, `2610a4d->767f695`) that directly names this bug (`#127801`) and
+BUG-CRX-165 (`#127802`) as fixed via a new spec, `backlogs/specification/CRC-89-spec-reviewer-blockers-and-no-
+verdict.md`: `get_issue`/`list_issue_relations` now read each relation from the issue being read (so "#36
+blocks #35" reads correctly, with the other issue's open/closed status attached), and the Reviewer's prompt now
+makes an open blocker force BLOCK with its own named row.
+
+Repro re-run verbatim in a fresh chat (`ses-400`), Reviewer pinned, against the exact same real fixtures (issue
+#35, 3 verified AC, real `#36 blocks #35` relation, #36 still open). **Confirmed FIXED**, verbatim response:
+
+*"**BLOCK** [table: 3 criteria all "Met" with journal evidence, plus a 4th row: "#36 Reviewer Fixture: Identity
+provider contract not finalized (blocker)" | "Open blocker" | "Still open; blocks #35"] All three acceptance
+criteria are met. However, #35 is blocked by #36, which remains open. Redmineflux will not close #35 while an
+open blocker is active."*
+
+This is exactly the expected behavior: the real blocker is now named, its direction is correct, its open status
+is shown, and the verdict correctly reflects it (BLOCK, not a clean PASS as before). **Status: FIXED.** Moving to
+`bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. First finding on the Reviewer agent (new suite this session,

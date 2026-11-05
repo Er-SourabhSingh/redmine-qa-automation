@@ -729,9 +729,28 @@ Developer pasted an updated AGENT-TEST-GUIDE.md (dated 2026-11-05, "for core 0.1
 - **`crux_self_check.py` still doesn't exist anywhere in either local repo** — same gap flagged yesterday, re-confirmed via `grep -rl` across both. The guide's own new "51 checks must PASS" step and CRC-90's spec file (which references "QA self-check" by name) both assume this script exists somewhere, but it isn't in any of the git history Claude has local access to — likely lives in the separate "Crux-QA-Updates" distribution the guide mentions, which this session has no access to. Per explicit user instruction, skipped the self-check step and flagged it rather than blocking, consistent with yesterday's handling.
 - **Playwright MCP is disconnected this session** (`CONNECT_TIMEOUT`) — cannot drive the Ask Crux chat UI, so no live agent retesting has happened yet this round. Per explicit user instruction, proceeding only with what doesn't need it (git pulls, docker rebuild, settings verification — all done above); live retesting of BUG-CRX-163/165 (and the 10 partially-covered suites from yesterday) is next once Playwright reconnects.
 
+## 2026-11-05 (continued) — Playwright reconnected; BUG-CRX-163/165 retested and CONFIRMED FIXED
+
+Playwright MCP reconnected. Logged back into the `crux-redmine6` instance (session had been lost to the §0
+restart — admin/`12345678` per the standing convention). Retested both narrowed/still-open bugs from yesterday
+against the new crux-core 1.0.0 build, in a fresh chat (`ses-400`), Reviewer pinned:
+
+- **BUG-CRX-163 — CONFIRMED FIXED.** "Review issue #35 against its acceptance criteria." now returns BLOCK with
+  a dedicated "#36 Reviewer Fixture: Identity provider contract not finalized (blocker)" row marked "Open
+  blocker" / "Still open; blocks #35", and the verdict text explicitly says "#35 is blocked by #36, which remains
+  open." Exactly matches the developer's CRC-89 spec.
+- **BUG-CRX-165 — CONFIRMED FIXED.** "Review issue #34 against its acceptance criteria." now returns "No
+  verdict" with no PASS/BLOCK label and no criterion/status table, listing the 3 things needed to review it
+  instead.
+
+Both local bug files updated with dated Retest sections and moved to `bugs/closed/`; `bugs/_index.md` updated.
+Per explicit user approval, synced both production issues (#127801, #127802) to Status: Done, % done: 100, with
+a retest comment each. Updated testcase #127769's result in Run #607 from Failed to Passed (notes citing both
+defects' fix) — **all 12 of yesterday's new agent-suite testcases in suite #435 are now Passed.**
+
 ### Next Session Start Point (2026-11-05)
 
-- **Retest BUG-CRX-163 and BUG-CRX-165 against the new crux-core 1.0.0 build once Playwright reconnects** — the developer's CRC-89 spec claims both are fixed with specific named behavior (BLOCK-with-named-open-blocker, PASS-once-blocker-closes, No-verdict-with-no-table-for-no-criteria); re-run the exact original repro steps from `bugs/open/BUG-CRX-163.md`/`BUG-CRX-165.md` to confirm live, then update production issues #127801/#127802 (In QA -> Done, 100%) with approval if confirmed.
-- Resume executing the remaining drafted TCs across the 10 partially-covered new agent suites (Monitor, Research, Design, Root-Cause Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) per yesterday's plan, now on the fresh 1.0.0 build.
+- Resume executing the remaining drafted TCs across the 10 partially-covered new agent suites (Monitor, Research, Design, Root-Cause Analyst, Auto-Fixer, Alert Triage, Improver, Crux Guide, Test Author, Docs Writer) per yesterday's plan, now on the fresh crux-core 1.0.0 build.
 - New agent-name note from today's guide: Testcase Agent (was QA Agent) — already seen; no other name changes beyond what was already captured yesterday.
 - Side note: TCM's `391dd37` pull looks like it may bear on BUG-TCM-134/135 (new `tcm_security_test.rb`, a `20261105000000` migration) — flag to whichever session is driving TCM work next, not actioned here.
+- Open bug count for Crux is now further reduced (163 and 165 both closed) — update `STATUS.md`'s open count accordingly next session-end pass.

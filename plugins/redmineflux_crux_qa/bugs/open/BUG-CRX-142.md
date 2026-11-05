@@ -109,3 +109,18 @@ both resolved only after an explicit "Yes, confirm." follow-up. This confirms th
 the KB Agent's own tool-calling path but a shared, cross-domain weakness in how Crux's own confirm-gate
 (CRX-35) proposal step sometimes fails to actually invoke the underlying write tool despite generating
 proposal-shaped prose.
+
+## Retest — 2026-11-05 (NOT REPRODUCED this round — crux-core 1.0.0, Knowledgebase Agent, inconclusive)
+
+Retested in the same extended chat as BUG-CRX-140's 2026-11-05 retest (`ses-403`), Knowledgebase Agent pinned —
+**8 consecutive write-tool confirm cards** across `create_space`, `update_space`, `delete_space` (cancelled),
+3× `create_node`, `update_node`, and `delete_node` (cancelled): every single one produced a real, genuine
+confirm card with working Confirm/Cancel buttons (one `create_node` call separately hit BUG-CRX-140's wrong-
+project-identifier defect, but still rendered as a real confirm card with an honest failure message, not as
+bare fabricated prose with no button at all — a different symptom, not this bug).
+
+**Not reproduced in this round's sample (8/8 clean).** Given the original finding's own description of this as
+intermittent (3 reproductions out of a much larger suite, not every call), 8 clean turns is a reasonably strong
+but not fully conclusive signal — recommend one more retest with a larger write-turn sample (15-20+) in a future
+session before closing outright. **Bug stays open for now, downgraded confidence that it still reproduces.**
+Production issue #127509 remains in its current status (not synced to Done).

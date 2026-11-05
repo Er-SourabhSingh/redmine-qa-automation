@@ -101,6 +101,17 @@ This is not a new, separate defect — it is a second, more severe symptom of th
 visibility: the native UI gives an admin no way to calculate the correct number to enter, and no warning that
 the number they did enter still leaves the category over budget.
 
+## Retest — 2026-11-05 — STILL OPEN (unchanged)
+
+Re-checked natively as `admin` on project 5. The settings tab moved again (now
+`/projects/crux-budget-agent-test-project/settings/approved_hours_settings`, labeled "Approved hours") but still
+shows only the same ledger columns (Sr. No. / Property Changes / Hour / Issue category / Comment / Updated by /
+Updated On) — no Spent/Remaining/Over-Budget anywhere. The Project Overview page's "Hours approved per category"
+table still has exactly 2 columns (Categories, Hours) for every category listed (BudgetFlowTest: 52.0,
+Development: 30.0, all others 0.0) — no Spent/Remaining/Over-Budget figure. `redmineflux_budget_and_audit` is not
+part of this round's pulled components (not listed in the 2026-11-05 AGENT-TEST-GUIDE.md's component table) —
+consistent with no change. **STILL OPEN**, identical to the 2026-11-03 finding.
+
 ## Duplicate check
 
 - Duplicate found: No. Distinct from BUG-CRX-106 (Budget Agent silently guessing wrong project) and

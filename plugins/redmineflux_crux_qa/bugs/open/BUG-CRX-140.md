@@ -157,3 +157,32 @@ from earlier in the same chat) is unchanged. **Bug stays open.** Production issu
 current status (not synced to Done).
 
 Remaining checks (BUG-CRX-141, 142, 143) continue in this same session/project context per the retest guide.
+
+## Retest — 2026-11-05 (STILL REPRODUCES — intermittent, crux-core 1.0.0, Knowledgebase Agent)
+
+Repro re-run in a fresh chat (`ses-403`), Knowledgebase Agent pinned, extended multi-turn shape: created a new
+space "Retest Space 1105" (turn 1, correct `crux-kb-agent-test-project`), updated its description (turn 2,
+correct `Space: 4`), "Delete..." (turn 3, correct `Project`/`Space`, cancelled per methodology — no corruption
+on these first 3 writes, an improvement over some prior rounds), then two `create_node` calls (turns 4-5, in the
+Engineering Docs space):
+
+- Turn 4 (1st `create_node`): correct `Project: Crux Knowledge Base Agent Test Project` → *"✓ Node created: #8
+  [folder] 'Temp Retest A' in space #1."*
+- Turn 5 (2nd `create_node`, "Temp Retest B"): confirm card showed the **same fabricated slug as the original
+  2026-11-03 finding** — `Project: crux-knowledge-base-agent-test-project` (not the real
+  `crux-kb-agent-test-project`) — confirming it produced an honest (no misleading ✓) *"Project not found (If you
+  expected this knowledge base page to exist, verify the ID with the corresponding list_* tool.)"* failure.
+  Retried ("That failed with... Please retry.") — confirm card then correctly showed `Project: Crux Knowledge
+  Base Agent Test Project` (display name), confirming succeeded: *"✓ Node created: #9 [folder] 'Temp Retest
+  B'."*
+
+**Conclusion: STILL REPRODUCES**, exactly matching the original report's documented pattern (intermittent,
+self-corrects on retry, no wrong-record substitution this specific instance). The earlier verdict in this same
+retest session (3 clean turns, moved to `bugs/closed/`) was premature — 3 turns wasn't enough to catch the
+intermittent corruption; a 4th/5th write call reproduced it. **Reopened, bug stays open.** Production issue
+#127507 remains in its current status (not synced to Done).
+
+**Methodology note for future retests, added to `CRUX_MEMORY.md`**: for an intermittent bug like this one, 3
+clean write-turns in a retest chat is not sufficient to call it fixed — the original finding itself required
+~7 confirm cards across 4 tools to characterize the pattern. Push a retest chat to at least 4-5 write turns
+before concluding an intermittent defect is resolved.

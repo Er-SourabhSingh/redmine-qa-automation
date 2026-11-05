@@ -90,3 +90,20 @@ see or rely on.
 on the tool, where none did before) — the underlying structural-link gap identified in the original report
 is not yet closed. **Bug stays open.** Production issue #127470 remains in its current status (not synced to
 Done).
+
+## Retest — 2026-11-05 (STILL REPRODUCES — crux-core 1.0.0, Invoice Agent)
+
+First attempt (same chat as a just-confirmed unrelated invoice, `ses-401`): the identical request produced only
+fabricated prose ("Proposal: ... Shall I create this invoice?") with **no real Confirm/Cancel button at all** —
+a different, fabricated-confirm-class symptom than the original finding. Retried the exact same message in a
+genuinely fresh chat (`ses-402`) and got a real confirm card this time (`Invoice Create Invoice`, Line Items:
+`[{'description': 'Issue #25', 'quantity': 3, 'rate': 150, 'user_id': 1, 'issue_id': 25}]`) — confirming the
+missing-confirm-card symptom is chat-history-dependent, not a stable defect of this specific tool path (worth a
+note for `CRUX_MEMORY.md`, not re-filing separately here).
+
+Confirmed, creating Invoice #11 — INV-2026-0011, total $450.00. Native-verified on `/invoices/11/edit`: the
+"Invoice Issues" checkbox for `#25: DEF-2 fixture issue - fallback rate test (Bug)` is still genuinely
+**unchecked** — same structural-link gap as both prior findings, the `issue_id` value still doesn't translate
+into the real native checkbox association.
+
+**Conclusion: STILL REPRODUCES.** **Bug stays open.**

@@ -2,6 +2,16 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## Intermittent bugs need more retest turns than a "clean streak" suggests (2026-11-05)
+
+Retesting BUG-CRX-140 (KB Agent's wrong-project-identifier defect) this session, 3 clean write-turns in a row
+(create_space/update_space/delete_space) looked like a fix and the bug was moved to `bugs/closed/` — then a 4th
+write call (`create_node`) reproduced the exact original defect, and it had to be reopened. **Why:** the original
+finding itself needed ~7 confirm cards across 4 different write tools before the pattern became visible at all —
+a handful of clean calls proves little for a bug this intermittent. **How to apply:** before calling an
+intermittent/non-deterministic bug "fixed," push the retest chat to at least the same write-turn count the
+original finding needed to characterize the pattern (check the bug file's own Evidence section for how many
+calls it took) — don't stop at the first few clean results just because they match the expected "fixed" shape.
 ## AGENT-TEST-GUIDE.md rebuild + retest round (2026-11-04) — stale-build false positives, honest-refusal fixes, Docs Writer wiki-write gap
 
 When the developer flags a sweep's findings as possibly from a stale build, actually rebuild and re-measure

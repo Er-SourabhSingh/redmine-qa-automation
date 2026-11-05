@@ -93,3 +93,17 @@ persisting the confirmed value.
 
 **Conclusion: STILL REPRODUCES.** **Bug stays open.** Production issue #127472 remains in its current status
 (not synced to Done).
+
+## Retest — 2026-11-05 (STILL REPRODUCES — crux-core 1.0.0, Invoice Agent)
+
+Retested the exact original repro against the new build: "...one line item: 'Consulting', quantity 4, rate 100,
+user id 1." Confirm card correctly showed `'user_id': 1` in the Line Items JSON; confirmed, creating Invoice
+#10 — INV-2026-0010, total $400.00.
+
+Native-verified on `/invoices/10/edit`: the line item's `User` dropdown still genuinely shows **"Daisy Skye"**
+selected — the option list is still only "Daisy Skye" / "Luna Blossom" (Redmine Admin not selectable at all).
+Identical silent substitution. `redmineflux_invoice` was pulled to `7e4cd8e` (RIV-021 fix) for today's
+AGENT-TEST-GUIDE.md round, but that fix is about the team-rate form/migration clash, unrelated to this
+line-item user substitution — consistent with no change here.
+
+**Conclusion: STILL REPRODUCES.** **Bug stays open.**

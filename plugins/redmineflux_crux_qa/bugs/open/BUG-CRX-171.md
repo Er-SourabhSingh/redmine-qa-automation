@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-171
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127882
 - Title: Auto-mode routing sends a "probable cause" question to Project Manager instead of Root-Cause Analyst —
   reproduced 2/2
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)

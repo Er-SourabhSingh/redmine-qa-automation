@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-173
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127884
 - Title: Auto-mode routing sends a "review the changes for issue #X" question to Project Manager instead of
   Code Reviewer (or an honest "Code Reviewer needs DevOps" refusal) — reproduced 2/2
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)

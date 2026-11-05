@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-172
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #127883
 - Title: Auto-mode routing sends a "how do I approve a change" question to Project Manager instead of Crux
   Guide — reproduced 2/2; Project Manager's own answer also conflates the two distinct approval mechanisms
   (chat Confirm/Cancel cards vs. the dashboard Gate approval modal)

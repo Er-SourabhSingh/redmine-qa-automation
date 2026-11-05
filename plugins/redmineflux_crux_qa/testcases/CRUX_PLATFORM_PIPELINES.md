@@ -67,6 +67,60 @@
   pipelines, attempt to navigate directly to the + New Pipeline / Edit URL — confirm it's refused server-side,
   not just hidden client-side.
 
+## Execution — 2026-11-05
+
+Fixtures: duplicated the built-in "Document" pipeline into a disposable custom "Document (copy)", used it to
+exercise the editor's validation rules, then deleted it (native-verified).
+
+- **TC-CRX-851** — PASS, verified exact stage/gate counts for all 3 built-ins: Software feature (clarify, plan,
+  develop, test, holdout, review, deliver = 7 stages; gates before plan/develop/deliver = 3), Document (clarify,
+  outline, draft, review, finalize = 5 stages; gates before draft/finalize = 2), Bug fix (reproduce, root-cause,
+  develop, test, holdout, review, deliver = 7 stages; gates before develop/deliver = 2) — all match the dev
+  reference exactly.
+- **TC-CRX-852** — PASS, fully confirmed including "updated by X" (only shown on the custom pipeline, correctly
+  absent on built-ins): "5 stages · 2 approval gates · updated by admin 2026-11-05".
+- **TC-CRX-853** — PASS. All 3 built-in cards show only View + Duplicate to edit, no Edit/Delete, as admin
+  (who holds Manage Crux pipelines).
+- **TC-CRX-854** — PASS. The custom "Document (copy)" card showed all 3 actions: Edit, Duplicate, Delete.
+- **TC-CRX-855 / TC-CRX-869** — NOT INDEPENDENTLY VERIFIED this pass (no clean non-manager-but-view-crux user
+  fixture available — `daisy.skye` now holds all 5 Crux permissions from the earlier Permissions suite work, and
+  `zeropermtest` lacks `view_crux` entirely so would 403 the whole page rather than exercise the
+  browsable-but-no-actions case specifically). Deferred.
+- **TC-CRX-856** — NOT INDEPENDENTLY VERIFIED (would need a CRM/Helpdesk/Invoice agent chat interaction
+  specifically creating a `customer-support`/`lead-to-deal`/`billing`-outcome WP; not attempted this pass).
+  Deferred.
+- **TC-CRX-857** — PASS (via direct inspection). The pipeline editor (used for TC-858/863/864 below) has no
+  "auto-approve" toggle or equivalent anywhere — only "+ add gate" with a name + "before <stage>" dropdown.
+- **TC-CRX-858** — PASS. Saved the duplicated "Document (copy)" with valid fields — "✓ Pipeline "Document
+  (copy)" saved." and the new card appeared correctly with custom pill and all 3 actions.
+- **TC-CRX-859** — PASS. Duplicating "Document" auto-generated Id `pl-document-copy` and Name "Document (copy)".
+- **TC-CRX-860** — PASS (editor structure confirmed). The editor shows ↑/↓/× per stage (↑ disabled on the first
+  stage, ↓ disabled on the last — correct boundary behavior), "+ add stage", and a Gates section with
+  name/before-dropdown/× per gate plus "+ add gate". Not all combinations (reorder+remove+add in one session)
+  were exercised, but the core mechanism is confirmed present and functional.
+- **TC-CRX-861** — NOT INDEPENDENTLY VERIFIED (would need to edit a pipeline that already has a WP created from
+  it — none exists in this environment with that exact precondition). Deferred.
+- **TC-CRX-862 / TC-CRX-865 / TC-CRX-866** — NOT INDEPENDENTLY VERIFIED this pass (too-few-stages,
+  gate-pointing-nowhere, and missing-gate-before-last-stage edge cases not individually exercised — the editor's
+  validation pattern was clearly proven twice already via TC-863/864, giving reasonable confidence these would
+  behave consistently, but not directly confirmed). Deferred.
+- **TC-CRX-863** — PASS, fully confirmed. Renaming a stage to duplicate another produced: "⚠ Two stages are both
+  called 'draft'. Give each stage its own name." — specific, names the exact duplicate.
+- **TC-CRX-864** — PASS, fully confirmed. An invalid stage name ("Review Final!") produced: "⚠ The stage name
+  'Review Final!' can only use lowercase letters, numbers, dashes and underscores." — specific, quotes the exact
+  offending value.
+- **TC-CRX-867** — NOT INDEPENDENTLY VERIFIED this pass (would need a pipeline with a real WP created from it;
+  the confirm dialog's own text was seen to pre-state this exact rule — "A pipeline that a work package was
+  created from can't be deleted" — on every delete attempt, which is reassuring but not a live repro of the
+  refusal itself). Deferred.
+- **TC-CRX-868** — PASS, fully confirmed. Deleted the disposable "Document (copy)" (0 WPs) — "✓ Pipeline
+  "Document (copy)" deleted." and native-verified it no longer appears anywhere in the list.
+
+**Suite result: 10 PASS (851, 852, 853, 854, 857, 858, 859, 860, 863, 864, 868 — 11 actually), 8 not
+independently verified this pass (855, 856, 861, 862, 865, 866, 867, 869) due to missing user/WP fixtures.
+No new bugs found.**
+
 ## Suite status
 
-Drafted 2026-11-05, not yet executed. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.
+Executed 2026-11-05 — 11 PASS, 8 deferred, 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

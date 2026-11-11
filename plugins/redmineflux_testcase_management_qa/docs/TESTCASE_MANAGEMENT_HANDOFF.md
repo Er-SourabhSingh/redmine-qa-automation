@@ -1,6 +1,37 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-10-29 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-11, later same day — read this first, supersedes the sections below)
+
+**5 "In QA" bugs retested after a `master` pull (`911b8fe` → `9785d2c`) — all 5 CONFIRMED FIXED, moved to
+`bugs/closed/`.** BUG-TCM-134 (`runs/:id/edit` cross-project leak), BUG-TCM-135 (3 requirement-read endpoints),
+BUG-TCM-136 (`:manage_milestones` dead-permission finding — developer clarified it was never actually dead, the
+check lives in `runs_controller.rb`, not `testcase_milestones_controller.rb`), BUG-TCM-137 (all 7 Milestones
+UI/UX issues), BUG-TCM-138 (Steps/Expected API — now has full read/write via `get_testcase`/`edit_testcase`,
+including a real 40,000-char length limit). All retested live via Playwright + direct API calls, not just
+re-read. `bugs/open/` now contains only **BUG-TCM-139** (new, Minor) — a narrower residual info-disclosure found
+while retesting BUG-TCM-135: `knowlegebase_pages_testcase`'s 404 page still leaks the foreign project's
+name/nav (not data), one of the three endpoints BUG-TCM-135 covered. Spot-regression on RFTC-033/034 (Milestone
+Summary Report + Burndown) confirmed clean, no new breakage from the fix commits. `TIME_LOG.md` row added.
+**Not yet done:** syncing production issues #127712/#127713/#128024/#128023/#128057 to Done/100% (write-approval
+required first) and reporting BUG-TCM-139 to production.
+
+## CURRENT STATUS (updated 2026-11-11, morning — superseded by the retest entry above for bug status)
+
+**Release 7.4.0 — test design done, execution BLOCKED on dev.** Read the 5 production feature tickets
+(#123917–#123921, target version id=2072, due 2026-11-13) covering the new per-Run, per-Test-Case assignee
+feature set (new per-run assignee field; bulk reassignment; quick inline reassignment; Run-Edit-permission
+gate; assignee filter incl. "my assigned Test Cases"). Wrote 34 designed-only test cases to
+`testcases/RFTC-045_EXTERNAL_SPEC_PER_RUN_TESTCASE_ASSIGNEE.md` (RFTC045-1..34). **As of 2026-11-11 the
+developer has not implemented or pushed this feature to `master`** — explicit user instruction was "hame
+sirf testcase likhne he md file me" (just write the test cases in the md file), so no automation/spec was
+scaffolded and nothing is executed yet. This file is meant to also go to the client (Nathan Coombs) as the
+test design. **Next session:** once a build with this feature lands on `master`, execute RFTC-045 against it
+(update the file inline per the `RFTC-*_EXTERNAL_SPEC_*.md` convention), then decide if/when to scaffold a
+Playwright spec per `CLAUDE.md` §13.
+
+---
+
+## CURRENT STATUS (updated 2026-10-29 — superseded by the 7.4.0 entry above for new work, kept for Release 7.2.0 closure history)
 
 **Release 7.2.0 is CLOSED. All three `CLAUDE.md` §10 `Complete` criteria are met:**
 1. `bugs/open/` is empty — all 54 bugs scoped to this release are fixed and closed, both locally and on

@@ -58,3 +58,16 @@
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — checked `bugs/_duplicates.md` and `bugs/_index.md`, nothing
   matching `/runs/:id/edit` or TCM-04.
+
+## Retest (2026-11-11, after `master` pull to commit `9785d2c`)
+
+**CONFIRMED FIXED.** Pulled latest `master` (`911b8fe` → `9785d2c`), restarted `redmine6-redmine-1`, retested live
+as `daisy.skye` (Developer, Project A only) via a real logged-in Playwright session (not just `curl`):
+
+- `GET /runs/2/edit` (Project B's run) → **403 Forbidden**, no Project B name/nav/content rendered.
+- `GET /runs/2/edit?project_id=rftc-016-ci-qa` → **403 Forbidden**, same result regardless of the query param.
+
+Both cases confirmed clean — no trace of "RFTC-121640 Security Project B" anywhere in the page title, heading, or
+navigation this time. Matches developer's journal comment on production issue #127712 (fix already on `master`
+from the original security review, re-verified live, not a new code change this pull). Developer's own regression
+test file `test/functional/bug_tcm_134_135_authorization_test.rb` is present and covers this.

@@ -67,3 +67,28 @@
 - Existing bug reference (if duplicate): N/A — checked `bugs/_duplicates.md` and `bugs/_index.md`; distinct from
   **BUG-TCM-134** (that one is `GET /runs/:id/edit` returning the wrong HTTP status while NOT leaking the run's
   own field data; this one is 3 different endpoints returning HTTP 200 WITH real cross-project data).
+
+## Retest (2026-11-11, after `master` pull to commit `9785d2c`)
+
+**CONFIRMED FIXED for the original data-leak scope.** Pulled latest `master` (`911b8fe` → `9785d2c`), restarted
+`redmine6-redmine-1`, retested live as `daisy.skye` (Developer, Project A only) via a real logged-in Playwright
+session:
+
+- `GET /knowlegebase_pages_testcase/2?project_id=4` → **404 Not Found**. No requirement content, no title/content
+  JSON, nothing of Project B's requirement leaked.
+- `GET /requirement/testcases?project_id=4&limit=100` → **404 Not Found**, clean generic Redmine chrome (no
+  Project B name anywhere, no testcase list).
+- `GET /user_project/4` → **404 Not Found**, clean generic Redmine chrome, no member list.
+
+All three endpoints now correctly refuse the non-member — the original data leak (requirement content, testcase
+list, member list) is gone.
+
+**New residual finding (minor, narrower than the original bug — not reopening this ticket for it):**
+`GET /knowlegebase_pages_testcase/2?project_id=4` still leaks Project B's **project name and a working navigation
+menu** into its own 404 page — page `<title>` reads `"404 - RFTC-121640 Security Project B - Redmine"`, and the
+page's `<h1>` + project nav (Overview/Activity/Roadmap/Issues/.../Wiki/Files, all pointing at
+`/projects/rftc-121640-project-b/...`) render fully, exactly the same information-disclosure pattern BUG-TCM-134
+fixed for `/runs/:id/edit`. The other two endpoints (`requirement/testcases`, `user_project`) do **not** have this
+leak — their 404 pages show generic, unscoped Redmine chrome. Likely cause: the controller sets `@project` (for
+the layout) before the visibility check fails, same root shape as BUG-TCM-134's original bug, just not yet applied
+to this one specific action. Tracked as a new, separate, minor finding — see **BUG-TCM-139**.

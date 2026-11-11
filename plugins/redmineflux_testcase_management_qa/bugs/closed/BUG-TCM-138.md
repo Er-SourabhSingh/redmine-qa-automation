@@ -134,3 +134,37 @@ at all, for any of read/update/delete.
   Results after a requirement change; since there is no API to update them, the team had to add the new text
   to the Description field instead, leaving the real Expected Result field stale and the testcase catalog out
   of sync with the real requirements.
+
+## Retest (2026-11-11, after `master` pull to commit `9785d2c`)
+
+**CONFIRMED FIXED — full read/write API now exists**, re-verified live via real HTTP calls (API key auth)
+against `localhost:3000`, project `rftc-016-ci-qa`, using a fresh 3-step fixture (issue #343):
+
+1. **Read**: `GET /get_testcase/343` returns a `"steps"` array with `id`/`step`/`expected` for every step,
+   matching the UI exactly (also re-confirmed on pre-existing issue #266, a 37-step case — all 37 rows present).
+2. **Update — mixed edit/keep/remove/add in one call**:
+   `PUT /edit_testcase/343` with `{"steps":[{"id":3024,"expected":"New expected text"},{"id":3025},{"step":"only a
+   step","expected":"new added expected"}]}` →
+   - Step 3024: text unchanged ("Step A"), Expected updated to "New expected text" ✓
+   - Step 3025: completely unchanged (no fields sent) ✓
+   - Step 3026: removed (not listed) ✓
+   - New step added at the end with a new id (3027) ✓
+   - Exactly matches the developer's own described behavior, verbatim.
+3. **Validation**: a row with a blank Expected Result → `422 {"error":"Step 1: Expected cannot be blank"}`,
+   and the testcase's steps were confirmed unchanged in a follow-up `GET` — nothing partially saved.
+4. **Non-interfering updates**: `PUT` with only `{"issue":{"description":"x"}}` (no `steps` key) → description
+   changed, all 3 steps left completely untouched.
+5. **Permission enforcement**: same `PUT` attempted as a user without edit rights on the project (`aurora.wren`,
+   via her own API key) → `403 {"error":"Unauthorized access"}`, and the step was confirmed unchanged afterward.
+6. **Length limit**: a step with exactly 40,000-character Expected Result → saved successfully (confirmed via
+   `GET`, full length intact); 40,001 characters → `422 {"error":"Step 1: Expected result exceeds the maximum
+   length of 40000 characters"}`. Matches the developer's stated "40,000 characters per field" limit exactly —
+   this also directly answers the bug's own "Secondary check" section (previously: no limit enforced at all, up
+   to at least 4001 chars; now: a real, enforced 40,000-char boundary).
+
+Developer's production comment (#128057) states this was fixed on `master` (commit `9785d2c`) via new
+`GET /get_testcase/{id}` steps serialization and `PUT /edit_testcase/{id}` steps acceptance, with 14 new automated
+tests — matches this session's independent live re-verification exactly, item for item. Note (per developer's own
+comment, out of scope for this plugin-side fix): the MCP server's own `update_testcase` tool still needs a `steps`
+parameter added on its side to actually call this new API — the plugin side is ready, the MCP wrapper is not yet
+updated to use it.

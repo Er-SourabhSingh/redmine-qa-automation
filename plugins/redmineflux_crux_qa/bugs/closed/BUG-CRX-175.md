@@ -49,3 +49,10 @@
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (checked `bugs/_duplicates.md`; no prior Run Ledger or
   duration-formatting finding exists in this suite)
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127946)
+
+Repeated the exact repro: `/crux/runs`, Outcome filter = Failed. The first row (7d ago, Support Agent, failed)
+now shows a clean, rounded **"2m 2s"** — no raw floating-point artifact.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127946 synced In QA → Done.

@@ -53,3 +53,12 @@
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (checked `bugs/_duplicates.md`; no prior Dashboard
   agent-detail-modal finding exists in this suite)
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127950)
+
+Repeated the exact repro: `/crux` Dashboard → Agents card → clicked "QA Agent: 173 runs". Summary line still
+correctly reads "173 runs so far · $3.78 spent so far (all time) · monthly cap $100.00", and the "Recent runs"
+table below it is now genuinely populated — 10 rows with real data (run ids, duration, tokens, cost, outcome),
+no longer "No runs yet for this agent."
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127950 synced In QA → Done.

@@ -57,3 +57,13 @@ pushing it below an easy screenshot crop): `checkbox "Bug"`, `checkbox "Feature"
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (checked `bugs/_duplicates.md`; no prior custom-field-configuration
   finding exists in this suite)
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127949)
+
+Per the developer's documented fix decision (CRC-94 spec), the resolution was to **remove the "Crux
+Capability" custom field entirely via migration**, not enable it on trackers. Native-verified at
+`/custom_fields`: only "Issue Category" and "Automation Key" remain in the Issues custom fields list — "Crux
+Capability" no longer exists anywhere, so it can no longer silently fail to appear.
+
+**Conclusion: FIXED** (via field removal rather than tracker-enablement). Moved to `bugs/closed/`, production
+#127949 synced In QA → Done.

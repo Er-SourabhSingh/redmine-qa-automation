@@ -75,3 +75,12 @@
   filtering; distinct from BUG-CRX-177 (a write-side overwrite defect on the same disposable fixture, Agent
   Fleet Admin suite) and from the Auto-routing-miss family (BUG-CRX-171/172/173), which are about routing to
   the wrong real agent, not a retired agent remaining selectable at all.
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127951)
+
+Re-checked all 3 entry points: (1) picker dropdown in a fresh `/crux/ask` chat — the full agent list (26
+options, Auto through Project Setup Agent) no longer includes "QA Disposable Test Agent RENAMED" at all; (2)
+direct URL `/crux/ask?agent=qa-disposable-test-agent` — the param is now ignored entirely, the page falls back
+to the previously-active agent (Knowledgebase Agent) rather than honoring the retired agent's id.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127951 synced In QA → Done.

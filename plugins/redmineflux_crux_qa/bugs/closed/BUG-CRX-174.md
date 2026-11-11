@@ -66,3 +66,13 @@
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (checked `bugs/_duplicates.md`; no prior Ready Queue or blocker-logic
   finding exists in this suite)
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127945)
+
+Native-verified the original fixture: issue #38 (blocker) is genuinely Done/closed; issue #39 is now genuinely
+listed in `/crux/queue` ("Any available agent" / "Waiting for an agent"). Also found a dedicated retest fixture
+already in place (issue #56 "RETEST-174-MAIN", blocked by issue #57 "RETEST-174-BLOCKER" which is Done) — #56
+is likewise correctly listed in the Ready Queue.
+
+**Conclusion: FIXED.** A ticket whose sole blocker has since been closed now correctly reappears in the Ready
+Queue. Moved to `bugs/closed/`, production #127945 synced In QA → Done.

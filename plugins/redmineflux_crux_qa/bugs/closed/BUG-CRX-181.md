@@ -65,3 +65,13 @@
   behavior; distinct from the silent-write-omission family (BUG-CRX-081/110/118 etc. — those drop part of a
   request silently) since here the problem is the opposite: extra, overlapping work is created that wasn't
   asked for on the second pass, with no duplicate-detection at all.
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127952)
+
+Used a fresh ticket (#58, "RETEST-181") rather than reusing #40, whose 7 pre-existing contaminated subtasks
+from the original repro would have muddied the signal. "Break down the work" → 3 subtasks ticked → "Create
+selected" → genuinely created 3 subtasks (#59-61). Re-opened "Break down the work" on the same ticket #58
+again: the agent correctly responded **"#58 already has subtasks for this work (3 so far), so there is nothing
+new to add."** — no duplicate/near-duplicate subtasks created on the second pass.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127952 synced In QA → Done.

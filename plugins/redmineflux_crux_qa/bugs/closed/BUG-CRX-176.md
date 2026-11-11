@@ -68,3 +68,11 @@
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (checked `bugs/_duplicates.md`; no prior project-scoping finding
   exists in this suite)
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127947)
+
+Native-verified both pages: `/projects/crux-pm-agent-test-project/crux` Overview now shows "Agent runs: 10";
+`/projects/crux-pm-agent-test-project/crux/runs` shows "Runs: 10 matching this filter" with a populated table
+("Page 1 of 1 (10 runs)") — both correctly reflect real project activity instead of 0.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127947 synced In QA → Done.

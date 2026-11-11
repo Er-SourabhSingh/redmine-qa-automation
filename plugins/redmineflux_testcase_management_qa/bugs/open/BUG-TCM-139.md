@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-139
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128105 (related to #127713 / BUG-TCM-135)
 - Title: `GET /knowlegebase_pages_testcase/:id` leaks the foreign project's name/nav on its 404 page to a non-member
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: Redmineflux Testcase Management

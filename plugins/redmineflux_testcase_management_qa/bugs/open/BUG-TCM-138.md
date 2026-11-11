@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-TCM-138
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #128057
 - Title: An existing testcase's Steps and Expected Result can't be read or updated through the MCP or REST API
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Plugin name: Redmineflux Testcase Management / Redmineflux MCP Server (BETA), Testcase Management tools

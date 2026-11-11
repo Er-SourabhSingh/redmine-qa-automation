@@ -52,9 +52,9 @@ growing.
 
 ![3rd "Pick up where you left off" chip's bottom ~20px clipped at 1280x720, no scrollbar](../../screenshots/BUG-CRX-182/pickup-row-clipped-1280x720.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-CRX-182/retest-yyyy-mm-dd-pass.png)
+![Retest result — panel now scrolls, 3rd chip fully reachable](../../screenshots/BUG-CRX-182/retest-2026-11-11-pass.png)
 
 ### Console / log
 
@@ -72,3 +72,28 @@ growing.
 - Existing bug reference (if duplicate): N/A — checked `bugs/_duplicates.md` and `bugs/_index.md`, no prior
   finding on the Ask Crux welcome panel's viewport-height sizing or the "Pick up where you left off" row
   specifically.
+
+## Retest — 2026-11-11 (FIXED, developer resolved)
+
+- **Fix pulled**: `redmineflux_crux` plugin, commit `7612e559b162e5c6bc2e8ca6f5576b6b7da4da9c` — "CRP-53: the
+  new-chat screen scrolls on a short window instead of cutting content off (0.95.0)", spec file
+  `backlogs/specification/CRP-53-spec-new-chat-screen-scrolls-on-short-windows.md`, explicitly references
+  "BUG-CRX-182 (#128076)".
+- **Fix contents** (`assets/stylesheets/crux.css`): `.crux-client-main.crux-is-welcome` changed from
+  `overflow: hidden` to `overflow-y: auto; overflow-x: hidden`; welcome-panel children got `flex-shrink: 0`;
+  the chat title bar (`.crux-client-head`) made `position: sticky; top: 0`; a `@media (max-height: 760px)`
+  block tightens padding/gaps on short windows.
+- **Deploy**: pure CSS change in the live-mounted `redmineflux_crux` plugin — `docker compose restart redmine`
+  only (no crux-core/mcp rebuild needed). Confirmed ready via `curl http://localhost:3015/login` → 200 after
+  Puma's "Listening on http://0.0.0.0:3000" log line appeared.
+- **Native verification at 1280×720** (fresh "New chat", same 3-chip "Pick up where you left off" row):
+  - `.crux-client-main.crux-is-welcome` computed style is now `overflow-y: auto` (was `hidden`).
+  - `panel.scrollHeight = 561` vs `panel.clientHeight = 544` — the panel genuinely has overflow content now.
+  - Before scroll: `panel.scrollTop = 0`. After `panel.scrollBy(0, 100)`: `panel.scrollTop = 17.33` — the panel
+    itself scrolls (not just reporting a scrollable overflow with no actual movement).
+  - 3rd suggestion chip, after scroll: `top: 597.02`, `bottom: 633.02` — fully inside the panel's own bottom
+    edge (`648`): `fullyVisible: true`. Previously this chip was clipped by ~20px with no way to reach it.
+  - Chat title bar (`.crux-client-head`): `position: sticky`, `top: 104` (unchanged after scroll) — stays in
+    place while the welcome content scrolls underneath it, per the spec's documented intent.
+- **Verdict**: FIXED. The panel now scrolls instead of clipping, the previously-unreachable 3rd chip is fully
+  visible and reachable via scroll, and the title bar stays sticky as designed.

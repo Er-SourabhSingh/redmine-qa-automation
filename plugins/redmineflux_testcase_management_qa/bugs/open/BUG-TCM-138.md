@@ -97,6 +97,24 @@ separate, lower-severity observation from the main API-read/write gap, but worth
 contradicts the 255-character assumption in the original report and shows the real fields allow substantially
 longer content than that.
 
+## Full CRUD matrix via Crux chat (Testcase Agent, local MCP)
+
+Re-verified all four operations against Steps/Expected Result directly through Crux's own Testcase Agent (which
+talks to this same local `redmineflux-mcp` server), not just by reading the tool schema or raw REST calls:
+
+| Operation | Message sent | Result |
+|---|---|---|
+| **Create (write)** | "Create a new testcase... with one step: Step 'Open the dashboard', Expected 'Dashboard loads successfully'." | **Works.** Real `Testcases Management Create Testcase` confirm card correctly built the `steps` payload (`[{'step': 'Open the dashboard', 'expected': 'Dashboard loads successfully'}]`); confirmed, native-verified on the resulting issue #64 — Step 1 / Expected Result genuinely saved and visible. |
+| **Read** | "What is the Step and Expected Result for testcase #64?" | **Not possible.** Agent's own admission: *"Testcase #64 exists, but the available tools return only the summary view. The step details... aren't surfaced in the standard read endpoints I have access to."* It only repeated back what the user had typed earlier in the same chat, not a fresh read. |
+| **Update** | "Update testcase #64's Expected Result to 'Dashboard loads with the correct widgets visible'." | **Not possible.** Honest refusal: *"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."* |
+| **Delete** | "Delete the step from testcase #64, leaving no steps." | **Not possible.** Identical honest refusal as Update. |
+
+**Conclusion:** only the create path can ever set Step/Expected content (and only once, at creation time) —
+there is no way via Crux/MCP to read, correct, or remove that data afterward. Every subsequent change has to
+go through the native web UI's own testcase edit form. This confirms the gap is total, not partial: it isn't
+just "update is missing a parameter," the plugin has never exposed any post-creation API surface for this data
+at all, for any of read/update/delete.
+
 ## Duplicate check
 
 - Duplicate found: No

@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-182
-- Production Redmine Issue ID: <!-- pending approval -->
+- Production Redmine Issue ID: #128076
 - Title: Ask Crux's "Pick up where you left off" suggestion row is silently clipped (bottom ~20px cut off) on a
   fresh chat at a standard 1280×720 viewport, with no scrollbar to reveal it
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)

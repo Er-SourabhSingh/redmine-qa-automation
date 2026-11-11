@@ -99,3 +99,13 @@ project-identifier defect didn't confound this check):
 
 A new version snapshot is now created on `update_node`, exactly matching the plugin's documented versioning
 rule and closing the audit-trail gap this bug reported. **Status: FIXED.** Moved to `bugs/closed/`.
+
+## Re-confirmation — 2026-11-11 (still FIXED — developer re-marked "In QA" for this round, production #127508)
+
+Re-verified independently in a fresh session. Native-verified the page's state first via chat ("What is the
+Onboarding Guide page's current version number, title, and status?"): Current Version 2, confirming the
+2026-11-04 fix's v2 is still intact. Performed a further fresh edit ("...change the title to 'New Hire
+Onboarding Guide - Retest 2026-11-11'.") — confirm card correct, confirmed. Native-verified via the
+Knowledgebase plugin's own version-history UI: the page now genuinely shows **Version 3** — a new snapshot was
+again correctly created. Fix holds. Production #127508 synced In QA → Done (this round's developer QA pass had
+re-marked it "In QA" without a new regression; re-confirmed, not re-opened).

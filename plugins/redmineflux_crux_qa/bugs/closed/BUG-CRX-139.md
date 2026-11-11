@@ -107,3 +107,20 @@ AGENT-TEST-GUIDE.md round, but that fix is about the team-rate form/migration cl
 line-item user substitution — consistent with no change here.
 
 **Conclusion: STILL REPRODUCES.** **Bug stays open.**
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127472)
+
+Retested the exact original repro, fresh chat, Auto routing (landed on Invoice Agent): "...for issue #25,
+quantity 3, rate 150, user id 1." This time the behavior genuinely changed: **before** showing any confirm
+card, the agent responded "User ID 1 is not a member of the Crux Invoice Agent Test Project. The project's
+members are: Daisy Skye (user_id 6), Luna Blossom (user_id 5). Which of these team members should I use...?"
+— an honest validation refusal instead of silently confirming `user_id: 1` and persisting someone else.
+
+Replied "Use Daisy Skye." — the resulting confirm card correctly showed `'user_id': 6` (matching what was
+actually chosen, not a fabricated "1"). Confirmed, creating Invoice #12. Native-verified on
+`/invoices/12/edit` via direct DOM inspection: the line item's `User` dropdown genuinely has "Daisy Skye"
+selected — exactly matching what was proposed and confirmed, no silent substitution of an unconfirmed value.
+
+**Conclusion: FIXED.** The confirm-card/persisted-value mismatch (the core defect) is resolved — the agent
+now validates membership and asks before confirming, and whatever value it confirms is what actually gets
+persisted. Moved to `bugs/closed/`, production #127472 synced In QA → Done.

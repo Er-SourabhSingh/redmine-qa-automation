@@ -58,3 +58,10 @@ determine there's nothing to investigate — not have a generalist intercept and
   engaging *an* agent, but the wrong one, for a specific, well-formed, topic-matching question. Filed per the
   developer's own explicit instruction (`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §16: "Please file these as
   bugs, with the exact question you asked").
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127882)
+
+Fresh chat, agent picker left on Auto: "What is the probable cause of issue #33?" — response header now
+correctly shows **Root-Cause Analyst**, not Project Manager.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127882 synced In QA → Done.

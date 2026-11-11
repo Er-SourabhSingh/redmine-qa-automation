@@ -74,3 +74,11 @@ exist in that form for an ordinary write.
   the developer's instruction to file each with its exact question. The content-accuracy half (PM's own
   inaccurate description of the approval mechanism) is a new, additional observation not previously documented.
   Filed per the developer's explicit instruction (`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §16).
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127883)
+
+Fresh chat, agent picker left on Auto: "How do I approve a change Crux proposes?" — response header now
+correctly shows **Crux Guide**, and the answer correctly describes the confirmation card appearing "directly
+in the chat itself" — no longer the fabricated "dashboard Confirm card"/"Approve button" description.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127883 synced In QA → Done.

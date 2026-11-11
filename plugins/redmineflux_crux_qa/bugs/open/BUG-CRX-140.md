@@ -186,3 +186,33 @@ intermittent corruption; a 4th/5th write call reproduced it. **Reopened, bug sta
 clean write-turns in a retest chat is not sufficient to call it fixed — the original finding itself required
 ~7 confirm cards across 4 tools to characterize the pattern. Push a retest chat to at least 4-5 write turns
 before concluding an intermittent defect is resolved.
+
+## Retest — 2026-11-11 (STILL REPRODUCES — developer marked "In QA", production #127507)
+
+Fresh chat, Knowledgebase Agent pinned, 6 consecutive write turns in one session (`ses-433`):
+
+1. `create_space` "Retest Space 1111" → correct `Project: Crux Knowledge Base Agent Test Project` → *"✓ Space
+   created: #5"*.
+2. `update_space` description on the same space → correct `Project`, `Space: 5` → *"✓ Space #5 updated."*
+3. (read) "List all spaces" → correctly listed Retest Space 1111 (#5) with the updated description.
+4. `delete_space` on Retest Space 1111 → correct `Project`, `Space: 5` (the right space this time, no
+   substitution) → *"✓ Space deleted."* — native-verify not done on this step since the next steps depend on
+   a separate fixture, but the confirm card itself was correct.
+5. `create_node` (folder) "Retest Folder 1111" in Engineering Docs → correct `Project`, `Space: 1` →
+   *"✓ Node created: #11 [folder] 'Retest Folder 1111' in space #1."*
+6. `delete_node` on the same folder, same chat, immediately after — **the confirm card showed `Node: 6`**, not
+   the real node id **#11** that step 5 had just created and reported back verbatim one turn earlier. Cancelled
+   before confirming (per this repo's never-confirm-without-checking discipline). Native-verified: `/knowledgebase/nodes/6`
+   → HTTP 404 (does not exist — likely a stale/reused id from an earlier session); `/knowledgebase/nodes/11`
+   → resolves correctly to the real folder. Had this been confirmed blind, it would have been a no-op on a
+   nonexistent node rather than a destructive wrong-record delete this specific time — but the mechanism is
+   identical to the original report's worst-case (a later-turn write confirm card fabricating a numeric record
+   id instead of reusing the one already established earlier in the exact same chat), just on `Node` instead of
+   `Space`, and with no guarantee the stale id would always happen to not point at a different, real record on
+   another run.
+
+**Conclusion: STILL REPRODUCES.** Steps 1-5 were clean (a genuine improvement — the `Project` string itself
+never corrupted this run, unlike most prior retests), but step 6 reproduced the core defect class on a 6th
+write turn, confirming this repo's own methodology note above: fewer than ~5-6 turns risks a false "fixed"
+verdict. Developer's "In QA" move on production #127507 does not reflect a real fix. **Bug stays open — NOT
+moved to closed, production status NOT updated.**

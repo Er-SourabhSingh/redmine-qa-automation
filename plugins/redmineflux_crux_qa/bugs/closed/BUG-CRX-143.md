@@ -103,3 +103,12 @@ to: • Grant you the required role/permission for this action • Check: Admini
 `view_knowledgebase` claim from the original report. Daisy's genuine view access was not contradicted.
 
 **Status: FIXED.** Moved to `bugs/closed/`.
+
+## Re-confirmation — 2026-11-11 (still FIXED — developer re-marked "In QA" for this round, production #127510)
+
+Re-verified independently: logged in as `daisy.skye` (Reporter), fresh chat, KB Agent pinned: "Create a new
+page called 'Reporter Retest Page' in the Engineering Docs space." A real `Kb Create Node` confirm card
+appeared and was confirmed through to the actual write attempt, which correctly refused with "You do not have
+permission to manage knowledgebase pages." — the correct permission, not the original false
+`view_knowledgebase` claim. Fix holds. Production #127510 synced In QA → Done (this round's developer QA pass
+had re-marked it "In QA" without a new regression; re-confirmed, not re-opened).

@@ -72,6 +72,18 @@ finding, but this round surfaced a new intermediate symptom (false capability de
 2-attempt pattern — now takes 3 attempts instead of 2 in this instance. **Bug stays open.** Production issue
 #127605 remains in its current status (not synced to Done).
 
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127605)
+
+Fresh chat, Helpdesk Agent pinned: created a new product "Mobile App Retest 1111" for the Crux Helpdesk Agent
+Test Project — confirm card correct, created as product id 3. Immediately in the same chat: "Now delete the
+Mobile App Retest 1111 product." — this time a real `Helpdesk Delete` confirm card appeared on the **first**
+attempt (`Resource Type: product`, `Resource: 3`) — no "nothing to confirm yet" dead-end, no false capability
+denial. Confirmed → `"✓ Product deleted successfully."`
+
+**Conclusion: FIXED.** The propose/confirm-pipeline failure on this specific delete-by-name-after-create/rename
+path no longer reproduces — first attempt now reliably produces a genuine confirm card. Moved to
+`bugs/closed/`, production #127605 synced In QA → Done.
+
 ## Duplicate check
 
 - Duplicate found: Not a duplicate — same defect *class* as the already-documented BUG-CRX-013 (original) and

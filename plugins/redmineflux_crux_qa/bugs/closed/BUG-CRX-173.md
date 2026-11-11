@@ -60,3 +60,10 @@ unreachable on this instance.
   instruction to file each with its exact question. Filed per the developer's explicit instruction
   (`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §16), which also explicitly notes: "Code Reviewer is expected to be
   unreachable without DevOps" — i.e. file the misroute-to-PM, not "Code Reviewer doesn't work."
+
+## Retest — 2026-11-11 (FIXED — developer marked "In QA", production #127884)
+
+Fresh chat, agent picker left on Auto: "Review the changes for issue #32." — response honestly explains Code
+Reviewer requires the DevOps plugin, which is not installed, instead of a silent Project Manager substitution.
+
+**Conclusion: FIXED.** Moved to `bugs/closed/`, production #127884 synced In QA → Done.

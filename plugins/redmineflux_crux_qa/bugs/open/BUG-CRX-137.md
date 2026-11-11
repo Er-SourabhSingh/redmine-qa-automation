@@ -107,3 +107,20 @@ Confirmed, creating Invoice #11 — INV-2026-0011, total $450.00. Native-verifie
 into the real native checkbox association.
 
 **Conclusion: STILL REPRODUCES.** **Bug stays open.**
+
+## Retest — 2026-11-11 (STILL REPRODUCES — developer marked "In QA", production #127470)
+
+Same repro shape, fresh chat, Auto routing (landed on Invoice Agent): "...for issue #25, quantity 3, rate 150,
+user id 1." Agent first correctly caught that user id 1 isn't a project member and asked which real member to
+use (Daisy Skye or Luna Blossom) — a genuine improvement tying into BUG-CRX-139's fix. Supplied Daisy Skye;
+confirm card showed `Line Items: [{'description': 'Issue #25', 'quantity': 3, 'rate': 150, 'user_id': 6,
+'issue_id': 25}]` — the real `issue_id` field is present as in prior retests.
+
+Confirmed, creating Invoice #12 — INV-2026-0012, total $450.00. Native-verified on `/invoices/12/edit` via
+direct DOM inspection of the checkbox element (`input[name="invoice[invoice_issues][]"][value="25"]`):
+`checked: false` — the "Invoice Issues" checkbox for `#25: DEF-2 fixture issue - fallback rate test (Bug)` is
+still genuinely **unchecked**. Same structural-link gap as all three prior findings — the `issue_id` value in
+the API payload still never translates into the native checkbox-based association a real user would see.
+
+**Conclusion: STILL REPRODUCES.** Developer's "In QA" move on production #127470 does not reflect a real fix.
+**Bug stays open — NOT moved to closed, production status NOT updated.**

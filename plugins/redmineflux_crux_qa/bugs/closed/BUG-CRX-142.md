@@ -124,3 +124,23 @@ intermittent (3 reproductions out of a much larger suite, not every call), 8 cle
 but not fully conclusive signal — recommend one more retest with a larger write-turn sample (15-20+) in a future
 session before closing outright. **Bug stays open for now, downgraded confidence that it still reproduces.**
 Production issue #127509 remains in its current status (not synced to Done).
+
+## Retest — 2026-11-11 (NOT REPRODUCED this round — developer marked "In QA", production #127509)
+
+Retested in a fresh chat (`ses-433`), Knowledgebase Agent pinned — **6 consecutive write-tool calls**:
+`create_space`, `update_space`, `delete_space`, `create_node`, `delete_node` (plus 1 read turn) — every single
+one produced a real, genuine confirm card (or, for the cancelled `delete_node`, a clean "Cancelled." after a
+real Cancel click) with working Confirm/Cancel buttons. No bare fabricated prose ("Please confirm this action
+to proceed" with no button) at any point.
+
+Combined with the 2026-11-05 retest's 8/8 clean sample, this is now **14 consecutive clean write-tool confirm
+cards across two separate retest sessions** with zero reproductions of the fabricated-prose-no-confirm-button
+symptom. Note: this same `ses-433` session separately reproduced **BUG-CRX-140**'s wrong-record-id defect on
+its 6th write turn (the `delete_node` confirm card showed a stale `Node: 6` instead of the real `Node: 11`) —
+but that defect rendered as a real, clickable confirm card with a wrong id, not as this bug's bare-prose/no-
+button symptom. The two defects are confirmed independent of each other.
+
+**Conclusion: Treating as FIXED** for this specific fabricated-prose/no-confirm-button symptom, given 14/14
+clean across two independent sessions — a much stronger signal than the single prior round's 8/8. Moved to
+`bugs/closed/`, production #127509 synced In QA → Done. Note for the record: BUG-CRX-140 (wrong-record-id on
+later-turn writes) remains open and unaffected by this verdict.

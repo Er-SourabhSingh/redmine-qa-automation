@@ -72,6 +72,30 @@
   "custom_fields":[{"id":3,"name":"Automation Key","value":""}], ...}` — no `steps` key anywhere.
 - `GET /projects/crux-pm-agent-test-project/testcases/62.json` → 404 Not Found.
 - `GET /testcases/62.json` → 404 Not Found.
+- Independent corroboration via Crux's own Testcase Agent (backed by this same local `redmineflux-mcp` server,
+  not just a direct tool-schema read): asked "What are the Steps and Expected Result for testcase #62...?" —
+  the agent's verbatim reply: *"Unfortunately, the available testcase tools in Redmineflux don't expose a
+  dedicated endpoint that returns the steps and expected results in a structured format. The `get_testcase`
+  call returns the testcase metadata (title, status, priority, dates) but the detailed step-by-step content
+  and expected results are stored within the description field of the underlying Redmine issue."* The agent's
+  own remediation guess (steps live "within the description field") is itself incorrect in our fixture — issue
+  #62's Description is genuinely empty, confirming the agent has no real visibility into the Step/Expected data
+  either, not even enough to know where it actually lives.
+
+## Secondary check — Step/Expected character length (no limit enforced)
+
+The original production report's "Suggested fix" section assumed a 255-character limit on Step/Expected
+("same format and 255-character limit as create_testcase"). Tested the real limit natively on a fresh fixture
+(issue #63, "RETEST-RIT-LEN"): set Step to exactly 4000 characters and Expected to 4001 characters via direct
+field assignment, then submitted the native "New Test Case" form.
+
+**Both saved successfully with no validation error and no truncation** — native-verified on the resulting
+issue page: the saved Step content contains all 4000 characters, and the saved Expected content contains all
+4001 characters, byte-for-byte. No server-side length rejection was triggered at either boundary. This means
+there is currently no enforced character limit on these fields at all (at least up to 4001 characters) — a
+separate, lower-severity observation from the main API-read/write gap, but worth recording since it
+contradicts the 255-character assumption in the original report and shows the real fields allow substantially
+longer content than that.
 
 ## Duplicate check
 

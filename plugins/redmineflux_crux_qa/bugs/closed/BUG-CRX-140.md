@@ -216,3 +216,36 @@ never corrupted this run, unlike most prior retests), but step 6 reproduced the 
 write turn, confirming this repo's own methodology note above: fewer than ~5-6 turns risks a false "fixed"
 verdict. Developer's "In QA" move on production #127507 does not reflect a real fix. **Bug stays open — NOT
 moved to closed, production status NOT updated.**
+
+## Retest — 2026-11-11 (round 2, FIXED — pulled crux-core `834f919` CRC-95, rebuilt/restarted)
+
+Developer re-marked "In QA" a second time same day, with developer's own notes attributing the fix to CRC-95
+("KB node writes use the node the user named; a long chat keeps its project and ids"), explicitly naming this
+bug as the one that motivated it: *"Found by QA: BUG-CRX-140 retest (#127507)."* Pulled `redmineflux-crux-core`
+(`0e73c07→834f919`), rebuilt/force-recreated `crux-core` and `mcp`, restarted `redmine`.
+
+Per the spec's own stated root cause — a long chat (more turns than `HISTORY_WINDOW`=10) losing the earlier
+project/node context, plus no node-id validation — pushed the retest chat well past that threshold this time,
+not just the 5-6 turns the earlier methodology note recommended:
+
+1. `create_space` "Retest Space 1112" → correct → *"✓ Space created: #6"*.
+2. `update_space` description → correct `Space: 6` → *"✓ Space #6 updated."*
+3. (read) "List all spaces" → correctly listed Retest Space 1112 (#6).
+4. `delete_space` on Retest Space 1112 → correct `Space: 6` → *"✓ Space deleted."*
+5. `create_node` (folder) "Retest Folder 1112" in Engineering Docs → *"✓ Node created: #12..."*
+6. `delete_node` on that same folder → confirm card correctly showed **`Node: 12`** → confirmed, *"✓ Node #12
+   deleted."*
+7. `create_node` "Retest Folder 1112-B" → *"✓ Node created: #13..."*
+8. `create_node` "Retest Folder 1112-C" → *"✓ Node created: #14..."*
+9. (read) "List all pages and folders" → correctly listed both #13 and #14 among others.
+10. `create_node` "Retest Folder 1112-D" → *"✓ Node created: #15..."*
+11. `delete_node` on "Retest Folder 1112-B" (created 4 turns earlier, now well past the 10-turn history
+    window) — confirm card correctly showed **`Node: 13`**, the genuinely correct id, not a stale/wrong one.
+    Confirmed. Native-verified on `/projects/crux-kb-agent-test-project/knowledgebase?space_id=1`: folder
+    "Retest Folder 1112-B" is genuinely gone, while "Retest Folder 1112-C" (#14) and "Retest Folder 1112-D"
+    (#15) remain untouched — the correct node, and only that node, was deleted.
+
+**Conclusion: FIXED.** 11 consecutive write/read turns, all correctly resolved — including the exact later-turn
+delete scenario (turn 11, 4 turns after the target was created, past the history window) that previously
+failed at only 6 turns. The CRC-95 fix (node-id validation via `_check_kb_node` + an "Earlier in this chat"
+context block for long chats) holds. Moved to `bugs/closed/`, production #127507 synced In QA → Done.

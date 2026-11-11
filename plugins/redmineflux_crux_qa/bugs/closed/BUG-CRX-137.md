@@ -124,3 +124,21 @@ the API payload still never translates into the native checkbox-based associatio
 
 **Conclusion: STILL REPRODUCES.** Developer's "In QA" move on production #127470 does not reflect a real fix.
 **Bug stays open — NOT moved to closed, production status NOT updated.**
+
+## Retest — 2026-11-11 (round 2, FIXED — pulled redmineflux_invoice `2700a3d`, redmine restarted)
+
+Developer re-marked "In QA" a second time same day. Pulled `redmineflux_invoice` (`7e4cd8e→2700a3d`,
+"API: line-item users must be project members; a line item's issue is linked on the invoice (Crux
+BUG-CRX-137/139)"), rebuilt/recreated crux-core and mcp, restarted redmine (plugin is live-mounted, no new
+gem/migration needed).
+
+Same repro shape, fresh chat, Invoice Agent pinned: "...for issue #25, quantity 2, rate 150, user Daisy Skye."
+Confirm card correctly showed `Line Items: [{'description': 'Work on issue #25', 'quantity': 2, 'rate': 150,
+'user_id': 6, 'issue_id': 25}]`. Confirmed, creating Invoice #13 — INV-2026-0013, total $300.00.
+Native-verified on `/invoices/13/edit` via direct DOM property check
+(`input[name="invoice[invoice_issues][]"][value="25"].checked`): **`true`** — the "Invoice Issues" checkbox
+for #25 is now genuinely checked, a real structural link exists.
+
+**Conclusion: FIXED.** The `link_line_item_issues` fix in `Api::InvoicesController` now correctly adds the
+line item's `issue_id` to the invoice's own `invoice_issues` list on save, which is what the native checkbox
+actually reads. Moved to `bugs/closed/`, production #127470 synced In QA → Done.

@@ -15,6 +15,11 @@
 > instance in a future cycle, re-run this suite and add the full PR/commit/build positive-path TCs that are
 > currently blocked.
 >
+> **Explicit scope decision (2026-11-12): Code Reviewer (and the DevOps Agent) are OUT OF SCOPE for this QA
+> cycle until the Redmineflux DevOps plugin is actually installed on this instance.** Do not attempt further
+> testing of either agent, including TC-620's still-unresolved re-verification attempt, until that plugin
+> dependency is satisfied — re-run both suites in full at that point, not piecemeal before then.
+>
 > **Status: EXECUTED 2026-11-04 — 7/8 PASS, 1 inconclusive (tool-availability gap, see TC-620). No new bugs** —
 > the agent's live tool set (confirmed via its Agent Fleet profile: "Reads: 1 tool / Changes: 0 changes" —
 > part of the platform-wide pattern in BUG-CRX-164) is even thinner than its own non-DevOps manifest portion,

@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-187
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128280 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127774 (CRUX_AGENT_TEST_AUTHOR), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Test Author Agent creates all requested test cases in the wrong project ("Crux No Module Test" instead of the real target issue's own "Crux PM Agent Test Project"), and genuinely fails on 2 of 6 with a confusing "Step N failed: Testcase created" message
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Test Author Agent)

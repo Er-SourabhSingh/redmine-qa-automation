@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-188
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128281 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127775 (CRUX_AGENT_DOCS_WRITER), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Docs Writer Agent's first wiki-save confirm card fabricates a truncated, nonexistent project identifier ("crux-pm-agent-test" instead of "crux-pm-agent-test-project"), causing an honest write failure on the very first attempt of a short (2-turn) chat — recurrence of BUG-CRX-140's root cause on a new agent, uncovered by that fix's verification scope
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Docs Writer Agent)

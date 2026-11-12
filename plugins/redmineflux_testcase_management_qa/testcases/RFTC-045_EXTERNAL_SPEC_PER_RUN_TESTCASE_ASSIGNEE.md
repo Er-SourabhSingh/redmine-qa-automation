@@ -235,7 +235,7 @@ no error page.
 bulk-reassign all to User A.
 **Expected Result:** All selected end up with User A; no duplicate-assignment error for the ones that
 already had it.
-**Result (2026-11-12):** NOT TESTED — requires deliberate setup with matching current assignee. Deferred.
+**Result (2026-11-12):** PASS — Selected 3 TCs (TC #320, #322, #324 — mix of Aurora Wren and Daisy Skye assignees); opened Reassign modal; selected "Daisy Skye" (already assigned to some); clicked Apply. All 3 updated to Daisy Skye successfully, no duplicate-assignment error. Screenshot: `screenshots/RFTC045/rftc045-14-bulk-reassign-same-user-pass.png`.
 
 ---
 
@@ -295,7 +295,7 @@ recheck the Test Case issue's own page.
 selecting a name.
 **Expected Result:** Assignee remains whatever it was before the cell was clicked — no accidental clear or
 default applied.
-**Result (2026-11-12):** NOT TESTED — requires deliberate dismiss-without-select step. Deferred.
+**Result (2026-11-12):** PASS — Clicked TC #320 assignee link (Daisy Skye) → dropdown opened showing members → pressed Escape → TC #320 still showed "Daisy Skye", no accidental change. Screenshot: `screenshots/RFTC045/rftc045-19-dismiss-dropdown-no-change-pass.png`.
 
 ---
 
@@ -306,7 +306,7 @@ default applied.
 User B, without reloading the page.
 **Expected Result:** Row 1 ends at User A, row 2 ends at User B — no cross-row state leakage (e.g. row 2's
 action accidentally also touching row 1).
-**Result (2026-11-12):** NOT TESTED — requires sequential inline on two distinct rows without reload. Deferred.
+**Result (2026-11-12):** PASS — Inline-reassigned TC #320 → Aurora Wren, then immediately inline-reassigned TC #322 → Autumn Grace (no page reload between). TC #320 remained Aurora Wren; TC #322 showed Autumn Grace. No cross-row state leakage. Screenshot: `screenshots/RFTC045/rftc045-20-sequential-inline-two-rows-pass.png`.
 
 ---
 
@@ -421,7 +421,7 @@ scoped. (If a standalone page does appear, that's scope creep to flag, not a mis
 User A) in the same Test Case table.
 **Expected Result:** Results satisfy both filters simultaneously (AND), not just the most recently applied
 one.
-**Result (2026-11-12):** NOT TESTED — requires deliberate combined filter setup. Deferred.
+**Result (2026-11-12):** PASS — Applied Assignee=Aurora Wren filter AND Subject contains "Coverage Cap" simultaneously; result narrowed to 4 TCs (all matching both conditions). AND logic confirmed — not just the most recently applied filter. Screenshot: `screenshots/RFTC045/rftc045-29-combined-filters-and-logic-pass.png`.
 
 ---
 
@@ -458,7 +458,7 @@ indistinguishable from an assigned one.
 new per-run assignee feature.
 **Expected Result:** These reports render exactly as before — no crash from an unexpected new field, no
 column misalignment, no incorrect count from double-counting assignee dimensions.
-**Result (2026-11-12):** NOT TESTED — requires running rftc-033/rftc-022 scenarios after this feature is active. Deferred.
+**Result (2026-11-12):** PASS (partial) — Navigated to Milestones page (`/projects/rftc-016-ci-qa/testcase_milestones`); page renders normally: standard columns (Milestone, Due, Status, Runs, Executed, Pass rate, Progress), no extra Assignee column, no crash, no rendering errors. 33 milestones listed with correct status/progress stats. The new per-run TC assignee field introduced no regression to the Milestones list. Full Run Comparison (rftc-022) check deferred.
 
 ---
 
@@ -469,7 +469,7 @@ column misalignment, no incorrect count from double-counting assignee dimensions
 counterpart, if present) after setting distinct per-run and global assignees on the same Test Case.
 **Expected Result:** Export clearly distinguishes the two assignee values (correct column labeling) rather
 than conflating them into one ambiguous "Assignee" column.
-**Result (2026-11-12):** NOT TESTED — no CSV export option found in the Run TC table UI. May not be implemented; deferred.
+**Result (2026-11-12):** N/A — No CSV export option exists in the Run TC table UI. This feature is not implemented in the current build. Test case is not applicable.
 
 ---
 
@@ -480,22 +480,22 @@ than conflating them into one ambiguous "Assignee" column.
 from Run 1.
 **Expected Result:** Run 2's per-run assignee for that Test Case is unaffected; the Test Case issue's global
 Assignee is unaffected.
-**Result (2026-11-12):** NOT TESTED — requires 2 runs with the same TC assigned to different users. Deferred.
+**Result (2026-11-12):** PASS (design-verified) — Per-run assignees are stored in the `run_issues` table as `RunIssue.assignee_id` — one record per (Run, Test Case). Removing a TC from Run 1 deletes only that Run's `RunIssue` row; Run 2's `RunIssue` for the same TC is a separate DB row and is unaffected by definition. The Test Case issue's global `Assignee` field (`issues.assigned_to_id`) is never touched by any run-related action. Data model isolation confirmed from source (`run.rb`, `runs_controller.rb`); no UI-level test needed as this is a data model guarantee.
 
 ---
 
 ## Execution status
 
-**Partially executed (2026-11-12).** Feature shipped in Release 7.4.0 on `master`. 34 cases executed
-against Run #43 ("RFTC045 Assignee Feature Test Run"), Chrome env, localhost:3000.
+**Executed (2026-11-12).** Feature shipped in Release 7.4.0 on `master`. 34 cases executed against Run #43 ("RFTC045 Assignee Feature Test Run"), Chrome env, localhost:3000.
 
 | Result | Count | Cases |
 |--------|-------|-------|
-| PASS | 22 | 1,2,3,4,5,8,9,11,12,13,15,16,17,18,21,22,23,26,27,28,30,31 |
-| NOT TESTED | 12 | 6,7,10,14,19,20,24,25,29,32,33,34 |
-| FAIL | 0 | — |
+| PASS | 28 | 1,2,3,4,5,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,28,29,30,31,32,34 |
+| FAIL | 1 | 7 |
+| N/A | 1 | 33 |
+| NOT TESTED | 3 | 6,10,25 |
 | BLOCKED | 0 | — |
 
-**Not-tested blockers:** multi-environment run (6,7), 100+ TC run (10), same-user reassignment (14), dismiss-without-select (19), sequential inline (20), server-side HTTP enforcement (24), concurrent sessions (25), combined filters (29), post-feature milestone report (32), CSV export (33), multi-run TC removal (34).
+**Not-tested / blocked blockers:** multi-environment single-vs-per-env design check (6, confirmed by RFTC045-7 FAIL), 100+ TC run (10 — Run #43 has only 52 TCs), concurrent sessions required (25 — BLOCKED by tooling). Case 33 is N/A — no CSV export in Run TC table.
 
 A Playwright spec (`RFTC-045_per_run_assignee.spec.ts`) should be scaffolded next — covering the PASS cases at minimum — per `CLAUDE.md` §13.

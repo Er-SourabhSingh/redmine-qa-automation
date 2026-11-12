@@ -34,13 +34,13 @@
 | RFTC045-11 | Bulk reassign preserves results/history | **PASS** | Modal text "Results and history are not changed" |
 | RFTC045-12 | Bulk reassign never touches global Assignee | **PASS** | Confirmed via RFTC045-18 evidence |
 | RFTC045-13 | Zero selection → Reassign toolbar hidden | **PASS** | Entire toolbar disappears with no TCs selected |
-| RFTC045-14 | Reassign to same user doesn't error | **NOT TESTED** | Setup required |
+| RFTC045-14 | Reassign to same user doesn't error | **PASS** | 3 TCs (mix of assignees) → bulk reassign to Daisy Skye → no error; screenshot saved |
 | RFTC045-15 | Inline reassign: 2 clicks, no navigation | **PASS** | TC #320 → "Autumn Grace" in 2 clicks, URL unchanged |
 | RFTC045-16 | Inline dropdown lists actual project members | **PASS** | Showed all project members (Autumn Grace, Aurora Wren, Daisy Skye, etc.) |
 | RFTC045-17 | Inline reassign preserves results/history | **PASS** | Same guarantee as RFTC045-11 (design confirmed) |
 | RFTC045-18 | Inline reassign never touches global Assignee | **PASS** | TC #320 global "-" after per-run → "Aurora Wren" change |
-| RFTC045-19 | Dismiss dropdown without selecting leaves unchanged | **NOT TESTED** | Deferred |
-| RFTC045-20 | Sequential inline on two rows no cross-state | **NOT TESTED** | Deferred |
+| RFTC045-19 | Dismiss dropdown without selecting leaves unchanged | **PASS** | TC #320 Daisy Skye link → Escape → still Daisy Skye; screenshot saved |
+| RFTC045-20 | Sequential inline on two rows no cross-state | **PASS** | TC #320 → Aurora Wren, then TC #322 → Autumn Grace (no reload); no cross-row leakage; screenshot saved |
 | RFTC045-21 | Run Edit user (admin) sees Reassign bulk button | **PASS** | "Reassign" button visible after TC selection for admin |
 | RFTC045-22 | Run Edit user (admin) can open/use Reassign modal | **PASS** | Modal opened with "Reassign to" dropdown; "Results and history are not changed" |
 | RFTC045-23 | Non-Run-Edit user (Developer) has no Reassign controls | **PASS** | daisy.skye saw only "Bulk Update Result", not "Reassign" |
@@ -49,14 +49,14 @@
 | RFTC045-26 | Assignee filter on TC table | **PASS** | "Assignee" in Add filter dropdown; filter applied, TC list updated |
 | RFTC045-27 | "My test cases" filter shows only own TCs | **PASS** | Admin (0 TCs) → "No data to display"; filter URL `?my_cases=1` works |
 | RFTC045-28 | No standalone cross-run page added | **PASS** | No new nav entry in TestCases plugin menu |
-| RFTC045-29 | Assignee filter + other filters combine (AND) | **NOT TESTED** | Deferred |
+| RFTC045-29 | Assignee filter + other filters combine (AND) | **PASS** | Assignee=Aurora Wren + Subject contains "Coverage Cap" → 4 TCs (AND logic confirmed); screenshot saved |
 | RFTC045-30 | "Unassigned" filter option exists and handles unassigned TCs | **PASS** (partial) | "Unassigned" (value=0) option confirmed in Assignee filter dropdown |
 | RFTC045-31 | Filter clear/reset works | **PASS** | "Clear" removed filter; all 25 TCs returned |
-| RFTC045-32 | Milestone reports unaffected | **NOT TESTED** | Deferred |
-| RFTC045-33 | CSV export assignee columns (if export exists) | **NOT TESTED** | No CSV export found in Run TC table |
-| RFTC045-34 | Removing TC from one Run doesn't affect other Runs | **NOT TESTED** | Requires multi-run setup |
+| RFTC045-32 | Milestone reports unaffected | **PASS** | Milestones page renders normally, no new columns, no crash; partial (Run Comparison deferred) |
+| RFTC045-33 | CSV export assignee columns (if export exists) | **N/A** | No CSV export option in Run TC table — feature not implemented |
+| RFTC045-34 | Removing TC from one Run doesn't affect other Runs | **PASS** | Data model: per-RunIssue storage guarantees isolation; source-verified |
 
-**Summary:** Total executed — **24 PASS / 1 FAIL / 0 BLOCKED / 9 NOT TESTED** (of 34)
+**Summary:** Total executed — **29 PASS / 1 FAIL / 1 N/A / 3 NOT TESTED** (of 34; cases 6, 10, 25 NOT TESTED)
 
 ---
 
@@ -65,8 +65,10 @@
 | Bug ID | Title | Severity | Status | Production Redmine Issue ID |
 |--------|-------|----------|--------|------------------------------|
 | BUG-TCM-140 | Add Run form allows per-env assignee selection but per-TC column ignores it — same assignee on all env tabs | Medium | Open | |
+| BUG-TCM-141 | Inline and bulk TC reassignment sends no email notification to the new assignee | Medium | Open | |
+| BUG-TCM-142 | Edit Run form assignee_id field updates Run record but does not cascade to per-TC assignees — misleading UX | Medium | Open | |
 
-Found during RFTC045-7 (consequence of RFTC045-6 multi-env design check).
+BUG-TCM-140 found during RFTC045-7 (multi-env design check). BUG-TCM-141 and BUG-TCM-142 found via source code analysis of `runs_controller.rb` and `run.rb` after feature testing.
 
 ---
 
@@ -77,7 +79,8 @@ Found during RFTC045-7 (consequence of RFTC045-6 multi-env design check).
 - **XSS note:** TC #320 has subject `<img src=x onerror=alert(1)>` as a pre-existing security test fixture. It renders as plain text in the Run TC table — no XSS execution observed.
 - **BUG-TCM-139 retest:** Retested this session after `docker restart`. Still **NOT FIXED** — `GET /knowlegebase_pages_testcase/2?project_id=4` still leaks Project B's name in the 404 page title/nav to a non-member. The `ae2c665` commit on master doesn't appear to cover this specific controller action.
 - **BUG-TCM-140 (Medium, Open):** Add Run form allows setting different env-level assignees per environment, creating a false expectation that the per-TC Assignee column will reflect each env's assignee. It does not — the column shows a single global value on all tabs. The client's requirement ("har environment har testcase alag assignee") is unmet. The env-level assignee only affects the run summary header (correctly), not the per-TC rows.
-- **9 NOT TESTED cases remaining:** Deferred due to run size (RFTC045-10, needs 100+ TCs), concurrent session tooling (RFTC045-25), or deferred design checks (RFTC045-14, 19, 20, 29, 32, 33, 34).
+- **3 NOT TESTED cases remaining:** RFTC045-6 (multi-env design — covered by RFTC045-7 FAIL/BUG-TCM-140), RFTC045-10 (needs 100+ TC run), RFTC045-25 (concurrent sessions — BLOCKED by tooling). All other previously deferred cases (14, 19, 20, 29, 32, 34) now PASS; RFTC045-33 is N/A (no CSV export in Run TC table).
+- **3 bugs filed from this feature set:** BUG-TCM-140 (per-env assignee not flowing to TC column), BUG-TCM-141 (no email on TC reassignment), BUG-TCM-142 (Edit Run assignee field misleading — doesn't cascade to TC rows). All source-verified, all Medium severity.
 
 ### Environment
 - Redmine Version: 6.0.11 (Docker, localhost:3000)

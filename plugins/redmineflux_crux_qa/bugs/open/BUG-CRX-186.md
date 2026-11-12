@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-186
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128276 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127769 (CRUX_AGENT_REVIEWER), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Reviewer Agent fabricates a plain-text "confirm" with no real Confirm/Cancel UI, then falsely claims "Note added" for a write that never actually executed, and treats the user's own chat text as authorization — a combined CRX-35 governed-write-path violation
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Reviewer Agent)

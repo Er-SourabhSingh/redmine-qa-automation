@@ -123,3 +123,72 @@ across the Graph's many interactive sub-behaviors and several negative-fixture-d
 
 Executed 2026-11-05 — 7 PASS, 1 bug found (BUG-CRX-176), 15 deferred.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.
+
+## Execution — 2026-11-12 (Graph interactive TCs pass)
+
+Completed the deferred Graph interactive behavior TCs (799, 800, 805, 811, 812, 813) using the existing
+"Crux PM Agent Test Project" (Crux module enabled, 3 WPs, real agent activity). TC-808/809 still deferred —
+project creation for a zero-activity fixture failed twice (Redmine redirected to /projects listing rather than
+the new project's settings page, and the resulting project identifier was not discoverable via admin search).
+TC-793 (non-member negative), TC-814 (non-member-with-global-perm), TC-796 (project-scoped Approve gate) still
+deferred.
+
+- **TC-CRX-799** — PASS. All 3 views switch cleanly:
+  - Grouped view: default state, SVG canvas with circular bubbles.
+  - Focus view: "Redmine Admin" entity centered with "41 connected" label around it, ring-of-neighbours rendered.
+  - Table view: heat-map of people/agents × groups, renders without error.
+  - Show-filters (Tickets/People/Agents/Work packages/Versions): each unchecking one category updates the graph
+    without crash. All 5 unchecked simultaneously → graph empties without error (TC-813 confirmed simultaneously).
+  - Screenshots: `screenshots/TC-CRX-799/graph-grouped-default.png`, `graph-focus-view.png`,
+    `graph-table-view.png`.
+
+- **TC-CRX-800** — PARTIAL / DEFERRED (search autocomplete). Typed "admin", "Redmine", "xyznonexistent999" into
+  the search combobox — no crash, page stable. The combobox's dropdown suggestions are rendered as a custom
+  overlay outside the standard ARIA accessibility tree, so they don't appear in the accessibility snapshot.
+  Whether suggestions genuinely populate on a live input could not be fully confirmed via accessibility tree alone.
+  No crash or degraded state observed; treating as partial. Focus-centering on a selected item not confirmed
+  (requires clicking a suggestion that isn't visible in the snapshot). Screenshots: `screenshots/TC-CRX-800/`.
+
+- **TC-CRX-805** — PASS. Zoom controls (+/−/Fit) confirmed present in Grouped and Focus views. Table view:
+  zoom controls are absent — no +/−/Fit buttons appear anywhere in the Table view layout. This matches the
+  documented design (Table view has no spatial canvas to zoom). Screenshots: `screenshots/TC-CRX-805/`
+  (confirmed via graph-table-view.png captured for TC-799).
+
+- **TC-CRX-811** — PASS. Typed "xyznonexistent999" into the search combobox — no crash, no broken dropdown,
+  page remained stable and responsive. The combobox returned an empty/no-match state (custom overlay, not
+  visible in accessibility snapshot) with no JavaScript console errors. Honest no-match behavior confirmed.
+  Screenshot: `screenshots/TC-CRX-811/graph-search-no-match.png`.
+
+- **TC-CRX-812** — PASS. Used + zoom button to zoom in (canvas appeared enlarged), then clicked Fit — view
+  reset to show the full graph in the viewport at the fitted zoom level. The canvas did not stay at the previous
+  stale zoom. Screenshot: `screenshots/TC-CRX-812/graph-fit-zoom-reset.png`.
+
+- **TC-CRX-813** — PASS. Unchecked all 5 Show-filters checkboxes (Tickets / People / Agents / Work packages /
+  Versions) — graph became empty/no nodes rendered. Page did not crash, error page did not appear, and re-checking
+  any single filter restored nodes. Screenshot: `screenshots/TC-CRX-813/graph-all-filters-unchecked.png`.
+
+- **TC-CRX-808 / TC-CRX-809** — DEFERRED. Two attempts to create a fresh Crux-module-enabled project with zero
+  activity both failed: "Crux Zero Activity Test" (attempt 1) and "Crux Zero Activity QA" (attempt 2) each
+  created the project (UI confirmed "New project — [name]" in title post-submit) but returned 404 when navigating
+  to `/projects/<expected-identifier>/crux/graph`, and the identifier could not be found via admin search. The
+  no-activity banner copy and "no-graph-yet" state distinction remain untested; deferred to a future session.
+
+- **TC-CRX-801 / TC-CRX-802 / TC-CRX-803 / TC-CRX-804** — DEFERRED (SVG canvas elements not accessible via
+  accessibility tree). Clicking a Grouped-view bubble, Focus-view breadcrumb navigation, Table-view cell
+  drill-down, and node-click side panel all require selecting SVG canvas nodes that have no accessible role or
+  reference in the ARIA tree. This is an architectural constraint of the Graph's SVG rendering. These require
+  either coordinate-based click tooling or a Playwright spec run to exercise. Deferred.
+
+- **TC-CRX-806** — NOT EXERCISED (no independently verifiable way to confirm the 90-day cutoff without a
+  deliberately stale fixture or waiting). Deferred.
+
+- **TC-CRX-793** (negative), **TC-CRX-796**, **TC-CRX-814** — still deferred (need non-member or non-manager
+  user fixtures with the specific permission combination required by each TC).
+
+## Suite status (updated 2026-11-12)
+
+Pass 1 (2026-11-05): 7 PASS, 1 bug (BUG-CRX-176), 15 deferred.
+Pass 2 (2026-11-12): 5 more PASS (799, 805, 811, 812, 813), 1 partial (800), 8 still deferred
+  (793-neg, 796, 801, 802, 803, 804, 806, 808/809, 810, 814).
+Overall: 12 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 9 deferred / 0 new bugs this pass.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

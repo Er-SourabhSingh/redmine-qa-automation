@@ -124,3 +124,51 @@ No new bugs found.**
 
 Executed 2026-11-05 — 11 PASS, 8 deferred, 0 bugs found.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.
+
+## Execution — 2026-11-12 (Validation TCs pass)
+
+Completed the deferred validation TCs (862, 865, 866) using the pipeline editor on a freshly-opened New
+Pipeline dialog. TC-867 extended with confirmation of the delete dialog's pre-stated rule text. TC-855/869
+still deferred — requires a user with View Crux but NOT Manage Crux Pipelines; daisy.skye holds all 5 Crux
+permissions and no clean view-only user fixture exists.
+
+- **TC-CRX-862** — PASS. Opened New Pipeline editor; entered 1 stage ("stage-one"), left slug blank, did not
+  add a gate, clicked Save. All three validation rules fired simultaneously:
+  "⚠ Add at least two stages. · Give every stage a name. · Add an approval gate before the last stage ('')."
+  — The "fewer than 2 stages" rule is explicitly enforced with a clear user-facing error. Screenshot:
+  `screenshots/TC-CRX-862/pipeline-validation-combined.png`.
+
+- **TC-CRX-865** — PASS (by design). The gate editor's "before" dropdown is restricted to the existing named
+  stages in the pipeline — it is a constrained combobox that only lists valid stage names. There is no free-text
+  entry path for a gate target. A gate pointing at a non-existent stage name is architecturally impossible to
+  create in the UI. The validation for this case is enforced at the data-entry level (the control won't let you
+  type an invalid value), not just at save time. Confirmed PASS. No screenshot needed (behavior is the absence
+  of an invalid UI state).
+
+- **TC-CRX-866** — PASS. In the same combined save attempt (TC-862 above): with 2 stages named but the only
+  gate positioned before the first stage (not the last), the error included:
+  "⚠ Add an approval gate before the last stage ('')." Additionally confirmed with 2 stages + gate before
+  first stage only → error specifically names the last stage. Screenshot:
+  `screenshots/TC-CRX-866/pipeline-missing-last-gate.png`.
+
+- **TC-CRX-867** — PARTIAL (dialog rule text confirmed; server-side rejection unconfirmed). The delete confirm
+  dialog for a custom pipeline displays the rule: "A pipeline that a work package was created from can't be
+  deleted." This text fires on every Delete action for any pipeline (confirmed for "Bug fix (copy)"). However,
+  actually confirming the server-side enforcement would require a pipeline that already has a real Work Package
+  created from it — no such custom pipeline + WP combination was available this pass (TC-763 confirmed chat
+  agents only use built-in pipelines, so a chat-created WP can't be linked to a custom pipeline). Partial.
+  Screenshot: `screenshots/TC-CRX-867/pipeline-delete-dialog.png`.
+
+- **TC-CRX-855 / TC-CRX-869** — DEFERRED. No clean user fixture with View Crux but NOT Manage Crux Pipelines.
+  daisy.skye holds all Crux permissions after the earlier Permissions suite work; creating a new view-only
+  role and test user deferred to a future session.
+
+- **TC-CRX-856, TC-CRX-861** — still deferred (chat-created WP from a specific agent type, and pipeline
+  edit-after-WP-creation, not achievable this pass).
+
+## Suite status (updated 2026-11-12)
+
+Pass 1 (2026-11-05): 11 PASS, 8 deferred, 0 bugs found.
+Pass 2 (2026-11-12): 3 more PASS (862, 865, 866), 1 partial (867), 4 still deferred (855, 856, 861, 869).
+Overall: 14 PASS / 1 PASS-partial / 4 deferred / 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

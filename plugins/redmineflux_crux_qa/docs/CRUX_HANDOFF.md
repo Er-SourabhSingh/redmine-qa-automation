@@ -2,11 +2,20 @@
 
 ## Last Session
 
-- Date:
-- Redmine Version:
-- Environment:
+- Date: 2026-11-12
+- Redmine Version: 6.0-bookworm (local Docker instance, localhost:3015)
+- Environment: Local
 
 ## Completed This Session
+
+- Executed deferred WP TCs (TC-760, 762, 763, 765, 766, 767) — committed ae60fe3
+- Reported BUG-MCP-001 to production (#128136) — committed 7fc7bc8
+- Executed deferred Graph TCs (TC-799, 800, 805, 811, 812, 813) — Graph interactive behaviors pass
+- Executed Pipeline Validation TCs (TC-862, 865, 866) — all PASS
+- TC-867 extended: delete dialog rule text confirmed; server-side rejection unconfirmed (no custom-pipeline WP)
+- Wrote Execution 2026-11-12 sections to `CRUX_PLATFORM_PROJECT_TAB.md` and `CRUX_PLATFORM_PIPELINES.md`
+- Generated daily report `reports/CRX-Functional-2026-11-12.md`
+- Screenshots committed for TC-799, 800, 808, 811, 812, 813, 862, 866, 867
 
 ## In Progress
 

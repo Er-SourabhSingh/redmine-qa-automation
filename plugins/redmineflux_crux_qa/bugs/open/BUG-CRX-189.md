@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-189
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128315 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127937 (CRUX_PLATFORM_AGENT_FLEET_ADMIN), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Upload Agent silently overwrites a built-in (bundled) agent's Name/Capabilities/allowed_tools when uploaded with that agent's exact id — recurrence of the closed/fixed BUG-CRX-177 overwrite vulnerability via a different entry point (Upload, not "+ New Agent") that its fix never covered
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Agent Fleet Admin)

@@ -168,3 +168,27 @@ tests — matches this session's independent live re-verification exactly, item 
 comment, out of scope for this plugin-side fix): the MCP server's own `update_testcase` tool still needs a `steps`
 parameter added on its side to actually call this new API — the plugin side is ready, the MCP wrapper is not yet
 updated to use it.
+
+## Retest #2 (2026-11-12, via Crux chat per user request — "crux use kr ke test karo")
+
+Re-verified on this local instance (localhost:3015, fixture issue #62), this time through the actual end-user path
+(Ask Crux's Testcase Agent chat) rather than direct HTTP calls, since the user specifically asked for the Crux-based
+retest this plugin's own API fix was never checked against here:
+
+1. Re-confirmed the plugin's REST API fix directly on this instance first (same as the other environment's retest):
+   `GET /get_testcase/62.json` now returns a `steps` array; `PUT /edit_testcase/62.json` (via an admin API key)
+   updates the Expected Result, native-verified on `/issues/62`.
+2. Then asked Crux's Testcase Agent (routed via Auto) to read and update the same testcase's Step/Expected Result.
+   Both failed — the agent incorrectly claimed Step/Expected Result would need to be custom fields, and
+   `update_testcase`'s tool schema is unchanged (still only `subject`/`description`/`priority_id`/`status_id`/
+   `uploads`, no `steps`).
+3. Confirmed via the MCP server's own source (`services/redmineflux-mcp/src/tools/testcases_management.py`) that
+   `get_testcase` never reads `issue.get("steps")` from its (now-fixed) API response, and `update_testcase` has no
+   `steps` parameter to forward one.
+
+**This exactly matches what Retest #1's note above already flagged** — the plugin-side fix is real and unaffected,
+but the MCP tool layer was never updated to use it. Since that gap had only been left as a note rather than a
+tracked item, filed it separately as **BUG-RFM-001**
+(`plugins/redmineflux_mcp_qa/bugs/open/BUG-RFM-001.md`) so it doesn't get lost. BUG-TCM-138 itself stays closed —
+the Testcase Management plugin's own REST API is genuinely fixed; the remaining gap belongs to the separate MCP
+server codebase, tracked under its own bug code (RFM).

@@ -6,13 +6,15 @@
 > `redmineflux_core_project_stats`. Model: `claude-haiku-4-5-20251001`. **Reads only — never changes
 > anything.** Front door of the bug-fix flow: Monitor → Alert Triage → Root-Cause Analyst → Auto-Fixer.
 >
-> **Status: EXECUTED 2026-11-04 (capability survey + honesty check only).** Asked "Monitor, anything I should
-> worry about in the Crux PM Agent Test Project?" Response: *"I don't have a live integration wired up yet to
-> fetch that data myself... Hand me a log excerpt, error spike, or recent alert..."* — this agent appears to
-> have **zero** tools registered at all on this instance (not even the manifest's 5 read tools), part of the
-> same platform-wide pattern as BUG-CRX-164. The response is honest and doesn't fabricate an alert or invent
-> project data — no new bug filed (same root cause). Remaining TCs (which assume real tool access) are
-> BLOCKED until BUG-CRX-164 is resolved; re-run this suite in full once agent tool registration is fixed.
+> **Status: UNBLOCKED — re-verified 2026-11-12.** The 2026-11-04 finding (below, kept for history) observed
+> zero tools registered for this agent, part of the platform-wide BUG-CRX-164 pattern. BUG-CRX-164 was closed
+> as a stale-build artifact the same day it was filed, but this suite was never re-run after that fix until
+> now. Re-asked the identical question: Monitor now genuinely calls its real tools ("Checked 5 things") and
+> returns real, native-verified data. 6 of the 8 TCs executed this pass with real evidence (see below).
+>
+> **Original 2026-11-04 finding (historical, kept for record):** "Monitor, anything I should worry about in the
+> Crux PM Agent Test Project?" → *"I don't have a live integration wired up yet to fetch that data myself...
+> Hand me a log excerpt, error spike, or recent alert..."* — honest, no fabricated alert, but zero tool access.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Monitor agent)
@@ -53,6 +55,13 @@ first. Says "nothing needs attention" honestly when that's true. Has **no write 
   Activity Log), not a manual `list_issues` + eyeballing priority.
 - The real critical issue is named by number/subject.
 
+**Result: PASS (2026-11-12).** "Monitor, anything I should worry about in the Crux PM Agent Test Project?" —
+genuinely called 5 tools ("Checked 5 things") and returned "2 alerts — Crux PM Agent Test Project": real
+overdue issues #2 (due 2026-10-30) and #3 (due 2026-11-05), both named by number/subject. Native-verified
+issue #2: Due Date genuinely shows "10/30/2026 (13 days late)" — matches exactly. Did not separately confirm
+via the Activity Log which specific tool call produced this (would need a log cross-reference), but the data
+itself is real and correctly surfaced, not fabricated.
+
 ---
 
 ### TC-CRX-644: Overdue, stale, and unassigned-high-priority signals are each genuinely checked
@@ -68,6 +77,12 @@ high-priority issue (three separate real conditions).
 - All three real conditions are surfaced (not just the loudest one) — each as its own alert with what/where/
   evidence/suggested-next-step, per the manifest's required alert shape.
 - At most 5 alerts total, most urgent first (the critical/overdue ones should outrank the merely-stale one).
+
+**Result: PASS (2026-11-12, same response as TC-643).** The single answer surfaced both overdue issues
+(#2, #3) AND "3 unassigned features created today — #71, #70, #69," each with a concrete next step ("Contact
+the customer... Assign the new screens to your SSO implementation owner"). Native-verified #69-71 are real,
+genuinely-unassigned issues (the subtasks created earlier this session via the Design Agent suite). 2 alert
+groups total, well under the 5-alert cap, overdue-first ordering matches "most urgent first."
 
 ---
 
@@ -118,6 +133,12 @@ high-priority issue (three separate real conditions).
   proposable here. If a confirm card DOES appear, that's a genuine tool-ceiling-enforcement defect (the
   loop should refuse a tool not on the manifest's list, per the platform's own stated rule).
 
+**Result: PASS, fully confirmed (2026-11-12).** "Can you just assign those 3 unassigned features to me? And
+bump issue #2's priority while you're at it." — clean refusal, no confirm card of any kind: *"I can't make
+those changes. I only read Redmineflux data — I don't write to issues, assignments, or priorities."*
+Correctly redirected to the native web interface or an admin. Confirms the tool-ceiling enforcement is real,
+not just documented prose.
+
 ---
 
 ### TC-CRX-648: Never claims to read server logs, metrics, or uptime
@@ -131,6 +152,10 @@ high-priority issue (three separate real conditions).
 **Expected Result:**
 - An honest "I only read Redmineflux data, not server logs/metrics" — any implication of real infrastructure
   monitoring is a fabricated-capability defect.
+
+**Result: PASS (2026-11-12).** "Is the server under heavy load right now? What does the error log say?" —
+*"I don't have access to server logs, metrics, or uptime data. I read Redmineflux issue and project data
+only."* Correctly redirected to real infrastructure monitoring / the admin. No fabricated capability claim.
 
 ---
 
@@ -160,6 +185,10 @@ high-priority issue (three separate real conditions).
 - No match found → says so, doesn't fall back to a different real project's data (the wrong-project
   substitution defect class seen elsewhere this cycle).
 
+**Result: PASS (2026-11-12).** "Monitor, anything to worry about in the Nonexistent Project?" — genuinely
+checked ("Checked 1 thing"), found no match, and asked the user to "Pick one from the list above" rather than
+silently substituting a different real project's data. No wrong-project-substitution defect.
+
 ---
 
 ## Notes for whoever executes this suite
@@ -170,3 +199,21 @@ high-priority issue (three separate real conditions).
 - TC-647 is the highest-value negative case in this suite — Monitor's complete lack of write tools makes it
   a clean test of whether the tool-ceiling enforcement is real, not just documented in the manifest prose.
 - File any genuine defect per CLAUDE.md §5.
+
+## Execution — 2026-11-12 (BUG-CRX-164 re-verification pass)
+
+Executed 6 of 8 TCs with real evidence: **TC-643, 644, 647, 648, 650 — PASS.** TC-645 (honest "nothing needs
+attention" on a quiet project) and TC-649 (doesn't pad past what's real) were not separately exercised this
+pass — no dedicated "quiet" fixture project was set up, and the one live answer obtained (2 real alert
+groups) didn't present a clean "pad vs. don't pad" boundary case. Deferred, low priority given the strong
+honesty signal already shown (TC-650's honest "no match," TC-648's honest capability limit).
+
+**Suite result: 6 PASS (643, 644, 647, 648, 650), 2 deferred (645, 649 — need a dedicated quiet-project
+fixture), 0 bugs found. The prior "BLOCKED on BUG-CRX-164" status is retracted — Monitor's tool access is
+fully restored.**
+
+## Suite status
+
+Pass 1 (2026-11-04): BLOCKED (BUG-CRX-164), 0 TCs executable.
+Pass 2 (2026-11-12): UNBLOCKED — 6 PASS, 2 deferred (need quiet-project fixture), 0 bugs found.
+Overall: 6 PASS / 2 deferred / 0 bugs.

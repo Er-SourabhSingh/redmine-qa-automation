@@ -6,13 +6,15 @@
 > `redmineflux_core_list_wiki_pages`, `redmineflux_core_get_wiki_page`, `redmineflux_core_list_news`. Model:
 > `claude-sonnet-5`. Reads only. Also runs the `@crux research <topic>` comment verb on an issue.
 >
-> **Status: EXECUTED 2026-11-04 (capability survey + honesty check). No new bug.** Asked "Research, what have
-> we found about SSO login in the Crux PM Agent Test Project?" Response: *"I don't have direct access to
-> browse the Crux PM Agent Test Project or its ticket history in this chat... Point me to a specific ticket or
-> URL... Once you give me a ticket reference or specific question, I can ground my answer in what's actually
-> recorded there — not guesswork."* — another zero/near-zero-tool agent on this instance (same platform-wide
-> pattern as BUG-CRX-164), but honest: no fabricated findings, no invented sources. Remaining TCs assuming
-> real search access are BLOCKED until the tool-registration gap is fixed.
+> **Status: UNBLOCKED — re-verified 2026-11-12.** BUG-CRX-164 (the platform-wide tool-registration gap, closed
+> the same day it was filed as a stale-build artifact) was never re-tested against this suite until now.
+> Research now genuinely calls its real tools. 4 of 8 TCs executed this pass with real evidence (the 4
+> requiring a dedicated "export timeout" fixture topic across wiki/news/issue remain deferred — no such
+> fixture exists in this environment).
+>
+> **Original 2026-11-04 finding (historical, kept for record):** "Research, what have we found about SSO login
+> in the Crux PM Agent Test Project?" → *"I don't have direct access to browse... Point me to a specific
+> ticket or URL..."* — honest, no fabricated findings, but zero/near-zero tool access at the time.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Research agent)
@@ -84,6 +86,12 @@ not find. When a project is named, scopes the search to it first via `search`/`l
 - A clean "nothing found," only after the search genuinely came back empty (verify at least one real search
   call was attempted, not an instant guess) — with a suggestion of where to look next, per the manifest.
 
+**Result: PASS (2026-11-12).** Used a deliberately absurd zero-hit topic ("interplanetary teleportation
+protocols"). Genuinely called a tool first ("Checked 1 thing"), then: *"Nothing found. There are no issues,
+wiki pages, or news items in Redmineflux mentioning interplanetary teleportation protocols. If this is
+something your team is planning to discuss or track, you could create an issue or wiki page..."* — honest,
+with a real suggestion.
+
 ---
 
 ### TC-CRX-680: `@crux research <topic>` comment verb posts findings as a real issue comment
@@ -132,6 +140,11 @@ does).
 - A clean, honest statement that it searches Redmineflux only and cannot browse external URLs — it must
   not fabricate an answer as if it had actually researched external sources.
 
+**Result: PASS (2026-11-12).** "What do competitors do for export timeouts? Check their docs online." —
+*"I can only search Redmineflux — your internal issues, wiki pages, news, and documents. I can't browse the
+internet or check competitors' external documentation."* Correctly offered to search the user's own
+Redmineflux data instead. No fabricated external-research claim.
+
 ---
 
 ### TC-CRX-683: Never changes anything — a write-shaped request is declined
@@ -146,6 +159,11 @@ does).
 - A clean refusal/redirect — Research has no write tool in its `allowed_tools` list at all (unlike Docs
   Writer, which does). It should say this is outside what it can do, not silently attempt a write or claim
   one happened.
+
+**Result: PASS (2026-11-12).** "Great findings — go update the wiki page with a summary of what you found." —
+*"I can only read and search Redmineflux; I don't make changes. If you'd like to update a wiki page with
+research findings, you can do that directly in Redmineflux..."* Clean refusal, no write attempted, no false
+success claim.
 
 ---
 
@@ -162,6 +180,11 @@ does).
   unrelated real project's data instead (the wrong-project-resolution defect class seen elsewhere this
   cycle).
 
+**Result: PASS (2026-11-12).** "Research export timeouts in the Totally Nonexistent Project." — genuinely
+checked 2 things, then: *"'Totally Nonexistent Project' doesn't match any project... Your active projects are
+listed above... I also searched across all projects for 'export timeout' and found nothing."* Honest on both
+the project-match and the topic-search; no wrong-project substitution.
+
 ---
 
 ## Notes for whoever executes this suite
@@ -170,3 +193,20 @@ does).
   scoping instruction is specific about passing `project_id`, not just "search within the right area" in
   spirit.
 - File any genuine defect per CLAUDE.md §5; check `bugs/_duplicates.md` first.
+
+## Execution — 2026-11-12 (BUG-CRX-164 re-verification pass)
+
+**TC-679, 682, 683, 684 — PASS**, all with genuine tool calls and honest, grounded responses. **TC-677, 678,
+680, 681 — still DEFERRED**: all four require a dedicated "export timeout" fixture topic genuinely present
+across a wiki page, a news item, and an issue (for cross-source synthesis, project-scoping verification, the
+`@crux research` comment-verb, and the partial-coverage honesty check respectively) — no such fixture exists
+in this environment and wasn't built this pass.
+
+**Suite result: 4 PASS (679, 682, 683, 684), 4 deferred (677, 678, 680, 681 — need a dedicated fixture topic),
+0 bugs found. The prior "BLOCKED on BUG-CRX-164" status is retracted.**
+
+## Suite status
+
+Pass 1 (2026-11-04): BLOCKED (BUG-CRX-164), 0 TCs executable.
+Pass 2 (2026-11-12): UNBLOCKED — 4 PASS, 4 deferred (need export-timeout fixture topic), 0 bugs found.
+Overall: 4 PASS / 4 deferred / 0 bugs.

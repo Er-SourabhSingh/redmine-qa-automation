@@ -124,3 +124,88 @@ fallback behavior, not a defect.**
 
 Executed 2026-11-05 — 7 PASS, 1 partial PASS, 9 deferred, 0 bugs found.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.
+
+## Execution — 2026-11-12 (deferred TC completion pass)
+
+Re-ran the 9 deferred TCs from the 2026-11-05 pass. Fixtures available: 3 existing WPs (wp-001 "Ship
+the Dictio...", wp-002 "Fix the ready queue blocker...", wp-003 "Fix control-ticket cleanup behavior");
+wp-004 "Review testcase API coverage" (suggest-only, ticket #62) created this pass for TC-760/TC-765.
+
+- **TC-CRX-758** — NOT INDEPENDENTLY VERIFIED (still only 4 WPs; pager needs ≥26 — deferred, low risk).
+
+- **TC-CRX-760** — PASS. Asked Project Manager (pinned) to create a WP for ticket #62 with `suggest-only`
+  autonomy — confirm card showed `Autonomy: suggest-only`. After Confirm, wp-004 appeared on the global list
+  with Work package column reading "Software · suggestions only, never changes tickets" — matches the documented
+  autonomy label exactly. `autonomous` creation not separately tested (requires a ticket to be in an appropriate
+  state; not attempted this pass — deferred for a future run).
+
+- **TC-CRX-761** — See 2026-11-05 result (PASS-partial, unchanged).
+
+- **TC-CRX-762** — PASS. Asked PM agent to "Change the goal of the work package 'Fix control-ticket cleanup
+  behavior' to '…'." — agent replied: *"I couldn't find a tool for this here, so I can't do it from this chat.
+  It can be done directly in Redmineflux…"* No confirm card appeared. Then asked to "Delete the work package
+  'Fix control-ticket cleanup behavior'" — same honest refusal, identical wording. Neither edit nor delete
+  produced a fabricated confirm card.
+
+- **TC-CRX-763** — PASS. Asked PM agent to "Create a work package for ticket #56 using a custom pipeline called
+  'Security Review Pipeline'." — agent replied: *"I can create a Work Package for #56, but only with one of the
+  built-in pipelines — custom pipelines aren't yet supported from chat."* Listed all available built-in pipelines
+  and offered to use whichever fits. No fabricated confirm card, no silent wrong pipeline used.
+
+- **TC-CRX-764** — DEFERRED. Requires a non-admin user (admin has access to every project, so the "every ticket
+  must be visible to the person confirming" rule can't be exercised from an admin session). Needs a fresh
+  dedicated non-admin user and a private/restricted project. Deferred to a future run.
+
+- **TC-CRX-765** — PASS. After creating the suggest-only wp-004 (TC-760 above), posted `@crux status - what is
+  the current status of this testcase?` as a journal note on ticket #62. After 60 seconds (page refreshed and
+  verified), only 1 journal entry exists — the human's own note. No Crux reply was posted at all, confirming
+  that suggest-only WP tickets receive zero agent replies to @-mentions, consistent with "agents never write
+  anything, not even @-mention replies."
+
+- **TC-CRX-766** — FAIL — **potential bug candidate.** Asked PM agent to "Set up a work package for ticket
+  #99999 to fix the login timeout issue." Expected: an honest "ticket not found" refusal (the feature reference
+  states "every ticket must be visible to the person confirming"). Actual: agent did NOT refuse — it asked for
+  pipeline and goal details, then produced a fully-formed `CREATE WORK PACKAGE` confirm card with Tickets=#99999,
+  Goal="Fix login timeout issue in production", Type=bug, Autonomy=execute-with-approval. The Confirm button was
+  NOT clicked (cancelled immediately) since confirming would create a WP linked to a non-existent ticket. Root
+  cause: the agent apparently builds the confirm card first and relies on confirmation-time validation; it does
+  not verify ticket existence/visibility before proposing. Whether this is a documentation gap ("validation at
+  confirm time, not before") or a genuine defect (a WP with a 404 ticket would be created without any user-
+  visible error) requires a production developer to clarify. Filed as a finding below — severity TBD pending
+  that clarification.
+
+- **TC-CRX-767** — PASS. Navigated to `/projects/crux-pm-agent-test-project/crux/work_packages` — showed
+  "All 3 / Waiting for you 0 / In progress 3 / Done 0", listing only the 3 WPs whose tickets belong to that
+  project ("Review testcase API coverage" #62, "Fix the ready queue blocker..." #56, "Fix control-ticket cleanup
+  behavior" #40). The seed-data WP ("Ship the Dictio mobile app...", Project "—") was correctly absent —
+  project-scoped filtering works.
+
+- **TC-CRX-768** — PARTIAL / DEFERRED. No WP is currently at a gate (all are "In progress", no "Waiting for
+  approval" state). The Review button is documented to appear only when a WP is waiting at a gate, so the
+  permission scoping cannot be exercised until at least one WP reaches a gate. The global Approve permission
+  (`approve_crux_gates`) exists on this instance and is correctly available to admin. Full per-project scoping
+  test (a user with Approve in Project A but not B) deferred to a future run when WPs are at gates.
+
+- **TC-WP-14.3** (§14.3 of the Feature Reference — WP section on the issue, not originally numbered): PASS.
+  Issue #62 shows a "Work Package" section below the description: goal "Review testcase API coverage", type
+  "Software", status "In progress", stage chain (Clarify → … → Deliver, Clarify highlighted as NOW),
+  "LATEST UPDATE: No update yet", "APPROVALS: Next: your approval of the requirements", "Open in Crux →" link.
+  No Approve button present (read-only section, correct). Section was not present before wp-004 was created —
+  confirms it appears only when the ticket belongs to a WP.
+
+## Bugs found — 2026-11-12 pass
+
+- **TC-CRX-766 finding**: PM agent creates a `CREATE WORK PACKAGE` confirm card for ticket #99999 (which does
+  not exist) without any pre-confirmation ticket-existence check. Expected per the feature reference ("every
+  ticket must be visible to the person confirming"): refusal at proposal time if ticket is inaccessible/missing.
+  Whether server-side validation rejects the creation on Confirm (making this a UX gap only — late validation)
+  or silently creates a broken WP (making it a data-integrity bug) is unconfirmed — Confirm was cancelled.
+  Recommend developer clarification before filing formally.
+
+## Suite status
+
+Pass 1 (2026-11-05): 7 PASS, 1 PASS-partial, 9 deferred, 0 bugs filed.
+Pass 2 (2026-11-12): 5 more PASS (760, 762, 763, 765, 767), 1 partial/deferred (768), 1 finding needing
+  clarification (766), 2 still deferred (758, 764), 1 bonus PASS (§14.3 WP section on issue).
+Overall: 12 PASS / 1 PASS-partial / 1 finding (766 — severity TBD) / 3 deferred (758, 764, 768) / 0 formal bugs.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.

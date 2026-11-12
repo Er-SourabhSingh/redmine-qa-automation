@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-MCP-001
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #128136
 - Title: `get_testcase`/`update_testcase` MCP tools still don't expose a testcase's Step/Expected Result rows,
   even though the Testcase Management plugin's own REST API now supports them (BUG-TCM-138 follow-up)
 - Redmine version: 6.0-bookworm (local Docker instance, localhost:3015)

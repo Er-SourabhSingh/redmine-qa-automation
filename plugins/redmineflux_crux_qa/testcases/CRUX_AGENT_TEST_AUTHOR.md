@@ -10,6 +10,13 @@
 > **Status: EXECUTED 2026-11-04 — 2 clean PASS, 1 new bug (BUG-CRX-166), rest blocked/covered by BUG-CRX-164/166.**
 > Fixture: Issue E = #35 "Reviewer Fixture: Add SSO login" (3 AC), Issue F = #34 "Reviewer Fixture: Improve
 > dashboard loading speed" (no criteria) — reused from the Reviewer suite.
+>
+> **Re-verified 2026-11-12 (BUG-CRX-164 closed).** TC-628's create path is now genuinely reachable (a real
+> structured confirm card, not silent pytest-code substitution) — but found a NEW defect: **BUG-CRX-187**
+> (High) — all 4 successfully-created test cases landed in the wrong project ("Crux No Module Test" instead
+> of issue #35's own "Crux PM Agent Test Project"), plus a self-contradictory "Step N failed: Testcase
+> created" message on 2 of 6 steps. TC-630/632 remain deferred (now blocked only on a missing fixture, not on
+> "zero create path").
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Test Author agent)
@@ -120,14 +127,19 @@ not invent criteria.
 - Native-verify after confirming: the new testcase(s) genuinely exist in the suite via
   `redmineflux_testcases_management_list_testcases_in_suite` or the native UI.
 
-**Result: FAIL — executed 2026-11-04.** Asked "Please create those test cases for issue #35 as real test
-cases." No confirm card of any kind appeared — instead the agent silently produced a *second* batch of raw
-pytest code ("Four tests, four criteria covered... executable in pytest") without ever acknowledging that it
-cannot actually create real Testcase Management records here, or explaining the mismatch between what was
-asked (real test cases) and what was delivered (more code). This is a capability gap consistent with
-BUG-CRX-164 (no `create_testcase` tool registered on this instance), compounded by the same wrong-output-format
-issue as BUG-CRX-166 — not filed as a third separate bug, but worth noting the agent should have said "I can't
-create real testcase records here" rather than quietly substituting more code for the explicit request.
+**Result (2026-11-04): FAIL.** No confirm card of any kind appeared — the agent silently produced raw pytest
+code instead. Capability gap consistent with BUG-CRX-164 (no `create_testcase` tool registered).
+
+**Re-verified 2026-11-12 (BUG-CRX-164 closed) — PARTIAL PASS, found BUG-CRX-187 (High).** "Create test cases
+for issue #35." This time produced a genuine, real structured confirm card ("Plan / 6-step plan — Crux wants
+to make 6 changes. Nothing happens until you confirm.") with real `Testcases Management Create Testcase`
+steps, each with real step/expected data. Confirmed → "Created 4 of 6" (4 "✓ Testcase created" lines, 2
+confusing "Step N failed: Testcase created: ..." lines). Native-verified via Redmine search: all 4 successful
+testcases (e.g. #72, #75) were genuinely created as real records — **but in the wrong project**, "Crux No
+Module Test," not issue #35's own "Crux PM Agent Test Project." Filed as **BUG-CRX-187** (wrong-project
+resolution, same family as BUG-CRX-080/093/101/133/140, plus the self-contradictory "failed: ... created"
+message on 2 of 6 steps). The confirm-card mechanism itself is now genuinely sound (unlike BUG-CRX-186's
+finding on the Reviewer Agent) — this is a resolution-target defect, not a fabricated-confirm defect.
 
 ---
 
@@ -166,10 +178,12 @@ the module on a disposable fixture project for this TC only, then re-enabling it
   Management is installed/enabled for that project — it must **not** silently fall back to creating plain
   Redmine issues as a substitute (the manifest explicitly forbids this).
 
-**Result: SKIPPED — out of scope, per explicit user instruction 2026-11-04.** Write-path/tool-availability
-deep-dives are being deprioritized across this round (root cause already fully documented in BUG-CRX-164);
-this TC specifically would need a disposable module-disable cycle for marginal additional signal beyond what
-TC-CRX-628 already showed (no create path reachable at all, regardless of module state).
+**Result (2026-11-04): SKIPPED** — root cause was BUG-CRX-164 (no create path reachable at all).
+
+**Re-verified 2026-11-12:** BUG-CRX-164 is closed and TC-628 now shows a real create path IS reachable (see
+TC-628's updated result, BUG-CRX-187). Still DEFERRED this pass — would need a disposable module-disable
+cycle on a fixture project specifically for this TC's precondition, not built this pass. No longer blocked by
+"zero create path," just by a missing fixture.
 
 ---
 
@@ -205,8 +219,11 @@ the newly-generated cases (seed one manually first if needed).
 - The duplicate-check step (`list_testcases`) actually prevents proposing a second, near-identical case —
   the agent should flag the existing one instead of silently proposing a duplicate confirm card.
 
-**Result: SKIPPED — out of scope, per explicit user instruction 2026-11-04.** No create path is reachable at
-all (TC-CRX-628), so there is no confirm card to test for duplication in the first place.
+**Result (2026-11-04): SKIPPED** — no create path reachable at all (TC-CRX-628).
+
+**Re-verified 2026-11-12:** TC-628 now shows a real create path IS reachable. Still DEFERRED this pass —
+needs a real pre-existing testcase seeded in the target suite first, which wasn't set up this pass. No longer
+blocked by "zero create path," just by a missing fixture.
 
 ---
 

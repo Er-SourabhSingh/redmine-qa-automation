@@ -120,13 +120,22 @@ from the earlier "no PR/build tool available" gap (DevOps-specific), rather than
 - Resolves the project via `list_projects`, fuzzy-matching name/identifier per the manifest's standard
   "Finding the project" rule — no clarifying question needed when there's exactly one match.
 
-**Result: INCONCLUSIVE (tool-availability gap) — executed 2026-11-04.** Asked "Any code review needed in the
-Crux PM Agent Test Project?" — got the same generic no-tool refusal as TC-617/618 (*"I couldn't find a tool
-for this here..."*), with no project name echoed back either way. Consistent with BUG-CRX-164: this agent's
-live profile shows only 1 read tool (confirmed via Agent Fleet dialog), which appears to be `get_issue` only
-(demonstrated working in TC-619) — `list_projects` itself may not be registered, so a project-only query (no
-issue number) has nothing to resolve against. Not re-testable meaningfully until the tool registration gap is
-fixed; not filed as a separate bug (covered by BUG-CRX-164).
+**Result (2026-11-04): INCONCLUSIVE (tool-availability gap).** Asked "Any code review needed in the Crux PM
+Agent Test Project?" — got the same generic no-tool refusal as TC-617/618, with no project name echoed back.
+Consistent with BUG-CRX-164's tool-registration gap. Not filed as a separate bug.
+
+**Re-verified 2026-11-12 (BUG-CRX-164 closed) — still INCONCLUSIVE, confirmed NOT re-tested.** Re-asked via
+`@Code Reviewer any code review needed in the Crux PM Agent Test Project?` and got a tool-backed answer
+("Checked 1 thing": *"No open code review issues... I filtered by open status and the Code Review
+tracker..."*). Cross-checked the Run Ledger filtered to Agent = Code Reviewer immediately after: **all 9
+matching runs are still "8d ago"** (the original 2026-11-04 session) — my message never produced a new run
+for this agent at all. This confirms the `@Code Reviewer` mention did NOT actually route to Code Reviewer —
+some other agent (or Auto's generic fallback) answered instead, under the "Crux" label shown in the chat.
+Still genuinely untested whether Code Reviewer's own `list_projects`-equivalent resolution now works — this
+agent remains gated behind "Needs Redmineflux DevOps" (still not installed), which may also explain why
+direct addressing failed. Not filed as a bug (routing ambiguity, not a confirmed regression); deferred to a
+future pass with a confirmed-working way to reach this specific agent (e.g. its own dedicated chat link from
+the Agent Fleet page, verified via the Run Ledger immediately after sending).
 
 ---
 

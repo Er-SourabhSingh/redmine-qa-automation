@@ -111,8 +111,20 @@ BUG-CRX-164's platform-wide write-tool gap) — not filed separately.
   nothing saved until Confirm.
 - Native-verify after confirming: `/projects/<id>/wiki/<page>` genuinely shows the new/updated content.
 
-**Result: FAIL (capability gap, consistent with BUG-CRX-164) — observed during TC-635.** No real confirm card
-ever appeared — only prose labeled "Proposal." Not filed as a separate bug (same root cause as BUG-CRX-164).
+**Result (2026-11-04): FAIL (capability gap).** No real confirm card ever appeared — only prose labeled
+"Proposal." Consistent with BUG-CRX-164.
+
+**Re-verified 2026-11-12 (BUG-CRX-164 closed) — PASS on the core mechanism, found BUG-CRX-188 (Medium) along
+the way.** Re-asked "Docs Writer, write a wiki page explaining the new SSO login feature, from issue #35"
+then "Looks good, save it." This time a genuine, real `Core Create Or Update Wiki Page` confirm card appeared
+with real Confirm/Cancel buttons — the core TC-637 expectation now holds. However, the **first** confirm
+card's Project field showed a corrupted, nonexistent identifier (`crux-pm-agent-test`, confirmed 404
+natively) — confirming produced an honest failure (no misleading ✓), not a false success. Replying "That
+failed... please retry" produced a second confirm card with the correct Project — confirming succeeded, and
+`/projects/crux-pm-agent-test-project/wiki/SSO_Login` genuinely shows the saved page. Filed as BUG-CRX-188
+(same root-cause family as the closed BUG-CRX-140, new agent/trigger path). Also observed as a side note (not
+re-tested as its own TC): the draft content this time stayed grounded in what issue #35 actually states, with
+no SAML/OIDC/admin-path fabrication — BUG-CRX-167 (TC-635) appears fixed too, worth a dedicated re-check.
 
 ---
 

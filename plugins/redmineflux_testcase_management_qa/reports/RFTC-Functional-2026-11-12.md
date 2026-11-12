@@ -44,7 +44,7 @@
 | RFTC045-21 | Run Edit user (admin) sees Reassign bulk button | **PASS** | "Reassign" button visible after TC selection for admin |
 | RFTC045-22 | Run Edit user (admin) can open/use Reassign modal | **PASS** | Modal opened with "Reassign to" dropdown; "Results and history are not changed" |
 | RFTC045-23 | Non-Run-Edit user (Developer) has no Reassign controls | **PASS** | daisy.skye saw only "Bulk Update Result", not "Reassign" |
-| RFTC045-24 | Server-side enforcement (direct HTTP request blocked) | **NOT TESTED** | Requires HTTP-level testing with daisy.skye session cookie |
+| RFTC045-24 | Server-side enforcement (direct HTTP request blocked) | **PASS** | `PUT /reassign_testcases` as daisy.skye → 403 `{"error":"Unauthorized access"}`; `before_action :rftc_authorize_run_reassign` confirmed in source |
 | RFTC045-25 | Permission change takes effect on page reload | **NOT TESTED** | Requires concurrent sessions |
 | RFTC045-26 | Assignee filter on TC table | **PASS** | "Assignee" in Add filter dropdown; filter applied, TC list updated |
 | RFTC045-27 | "My test cases" filter shows only own TCs | **PASS** | Admin (0 TCs) → "No data to display"; filter URL `?my_cases=1` works |
@@ -56,7 +56,7 @@
 | RFTC045-33 | CSV export assignee columns (if export exists) | **NOT TESTED** | No CSV export found in Run TC table |
 | RFTC045-34 | Removing TC from one Run doesn't affect other Runs | **NOT TESTED** | Requires multi-run setup |
 
-**Summary:** Total executed — **22 PASS / 0 FAIL / 0 BLOCKED / 12 NOT TESTED** (of 34)
+**Summary:** Total executed — **23 PASS / 0 FAIL / 0 BLOCKED / 11 NOT TESTED** (of 34)
 
 ---
 
@@ -73,7 +73,7 @@ The 7.4.0 per-run assignee feature passed all executed test cases with no failur
 ## Notes / Findings
 
 - **Feature is working as designed.** The per-run, per-TC assignee is independently stored from the global issue Assignee field. Auto-populate on run creation, inline and bulk reassignment, and the assignee filter all work correctly.
-- **Permission gate is UI-enforced.** `daisy.skye` (Developer role, `edit_run: false`) correctly sees no "Reassign" button. Server-side enforcement (RFTC045-24) was **not tested** — this is the highest-priority remaining case as a UI-only gate without backend enforcement would be a security gap.
+- **Permission gate is both UI and server-side enforced.** `daisy.skye` (Developer role, `edit_run: false`) correctly sees no "Reassign" button in the UI (RFTC045-23 PASS). Direct `PUT /projects/rftc-016-ci-qa/runs/43/reassign_testcases` bypassing the UI returns `403 {"error":"Unauthorized access"}` (RFTC045-24 PASS). The `before_action :rftc_authorize_run_reassign` guard calls `rftc_require_permission!(:edit_run, @project)` server-side. The feature has genuine backend enforcement, not UI-only restriction.
 - **XSS note:** TC #320 has subject `<img src=x onerror=alert(1)>` as a pre-existing security test fixture. It renders as plain text in the Run TC table — no XSS execution observed.
 - **BUG-TCM-139 retest:** Retested this session after `docker restart`. Still **NOT FIXED** — `GET /knowlegebase_pages_testcase/2?project_id=4` still leaks Project B's name in the 404 page title/nav to a non-member. The `ae2c665` commit on master doesn't appear to cover this specific controller action.
 - **12 NOT TESTED cases:** Deferred due to test environment constraints (single-environment run, run size, session tooling). Priority order for next session: RFTC045-24 (server-side enforcement, security-critical), RFTC045-6/7 (multi-env design), RFTC045-29 (combined filters).

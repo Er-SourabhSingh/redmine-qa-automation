@@ -15,8 +15,8 @@
 >
 > **Execution status: PARTIALLY EXECUTED (2026-11-12).** Feature set shipped in Release 7.4.0 on `master`.
 > Executed against Run #43 ("RFTC045 Assignee Feature Test Run") on project `rftc-016-ci-qa`, Chrome
-> environment, localhost:3000 (Redmine 6.0.11, Docker). 20 of 34 cases PASS. 14 cases NOT TESTED this session
-> (require multi-environment run setup, 100+ TCs, or server-side HTTP enforcement tooling). See
+> environment, localhost:3000 (Redmine 6.0.11, Docker). 23 of 34 cases PASS. 11 cases NOT TESTED (require
+> multi-environment run setup, 100+ TCs, or concurrent sessions). See
 > `reports/RFTC-Functional-2026-11-12.md` for the full run report.
 >
 > **A note on scope for the client deliverable**: this file is being handed to the client (Nathan Coombs) as
@@ -356,7 +356,7 @@ bypassing the hidden/disabled UI entirely.
 **Expected Result:** Request is rejected (403/redirect with no effect) — the assignee is not changed. This
 is the critical case: a UI-only restriction without server-side enforcement would be a security gap, not
 just a missing feature.
-**Result (2026-11-12):** NOT TESTED — requires direct HTTP request with daisy.skye's session cookie, bypassing the UI. Deferred (high priority for next session).
+**Result (2026-11-12):** PASS — `PUT /projects/rftc-016-ci-qa/runs/43/reassign_testcases` as daisy.skye (Developer, no `edit_run`) returns `403 {"error": "Unauthorized access"}`. Server-side gate confirmed: `before_action :rftc_authorize_run_reassign` calls `rftc_require_permission!(:edit_run, @project)` before executing the action (runs_controller.rb:30, 1664–1666). The inline `PUT /update_assignee` route (testcases#update_assignee) is a dead/unimplemented route — returns 404, cannot be exploited. Permission enforcement is genuine server-side, not UI-only. Run #43, Chrome, localhost:3000, 2026-11-12.
 
 ---
 

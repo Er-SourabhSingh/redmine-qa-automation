@@ -162,22 +162,41 @@ Fixtures: used the real 26-agent roster live in this environment, plus one dispo
   agents).
 - **TC-CRX-831** — PASS, fully confirmed. Re-submitted the same id with a changed Name — agent count stayed at
   27 (not 28), and the card showed the new name — genuine update-in-place, not a duplicate.
-- **TC-CRX-832 / TC-CRX-836 / TC-CRX-843 / TC-CRX-844** — NOT INDEPENDENTLY VERIFIED (Upload Agent's valid-file,
-  multi-error, non-.md-rejection, and bad-allowed_tools-rejection cases all need prepared `.md` fixture files not
-  created this pass). Deferred.
+- **TC-CRX-832** — PASS, fully confirmed (2026-11-12). Pasted a valid frontmatter+body into Upload Agent's
+  "Raw content" field (no actual file needed — content loads the same way) — "✓ "QA Upload Test Agent"
+  uploaded." (26→27 agents), appeared as a Custom agent with Skills: testing and a working Chat link.
+  Retired afterward to leave the environment clean.
+- **TC-CRX-836** — PASS (partial — 2 of 3 expected errors shown together). Uploaded content combining a bad
+  `allowed_tools` entry AND a >5000-char body (5116 chars) — both errors listed together under "Fix these and
+  upload again:" (*"'allowed_tools' names a tool that doesn't exist..."* + *"The prompt is 5116 characters
+  long. The limit is 5000..."*). The third intended error (a built-in agent's id) was NOT included in this
+  same submission — isolating it separately revealed it's not actually rejected at all (see TC-837 below,
+  **BUG-CRX-189**), so this TC's "all 3 errors together" scenario is moot until that's fixed; the 2 errors that
+  ARE genuinely validated do show together correctly.
+- **TC-CRX-843** — NOT INDEPENDENTLY VERIFIED this pass (non-.md-file and no-frontmatter rejection specifically
+  still need a real file-upload repro via the "Definition file" tab, not the "Raw content" paste path used for
+  the other TCs this pass). Deferred.
+- **TC-CRX-844** — PASS, fully confirmed (2026-11-12). Uploaded valid frontmatter with
+  `allowed_tools: [redmineflux_totally_nonexistent_tool_xyz]` — clear, specific rejection: *"⚠ 'allowed_tools'
+  names a tool that doesn't exist: 'redmineflux_totally_nonexistent_tool_xyz'."* No agent created.
 - **TC-CRX-833 / TC-CRX-834** — NOT INDEPENDENTLY VERIFIED (monthly-cap-stops-queue-work and
   max-concurrent-limiting both need queue-claim fixtures not set up this pass). Deferred.
 - **TC-CRX-835** — PASS, fully confirmed. Submitting with an empty Capabilities field produced the native
   "Please fill out this field" browser validation; after filling it, submitting with an invalid Id
   ("Invalid ID!") produced a specific, field-attached message: "⚠ Use lowercase letters, numbers and dashes for
   the agent ID, for example support-helper." — not a generic failure.
-- **TC-CRX-837** — **FAIL — BUG-CRX-177 filed (Critical).** Submitted + New Agent with Id=`reviewer` (the real
-  bundled Reviewer agent's id), Name="Fake Reviewer", Capabilities="fake" — it was NOT refused. The submission
-  succeeded with a success toast, and the real bundled Reviewer agent's Name and Capabilities were silently
-  overwritten in place (confirmed via the Chat link still pointing to `/crux/ask?agent=reviewer` and its 16
-  historical runs being preserved — genuinely the same agent record, not a new one). Immediately reverted the
-  damage in-session (restored Name="Reviewer", Capabilities="review") to leave the environment clean. Filed as
-  BUG-CRX-177, not yet reported to production.
+- **TC-CRX-837** — **FAIL (2026-11-05) — BUG-CRX-177 filed (Critical), later closed/fixed** via the "+ New
+  Agent" form path (retested 2026-11-11 against id=`test-author`, correctly refused).
+
+  **Re-verified 2026-11-12 — FAIL again via the OTHER entry point. Filed BUG-CRX-189 (Critical).** Tested the
+  Upload Agent dialog specifically (not "+ New Agent", which IS now fixed) with `id: reviewer`,
+  `name: Fake Reviewer Clone`, `capabilities: [testing]` — **NOT refused**. "✓ "Fake Reviewer Clone" uploaded."
+  — the real bundled Reviewer agent was overwritten again in place (Name, Capabilities, and Type all changed;
+  Chat link still `/url: /crux/ask?agent=reviewer`, agent count stayed at 27). BUG-CRX-177's fix was verified
+  only through "+ New Agent" and never retested via Upload Agent, which shares the same unguarded
+  update-in-place write path. Immediately reverted the damage in-session (restored Name, Capabilities, and the
+  real 5-tool `allowed_tools` list, confirmed via the Agent profile: "Reads: 4 tools / Changes: 1 change").
+  Filed as BUG-CRX-189.
 - **TC-CRX-838** — NOT INDEPENDENTLY VERIFIED this pass (would need a dedicated non-manager user fixture;
   deferred — the inverse case, all 5 Crux permissions including Manage Crux agents, was already exercised in the
   Permissions suite).
@@ -195,11 +214,25 @@ Fixtures: used the real 26-agent roster live in this environment, plus one dispo
   above as part of TC-821/TC-816); 846/847 NOT INDEPENDENTLY VERIFIED this pass (cross-referencing exact spend
   figures against Run Ledger totals, and a live plugin-install flag-update, were not exercised). Deferred.
 
-**Suite result: 19 PASS (including the 1 found bug's own confirming TC), 1 FAIL/bug filed (BUG-CRX-177 —
-Critical), 15 not independently verified this pass due to missing fixture files (.md uploads), queue-claim
-setups, or additional user fixtures.**
+**Suite result (2026-11-05 pass): 19 PASS, 1 FAIL/bug filed (BUG-CRX-177 — Critical, later closed/fixed), 15
+deferred.**
+
+## Execution — 2026-11-12 (deferred TC completion + BUG-CRX-177 regression re-check)
+
+- **TC-CRX-832, TC-CRX-844** — PASS.
+- **TC-CRX-836** — PASS (partial — see note above, blocked from full 3-error confirmation by BUG-CRX-189).
+- **TC-CRX-843** — still deferred (needs an actual file-upload repro, not the raw-content-paste path).
+- **TC-CRX-837** — regression-checked specifically because BUG-CRX-177's fix verification only covered one of
+  two entry points. **Found still-vulnerable via Upload Agent — filed BUG-CRX-189 (Critical).**
+
+**Pass 2 result: 3 more PASS (832, 836-partial, 844), 1 still deferred (843), 1 new Critical bug found
+(BUG-CRX-189 — same root cause as the closed BUG-CRX-177, uncovered entry point). Environment cleaned up:
+Reviewer agent restored (Name, Capabilities, 5-tool allowed_tools), disposable QA Upload Test Agent retired.**
 
 ## Suite status
 
-Executed 2026-11-05 — 19 PASS, 1 Critical bug found (BUG-CRX-177), 15 deferred.
+Pass 1 (2026-11-05): 19 PASS, 1 Critical bug found (BUG-CRX-177, since closed/fixed), 15 deferred.
+Pass 2 (2026-11-12): 3 more PASS, 1 Critical bug found (BUG-CRX-189), 14 still deferred (843 + the 13 from
+  pass 1 not revisited this round: 828, 833, 834, 838, 839, 845-850 partial).
+Overall: 22 PASS / 2 Critical bugs found (1 fixed, 1 open) / 14 deferred.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

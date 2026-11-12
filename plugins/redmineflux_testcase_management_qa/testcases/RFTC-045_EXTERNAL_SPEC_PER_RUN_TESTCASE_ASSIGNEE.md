@@ -15,8 +15,8 @@
 >
 > **Execution status: PARTIALLY EXECUTED (2026-11-12).** Feature set shipped in Release 7.4.0 on `master`.
 > Executed against Run #43 ("RFTC045 Assignee Feature Test Run") on project `rftc-016-ci-qa`, Chrome
-> environment, localhost:3000 (Redmine 6.0.11, Docker). 23 of 34 cases PASS. 11 cases NOT TESTED (require
-> multi-environment run setup, 100+ TCs, or concurrent sessions). See
+> environment, localhost:3000 (Redmine 6.0.11, Docker). 25 of 34 cases PASS. 9 cases NOT TESTED (require
+> 100+ TCs, concurrent sessions, or other deferred setup). See
 > `reports/RFTC-Functional-2026-11-12.md` for the full run report.
 >
 > **A note on scope for the client deliverable**: this file is being handed to the client (Nathan Coombs) as
@@ -139,7 +139,7 @@ the Test Case regardless of environment). **Either is a legitimate implementatio
 text** — this case exists to confirm which one shipped and flag it to the client/dev if it's (b), since the
 client's stated need ("har environment har testcase alag assignee" — a different assignee per test case,
 per environment) implies (a).
-**Result (2026-11-12):** NOT TESTED — requires a Run spanning 2+ environments. Run #43 uses only Chrome. Deferred.
+**Result (2026-11-12):** PASS — Behavior (b) confirmed: per-run TC assignee is **one shared value per (Run, TC) across all environments**. Run #44 "RFTC045-6 Multi-Env Assignee Test Run" created with Chrome → Daisy Skye (env-level) + Edge → Autumn Grace (env-level), global `assignee_id=6` (Daisy Skye) at run creation. Chrome tab: Run summary "Assignee: Daisy Skye", all 52 TCs show "Daisy Skye". Edge tab: Run summary "Assignee: Autumn Grace" (env-level changes correctly), but all 52 TCs still show "Daisy Skye" (per-TC field is shared). Screenshots: `screenshots/RFTC045/rftc045-6-edge-env-assignee-autumn-grace.png`, `rftc045-6-edge-tc-assignee-daisy-skye.png`. localhost:3000, 2026-11-12.
 
 ---
 
@@ -150,7 +150,7 @@ per environment) implies (a).
 **Expected Result:** File this as a scope gap against the client's original need (per-test-case,
 per-environment assignment), not as a bug against the tickets as literally written — the tickets' own text
 doesn't commit to per-environment granularity, so this is a clarification item, not a defect.
-**Result (2026-11-12):** NOT TESTED — depends on RFTC045-6 outcome (which was also NOT TESTED).
+**Result (2026-11-12):** PASS (gap documented, not filed as bug) — RFTC045-6 confirmed behavior (b). The implemented model is one-per-(Run, TC) shared across environments, consistent with the ticket text ("one-per-(Run, Test Case)"). The client's original stated need ("har environment har testcase alag assignee") would require per-environment granularity, which the current build does not provide. Documented here as a clarification item for the client/dev team, not a defect against the written tickets. No separate bug filed.
 
 ---
 

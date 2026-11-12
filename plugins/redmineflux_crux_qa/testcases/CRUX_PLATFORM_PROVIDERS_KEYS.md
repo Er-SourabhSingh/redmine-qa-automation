@@ -87,14 +87,29 @@ disposable custom provider (`qa-disposable-provider`) to exercise create/insecur
   the Add Provider Kind dropdown — visible but unselectable.
 - **TC-CRX-876** — PASS, fully confirmed. Keys table shows all 8 documented columns with real data: "OpenRouter
   prod", "openrouter", "****ede5", "default", "admin", "2026-10-26", a Balance button, Delete action.
-- **TC-CRX-877 / TC-CRX-880 / TC-CRX-883** — NOT INDEPENDENTLY VERIFIED this pass (Add Key's field-wipe-after-
-  submit, default-switching, and wipe-after-failure were not exercised — adding a second real/working key felt
-  unnecessarily risky to this environment's live billing setup for a one-off verification). Deferred.
+- **TC-CRX-877** — PASS, fully confirmed (2026-11-12). Added a dummy key ("QA Dummy Anthropic Key 1",
+  `sk-ant-dummy-qa-test-key-11111`) to the Anthropic provider (deliberately NOT OpenRouter, to avoid touching
+  this environment's one real working key/billing). Created successfully, masked as `****1111`, Default badge
+  set. Re-opened the Add Key dialog afterward: both Label and Key fields were genuinely blank, confirming the
+  field-wipe-after-submit behavior.
+- **TC-CRX-880** — PASS, fully confirmed (2026-11-12). Added a second dummy Anthropic key ("QA Dummy Anthropic
+  Key 2," not set default at creation) — table correctly showed a "Set as default" button on it instead of a
+  badge. Clicked it: Key 2 now shows "default", Key 1's cell correctly switched to a "Set as default" button —
+  the badge genuinely moved between keys on the same provider.
+- **TC-CRX-883** — PASS, fully confirmed (2026-11-12). Triggered a genuine server-side failure (not just a
+  client-side required-field block) by injecting a nonexistent provider value into the Provider select via
+  direct DOM manipulation, then submitting with Key filled — got a real error: *"⚠ The provider
+  'nonexistent-provider-xyz' isn't set up yet... For safety the key was cleared, so paste it again."* The Key
+  field was genuinely empty immediately after, while Label retained its value — exactly matching the
+  documented "wiped right after submit... applies to failures too" behavior. Cleaned up: both dummy Anthropic
+  keys deleted afterward; environment restored to only the original "OpenRouter prod" default key.
 - **TC-CRX-878** — PASS, fully confirmed. Balance lookup for the real OpenRouter key showed "Available to Crux
   now $3.52", "OpenRouter account $17.87 left of $125.00", "Daily limit on this key $3.52 left of $5.00", and a
   "Spent with this key" section with Today/This week/This month/All time tabs.
-- **TC-CRX-879** — NOT INDEPENDENTLY VERIFIED (no non-OpenRouter key exists in this environment to click Balance
-  on). Deferred.
+- **TC-CRX-879** — PASS, fully confirmed (2026-11-12). Clicked "Check remaining credit" on the dummy Anthropic
+  key (non-OpenRouter) — got a plain informational message: *"balance unavailable — not an OpenRouter key, or
+  the check failed"* — not a live balance lookup, confirming the TC's expectation that the live lookup is
+  OpenRouter-specific.
 - **TC-CRX-881** — PASS (via a no-key variant rather than invalid-key). Test connection on Anthropic (no key
   configured) returned a clean, honest message: "Crux isn't connected to an AI model yet. Add an API key for a
   provider such as OpenRouter, then try again." — not a crash or silent success. An actually-invalid (garbage)
@@ -118,12 +133,25 @@ disposable custom provider (`qa-disposable-provider`) to exercise create/insecur
   provider's stored default key — it may spend a fraction of a cent on providers without a models endpoint.")
   confirms the UI never claims Test connection is always free.
 
-**Suite result: 12 PASS fully confirmed (870, 871, 872, 874, 875, 876, 878, 881, 885, 886, 887, and 882's dialog
-text), 2 partial PASS (873, 884 — core confirmed, full field-level detail deferred), 4 not independently
-verified (877, 879, 880, 883) due to not wanting to risk this environment's one real working AI key. No new bugs
-found.**
+**Suite result (2026-11-05 pass): 12 PASS fully confirmed, 2 partial PASS (873, 884), 4 deferred (877, 879, 880,
+883) due to not wanting to risk this environment's one real working AI key.**
+
+## Execution — 2026-11-12 (deferred TC completion pass)
+
+Completed all 4 previously-deferred TCs safely, using disposable dummy keys on the Anthropic provider (which
+has zero real key/billing exposure in this environment) instead of touching the real OpenRouter key.
+
+- **TC-CRX-877** — PASS (field-wipe-after-submit confirmed).
+- **TC-CRX-879** — PASS (non-OpenRouter balance shows plain informational message).
+- **TC-CRX-880** — PASS (default badge genuinely switches between two keys on the same provider).
+- **TC-CRX-883** — PASS (genuine server-side failure correctly wipes the Key field, Label retained).
+
+**Pass 2 result: 4 more PASS, 0 bugs found. Environment cleaned up — both dummy keys deleted, only the
+original "OpenRouter prod" default key remains, untouched throughout.**
 
 ## Suite status
 
-Executed 2026-11-05 — 12 PASS, 2 partial, 4 deferred, 0 bugs found.
+Pass 1 (2026-11-05): 12 PASS, 2 partial, 4 deferred, 0 bugs found.
+Pass 2 (2026-11-12): 4 more PASS (877, 879, 880, 883), 0 bugs found.
+Overall: 16 PASS / 2 partial / 0 deferred / 0 bugs. Environment clean.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8.

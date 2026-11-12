@@ -319,7 +319,22 @@ disclose the partial result honestly (project created, task NOT created, here's 
 all done" success claim when only part of the request actually went through (the already-documented
 misleading-success-on-partial-failure class, BUG-CRX-073/086 shape).
 
-**Result: Not yet executed.**
+**Result: FAIL — found BUG-CRX-185 (2026-11-12), via a different mechanism than originally hypothesized.**
+"Create a project called 'Crux Project Setup Test I' with one starter task: 'Set up initial repo' in the
+'NonexistentTrackerABC' tracker." The agent did NOT silently propose a doomed-to-fail task — it proactively
+called a tracker check, found the tracker didn't exist, and asked for clarification (genuinely more careful
+than this TC's precondition assumed). Pushed back explicitly ("go ahead and propose it exactly as
+'NonexistentTrackerABC' anyway") — the agent again correctly refused, explaining Redmineflux would reject the
+call, and offered two ways forward including "Use tracker_id 0 (the project's default tracker) for the
+starter task." Replying "Use tracker_id 0" produced a confirm card for the **project only** — no task field
+at all. Confirmed → "✓ Created project crux-project-setup-test-i" with **zero mention of the task**.
+Native-verified on `/projects/crux-project-setup-test-i/issues`: 0 issues exist — "Set up initial repo" was
+never created, and never disclosed as not-created. The originally-feared "misleading ✓ on partial failure"
+shape (BUG-CRX-073/086 class) did not occur — the agent's proactive validation makes that specific shape
+structurally unreachable here — but the task was still silently dropped with no disclosure whatsoever once an
+explicit path forward (tracker_id 0) had been agreed. This is the same silent-bundled-action-drop mechanism as
+the closed/fixed BUG-CRX-110 (team-member request), recurring on a trigger path (starter task) that bug's fix
+verification never covered. Filed as a new bug, BUG-CRX-185.
 
 ---
 
@@ -508,8 +523,9 @@ denial. Filed as **BUG-CRX-113**.
   BUG-CRX-114, reproduced 4/4 attempts), 434 (BLOCKED by BUG-CRX-114), 435 (PASS for holders / FAIL for
   non-holder, see 437/112), 436 (PASS), 437 (FAIL → BUG-CRX-112), 438 (step 1 PASS, step 2 FAIL →
   BUG-CRX-113).
-- **Not yet executed (1 of 18):** TC-CRX-431 (partial-failure disclosure during task scaffolding) —
-  deferred, lower priority given the severity of what's already found.
+- **Executed 2026-11-12 (the 18th and final TC):** TC-CRX-431 — FAIL, found **BUG-CRX-185** (a new recurrence
+  of BUG-CRX-110's silent-bundled-action-drop mechanism, this time on starter-task creation rather than
+  team-member assignment — BUG-CRX-110 itself is closed/fixed, but only for the team-member trigger path).
 - **The two original source-level hypotheses were each partially confirmed and partially overturned:**
   1. "No `create_project_membership` tool" was **WRONG** — the agent demonstrably has and successfully uses
      this tool (TC-CRX-425). The REAL bug is that it silently drops the exact same request when bundled

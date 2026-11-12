@@ -97,8 +97,11 @@ partial-grant checks.
 - **TC-CRX-711** — PASS. With only View Crux dashboard granted (`daisy.skye`), all 6 global pages (`/crux`,
   `/crux/work_packages`, `/crux/queue`, `/crux/runs`, `/crux/agents`, `/crux/pipelines`) plus the project Crux
   tab all loaded without a 403.
-- **TC-CRX-712** — NOT INDEPENDENTLY VERIFIED this pass (bubble/wand/WP-section visual checks not repeated here
-  — already confirmed functionally correct for `daisy.skye` with `use_ask_crux` in earlier rounds this cycle).
+- **TC-CRX-712** — PASS, fully confirmed (2026-11-12). Logged in live as `daisy.skye` (holds `use_ask_crux`).
+  All 4 surfaces confirmed in one session: `/crux/ask` loaded with no 403; on issue #40 (a member project,
+  ticket belonging to wp-003) the floating "Ask Crux" bubble button was present; the "Improve with Crux" wand
+  link was present on the issue toolbar; and the read-only Work Package section ("wp-002" / wp-003's goal, with
+  "Open in Crux →") appeared on the issue page.
 - **TC-CRX-713** — NOT INDEPENDENTLY VERIFIED. No pending Work Package gate fixture was available to exercise
   the Review/Approve button state this pass. Deferred.
 - **TC-CRX-714** — PASS (core). With Manage Crux agents granted, `/crux/agents` showed both "+ New Agent" and
@@ -150,11 +153,27 @@ message wording) — these were incidentally observed as correct throughout this
 (e.g. "CRUXCRUX" header consistently seen; non-admin 403s correctly distinct from admin behavior) but not
 individually isolated as their own checks.
 
-**Suite result: 9 PASS fully confirmed (711, 717, 718, 720, 721, 722, 723, 724, 726), 2 PASS on their core/
-positive half with a sub-case deferred (714, 715, 725), 4 not independently verified this pass (712, 713, 716,
-719) due to missing gate/project fixtures. No new bugs found.**
+**Suite result (2026-11-05 pass): 9 PASS fully confirmed, 3 partial (714, 715, 725), 4 deferred (712, 713, 716,
+719).**
+
+## Execution — 2026-11-12 (deferred TC completion pass)
+
+- **TC-CRX-712** — PASS, fully confirmed.
+- **TC-CRX-713** — still NOT INDEPENDENTLY VERIFIED. Requires a Work Package genuinely waiting at an approval
+  gate so the Dashboard's "Review" button and the Gate approval modal's Approve button can be exercised — no
+  WP in this environment has ever reached that state (same root cause as Work Packages suite's TC-768/CRUX_
+  PLATFORM_FROZEN_RULES's TC-929-931: the local agent-claim mechanism needed to advance a WP to a gate is
+  blocked by an MCP/production-instance mismatch in this session). Deferred until that's resolved.
+- **TC-CRX-716 / TC-CRX-719** — still NOT INDEPENDENTLY VERIFIED this pass, same reason (both need a WP at an
+  approval gate — 716 for per-project scoping, 719 for the admin-bypass check).
+
+**Pass 2 result: 1 more PASS (712), 0 bugs found. 713/716/719 remain blocked on the gate-state root cause,
+not time/effort.**
 
 ## Suite status
 
-Executed 2026-11-05 — 9 fully PASS, 3 partially PASS, 4 deferred, 0 bugs found.
+Pass 1 (2026-11-05): 9 PASS, 3 partial, 4 deferred, 0 bugs found.
+Pass 2 (2026-11-12): 1 more PASS (712); 713/716/719 still deferred (gate-state blocker, tracked against the
+  same root cause as Work Packages TC-768).
+Overall: 10 PASS / 3 partial / 3 deferred (713, 716, 719) / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.

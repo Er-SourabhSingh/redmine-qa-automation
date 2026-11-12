@@ -70,8 +70,13 @@ fixtures needed.
   rows (combined correctly with the Component filter active at the time).
 - **TC-CRX-944** — PASS. Changing Limit 200→50 changed the total fetched from 200 to 50 (confirmed via the
   pager's own "(N total)" text).
-- **TC-CRX-945** — NOT INDEPENDENTLY VERIFIED. Did not test the tab-visibility pause/resume behavior of
-  auto-refresh this pass — would need a background/foreground tab-switch simulation; deferred.
+- **TC-CRX-945** — PASS, fully confirmed (2026-11-12). Enabled auto-refresh, installed a `fetch` call counter
+  via the console. While genuinely visible, 5 fetch calls occurred in 12 seconds (actively polling). Simulated
+  the tab going hidden (`document.hidden`/`visibilityState` overridden + a real `visibilitychange` event
+  dispatched — the same signal a real tab-switch fires) and reset the counter: **0 fetch calls over the next
+  12 seconds** — confirms auto-refresh genuinely pauses while hidden, not just visually idle. Restored
+  `visible` the same way: **2 fetch calls resumed within 8 seconds** — confirms it also resumes correctly on
+  return, not left permanently paused.
 - **TC-CRX-946** — PASS. The "act: 60a8aeb5adba ✕" chip appeared the moment the Act-link filter applied, and
   clicking ✕ cleared only the Activity id field (Component filter stayed intact), restoring the multi-row view.
 - **TC-CRX-947** — PASS. All 7 columns (#, Time, Level, Component, Act, Ses/run, Message) populate correctly;
@@ -92,10 +97,21 @@ fixtures needed.
 - **TC-CRX-953** — PASS. Navigated to page 2 of the unfiltered 200-row set, then changed Component to
   `core.askcrux.chat` — correctly reset to "Page 1 of 2 (50 total)".
 
-**Suite result: 12 PASS, 1 PARTIAL (939's ERROR-inclusion half unconfirmed), 2 not independently verified (945
-auto-refresh pause, 949 restart-clears-buffer) due to session/environment constraints. No new bugs found.**
+**Suite result (2026-11-05 pass): 12 PASS, 1 PARTIAL (939), 2 deferred (945, 949).**
+
+## Execution — 2026-11-12 (deferred TC completion pass)
+
+- **TC-CRX-945** — PASS, fully confirmed (tab-hidden pause + resume both verified via a real fetch-call
+  counter and genuine `visibilitychange` events).
+- **TC-CRX-949** — still NOT INDEPENDENTLY VERIFIED (restarting crux-core remains too disruptive for a shared
+  QA environment with other suites/sessions potentially depending on it mid-cycle; the footer text's own
+  accuracy was already confirmed in the 2026-11-05 pass).
+
+**Pass 2 result: 1 more PASS (945), 0 bugs found.**
 
 ## Suite status
 
-Executed 2026-11-05 — 12 PASS, 1 partial, 2 deferred, 0 bugs found.
+Pass 1 (2026-11-05): 12 PASS, 1 partial, 2 deferred, 0 bugs found.
+Pass 2 (2026-11-12): 1 more PASS (945), 949 still deferred (disruptive restart).
+Overall: 13 PASS / 1 partial / 1 deferred (949) / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §11.

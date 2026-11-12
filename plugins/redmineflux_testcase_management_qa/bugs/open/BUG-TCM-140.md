@@ -56,7 +56,8 @@ end
   1. The Add Run form allows setting different assignees per environment, implying per-environment TC assignment — but only the first env's assignee actually populates TC rows.
   2. Switching between Chrome and Edge tabs shows the same TC assignees, even though each env's summary header correctly shows its own env-level assignee.
 - **Client's requirement unmet:** "har environment har testcase alag assignee" requires per-(Run, TC, Environment) assignment. The current data model and business logic only support per-(Run, TC) assignment shared across all environments.
-- **Fix scope:** Requires both a data model change (`run_issues` or `issue_status_results` needs an env-scoped assignee column) and UI/logic changes to `apply_default_case_assignee`, the reassign endpoint, and the TC table rendering.
+- **Confirmed in scope (2026-11-12):** Per-environment TC assignment is a confirmed in-scope requirement. This is a real functional bug, not a design gap or enhancement request.
+- **Fix scope:** Requires both a data model change (`run_issues` or `issue_status_results` needs an env-scoped assignee column) and UI/logic changes to `apply_default_case_assignee`, the reassign endpoint, and the TC table rendering per active environment tab.
 - Found during RFTC045-6 (multi-env design check), Run #44, project `rftc-016-ci-qa`.
 
 ## Evidence

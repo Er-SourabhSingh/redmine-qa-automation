@@ -56,7 +56,10 @@ So `params[:assignee_id]` on Edit Run goes through line 571 (a direct model assi
 
 - **Misleading UX:** The Edit Run form's assignee field looks like it will update TC-level defaults (consistent with Add Run), but it has no effect on the per-TC Assignee column.
 - **No feedback to user:** The form submits successfully with no error or warning that TC-level assignees were not changed.
-- **Fix scope:** Either (a) trigger `apply_default_case_assignee`-equivalent logic on update (updating RunIssue records where `assignee_id` matches the previous default), or (b) remove the `assignee_id` field from Edit Run form and document that per-TC reassignment must be done via the inline/bulk Reassign controls. Option (b) is safer (avoids unintended mass-reassign on edit) but requires UI guidance.
+- **Silent overwrite risk:** If a user opens Edit Run and accidentally changes the assignee field, they expect all TC assignees to update — but nothing happens. Conversely, if the field were made to work (cascade to RunIssue records), it would silently overwrite any manual inline/bulk reassignments already done inside the run.
+- **Recommended fix:** Remove the `assignee_id` field from the Edit Run form entirely.
+  - Reason: Bulk reassignment (available inside the run) is the correct and already-implemented tool for TC-level assignment. The Edit Run form has no safe behavior for this field — either it does nothing (current, misleading) or it mass-overwrites existing TC assignments (destructive).
+  - Add Run can keep the field as a creation-time default, but only if it correctly cascades per-environment (see BUG-TCM-140).
 - Severity: Medium — data integrity is not at risk, but users will be confused when Edit Run appears to have no effect on TC assignments.
 
 ## Evidence

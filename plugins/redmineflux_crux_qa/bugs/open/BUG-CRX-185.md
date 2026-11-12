@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-185
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128274 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #126598 (CRUX_AGENT_PROJECT_SETUP), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Project Setup Agent silently drops an explicitly-agreed starter task when combined with project creation — no disclosure, no confirm-card field, no follow-up mention
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Setup Agent)

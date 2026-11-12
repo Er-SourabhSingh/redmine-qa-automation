@@ -27,10 +27,12 @@
 | TC-CRX-866 | Pipelines | PASS | Missing gate before last stage rejected with specific error |
 | TC-CRX-867 | Pipelines | PARTIAL | Delete dialog pre-states "can't delete if WP created from it"; server rejection unconfirmed (no custom-pipeline WP fixture) |
 
-**Summary:** 13 PASS / 2 PARTIAL / 1 FINDING / 2 DEFERRED / 0 FAIL / 0 formal bugs filed
+| TC-CRX-808 | Project Tab (Graph) | PASS | "No Crux activity in this project yet, so the graph is empty." confirmed on fresh project |
+| TC-CRX-809 | Project Tab (Graph) | PASS | "No graph yet. Issues, work packages, approvals and agent runs in this project build it." — second distinct message in canvas area confirmed |
 
-Deferred this session: TC-808/809 (zero-activity graph banner — project creation failed twice), TC-855/869
-(non-manager pipeline browsing — no clean view-only user fixture).
+**Summary:** 15 PASS / 2 PARTIAL / 1 FINDING / 0 DEFERRED (from prior list) / 0 FAIL / 0 formal bugs filed
+
+Deferred this session: TC-855/869 (non-manager pipeline browsing — no clean view-only user fixture).
 
 ## Bugs / Defects Found
 

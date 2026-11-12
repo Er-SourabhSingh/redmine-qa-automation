@@ -167,11 +167,22 @@ deferred.
   Versions) — graph became empty/no nodes rendered. Page did not crash, error page did not appear, and re-checking
   any single filter restored nodes. Screenshot: `screenshots/TC-CRX-813/graph-all-filters-unchecked.png`.
 
-- **TC-CRX-808 / TC-CRX-809** — DEFERRED. Two attempts to create a fresh Crux-module-enabled project with zero
-  activity both failed: "Crux Zero Activity Test" (attempt 1) and "Crux Zero Activity QA" (attempt 2) each
-  created the project (UI confirmed "New project — [name]" in title post-submit) but returned 404 when navigating
-  to `/projects/<expected-identifier>/crux/graph`, and the identifier could not be found via admin search. The
-  no-activity banner copy and "no-graph-yet" state distinction remain untested; deferred to a future session.
+- **TC-CRX-808** — PASS. Created fresh project "Crux Zero Activity QA" (identifier `crux-zero-activity-qa`,
+  Redmineflux Crux module enabled, zero tickets/WPs/agent runs). Navigated to
+  `/projects/crux-zero-activity-qa/crux/graph`. The page loaded cleanly (no blank/broken page, no 500/404)
+  and displayed: **"No Crux activity in this project yet, so the graph is empty."** — shown above the 4 summary
+  tiles (all showing 0: Tickets 0, People & agents 0, Groups 0, Connections 0). Screenshot:
+  `screenshots/TC-CRX-808/graph-no-activity-banner.png`.
+
+- **TC-CRX-809** — PASS (same fixture as TC-808, two distinct messages confirmed). The same zero-activity
+  graph page shows a **second, different message** in the canvas area: **"No graph yet. Issues, work packages,
+  approvals and agent runs in this project build it."** This confirms the two messages are real and distinct:
+  - "No Crux activity in this project yet, so the graph is empty." — appears above the tiles summary section
+    (project-level context, fires when the whole project has zero tracked activity)
+  - "No graph yet. Issues, work packages, approvals and agent runs in this project build it." — appears inside
+    the canvas/drawing area (graph-level context, describes what will build the graph over time)
+  Both are present simultaneously on first open of a brand-new project. Screenshot same as TC-808:
+  `screenshots/TC-CRX-808/graph-no-activity-banner.png` (both messages visible in the full-page capture).
 
 - **TC-CRX-801 / TC-CRX-802 / TC-CRX-803 / TC-CRX-804** — DEFERRED (SVG canvas elements not accessible via
   accessibility tree). Clicking a Grouped-view bubble, Focus-view breadcrumb navigation, Table-view cell
@@ -188,7 +199,7 @@ deferred.
 ## Suite status (updated 2026-11-12)
 
 Pass 1 (2026-11-05): 7 PASS, 1 bug (BUG-CRX-176), 15 deferred.
-Pass 2 (2026-11-12): 5 more PASS (799, 805, 811, 812, 813), 1 partial (800), 8 still deferred
-  (793-neg, 796, 801, 802, 803, 804, 806, 808/809, 810, 814).
-Overall: 12 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 9 deferred / 0 new bugs this pass.
+Pass 2 (2026-11-12): 7 more PASS (799, 805, 808, 809, 811, 812, 813), 1 partial (800), 6 still deferred
+  (793-neg, 796, 801, 802, 803, 804, 806, 810, 814).
+Overall: 14 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 7 deferred / 0 new bugs this pass.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

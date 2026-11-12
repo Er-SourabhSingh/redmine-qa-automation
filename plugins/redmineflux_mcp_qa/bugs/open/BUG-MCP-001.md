@@ -1,6 +1,6 @@
 # Bug Report
 
-- Bug ID: BUG-RFM-001
+- Bug ID: BUG-MCP-001
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
 - Title: `get_testcase`/`update_testcase` MCP tools still don't expose a testcase's Step/Expected Result rows,
   even though the Testcase Management plugin's own REST API now supports them (BUG-TCM-138 follow-up)
@@ -75,11 +75,11 @@ through natural-language chat.
 
 ### Screenshot
 
-![Bug evidence — Testcase Agent chat showing both the Read and Update refusals](../../screenshots/BUG-RFM-001/crux-steps-read-update-refused.png)
+![Bug evidence — Testcase Agent chat showing both the Read and Update refusals](../../screenshots/BUG-MCP-001/crux-steps-read-update-refused.png)
 
 ### Retest screenshot (fill after fix is verified)
 
-![Retest result](../../screenshots/BUG-RFM-001/retest-yyyy-mm-dd-pass.png)
+![Retest result](../../screenshots/BUG-MCP-001/retest-yyyy-mm-dd-pass.png)
 
 ### Console / log
 
@@ -108,7 +108,7 @@ through natural-language chat.
 
 ## Notes
 
-- This is the MCP server (RFM code), a separate codebase/team from the Testcase Management plugin (TCM code)
+- This is the MCP server (MCP code), a separate codebase/team from the Testcase Management plugin (TCM code)
   — the fix for this bug needs to land in `services/redmineflux-mcp`, not
   `plugins/redmineflux_testcase_management`.
 - Minimal fix shape (not prescriptive, for context): `get_testcase` should append each

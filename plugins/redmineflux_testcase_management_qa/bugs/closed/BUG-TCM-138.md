@@ -188,7 +188,7 @@ retest this plugin's own API fix was never checked against here:
 
 **This exactly matches what Retest #1's note above already flagged** — the plugin-side fix is real and unaffected,
 but the MCP tool layer was never updated to use it. Since that gap had only been left as a note rather than a
-tracked item, filed it separately as **BUG-RFM-001**
-(`plugins/redmineflux_mcp_qa/bugs/open/BUG-RFM-001.md`) so it doesn't get lost. BUG-TCM-138 itself stays closed —
+tracked item, filed it separately as **BUG-MCP-001**
+(`plugins/redmineflux_mcp_qa/bugs/open/BUG-MCP-001.md`) so it doesn't get lost. BUG-TCM-138 itself stays closed —
 the Testcase Management plugin's own REST API is genuinely fixed; the remaining gap belongs to the separate MCP
-server codebase, tracked under its own bug code (RFM).
+server codebase, tracked under its own bug code (`MCP`, renamed from `RFM` on 2026-11-12 per CLAUDE.md §4).

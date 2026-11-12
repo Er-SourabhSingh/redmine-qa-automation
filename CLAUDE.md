@@ -423,7 +423,7 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_advanced_field | RAF |
 | redmineflux_devops | RDV |
 | redmineflux_scarlet | RSC |
-| redmineflux_mcp | RFM |
+| redmineflux_mcp | MCP |
 | redmineflux_mcp_issuetemplate | RIT |
 | redmineflux_mcp_checklist | RCL |
 | redmineflux_mcp_knowledgebase | RKB |
@@ -452,14 +452,23 @@ Examples: `BUG-TCM-001`, `BUG-GNT-001`
 Add a new code row when a new plugin is added.
 
 **Note on the four `mcp_*` rows.** `RFM`, `RIT`, `RKB` and `RCL` were originally registered for MCP-related
-work. They are now the codes for the standalone plugins of the same name, which is where their QA folders live:
+work. `RIT`, `RKB` and `RCL` are now the codes for the standalone plugins of the same name, which is where
+their QA folders live:
 
 | Code | QA folder |
 |------|-----------|
-| RFM | `plugins/redmineflux_mcp_qa` (Redmineflux MCP Server) |
+| MCP | `plugins/redmineflux_mcp_qa` (Redmineflux MCP Server) |
 | RIT | `plugins/redmineflux_issue_template_qa` |
 | RKB | `plugins/redmineflux_knowledge_base_qa` |
 | RCL | reserved — checklist bugs use `CHK` (`plugins/redmineflux_checklist_qa`) |
+
+**`RFM` → `MCP` rename (2026-11-12).** The Redmineflux MCP Server plugin's own bug code was changed from `RFM`
+to `MCP` so the code actually spells out the plugin it's for, matching the doc-prefix convention (§2b) it
+already used. New bugs against `plugins/redmineflux_mcp_qa` use `BUG-MCP-NNN`, starting at `BUG-MCP-001`.
+`RFM` is retired for this plugin going forward — **except** `plugins/redmineflux_mcp_qa/workload/bugs/`, a
+legacy sub-area with its own pre-existing `BUG-RFM-001`…`011` sequence from before this plugin had its own QA
+folder at all. Those files keep their old IDs as-is (do not renumber history); only new bugs against the
+`redmineflux_mcp` plugin going forward use `MCP`.
 
 ---
 

@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-142
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128235
 - Title: Edit Run form assignee_id field updates Run record but does not cascade to per-TC assignees — misleading UX
 - Redmine version: 6.0.11 (Docker)
 - Plugin name: redmineflux_testcase_management

@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-140
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128233
 - Title: Add Run form allows per-environment assignee selection but per-TC assignee column ignores it — same assignee shown on all environment tabs
 - Redmine version: 6.0.11 (Docker)
 - Plugin name: redmineflux_testcase_management

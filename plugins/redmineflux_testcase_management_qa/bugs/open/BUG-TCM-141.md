@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-141
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128234
 - Title: Inline and bulk TC reassignment sends no email notification to the new assignee
 - Redmine version: 6.0.11 (Docker)
 - Plugin name: redmineflux_testcase_management

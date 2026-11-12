@@ -29,14 +29,34 @@
 
 ## Actual result
 
-- Under both Chrome and Edge tabs, all TCs show **Daisy Skye** in the per-TC Assignee column — the value from the global `assignee_id` field set at run creation.
-- The Edge env-level assignee (Autumn Grace) appears correctly in the **run summary** ("Assignee: Autumn Grace") when the Edge tab is active, but does **not** flow through to the individual TC rows.
-- The env-level assignee setting in the Add Run form has no effect on the per-TC Assignee column — the column always reflects the single global `assignee_id` value, shared across all environments.
+- Under both Chrome and Edge tabs, all TCs show **Daisy Skye** in the per-TC Assignee column — only the first environment's assignee is used.
+- The Edge env-level assignee (Autumn Grace) appears correctly in the **run summary** ("Assignee: Autumn Grace") when the Edge tab is active, but does **not** flow through to individual TC rows.
+- The env-level assignee settings in the Add Run form have no per-environment effect on the per-TC Assignee column.
+
+## Root cause (source-verified)
+
+`run.rb` line 115–120 (`before_create :apply_default_case_assignee`):
+
+```ruby
+def apply_default_case_assignee
+    default = run_assignments.map(&:assignee_id).compact.first  # ← only FIRST env's assignee
+    return if default.blank?
+    run_issues.each { |ri| ri.assignee_id = default if ri.assignee_id.blank? }
+end
+```
+
+- On run creation, **only the first environment's assignee** is used as the per-TC default for all `RunIssue` records — regardless of how many environments are configured or which env's tab is currently viewed.
+- Chrome → Daisy Skye is env index 0 (first) → all 52 TCs get Daisy Skye's ID written to `run_issues.assignee_id`.
+- Edge → Autumn Grace is env index 1 — its assignee is **never read** by this method, so it has zero effect on TC-level assignment.
+- The per-TC assignee is a **single shared value per (Run, TC)** stored in `run_issues.assignee_id`. There is no `run_issues.assignee_id_per_environment` or similar column — the data model itself does not support per-env TC assignment.
 
 ## Impact
 
-- The Add Run form's UI is **misleading**: setting different assignees per environment looks like it will differentiate per-TC assignment by environment, but it has no such effect.
-- The client's requirement (per-test-case, per-environment assignee) is not met.
+- **UI is misleading in two ways:**
+  1. The Add Run form allows setting different assignees per environment, implying per-environment TC assignment — but only the first env's assignee actually populates TC rows.
+  2. Switching between Chrome and Edge tabs shows the same TC assignees, even though each env's summary header correctly shows its own env-level assignee.
+- **Client's requirement unmet:** "har environment har testcase alag assignee" requires per-(Run, TC, Environment) assignment. The current data model and business logic only support per-(Run, TC) assignment shared across all environments.
+- **Fix scope:** Requires both a data model change (`run_issues` or `issue_status_results` needs an env-scoped assignee column) and UI/logic changes to `apply_default_case_assignee`, the reassign endpoint, and the TC table rendering.
 - Found during RFTC045-6 (multi-env design check), Run #44, project `rftc-016-ci-qa`.
 
 ## Evidence

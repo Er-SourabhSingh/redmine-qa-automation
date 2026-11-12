@@ -57,3 +57,18 @@ no dedicated screenshot captured yet.
 - Duplicate found: No (related to BUG-TCM-134/135 but a distinct, narrower residual gap on one specific action,
   found during this session's retest of BUG-TCM-135)
 - Existing bug reference (if duplicate): N/A
+
+## Retest (2026-11-12, after Docker restart — no new pull)
+
+**NOT FIXED.** Container restarted (`docker restart redmine6-redmine-1`) and retested live as `daisy.skye`
+(Developer on Project A only, no membership on Project B) via a real logged-in Playwright session:
+
+- `GET /knowlegebase_pages_testcase/2?project_id=4` → HTTP **404 Not Found** (correct status)
+- Page `<title>`: `"404 - RFTC-121640 Security Project B - Redmine"` — **Project B name still leaked**
+- Page snapshot shows `<h1>RFTC-121640 Security Project B</h1>` and the full project navigation list
+  (Overview, Activity, Roadmap, Issues, Spent time, Gantt, Calendar, News, Documents, Wiki, Files — all
+  linking into `/projects/rftc-121640-project-b/...`), visible to a user with zero membership on Project B.
+
+No code fix has been pushed for this endpoint yet — bug remains **Open**.
+
+![Retest evidence — NOT FIXED](../../screenshots/BUG-TCM-139/retest-2026-11-12-NOT-FIXED.png)

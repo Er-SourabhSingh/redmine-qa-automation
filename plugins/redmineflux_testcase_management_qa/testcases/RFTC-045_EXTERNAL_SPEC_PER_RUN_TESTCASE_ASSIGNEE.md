@@ -150,7 +150,7 @@ per environment) implies (a).
 **Expected Result:** File this as a scope gap against the client's original need (per-test-case,
 per-environment assignment), not as a bug against the tickets as literally written — the tickets' own text
 doesn't commit to per-environment granularity, so this is a clarification item, not a defect.
-**Result (2026-11-12):** PASS (gap documented, not filed as bug) — RFTC045-6 confirmed behavior (b). The implemented model is one-per-(Run, TC) shared across environments, consistent with the ticket text ("one-per-(Run, Test Case)"). The client's original stated need ("har environment har testcase alag assignee") would require per-environment granularity, which the current build does not provide. Documented here as a clarification item for the client/dev team, not a defect against the written tickets. No separate bug filed.
+**Result (2026-11-12):** FAIL — Bug filed. RFTC045-6 confirmed behavior (b): single shared per-TC assignee. The Add Run form allows setting different env-level assignees per environment, which misleads users into expecting per-environment TC assignment — but the per-TC Assignee column ignores env-level assignees entirely and shows the same global value on all tabs. This is a **UI/logic bug**, not merely a scope gap: the form's own UI creates a false expectation. Filed as **BUG-TCM-140** (Medium, Open). Client's requirement ("har environment har testcase alag assignee") is unmet.
 
 ---
 

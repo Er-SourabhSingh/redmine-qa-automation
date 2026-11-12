@@ -162,17 +162,14 @@ wp-004 "Review testcase API coverage" (suggest-only, ticket #62) created this pa
   that suggest-only WP tickets receive zero agent replies to @-mentions, consistent with "agents never write
   anything, not even @-mention replies."
 
-- **TC-CRX-766** — FAIL — **potential bug candidate.** Asked PM agent to "Set up a work package for ticket
-  #99999 to fix the login timeout issue." Expected: an honest "ticket not found" refusal (the feature reference
-  states "every ticket must be visible to the person confirming"). Actual: agent did NOT refuse — it asked for
-  pipeline and goal details, then produced a fully-formed `CREATE WORK PACKAGE` confirm card with Tickets=#99999,
-  Goal="Fix login timeout issue in production", Type=bug, Autonomy=execute-with-approval. The Confirm button was
-  NOT clicked (cancelled immediately) since confirming would create a WP linked to a non-existent ticket. Root
-  cause: the agent apparently builds the confirm card first and relies on confirmation-time validation; it does
-  not verify ticket existence/visibility before proposing. Whether this is a documentation gap ("validation at
-  confirm time, not before") or a genuine defect (a WP with a 404 ticket would be created without any user-
-  visible error) requires a production developer to clarify. Filed as a finding below — severity TBD pending
-  that clarification.
+- **TC-CRX-766** — PASS — validation at confirm time (by design). Asked PM agent to "Set up a work package for
+  ticket #99999 to fix the login timeout issue." Agent built a `CREATE WORK PACKAGE` confirm card (Tickets=#99999).
+  On Confirm, Crux verified the ticket using the confirming user's own key (per CRC-56): returned "Ticket #99999
+  isn't visible to you in Redmineflux, so the Work Package wasn't created. Remove it, or ask someone who can open
+  it." WP count remained unchanged — no broken WP was created. Developer confirmed (2026-11-12): validation is
+  intentionally deferred to confirm time (not proposal time); this is a UX tradeoff, not a data-integrity defect.
+  Result: **PASS** — the system correctly refuses creation when the ticket is inaccessible; data integrity is
+  preserved. (Earlier "FAIL — potential bug candidate" finding is retracted.)
 
 - **TC-CRX-767** — PASS. Navigated to `/projects/crux-pm-agent-test-project/crux/work_packages` — showed
   "All 3 / Waiting for you 0 / In progress 3 / Done 0", listing only the 3 WPs whose tickets belong to that
@@ -195,17 +192,14 @@ wp-004 "Review testcase API coverage" (suggest-only, ticket #62) created this pa
 
 ## Bugs found — 2026-11-12 pass
 
-- **TC-CRX-766 finding**: PM agent creates a `CREATE WORK PACKAGE` confirm card for ticket #99999 (which does
-  not exist) without any pre-confirmation ticket-existence check. Expected per the feature reference ("every
-  ticket must be visible to the person confirming"): refusal at proposal time if ticket is inaccessible/missing.
-  Whether server-side validation rejects the creation on Confirm (making this a UX gap only — late validation)
-  or silently creates a broken WP (making it a data-integrity bug) is unconfirmed — Confirm was cancelled.
-  Recommend developer clarification before filing formally.
+No bugs filed. The TC-CRX-766 "potential bug candidate" finding was retracted after developer clarification
+(2026-11-12): server-side confirm-time validation correctly refuses a non-existent/inaccessible ticket; no broken
+WP is created. Validation at proposal time (earlier UX refusal) would be an improvement, not a defect fix.
 
 ## Suite status
 
 Pass 1 (2026-11-05): 7 PASS, 1 PASS-partial, 9 deferred, 0 bugs filed.
-Pass 2 (2026-11-12): 5 more PASS (760, 762, 763, 765, 767), 1 partial/deferred (768), 1 finding needing
-  clarification (766), 2 still deferred (758, 764), 1 bonus PASS (§14.3 WP section on issue).
-Overall: 12 PASS / 1 PASS-partial / 1 finding (766 — severity TBD) / 3 deferred (758, 764, 768) / 0 formal bugs.
+Pass 2 (2026-11-12): 6 more PASS (760, 762, 763, 765, 766, 767), 1 partial/deferred (768), 2 still deferred
+  (758, 764), 1 bonus PASS (§14.3 WP section on issue).
+Overall: 13 PASS / 1 PASS-partial / 2 deferred (758, 764) / 1 partial-deferred (768) / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.

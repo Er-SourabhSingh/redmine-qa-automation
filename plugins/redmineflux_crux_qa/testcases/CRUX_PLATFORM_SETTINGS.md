@@ -158,10 +158,21 @@ environment was left healthy.
 - **TC-CRX-910** — PASS, fully confirmed. Testing a genuinely unreachable host returned "Couldn't reach a Crux
   core service at this address. Check it, and that the service is running." — clean, honest failure, not a false
   success. Restored the real URL afterward and re-confirmed connectivity.
-- **TC-CRX-911 / TC-CRX-914 / TC-CRX-916** — NOT INDEPENDENTLY VERIFIED this pass (non-numeric/negative
-  chat-budget input, invalid default-agent-id validation, and the Core-down Chat-budget-field hint were not
-  exercised — would require either more Core-outage time or additional field-specific attempts beyond this
-  suite's already-careful, time-boxed pass on a plugin-wide settings page). Deferred.
+- **TC-CRX-911** — PASS (2026-11-12). Entered `-5` in "Daily cap per user ($)" and saved — on hard reload, the
+  field was empty again and the hint still read "No admin override set — using the environment default
+  ($0.00)," confirming the negative value was genuinely rejected/discarded, not persisted. Minor UX gap noted
+  (not filed as a bug): no visible error message appears when this happens, unlike the Frozen Rules page's
+  equivalent validation failures.
+- **TC-CRX-914** — FAIL — found **BUG-CRX-184** (2026-11-12), High severity. Entered
+  `totally-bogus-nonexistent-agent-xyz` as Default agent and saved — no validation error at all, and the value
+  was genuinely persisted (confirmed on hard reload). Opening a brand-new "Ask Crux" chat showed the picker
+  button itself rendering the raw broken string (`"totally-bogus-nonexistent-agent-xyz ▾"`), and sending any
+  message failed with `unknown agent 'totally-bogus-nonexistent-agent-xyz'` plus an unrecoverable "Retry"
+  button — exactly the "silently-broken default that fails at chat-open time" failure mode this TC was written
+  to catch. Plugin-wide impact (every user's fresh chat, not just the admin session that set it). Cleaned up:
+  restored Default agent to blank and re-verified fresh chat works again.
+- **TC-CRX-916** — NOT INDEPENDENTLY VERIFIED this pass (Core-down Chat-budget-field hint still needs a genuine
+  Core-service outage window — deferred, same reasoning as the original pass).
 - **TC-CRX-912** — PASS, fully confirmed. An invalid Accent color ("red") produced: "Use a colour like #0094FF
   (a # and 3 or 6 hex digits), or leave it blank for the default." Restored the real value (`#FC641F`) afterward.
 - **TC-CRX-913** — PASS, fully confirmed. 6 comma-separated suggested prompts produced: "Use up to 5 suggested

@@ -1,259 +1,313 @@
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
-> These test cases are PLANNED coverage for production feature **#123572** ("rftc-033 — Unified
-> milestone summary report"), part of **Testcase Management plugin Release 7.3.0**.
+> These test cases verify **production feature #123572** ("rftc-033 — Unified milestone summary report"), part
+> of **Testcase Management plugin Release 7.3.0**.
 >
 > **ID prefix**: every case here is `RFTC033-<n>`.
 >
-> ## ⛔ BLOCKED — feature not yet implemented
+> **Status**: **rewritten 2026-11-11 against the real implementation** (the feature shipped — see commits
+> `2316cfe`/`5edea33`/`d239de0`/`60fa4ae` on branch `release/7.3.0`/`master`). The suite's earlier version (authored
+> 2026-10-15, before the feature existed) assumed the Milestones-removal conflict would be resolved by scoping the
+> report around a Run or Version with no new concept — the dev instead **reintroduced Milestones as a thin layer
+> on top of Redmine's own native Version model** (no new `testcase_milestones` table), which is cleaner than any
+> of the 3 options that pre-release suite listed as "plausible resolutions." Every case below is rewritten
+> against the real controller (`TestcaseMilestonesController#report`), service (`MilestoneReport`), views and
+> locale strings — not speculation.
 >
-> Ticket status: **New, 0% done**. No code exists on any branch as of this writing (`release/7.3.0`
-> commit `329311d` built 4 of the 7 Release-7.3.0 features — automation sources, flaky-test detection,
-> run comparisons, exploratory sessions — but explicitly did NOT touch this one). This file is
-> **PLANNED coverage only**, written ahead of implementation. The Open Question below must be resolved
-> by the dev/PM before this feature can even be built as literally specced — every test case in this
-> file is necessarily speculative until that happens.
+> **Execution status**: **13/13 executed 2026-11-11 — 12 PASS, 1 FAILED** via Playwright MCP against
+> `localhost:3000` (Project A = `rftc-016-ci-qa`, Project B used for cross-project checks). Docker container
+> `redmine6-redmine-1` was restarted and the plugin's pending migrations (`20261105000000`/`20261106000000`/
+> `20261107000000`) were run cleanly ahead of this suite. Fixtures used: Version #1 ("RFTC-033-034 Milestone
+> Fixture"), Version #44 ("Burndown History Fixture", also reused for XSS/coverage-cap/targeted-defect fixtures),
+> Version #46 ("Delete Testcase Fixture"). Results and the one confirmed defect were also recorded against
+> production Run #659 (testsuite #527). See each case below for its own Actual Result.
 
 # Test Cases — Redmineflux Testcase Management — rftc-033: Unified Milestone Summary Report
 
-## Open Question — blocks implementation
-
-This plugin's **Milestones feature was removed entirely**, shortly before this release, by
-`db/migrate/20261027000000_remove_testcase_milestones.rb` (on branch `release/7.3.0`). That migration's
-own comment says plainly: *"The standalone Milestones feature has been removed entirely (controller,
-model, views, MCP endpoints, and its optional link from Test Plans and Reports)."* Concretely, it drops:
-
-- the entire `testcase_milestones` table,
-- `runs.milestone_id`,
-- `testcase_reports.milestone_id`,
-- `testplans.testcase_milestone_id`,
-
-and is marked **irreversible** (`down` raises `ActiveRecord::IrreversibleMigration`).
-
-rftc-033 is titled "**Milestone** summary report" and its own description says *"A single milestone
-summary report that unifies manual, exploratory, and automation results."* There is currently **no
-milestone concept anywhere in this plugin to summarize by** — a Run has no `milestone_id` column
-to query, and there is no `TestcaseMilestone` model to scope a report around. The sibling feature
-rftc-029 (Exploratory Sessions, already built on this same branch) explicitly flagged this exact
-conflict in its own planning doc: *"rftc-033/034 (milestone summary/burndown reports) were deferred
-separately because the Milestone feature itself was removed from this plugin shortly before this
-release."*
-
-This is a real, unresolved product question, not something this test file can paper over. Plausible
-resolutions, none picked here as "the" answer:
-
-1. **Milestones get reintroduced** in some form (even a lightweight version, e.g. just a name + date
-   range, without the full removed feature's surface) specifically so this report has something to
-   scope by.
-2. **The report gets redefined** to summarize by something that still exists — most naturally a
-   **Run** or a Redmine **Version/Release** (the plugin already has both concepts) — in which case the
-   ticket's title is stale and the actual scoping unit is different from what's literally written.
-3. **The ticket is deferred again** to a later release, the same way it was pulled out of V2 into V3 —
-   it could slip to V4/"Later" if the Milestone question isn't resolved in time for 7.3.0.
-
-Every test case below assumes resolution path (2) — scoping by **Run or Version** — purely because it
-is the only one buildable with today's schema with no new migration; this is a documentation
-convenience for writing concrete steps, **not** a recommendation, and every case must be re-validated
-against whatever the dev/PM actually decides.
-
----
-
 ## Plugin
-
 - Name: Redmineflux Testcase Management
-- Version: branch `release/7.3.0`, commit `329311d` (**feature itself absent from this commit** —
-  only rftc-018/019/022/029/035 were built; rftc-033/034 are untouched)
-- Redmine version: 6.x (Docker, Postgres) — same environment as the rest of this release's testing
-- Production ticket: **#123572** (ztflux), status **New**, done ratio **0%**
+- Version: branch `release/7.3.0`/`master`, commit `60fa4ae` ("Milestone API, CI milestone link, full Help/README
+  and translations") — the Milestones feature was built across 2316cfe → 5827e6e → 391dd37 → 5edea33 → d239de0 →
+  60fa4ae
+- Redmine version: 6.x (Docker, `localhost:3000`, Postgres)
+- Production ticket: **#123572** (ztflux), status **In QA**, done ratio 90%, Target Version "Testcase Management
+  plugin Release 7.3.0 [04-11-2026]"
 
 ## Feature summary
 
-Per the ticket description: *"A single milestone summary report that unifies manual, exploratory, and
-automation results. Today this is only partial; V3 makes it one coherent report."* The roadmap gap doc
-(`documents/testmo-tcm-feature-gap-2026-10-02.html`, row #40) frames it the same way: "Milestone
-summary report (unified)... Manual+exploratory+automation" — i.e. one report that rolls together
-results from all three of this plugin's execution mechanisms:
+**A Milestone is a Redmine Version — there is no separate milestone table.** `TestcaseManagement::Milestones`
+(`app/services/testcase_management/milestones.rb`) is the single source of truth for "is the feature on, and may
+this user use it":
 
-1. **Scripted Runs** (manual/scripted test-case execution — the plugin's original mechanism),
-2. **Exploratory Sessions** (rftc-029, just shipped this same release — free-form sessions with an
-   outcome of Passed/Failed/Inconclusive),
-3. **CI automation results** (rftc-016 ingest, now additionally grouped by rftc-018's Automation
-   Sources).
+- Master switch: plugin setting `enable_milestones` (`Administration → Plugins → Redmineflux Testcase Management →
+  Configure`, checkbox labelled "Enable Milestones", help text *"Group runs under Redmine versions and see release
+  readiness. Off means nothing changes anywhere."*). Also requires the project's `testcase_management` module to
+  be enabled.
+- Permissions: `:view_milestones` (read) and `:manage_milestones` (currently unused by the report itself, reserved
+  for future write actions), both plugin permissions; creating/closing/reopening the underlying Version reuses
+  Redmine's own core `:manage_versions`.
+- Route: `GET /projects/:project_id/testcase_milestones/:id/report` →
+  `TestcaseMilestonesController#report` → `TestcaseManagement::MilestoneReport#build`.
+- **When the switch is off, every `testcase_milestones` action answers 404 (not 403)** — the feature's existence
+  is deliberately not revealed (`authorize_milestones_access`'s `rftc_not_found unless Milestones.enabled?(@project)`).
 
-Today these three live in separate, disconnected views (Runs & Results, the new Sessions page, the new
-Automation Dashboard) — this feature's stated goal is one coherent report spanning all three, scoped to
-some unit of work ("milestone" per the ticket — see Open Question above for why that's unresolved).
+### What the report actually shows (top to bottom, `report.html.erb`)
+
+1. **Headline numbers**: Total, Executed %, Pass rate, Failed, Blocked, Open defects — plus a progress bar and a
+   counts legend.
+2. **Result by source**: a 3-row table — Manual, Automation, All sources — where **Manual + Automation always
+   equal the milestone total** (`text_report_by_source_hint`). A cell counts as Automation when its *latest*
+   result for that (run, issue, environment) carries a `source_id` (set only by the CI ingest path, rftc-016/018);
+   everything else is Manual.
+3. **Runs**: every Run linked to this Version (`Run.where(project_id:, version_id:)`), each with its own
+   executed %/pass rate. Empty state: `text_milestone_no_runs_hint`.
+4. **Automation sources**: one row per `AutomationSource` with results in this milestone's runs. Empty state:
+   *"No automation results in this milestone."*
+5. **Exploratory sessions**: total/open/closed/passed/failed/inconclusive/notes, for sessions whose **new
+   `version_id` field** (set via the Start Session form's Milestone picker, `rftc-029`/rftc-033 integration) points
+   at this version. **Deliberately NOT added into the Manual/Automation totals** — sessions are not test-result
+   cells. Empty state: *"No exploratory sessions are linked to this milestone. Pick the milestone when you start a
+   session."*
+6. **Defects**: two rows — "Found in this milestone's runs" (defects linked via `execution_defects` to a result in
+   one of this milestone's runs) and "Targeted at this version" (`fixed_version_id` = this version, optionally
+   filtered to the configured Defect tracker) — each split Open/Closed, kept deliberately separate ("testing
+   quality" vs "what's left for the release").
+7. **Coverage**: test cases whose Target Version is this milestone, split covered (in at least one run) vs not;
+   up to 10 "not covered" issues are linked directly.
+8. **Top failing tests / Top flaky tests**: scoped to **this milestone's runs only** (not project-wide), reusing
+   `RollupMath.most_failed_tally`/`flaky_tally`.
+9. A **Print** button (`onclick="window.print()"`, hidden itself via `rf-no-print` when printing) and an "Open in
+   Roadmap" link to the underlying Redmine Version.
+
+### Access control (two-step, matching every other report in this plugin)
+
+1. `rftc_not_found` unless the plugin switch is on for this project.
+2. `rftc_not_found` unless the project exists/is visible to the caller (`rftc_authorize_project_read!`).
+3. `rftc_forbidden` unless `Milestones.can_view?` (`:view_milestones` or admin).
 
 ---
 
-### RFTC033-1: Report aggregates all three result sources into one view
+### RFTC033-1: Report renders all 8 sections for a milestone with real data in every source
 
-**Priority:** P1 — this is the entire point of the ticket ("unifies manual, exploratory, and automation
-results")
-**Steps:** With a project containing at least one scripted Run result, one closed Exploratory Session,
-and one CI-ingested automation result (all within the same scope/date range the report will use), open
-the Milestone/Unified Summary report for that scope.
-**Expected Result:** All three sources appear represented in the summary (e.g. separate rows/sections
-or a combined tally that visibly includes contributions from Runs, Sessions, and CI-ingested results) —
-not just one of the three.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P1 — this is the entire point of the ticket ("unifies manual, exploratory, and automation results")
+**Steps:**
+1. Enable Milestones in plugin settings. Create a Redmine Version ("milestone") in a test project.
+2. Create a Run linked to that version (Add Run form's new Milestone field), record at least one Manual result
+   (plain Add Result, no automation source) and one Automation result (via CI ingest / `source_id` set).
+3. Start an Exploratory Session, picking this milestone in its new Milestone field, close it with an outcome.
+4. Link a defect to one of the milestone's run results, and set another issue's Target Version to this milestone.
+5. Open `.../testcase_milestones/:id/report`.
+
+**Expected Result:** Headline numbers, Result by source (Manual + Automation = Total), Runs, Automation sources,
+Exploratory sessions (showing the session just closed), Defects (both rows populated), Coverage, and the risk
+lists all render with real, mutually-consistent data — no section crashes or silently omits itself.
+**Actual Result:** **PASS.** Built the fixture live: Run #5 linked to the milestone via its Milestone field; one
+Manual result (Passed), one Automation result seeded against `AutomationSource` "CI Fixture Suite" (then
+superseded by a later Manual Failed result — confirming only the *latest* result per issue/run/environment counts
+toward current status); Exploratory Session #1 linked via its Milestone field, closed Passed with 1 note; a
+defect (#288) linked via Report Defect on the Failed result; Target Version set on the test case. Final report
+showed: Headline 1 total/100% executed/0% pass rate/1 failed/0 blocked/1 open defect; Result by source Manual
+1/1/0/1/0.0%, Automation 0 (current), All sources matching; Runs (1) 100%/0%; Automation sources table showing
+"CI Fixture Suite" 1 execution/0 failures/100%/last-seen timestamp (historical, independent of current status);
+Exploratory sessions 1/0 open/1 closed/1 passed/1 note; Defects "Found" 1 open/0 closed, "Targeted" 0/0, "Found,
+by priority: Normal 1"; Coverage "1 covered, 0 not in any run yet."; Top failing tests listed "CI Retest Case 1 —
+1 fails"; Top flaky tests "Nothing to show." Every section rendered real, mutually-consistent data — no crash, no
+silent omission.
 
 ---
 
-### RFTC033-2: Report is scoped to a real unit of work (Run/Version, per the Open Question's assumed path)
+### RFTC033-2: Report is scoped to exactly one Version — another milestone's data never bleeds in
 
 **Priority:** P1
-**Steps:** Create two separate scopes (e.g. two Versions, or two groups of Runs) each with their own
-results; open the summary report for only one of them.
-**Expected Result:** Only the selected scope's results are summarized — the other scope's data does not
-bleed in.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Steps:** Create two Versions in the same project, each with its own Run + results. Open the report for Version A
+only.
+**Expected Result:** Only Version A's runs/results appear in every section (Headline, Result by source, Runs,
+Automation sources, Sessions, Defects, Coverage, risk lists). Version B's data is nowhere on the page.
+**Actual Result:** **PASS.** Verified with 3 real, concurrently-existing milestones in the same project (sharing
+overlapping issue IDs, since test cases were reused across fixtures): Version #44's report showed "Runs (1)" =
+only "Burndown History Run", Total results = 10; Version #16's report showed "Runs (30)" = only its own 30
+"Milestone Runs Pagination 0XX" runs, Total results = 67. Zero cross-bleed in either direction despite shared
+issue ids and the same project.
 
 ---
 
 ### RFTC033-3 (SACRED/security): Cross-project isolation
 
-**Priority:** P1 — every other report in this plugin (Quality HQ, Automation Dashboard, Run
-Comparisons, Slow Tests, Most Failed Tests) enforces this boundary; assume this one must too
-**Steps:** As a project member with no access to Project B, open Project A's Milestone Summary report;
-confirm Project B's Runs/Sessions/automation results never appear.
-**Expected Result:** Zero data from Project B visible anywhere in Project A's report.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P1 — every other report in this plugin (Quality HQ, Automation Dashboard, Run Comparisons, Slow
+Tests, Most Failed Tests) enforces this; `MilestoneReport`'s own queries are explicitly scoped to `@project.id`
+and `Issue.visible(@user)`
+**Steps:** As a member of Project A only, open Project B's milestone report directly by URL
+(`/projects/B/testcase_milestones/:id/report`), substituting a real milestone id from Project B.
+**Expected Result:** Refused (404, since `find_version` only looks up `@project.shared_versions`) — zero data from
+Project B visible.
+**Actual Result:** **PASS.** Two-layer verification performed: (1) as `luna.blossom` (holds `:view_milestones` via
+the Manager role, member of Project A only) requesting Project B's own real milestone id by URL → 403 Forbidden
+(permission layer, `allowed_to?` is membership-scoped). (2) As `admin` (bypasses permission checks) requesting
+Project B's URL but substituting Project A's real version id (`1`) → 404 Not Found, confirming `find_version`'s
+own `@project.shared_versions.find_by(id:)` scoping is independently enforced, not merely incidental to the
+permission check. Zero Project-B/cross-project data was visible in either case.
 
 ---
 
-### RFTC033-4: Permission gating — reuses `:view_report`, consistent with rftc-020/021/035/044
+### RFTC033-4: Permission gating — `:view_milestones`, distinct from `:view_report`
 
-**Priority:** P1 — every sibling read-only report in this plugin (Slow Tests, Most Failed Tests,
-Automation Dashboard, Quality HQ) is gated the same way; this one should match, not introduce a new
-permission out of convention
-**Steps:** As a project member WITHOUT `:view_report`, attempt to open the Milestone Summary report
-directly by URL.
-**Expected Result:** 403 Forbidden (matching `AutomationDashboardController`'s
-`rftc_require_permission!(:view_report, @project)` pattern) — not a silent empty page, not a 500.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P1 — note this is a **plugin-specific permission** (`view_milestones`), not a reuse of `:view_report`
+as the pre-release speculative suite assumed
+**Steps:** As a project member with Milestones enabled but **without** `:view_milestones` on their role, attempt
+to open the report URL directly.
+**Expected Result:** `403 Forbidden` (`rftc_forbidden`) — not a silent empty page, not a 500, not simply allowed
+through.
+**Actual Result:** **PASS.** As `daisy.skye` (project member, role lacks `:view_milestones`), the report URL
+returned 403 Forbidden — not a silent empty page, not a 500, not allowed through.
 
 ---
 
-### RFTC033-5: Anonymous/not-logged-in access is rejected, not rendered
+### RFTC033-5: Feature-off gives 404, not 403 — existence is not revealed
+
+**Priority:** P1 — explicitly documented in the controller's own comment ("the feature's existence is not
+revealed")
+**Steps:** With "Enable Milestones" unticked in plugin settings, attempt to open the report URL directly (as an
+admin, so permission is not the limiting factor).
+**Expected Result:** `404 Not Found` — not 403, not a redirect, not a rendered (even if broken) page.
+**Actual Result:** **PASS.** With "Enable Milestones" unticked in plugin settings, the report URL returned 404 Not
+Found as `admin` — not 403, not a redirect, not a rendered page. Feature's existence is not revealed.
+
+---
+
+### RFTC033-6: Anonymous/not-logged-in access is rejected, not rendered
 
 **Priority:** P2
-**Steps:** As an anonymous (not logged in) visitor, attempt to open the Milestone Summary report URL
-directly.
-**Expected Result:** Redirected to login (matching every other `before_action :require_login` /
-`rftc_authorize_project_read!` gated page in this plugin) — never a rendered report.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Steps:** As an anonymous (not logged in) visitor, attempt to open the report URL directly.
+**Expected Result:** Refused via `rftc_require_login!` (redirect to login or 403) — never a rendered report.
+**Actual Result:** **PASS.** As an anonymous visitor, the report URL redirected to the login page — never a
+rendered report.
 
 ---
 
-### RFTC033-6 (negative): Empty-state when a scope has zero results in all three sources
+### RFTC033-7 (negative): Empty-state milestone — brand-new Version with zero runs
 
-**Priority:** P1 — this plugin's established pattern (RFTC021-4/RFTC020's reports) is a clean explicit
-empty state, never a crash, when a scope has no data
-**Steps:** Open the Milestone Summary report for a brand-new scope (Version/Run group) that has no
-Runs, no Sessions, and no CI results recorded against it yet.
-**Expected Result:** A clear "no data yet" empty state for each of the three sources (or the report as a
-whole) — not a 500, not a blank/broken layout.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
-
----
-
-### RFTC033-7 (negative): Partial data — only one or two of the three sources have results
-
-**Priority:** P2 — the ticket explicitly says today's state is "only partial," so a scope with e.g. only
-scripted-Run results and zero Sessions/automation must still render sensibly, not assume all three are
-always present
-**Steps:** Open the report for a scope that has scripted-Run results but zero Exploratory Sessions and
-zero CI-ingested automation results.
-**Expected Result:** The Run data displays correctly; the Sessions and automation sections show their
-own empty states independently, rather than the whole report failing because two of three sources are
-missing.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P1 — this plugin's established pattern is a clean explicit empty state, never a crash
+**Steps:** Create a new Version with Milestones enabled, link no runs to it, open its report.
+**Expected Result:** Headline shows 0 everywhere (Total 0, 0% executed, 0% pass rate); Runs section shows
+`text_milestone_no_runs_hint`; Automation sources shows *"No automation results in this milestone."*; Sessions
+shows *"No exploratory sessions are linked to this milestone..."*; Defects rows show 0/0; Coverage shows
+*"No test cases have this milestone as their Target version."* (if none set) or correct covered/not-covered split;
+risk lists show *"Nothing to show."* — **no 500, no broken layout anywhere.**
+**Actual Result:** **PASS.** Opened the fixture milestone's report before any run/session/defect/target-version
+data existed: Headline 0 everywhere; Runs showed the no-runs hint; Automation sources showed "No automation
+results in this milestone."; Sessions showed "No exploratory sessions are linked to this milestone. Pick the
+milestone when you start a session."; Defects rows both 0/0; Coverage "No test cases have this milestone as their
+Target version."; Top failing/flaky both "Nothing to show." No 500, no broken layout.
 
 ---
 
-### RFTC033-8 (negative, XSS/injection): Test case / session / source names with HTML-shaped payloads render inert
+### RFTC033-8 (negative): Partial data — only Manual results, zero Sessions/Automation
 
-**Priority:** P1 — this exact class of bug (BUG-TCM-070, a chart-rendering XSS on a sibling rftc-021
-report) was found and fixed on another report in this same plugin; a brand-new aggregate report
-touching the same kind of user-supplied subject/title text is a natural place for the same bug class to
-reappear
-**Steps:** Include a scripted-Run test case, an Exploratory Session title, and a CI automation-source
-name that each contain an HTML/script-shaped payload (e.g. `<img src=x onerror=alert(1)>`); open the
-summary report.
-**Expected Result:** All three render as inert, HTML-escaped text everywhere they appear in the report
-(table, chart labels if any) — no `alert()` fires.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
-
----
-
-### RFTC033-9 (negative): A deleted/no-longer-visible issue's execution history doesn't crash the summary
-
-**Priority:** P2 — this plugin's existing reports have known orphaned-row edge cases (e.g. BUG-TCM-108's
-root cause was a dangling `RunIssue` with `issue_id=0`); a new aggregate report should be checked for
-the same class of gap
-**Steps:** Delete a test case that has an existing scripted-Run result recorded against it, within a
-scope the summary report will cover; reload the report.
-**Expected Result:** The report renders without a 500 — either silently excludes the orphaned result or
-shows a graceful placeholder, matching this plugin's established "never crash on a missing issue"
-pattern.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P2 — the "Manual + Automation = Total" invariant must hold even when Automation is genuinely zero
+**Steps:** Open the report for a milestone whose only data is Manual run results (zero CI-automation results,
+zero exploratory sessions).
+**Expected Result:** Result by source shows Automation row with `total: 0`, `executed: 0`, pass rate rendered as
+`—` (per the view's `s.executed.zero? ? '—' : "#{pass_rate}%"` logic, not `0%` or `NaN%`); Manual row still equals
+the overall total; Sessions and Automation-sources sections independently show their own empty states — the
+report as a whole does not fail because 2 of 3 sources are empty.
+**Actual Result:** **PASS.** Captured at the intermediate fixture state (one Manual Passed result, zero
+Automation/Sessions yet): Result by source showed Automation `total:0 executed:0` with pass rate rendered as `—`
+(not `0%`/`NaN%`); Manual row (1/1/1/0/100.0%) equalled the overall total; Automation sources section
+independently showed "No automation results in this milestone." and Sessions independently showed its own
+empty-state text — the report rendered correctly with 2 of 3 sources empty.
 
 ---
 
-### RFTC033-10: Export formats (if offered) contain the same unified data as the on-screen view
+### RFTC033-9 (negative, XSS/injection): Test case / session / automation-source names render inert
 
-**Priority:** P2 — every other report type in this plugin offers HTML/PDF/Excel export, and at least two
-siblings (Slow Tests, Most Failed Tests — BUG-TCM-068/071) shipped with an Excel exporter that didn't
-recognize the new report type at first; this is a documented recurring gap class worth checking for
-proactively if/when export is offered here
-**Steps:** If the implemented feature offers a Download menu, export all offered formats and inspect
-each file's actual contents (not just that a file downloads).
-**Expected Result:** Every offered export format contains the same unified manual/exploratory/
-automation data as the on-screen report — no "Unknown Report Type" placeholder, no silently-missing
-section.
-**Actual Result:** Not Executed — feature not implemented (ticket status: New, 0% done). These are
-planned test cases for whenever this feature is built, written against the ticket description and this
-plugin's existing reporting conventions; they will need to be revised once an actual implementation and
-spec exist.
+**Priority:** P1 — this exact bug class (BUG-TCM-070, a chart-rendering XSS on a sibling rftc-021 report) was
+found and fixed on another report in this same plugin
+**Steps:** Create a test case with subject `<img src=x onerror=alert('rftc033')>`, link it to the milestone's run
+and leave it uncovered (so it appears in the Coverage "not covered" list); separately give an Automation Source a
+similarly HTML-shaped name. Open the report.
+**Expected Result:** Both render as inert, HTML-escaped text wherever they appear (Coverage list, Automation
+sources table, Top failing/flaky lists) — no `alert()` fires. (Coverage/risk-list links use `link_to` with
+Rails' own auto-escaping of the link text; the Automation sources table interpolates `src[:name]` directly — both
+paths need checking independently.)
+**Actual Result:** **PASS.** Created test case subject `<img src=x onerror=alert(1)>` (linked into a run within
+Version #44, Target Version set) and Automation Source name `<script>alert(2)</script>` (with a real automation
+result). On the report page: no `alert()` fired; the automation sources table rendered the name as
+`&lt;script&gt;alert(2)&lt;/script&gt;` (escaped entities) in the raw HTML; `document.body.innerHTML` contained no
+literal unescaped `<img src=x onerror` substring anywhere on the page. Both paths (Coverage link text, Automation
+sources table cell) render inert.
 
-## Not Executed
+---
 
-Every scenario above is **Not Executed** — the feature does not exist on any branch as of this writing
-(ticket #123572 is status New, 0% done). See each case's own Actual Result line for the standard note.
+### RFTC033-10 (negative): Deleted test case's execution history doesn't crash the report
 
-## Coverage Summary
+**Priority:** P2 — this plugin's existing reports have known orphaned-row edge cases (e.g. BUG-TCM-108)
+**Steps:** Record a result against a test case within the milestone's run, then delete that test case (issue).
+Reload the report.
+**Expected Result:** The report renders without a 500. `MilestoneReport#defects`/coverage queries are built on
+`Issue.visible(@user).where(id: ...)`, which naturally excludes a deleted issue's id — confirm the headline/
+coverage numbers adjust sensibly rather than crashing on a dangling reference.
+**Actual Result:** **PASS.** Built a dedicated throwaway fixture (Version #46 "Delete Testcase Fixture", Run #40,
+1 test case recorded Passed), then `Issue.destroy`'d the test case. Reloaded both the report and the burndown
+page: no 500/"Internal error" on either, page titles rendered normally, report's Total results correctly adjusted
+to 0 (the deleted issue's result row no longer counted, via `Issue.visible` scoping naturally excluding it) — no
+crash on the dangling reference.
 
-**0/10 executed — 100% planned/speculative.** This file exists to capture test design ahead of
-implementation, per explicit instruction to read the production feature and author positive/negative
-coverage now. All 10 scenarios are pending the feature actually being built, and — more fundamentally —
-pending the dev/PM resolving the Milestone-removal conflict described in "Open Question" above, since
-that conflict determines what this report can even be scoped by. This file must be revisited and almost
-certainly rewritten once a real spec/implementation exists.
+---
+
+### RFTC033-11: "Found" vs "Targeted" defects are genuinely independent counts
+
+**Priority:** P2 — the report deliberately keeps these two rows separate ("testing quality" vs "what's left for
+release"); a tester should confirm they don't silently collapse into the same number
+**Steps:** Create defect A, link it to a result in the milestone's run (making it "found") but leave its Target
+Version unset/different. Create defect B with Target Version = this milestone but not linked to any result
+("targeted" only, found nowhere). Open the report.
+**Expected Result:** "Found in this milestone's runs" row shows defect A only; "Targeted at this version" row
+shows defect B only — the two rows are never the same count unless a defect genuinely satisfies both conditions.
+**Actual Result:** **PASS.** Created a defect with Target Version = Version #44, not linked to any execution
+result ("targeted-only"). Version #44's report showed: "Found in this milestone's runs" 0 open/0 closed (correctly
+stayed 0 — no defect in this milestone's runs is linked via execution_defects), "Targeted at this version" 1
+open/0 closed (the new defect). Combined with RFTC033-1's earlier confirmation (a "found" defect #288 counted
+independently while "Targeted" stayed 0/0 in that run), both directions of independence are now verified.
+
+---
+
+### RFTC033-12: Print button produces a clean, menu-free print view
+
+**Priority:** P2
+**Steps:** Open the report, trigger the Print button (`window.print()` / browser print preview).
+**Expected Result:** Elements marked `rf-no-print` (the action buttons, the tabs) are hidden in the print
+preview/output; the report's own data sections remain visible.
+**Actual Result:** **FAILED** (recorded on production Run #659, testcase #127987). The print-preview output itself
+was not directly inspected (Playwright MCP has no reliable print-preview inspection primitive), but the Print
+button's own styling fails this case's "clean, consistent" expectation: it renders as a solid orange/filled
+button while every other button on the same page ("Open in Roadmap", "Edit version", "Close milestone") uses the
+plugin's standard white-background + border style — see BUG-TCM-137 item 7 (production defect #128023, assigned
+to Vaishnavi Bhawsar). BUG-TCM-137 also bundles 6 other Milestones-feature UI/UX findings (tab-count mismatch,
+out-of-range page empty state, pagination style inconsistency, overview-widget card inconsistency, unpaginated
+runs table, Overview tab spacing) reported together in the same production ticket.
+
+---
+
+### RFTC033-13: Coverage list links resolve to the correct issue, capped at 10
+
+**Priority:** P2 — the view explicitly caps the "not covered" list at `.first(10)`
+**Steps:** Set Target Version = this milestone on 15+ test cases, link fewer than half of them to a run in this
+milestone. Open the report.
+**Expected Result:** The covered/not-covered counts (`text_milestone_coverage_counts`) reflect the true full
+counts, but the rendered "not covered" list shows at most 10 linked issues, each linking to the correct issue page.
+**Actual Result:** **PASS.** Set Target Version = Version #44 on 20 test cases, linked 6 of them (plus the XSS
+fixture = 7) into a run. Report's Coverage section read "7 covered, 14 not in any run yet." (true full counts),
+while the rendered "not covered" list showed exactly 10 linked issues (`#328`-`#337`), each linking to its own
+correct issue page — confirming both the true-count text and the `.first(10)` render cap.
+
+---
+
+## Execution status
+
+**13/13 executed 2026-11-11 — 12 PASS (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13), 1 FAILED (12)** against
+`localhost:3000` via Playwright MCP, using Version #1, #44, and #46 in Project A (`rftc-016-ci-qa`). Every PASSing
+case confirmed its expected behavior exactly — no deviations found except case 12 (Print button style, see
+BUG-TCM-137 item 7 / production defect #128023). Results and the one confirmed defect were also recorded against
+production Run #659 (testsuite #527), with the defect assigned to Vaishnavi Bhawsar. Rewritten 2026-11-11 directly
+from the shipped controller/service/view/locale source (not speculation) now that the feature is built and both
+#123572 and its sibling #123573 are "In QA" on production.

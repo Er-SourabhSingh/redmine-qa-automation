@@ -101,6 +101,12 @@ This is not a new, separate defect — it is a second, more severe symptom of th
 visibility: the native UI gives an admin no way to calculate the correct number to enter, and no warning that
 the number they did enter still leaves the category over budget.
 
+## Closed — 2026-11-12 — Won't Fix (developer decision)
+
+Developer marked production issue #126322 as Won't Fix. The native-UI visibility gap is a known limitation
+and not planned for a fix. Crux Budget Agent's `get_budget_status` is the supported path to view
+Spent/Remaining/Over-Budget figures. Bug closed locally to match production status.
+
 ## Retest — 2026-11-05 — STILL OPEN (unchanged)
 
 Re-checked natively as `admin` on project 5. The settings tab moved again (now

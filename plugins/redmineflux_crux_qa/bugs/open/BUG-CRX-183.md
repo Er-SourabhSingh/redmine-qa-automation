@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-183
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128268 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127941 (CRUX_PLATFORM_FROZEN_RULES), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Frozen Rule "Reason" field's 300-character cap is enforced only client-side (HTML `maxlength`); server accepts and stores a 350+ character reason verbatim, with no truncation or rejection
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

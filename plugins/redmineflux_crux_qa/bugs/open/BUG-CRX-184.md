@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-184
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128269 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127940 (CRUX_PLATFORM_SETTINGS), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Settings' "Default agent" field accepts and saves a nonexistent/invalid agent id with zero validation — every user's fresh "Ask Crux" chat then fails on the very first message with "unknown agent '<id>'"
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

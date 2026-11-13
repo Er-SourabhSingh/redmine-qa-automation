@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-147
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128396
 - Title: Renaming an Environment via the project's Environment Settings page does not move its per-environment test case assignee rows — they are silently lost (#128320 incomplete fix for rftc-TCM-020's rename cascade)
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: redmineflux_testcase_management

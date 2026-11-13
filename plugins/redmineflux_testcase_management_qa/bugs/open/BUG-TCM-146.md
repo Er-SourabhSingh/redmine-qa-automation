@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-146
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128395
 - Title: Adding a new environment to an existing Run does not seed its test cases with that environment's own assignee (#128320)
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: redmineflux_testcase_management

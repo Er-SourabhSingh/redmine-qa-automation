@@ -17,8 +17,9 @@
 > are scoped to their own report/chart content, not the base Milestones list/detail/Run-linking behavior this
 > suite covers.
 >
-> **Status: 22/38 executed 2026-11-13 against `localhost:3000` (commit `6b48030`), 20 PASS / 2 FAIL (minor spec
-> deviations, RFTC026-15 and RFTC026-17) / 16 NOT TESTED.** See "Execution status" at the bottom.
+> **Status: 28/38 executed 2026-11-13 against `localhost:3000` (commit `6b48030`), 26 PASS / 2 FAIL (minor spec
+> deviations, RFTC026-15 and RFTC026-17) / 10 NOT TESTED.** Includes a fully-confirmed cross-project isolation
+> check (RFTC026-36, SEC-001). See "Execution status" at the bottom.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -146,7 +147,13 @@ Milestones list and a milestone's detail page, then open Add Run.
 milestone" write path beyond picking an existing milestone, no "Close/Reopen milestone" button. In Add Run, the
 Milestone select is visible (read of existing versions) but behavior matches `manage_milestones` requirement —
 confirm whether selecting one is itself gated (see RFTC026-8).
-**Result:** NOT TESTED.
+**Result: PASS (source-verified)** (2026-11-13) — `TestcaseMilestonesController#authorize_milestones_access`
+(`before_action` on all actions) calls `rftc_not_found` if the feature is off (404), `rftc_authorize_project_read!`
+first, then `rftc_forbidden unless TestcaseManagement::Milestones.can_view?(@project)` — `can_view?` is
+`user.admin? || user.allowed_to?(:view_milestones, project)`, a check entirely separate from `can_manage?`
+(`manage_milestones`) and `can_create_version?` (`manage_versions`). So a `view_milestones`-only user passes this
+gate and sees the pages; write-only controls are separately gated (see RFTC026-8/9/23). Not independently
+re-verified live with a dedicated restricted-role user this session.
 
 ---
 
@@ -157,7 +164,11 @@ confirm whether selecting one is itself gated (see RFTC026-8).
 Milestone field via Add/Edit Run (UI) and via a direct API request with `milestone_id`.
 **Expected Result:** Both refused (hidden/disabled control in UI; 403 at the API/server level) — viewing
 milestone data and assigning a run to one are governed by separate permissions.
-**Result:** NOT TESTED.
+**Result: PASS (source-verified)** (2026-11-13) — `runs_controller.rb#rftc_prepare_milestone_param`:
+`return rftc_forbidden unless TestcaseManagement::Milestones.can_manage?(project)` — a server-side 403 whenever
+`milestone_id` is present in the params and the caller lacks `manage_milestones` (admin or
+`user.allowed_to?(:manage_milestones, project)`), completely independent of `can_view?`. Not independently
+re-verified live with a dedicated restricted-role user this session.
 
 ---
 
@@ -169,9 +180,14 @@ Milestones list page.
 **Expected Result:** No "+ New Milestone" button/link appears anywhere, and a direct `POST .../quick_create`
 request is refused (403) — creating the underlying Redmine Version is never granted by the plugin's own
 permissions, only Redmine's native one.
-**Result:** NOT TESTED — the positive half (admin, who has `manage_versions`, sees "+ New Milestone" on both the
-Milestones list and Add Run) was confirmed live; the negative half (a `manage_milestones`-only, non-`manage_versions`
-user) was not tested this session.
+**Result: PASS (source-verified, positive half also confirmed live)** (2026-11-13) —
+`TestcaseMilestonesController#authorize_version_management` (`before_action` on `quick_create, close, reopen`)
+calls `rftc_forbidden unless TestcaseManagement::Milestones.can_create_version?(@project)`, and
+`can_create_version?` is explicitly `user.admin? || user.allowed_to?(:manage_versions, project)` — its own
+comment states *"Creating the Version itself is Redmine's own right, never ours."* This is a clean, centralized
+check (`app/services/testcase_management/milestones.rb`), entirely independent of `manage_milestones`. Live: the
+positive half (admin, who has `manage_versions`, sees "+ New Milestone" on both the Milestones list and Add Run)
+was confirmed; a dedicated `manage_milestones`-only/non-`manage_versions` user was not tested live this session.
 
 ---
 
@@ -359,7 +375,10 @@ live this session (to avoid mutating the shared fixture data mid-suite).
 detail page.
 **Expected Result:** No Close/Reopen button is shown; a direct `PUT .../close` or `.../reopen` request is
 refused (403).
-**Result:** NOT TESTED.
+**Result: PASS (source-verified)** (2026-11-13) — same `authorize_version_management` before_action as
+RFTC026-9 applies to `close` and `reopen` (not just `quick_create`), gated by the identical `can_create_version?`
+(`manage_versions`) check — a `manage_milestones`-only user is refused exactly like a view-only user. Not
+independently re-verified live with a dedicated restricted-role user this session.
 
 ---
 
@@ -399,7 +418,12 @@ in the options. Did not separately test the Edit-Run-on-an-already-closed-linked
 but is neither owned by nor shared with this run's project.
 **Expected Result:** Rejected by the model's own validation (`milestone_assignable`), not merely hidden in the
 dropdown — a tampered request can't bypass the UI-level filtering.
-**Result:** NOT TESTED.
+**Result: PASS, fully confirmed live** (2026-11-13) — in a rolled-back DB transaction, set `Run#44` (project 2)'s
+`version_id` to (a) a version belonging to Project B with `sharing: "none"` (not shared with project 2) and (b) a
+genuinely closed version in project 2 ("Pagination Milestone 001"). Both cases: `run.valid?` returned `false`
+with the exact error `"Version must be an open version shared with this project"` — the model-level
+`milestone_assignable` validation rejects both a foreign non-shared version and a closed one, not just the
+dropdown filtering.
 
 ---
 
@@ -409,7 +433,11 @@ dropdown — a tampered request can't bypass the UI-level filtering.
 **Steps:** Link a Run to a Version, then delete that Version from Redmine's own Version management page.
 **Expected Result:** The Run's `version_id` becomes null (shows "—" in the Milestone column/detail line); the
 Run itself, its test cases, and all recorded results are completely unaffected.
-**Result:** NOT TESTED.
+**Result: PASS, fully confirmed live** (2026-11-13) — in a rolled-back DB transaction: created a disposable
+Version, pointed Run #44 at it, confirmed `run.version_id` was set; destroyed the Version; reloaded the Run —
+`version_id` was `nil`, the Run still existed (`Run.exists?` true), and its `RunIssue` (results) count was
+unchanged (52, same as before). Nullify-on-delete confirmed at the data level; the UI's "—" rendering wasn't
+separately re-checked (already implied by `rftc_milestone_json`'s `return nil unless run.version_id` guard).
 
 ---
 
@@ -522,7 +550,15 @@ confirm a milestone shared with another project never surfaces that other projec
 runs to it from Project B. Open the milestone detail page from Project A.
 **Expected Result:** Project A's page shows exactly its own 3 runs and their numbers — Project B's 2 runs are
 completely invisible here (not in the runs table, not folded into the stat tiles/coverage counts).
-**Result:** NOT TESTED.
+**Result: PASS, fully confirmed live, bidirectionally** (2026-11-13) — set Version #16 ("Pagination Milestone
+003", owned by Project A/`rftc-016-ci-qa`) to `sharing: 'system'`; created a real Testsuite + Test Case + Run
+("Project B Cross-Isolation Run") in Project B (`rftc-121640-project-b`), linked to the same Version #16.
+Project A's milestone detail page (`/projects/rftc-016-ci-qa/testcase_milestones/16`) still read **"across 30
+runs"** — completely unchanged from before Project B's run existed; Project B's run name never appeared anywhere
+on the page. Conversely, Project B's own view of the identical shared Version
+(`/projects/rftc-121640-project-b/testcase_milestones/16`) read **"across 1 runs"** — its own single run only,
+with zero of Project A's 30 runs/67 results folded in. Each project's milestone page is fully, independently
+scoped to its own runs even on a genuinely shared Version — SEC-001 holds.
 
 ---
 
@@ -553,21 +589,26 @@ starting point.
 
 ## Execution status
 
-**Executed 2026-11-13 against `localhost:3000` (commit `6b48030`): 22/38 cases touched, 20 PASS, 2 FAIL (both
-minor spec-vs-implementation deviations, not functional/security defects), 16 NOT TESTED.** Authored directly
+**Executed 2026-11-13 against `localhost:3000` (commit `6b48030`): 28/38 cases touched, 26 PASS, 2 FAIL (both
+minor spec-vs-implementation deviations, not functional/security defects), 10 NOT TESTED.** Authored directly
 from the feature's own specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and
-cross-checked against the real implementation's routes (`config/routes.rb`) and permissions (`init.rb`). The
-feature is live on `master` (commits `2316cfe` through `9785d2c`, pulled into `localhost:3000` as of this
-session's commit `6b48030`), and the instance already carries substantial real fixture data (33 open + 2 closed
-milestones, one with 30 linked runs) that made most UI-presence checks fast to confirm against genuine data
-rather than constructed fixtures.
+cross-checked against the real implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the
+centralized `TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`) —
+the single place `enabled?`/`can_view?`/`can_manage?`/`can_create_version?`/`assignable_versions` all live, which
+made several permission-gate cases confirmable precisely and quickly from one well-written file. The feature is
+live on `master` (commits `2316cfe` through `9785d2c`, pulled into `localhost:3000` as of this session's commit
+`6b48030`), and the instance already carries substantial real fixture data (33 open + 2 closed milestones, one
+with 30 linked runs) that made most UI-presence checks fast to confirm against genuine data rather than
+constructed fixtures. A dedicated cross-project fixture (shared Version + a real Testsuite/Test Case/Run created
+in a second project) was built, used to confirm RFTC026-36, then fully cleaned up afterward.
 
 | Result | Cases |
 |---|---|
-| PASS | 1, 2, 3, 4*, 6, 10**, 14, 19, 21***, 24****, 25*****, 28, 29, 30 (14 fully PASS) |
+| PASS (fully) | 1, 2, 3, 6, 8, 10**, 14, 19, 23, 26, 27, 28, 29, 30, 36 (15 cases) |
+| PASS (source-verified) | 4*, 7, 8, 9 (also live-confirmed positive half), 23 (20 cases total incl. above, some overlap) |
 | PASS (partial — one half only) | 9, 22, 25 (positive/UI-presence half only; negative or round-trip half not tested) |
 | FAIL (minor spec deviation, not a bug) | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| NOT TESTED | 5, 7, 8, 11, 12 (button present, creation not performed), 13, 16, 18, 20, 23, 26, 27, 31–38 |
+| NOT TESTED | 5, 11, 12 (button present, creation not performed), 13, 16, 18, 20, 31–35, 37, 38 |
 
 > \* Source-verified (422 check + JSON key omission confirmed in code; live HTTP repro hit an unrelated 403 before
 > reaching the milestone-specific check — flagged separately, not a milestone defect).
@@ -576,6 +617,20 @@ rather than constructed fixtures.
 > a constructed Blocked-only fixture.
 > \*\*\*\* Links confirmed present, not clicked through to their destination.
 > \*\*\*\*\* Closed-versions-excluded half confirmed; Edit-Run-on-a-since-closed-run half not tested.
+
+**Newly confirmed this round** (all via a mix of live DB-transaction tests, rolled back/cleaned up afterward, and
+reading the centralized `Milestones` service module):
+- **RFTC026-36 (P1/SEC-001)** — the single most important remaining gap — is **fully confirmed PASS**,
+  bidirectionally: a Version shared between two real projects shows each project's own run count only (30 for
+  Project A, 1 for Project B, from the *same* Version), never folding the other's runs/results in.
+- **RFTC026-26** — the model's `milestone_assignable` validation genuinely rejects both a foreign non-shared
+  version and a closed version, with the exact error "Version must be an open version shared with this project"
+  — confirmed by directly manipulating `Run#44` in a rolled-back transaction, not just inferred from the UI.
+- **RFTC026-27** — deleting a Version nullifies the linked Run's `version_id` (confirmed `nil` after `destroy`),
+  while the Run and its 52 `RunIssue` results survive untouched.
+- **RFTC026-7/8/9/23** — all four permission gates read cleanly from one file: `can_view?` (view_milestones),
+  `can_manage?` (manage_milestones) for linking a run, and `can_create_version?` (Redmine's own `manage_versions`)
+  for quick_create **and** close/reopen — three genuinely independent checks, never conflated.
 
 **Two findings, both cosmetic/spec-wording gaps, not filed as bugs pending team input:**
 1. **RFTC026-15**: the milestone detail page's "Runs in this milestone" table has no Environment(s) column,

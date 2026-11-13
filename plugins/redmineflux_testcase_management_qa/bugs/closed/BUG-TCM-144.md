@@ -52,7 +52,17 @@
 
 ### Retest screenshot (fill after fix is verified)
 
-![Retest result](../../screenshots/BUG-TCM-144/retest-yyyy-mm-dd-pass.png)
+### Retest (2026-11-13) — FIXED
+
+Developer fix commit `6b48030` pulled to `localhost:3000` and container restarted. `#modal-container` now has
+`overflow-y:auto; align-items:flex-start` and `#modal-content` has `margin:auto`. At 1920x1080 the Add Defect
+dialog fits fully, Create/Cancel both visible. At a constrained 1920x700 viewport (simulating real browser-chrome
+overhead), the overlay's `scrollHeight` (843) genuinely exceeds `clientHeight` (636) and scrolling reveals the
+Create button fully within the viewport (`top: 575, bottom: 615`, both inside `innerHeight: 636`).
+
+![Retest result — Add Defect fits fully at 1920x1080, Create/Cancel both visible](../../screenshots/BUG-TCM-144/retest-2026-11-13-pass.png)
+
+Production issue #128386 updated: status In QA → Done, % done → 100.
 
 ### Console / log
 

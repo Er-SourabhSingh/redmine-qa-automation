@@ -57,9 +57,15 @@ The `new_environments` branch only creates `IssueStatusResult` rows (execution-r
 
 ![Firefox tab's test cases show the stale shared fallback ("Luna Blossom") instead of Firefox's own assignee ("Daisy Skye")](../../screenshots/BUG-TCM-146/new-env-not-seeded.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest (2026-11-13) — FIXED
 
-![Retest result](../../screenshots/BUG-TCM-146/retest-yyyy-mm-dd-pass.png)
+Developer fix commit `6b48030` pulled to `localhost:3000` and container restarted. Added a brand-new environment
+("Safari-Retest146") to Run #48 via Edit Run, with assignee "Opal Sparrow" (distinct from the run's then-current
+shared fallback, "Sage Willow"). After save, every one of the run's 55 test cases showed "Opal Sparrow" on the
+new environment's tab — confirmed live in the UI and at the DB level (`RunIssueAssignment` holds exactly 55 rows
+for the new environment, all `assignee_id` = Opal Sparrow, matching the run's own `RunIssue` count 1:1).
+
+Production issue #128395 updated: status In QA → Done, % done → 100.
 
 ### Console / log
 

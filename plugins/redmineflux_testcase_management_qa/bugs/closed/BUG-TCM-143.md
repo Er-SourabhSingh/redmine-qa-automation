@@ -59,9 +59,16 @@ Computed `width: 10.5px` regardless of how many characters are typed — the aut
 ![User-reported: Assignee filter — typed "s" in a tiny box](../../screenshots/BUG-TCM-143/user-reported-assignee-filter-narrow-box.png)
 ![User-reported: Defects field — typed "4" in a tiny box](../../screenshots/BUG-TCM-143/user-reported-defects-field-narrow-box.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest (2026-11-13) — FIXED
 
-![Retest result](../../screenshots/BUG-TCM-143/retest-yyyy-mm-dd-pass.png)
+Developer fix commit `6b48030` ("Close three per-environment assignee gaps and fix two stuck dialogs") pulled
+to `localhost:3000` and container restarted. Retested the Assignee filter's Select2 search box: typed "autumn"
+renders left-to-right in a single-line box (~183px wide, ~18px tall), not stacked vertically. `.select2-search__field`
+now has `min-width:10em` with `width:auto!important` overriding Select2's own stuck inline `width: 0.75em`.
+
+![Retest result — "autumn" reads horizontally, matching dropdown result "Autumn Grace"](../../screenshots/BUG-TCM-143/retest-2026-11-13-pass.png)
+
+Production issue #128385 updated: status In QA → Done, % done → 100.
 
 ### Console / log
 

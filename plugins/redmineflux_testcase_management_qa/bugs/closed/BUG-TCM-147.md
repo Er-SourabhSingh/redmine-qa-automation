@@ -64,9 +64,17 @@ This callback, from the original BUG-TCM-020 fix (pre-#128320), enumerates every
 
 Not separately captured for this bug — see the retest workflow in `BUG-TCM-145.md`'s evidence for the same Run/project context; confirmed via live reproduction (DB-level check: `RunIssueAssignment` row for the test case remained under the old environment name after rename, while `RunAssignment.environment` correctly updated to the new name).
 
-### Retest screenshot (fill after fix is verified)
+### Retest (2026-11-13) — FIXED
 
-![Retest result](../../screenshots/BUG-TCM-147/retest-yyyy-mm-dd-pass.png)
+Developer fix commit `6b48030` pulled to `localhost:3000` and container restarted (added the missing
+`RunIssueAssignment` line to `TestcaseEnvironment#rename_environment_references`). Repeated the exact live repro
+on Run #48, TC #320: inline-set the Edge-tab assignee to "Daisy Skye", confirmed the override row was created;
+renamed "Edge" → "Edge-Retest-Fix" purely via the project's Environment Settings page (Run itself never opened
+in between); reopened the Run on the renamed tab — TC #320 still showed "Daisy Skye", not the shared fallback.
+Confirmed at DB level: the `RunIssueAssignment` row moved to the new environment name (`[197, "Edge-Retest-Fix", 6]`),
+no orphaned row left under the old "Edge" name.
+
+Production issue #128396 updated: status In QA → Done, % done → 100.
 
 ### Console / log
 

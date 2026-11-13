@@ -71,9 +71,18 @@ Block 1 is dead/superseded logic from before #128320 existed (its own comment ci
 
 ![Edge tab shows the leaked "Luna Blossom" change after only Chrome's assignee was edited](../../screenshots/BUG-TCM-145/edge-tab-leaked-change.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest (2026-11-13) — FIXED
 
-![Retest result](../../screenshots/BUG-TCM-145/retest-yyyy-mm-dd-pass.png)
+Developer fix commit `6b48030` pulled to `localhost:3000` and container restarted. Repeated the exact repro on
+Run #44 (RFTC045-6 fixture): confirmed baseline first (TC #1 showed "Luna Blossom" on both Chrome and
+Edge-Retest-Fix tabs, pre-existing shared fallback). Changed only Chrome's assignee via Edit Run (Luna Blossom →
+Harmony Rose), left Edge's assignee field untouched. After save: Chrome tab correctly showed "Harmony Rose";
+Edge tab still showed "Luna Blossom" — no leak. Confirmed at DB level across all 52 test cases on the run: Edge's
+`RunIssueAssignment` now holds 52 explicit rows pinned at the old default (`Luna Blossom`/`Autumn Grace` per the
+one pre-existing override), while Chrome's co-following cases correctly have no explicit row and follow the new
+shared fallback (`Harmony Rose`) — exactly the intended scoping.
+
+Production issue #128387 updated: status In QA → Done, % done → 100.
 
 ### Console / log
 

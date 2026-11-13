@@ -761,6 +761,183 @@ into a *new* failure mode.
 
 ---
 
+## Enhancement (proposed 2026-11-13, not yet built) — Edit Run should only manage Environments, not Assignee
+
+> **Status: NOT TESTED — pending development.** This is QA's own enhancement proposal, written up and sent to
+> the developer after the per-environment-assignee confusion found in BUG-TCM-145/146/147 (all three bugs
+> traced back to Edit Run's "Assignee" field being re-shown for an already-in-progress run, which is exactly
+> the surface a user can misread as "did this silently change my existing per-TC assignments?"). Not yet
+> reported to production as its own issue; cases below are pre-written so they're ready to execute the moment
+> it ships. No TC here should be marked PASS/FAIL until the enhancement actually lands in a build.
+>
+> **Proposed behavior:** Edit Run drops its per-environment "Assignee" field entirely — Edit Run becomes
+> Environment-management-only (add/remove environments, plus the run's own name/notes/dates/milestone/test
+> case selection). Assignee changes stay exclusively on the existing in-run paths (inline single reassign,
+> bulk reassign — both scopes). Any environment or test case newly added via Edit Run starts **Unassigned**,
+> never seeded from a fallback or another environment's value. Add Run (creation time) is unaffected — its
+> Assignee field stays exactly as today, since that's the one legitimate seeding step.
+
+### RFTC045-53: Edit Run no longer shows a per-environment Assignee field
+
+**Priority:** P1
+**Steps:** Open Edit Run on any existing Run.
+**Expected Result:** Each environment row shows only the Environment selector (plus its add/delete controls) —
+no "Assignee" dropdown anywhere in the form.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-54: Edit Run's Environment rows have no assignee control attached
+
+**Priority:** P2
+**Steps:** In Edit Run, use "+ Add" to add an environment row, and the trash icon to remove one.
+**Expected Result:** Both controls work exactly as today, operating only on the Environment field — neither
+control exposes or requires an assignee value.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-55: Add Run's Assignee field is unaffected (regression)
+
+**Priority:** P1
+**Steps:** Open Add Run (new Run creation) and check each environment row.
+**Expected Result:** The Assignee field still appears per environment, unchanged from current behavior — this
+change is scoped to Edit Run only.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-56: A new environment added via Edit Run starts fully Unassigned
+
+**Priority:** P1
+**Steps:** Via Edit Run, add a new environment (no assignee field to fill, per RFTC045-53) and save. Switch to
+the new environment's tab.
+**Expected Result:** Every test case in the Run shows "Unassigned" on the new tab — no fallback value, no
+value borrowed from any other environment.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-57: A new environment's Unassigned state holds at the data level, not just in the UI
+
+**Priority:** P2
+**Steps:** Repeat RFTC045-56; check the new environment's assignment records directly (DB or API), not just
+the rendered tab.
+**Expected Result:** No per-environment assignee row is seeded for the new environment — every test case
+resolves to Unassigned because nothing was ever written, not because a row was written with a null value that
+happens to render the same.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-58: A new Test Case added via Edit Run starts Unassigned, not inherited from the Run's prior per-TC values
+
+**Priority:** P1
+**Steps:** On a Run where some test cases already have an inline/bulk-reassigned assignee, use Edit Run to add
+a brand-new test case to the Run (existing environment(s), nothing newly added environment-wise).
+**Expected Result:** The newly added test case shows "Unassigned" — it does not inherit the Run's existing
+per-run default, nor any other test case's value.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-59: A newly added Test Case is Unassigned on every environment tab, not just the active one
+
+**Priority:** P2
+**Steps:** Repeat RFTC045-58 on a Run spanning 2+ environments; check the new test case on every tab.
+**Expected Result:** "Unassigned" on every environment tab for the new test case — none of them pick up an
+old per-environment value.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-60: Existing per-TC assignees survive an Edit Run save that only adds an environment
+
+**Priority:** P1 — directly guards against a BUG-TCM-145/146-style regression
+**Steps:** On a Run with test cases already individually reassigned (inline or bulk), open Edit Run, add a new
+environment only (don't touch anything else), save.
+**Expected Result:** Every existing test case's assignee, on every pre-existing environment tab, is byte-for-
+byte unchanged after the save — the only new state is the new environment's test cases showing Unassigned.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-61: Existing per-TC assignees survive an Edit Run save that only changes non-assignee fields
+
+**Priority:** P1
+**Steps:** On the same kind of Run as RFTC045-60, open Edit Run and change only the Run's name or notes (no
+environment add/remove), save.
+**Expected Result:** Every existing test case's assignee is unchanged on every environment tab — a save with
+zero environment changes must be a complete no-op for assignees.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-62: Existing per-TC assignees survive an environment being removed via Edit Run
+
+**Priority:** P1
+**Steps:** On a Run with 2+ environments and individually reassigned test cases, remove one environment via
+Edit Run, save.
+**Expected Result:** The remaining environment(s)' test case assignees are completely unaffected by the
+removal — no leak, no reset to Unassigned, no reset to any fallback.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-63: Inline single reassignment is unaffected by this change
+
+**Priority:** P1 — regression guard
+**Steps:** Inline-reassign a single test case's assignee cell on any environment tab.
+**Expected Result:** Works exactly as today — 2 clicks, no navigation, no dependency on anything in Edit Run.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-64: Bulk reassignment (both scopes) is unaffected by this change
+
+**Priority:** P1 — regression guard
+**Steps:** Select multiple test cases and bulk-reassign, once with "This environment only" and once with "All
+environments."
+**Expected Result:** Both scopes behave exactly as today (per RFTC045-45/46/51) — this is still the only place
+assignees are set/changed, and this enhancement doesn't alter its behavior at all.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-65: Edit Run's `edit_run` permission gate is unaffected by dropping the Assignee field
+
+**Priority:** P1 — regression guard, mirrors RFTC045-21/22/23/24
+**Steps:** Repeat RFTC045-21 (granted role can use Edit Run) and RFTC045-23/24 (denied role blocked in UI and
+at the endpoint, server-side) against the changed Edit Run form.
+**Expected Result:** Same `edit_run` permission gate, same enforcement (UI hidden + 403 on direct request) —
+removing the Assignee field doesn't touch the authorization path at all.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-66: Pre-existing Runs (created before this enhancement shipped) open correctly in the new Edit Run
+
+**Priority:** P2
+**Steps:** Open Edit Run on a Run that already existed before this change (with its own already-set per-TC/
+per-environment assignees from the old flow).
+**Expected Result:** The form opens cleanly with the new (Assignee-less) layout, every other field (name,
+notes, dates, environments, test case selection) pre-populates correctly, and saving produces no unexpected
+assignee side-effect — old data and the new form coexist without any migration surprise.
+**Result:** NOT TESTED — pending development.
+
+---
+
+### RFTC045-67: Edit Run save still confirms success cleanly
+
+**Priority:** P3
+**Steps:** Save an Edit Run change (environment add/remove only, no assignee field present) and observe the
+confirmation.
+**Expected Result:** "Run updated successfully" (or equivalent), no console error, no residual stale banner —
+same clean confirmation UX as before the field was removed.
+**Result:** NOT TESTED — pending development.
+
+---
+
 ## Execution status
 
 **Executed (2026-11-12).** Feature shipped in Release 7.4.0 on `master`. 34 cases (RFTC045-1 through

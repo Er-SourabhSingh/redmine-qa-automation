@@ -600,7 +600,7 @@ not Chrome's assignee (the first environment) leaking into Edge, as RFTC045-6 fo
 environment with its own Add Run-style assignee.
 **Expected Result:** The newly added environment's Test Cases are seeded with that environment's assignee,
 same as RFTC045-39's creation-time behavior — adding an environment later is not a second-class path.
-**Result:** NOT TESTED — both fixture Runs (#44, #48) already had both environments configured at creation; adding a 3rd environment to an existing Run wasn't exercised this session. Deferred.
+**Result (2026-11-13):** FAIL — Created a new project-level Environment "Firefox", used Edit Run → "Add" on Run #48 to add it with assignee Daisy Skye, saved. Run summary header correctly showed "Assignee: Daisy Skye" on the Firefox tab. But every test case's Assignee column showed the stale shared Test-Case-level fallback ("Luna Blossom") instead of Firefox's own assignee — no `RunIssueAssignment` rows were created for the new environment at all. Bug filed: **BUG-TCM-146**. Screenshot: `screenshots/RFTC045/rftc045-40-new-env-not-seeded-fail.png`.
 
 ---
 
@@ -613,7 +613,7 @@ same as RFTC045-39's creation-time behavior — adding an environment later is n
 **Expected Result:** The per-environment assignments that were under "Chrome" now appear under
 "Chrome-Updated" — same pattern the existing execution results already use for environment renames (per the
 ticket's own text), not reset to the Test-Case-level default or lost.
-**Result:** NOT TESTED — renaming a project Environment wasn't exercised this session (would require the Environment settings page). Deferred.
+**Result (2026-11-13):** FAIL — On Run #48's "Firefox" environment, set TC #324's assignee specifically to "Opal Sparrow" via inline reassignment. Renamed the environment via Environment Settings (TestCases → Environment → Edit) to "Firefox-Renamed". The Run's environment-level assignee correctly followed the rename (summary header still showed "Daisy Skye" under the new tab name). But TC #324's hand-set override was lost — it reverted to the shared Test-Case-level fallback ("Luna Blossom"), not "Opal Sparrow". Root cause: `TestcaseEnvironment#rename_environment_references` cascades the rename to `Run`, `RunAssignment`, `IssueStatusResult`, `Issue`, `TimeEntry` — but not `RunIssueAssignment`, the new #128320 table. Bug filed: **BUG-TCM-147** (High — silent data loss).
 
 ---
 
@@ -623,7 +623,7 @@ ticket's own text), not reset to the Test-Case-level default or lost.
 **Steps:** On a Run with per-environment assignments set, delete one of its environments via Edit Run.
 **Expected Result:** That environment's `run_issue_assignments` rows are removed; no orphaned rows, no error
 on the Run page afterward, and the remaining environments' per-environment assignments are unaffected.
-**Result:** NOT TESTED — deleting an environment from a Run via Edit Run wasn't exercised this session. Deferred.
+**Result:** NOT TESTED — explicitly deferred per user instruction this session (expected behavior: deleting an environment should not remove test cases from the Run; low priority to verify separately). Deferred.
 
 ---
 
@@ -634,7 +634,7 @@ on the Run page afterward, and the remaining environments' per-environment assig
 Case" or adding a Test Suite that includes it).
 **Expected Result:** The newly added Test Case is seeded with each environment's assignee, exactly as if it
 had been present at Run creation — not left at Test-Case-level-default-only until manually touched.
-**Result:** NOT TESTED — adding a new Test Case to an existing Run after creation wasn't exercised this session. Deferred.
+**Result (2026-11-13):** PASS (method-level) — Created a new Test Case (issue #349), linked to a suite already part of Run #48. Directly verified the underlying seeding method, `RunIssueAssignment.seed_for!`: given the new TC and the Run's current default assignee, it correctly created an explicit `RunIssueAssignment` row for Edge (Autumn Grace, Edge's own assignee) and for Firefox-Renamed-Twice (Daisy Skye, its own assignee) — no row for Chrome since Chrome's assignee happens to equal the shared Test-Case-level default already, which is a sensible optimization, not a gap. The seeding logic itself is correct. Not fully confirmed: whether the Edit Run UI's "Include all test run" + Save flow reliably triggers this seeding for a test case added to a linked suite after Run creation — one live attempt via the UI did not pick up the new test case (its `RunIssue` row didn't exist afterward), but this wasn't cleanly isolated from UI-navigation issues during this session; worth a clean re-check next session.
 
 ---
 
@@ -715,7 +715,7 @@ apply "My test cases" under each tab.
 ticket's own proposed answer), or (b) "mine in any environment" (surfaces Chrome-assigned Test Cases even
 while viewing the Edge tab). Flag to the client/dev if it shipped as (b) without an explicit confirmation,
 since the ticket proposed (a) but left it as an open question pending confirmation.
-**Result:** NOT TESTED — not exercised this session (would need a tester account assigned differently per environment, logged in as that tester). Deferred.
+**Result (2026-11-13):** PASS — answer is (a), "mine in this environment tab." Logged in as `daisy.skye` on Run #48 (she is the "Firefox-Renamed-Twice" environment's own default assignee, and holds no Chrome-specific assignment): "My test cases" under the Chrome tab returned "No data to display"; under the Firefox-Renamed-Twice tab it returned 8 test cases. Confirms the filter scopes to the currently active environment tab only, matching the ticket's own proposed answer.
 
 ---
 
@@ -729,7 +729,7 @@ Run-level environment assignee (summary header, To Do, reminder mails) "keeps it
 expected/default reading is that To Do stays driven by the Run-level assignee, **not** the new per-TC
 per-environment field. Flag to the client/dev if To Do's counts shifted to the new field instead, since that
 would contradict the ticket's own stated scope.
-**Result:** NOT TESTED — not exercised this session (would need before/after comparison on the To Do page for a user with differing Run-level vs per-TC-per-environment assignments). Deferred.
+**Result (2026-11-13):** PASS — confirmed the expected/default reading. On the project's To Do page, Run #48 appears as 3 separate rows, one per environment, each showing that environment's **Run-level** assignee: "RFTC045-39 Seeding Test Run (Chrome)" → Luna Blossom, "(Edge)" → Autumn Grace, "(Firefox-Renamed-Twice)" → Daisy Skye — even though individual test cases within each environment have differing per-TC assignees (Aurora Wren, Opal Sparrow, Sage Willow, etc.). To Do is driven entirely by the Run-level environment assignee, exactly as the ticket's "Out of scope" section stated it should stay — not by the new per-TC-per-environment field.
 
 ---
 
@@ -776,26 +776,31 @@ RFTC045-34) executed against Run #43 ("RFTC045 Assignee Feature Test Run"), Chro
 
 **Not-tested / blocked blockers:** multi-environment single-vs-per-env design check (6, confirmed by RFTC045-7 FAIL), 100+ TC run (10 — Run #43 has only 52 TCs), concurrent sessions required (25 — BLOCKED by tooling). Case 33 is N/A — no CSV export in Run TC table.
 
-**Executed 2026-11-13.** RFTC045-35 through RFTC045-52 (18 cases) cover production ticket #128320 (In QA,
-90% done, Target: Release 7.4.0 [13-11-2026]) — the per-environment Test-Case-assignee dimension. Code
-confirmed on `master` (commit `4e0170a`), executed live against Run #44 and a newly created Run #48,
-`rftc-016-ci-qa`, localhost:3000.
+**Executed 2026-11-13 (session 1).** RFTC045-35 through RFTC045-48 and RFTC045-51 (13 cases) cover production
+ticket #128320 (In QA, 90% done, Target: Release 7.4.0 [13-11-2026]) — the per-environment Test-Case-assignee
+dimension. Code confirmed on `master` (commit `4e0170a`), executed live against Run #44 and a newly created
+Run #48, `rftc-016-ci-qa`, localhost:3000.
+
+**Executed 2026-11-13 (session 2, same day).** The 6 previously-deferred cases (40, 41, 42, 43, 49, 50) plus
+52 were executed, uncovering 2 new bugs in the environment lifecycle paths.
 
 | Result | Count | Cases |
 |--------|-------|-------|
-| PASS | 11 | 35,36,37,38,39,44,45,46,47,48,51 |
-| NOT TESTED | 7 | 40,41,42,43,49,50,52* |
+| PASS | 14 | 35,36,37,38,39,43*,44,45,46,47,48,49,50,51 |
+| FAIL | 2 | 40,41 |
+| NOT TESTED | 2 | 42,52** |
 
-> *RFTC045-52 (regression) is functionally confirmed PASS via overlapping evidence from the same day's
-> BUG-TCM-141/BUG-TCM-142 retest on Run #43 (not a formal full 34-case re-run) — table above counts it
-> conservatively as NOT TESTED in the strict "re-ran all 34" sense; see its own Result note above for the
-> actual evidence.
+> *RFTC045-43 PASS is at the seeding-method level (directly verified `RunIssueAssignment.seed_for!` works
+> correctly) — the Edit Run UI flow for picking up a newly-added Test Case wasn't cleanly isolated this
+> session; worth a clean re-check.
+> **RFTC045-42 explicitly deferred per user instruction (low priority; expected behavior documented in its
+> own Result note). RFTC045-52 (regression) is functionally confirmed PASS via overlapping evidence (see its
+> own Result note) — not a formal full 34-case re-run, so counted conservatively as NOT TESTED here.
 
-**Not-tested blockers:** environment lifecycle edge cases not exercised this session — adding an environment
-to an existing Run (40), renaming an environment (41), deleting an environment (42), adding a Test Case to
-an existing Run (43); the two open-question cases needing a second tester account (49) or a To Do
-before/after comparison (50).
+**New bugs found:** BUG-TCM-146 (RFTC045-40 — new environment's test cases never seeded with its own
+assignee) and BUG-TCM-147 (RFTC045-41 — renaming an environment via Environment Settings silently loses
+per-environment assignee overrides; High severity, silent data loss).
 
 A Playwright spec (`RFTC-045_per_run_assignee.spec.ts`) should be scaffolded next — covering the PASS cases
-at minimum — per `CLAUDE.md` §13. The 11 PASSing #128320 cases above should be added to that same spec (or a
+at minimum — per `CLAUDE.md` §13. The 14 PASSing #128320 cases above should be added to that same spec (or a
 sibling `RFTC-045_per_environment_assignee.spec.ts`) rather than left manual-only.

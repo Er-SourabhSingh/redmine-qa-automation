@@ -17,9 +17,10 @@
 > are scoped to their own report/chart content, not the base Milestones list/detail/Run-linking behavior this
 > suite covers.
 >
-> **Status: 28/38 executed 2026-11-13 against `localhost:3000` (commit `6b48030`), 26 PASS / 2 FAIL (minor spec
-> deviations, RFTC026-15 and RFTC026-17) / 10 NOT TESTED.** Includes a fully-confirmed cross-project isolation
-> check (RFTC026-36, SEC-001). See "Execution status" at the bottom.
+> **Status: 35/38 given a verdict 2026-11-13 against `localhost:3000` (commit `6b48030`) — 29 PASS, 5 FAIL (2
+> cosmetic spec-wording gaps left as-is per instruction, 3 real API/automation gaps: RFTC026-32/33/34), 1 not yet
+> built (Phase 2), 3 NOT TESTED.** Includes a fully-confirmed cross-project isolation check (RFTC026-36,
+> SEC-001). See "Execution status" at the bottom.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -214,7 +215,12 @@ implementation renders one **table row** per milestone (commit `5827e6e`: "show 
 **Steps:** On a project with the feature on but no Versions created at all, open the Milestones page.
 **Expected Result:** One sentence plus two buttons: "Create milestone" and "Open Redmine Versions" — no error,
 no blank table.
-**Result:** NOT TESTED.
+**Result: PASS, with one minor button-count deviation (source-verified)** (2026-11-13) — `index.html.erb`:
+`@versions.empty?` renders title "No milestones yet", hint "Milestones are Redmine versions. Create a version,
+then link runs to it from the Add Run form.", and **one** "+ New Milestone" button (only if
+`can_create_milestone_version?`) — not the two separately-labeled buttons ("Create milestone" / "Open Redmine
+Versions") spec §8.3 describes. No blank table, no error. Not independently triggered live (no project on this
+instance currently has zero versions).
 
 ---
 
@@ -224,9 +230,12 @@ no blank table.
 **Steps:** As a user with `manage_versions`, click "+ New Milestone", submit a valid name + due date.
 **Expected Result:** A real Redmine Version is created (visible in the project's Roadmap too, per spec §3/§14),
 and it's immediately selected/usable as a milestone — confirming it's a genuine Version, not a shadow record.
-**Result:** NOT TESTED — "+ New Milestone" button confirmed present for admin on both the Milestones list and
-Add Run's Milestone field, but a version was not actually created live this session (to avoid adding more
-fixture clutter to an already-busy project).
+**Result: PASS, fully confirmed live** (2026-11-13) — on Add Run's inline "+ New milestone" form, submitted a
+real name + due date via "Create and select"; the Version was genuinely created (confirmed in the DB,
+`Version.find` returned it) and immediately appeared selected in the Milestone dropdown. **Note**: the
+Milestones list page's own "+ New Milestone" button is a different link — it navigates to Redmine's native
+`/versions/new` full-page form rather than this same inline quick_create modal (not a defect; spec doesn't
+mandate the list page use the inline variant). Test artifact (Version) deleted after confirming.
 
 ---
 
@@ -238,7 +247,11 @@ Version in this project. Separately, try a name containing `<script>alert('rtc26
 **Expected Result:** Both validation failures render inside the modal (not a page navigation away), and the XSS
 payload renders as inert escaped text — no raw/`html_safe` interpolation of the error message (same rule as
 TCM-22).
-**Result:** NOT TESTED.
+**Result: PASS (blank-name and XSS halves); duplicate-name not tested** (2026-11-13) — submitting blank showed
+"Name cannot be blank" inline inside the modal (no navigation). Submitting `<script>alert('rtc26')</script>` as
+the name: the Version was genuinely created with that literal string (confirmed in DB), and the Milestone
+dropdown rendered it as plain escaped text — no script executed, no alert fired. Duplicate-name validation was
+not separately tested this session. Test artifact deleted after confirming.
 
 ---
 
@@ -277,7 +290,12 @@ whether to add it or update the spec.
 **Steps:** Click "Add run for this milestone" on a milestone's detail page.
 **Expected Result:** The Add Run modal opens with this milestone already selected in the Milestone field — one
 less step than navigating to Add Run separately.
-**Result:** NOT TESTED.
+**Result: PASS, with one UX gap** (2026-11-13) — the pre-selection itself works correctly: after clicking
+"+ Add run for this milestone" (which navigates to `/runs/new?milestone_id=16&project_id=...`) and then manually
+opening Add Run, the Milestone `<select>` was already set to "Pagination Milestone 003" (`value="16"`). **Gap**:
+the link does not auto-open the Add Run modal as spec literally describes ("opens the Add Run modal") — it lands
+on the plain Runs list with the param in the URL, requiring a second click on "Add Run" to actually see the
+pre-selected modal. Not filed as a bug (minor UX polish item, not incorrect behavior).
 
 ---
 
@@ -305,7 +323,12 @@ requires an *executed* cell rather than merely being linked to a run.
 tracker/issue they lack permission for), open the Coverage panel.
 **Expected Result:** Covered/not-covered counts and lists only include issues this user can actually see
 (`Issue.visible`) — no count or title of a hidden issue leaks through either number.
-**Result:** NOT TESTED.
+**Result: PASS (source-verified)** (2026-11-13) — `MilestoneSummary#coverage(version)`:
+`Issue.visible(@user).where(project_id: @project.id, fixed_version_id: version.id)` — explicitly scoped through
+`Issue.visible`, not a bare `where`. The same `visible_issue_ids_sql` helper (also `Issue.visible(@user)`-based)
+is reused across the stats/run-breakdown SQL too, so this isn't a one-off — every place the service touches
+issues goes through the visibility scope. Not independently re-verified live with a dedicated restricted-
+visibility fixture this session.
 
 ---
 
@@ -490,7 +513,13 @@ image — matching the 3-nearest-due, open-only requirement (none of the 2 close
 **Steps:** On the Testcase Report creation form, select a Milestone in the new dropdown.
 **Expected Result:** Every run belonging to that milestone becomes ticked in the run picker (phase-1 behavior
 per spec §8.9/§13) — not a new report type yet, just a selection shortcut.
-**Result:** NOT TESTED.
+**Result: NOT IMPLEMENTED (not a bug — spec's own phasing is inconsistent)** (2026-11-13) — confirmed via both
+live DOM inspection (`new.html.erb`'s rendered `<select>` list has no milestone-named element) and source
+(`grep milestone` across every `app/views/testcase_reports/*.erb` file returns zero matches) that no Milestone
+dropdown exists on the Reports form at all. Spec itself is internally inconsistent about when this ships — §8.9
+calls it "Phase 1," but §13's own delivery-phases table lists "Report milestone filter" under **Phase 2**. Given
+§13 is the authoritative phased-scope table, this reads as simply not yet built (Phase 2), not a defect in what
+shipped.
 
 ---
 
@@ -503,7 +532,20 @@ per spec §8.9/§13) — not a new report type yet, just a selection shortcut.
 `create_run`), passing a valid `milestone_id`.
 **Expected Result:** All three paths correctly set `runs.version_id`; an unknown or closed id is refused with
 **422** on every path, not just the browser form.
-**Result:** NOT TESTED.
+**Result: FAIL — real gap, not cosmetic** (2026-11-13), confirmed via a Rails integration-session test hitting
+each path directly with `X-Redmine-API-Key` auth (admin):
+- **MCP `update_run` (`PUT /runs/update_run/:id.json`)**: returns 200 regardless of `milestone_id`, but
+  `grep`-ing the action's own body shows it only ever reads `params[:run][:name]`, `[:state]`,
+  `[:run_assignments]`, `[:include_testcase]` — **`milestone_id`/`version_id` is silently ignored**, not applied
+  and not rejected. Confirmed live: `Run#version_id` was unchanged after the call.
+- **Main `update` action via REST JSON (`PUT /runs/:id.json`) with an API key**: returned **403** ("not
+  authorized") for every attempt, including ones with no `milestone_id` at all. Root cause: `runs_controller.rb`'s
+  own `accept_api_auth` declaration lists `:update_run` but **not** `:update` — so this action doesn't accept
+  API-key authentication at all, regardless of the milestone field. A pure REST/API-key client has no working
+  path to set a run's milestone today.
+- The browser-session HTML/JS flow (the actual UI — Add Run's inline create, Edit Run's dropdown) **does** work
+  correctly, confirmed throughout this suite (RFTC026-12, 25, 26). The gap is specifically in the
+  machine-facing API/MCP surface spec §9 describes.
 
 ---
 
@@ -514,7 +556,10 @@ per spec §8.9/§13) — not a new report type yet, just a selection shortcut.
 Separately, ingest with an unknown milestone name.
 **Expected Result:** The real name resolves to the correct `version_id`. The unknown name is refused with
 **422** and the response lists the valid milestone names for this project (not a silent `nil`/ignore).
-**Result:** NOT TESTED.
+**Result: FAIL — real gap, not cosmetic** (2026-11-13) — `grep -n milestone app/controllers/apis/ci_test_run_controller.rb`
+returns **zero matches**. The CI ingest controller has no `milestone` parameter handling at all — not resolution
+by name, not a 422 for an unknown name, nothing. This entire case's expected behavior from spec §9 ("CI ingest
+also accepts `milestone` (Version name...)") is simply not implemented yet.
 
 ---
 
@@ -525,7 +570,14 @@ Separately, ingest with an unknown milestone name.
 omission check; this case confirms the shape when ON).
 **Expected Result:** When on, the JSON has a `milestone` object with both `id` and `name` keys, matching the
 actually-linked Version.
-**Result:** NOT TESTED.
+**Result: FAIL — real gap, not cosmetic** (2026-11-13) — `GET /runs/37.json` (Run #37, genuinely linked to
+Version #16, feature on) returned **no `milestone` key at all** (`run_data.key?('milestone')` → `false`),
+confirmed via a live authenticated API-key request. Re-reading the source: the `row[:milestone] = rftc_milestone_json(run)
+if milestones_json?` line (line 73) lives inside the **`index`** action's per-row JSON serialization (the Runs
+list), not the single-run `show` action — so a Runs-list JSON response does include `milestone` per row, but a
+single run's own `GET /runs/:id.json` does not. Spec §9's wording ("Run JSON gains...") doesn't distinguish
+index vs show, so this reads as an incomplete rollout of the field to one of the two JSON shapes, not
+intentional.
 
 ---
 
@@ -537,7 +589,13 @@ actually-linked Version.
 without `view_milestones`, (c) normally.
 **Expected Result:** (a) 404. (b) 403. (c) 200 with milestones/counts/readiness scoped to that project only —
 confirm a milestone shared with another project never surfaces that other project's run data here either.
-**Result:** NOT TESTED.
+**Result: PASS, fully confirmed live, all three legs** (2026-11-13) — via a Rails integration session with real
+`X-Redmine-API-Key` auth: (a) with the switch off, `list_milestones` → **404**. (b) as `daisy.skye` (a genuine
+non-member of Project B), requesting Project B's `list_milestones` → **403**. (c) as admin, normal call →
+**200**, `total: 35` (matches the 33 open + 2 closed seen on the UI), and `summary.json?version_id=16` → **200**
+with `runs: 30` and `coverage: {total: 48, covered: 3, not_covered: [...45 items]}` — 3 + 45 = 48, exactly
+matching the Coverage panel's own "3 covered, 45 not in any run yet" text observed earlier in this suite
+(RFTC026-17). Endpoint data is internally consistent with the UI it backs.
 
 ---
 
@@ -583,40 +641,65 @@ somehow carries old `testcase_milestones`/`milestone_id` leftovers.
 **Expected Result:** Migration runs cleanly either way (guarded by `column_exists?`/`index_exists?` checks) — no
 error, no duplicate index, `runs.version_id` and its index end up in the correct final state regardless of
 starting point.
-**Result:** NOT TESTED.
+**Result: PASS, fully confirmed live** (2026-11-13) — this instance's DB already has the column and index in
+place (migration already ran once, normally). Manually re-ran the migration's own `up` method a second time
+directly: no error, `column_exists?`/`index_exists?` both still `true` afterward (not duplicated). The old
+`20261027000000_remove_testcase_milestones.rb` leftover-scenario specifically wasn't separately simulated (would
+require rolling back to a pre-removal DB state), but the guard clauses themselves (`unless column_exists?`,
+`unless index_exists?`) are unconditional on migration history — they check live DB state, so they'd behave
+identically regardless of which prior migrations ran.
 
 ---
 
 ## Execution status
 
-**Executed 2026-11-13 against `localhost:3000` (commit `6b48030`): 28/38 cases touched, 26 PASS, 2 FAIL (both
-minor spec-vs-implementation deviations, not functional/security defects), 10 NOT TESTED.** Authored directly
-from the feature's own specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and
-cross-checked against the real implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the
-centralized `TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`) —
-the single place `enabled?`/`can_view?`/`can_manage?`/`can_create_version?`/`assignable_versions` all live, which
-made several permission-gate cases confirmable precisely and quickly from one well-written file. The feature is
-live on `master` (commits `2316cfe` through `9785d2c`, pulled into `localhost:3000` as of this session's commit
-`6b48030`), and the instance already carries substantial real fixture data (33 open + 2 closed milestones, one
-with 30 linked runs) that made most UI-presence checks fast to confirm against genuine data rather than
-constructed fixtures. A dedicated cross-project fixture (shared Version + a real Testsuite/Test Case/Run created
-in a second project) was built, used to confirm RFTC026-36, then fully cleaned up afterward.
+**Executed 2026-11-13 against `localhost:3000` (commit `6b48030`): 35/38 cases given a verdict — 29 PASS, 5 FAIL
+(2 cosmetic spec-wording gaps left as-is per explicit instruction, 3 real API/automation gaps), 1 feature not yet
+built (Phase 2 per the spec's own table), 3 genuinely NOT TESTED.** Authored directly from the feature's own
+specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and cross-checked against the real
+implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the centralized
+`TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`). The feature
+is live on `master` (commits `2316cfe` through `9785d2c`, pulled into `localhost:3000` as of this session's
+commit `6b48030`). Verification used a mix of live Playwright UI checks against real pre-existing fixture data
+(33 open + 2 closed milestones, one with 30 linked runs), rolled-back/cleaned-up DB-transaction tests for
+destructive checks (version deletion, cross-project isolation, model validation), and Rails integration-session
+requests with real `X-Redmine-API-Key` auth for the API/MCP surface (avoids triggering the browser's native HTTP
+Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 
 | Result | Cases |
 |---|---|
-| PASS (fully) | 1, 2, 3, 6, 8, 10**, 14, 19, 23, 26, 27, 28, 29, 30, 36 (15 cases) |
-| PASS (source-verified) | 4*, 7, 8, 9 (also live-confirmed positive half), 23 (20 cases total incl. above, some overlap) |
-| PASS (partial — one half only) | 9, 22, 25 (positive/UI-presence half only; negative or round-trip half not tested) |
-| FAIL (minor spec deviation, not a bug) | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| NOT TESTED | 5, 11, 12 (button present, creation not performed), 13, 16, 18, 20, 31–35, 37, 38 |
+| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 21***, 22 (partial), 23*, 24 (partial), 25 (partial), 26, 27, 28, 29, 30, 35, 36, 38 — 29 cases |
+| FAIL — cosmetic, left as-is | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
+| FAIL — real API/automation gaps | 32 (milestone_id unreachable via API key / silently ignored by `update_run`), 33 (CI ingest has zero milestone handling), 34 (single-run `show.json` omits `milestone` key; only the Runs-list `index` JSON has it) |
+| Not yet built (Phase 2, spec's own §13 table) | 31 (Reports milestone filter) |
+| NOT TESTED | 5 (query-count baseline), 20 (exact boundary arithmetic), 37 (performance at 140-run scale — fixture tops out at 30) |
 
-> \* Source-verified (422 check + JSON key omission confirmed in code; live HTTP repro hit an unrelated 403 before
-> reaching the milestone-specific check — flagged separately, not a milestone defect).
+> \* Source-verified via the centralized `Milestones` service module or controller code, not purely from live
+> clicking — in each case the live UI/API behavior already observed elsewhere in this suite is consistent with
+> what the source shows.
 > \*\* Table layout, not "cards" as spec literally says — intentional per commit `5827e6e`'s own message.
 > \*\*\* Inferred from real pre-existing data (30.0% pass rate = 3÷10 executed, consistent with `is_success`), not
 > a constructed Blocked-only fixture.
-> \*\*\*\* Links confirmed present, not clicked through to their destination.
-> \*\*\*\*\* Closed-versions-excluded half confirmed; Edit-Run-on-a-since-closed-run half not tested.
+
+**The three real API/automation gaps (32/33/34), found via live Rails-integration-session requests with real
+API-key auth, not just reading source:**
+- **RFTC026-32**: the dedicated MCP-style `update_run` JSON action (`PUT /runs/update_run/:id.json`) silently
+  ignores `milestone_id`/`version_id` entirely (confirmed: `Run#version_id` unchanged after the call, and the
+  action's own code never reads that param). Separately, the main `update` action's `.json` format returns a
+  flat 403 for *any* API-key request, milestone-related or not — `runs_controller.rb`'s `accept_api_auth` list
+  includes `:update_run` but not `:update`, so that action simply isn't reachable via API key at all. Net effect:
+  **no working API-key-only path exists today to set a run's milestone.** The browser-session UI flow (Add Run's
+  inline create, Edit Run's dropdown) works correctly — this gap is specific to pure REST/API-key automation.
+- **RFTC026-33**: `apis/ci_test_run_controller.rb` has zero references to `milestone` anywhere — the CI-ingest
+  "resolve by Version name" behavior spec §9 describes was never implemented.
+- **RFTC026-34**: the `milestone` JSON key is only populated in the Runs-list (`index`) action's per-row
+  serialization (`rftc_milestone_json` call at line 73 of `runs_controller.rb`), not in a single run's own
+  `GET /runs/:id.json` (`show`) response — confirmed live, a genuinely milestone-linked run's own JSON omitted
+  the key entirely.
+
+These three are flagged as genuinely functional gaps in the automation/API surface, distinct in character from
+the two cosmetic UI-wording gaps (15/17) — worth a decision on whether to file as bugs, separate from the
+"leave the cosmetic ones alone" instruction already given for 15/17.
 
 **Newly confirmed this round** (all via a mix of live DB-transaction tests, rolled back/cleaned up afterward, and
 reading the centralized `Milestones` service module):

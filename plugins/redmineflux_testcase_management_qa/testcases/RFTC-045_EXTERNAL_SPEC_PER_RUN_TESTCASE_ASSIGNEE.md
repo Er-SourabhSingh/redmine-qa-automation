@@ -19,6 +19,13 @@
 > 100+ TCs, concurrent sessions, or other deferred setup). See
 > `reports/RFTC-Functional-2026-11-12.md` for the full run report.
 >
+> **Extended 2026-11-13 with #128320** — "Per-environment test case assignee inside a run" (production
+> issue [#128320](http://flux.zehntech.com/issues/128320), In QA, Target: Release 7.4.0 [13-11-2026]). This
+> is the direct successor to RFTC045-6/RFTC045-7/BUG-TCM-140: the client's original need (a different
+> per-Test-Case assignee for each environment) was confirmed in scope and converted into this enhancement.
+> New cases RFTC045-35 through RFTC045-52 below are **NOT YET EXECUTED** — design-only, awaiting a build to
+> test against.
+>
 > **A note on scope for the client deliverable**: this file is being handed to the client (Nathan Coombs) as
 > the test design for this feature set, so it is written to read on its own — each case states the exact
 > acceptance criterion it verifies, not just a step list.
@@ -484,9 +491,274 @@ Assignee is unaffected.
 
 ---
 
+## 6. Per-environment Test Case assignee inside a Run — #128320
+
+---
+
+> **Feature summary (per production ticket #128320):** Release 7.4.0's per-(Run, Test Case) assignee
+> (RFTC045-1 through RFTC045-34 above) is extended with a third, more granular layer: an assignee per
+> **(Run, Test Case, Environment)**. A new `run_issue_assignments` table stores this (`run_id`, `issue_id`,
+> `environment`, `assignee_id`, unique index on the triple). The existing `run_issues.assignee_id` stays as
+> the Test-Case-level default/fallback — nothing already shipped breaks. Display resolution order:
+> **environment-specific value → Test-Case-level value → unassigned.** No backfill is required: existing
+> Runs simply have no environment-specific rows yet, so they fall through to the existing per-TC value
+> unchanged (this is also why RFTC045-1 through RFTC045-5, RFTC045-8 through RFTC045-34 must still pass
+> unmodified after this ships — see RFTC045-50).
+>
+> This directly resolves the gap RFTC045-6/RFTC045-7/BUG-TCM-140 found: Add Run's per-environment assignee
+> fields will now actually flow through to the per-TC column, instead of only the first environment's value
+> being applied to every tab.
+>
+> **Three open questions the ticket itself flags as unresolved before implementation** — RFTC045-49,
+> RFTC045-50 (wording reused for the To-Do/`"My test cases"` ones), and RFTC045-51 below test whichever
+> answer the build ships, the same way RFTC045-6 tested an open question for the original feature.
+
+### RFTC045-35: A Test Case can carry a different assignee in each environment of the same Run
+
+**Priority:** P1
+**Acceptance criterion covered:** "A test case inside a run can have a different assignee per environment."
+This is the direct fix for RFTC045-6/RFTC045-7 (BUG-TCM-140).
+**Steps:**
+1. Create a Run spanning 2 environments (Chrome, Edge) that both include the same Test Case.
+2. Set the Chrome-tab per-TC assignee for that Test Case to User A.
+3. Switch to the Edge tab and set that same Test Case's per-TC assignee to User B.
+4. Switch back to the Chrome tab.
+**Expected Result:** Chrome tab shows User A, Edge tab shows User B, for the same Test Case in the same Run
+— independently stored and independently editable per environment. (Contrast with RFTC045-6's pre-#128320
+result, where both tabs showed the same value.)
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-36: Display resolution — environment-specific value takes priority over the Test-Case-level default
+
+**Priority:** P1
+**Acceptance criterion covered:** Resolution order "environment-specific value → Test-Case-level value →
+unassigned."
+**Steps:**
+1. Take a Test Case whose Test-Case-level (per-run, no environment) assignee is User A (set via the
+   RFTC045-1-era field/Bulk Reassign with "All environments" scope, once that exists — see RFTC045-45).
+2. Set an environment-specific override for one environment to User B.
+3. View that Test Case under the overridden environment's tab, then under a different environment's tab
+   that has no override.
+**Expected Result:** The overridden environment's tab shows User B; every other environment's tab still
+shows the Test-Case-level default, User A.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-37: Display resolution — falls back to the Test-Case-level default when no environment-specific value is set
+
+**Priority:** P1
+**Steps:** Take a Test Case with a Test-Case-level assignee set (User A) and no environment-specific
+override in any environment of the Run. View it under each environment tab.
+**Expected Result:** Every environment tab shows User A (the Test-Case-level default) — confirms the
+fallback step of the resolution order, not just the override step tested in RFTC045-36.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-38: Display resolution — shows unassigned when neither an environment-specific nor a Test-Case-level value exists
+
+**Priority:** P2
+**Steps:** Take a Test Case with no Test-Case-level assignee and no environment-specific override in any
+environment.
+**Expected Result:** Displays as unassigned/blank in every environment tab — no error, no default falling
+through to some unintended value (e.g. the Run's env-level assignee, which is explicitly out of scope — see
+RFTC045-52).
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-39: Creating a multi-environment Run seeds each environment's rows from that environment's own Add Run assignee
+
+**Priority:** P1
+**Acceptance criterion covered:** "Creating a run seeds each environment's rows from that environment's Add
+Run assignee (today the first environment's assignee is applied to everything — the ambiguity QA flagged)."
+This is the RFTC045-6 regression check under the new build.
+**Steps:**
+1. Go to Add Run; add 2 environments (Chrome, Edge), each with its own distinct Add Run assignee (Chrome →
+   User A, Edge → User B).
+2. Include a Test Suite with several Test Cases; create the Run.
+3. Check the per-TC assignee column under the Chrome tab, then under the Edge tab.
+**Expected Result:** Chrome tab shows User A on every Test Case; Edge tab shows User B on every Test Case —
+not Chrome's assignee (the first environment) leaking into Edge, as RFTC045-6 found pre-#128320.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-40: Adding a new environment to an existing Run seeds per-environment rows for its existing Test Cases
+
+**Priority:** P2
+**Steps:** On an existing Run with Test Cases already assigned per environment, use Edit Run to add a new
+environment with its own Add Run-style assignee.
+**Expected Result:** The newly added environment's Test Cases are seeded with that environment's assignee,
+same as RFTC045-39's creation-time behavior — adding an environment later is not a second-class path.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-41: Renaming an environment moves its per-environment assignment rows, doesn't orphan them
+
+**Priority:** P2
+**Steps:** On a Run with per-environment assignments set under environment "Chrome", rename that environment
+(e.g. via Edit Run / the Environment settings, per `TESTCASE_MANAGEMENT_ENVIRONMENTS.md`'s rename flow) to
+"Chrome-Updated".
+**Expected Result:** The per-environment assignments that were under "Chrome" now appear under
+"Chrome-Updated" — same pattern the existing execution results already use for environment renames (per the
+ticket's own text), not reset to the Test-Case-level default or lost.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-42: Deleting an environment from a Run removes its per-environment assignment rows cleanly
+
+**Priority:** P2
+**Steps:** On a Run with per-environment assignments set, delete one of its environments via Edit Run.
+**Expected Result:** That environment's `run_issue_assignments` rows are removed; no orphaned rows, no error
+on the Run page afterward, and the remaining environments' per-environment assignments are unaffected.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-43: Test Cases added to a Run after creation also get their own per-environment rows
+
+**Priority:** P2
+**Steps:** On an existing multi-environment Run, add a new Test Case to it (e.g. via "Add existing Test
+Case" or adding a Test Suite that includes it).
+**Expected Result:** The newly added Test Case is seeded with each environment's assignee, exactly as if it
+had been present at Run creation — not left at Test-Case-level-default-only until manually touched.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-44: Edit Run's default-assignee carry-over (#128235) applies correctly per environment
+
+**Priority:** P2
+**Acceptance criterion covered:** "The Edit Run default carry-over from #128235 works per environment."
+BUG-TCM-142 (Edit Run's assignee field not cascading to per-TC rows) was filed against the pre-#128320
+build; this case re-verifies that gap under the new per-environment model specifically.
+**Steps:** On an existing Run, use Edit Run to change environment X's assignee default; check which Test
+Cases under environment X actually receive the new default (vs. ones already manually overridden per
+RFTC045-36).
+**Expected Result:** Behavior matches whatever #128235's existing carry-over rule is (e.g. only
+blank/never-manually-set Test Cases pick up the new default) — applied per environment, not globally across
+every environment at once.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-45: Inline/bulk reassignment defaults to "This environment only" scope
+
+**Priority:** P1
+**Acceptance criterion covered:** "Inline and bulk reassignment take an environment scope — 'This
+environment only' (default) or 'All environments' (bulk modal radio)."
+**Steps:**
+1. Under the Chrome tab, inline- or bulk-reassign a Test Case to User A without changing the scope control.
+2. Switch to the Edge tab and check the same Test Case's assignee.
+**Expected Result:** Chrome tab shows User A; Edge tab's value for that Test Case is unaffected — "This
+environment only" is the default scope, matching RFTC045-35's independence.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-46: Choosing "All environments" scope applies the reassignment across every environment of the Run
+
+**Priority:** P1
+**Steps:** Open the bulk Reassign modal; select the "All environments" radio option explicitly; reassign a
+Test Case (or selection) to User A; check every environment tab.
+**Expected Result:** User A appears as the assignee for the reassigned Test Case(s) under every environment
+tab of the Run — the explicit broader-scope option genuinely applies everywhere, not just the active tab.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-47: Reassignment permission gate and email notification (#123920, #128234) are unchanged by the environment-scope addition
+
+**Priority:** P2
+**Steps:** Repeat RFTC045-24's server-side permission check and RFTC045-15's basic inline-reassign UX against
+the new environment-scoped reassignment paths; confirm a reassignment email is still sent per #128234
+regardless of which scope ("This environment only" / "All environments") was used.
+**Expected Result:** Same Run-Edit permission gate (server-side enforced) and same reassignment email as the
+pre-#128320 feature — the environment-scope control is additive, not a new gap in either.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-48: Assignee filter and "My test cases" respect the currently selected environment tab
+
+**Priority:** P1
+**Acceptance criterion covered:** "Assignee filter and 'My test cases' respect the selected environment
+tab."
+**Steps:** On a Run where the same Test Case has different per-environment assignees (per RFTC045-35), apply
+the Assignee filter for User A under the Chrome tab, then switch to the Edge tab (where that Test Case is
+assigned to User B) with the filter still active.
+**Expected Result:** Chrome tab's filtered results reflect Chrome's per-environment assignees; switching to
+Edge re-filters against Edge's own per-environment assignees (User B's row shows, User A's filter no longer
+matches the same Test Case) — not a stale cross-environment filter result.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-49: Open question — does "My test cases" mean "mine in this environment tab" or "mine in any environment"?
+
+**Priority:** P2
+**Steps:** As Tester X, assigned to some Test Cases under Chrome but different ones under Edge (or none),
+apply "My test cases" under each tab.
+**Expected Result:** Document whichever the build implements — (a) "mine in this environment tab" (the
+ticket's own proposed answer), or (b) "mine in any environment" (surfaces Chrome-assigned Test Cases even
+while viewing the Edge tab). Flag to the client/dev if it shipped as (b) without an explicit confirmation,
+since the ticket proposed (a) but left it as an open question pending confirmation.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-50: Open question — does the To Do page count per-environment assignments, or stay driven by the Run-level environment assignee as today?
+
+**Priority:** P3
+**Steps:** Compare the To Do page's counts/entries for a user before and after setting per-environment
+Test-Case-level assignments that differ from that user's Run-level environment assignee.
+**Expected Result:** Document whichever the build implements. The ticket's "Out of scope" section states the
+Run-level environment assignee (summary header, To Do, reminder mails) "keeps its current meaning" — so the
+expected/default reading is that To Do stays driven by the Run-level assignee, **not** the new per-TC
+per-environment field. Flag to the client/dev if To Do's counts shifted to the new field instead, since that
+would contradict the ticket's own stated scope.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-51: Open question — bulk reassign's default scope is confirmed as "This environment only"
+
+**Priority:** P3
+**Steps:** Open the bulk Reassign modal fresh (no prior scope selection this session) and observe which
+scope radio is pre-selected.
+**Expected Result:** "This environment only" is pre-selected by default, matching the ticket's proposed
+answer (RFTC045-45 already covers the functional behavior of this default; this case specifically checks the
+UI's default selection state matches what was proposed and apparently confirmed).
+**Result:** NOT TESTED — awaiting build.
+
+---
+
+### RFTC045-52: Regression — existing single-environment Runs and the pre-#128320 per-(Run, Test Case) feature are completely unaffected
+
+**Priority:** P1
+**Acceptance criterion covered:** Out of scope: "No change to results, history, or the issue's own Assignee
+field," plus the data model note that "nothing existing breaks" and "no backfill is needed."
+**Steps:** Re-run RFTC045-1 through RFTC045-5 and RFTC045-8 through RFTC045-34 (the original, single-
+environment-scoped per-TC assignee suite) against a build that includes #128320.
+**Expected Result:** All previously-PASSing cases still PASS unmodified — the new environment dimension is
+additive (existing Runs simply have zero `run_issue_assignments` rows and fall through to the existing
+per-TC value), not a breaking schema change. RFTC045-6/RFTC045-7 specifically should now read differently
+(the gap they found is fixed by #128320, superseded by RFTC045-35/RFTC045-39 above) — but must not regress
+into a *new* failure mode.
+**Result:** NOT TESTED — awaiting build.
+
+---
+
 ## Execution status
 
-**Executed (2026-11-12).** Feature shipped in Release 7.4.0 on `master`. 34 cases executed against Run #43 ("RFTC045 Assignee Feature Test Run"), Chrome env, localhost:3000.
+**Executed (2026-11-12).** Feature shipped in Release 7.4.0 on `master`. 34 cases (RFTC045-1 through
+RFTC045-34) executed against Run #43 ("RFTC045 Assignee Feature Test Run"), Chrome env, localhost:3000.
 
 | Result | Count | Cases |
 |--------|-------|-------|
@@ -498,4 +770,10 @@ Assignee is unaffected.
 
 **Not-tested / blocked blockers:** multi-environment single-vs-per-env design check (6, confirmed by RFTC045-7 FAIL), 100+ TC run (10 — Run #43 has only 52 TCs), concurrent sessions required (25 — BLOCKED by tooling). Case 33 is N/A — no CSV export in Run TC table.
 
-A Playwright spec (`RFTC-045_per_run_assignee.spec.ts`) should be scaffolded next — covering the PASS cases at minimum — per `CLAUDE.md` §13.
+**Added 2026-11-13, not yet executed.** RFTC045-35 through RFTC045-52 (18 cases) cover production ticket
+#128320 (In QA, 90% done, Target: Release 7.4.0 [13-11-2026]) — the per-environment Test-Case-assignee
+dimension. All 18 are design-only pending a build with #128320 merged; none have been run yet.
+
+A Playwright spec (`RFTC-045_per_run_assignee.spec.ts`) should be scaffolded next — covering the PASS cases
+at minimum — per `CLAUDE.md` §13. Once #128320 lands, RFTC045-35 through RFTC045-52 should be added to that
+same spec (or a sibling `RFTC-045_per_environment_assignee.spec.ts`) rather than left manual-only.

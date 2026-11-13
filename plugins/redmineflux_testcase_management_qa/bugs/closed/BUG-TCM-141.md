@@ -80,3 +80,26 @@ RunMailer.run_updated(@run, User.current, environment_changes, assignee_changes,
 
 - Duplicate found: No
 - Checked `bugs/_duplicates.md` — no existing bug for missing reassignment notification.
+
+## Retest (2026-11-13, after `git pull` — commit `1699da6`) — CONFIRMED FIXED
+
+Pulled latest `master` (`1699da6` "Email the new assignee on reassignment, and make Edit Run's assignee
+reach the test cases"), bundle install + plugin migrate (no new migrations pending), container restart.
+
+**Source confirms the fix:** `run_mailer.rb` now defines `testcases_reassigned(run, assignee, issues, actor)`,
+and `reassign_testcases` in `runs_controller.rb` calls it after the reassignment. The method is guarded by
+`return unless Setting.notified_events.include?('run_updated')` — this instance's notification settings
+only had `issue_added`/`issue_updated` checked, so the first live attempt (inline-reassigned TC #323 to
+Autumn Grace) sent no mail, matching the bug's original symptom. Enabled "Run updated" under
+Administration → Settings → Notifications (a genuine pre-existing instance config gap, not a code defect),
+retried: inline-reassigned TC #325 to Daisy Skye.
+
+**Result: email delivered.** Mailpit captured `daisy.skye@test.local` — subject *"RFTC-016 CI Ingest QA -
+RFTC045 Assignee Feature Test Run: test cases assigned to you"*, body *"Redmine Admin assigned the following
+test cases to you in the test run... #325 — Coverage Cap Fixture 04. Open the run to see your test
+cases..."* — confirming `testcases_reassigned` fires correctly on inline reassignment with the admin's
+notification settings enabled.
+
+![Retest evidence — FIXED](../../screenshots/BUG-TCM-141/retest-2026-11-13-FIXED.png)
+
+**Moved to `bugs/closed/`.**

@@ -72,3 +72,39 @@ no dedicated screenshot captured yet.
 No code fix has been pushed for this endpoint yet — bug remains **Open**.
 
 ![Retest evidence — NOT FIXED](../../screenshots/BUG-TCM-139/retest-2026-11-12-NOT-FIXED.png)
+
+## Retest (2026-11-13, after `git pull` — commit `ae2c665`'s fix, verified with corrected test fixture) — CONFIRMED FIXED
+
+Pulled latest `master`, bundle install + plugin migrate, container restart. `rftc_access_control.rb`'s
+`rftc_render_error` (used by `rftc_not_found`, which this action's `rftc_require_project_member!` guard
+calls) now explicitly cites this bug:
+
+```ruby
+# BUG-TCM-139 (#128105): several actions resolve @project from the URL before their
+# membership/visibility check refuses. Redmine's own 404/403 page then renders inside
+# that project's layout... When the viewer has no right to see the project, drop it
+# from the error page; a member who merely lacks one permission keeps the normal
+# project-scoped error page.
+@project = nil unless rftc_project_readable?(@project)
+```
+
+**First retest attempt against the original fixture (Project B, `rftc-121640-project-b`, id=4) still showed
+the leak** — title `"404 - RFTC-121640 Security Project B - Redmine"`. Investigated why: **Project B is
+`is_public: true`** — a public project's name/nav is legitimately visible to any user per Redmine's own
+convention (it's listed on `/projects` with no login required), so `rftc_project_readable?` correctly
+returns `true` for it and the fix intentionally does *not* strip it. The original bug repro used a fixture
+that happens to be public, which isn't actually an information disclosure — the real test is a **private**
+project a non-member genuinely cannot see.
+
+**Corrected retest:** temporarily set Project B `is_public: false` (restored to `true` immediately after),
+repeated the exact same request as `daisy.skye`:
+
+- `GET /knowlegebase_pages_testcase/2?project_id=4` → HTTP **404 Not Found** (still correct)
+- Page `<title>`: `"404 - Redmine"` — **generic, no project name**
+- Page snapshot shows only the global `/activity` link — no project-scoped nav, no `rftc-121640-project-b`
+  references anywhere.
+
+Fix confirmed working correctly for the case it actually matters for (a genuinely non-visible project).
+
+**Moved to `bugs/closed/`.** Note for future retest of any sibling finding: use a private (non-public)
+fixture project, not Project B as-is, or the leak will appear to persist when it hasn't.

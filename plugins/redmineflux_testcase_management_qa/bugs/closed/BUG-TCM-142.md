@@ -81,3 +81,46 @@ So `params[:assignee_id]` on Edit Run goes through line 571 (a direct model assi
 - Duplicate found: No
 - Checked `bugs/_duplicates.md` — no existing bug for Edit Run assignee field not cascading to TC rows.
 - Related to BUG-TCM-140 (Add Run per-env assignee not reflected in TC column) and BUG-TCM-141 (no email on TC reassignment) — all three are gaps in the Release 7.4.0 per-run TC assignee feature.
+
+## Retest (2026-11-13, after `git pull` — commit `1699da6`) — CONFIRMED FIXED
+
+Pulled latest `master` (`1699da6`, same commit as BUG-TCM-141's fix). `runs_controller.rb`'s `update` action
+now carries the new default assignee over to test cases (comment cites this bug/#128235 directly):
+
+```ruby
+new_default_case_assignee = RunAssignment.where(run_id: @run.id).order(:id).pluck(:assignee_id).compact.first
+if new_default_case_assignee.present? && new_default_case_assignee != previous_default_case_assignee
+  RunIssue.where(run_id: @run.id, assignee_id: previous_default_case_assignee)
+          .update_all(assignee_id: new_default_case_assignee)
+end
+# restore hand-set values the rebuild step may have wiped
+previous_case_assignees.reject { |_iid, aid| aid == previous_default_case_assignee }
+                       .group_by { |_iid, aid| aid }.each do |aid, pairs|
+  RunIssue.where(run_id: @run.id, issue_id: pairs.map(&:first)).update_all(assignee_id: aid)
+end
+```
+
+**Live retest on Run #43** (project `rftc-016-ci-qa`): before the edit, TC assignees were a mix — some
+still at the run's original default (Daisy Skye), some hand-reassigned to Aurora Wren/Autumn Grace. Used
+Edit Run (via the run list's Action → Edit Run popup — the edit form is a JS-injected fragment, not reachable
+by navigating `/runs/:id/edit` directly) to change the Chrome environment's assignee from Daisy Skye to Luna
+Blossom.
+
+**Result:**
+- Run summary header: `Assignee : Luna Blossom` — correct, as before.
+- TCs that were still at the old default (Daisy Skye) — e.g. #324, #326, #328, #330–341, #294, #295, #296,
+  #1 — **all cascaded to Luna Blossom.**
+- TCs that were hand-set to a genuinely different value (#320, #322, #323, #327, #329 → Aurora
+  Wren/Autumn Grace) — **kept their own hand-set value, not overwritten.**
+- A bonus confirmation email ("Run Updated... Assignee of environment Chrome: changed from Daisy Skye to
+  Luna Blossom") was sent to the run's watcher, via `RunMailer.run_updated` — same mailer BUG-TCM-141
+  verified.
+
+One inherent, documented limitation (not a defect): a TC manually reassigned to the *same* value the
+default already held is indistinguishable from "never touched" — it will cascade on the next Edit Run save
+like a default-following row would. The code comment says this plainly; no fix is possible without storing
+an explicit "manually set" flag per TC, which isn't part of this feature's scope.
+
+![Retest evidence — FIXED](../../screenshots/BUG-TCM-142/retest-2026-11-13-FIXED.png)
+
+**Moved to `bugs/closed/`.**

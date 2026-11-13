@@ -81,3 +81,20 @@ end
 
 - Duplicate found: No
 - Checked `bugs/_duplicates.md` — no existing bug for per-env assignee not flowing to TC column.
+
+## Retest (2026-11-13, after `git pull` — commit `1699da6`) — STILL NOT FIXED
+
+Pulled latest `master` (`1699da6`). Checked for the data model change this fix requires:
+
+```ruby
+ActiveRecord::Base.connection.table_exists?(:run_issue_assignments)  # => false
+```
+
+The `run_issue_assignments` table (per-(Run, Test Case, Environment) assignee) does not exist in this pull.
+This bug has been converted into production enhancement ticket **[#128320](http://flux.zehntech.com/issues/128320)**
+("Per-environment test case assignee inside a run"), currently **In QA, 90% done**, Target: Release 7.4.0
+[13-11-2026] — but that feature's code has not landed on `master` yet. Test design for #128320 is already
+written (`RFTC-045_EXTERNAL_SPEC_PER_RUN_TESTCASE_ASSIGNEE.md`, RFTC045-35 through RFTC045-52), pending a
+build to execute against.
+
+**Stays Open** until #128320 merges to `master` and RFTC045-35 (its direct regression check) passes.

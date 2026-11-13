@@ -11,7 +11,8 @@
 > `backlog/planning/rftc-022-feature-suite-comparison.md` spec doc, and a direct read of the actual
 > implementation on branch `release/7.3.0` (commit `329311d`, later fast-forwarded to `c9c8593`) — **not yet
 > merged to `master`**. **Result: 17/18 PASS, 1 FAIL → BUG-TCM-127** (plugin-wide anonymous-access 403-not-redirect
-> gap, confirmed on both this feature and rftc-035's Automation Dashboard).
+> gap, confirmed on both this feature and rftc-035's Automation Dashboard) — **retested 2026-11-03 against
+> commit `eefc0a4`, CONFIRMED FIXED, now 18/18 PASS.**
 
 # Test Cases — Redmineflux Testcase Management — rftc-022: Compare Automation Suites Across Runs
 
@@ -238,7 +239,7 @@ re-verify independently.
 **Steps:** Without logging in, navigate directly to `/projects/<id>/run_comparisons`.
 **Expected Result:** Redirected to the login page (302), not a 403 or a crash — same as every other
 `rftc_authorize_project_read!`-gated page in this plugin.
-**Actual Result:** **FAIL - new bug filed: BUG-TCM-127.** After a genuine sign-out (clicking the real "Sign out" button, not a bare GET to /logout which does NOT end the session - see Memory), direct navigation to the page returned a bare **403 Forbidden**, not a 302 redirect to /login as expected - and as the developer's own functional test explicitly asserts (assert_response :redirect). Root-caused to RftcAccessControl#rftc_require_login! always rendering :forbidden for an anonymous user. Confirmed plugin-wide (not rftc-022-specific) by reproducing the identical 403 on /projects/rftc-016-ci-qa/automation_dashboard (rftc-035, same shared concern). See Full Live Execution section below and bugs/open/BUG-TCM-127.md.
+**Actual Result:** Originally **FAIL - new bug filed: BUG-TCM-127.** After a genuine sign-out (clicking the real "Sign out" button, not a bare GET to /logout which does NOT end the session - see Memory), direct navigation to the page returned a bare **403 Forbidden**, not a 302 redirect to /login as expected - and as the developer's own functional test explicitly asserts (assert_response :redirect). Root-caused to RftcAccessControl#rftc_require_login! always rendering :forbidden for an anonymous user. Confirmed plugin-wide (not rftc-022-specific) by reproducing the identical 403 on /projects/rftc-016-ci-qa/automation_dashboard (rftc-035, same shared concern). **Retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED**, anonymous access now correctly redirects to /login. See `bugs/closed/BUG-TCM-127.md`. **Now PASS.**
 
 ---
 
@@ -306,13 +307,14 @@ pair classifies into), not twice.
 
 ## Coverage Summary
 
-**18 test cases, 18 executed, 17 PASS / 1 FAIL.** Covers all six `suite_diff` buckets individually with concrete
+**18 test cases, 18 executed, 17 PASS / 1 FAIL — retested 2026-11-03, now 18/18 PASS.** Covers all six `suite_diff` buckets individually with concrete
 fixture shapes (RFTC022-2–7, all PASS), the environment-keyed-not-issue-keyed behavior the spec explicitly calls
 out (RFTC022-8, PASS — confirmed the same issue produces two separate diff entries), a fully-traced (not guessed)
 self-comparison behavior (RFTC022-9, PASS), three negative/edge-case paths (partial picker state ×2, empty-run
 comparison — all PASS), the SEC-001 cross-project isolation holdout (RFTC022-12, PASS, independently re-verified
 rather than trusted blind), the permission gate (RFTC022-14, PASS) and anonymous-redirect check (RFTC022-15,
-**FAIL → BUG-TCM-127**, a plugin-wide gap also reproduced on rftc-035's Automation Dashboard), an XSS-escaping
+originally **FAIL → BUG-TCM-127**, a plugin-wide gap also reproduced on rftc-035's Automation Dashboard —
+retested 2026-11-03, CONFIRMED FIXED, now PASS), an XSS-escaping
 check consistent with this plugin's BUG-TCM-070 history (RFTC022-16, PASS, confirmed via rendered `outerHTML` and
 zero console messages), a sum-sanity cross-check on the summary tiles (RFTC022-17, PASS, backend tally matched
 the live UI tiles exactly), and a multi-suite dedup check consistent with this plugin's BUG-TCM-097 history
@@ -390,12 +392,14 @@ All 18 cases fully executed this pass, closing every gap left by the earlier par
   (existing Developer-role member, which lacks `:view_report` on this project) and confirmed a 403. Both checked
   via real login/logout cycles (clicking the actual "Sign out" button, not a bare `/logout` GET, which does NOT
   end the session — see Memory).
-- **RFTC022-15 (anonymous redirect) — FAILED, new bug filed (BUG-TCM-127)**: after a genuine sign-out, direct
+- **RFTC022-15 (anonymous redirect) — originally FAILED, bug filed (BUG-TCM-127)**: after a genuine sign-out, direct
   navigation to the page returned a bare **403 Forbidden**, not a redirect to `/login` as the case expected (and
   as the developer's own functional test explicitly asserts: `assert_response :redirect`). Root-caused to
   `RftcAccessControl#rftc_require_login!` always rendering `:forbidden` for an anonymous user instead of
   redirecting. Confirmed this is plugin-wide, not rftc-022-specific, by reproducing the identical 403 on
-  `/projects/rftc-016-ci-qa/automation_dashboard` (rftc-035, same shared concern). Filed **BUG-TCM-127 (Low)**.
+  `/projects/rftc-016-ci-qa/automation_dashboard` (rftc-035, same shared concern). Filed **BUG-TCM-127 (Low)** —
+  **retested 2026-11-03 against commit `eefc0a4`, CONFIRMED FIXED** (anonymous access now redirects to `/login`
+  correctly). Bug closed. **Now PASS.**
 - **RFTC022-16 (XSS)**: the XSS-subject case (`<img src=x onerror=alert('rc-xss')>`) landed correctly in New
   Tests; confirmed zero console messages fired (`browser_console_messages` → 0 errors/warnings) and read the
   actual rendered `outerHTML` of its issue link directly — `&lt;img src=x onerror=alert('rc-xss')&gt;`, properly
@@ -406,7 +410,8 @@ All 18 cases fully executed this pass, closing every gap left by the earlier par
   sub-scenario's own result pattern), confirming `each_latest_result_cell`'s `.distinct` guard holds for this
   engine too (same class of check as BUG-TCM-097/RFTC021-5).
 
-**Result: 17/18 PASS, 1 FAIL → BUG-TCM-127 (Low, plugin-wide anonymous-access 403-not-redirect gap).**
+**Result: 17/18 PASS, 1 FAIL → BUG-TCM-127 (Low, plugin-wide anonymous-access 403-not-redirect gap) —
+retested 2026-11-03, CONFIRMED FIXED, now 18/18 PASS.**
 
 ### Independent ground-truth data verification (requested follow-up, 2026-11-02)
 

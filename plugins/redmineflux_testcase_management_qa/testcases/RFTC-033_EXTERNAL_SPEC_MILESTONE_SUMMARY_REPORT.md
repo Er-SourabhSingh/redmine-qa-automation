@@ -14,7 +14,8 @@
 > against the real controller (`TestcaseMilestonesController#report`), service (`MilestoneReport`), views and
 > locale strings — not speculation.
 >
-> **Execution status**: **13/13 executed 2026-11-11 — 12 PASS, 1 FAILED** via Playwright MCP against
+> **Execution status**: **13/13 executed 2026-11-11 — 12 PASS, 1 FAILED** (retested 2026-11-11, commit
+> `9785d2c` — CONFIRMED FIXED, now 13/13 PASS) via Playwright MCP against
 > `localhost:3000` (Project A = `rftc-016-ci-qa`, Project B used for cross-project checks). Docker container
 > `redmine6-redmine-1` was restarted and the plugin's pending migrations (`20261105000000`/`20261106000000`/
 > `20261107000000`) were run cleanly ahead of this suite. Fixtures used: Version #1 ("RFTC-033-034 Milestone
@@ -277,14 +278,16 @@ independently while "Targeted" stayed 0/0 in that run), both directions of indep
 **Steps:** Open the report, trigger the Print button (`window.print()` / browser print preview).
 **Expected Result:** Elements marked `rf-no-print` (the action buttons, the tabs) are hidden in the print
 preview/output; the report's own data sections remain visible.
-**Actual Result:** **FAILED** (recorded on production Run #659, testcase #127987). The print-preview output itself
+**Actual Result:** Originally **FAILED** (recorded on production Run #659, testcase #127987). The print-preview output itself
 was not directly inspected (Playwright MCP has no reliable print-preview inspection primitive), but the Print
-button's own styling fails this case's "clean, consistent" expectation: it renders as a solid orange/filled
-button while every other button on the same page ("Open in Roadmap", "Edit version", "Close milestone") uses the
+button's own styling failed this case's "clean, consistent" expectation: it rendered as a solid orange/filled
+button while every other button on the same page ("Open in Roadmap", "Edit version", "Close milestone") used the
 plugin's standard white-background + border style — see BUG-TCM-137 item 7 (production defect #128023, assigned
-to Vaishnavi Bhawsar). BUG-TCM-137 also bundles 6 other Milestones-feature UI/UX findings (tab-count mismatch,
+to Vaishnavi Bhawsar). BUG-TCM-137 also bundled 6 other Milestones-feature UI/UX findings (tab-count mismatch,
 out-of-range page empty state, pagination style inconsistency, overview-widget card inconsistency, unpaginated
-runs table, Overview tab spacing) reported together in the same production ticket.
+runs table, Overview tab spacing) reported together in the same production ticket. **Retested 2026-11-11 against
+commit `9785d2c` — CONFIRMED FIXED, all 7 items** (see `bugs/closed/BUG-TCM-137.md`). Print button now matches
+the standard white-background + border style. **Now PASS.**
 
 ---
 
@@ -311,3 +314,6 @@ BUG-TCM-137 item 7 / production defect #128023). Results and the one confirmed d
 production Run #659 (testsuite #527), with the defect assigned to Vaishnavi Bhawsar. Rewritten 2026-11-11 directly
 from the shipped controller/service/view/locale source (not speculation) now that the feature is built and both
 #123572 and its sibling #123573 are "In QA" on production.
+
+**Retested 2026-11-11 against commit `9785d2c` — CONFIRMED FIXED, now 13/13 PASS.** BUG-TCM-137 (all 7 bundled
+items, including this one) closed — see `bugs/closed/BUG-TCM-137.md`.

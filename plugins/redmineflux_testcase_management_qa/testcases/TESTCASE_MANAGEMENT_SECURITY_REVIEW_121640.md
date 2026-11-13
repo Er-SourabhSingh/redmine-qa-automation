@@ -14,6 +14,7 @@
 > developer's self-reported test suite.
 >
 > **Status: all 30 TCs executed 2026-11-04. 28 PASS, 2 FAIL (TC-TCM-343 → BUG-TCM-134, TC-TCM-352 → BUG-TCM-135).**
+> **Both retested 2026-11-11 against commit `9785d2c` — CONFIRMED FIXED, now 30/30 PASS.**
 > This pass covers Redmine 6.x/Postgres only (`localhost:3000`) — see "Out of scope for this pass" above for the
 > Redmine 5.x/7.x follow-up.
 >
@@ -31,7 +32,7 @@
 > | TC-TCM-340 | PASS | Anonymous `GET /steps/new` → 403; `POST /steps` → 422 (CSRF), confirmed no step row created |
 > | TC-TCM-341 | PASS | Anonymous `DELETE` → 422 (CSRF); daisy.skye w/ valid CSRF token on cross-project issue → genuine app-level 403, no 500/NameError |
 > | TC-TCM-342 | PASS | Anonymous and daisy.skye (non-member) → 403 both steps |
-> | TC-TCM-343 | **FAIL** | `GET /runs/2/edit` (Project B's run) as daisy.skye (Project A only) → **HTTP 200**, not 403/404; Project B's project name/nav disclosed (run fields themselves not leaked — `#content` empty). Filed as **BUG-TCM-134** |
+> | TC-TCM-343 | **FAIL → PASS** | `GET /runs/2/edit` (Project B's run) as daisy.skye (Project A only) → **HTTP 200**, not 403/404; Project B's project name/nav disclosed (run fields themselves not leaked — `#content` empty). Filed as **BUG-TCM-134** — retested 2026-11-11, commit `9785d2c`, CONFIRMED FIXED (now 403/404, no disclosure) |
 > | TC-TCM-344 | PASS | `GET /defects?run_id=2` as daisy.skye → 404 |
 > | TC-TCM-345 | PASS | `GET /run_close_status/2.json` as daisy.skye → 403 |
 > | TC-TCM-346 | PASS | Step 1: `POST /runs` for Project A naming Project B's suite/case, `from=api` → clean 422, `"Invalid test suite IDs. These do not belong to the current project: [2]"`. Step 2: malformed JSON selection → clean 422, not 500 |
@@ -40,7 +41,7 @@
 > | TC-TCM-349 | PASS | Add-result form with an issue not attached to the run → 404 |
 > | TC-TCM-350 | PASS | luna.blossom (edit_requirement on A, non-member of B) `PUT /content_update_testcase/2` (B's requirement) → 403, content unchanged |
 > | TC-TCM-351 | PASS | luna.blossom `PUT /generate_url_testcase/2` (B's requirement) → 403 |
-> | TC-TCM-352 | **FAIL** | 3 of 7 read endpoints leak Project B data to ANY authenticated non-member: `GET /knowlegebase_pages_testcase/2?project_id=4` (full requirement content), `GET /requirement/testcases?project_id=4` (full testcase list), `GET /user_project/4` (member list) — all `200` with real data; anonymous correctly refused (403) on the same URLs, isolating the gap to project-scoping. Reproduced with 2 different users/roles. The other 4 endpoints (`content_search_knowledgebase_testcase`, `version_change_knowledgebase`, `version_data_knowledgebase`, `page_attachments`) correctly 404/422. Filed **BUG-TCM-135** (High) |
+> | TC-TCM-352 | **FAIL → PASS** | 3 of 7 read endpoints leak Project B data to ANY authenticated non-member: `GET /knowlegebase_pages_testcase/2?project_id=4` (full requirement content), `GET /requirement/testcases?project_id=4` (full testcase list), `GET /user_project/4` (member list) — all `200` with real data; anonymous correctly refused (403) on the same URLs, isolating the gap to project-scoping. Reproduced with 2 different users/roles. The other 4 endpoints (`content_search_knowledgebase_testcase`, `version_change_knowledgebase`, `version_data_knowledgebase`, `page_attachments`) correctly 404/422. Filed **BUG-TCM-135** (High) — retested 2026-11-11, commit `9785d2c`, CONFIRMED FIXED for the original data-leak scope |
 > | TC-TCM-353 | PASS | luna.blossom (permission on A) `POST /version_management_knowledgebase` naming `project_id=A` but `page_id=2` (B's page) → 403, write did not land on B's page |
 > | TC-TCM-354 | PASS | `PUT /requirements/1` with `project_id=4` in the payload → title updated (confirms processed), `project_id` stayed 2 (A) — param ignored |
 > | TC-TCM-355 | PASS | `add_issues_to_test_suite`/`copy_issues_to_test_suite` naming Project B's issue 284 into Project A's suite → both 404, suite's own case list unchanged |
@@ -55,9 +56,11 @@
 > | TC-TCM-365 | PASS | Extracted the live route table via `rails runner` (238 routes) and swept all 236 non-public-by-design plugin routes anonymously via `curl` — **zero offenders** (every route returned 3xx/4xx, never 2xx/5xx). `grep -rn api_key app/views app/assets` → zero leaked values (2 unrelated comments only) |
 > | TC-TCM-366 | PASS | As daisy.skye (normal Project A Developer): browsed Test Suites/Test Cases (282 issues, paginated correctly, the TC-356 XSS payload subject renders as inert literal text), opened Run #1, recorded a Passed result (donut chart updated 0%→100% live), opened To Do — every normal action worked exactly as before, no new check blocked her |
 >
-> **Final tally: 30/30 TCs executed, 28 PASS, 2 FAIL.** Open bugs from this suite: **BUG-TCM-134** (Medium —
-> `GET /runs/:id/edit` wrong status code + project-name/nav disclosure) and **BUG-TCM-135** (High — 3 read
-> endpoints leak full cross-project data to any authenticated non-member). Neither yet reported to production.
+> **Final tally: 30/30 TCs executed, 28 PASS, 2 FAIL at the time — retested 2026-11-11, now 30/30 PASS.** Bugs from this suite: **BUG-TCM-134** (Medium, closed —
+> `GET /runs/:id/edit` wrong status code + project-name/nav disclosure) and **BUG-TCM-135** (High, closed — 3 read
+> endpoints leak full cross-project data to any authenticated non-member). Both reported to production
+> (#127712, #127713) and retested CONFIRMED FIXED 2026-11-11 against commit `9785d2c` — see
+> `bugs/closed/BUG-TCM-134.md` and `bugs/closed/BUG-TCM-135.md`.
 >
 > **Not carried into this suite as individual TCs** (see the findings register's "Not fixed / observations"
 > table for full detail — these are deliberate non-fixes, not gaps):

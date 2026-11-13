@@ -10,7 +10,8 @@
 > pre-release test DESIGN directly from the feature's source code (controller/model/views/migrations/routes/
 > permissions) and its own unit/functional test files on branch `release/7.3.0` (commit `329311d`, later
 > fast-forwarded to `c9c8593`) — **not yet merged to `master`**. **Result: 24/25 PASS, 1 FAIL** (RFTC029-18 —
-> same root cause as the already-filed plugin-wide **BUG-TCM-127**, not a new bug).
+> same root cause as the already-filed plugin-wide **BUG-TCM-127**, not a new bug) — **retested 2026-11-03
+> against commit `eefc0a4`, CONFIRMED FIXED, now 25/25 PASS.**
 
 # Test Cases — Redmineflux Testcase Management — rftc-029: Exploratory / Session-Based Testing
 
@@ -297,7 +298,7 @@ other detail from Project B must never appear in the response. Same expectation 
 reach `index`, `show`, `new`, and the member routes (`close`, `add_note`) directly by URL.
 **Expected Result:** Redirected to login (anonymous) or denied (non-member, same `rftc_authorize_project_read!`
 gate every other read-only page in this plugin uses) — no session data rendered either way.
-**Actual Result:** **FAIL - same root cause as already-filed BUG-TCM-127, not a new bug.** As a genuinely logged-out (real Sign-out click confirmed first) user, every route (`index`, `show`, `new`) returned a bare **403 Forbidden**, not the expected 302 redirect to login - because `authorize_session_project_access` (wrapping `rftc_authorize_project_read!` -> `rftc_require_login!`) runs as a `before_action` ahead of every action in this controller, so the same plugin-wide 403-not-redirect gap BUG-TCM-127 already documents applies here on every single session route, not just read-only ones. Separately confirmed the non-member half of this case IS correct: a genuinely logged-in user with zero membership on this private project got a clean 404 (not a 403, not a data leak) on both `index` and `show`. BUG-TCM-127 updated to record this additional confirmed scope. See Full Live Execution section below.
+**Actual Result:** Originally **FAIL - same root cause as already-filed BUG-TCM-127, not a new bug.** As a genuinely logged-out (real Sign-out click confirmed first) user, every route (`index`, `show`, `new`) returned a bare **403 Forbidden**, not the expected 302 redirect to login - because `authorize_session_project_access` (wrapping `rftc_authorize_project_read!` -> `rftc_require_login!`) runs as a `before_action` ahead of every action in this controller, so the same plugin-wide 403-not-redirect gap BUG-TCM-127 already documents applies here on every single session route, not just read-only ones. Separately confirmed the non-member half of this case IS correct: a genuinely logged-in user with zero membership on this private project got a clean 404 (not a 403, not a data leak) on both `index` and `show`. **Retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED**, anonymous access now redirects to login on every route. BUG-TCM-127 closed. **Now PASS.**
 
 ---
 
@@ -411,15 +412,16 @@ simply omits the "Issue:" line entirely (the panel itself only renders `if @sess
 
 ## Coverage Summary
 
-**25 test cases, 25 executed, 24 PASS / 1 FAIL.** Covers: full happy-path lifecycle (start → notes → close)
+**25 test cases, 25 executed, 24 PASS / 1 FAIL — retested 2026-11-03, now 25/25 PASS.** Covers: full happy-path lifecycle (start → notes → close)
 across both minimal and fully-populated fixtures (RFTC029-1/2/3, all PASS), both pre-commit bugs re-proven as
 regression-shaped tests (RFTC029-4/5, PASS), the append-only/chronological note design extended to a 3-note
 sequence (RFTC029-6/7, PASS), every outcome value plus the UI-unreachable blank-outcome negative (RFTC029-8/9,
 PASS), both length boundaries (RFTC029-10/11, PASS), the cross-project issue-link guard (RFTC029-12, PASS), all 4
 permissions independently verified in both directions with real dedicated roles/users and real endpoint hits
 (RFTC029-13 through 16, all PASS), the SACRED cross-project session-isolation holdout (RFTC029-17, PASS — 404 on
-all 4 routes, zero leak), anonymous/non-member denial (RFTC029-18, **FAIL** — anonymous gets 403 not a redirect,
-confirming BUG-TCM-127's scope extends to this feature too; non-member correctly 404s), a 3-surface XSS probe
+all 4 routes, zero leak), anonymous/non-member denial (RFTC029-18, originally **FAIL** — anonymous got 403 not a redirect,
+confirming BUG-TCM-127's scope extended to this feature too; non-member correctly 404s — retested 2026-11-03,
+CONFIRMED FIXED, now PASS), a 3-surface XSS probe
 (RFTC029-19, PASS), safe error-message escaping with both `@note`- and `@session`-errored-object paths confirmed
 live (RFTC029-20, PASS), the format.html fallback for all 4 write actions confirmed via real HTTP requests and
 DB-verified writes (RFTC029-21, PASS), full destroy cascade confirmed via before/after row counts (RFTC029-22,
@@ -458,13 +460,14 @@ UI gap, executed end-to-end on project `rftc-016-ci-qa`):
   title (XSS-escaped), tester, date, and "Closed" status, linked correctly to the session.
 - **PASS — Activity feed integration**: both "Created by Redmine Admin" and "Closed by Redmine Admin" events
   appeared, correctly deep-linked to the session.
-- **FAIL → BUG-TCM-126 (Open, Low, pre-existing, not specific to this feature)**: the Activity feed's own
+- Originally **FAIL → BUG-TCM-126 (Low, pre-existing, not specific to this feature)**: the Activity feed's own
   per-event timestamp showed "2026-02-11 07:23/07:24 AM" for events that actually happened at 07:23/07:24 AM on
   **November 2, 2026** (correctly grouped under the "November 02, 2026" heading just above, and correctly shown
   as "11/02/2026" on the session's own page) — month and day visibly swapped. Root-caused to
   `TestcaseActivitiesHelper#format_date_string` trying a day-first parse format before a month-first one against
   an already-US-formatted string. Confirmed this affects every activity row type in this view, not just
-  Exploratory Sessions — see `bugs/open/BUG-TCM-126.md`.
+  Exploratory Sessions — **retested 2026-11-03 against commit `eefc0a4`, CONFIRMED FIXED**. See
+  `bugs/closed/BUG-TCM-126.md`. **Now PASS.**
 
 **Not yet live-verified this pass:** the 4-permission matrix (create/edit/delete/close_session independently),
 cross-project 404 isolation (SEC-001), anonymous-access denial, and destroy cascade. Given how solid the
@@ -500,8 +503,8 @@ All 25 cases fully executed this pass, closing every gap left by the earlier par
   confirmed to apply on every route since `authorize_session_project_access` runs ahead of every action-specific
   gate in this controller. Separately, as a genuinely logged-in user with zero membership on this private
   project, `index`/`show` both correctly returned 404 (not a 403, not a leak) — the non-member half of this case
-  behaves exactly as expected. **FAIL** overall (anonymous half), tracked entirely under the existing
-  **BUG-TCM-127**, which has been updated with this additional confirmed scope.
+  behaves exactly as expected. Originally **FAIL** overall (anonymous half), tracked entirely under the existing
+  **BUG-TCM-127** — **retested 2026-11-03 against commit `eefc0a4`, CONFIRMED FIXED**. Bug closed. **Now PASS.**
 - **RFTC029-20**: triggered a real blank-note failure and a real too-long-title update failure via live `fetch()`
   calls with `Accept: text/javascript`, and read the actual raw response bodies: `$('#session_form_flash_error')
   .html('<ul><li>Body cannot be blank<\/li><\/ul>').show();` for the note failure and the equivalent with
@@ -525,4 +528,4 @@ All 25 cases fully executed this pass, closing every gap left by the earlier par
 **Result: 24/25 PASS, 1 FAIL** — RFTC029-18's anonymous-access half, which is not a new, feature-specific defect
 but the same plugin-wide `RftcAccessControl#rftc_require_login!` 403-not-redirect gap already filed as
 **BUG-TCM-127** (originally found via RFTC022-15), now confirmed to additionally cover every route of
-`TestcaseSessionsController`.
+`TestcaseSessionsController`. **Retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED, now 25/25 PASS.**

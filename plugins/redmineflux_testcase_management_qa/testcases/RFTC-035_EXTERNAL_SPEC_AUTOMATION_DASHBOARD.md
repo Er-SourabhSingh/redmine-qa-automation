@@ -11,7 +11,8 @@
 > unit/functional tests on branch `release/7.3.0` (commit `329311d`, later fast-forwarded to `c9c8593`), ahead of
 > an independent QA pass. **Result: 14/16 PASS, 2 FAIL** — RFTC035-8 (anonymous access, same root cause as the
 > already-filed plugin-wide **BUG-TCM-127**, not a new bug) and RFTC035-14 (Pass Rate miscalculation, a genuine
-> new defect filed as **BUG-TCM-128**).
+> new defect filed as **BUG-TCM-128**). **Both retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED,
+> now 16/16 PASS.**
 
 # Test Cases — Redmineflux Testcase Management — rftc-035: Automation Dashboard (all sources)
 
@@ -154,7 +155,7 @@ visibility)
 genuine automation data.
 **Expected Result:** A redirect to the login page (not a 200, not a partial/empty render of real project data) —
 zero source names, counts, or any other project data appear anywhere in the response.
-**Actual Result:** **FAIL - same root cause as the already-filed plugin-wide BUG-TCM-127, not a new bug.** After a genuine sign-out, direct navigation to the dashboard for a real project with genuine automation data returned a bare **403 Forbidden**, not a 302 redirect to login as expected. This is the identical `RftcAccessControl#rftc_require_login!` gap already documented for Run Comparisons (rftc-022) and now also Exploratory Sessions (rftc-029) - re-confirmed here on the Automation Dashboard, which is in fact one of the two controllers BUG-TCM-127 was originally filed against. Zero project data leaked in the 403 response either way.
+**Actual Result:** Originally **FAIL - same root cause as the already-filed plugin-wide BUG-TCM-127, not a new bug.** After a genuine sign-out, direct navigation to the dashboard for a real project with genuine automation data returned a bare **403 Forbidden**, not a 302 redirect to login as expected. This is the identical `RftcAccessControl#rftc_require_login!` gap already documented for Run Comparisons (rftc-022) and now also Exploratory Sessions (rftc-029) - re-confirmed here on the Automation Dashboard, which is in fact one of the two controllers BUG-TCM-127 was originally filed against. Zero project data leaked in the 403 response either way. **Retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED**, anonymous access now redirects to login. Bug closed. **Now PASS.**
 
 ---
 
@@ -243,7 +244,7 @@ explicitly exclude `Untested`/`Skipped` from their own "executed" denominators b
 page's rate can look artificially low on a project with a lot of still-Untested/Blocked cases. Confirm this is
 the INTENDED semantics with the dev before treating a "surprisingly low" pass rate as a defect; if it's not
 intended, it's a design/consistency gap worth raising, not a crash-class bug.
-**Actual Result:** **FAIL - new bug found and filed: BUG-TCM-128.** Built a fixture with one Passed result and one Blocked result under the same new source ("SourceGamma"): the dashboard showed `total_cells=2, pass_count=2, fail_count=0, pass_rate=100.0%` - NOT the 50% this case's own prediction expected, and in fact worse than predicted: Blocked was silently counted as a full PASS, not merely excluded from the denominator. A follow-up fixture with a SINGLE Skipped result ("SourceDelta", zero genuine passes at all) showed `100.0%` Pass Rate too. Root-caused to the code checking `is_failure == false` (true for every status except Failed) instead of `is_success == true` for the pass-count increment. This is a genuine, confirmed defect, not just an "intended semantics" question as this case originally hedged - filed as **BUG-TCM-128** (Medium). See Full Live Execution section below.
+**Actual Result:** Originally **FAIL - new bug found and filed: BUG-TCM-128.** Built a fixture with one Passed result and one Blocked result under the same new source ("SourceGamma"): the dashboard showed `total_cells=2, pass_count=2, fail_count=0, pass_rate=100.0%` - NOT the 50% this case's own prediction expected, and in fact worse than predicted: Blocked was silently counted as a full PASS, not merely excluded from the denominator. A follow-up fixture with a SINGLE Skipped result ("SourceDelta", zero genuine passes at all) showed `100.0%` Pass Rate too. Root-caused to the code checking `is_failure == false` (true for every status except Failed) instead of `is_success == true` for the pass-count increment. This is a genuine, confirmed defect, not just an "intended semantics" question as this case originally hedged - filed as **BUG-TCM-128** (Medium). **Retested 2026-11-03 against commit `eefc0a4` — CONFIRMED FIXED**: the same fixtures now correctly show a 50% Pass Rate (SourceGamma) and 0% (SourceDelta). Bug closed. **Now PASS.** See Full Live Execution section below.
 
 ---
 
@@ -290,16 +291,18 @@ against this feature alone.
 
 ## Coverage Summary
 
-**16 test cases, 16 executed, 14 PASS / 2 FAIL.** Covers per-source aggregation with independent stats
+**16 test cases, 16 executed, 14 PASS / 2 FAIL — retested 2026-11-03, now 16/16 PASS.** Covers per-source aggregation with independent stats
 (RFTC035-1, PASS), the Ungrouped bucket (RFTC035-2, PASS), latest-per-cell dedup (RFTC035-3, PASS), both legs of
 the two-step access-control gate — the positive case (RFTC035-4, PASS), the permission-denied case (RFTC035-5,
 PASS), both 404 legs for a non-existent/invisible project (RFTC035-6, PASS), the module-disabled 404
-(RFTC035-7, PASS), the anonymous case (RFTC035-8, **FAIL** — same plugin-wide BUG-TCM-127 gap already confirmed
-elsewhere, not a new defect), a genuinely empty project (RFTC035-9, PASS), cross-project isolation (RFTC035-10,
+(RFTC035-7, PASS), the anonymous case (RFTC035-8, originally **FAIL** — same plugin-wide BUG-TCM-127 gap already
+confirmed elsewhere, not a new defect — retested 2026-11-03, CONFIRMED FIXED, now PASS), a genuinely empty
+project (RFTC035-9, PASS), cross-project isolation (RFTC035-10,
 PASS), `last_seen_at` freshness (RFTC035-11, PASS), an XSS regression probe confirmed live with zero console
 messages and escaped `outerHTML` (RFTC035-12, PASS), a whole-page sum-consistency check against
-`set_based_status_tally` (RFTC035-13, PASS), the Pass Rate denominator question (RFTC035-14, **FAIL** — a
-genuine, newly-confirmed defect filed as **BUG-TCM-128**, not merely a design ambiguity as originally hedged),
+`set_based_status_tally` (RFTC035-13, PASS), the Pass Rate denominator question (RFTC035-14, originally **FAIL**
+— a genuine, newly-confirmed defect filed as **BUG-TCM-128**, not merely a design ambiguity as originally hedged
+— retested 2026-11-03, CONFIRMED FIXED, now PASS),
 the Ungrouped-always-sorts-last guarantee (RFTC035-15, PASS), and the sidebar's no-permission-gate pattern
 (RFTC035-16, PASS). Everything above was verified against the real running application with real fixtures, not
 re-derived from source alone.
@@ -350,13 +353,15 @@ All 16 cases fully executed this pass, closing every gap left by the earlier par
   ingest; opened the live dashboard with a console-message listener (zero messages fired) and read the actual
   rendered table row's `outerHTML` directly — properly HTML-escaped, confirming the page's plain `<%= %>`
   rendering is safe in practice, not just by source inspection.
-- **RFTC035-14 — FAIL, new bug found and filed (BUG-TCM-128)**: built a fixture with one Passed + one Blocked
+- **RFTC035-14 — originally FAIL, new bug found and filed (BUG-TCM-128)**: built a fixture with one Passed + one Blocked
   result under a new source — expected (per this case's own original hedge) either 50% or an explicit "intended
   semantics" discussion, but the real result was **100% Pass Rate**, because the code's `pass_count` increment
   checks `is_failure == false` (true for every status except Failed) rather than `is_success == true`. A
   follow-up fixture with a single Skipped result (zero genuine passes at all) also showed 100%. Confirmed live on
   the real dashboard table, matching the backend calculation exactly. This is a genuine, confirmed correctness
-  defect, not a design ambiguity — filed as BUG-TCM-128 (Medium).
+  defect, not a design ambiguity — filed as BUG-TCM-128 (Medium). **Retested 2026-11-03 against commit
+  `eefc0a4` — CONFIRMED FIXED**, both fixtures now show the correct Pass Rate. Bug closed. **Now PASS.**
 
 **Result: 14/16 PASS, 2 FAIL** — RFTC035-8 (tracked under the existing BUG-TCM-127, not a new defect) and
-RFTC035-14 (a genuine new defect, BUG-TCM-128).
+RFTC035-14 (a genuine new defect, BUG-TCM-128). **Both retested 2026-11-03 against commit `eefc0a4` — CONFIRMED
+FIXED, now 16/16 PASS.**

@@ -7,7 +7,8 @@
 >
 > **ID prefix**: every case here is `RFTC018-<n>`.
 >
-> **FULLY EXECUTED 2026-11-02 — 17/18 PASS, 1 FAIL (BUG-TCM-125).** The branch (`release/7.3.0`, commit
+> **FULLY EXECUTED 2026-11-02 — 17/18 PASS, 1 FAIL (BUG-TCM-125); retested 2026-11-03 against commit
+> `eefc0a4` — CONFIRMED FIXED, now 18/18 PASS.** The branch (`release/7.3.0`, commit
 > `329311d`) was checked out into the local Docker instance (`localhost:3000`), its 4 pending migrations
 > run, and the app restarted. All 18 cases below were independently executed this session — RFTC018-1
 > through 12 and 17 directly against `AutomationSourceResolver`/`AutomationSource` via `bin/rails runner`
@@ -16,7 +17,7 @@
 > CI ingest + live Playwright check of the Automation Dashboard, RFTC018-16 via a direct diff of `API.md`
 > against the code, and RFTC018-18 via the model's own association-reflection options (same check the
 > developer's own unit test asserts). Only RFTC018-13 failed — confirmed as a real bug, filed as
-> **BUG-TCM-125** (see `bugs/open/BUG-TCM-125.md`). This is independent QA execution, not the developer's
+> **BUG-TCM-125**, retested 2026-11-03 and **CONFIRMED FIXED** (see `bugs/closed/BUG-TCM-125.md`). This is independent QA execution, not the developer's
 > own "Quality Gates" self-check recorded in `backlog/planning/rftc-018-feature-automation-sources.md`.
 
 # Test Cases — Redmineflux Testcase Management — rftc-018: Automation Sources (auto-grouping)
@@ -262,12 +263,12 @@ match** the existing `"Nightly"` row (still case-sensitive) — returning `nil`.
 via the generic rescue in `resolve_source_for`), rather than either (a) reusing the existing `"Nightly"`
 source, or (b) a clear "name collision" error. **This needs to be confirmed against the real running
 code, not just the static read above** — record the actual observed behavior here when executed.
-**Actual Result:** ❌ **FAIL → BUG-TCM-125 (Open, Medium), confirmed live** (2026-11-02, `bin/rails
-runner`). Resolving `"CaseTestXYZ"` then `"casetestxyz"` (same name, different case) for the same
-project: the first call created the source correctly (`id=1`); the second call returned **`nil`** exactly
-as predicted — the result would silently get no source at all instead of reusing `"CaseTestXYZ"`. This
-is now a confirmed defect, not just a code-reading prediction. See `bugs/open/BUG-TCM-125.md` for the
-full root-cause trace and evidence.
+**Actual Result:** ❌→✅ **Originally FAIL → BUG-TCM-125 (2026-11-02, `bin/rails runner`)**. Resolving
+`"CaseTestXYZ"` then `"casetestxyz"` (same name, different case) for the same project: the first call
+created the source correctly (`id=1`); the second call returned **`nil`** exactly as predicted — the
+result would silently get no source at all instead of reusing `"CaseTestXYZ"`. **Retested 2026-11-03
+against branch `release/7.3.0`, commit `eefc0a4` — CONFIRMED FIXED.** BUG-TCM-125 closed; see
+`bugs/closed/BUG-TCM-125.md` for the full root-cause trace and retest evidence. **Now PASS.**
 
 ---
 
@@ -370,15 +371,16 @@ Automation Dashboard, both of which were exercised directly.
 
 ## Coverage Summary
 
-**18/18 scenarios executed — 17 PASS, 1 FAIL.** All 5 precedence levels individually confirmed correct,
-idempotency and cross-project isolation both hold, the resolved `source_id` is genuinely persisted on
-the row (not just claimed in the response), all 3 blank/whitespace negative paths correctly fall through,
-the never-blocks-the-write failure guarantee holds (confirmed via a forced-exception test, including the
-exact expected log line), the concurrency/advisory-lock guard held across 5 real-thread race trials, the
-XSS/security case is confirmed safe via a real ingest + live dashboard check, `API.md` matches the code
-exactly, and both model data-integrity guarantees (name-defaults-to-key, nullify-not-destroy) hold. The
-one failure, **RFTC018-13** (case-sensitivity mismatch), is a confirmed real defect — filed as
-**BUG-TCM-125** (Open, Medium) — not merely a code-reading prediction anymore.
+**18/18 scenarios executed — 18/18 PASS (as of the 2026-11-03 retest below).** All 5 precedence levels
+individually confirmed correct, idempotency and cross-project isolation both hold, the resolved
+`source_id` is genuinely persisted on the row (not just claimed in the response), all 3 blank/whitespace
+negative paths correctly fall through, the never-blocks-the-write failure guarantee holds (confirmed via
+a forced-exception test, including the exact expected log line), the concurrency/advisory-lock guard held
+across 5 real-thread race trials, the XSS/security case is confirmed safe via a real ingest + live
+dashboard check, `API.md` matches the code exactly, and both model data-integrity guarantees
+(name-defaults-to-key, nullify-not-destroy) hold. The one originally-failing case, **RFTC018-13**
+(case-sensitivity mismatch), was a confirmed real defect — filed as **BUG-TCM-125** — and is now
+**CONFIRMED FIXED** (retested 2026-11-03, `bugs/closed/BUG-TCM-125.md`).
 
 ## Live Verification Pass — 2026-11-02 (localhost:3000, branch release/7.3.0, commit 329311d)
 
@@ -390,7 +392,8 @@ restarted. Methods used: `bin/rails runner` for the pure precedence/idempotency/
 persistence and failure-isolation cases (9, 12), a genuine 5-trial two-thread race for the concurrency
 case (14), a real CI ingest + live Playwright check of the Automation Dashboard for the XSS case (15),
 and a direct file diff for the documentation case (16). Full detail is recorded inline against each case
-above; summary: **17 PASS, 1 FAIL (BUG-TCM-125)**.
+above; summary: **17 PASS, 1 FAIL (BUG-TCM-125)** at the time — **retested 2026-11-03, CONFIRMED FIXED,
+now 18/18 PASS.**
 
 ### Genuine CI/CD-driven re-confirmation (RFTC018-1, RFTC018-2) — 2026-11-02
 

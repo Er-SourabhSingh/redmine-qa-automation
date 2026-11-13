@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-144
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128386
 - Title: "Add Defect" popup (from the Add Result modal's "Report Defect" link) has no working scroll — its Create/Cancel buttons become inaccessible on a normal 1920x1080 window
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: redmineflux_testcase_management

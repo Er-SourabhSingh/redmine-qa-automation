@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-143
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128385
 - Title: Typed text in every Select2 multi-select search box (Defects field, Assignee filter, etc.) stacks vertically instead of typing horizontally
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: redmineflux_testcase_management

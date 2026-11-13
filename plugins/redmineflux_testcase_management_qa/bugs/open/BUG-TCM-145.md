@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-145
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #128387
 - Title: Edit Run's per-environment assignee carry-over (#128320) leaks across ALL environments instead of staying scoped to the edited one, on any Run whose test cases don't yet have explicit per-environment rows
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: redmineflux_testcase_management

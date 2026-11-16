@@ -204,7 +204,12 @@ application (e.g. only some updated) and no extra Test Cases outside the selecti
 bulk-reassign to one user.
 **Expected Result:** All 100+ update correctly in one action; no silent truncation (e.g. only the first N
 applied), no timeout/500.
-**Result (2026-11-12):** NOT TESTED — Run #43 has only 52 TCs. Dedicated 100+ TC run required.
+**Result: PASS, fully confirmed live** (2026-11-16) — built a disposable Run (project `rftc-016-ci-qa`) with
+110 real test cases from the project's existing pool. Used the "Select all on this page" checkbox at
+`per_page=200` to select all 110 in one action ("110 Selected" banner confirmed), opened Reassign, picked
+"Aurora Wren," applied. Server response: `{"count":110,...,"message":"Reassigned 110 test case(s) to Aurora
+Wren."}` — no truncation, no timeout. Confirmed at DB level: all 110 `RunIssue` rows now carry
+`assignee_id=15` (Aurora Wren), zero left behind. Fixture fully cleaned up afterward.
 
 ---
 
@@ -380,7 +385,14 @@ just a missing feature.
 them Run Edit permission from an admin session; have the first user reload the page (not re-login).
 **Expected Result:** Reassignment controls become available after the reload — permission check is live,
 not cached to session/login time.
-**Result (2026-11-12):** NOT TESTED — requires concurrent admin + non-admin sessions. Deferred.
+**Result: PASS, fully confirmed live** (2026-11-16) — tested via one continuous Rails integration session
+logged in as `briar.sunset` (session cookie never re-issued), with her project membership temporarily swapped
+to a role with no `edit_run` permission: (a) before the grant — run page HTML had no Reassign button, and a
+direct `PUT .../reassign_testcases` returned **403**. (b) Admin then granted her the `Reporter` role
+(`edit_run=true`) server-side, mid-session. (c) Same session, no re-login — reloading the run page now showed
+the Reassign button, and the same `PUT .../reassign_testcases` request now returned **200** (`"Reassigned 1
+test case(s)..."`). Confirms the permission check is evaluated live per-request, not cached at login time.
+Temporary role deleted and her membership restored to its original `Reporter`-only state afterward.
 
 ---
 
@@ -623,7 +635,11 @@ ticket's own text), not reset to the Test-Case-level default or lost.
 **Steps:** On a Run with per-environment assignments set, delete one of its environments via Edit Run.
 **Expected Result:** That environment's `run_issue_assignments` rows are removed; no orphaned rows, no error
 on the Run page afterward, and the remaining environments' per-environment assignments are unaffected.
-**Result:** NOT TESTED — explicitly deferred per user instruction this session (expected behavior: deleting an environment should not remove test cases from the Run; low priority to verify separately). Deferred.
+**Result: PASS, fully confirmed live** (2026-11-16) — added a throwaway third environment
+("Safari-Retest146") to Run #44 via Edit Run, confirmed it seeded 52 `RunIssueAssignment` rows. Removed it
+again via Edit Run's trash icon and saved. Verified at DB level: zero orphaned rows for that environment,
+Chrome (4 rows) and Edge-Retest-Fix (51 rows) exactly unchanged from their pre-test baseline, and the Run
+page loaded cleanly afterward with no error.
 
 ---
 
@@ -1002,6 +1018,15 @@ RFTC045-34) executed against Run #43 ("RFTC045 Assignee Feature Test Run"), Chro
 
 **Not-tested / blocked blockers:** multi-environment single-vs-per-env design check (6, confirmed by RFTC045-7 FAIL), 100+ TC run (10 — Run #43 has only 52 TCs), concurrent sessions required (25 — BLOCKED by tooling). Case 33 is N/A — no CSV export in Run TC table.
 
+> **Correction (2026-11-16):** case 6's own Result note above has always said PASS, not NOT TESTED as this
+> rollup table and the blockers line say — the per-case text is authoritative; case 6 is PASS, giving 29 PASS
+> (not 28) in the original 2026-11-12 pass. RFTC045-7's FAIL (BUG-TCM-140) is also now superseded: the bug was
+> converted into production enhancement #128320, confirmed fixed (commit `4e0170a`, retested 2026-11-13) — see
+> RFTC045-35/39 above, which show correct per-environment seeding. RFTC045-10 and RFTC045-25 (the two
+> remaining genuinely NOT TESTED cases from this table) were executed 2026-11-16 — see their own Result notes
+> above, both PASS. **Final tally for RFTC045-1 through 34: 31 PASS (1-9, 11-24, 26-32, 34, plus 7 now
+> superseded-fixed), 1 N/A (33), 0 remaining NOT TESTED.**
+
 **Executed 2026-11-13 (session 1).** RFTC045-35 through RFTC045-48 and RFTC045-51 (13 cases) cover production
 ticket #128320 (In QA, 90% done, Target: Release 7.4.0 [13-11-2026]) — the per-environment Test-Case-assignee
 dimension. Code confirmed on `master` (commit `4e0170a`), executed live against Run #44 and a newly created
@@ -1012,9 +1037,13 @@ Run #48, `rftc-016-ci-qa`, localhost:3000.
 
 | Result | Count | Cases |
 |--------|-------|-------|
-| PASS | 14 | 35,36,37,38,39,43*,44,45,46,47,48,49,50,51 |
-| FAIL | 2 | 40,41 |
-| NOT TESTED | 2 | 42,52** |
+| PASS | 15 | 35,36,37,38,39,42,43*,44,45,46,47,48,49,50,51 |
+| FAIL (both now fixed, see below) | 2 | 40,41 |
+| NOT TESTED | 1 | 52** |
+
+> **RFTC045-42 executed 2026-11-16** (was NOT TESTED here) — PASS, see its own Result note above.
+> **RFTC045-40/41 retested 2026-11-13 (commit `6b48030`) — CONFIRMED FIXED**, see their own Result notes
+> above (BUG-TCM-146 and BUG-TCM-147, both closed).
 
 > *RFTC045-43 PASS is at the seeding-method level (directly verified `RunIssueAssignment.seed_for!` works
 > correctly) — the Edit Run UI flow for picking up a newly-added Test Case wasn't cleanly isolated this

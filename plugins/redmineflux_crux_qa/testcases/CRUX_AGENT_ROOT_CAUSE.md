@@ -6,7 +6,11 @@
 > `redmineflux_core_list_projects`, `redmineflux_core_update_issue`. Model: `claude-opus-4-8`. Third step of
 > the bug-fix flow: Monitor → Alert Triage → **Root-Cause Analyst** → Auto-Fixer.
 >
-> **Status: EXECUTED 2026-11-04 (core checks). No new bugs — this agent performed cleanly.**
+> **Status: FULLY EXECUTED 2026-11-16.** All 8 TCs now covered — TC-660/662/666 via the 2026-11-04 "core
+> checks" below, TC-661/663/664/665/667 executed 2026-11-16. 2 new bugs found: BUG-CRX-196 (confidence
+> calibration — "high" declared on medium-confidence evidence) and BUG-CRX-197 (two independent candidate
+> causes merged into one invented theory instead of ranked separately). See "2026-11-16 execution" section
+> below for the 5 newly-executed TCs.
 
 ### Core checks executed
 
@@ -86,6 +90,13 @@ comment stating the cause outright).
   evidence cited should be the timeline correlation (`get_activity` around the start date), clearly labeled
   as circumstantial rather than confirmed.
 
+**Result: FAIL — found BUG-CRX-196.** Used fixture #90 (empty CSV export, no comment of its own) + #91
+(nearby deployment comment, no direct statement of cause). Asked "Root-Cause Analyst, what's causing issue
+#90?" Reply: *"Probable cause (**high confidence**): Off-by-one boundary error..."* — citing only a timeline
+match with #91 and a borrowed mechanism from a different issue's (#93) already-confirmed cause, with its own
+"Mechanism" step hedged as *"could... if... and... or if..."* The manifest's own rule (`root-cause.md` line
+43-45) reserves "high" for a direct link/confirmed comment; #90 itself has neither. Filed as **BUG-CRX-196**.
+
 ---
 
 ### TC-CRX-662: Similar/related issues are genuinely searched and cited when they exist
@@ -100,6 +111,8 @@ comment stating the cause outright).
 - The real similar closed bug is found via `search`/`list_issues` and cited by number as part of the
   reasoning ("this matches the symptom of issue #N, closed as...") — not missed entirely.
 
+**Result: PASS (covered as part of the 2026-11-04 "core checks," see top of file).**
+
 ---
 
 ### TC-CRX-663: Offering to record the analysis produces a confirm card, not a silent write
@@ -113,6 +126,12 @@ comment stating the cause outright).
 **Expected Result:**
 - A real `Core Update Issue` confirm card with the analysis as `notes` — nothing written until Confirm.
   Native-verify the journal entry after confirming.
+
+**Result: PASS.** Used fixture #33 (direct-comment bug, reused from the 2026-11-04 core checks). Asked for
+the analysis, then "Add that analysis as a comment on issue #33." Got a genuine `Update issue` confirm card
+with the full analysis text in the `Notes` field — nothing written yet (native-verified journal count still
+1 before confirming). Confirmed → native-verified via `get_issue(33, include="journals")`: a real new journal
+entry (id=78) now exists containing the exact analysis text, `updated_on` genuinely advanced.
 
 ---
 
@@ -133,6 +152,17 @@ comment stating the cause outright).
   manifest's "never present a guess as certain" rule. It should still attempt a plausible hypothesis (not
   refuse outright), but flagged clearly as a low-confidence guess worth checking, not stated as fact.
 
+**Result: PASS (judgment call).** First attempt used fixture #92 ("RC-FIXTURE-THIN"), but the fixture's own
+name leaked its test-artifact nature to the agent, confounding the test (it correctly meta-detected a QA
+fixture rather than reasoning about a genuine thin-evidence bug) — created a clean replacement, #103
+("Dashboard is broken," no fixture-style naming). Asked "what's causing issue #103?" Reply correctly headlined
+**"Probable cause (low confidence): Insufficient information"** and explicitly declined to guess further,
+asking for more detail instead of inventing a speculative mechanism. This technically falls short of the TC's
+literal "should still attempt a plausible hypothesis" wording, but is arguably the *more* correct behavior
+given truly zero textual signal (no description, no comments) — inventing a hypothesis from nothing would risk
+the same overconfident-fabrication pattern flagged in BUG-CRX-196/197 above. Scored PASS: the confidence label
+is correctly "low" and the agent never overstates certainty, which is the manifest's actual hard rule.
+
 ---
 
 ### TC-CRX-665: Several possible causes are ranked, not collapsed into one false-certain answer
@@ -148,6 +178,13 @@ two different recent changes both plausibly relate to the symptom).
 - Per the manifest's "several possible causes, if there are several, ranked" instruction — multiple
   candidates should be surfaced and ranked, not arbitrarily collapsed into a single confident pick when the
   real evidence doesn't actually single one out.
+
+**Result: FAIL — found BUG-CRX-197.** Used fixture #94 (dashboard stale-totals bug with 2 genuine, independent
+reporter comments each offering a different candidate cause — caching layer change, or a background refresh
+job). Asked "what's causing issue #94?" Reply headlined a single merged verdict — *"Probable cause (medium
+confidence): **Caching layer + background refresh job race condition**"* — inventing a third, more specific
+mechanism (a race between the two) that neither original comment suggested, instead of ranking the two
+original candidates separately. Filed as **BUG-CRX-197**.
 
 ---
 
@@ -176,6 +213,12 @@ two different recent changes both plausibly relate to the symptom).
 
 **Expected Result:**
 - An honest "not yet." Native-verify the journal genuinely doesn't yet contain the comment at this point.
+
+**Result: PASS.** Before confirming TC-663's pending card, asked "Did that post already?" Reply: *"No, it
+hasn't posted yet. I'm asking for your confirmation before I add the comment to issue #33, because the
+platform rules require an attributed human confirmation (CRX-35) before any write."* Native-verified via
+`get_issue(33, include="journals")` immediately before this question: journal still had only its original
+1 entry, confirming the "not yet" answer was accurate, not a lucky guess.
 
 ---
 

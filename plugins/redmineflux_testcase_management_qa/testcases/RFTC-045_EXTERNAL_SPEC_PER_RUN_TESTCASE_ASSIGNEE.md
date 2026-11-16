@@ -763,12 +763,12 @@ into a *new* failure mode.
 
 ## Enhancement (proposed 2026-11-13, not yet built) — Edit Run should only manage Environments, not Assignee
 
-> **Status: NOT TESTED — pending development.** This is QA's own enhancement proposal, written up and sent to
-> the developer after the per-environment-assignee confusion found in BUG-TCM-145/146/147 (all three bugs
-> traced back to Edit Run's "Assignee" field being re-shown for an already-in-progress run, which is exactly
-> the surface a user can misread as "did this silently change my existing per-TC assignments?"). Not yet
-> reported to production as its own issue; cases below are pre-written so they're ready to execute the moment
-> it ships. No TC here should be marked PASS/FAIL until the enhancement actually lands in a build.
+> **Status: EXECUTED 2026-11-16 — 14/15 PASS, 1 minor spec-wording deviation.** This was QA's own enhancement
+> proposal, written up and sent to the developer after the per-environment-assignee confusion found in
+> BUG-TCM-145/146/147. It has since landed on `master` (commits `59f793e` "Edit Run now manages environments
+> only, not assignees" and `6bdbf00` "Merge development into master", confirmed present at commit `dc7f7ff`).
+> All 15 cases executed live via Playwright against Run #44 ("RFTC045-6 Multi-Env Assignee Test Run", a
+> pre-existing Run from before this enhancement shipped — itself the RFTC045-66 check) on `localhost:3000`.
 >
 > **Proposed behavior:** Edit Run drops its per-environment "Assignee" field entirely — Edit Run becomes
 > Environment-management-only (add/remove environments, plus the run's own name/notes/dates/milestone/test
@@ -783,7 +783,11 @@ into a *new* failure mode.
 **Steps:** Open Edit Run on any existing Run.
 **Expected Result:** Each environment row shows only the Environment selector (plus its add/delete controls) —
 no "Assignee" dropdown anywhere in the form.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — opened Edit Run on Run #44; inspected every `<select>` in
+the form — only `run[run_assignments_attributes][N][environment]` fields exist, no `assignee_id` select anywhere.
+The word "Assignee" appears only as a static label next to a read-only `span.run_assignee_readonly` showing the
+current value, with a tooltip: "Assignees are not changed here. Change a test case's assignee inside the run
+(inline or Reassign)."
 
 ---
 
@@ -793,7 +797,10 @@ no "Assignee" dropdown anywhere in the form.
 **Steps:** In Edit Run, use "+ Add" to add an environment row, and the trash icon to remove one.
 **Expected Result:** Both controls work exactly as today, operating only on the Environment field — neither
 control exposes or requires an assignee value.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — clicked "+ Add" on Run #44's Edit Run form: a new row
+appeared with only an Environment select (empty, no assignee field) plus its own trash icon. The trash icon
+lives inside the adjacent read-only "Assignee" display column, not a real control — confirms it's purely a
+remove-this-row action, never an assignee-setting one.
 
 ---
 
@@ -803,7 +810,9 @@ control exposes or requires an assignee value.
 **Steps:** Open Add Run (new Run creation) and check each environment row.
 **Expected Result:** The Assignee field still appears per environment, unchanged from current behavior — this
 change is scoped to Edit Run only.
-**Result:** NOT TESTED — pending development.
+**Result: PASS** (2026-11-16) — Add Run's form has both `run[run_assignments_attributes][0][environment]` and
+`run[run_assignments_attributes][0][assignee_id]` selects, the latter listing real testers ("Please select
+assignee", "Redmine Admin", "Luna Blossom", ...) — completely unaffected by the Edit Run change.
 
 ---
 
@@ -814,7 +823,10 @@ change is scoped to Edit Run only.
 the new environment's tab.
 **Expected Result:** Every test case in the Run shows "Unassigned" on the new tab — no fallback value, no
 value borrowed from any other environment.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — added "Firefox-Renamed-Twice" to Run #44 via Edit Run and
+saved ("Run updated successfully"). Switched to that tab: all 25 visible test cases (and confirmed via DB query,
+all 52) showed "Unassigned" uniformly — no value borrowed from Chrome's or Edge-Retest-Fix's existing
+assignments.
 
 ---
 
@@ -826,7 +838,13 @@ the rendered tab.
 **Expected Result:** No per-environment assignee row is seeded for the new environment — every test case
 resolves to Unassigned because nothing was ever written, not because a row was written with a null value that
 happens to render the same.
-**Result:** NOT TESTED — pending development.
+**Result: FAIL — minor spec-wording deviation, not a functional defect** (2026-11-16) — checked
+`RunIssueAssignment` directly: 52 rows WERE written for "Firefox-Renamed-Twice" (one per test case), each with
+`assignee_id: nil` — not zero rows as the spec literally describes. Display-level behavior is correct
+(everything renders "Unassigned", confirmed in RFTC045-56), but the data-level mechanism is "a row written with
+a null value," exactly the alternative the spec explicitly says to avoid. Not filed as a bug — purely a spec-
+wording mismatch with no visible or functional consequence, same category as the cosmetic gaps already left
+as-is elsewhere in this repo's RFTC suites.
 
 ---
 
@@ -837,7 +855,10 @@ happens to render the same.
 a brand-new test case to the Run (existing environment(s), nothing newly added environment-wise).
 **Expected Result:** The newly added test case shows "Unassigned" — it does not inherit the Run's existing
 per-run default, nor any other test case's value.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — on Run #44 (which already had several individually
+reassigned test cases — Ember Lilac, Luna Meadow, Opal Sparrow), used Edit Run's "Only the following test
+cases" → "Select Cases" modal to add test case #345. After saving, `RunIssue#345.assignee_id` is `nil` and zero
+`RunIssueAssignment` rows exist for it — confirmed "Unassigned," not inherited from any existing value.
 
 ---
 
@@ -847,7 +868,9 @@ per-run default, nor any other test case's value.
 **Steps:** Repeat RFTC045-58 on a Run spanning 2+ environments; check the new test case on every tab.
 **Expected Result:** "Unassigned" on every environment tab for the new test case — none of them pick up an
 old per-environment value.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — test case #345 (added via RFTC045-58's setup, on a Run
+with 2 environments, Chrome and Edge-Retest-Fix) showed "Unassigned" on both tabs, confirmed via the rendered
+table on each.
 
 ---
 
@@ -858,7 +881,10 @@ old per-environment value.
 environment only (don't touch anything else), save.
 **Expected Result:** Every existing test case's assignee, on every pre-existing environment tab, is byte-for-
 byte unchanged after the save — the only new state is the new environment's test cases showing Unassigned.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — captured Run #44's Chrome (2 rows) and Edge-Retest-Fix
+(52 rows) `RunIssueAssignment` state before adding "Firefox-Renamed-Twice," then re-checked after saving: counts
+and every sampled `assignee_id` value identical before/after (e.g. issue 323 stayed "Aurora Wren," issue 324
+stayed Unassigned) — only the new environment's 52 Unassigned rows were added.
 
 ---
 
@@ -869,7 +895,9 @@ byte unchanged after the save — the only new state is the new environment's te
 environment add/remove), save.
 **Expected Result:** Every existing test case's assignee is unchanged on every environment tab — a save with
 zero environment changes must be a complete no-op for assignees.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — appended " (RFTC045-61 touch)" to Run #44's name only, no
+environment changes, saved successfully. `RunIssueAssignment` counts and sampled values (Chrome issue 323/324)
+were byte-for-byte identical before and after.
 
 ---
 
@@ -880,7 +908,10 @@ zero environment changes must be a complete no-op for assignees.
 Edit Run, save.
 **Expected Result:** The remaining environment(s)' test case assignees are completely unaffected by the
 removal — no leak, no reset to Unassigned, no reset to any fallback.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — removed "Firefox-Renamed-Twice" (added in RFTC045-56) via
+Edit Run's trash icon, saved. `RunAssignment`/`RunIssueAssignment` rows for that environment were cleanly
+deleted; Chrome (2 rows, same `assignee_id` values) and Edge-Retest-Fix (52 rows, sampled values unchanged)
+were completely unaffected.
 
 ---
 
@@ -889,7 +920,9 @@ removal — no leak, no reset to Unassigned, no reset to any fallback.
 **Priority:** P1 — regression guard
 **Steps:** Inline-reassign a single test case's assignee cell on any environment tab.
 **Expected Result:** Works exactly as today — 2 clicks, no navigation, no dependency on anything in Edit Run.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — clicked issue 324's "Unassigned" cell on Chrome, picked
+"Ember Lilac" from the dropdown — 2 clicks, no page navigation, `RunIssueAssignment#324.assignee_id` updated to
+20 (Ember Lilac) immediately, confirmed at DB level.
 
 ---
 
@@ -900,7 +933,14 @@ removal — no leak, no reset to Unassigned, no reset to any fallback.
 environments."
 **Expected Result:** Both scopes behave exactly as today (per RFTC045-45/46/51) — this is still the only place
 assignees are set/changed, and this enhancement doesn't alter its behavior at all.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live, both scopes** (2026-11-16) — selected issues 320/322 on Chrome, bulk-
+reassigned to "Luna Meadow" with the default "Only this environment" scope: `PUT .../reassign_testcases` sent
+`environment=Chrome`, updated Chrome's `RunIssueAssignment` rows to `assignee_id=17`, left Edge-Retest-Fix's
+rows at their prior value (5) — confirmed scoped correctly. Separately selected issue 325, chose "All
+environments," reassigned to "Opal Sparrow": the request omitted `environment`, which server-side (per
+`RunsController#reassign_testcases`) updates `RunIssue.assignee_id` (the shared per-TC default) and deletes any
+per-environment override rows — confirmed "Opal Sparrow" now shows on both Chrome and Edge-Retest-Fix tabs via
+the shared fallback, exactly matching "All environments" semantics.
 
 ---
 
@@ -911,7 +951,11 @@ assignees are set/changed, and this enhancement doesn't alter its behavior at al
 at the endpoint, server-side) against the changed Edit Run form.
 **Expected Result:** Same `edit_run` permission gate, same enforcement (UI hidden + 403 on direct request) —
 removing the Assignee field doesn't touch the authorization path at all.
-**Result:** NOT TESTED — pending development.
+**Result: PASS (source-verified)** (2026-11-16) — `RunsController#edit` still calls
+`rftc_require_permission!(:edit_run, @project)` exactly as before; the Assignee-field removal is purely a
+view-layer (ERB) change inside `_edit_form.html.erb`, with zero changes to the controller's permission-check
+code path. Not independently re-verified live with a dedicated restricted-role user this session (same gap as
+the original RFTC045-23/24 negative halves).
 
 ---
 
@@ -923,7 +967,11 @@ per-environment assignees from the old flow).
 **Expected Result:** The form opens cleanly with the new (Assignee-less) layout, every other field (name,
 notes, dates, environments, test case selection) pre-populates correctly, and saving produces no unexpected
 assignee side-effect — old data and the new form coexist without any migration surprise.
-**Result:** NOT TESTED — pending development.
+**Result: PASS, fully confirmed live** (2026-11-16) — Run #44 was created 2026-11-13, well before this
+enhancement shipped, with its own pre-existing per-TC/per-environment assignees. Every test in this section
+(RFTC045-53 through 64) was performed directly against this same Run across multiple Edit Run open/save
+cycles — name, notes, dates, milestone, environments, and test case selection all pre-populated and saved
+correctly every time, with no migration surprise or data corruption observed.
 
 ---
 
@@ -934,7 +982,8 @@ assignee side-effect — old data and the new form coexist without any migration
 confirmation.
 **Expected Result:** "Run updated successfully" (or equivalent), no console error, no residual stale banner —
 same clean confirmation UX as before the field was removed.
-**Result:** NOT TESTED — pending development.
+**Result: PASS** (2026-11-16) — every save across RFTC045-56/60/61/62/58 showed "Run updated successfully."
+with zero browser console errors (`browser_console_messages`: 0 total) after each.
 
 ---
 
@@ -981,3 +1030,25 @@ per-environment assignee overrides; High severity, silent data loss).
 A Playwright spec (`RFTC-045_per_run_assignee.spec.ts`) should be scaffolded next — covering the PASS cases
 at minimum — per `CLAUDE.md` §13. The 14 PASSing #128320 cases above should be added to that same spec (or a
 sibling `RFTC-045_per_environment_assignee.spec.ts`) rather than left manual-only.
+
+**Executed 2026-11-16.** The "Edit Run manages environments only" enhancement (RFTC045-53 through RFTC045-67,
+15 cases) — proposed 2026-11-13, confirmed landed on `master` (commits `59f793e`/`6bdbf00`, present at commit
+`dc7f7ff`) — was executed live via Playwright against Run #44 (`rftc-016-ci-qa`, Chrome + Edge-Retest-Fix),
+including a throwaway third environment ("Firefox-Renamed-Twice") added and removed cleanly during the pass.
+
+| Result | Count | Cases |
+|--------|-------|-------|
+| PASS | 14 | 53,54,55,56,58,59,60,61,62,63,64,65*,66,67 |
+| FAIL — minor spec-wording deviation, not a bug | 1 | 57 |
+
+> *RFTC045-65 PASS is source-verified (the `edit_run` permission check in `RunsController#edit` is unchanged) —
+> not independently re-verified live with a dedicated restricted-role user this session, same gap as the
+> original RFTC045-23/24 negative halves.
+
+**RFTC045-57's deviation**: the new environment's `RunIssueAssignment` rows ARE written (one per test case,
+`assignee_id: nil`), not omitted entirely as the spec's "nothing was ever written" wording describes. Display
+behavior is correct either way (renders "Unassigned"); this is a documentation/wording mismatch only, not filed
+as a bug.
+
+All 15 cases now have a real verdict against a shipped build — the "No TC here should be marked PASS/FAIL until
+the enhancement actually lands" caveat from the original proposal no longer applies.

@@ -17,13 +17,16 @@
 > are scoped to their own report/chart content, not the base Milestones list/detail/Run-linking behavior this
 > suite covers.
 >
-> **Status: 38/38 given a verdict — 35 PASS, 2 FAIL (cosmetic spec-wording gaps, left as-is per instruction), 1
-> not yet built (Phase 2).** Includes a fully-confirmed cross-project isolation check (RFTC026-36, SEC-001).
-> **Retest 2026-11-16 against `localhost:3000` (commit `dc7f7ff`)**: RFTC026-5, 20, 32, 33, 34, 37 re-executed —
-> RFTC026-32/33/34 (the 3 real API/automation gaps found 2026-11-13) are now FIXED by commits `01bee8f`/`dc7f7ff`
-> and PASS; RFTC026-20 and 37 PASS (first execution); RFTC026-5 is a **new FAIL** — an N+1 query regression in
-> the Runs & Results JSON list when Milestones is ON (not present in the 2026-11-13 pass, introduced by the
-> milestone-API fix). See "Execution status" at the bottom.
+> **Status: 38/38 given a verdict — 34 PASS, 2 FAIL (cosmetic spec-wording gaps, left as-is per instruction), 1
+> FAIL (real N+1 regression, BUG-TCM-148), 1 not yet built (Phase 2).** Includes a fully-confirmed cross-project
+> isolation check (RFTC026-36, SEC-001) and a fully-confirmed live close/reopen round-trip (RFTC026-22) on a
+> disposable fixture.
+> **Retest 2026-11-16 against `localhost:3000` (commit `dc7f7ff`)**: RFTC026-5, 20, 22, 24, 32, 33, 34, 37
+> re-executed — RFTC026-32/33/34 (the 3 real API/automation gaps found 2026-11-13) are now FIXED by commits
+> `01bee8f`/`dc7f7ff` and PASS; RFTC026-20, 22, 24, 37 PASS (first execution, 22/24 via live Playwright UI clicks);
+> RFTC026-5 is a **new FAIL** — an N+1 query regression in the Runs & Results JSON list when Milestones is ON
+> (filed as **BUG-TCM-148**, production #128488), confirmed NOT present in the HTML Runs & Results page (which
+> already uses a correct single-query lookup for the same data). See "Execution status" at the bottom.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -438,8 +441,11 @@ independently re-verified live with a dedicated restricted-role user this sessio
 **Steps:** Click both links on a milestone's detail page.
 **Expected Result:** "Open in Roadmap" lands on the project's Roadmap showing this Version; "Edit version in
 Redmine" lands on the Version's own edit form — both genuinely cross into core Redmine, not a plugin-side copy.
-**Result:** NOT TESTED — both links ("Open in Roadmap", "Edit version") confirmed present on the milestone
-detail page; actually clicking through to confirm the destination wasn't done this session.
+**Result: PASS, fully confirmed live via Playwright** (2026-11-16) — on "Pagination Milestone 003"'s detail page,
+clicked "Open in Roadmap" → landed on `/versions/16`, genuine core Redmine version page titled "Pagination
+Milestone 003" (part of the Roadmap, not a plugin-side copy). Navigated back, clicked "Edit version" → landed on
+`/versions/16/edit`, the real native Redmine Version edit form with "Name" pre-filled "Pagination Milestone 003".
+Both links resolve to their correct core-Redmine destinations.
 
 ---
 
@@ -686,11 +692,13 @@ identically regardless of which prior migrations ran.
 built (Phase 2 per the spec's own table), 3 genuinely NOT TESTED.**
 
 **Retested 2026-11-16 against `localhost:3000` (commit `dc7f7ff`, after fix commits `01bee8f`/`59f793e`/`6bdbf00`/
-`1bf4b0d`/`dc7f7ff`) — all 38/38 now have a verdict: 35 PASS, 2 FAIL (unchanged cosmetic gaps), 1 not yet built.**
-The 3 real API/automation gaps found 2026-11-13 (RFTC026-32/33/34) are **now fixed and PASS**. The 3 previously
-NOT TESTED cases were executed: RFTC026-20 and RFTC026-37 PASS; **RFTC026-5 is a new FAIL** — an N+1 query
-regression in the Runs & Results JSON list when Milestones is ON, not present on 2026-11-13 (see below). Authored
-directly from the feature's own
+`1bf4b0d`/`dc7f7ff`) — all 38/38 now have a verdict: 34 PASS, 2 FAIL (unchanged cosmetic gaps), 1 FAIL (new real
+N+1 regression, BUG-TCM-148), 1 not yet built.** The 3 real API/automation gaps found 2026-11-13 (RFTC026-32/33/34)
+are **now fixed and PASS**. The 5 previously NOT TESTED cases were executed: RFTC026-20, 22, 24, 37 PASS (22/24
+via live Playwright UI clicks on a disposable fixture, fully cleaned up afterward); **RFTC026-5 is a new FAIL** —
+an N+1 query regression in the Runs & Results JSON list when Milestones is ON, not present on 2026-11-13, filed
+as **BUG-TCM-148** (production #128488), and confirmed via a second Playwright pass + source comparison that it
+does NOT affect the HTML Runs & Results page (see below). Authored directly from the feature's own
 specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and cross-checked against the real
 implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the centralized
 `TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`). The feature
@@ -703,13 +711,15 @@ Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 
 | Result | Cases |
 |---|---|
-| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (partial), 23*, 24 (partial), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 35 cases |
+| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (fully confirmed live 2026-11-16), 23*, 24 (fully confirmed live 2026-11-16), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 34 cases |
 | FAIL — cosmetic, left as-is | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1 — filed as **BUG-TCM-148**) |
+| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1 — filed as **BUG-TCM-148**, production #128488; confirmed via a second Playwright pass that the HTML Runs & Results page does NOT share this bug) |
 | Not yet built (Phase 2, spec's own §13 table) | 31 (Reports milestone filter) |
 
 > 32/33/34 were FAIL (real API/automation gaps) on 2026-11-13; retested 2026-11-16 against commit `dc7f7ff` and
-> confirmed fixed by commits `01bee8f`/`dc7f7ff`. 5/20/37 were NOT TESTED on 2026-11-13; executed 2026-11-16.
+> confirmed fixed by commits `01bee8f`/`dc7f7ff`. 5/20/22/24/37 were NOT TESTED on 2026-11-13 (22/24 had been
+> incorrectly counted as PASS in this table's earlier revision despite their own case write-ups correctly saying
+> NOT TESTED — now genuinely executed and corrected); all 5 executed 2026-11-16.
 
 > \* Source-verified via the centralized `Milestones` service module or controller code, not purely from live
 > clicking — in each case the live UI/API behavior already observed elsewhere in this suite is consistent with
@@ -770,10 +780,12 @@ reading the centralized `Milestones` service module):
 correctness, Add Run assignability, API parity). P2 — 16 cases (UI details, empty states, validation,
 performance-adjacent checks). P3 — 3 cases (navigation links, raw performance number).
 
-**Remaining for a future session:** the permission-negative halves (7, 8, 23, 26), quick_create validation (13)
-and actual creation (12), close/reopen round-trip (22), version deletion (27), cross-project isolation (36 —
-P1/SEC-001, the single most important remaining gap), all API/MCP/CI live calls (32–35), performance (37), and
-migration idempotency (38).
+**Remaining for a future session** (updated 2026-11-16 — most of this list from the 2026-11-13 pass is now done):
+the permission-negative halves (7, 8, 23, 26 — still only source-verified, not live-tested with a dedicated
+restricted-role user) and quick_create's duplicate-name validation (13's one untested half). Everything else
+previously listed here (actual Version creation (12), close/reopen round-trip (22), version deletion (27),
+cross-project isolation (36), all API/MCP/CI live calls (32–35), performance (37), and migration idempotency
+(38)) has since been fully, live-confirmed.
 
 **Not yet covered here, by design:** the Summary report tab and Burndown+forecast tab content themselves —
 see `RFTC-033_EXTERNAL_SPEC_MILESTONE_SUMMARY_REPORT.md` and `RFTC-034_EXTERNAL_SPEC_MILESTONE_BURNDOWN_FORECAST.md`.

@@ -96,3 +96,13 @@ Sanity check:
   shape or any returned value, only batches the milestone lookups into one additional `IN (...)` query instead of
   N single-row queries. The fix is DB-agnostic (plain ActiveRecord `includes`, no raw SQL) — behaves identically on
   PostgreSQL, MySQL, and MariaDB.
+- **Verified 2026-11-16 that the HTML Runs & Results list page does NOT have this bug** — confirmed via Playwright
+  (page load timing comparable with Milestones ON vs OFF — ~1.6–1.8s both times, no N+1 signature) and via source:
+  `RunsController#index` line 116 builds `@milestone_names = ...@project.shared_versions.pluck(:id, :name).to_h`
+  — a single query building a lookup hash — and the HTML views (`_active_run.html.erb`/`_closed_run.html.erb`)
+  read from that hash per row (`@milestone_names[run.version_id]`), with zero extra queries regardless of run
+  count. The buggy JSON path (line 73, `rftc_milestone_json(run)` → `run.milestone&.name`) is a separate,
+  N+1-prone pattern that does the **same lookup the wrong way**, 43 lines away from an already-correct example in
+  the same file. This makes the suggested fix even more clear-cut: reuse the existing `@milestone_names` hash in
+  `rftc_milestone_json`/the `index` JSON branch instead of touching the `belongs_to :milestone` association at
+  all, rather than merely adding `.includes(:milestone)`.

@@ -407,9 +407,14 @@ open the same Version's page in Redmine's own Roadmap. Click "Reopen milestone".
 milestone moves to the Closed tab, is no longer offered in Add Run's milestone list, but every existing run on
 it keeps its link and all results (nothing deleted, no open runs auto-closed). Reopening restores everything to
 the Open tab and offers it in Add Run again.
-**Result:** NOT TESTED — "Close milestone" button confirmed present on the detail page for admin (who has
-`manage_versions`); the actual close/reopen round-trip and cross-check against the Roadmap were not performed
-live this session (to avoid mutating the shared fixture data mid-suite).
+**Result: PASS, fully confirmed live via real UI clicks** (2026-11-16) — built a disposable Version/Testsuite/
+Testcase/Run fixture (never touching the shared "Pagination Milestone 00N" data) and drove the actual buttons via
+Playwright: clicked "Close milestone" → confirmed in the real modal → "Successful update," chip changed to
+"Closed," moved from 33 to the Closed tab (32→3 count), and was correctly removed from Add Run's Milestone
+`<select>` while closed. The linked Run and its 1 recorded result stayed fully intact (still showed "1 passed /
+100.0% executed" on the milestone page). Clicked "Reopen milestone" → "Successful update," chip back to "On
+track," version status back to open, and the milestone reappeared in Add Run's dropdown again. Full round-trip
+confirmed with no data loss either direction. Fixture fully cleaned up afterward.
 
 ---
 

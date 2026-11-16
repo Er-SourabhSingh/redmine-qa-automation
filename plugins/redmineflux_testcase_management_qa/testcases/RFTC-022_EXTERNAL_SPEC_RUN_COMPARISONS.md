@@ -71,6 +71,8 @@ one param is submitted). `assigns(:diff)` is `nil`.
 
 ### RFTC022-2: "New Failure" bucket — passing in base, now failing in compare
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Fixture: one test case, one environment, executed Passed in the base run, executed Failed in the
 compare run (same issue, same environment, different runs). Select both runs and Compare.
@@ -82,6 +84,8 @@ Failed`; does not appear in any other bucket.
 
 ### RFTC022-3: "Newly Fixed" bucket — failing in base, now passing in compare
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Fixture: a case executed Failed in the base run, executed Passed in the compare run (same
 issue+environment).
@@ -92,6 +96,8 @@ issue+environment).
 
 ### RFTC022-4: "Still Failing" bucket — failing in both runs
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Fixture: a case executed Failed in both the base and compare runs (same issue+environment).
 **Expected Result:** Appears under "Still Failing" only.
@@ -100,6 +106,8 @@ issue+environment).
 ---
 
 ### RFTC022-5: "Still Passing" bucket — passing in both runs, AND its `<details>` panel is collapsed by default
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** Fixture: a case executed Passed in both runs. Run the comparison and inspect the rendered page's
@@ -113,6 +121,8 @@ issue+environment).
 
 ### RFTC022-6: "New Tests" bucket — not executed in base, executed in compare
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Fixture: a case with NO result at all in the base run (not even Untested — simply never touched in
 that run) but a real Passed (or Failed) result in the compare run, same environment.
@@ -123,6 +133,8 @@ fallback) and a real `compare_status`.
 ---
 
 ### RFTC022-7: "No Longer Run" bucket — executed in base, not executed in compare
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** Fixture: a case with a real result in the base run, but entirely absent from the compare run (not in

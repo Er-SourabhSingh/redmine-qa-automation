@@ -137,6 +137,7 @@ documented behavior (SEC-004 fix) — a genuinely credential-less `.json` reques
 ---
 
 ### TC-TCM-278: A genuine REST API client (HTTP Basic, API key as username) is NOT CSRF-rejected on a `.json` mutation
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Any authenticated user, via a real API key (not a browser session)
 **Priority:** High

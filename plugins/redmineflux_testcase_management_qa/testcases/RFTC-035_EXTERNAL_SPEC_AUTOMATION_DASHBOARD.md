@@ -64,6 +64,8 @@ in one new method, `RollupMath.automation_sources_overview(project)`:
 
 ### RFTC035-1: Multiple automation sources each show correct, independent per-source stats
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — the feature's entire reason to exist
 **Steps:** Ingest CI results that resolve to two distinct `AutomationSource`s in the same project (e.g. via two
 different `testsuite_id`s or two explicit `source` values on the ingest payload, per rftc-018's resolver), with a
@@ -75,6 +77,8 @@ Rate / Last Seen — Source A's numbers never bleed into Source B's.
 ---
 
 ### RFTC035-2: The explicit "Ungrouped" bucket appears and correctly aggregates `source_id IS NULL` rows
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the spec's own stated guard against silently dropping ungrouped data
 **Steps:** Record at least one result via the plain "Add Result" UI (never touches the CI ingest path, so
@@ -89,6 +93,8 @@ Executions/Failures/Pass Rate — not merged into any named source, and not sile
 
 ### RFTC035-3 (SACRED): Latest-per-cell-only counting — a re-tested cell counts once, by its LATEST result only
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — directly mirrors the dedup/latest-wins correctness class already proven critical elsewhere in
 this plugin (RFTC021-5/6); the dev's own unit test (`test_overview_only_counts_latest_per_cell`) already asserts
 this at the `RollupMath` layer — this case re-verifies it end-to-end through the real page
@@ -102,6 +108,8 @@ Pass/Fail split reflects only the LATEST (Passed) result — the earlier Failed 
 ---
 
 ### RFTC035-4: A user who genuinely holds `:view_report` can open the dashboard
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** As a project member whose role has the `:view_report` permission (and no special/admin rights), open
@@ -187,6 +195,8 @@ or any other data — a clean empty state (or only Project B's own genuine sourc
 
 ### RFTC035-11: `last_seen_at` advances on a new ingestion for an existing source — it is not frozen at first-seen time
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2 — a dashboard whose "Last Seen" column never updates would be actively misleading for spotting a
 pipeline that stopped reporting
 **Steps:** Ingest a result for a source today. Note its Last Seen value. Wait (or simulate a later timestamp) and
@@ -219,6 +229,8 @@ and to catch it immediately if rftc-018's resolver is ever changed to persist a 
 
 ### RFTC035-13: Sum of all per-source execution counts (including Ungrouped) equals the project's total latest-cell count
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2 — an internal consistency check across the whole page, not just one row
 **Steps:** In a project with a mix of CI-ingested (multiple sources) and manually-recorded (Ungrouped) results
 across several runs/environments, sum every row's Executions column on the dashboard (named sources +
@@ -249,6 +261,8 @@ intended, it's a design/consistency gap worth raising, not a crash-class bug.
 ---
 
 ### RFTC035-15: The Ungrouped row always sorts LAST, even if it has the highest execution volume
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P3 — a display-ordering guarantee read directly from the code's own sort key
 (`[r[:source_id].nil? ? 1 : 0, -r[:total_cells]]`)

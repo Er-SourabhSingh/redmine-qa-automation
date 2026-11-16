@@ -31,6 +31,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ---
 
 ### TC-TCM-078: Create a Testcase Summary report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -45,6 +46,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ---
 
 ### TC-TCM-079: Create a Defect Summary report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -73,6 +75,7 @@ rows for the same requirement/testcase pair).
 ---
 
 ### TC-TCM-080: Create an Activity Summary report with a date range
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -99,6 +102,7 @@ rows for the same requirement/testcase pair).
 ---
 
 ### TC-TCM-082: Create a Tester Scorecard report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -113,6 +117,7 @@ rows for the same requirement/testcase pair).
 ---
 
 ### TC-TCM-083: Create a Requirement Coverage report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -139,6 +144,7 @@ rows for the same requirement/testcase pair).
 ---
 
 ### TC-TCM-085: Create an Overdue Run Summary report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -153,6 +159,7 @@ rows for the same requirement/testcase pair).
 ---
 
 ### TC-TCM-316: Create a Slow Tests report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -172,6 +179,7 @@ download is broken: see BUG-TCM-107.**
 ---
 
 ### TC-TCM-317: Create a Most Failed Tests report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -201,6 +209,7 @@ under BUG-TCM-076/077/081 does not reproduce on this build (consistent with fix 
 ---
 
 ### TC-TCM-087: Restrict a report to specific test runs
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -216,6 +225,7 @@ under BUG-TCM-076/077/081 does not reproduce on this build (consistent with fix 
 ---
 
 ### TC-TCM-088: Edit a report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -233,6 +243,7 @@ the list view.
 ---
 
 ### TC-TCM-089: Delete a report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** Medium
@@ -263,6 +274,7 @@ Delete; the report remained listed, unaffected, confirmed by reloading the list.
 ---
 
 ### TC-TCM-091: Report reflects data added after creation
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -278,6 +290,7 @@ Delete; the report remained listed, unaffected, confirmed by reloading the list.
 ---
 
 ### TC-TCM-092: Download report as HTML
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -304,6 +317,7 @@ this pass: a testcase titled `<img src=x onerror=alert('export-xss')> export che
 ---
 
 ### TC-TCM-093: Download report as PDF (in-app, client-side)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -343,6 +357,7 @@ one available, not filed as a bug.
 ---
 
 ### TC-TCM-094: Download report as Excel
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -415,6 +430,7 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 ---
 
 ### TC-TCM-096: Report list paginates and sorts
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -445,6 +461,7 @@ Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). 
 ---
 
 ### TC-TCM-098: Email a report as an HTML attachment
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -502,6 +519,7 @@ after confirming.
 ---
 
 ### TC-TCM-100: Email a report as a PDF attachment
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -608,6 +626,7 @@ behaves consistently per-format for every type that can be created at all — th
 ---
 
 ### TC-TCM-103: Multiple recipients, one address per line
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -664,6 +683,7 @@ behaves consistently per-format for every type that can be created at all — th
 ---
 
 ### TC-TCM-107: Schedule a daily report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -686,6 +706,7 @@ regardless of interval or format, project-wide.
 ---
 
 ### TC-TCM-108: Schedule a weekly report on a chosen weekday
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -704,6 +725,7 @@ logic.
 ---
 
 ### TC-TCM-109: Schedule a monthly report on a chosen day
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -722,6 +744,7 @@ deferred, not yet executed). Same BUG-TCM-111 delivery-poller crash applies here
 ---
 
 ### TC-TCM-110: Cancel a scheduled report
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium

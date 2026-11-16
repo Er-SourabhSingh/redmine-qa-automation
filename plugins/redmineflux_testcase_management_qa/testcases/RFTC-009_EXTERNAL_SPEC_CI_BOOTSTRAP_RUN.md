@@ -45,6 +45,8 @@ same cell must **append** a new row (history preserved), with `TestcaseActivity`
 
 ### RFTC009-U1 / U3 / U9: Happy path — new suite auto-create, run creation with CI defaults, testcase pull
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **User Role:** QA Engineer (`qa.engineer`, via API key)
 **Priority:** P1
 **Steps:**
@@ -141,6 +143,8 @@ rows total; `TestcaseActivity` confirmed recorded at both submission timestamps.
 ---
 
 ### RFTC009-U5/U6/U7: Idempotency — `on_existing: reuse` / `error` / `suffix`
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin (`admin`, non-member — see RFTC009-Test13)
 **Priority:** P1
@@ -524,6 +528,8 @@ order preserved.
 
 ### RFTC009-E1: The full CI loop in one explicit test — bootstrap, then submit BOTH a Pass and a Failed-with-defect together
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Bootstrap a run against 2 real test cases, then one `bulk_create` call submitting `#23 Passed` and
 `#24 Failed` (with `defect_ids: "29"`) together.
@@ -590,6 +596,8 @@ single-environment happy path used throughout the rest of this file.
 
 ### RFTC009-Struct1: Multiple environments in one `run_assignments` array — each gets its own assignment and its own full set of seeded Untested rows
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** `POST bootstrap_run.json` with `run_assignments: [{environment:"CI",...}, {environment:"Staging",...},
 {environment:"Production",...}]` against a 9-case suite.
@@ -602,6 +610,8 @@ rows (27 total, not merged/deduped across environments).
 ---
 
 ### RFTC009-Struct2: Multiple suites combined in one call — each suite's cases map to their own correct `testsuite_id`
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** `suites: ["CI Ingest", "U21 Brand New Suite", "Edge2 Brand New Suite"]` (9-case, 1-case, 1-case suites

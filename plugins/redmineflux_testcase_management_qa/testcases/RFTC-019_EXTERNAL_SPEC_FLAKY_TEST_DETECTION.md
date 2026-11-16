@@ -74,6 +74,8 @@ any positive integer and only falls back to 4 on blank, non-numeric, or non-posi
 
 ### RFTC019-1 (P1): A test case with a genuine Pass → Fail → Pass sequence across 3 runs is ranked with flip_count = 2
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — the core feature
 **Steps:** Set `flaky_min_runs` to 2 (or use 3+ runs with the default 4). Create 3 runs in chronological order
 for one project; for one test case, record Passed in run 1, Failed in run 2, Passed in run 3 (same

@@ -66,6 +66,8 @@ endpoint only accepts the already-normalized JSON.
 
 ### RFTC016-1: Happy path — automation_key match (Passed) + numeric id match (Failed), auto-defect created
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **User Role:** Admin (via HTTP Basic auth, same auth path as `bulk_create`)
 **Priority:** P1
 **Preconditions:** Dedicated project `RFTC-016 CI Ingest QA` (id=2); admin added as an explicit Manager member
@@ -94,6 +96,8 @@ key), environment `CI`.
 ---
 
 ### RFTC016-2 (SACRED): Re-ingesting the SAME failure is idempotent — defect reused, not duplicated
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the exact concurrency/idempotency guarantee the service's own code comments call out as a
 hardening fix ("two CI retries ingesting the same failed testcase+run+environment used to both create a
@@ -245,6 +249,8 @@ status: 'passed'}` where both `#26` and `#27` share that exact subject.
 
 ### RFTC016-12: `match_by: ['subject']` happy path — a unique subject resolves cleanly
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2
 **Steps:** `POST ingest_results.json`, `match_by: ['subject']`, result `{key: 'Apply valid discount code at
 checkout', status: 'passed', duration_ms: 2500}` (`#24`'s subject, unique in the suite).
@@ -256,6 +262,8 @@ checkout', status: 'passed', duration_ms: 2500}` (`#24`'s subject, unique in the
 ---
 
 ### RFTC016-13: `duration_ms` is actually persisted in the structured column, not just in the notes prose (rftc-020 cross-check)
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** After RFTC016-12, query `issue_status_results` directly for that row.
@@ -269,6 +277,8 @@ checkout', status: 'passed', duration_ms: 2500}` (`#24`'s subject, unique in the
 ---
 
 ### RFTC016-14: Caller-supplied `defect_ids` (`auto_defect: false`) with a real, visible defect — accepted, no new defect created
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** `POST ingest_results.json`, `auto_defect: false`, result `{key: '26', status: 'failed', defect_ids:
@@ -361,6 +371,8 @@ file). All temporary role/membership/assignment changes were reverted immediatel
 
 ### RFTC016-19: Admin API key (`X-Redmine-API-Key` header) works identically to HTTP Basic Auth
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2
 **Steps:** `POST ingest_results.json` with `X-Redmine-API-Key: <admin's token>` instead of Basic Auth.
 **Expected Result:** Same success response as Basic Auth — the endpoint's `accept_api_auth` should accept either.
@@ -401,6 +413,8 @@ reason (missing permission).
 
 ### RFTC016-22: Non-admin member WITH `execute_testcase` (Reporter role, default grant) — succeeds, even when NOT the run's assignee
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** `qanonadmin` added as project member with **Reporter** role (has `execute_testcase` by default, not
 toggled manually this time); NOT added to `run_assignments` at all; same ingest call.
@@ -439,6 +453,8 @@ after RFTC016-23; project 2 and run #5 were confirmed back to their original sta
 ---
 
 ### RFTC016-24: Exactly `MAX_RESULTS` (1000) results — the boundary itself, not just one-over
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2 — RFTC016-16 only proved 1001 is rejected; the boundary value itself was never separately
 confirmed to succeed.
@@ -501,6 +517,8 @@ defect-rollback). **One genuine bug was found** (RFTC016-32/BUG-TCM-069).
 
 ### RFTC016-27 (spec Unit 1): All 6 default CI-status → `case_status_id` mappings in one call
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** One `ingest_results.json` call with one result per status: `passed`, `failed`, `error`, `blocked`,
 `skipped`, `retest` (auto_defect:false with caller-supplied `defect_ids` for the failure-class ones).
@@ -512,6 +530,8 @@ defect-rollback). **One genuine bug was found** (RFTC016-32/BUG-TCM-069).
 ---
 
 ### RFTC016-28 (spec Unit 2/3/20): `status_map` caller override, unknown status rejected, invalid override target rejected
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** (a) `status_map: {"flaky": 4}`, result `status: "flaky"` alongside a normal `"passed"`. (b) A result
@@ -527,6 +547,8 @@ confirms an invalid *override target* is rejected exactly like an unmapped statu
 ---
 
 ### RFTC016-29 (spec Unit 13b, SACRED/CRITICAL): Auto-defect reuse is scoped to `(run_id, environment)` — a failure in a DIFFERENT run never reuses a stale defect
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the single most safety-critical guarantee in this feature; a failed version of this would
 silently cross-contaminate unrelated runs/branches with the wrong defect
@@ -545,6 +567,8 @@ defect_reused: true` — same-run reuse confirmed working. Both halves of the gu
 
 ### RFTC016-30 (spec Unit 15/16): `blocked` also auto-defects; results spanning two suites are grouped under their own correct `testsuite_id`
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** (a) Ingest a `blocked` result with `auto_defect: true` (default) for a fresh testcase. (b) Bootstrap a
 run with 2 suites (`CI Ingest` id=3, `Edge2 Brand New Suite` id=6), ingest one result per suite's testcase in one
@@ -559,6 +583,8 @@ under its OWN suite's `testsuite_id`, never cross-mapped.
 ---
 
 ### RFTC016-31 (spec Unit 18, SACRED): A testcase in TWO suites within the same run is `ambiguous_suite_membership` unless disambiguated
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the spec's own "easy silent-wrong-suite bug" callout
 **Steps:** Add issue `#23` to a second suite (id=6); bootstrap a run containing both suites (so `#23` now has 2
@@ -707,6 +733,8 @@ live against `rftc-038-multisuite-qa` (project 3, suites Login/Cart Operations/D
 ---
 
 ### RFTC016-41 (new, real Jenkins build #13): Multiple environments added to one Run in a single `update_run`
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 call, then ingested in PARALLEL — no race condition, no data loss
 
 **Priority:** P1 — this is the exact shape a real multi-browser CI matrix would use
@@ -725,6 +753,8 @@ each independently reporting `"Ingested 6 results (6 matched, 0 unmatched)"`. Co
 ---
 
 ### RFTC016-42 (new, real Jenkins build #14): Multiple environments added to one Run, then ingested
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 SEQUENTIALLY (Chrome → Edge → Firefox) — also safe, as expected
 
 **Priority:** P2 — the simpler, no-concurrency counterpart to RFTC016-41

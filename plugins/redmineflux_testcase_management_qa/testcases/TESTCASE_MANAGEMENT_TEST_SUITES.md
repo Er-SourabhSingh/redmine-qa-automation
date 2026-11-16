@@ -27,6 +27,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ---
 
 ### TC-TCM-192: Create a test suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -56,6 +57,7 @@ filled in. Confirmed via `rails runner`: `Testsuite#description` saved as `"<p>T
 ---
 
 ### TC-TCM-193: Create a sub-test suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -77,6 +79,7 @@ created `QA-SUBSUITE-193-REGRESS`. Confirmed via `rails runner`: `Testsuite#pare
 ---
 
 ### TC-TCM-194: Multi-level nesting
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -148,6 +151,7 @@ rejection), and `rails runner` confirmed only 1 suite exists with that name.
 ---
 
 ### TC-TCM-197: Edit a suite name and description
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium
@@ -175,6 +179,7 @@ confirmed via screenshot.)
 ---
 
 ### TC-TCM-198: Delete an empty suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** Medium
@@ -200,6 +205,7 @@ moment of the request), not deterministic on every visit to that URL shape.
 ---
 
 ### TC-TCM-199: Delete a suite containing test cases
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** High
@@ -237,6 +243,7 @@ confirmed on the correct **Testcase** tracker (not Bug), directly verifying BUG-
 ---
 
 ### TC-TCM-200: Delete a suite containing sub-suites
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** Medium
@@ -263,6 +270,7 @@ cascade — no orphaned sub-suite left behind.
 ---
 
 ### TC-TCM-201: Testcase count display toggle
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** Low
@@ -293,6 +301,7 @@ link's own text misses it entirely and looks like the feature is broken when it 
 ---
 
 ### TC-TCM-202: Suite tree state and selection
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium

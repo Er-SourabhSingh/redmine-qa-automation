@@ -67,6 +67,8 @@ whichever the build implements can be checked against intent and flagged if it's
 
 ### RFTC045-1: New per-run assignee field exists separately from the Test Case issue's global Assignee
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Acceptance criterion covered:** "This new per-Run-Test-Case assignee is stored separately from the Test
 Case issue's own Assignee field — changing one must never change the other."
@@ -83,6 +85,8 @@ fields are independently stored and independently editable.
 ---
 
 ### RFTC045-2: Changing the Test Case issue's global Assignee does not change the per-run assignee
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Acceptance criterion covered:** Same as RFTC045-1, inverse direction.
@@ -173,6 +177,8 @@ doesn't commit to per-environment granularity, so this is a clarification item, 
 
 ### RFTC045-8: Checkboxes appear in the Test Case table and support multi-select
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:**
 1. Open a Run with 10+ Test Cases.
@@ -184,6 +190,8 @@ contiguous range.
 ---
 
 ### RFTC045-9: Bulk "Reassign" action updates the per-run assignee for all selected Test Cases in one step
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Acceptance criterion covered:** "A single 'Reassign' action updates the per-Run assignee... for all
@@ -238,6 +246,8 @@ bulk-reassign them via the Run's Reassign action; re-check each Test Case issue'
 
 ### RFTC045-13: Bulk "Reassign" with zero Test Cases selected is a no-op / disabled
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P3
 **Steps:** With no checkboxes selected, attempt to trigger "Reassign".
 **Expected Result:** Action is disabled/hidden, or produces a clear validation message — no silent action,
@@ -247,6 +257,8 @@ no error page.
 ---
 
 ### RFTC045-14: Bulk reassignment to the same user already assigned to some selected cases doesn't error
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P3
 **Steps:** Select a mix where some Test Cases already have User A as per-run assignee and some don't;
@@ -263,6 +275,8 @@ already had it.
 
 ### RFTC045-15: Reassigning a single Test Case takes exactly 2 clicks, no navigation
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Acceptance criterion covered:** "Reassigning a single Test Case takes exactly 2 clicks... No page
 navigation or issue-edit screen is involved."
@@ -276,6 +290,8 @@ from the Run's Test Case table (confirm URL/page unchanged); exactly 2 clicks to
 ---
 
 ### RFTC045-16: Inline reassignment dropdown lists available testers (not an unrelated/empty list)
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** Click the assignee cell for a Test Case in a project with several members holding Tester-type
@@ -533,6 +549,8 @@ Assignee is unaffected.
 
 ### RFTC045-35: A Test Case can carry a different assignee in each environment of the same Run
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Acceptance criterion covered:** "A test case inside a run can have a different assignee per environment."
 This is the direct fix for RFTC045-6/RFTC045-7 (BUG-TCM-140).
@@ -589,6 +607,8 @@ RFTC045-52).
 ---
 
 ### RFTC045-39: Creating a multi-environment Run seeds each environment's rows from that environment's own Add Run assignee
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Acceptance criterion covered:** "Creating a run seeds each environment's rows from that environment's Add
@@ -795,6 +815,8 @@ into a *new* failure mode.
 
 ### RFTC045-53: Edit Run no longer shows a per-environment Assignee field
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Open Edit Run on any existing Run.
 **Expected Result:** Each environment row shows only the Environment selector (plus its add/delete controls) —
@@ -808,6 +830,8 @@ current value, with a tooltip: "Assignees are not changed here. Change a test ca
 ---
 
 ### RFTC045-54: Edit Run's Environment rows have no assignee control attached
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** In Edit Run, use "+ Add" to add an environment row, and the trash icon to remove one.
@@ -833,6 +857,8 @@ assignee", "Redmine Admin", "Luna Blossom", ...) — completely unaffected by th
 ---
 
 ### RFTC045-56: A new environment added via Edit Run starts fully Unassigned
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** Via Edit Run, add a new environment (no assignee field to fill, per RFTC045-53) and save. Switch to
@@ -865,6 +891,8 @@ as-is elsewhere in this repo's RFTC suites.
 ---
 
 ### RFTC045-58: A new Test Case added via Edit Run starts Unassigned, not inherited from the Run's prior per-TC values
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** On a Run where some test cases already have an inline/bulk-reassigned assignee, use Edit Run to add
@@ -933,6 +961,8 @@ were completely unaffected.
 
 ### RFTC045-63: Inline single reassignment is unaffected by this change
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — regression guard
 **Steps:** Inline-reassign a single test case's assignee cell on any environment tab.
 **Expected Result:** Works exactly as today — 2 clicks, no navigation, no dependency on anything in Edit Run.
@@ -943,6 +973,8 @@ were completely unaffected.
 ---
 
 ### RFTC045-64: Bulk reassignment (both scopes) is unaffected by this change
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — regression guard
 **Steps:** Select multiple test cases and bulk-reassign, once with "This environment only" and once with "All

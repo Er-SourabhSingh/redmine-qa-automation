@@ -86,6 +86,8 @@ access-control pattern and `enable_milestones`/`:view_milestones` gating as the 
 
 ### RFTC034-1: Chart renders correctly for a milestone with real run history and a future due date
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — this is the entire point of the ticket
 **Steps:**
 1. Enable Milestones. Create a Version with a due date a few weeks out. Link a Run to it with several test
@@ -216,6 +218,8 @@ Late purely because `today > due_on`, confirming this check takes priority over 
 
 ### RFTC034-9: Snapshot is written once per day, on page view, open milestones only
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — this is the mechanism the whole feature's history depends on (no scheduled job)
 **Steps:**
 1. Open a fresh milestone's Burndown page for the first time today; via `rails runner` (or the MCP API)
@@ -262,6 +266,8 @@ Forbidden. (b) With "Enable Milestones" off, the same URL as `admin` returned 40
 ---
 
 ### RFTC034-12: "Show as table" numbers match the chart exactly
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2 — the two are meant to be the same data, rendered twice
 **Steps:** On a milestone with several days of real history, open the Burndown tab, read the chart's hover

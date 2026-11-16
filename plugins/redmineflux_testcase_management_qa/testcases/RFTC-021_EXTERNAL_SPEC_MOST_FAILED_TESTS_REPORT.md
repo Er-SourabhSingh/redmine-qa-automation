@@ -27,6 +27,8 @@ never leak another project's (or an invisible issue's) failure data.
 
 ### RFTC021-1: Report ranks test cases by real cross-run failure count
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Create a "Most Failed Tests" report (default criteria = Failed-only, Include all test run).
 **Expected Result:** Every test case with ≥1 Failed execution across the project's runs appears, ranked by

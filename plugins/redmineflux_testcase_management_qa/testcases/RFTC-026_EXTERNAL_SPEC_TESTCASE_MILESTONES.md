@@ -60,6 +60,8 @@ Version *creation* itself still gated by Redmine's own `manage_versions`. Confir
 
 ### RFTC026-1: "Enable Milestones" is off by default and lives in plugin Configuration
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** On a fresh/unconfigured instance, open Administration → Plugins → Redmineflux Testcase Management →
 Configure → Configuration tab.
@@ -216,6 +218,8 @@ was confirmed; a dedicated `manage_milestones`-only/non-`manage_versions` user w
 
 ### RFTC026-10: Milestones page shows Open/Closed tabs and one card per milestone
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** With ≥1 open and ≥1 closed Version in the project, open the Milestones page.
 **Expected Result:** Open and Closed tabs exist (same pattern as Runs & Results); each card shows name, due
@@ -245,6 +249,8 @@ instance currently has zero versions).
 ---
 
 ### RFTC026-12: "+ New Milestone" is hidden without `manage_versions`, works with it
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** As a user with `manage_versions`, click "+ New Milestone", submit a valid name + due date.
@@ -278,6 +284,8 @@ not separately tested this session. Test artifact deleted after confirming.
 ## Milestone detail page (spec §8.4)
 
 ### RFTC026-14: Stat tiles, distribution bar, and donut reuse the Run Results Summary language
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** Open a milestone with ≥1 linked Run carrying mixed Pass/Fail/Blocked/Untested results.
@@ -354,6 +362,8 @@ visibility fixture this session.
 
 ### RFTC026-19: Readiness chip — all 5 states, in priority order, including both exact boundaries
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Construct 5 fixtures, one per row of the readiness table: (a) a milestone with zero runs, (b) a
 closed/locked Version, (c) due date passed with executed % < 100, (d) due in exactly 7 days with executed % at
@@ -402,6 +412,8 @@ formula.
 ---
 
 ### RFTC026-22: Close milestone / Reopen milestone — same action as the Roadmap Version, one shared status
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** As a user with `manage_versions`, click "Close milestone" on an open milestone's detail page. Then
@@ -453,6 +465,8 @@ Both links resolve to their correct core-Redmine destinations.
 
 ### RFTC026-25: Add Run's Milestone select offers only open, shared versions (plus the run's own current one on Edit)
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** On a project with one open version shared from another project, one locally open version, and one
 closed version, open Add Run's Milestone dropdown. Separately, open Edit Run on a run already linked to a
@@ -499,6 +513,8 @@ separately re-checked (already implied by `rftc_milestone_json`'s `return nil un
 
 ### RFTC026-28: Runs & Results list shows a Milestone column and filter
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2
 **Steps:** Open the Runs & Results list on a project with some milestone-linked and some unlinked runs.
 **Expected Result:** A "Milestone" column (after Run Type) shows each run's version name as a small chip, or
@@ -512,6 +528,8 @@ exercise the filter's actual narrowing behavior.
 ---
 
 ### RFTC026-29: Run page shows one "Milestone :" line in Run Details, linking to the milestone page
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** Open a milestone-linked Run's own page.
@@ -528,6 +546,8 @@ own line.
 ## Overview page and Reports (spec §8.8, §8.9)
 
 ### RFTC026-30: Overview page shows a Milestones card with the 3 nearest-due open milestones
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** With 5+ open milestones at varying due dates, open the project Overview page.
@@ -560,6 +580,8 @@ shipped.
 
 ### RFTC026-32: Run create/update accepts `milestone_id` via HTML form, JSON API, and MCP
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Create or update a Run via each of the three paths (browser form post, REST JSON, MCP `update_run`/
 `create_run`), passing a valid `milestone_id`.
@@ -578,6 +600,8 @@ cleaned up in project `rftc-016-ci-qa`). The browser-session HTML/JS flow contin
 
 ### RFTC026-33: CI ingest accepts `milestone` by Version **name**, resolved within the project's shared versions
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** CI-ingest a result specifying `milestone: "v2.0 Release"` (a real, open, shared version's name).
 Separately, ingest with an unknown milestone name.
@@ -595,6 +619,8 @@ also now enforces the same `manage_milestones` permission and closed/not-found c
 
 ### RFTC026-34: Run JSON includes `"milestone": {"id":, "name":}` only when the feature is on
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2
 **Steps:** `GET` a milestone-linked run's JSON with the feature on, then again with it off (RFTC026-4 covers the
 omission check; this case confirms the shape when ON).
@@ -611,6 +637,8 @@ the body, confirmed live via a Rails integration-session request with real API-k
 ---
 
 ### RFTC026-35: New MCP read endpoints are project-scoped, permission-gated, and 404 when the feature is off
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** Call `GET /testcase_mcp/projects/:project_id/milestones.json` and

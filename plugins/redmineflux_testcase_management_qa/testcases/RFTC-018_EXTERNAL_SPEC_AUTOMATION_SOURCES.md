@@ -72,6 +72,8 @@ Key design points worth testing explicitly:
 
 ### RFTC018-1 (SACRED): Precedence 1 — an explicit per-result `source` wins over every other signal
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — this is the top of the precedence chain; if it's wrong, every lower level is moot
 **Steps:** CI-ingest one result for a test case that also belongs to a named suite and has an
 `automation_key` set, with the result payload carrying its own `source: "nightly-regression"` AND the
@@ -98,6 +100,8 @@ environment: 'ci')` returned exactly `["ci-batch-7", "explicit"]`.
 ---
 
 ### RFTC018-3: Precedence 3 — falls back to the already-resolved testsuite's name
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** CI-ingest a result with neither a per-result nor a batch-level `source`, for a test case that
@@ -184,6 +188,8 @@ Resolved `"QA-shared-key-test"` in both real projects — two distinct `Automati
 ---
 
 ### RFTC018-9: The resolved `source_id` is actually persisted on the written execution row, not just in the response
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the response payload reporting a `source_id` is not proof the DB row actually has it
 **Steps:** CI-ingest one result with an explicit `source`; after the call, load the corresponding

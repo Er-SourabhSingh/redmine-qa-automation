@@ -21,6 +21,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ---
 
 ### TC-TCM-021: Legacy single Steps/Expected column import (backward compatibility)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager (whoever holds testcase-management create permission)
 **Priority:** High
@@ -75,6 +76,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ---
 
 ### TC-TCM-024: 50-step CSV imports fully, correctly numbered and ordered
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -257,6 +259,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ---
 
 ### TC-TCM-034: Large bulk import (100 test cases × 3 steps each)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium
@@ -499,6 +502,7 @@ warning-only during import, never enforced as a hard error — see the comment a
 ---
 
 ### TC-TCM-333: After an import, the saved test cases hold exactly the data in the CSV
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -572,6 +576,7 @@ Due date and Priority are saved, but every case has no Estimated time and 0% Don
 ---
 
 ### TC-TCM-336: One CSV row that uses every mappable column imports with every value saved
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium

@@ -32,6 +32,8 @@ duration across all their samples and flags any case whose p95 exceeds a configu
 
 ### RFTC020-1: Slow Tests report renders ranked by p95, using real CI-ingested duration data
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Create a "Slow Tests" report (Reports → New report → type = Slow Tests, Include all test run).
 **Expected Result:** A table ranks every test case with at least one execution, columns Samples/Avg/Max/p95/Flag,
@@ -46,6 +48,8 @@ rather than being omitted. Footer correctly reports `No timing data yet: 3`.
 ---
 
 ### RFTC020-2 (SACRED): A test case whose p95 exceeds the threshold is correctly flagged "Slow"
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — the entire point of the feature
 **Steps:** `POST /testcase_ci/ingest_results.json` a result for an existing test case with `duration_ms: 7500`

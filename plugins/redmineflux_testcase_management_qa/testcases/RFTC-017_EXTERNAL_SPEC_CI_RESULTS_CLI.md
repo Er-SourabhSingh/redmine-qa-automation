@@ -80,6 +80,8 @@ genuine `pyproject.toml` packaging gap.
 
 ### RFTC017-1: `submit` (Phase 1) end-to-end — real JUnit, real mapping, real `bulk_create`, real auto-defect
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:**
 1. Hand-crafted a real JUnit XML (`<testsuites><testsuite>` wrapper, 3 `<testcase>`: 1 pass, 1 `<failure>`, 1
@@ -108,6 +110,8 @@ EXIT_CODE=0
 
 ### RFTC017-2: `bootstrap` (Phase 2) end-to-end — real run creation via the CLI
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** `redmineflux-tcm ... --output json bootstrap --project 2 --name 'CLI bootstrap test' --suites 'CI
 Ingest'`.
@@ -121,6 +125,8 @@ capture; exit 0.
 ---
 
 ### RFTC017-3: `ingest` (Phase 2) end-to-end against the just-bootstrapped run
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** `redmineflux-tcm ... ingest --junit report.xml --project 2 --run 7 --env CI --auto-defect` (no

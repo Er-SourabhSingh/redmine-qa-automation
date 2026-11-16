@@ -38,6 +38,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ---
 
 ### TC-TCM-001: Testcase Tracker is required for test case creation
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** High
@@ -69,6 +70,7 @@ immediately after.
 ---
 
 ### TC-TCM-002: Changing the Testcase Tracker
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** Medium
@@ -109,6 +111,7 @@ restored to Testcase (`4`) immediately after, verified via `rails runner`.
 ---
 
 ### TC-TCM-003: Defect Tracker drives the Report Bug flow
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, then QA
 **Priority:** High
@@ -143,6 +146,7 @@ submitted the result (Status=Failed, Environment=test). Core assertion holds on 
 ---
 
 ### TC-TCM-004: Feature Tracker drives requirements
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, then QA
 **Priority:** Medium
@@ -225,6 +229,7 @@ form's Defects field. All tracker settings restored to baseline immediately afte
 ---
 
 ### TC-TCM-006: Show testcase count in test suites
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** Low
@@ -278,6 +283,7 @@ cleanly absent from the page. Disabled it — the section reappears. Restored to
 ---
 
 ### TC-TCM-008: Customise the Run Email Template
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, plus a recipient mailbox
 **Priority:** Medium
@@ -323,6 +329,7 @@ to the default, distinct from the full-deletion case already covered above.
 ---
 
 ### TC-TCM-009: Customise the Testcase Email Template
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, plus a recipient mailbox
 **Priority:** Medium
@@ -395,6 +402,7 @@ given the mechanism is already directly verified by inspection.
 ---
 
 ### TC-TCM-011: Run Added notification
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA, watcher mailbox
 **Priority:** High
@@ -419,6 +427,7 @@ even invoked for the normal human creation path. Filed as BUG-TCM-087, not yet r
 ---
 
 ### TC-TCM-012: Run Updated notification
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA, watcher mailbox
 **Priority:** Medium
@@ -468,6 +477,7 @@ always-stale rule.
 ---
 
 ### TC-TCM-013: Test Case Result Added notification
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA, watcher mailbox
 **Priority:** High
@@ -571,6 +581,7 @@ first place. Restored run #70 to `is_closed=false` immediately after.
 ---
 
 ### TC-TCM-015: Add a run type via administration
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin
 **Priority:** Medium

@@ -28,6 +28,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ---
 
 ### TC-TCM-128: Create a test case with all fields and one step
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -77,6 +78,7 @@ linking work from this form (and from Edit) turned out to have **zero permission
 ---
 
 ### TC-TCM-129: Create a test case with multiple ordered steps
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -124,6 +126,7 @@ left blank shows "Subject cannot be blank," form stays on the create page, nothi
 ---
 
 ### TC-TCM-131: Create a test case with no steps
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -145,6 +148,7 @@ shows no "Step" section at all, no error, clean layout.
 ---
 
 ### TC-TCM-132: Remove a step during authoring
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -166,6 +170,7 @@ result exactly.
 ---
 
 ### TC-TCM-133: Reorder steps
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -243,6 +248,7 @@ filed against).
 ---
 
 ### TC-TCM-136: Edit an existing test case
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -271,6 +277,7 @@ expected) remained completely untouched.
 ---
 
 ### TC-TCM-137: Delete a test case
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** Medium
@@ -394,6 +401,7 @@ disabled baseline after the test.
 ---
 
 ### TC-TCM-142: Test case appears in Redmine's own issue list
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -415,6 +423,7 @@ current-build fixture `TC-TCM-129-five-ordered-steps-EDITED`.
 ---
 
 ### TC-TCM-143: Test case search by subject and ID
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -443,6 +452,7 @@ data to display," 0 rows. **ID search (`2125`) now correctly returns 1 match —
 ---
 
 ### TC-TCM-144: Drag and drop a test case into a suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -479,6 +489,7 @@ function at all, so a between-suite drag cannot be meaningfully tested. Not re-a
 ---
 
 ### TC-TCM-146: Add existing test cases to a suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -593,6 +604,7 @@ regression in either one.
 ---
 
 ### TC-TCM-297: New Test Case created from inside an open suite lands in that same suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -617,6 +629,7 @@ afterward. Probe issue deleted immediately after confirmation.
 ---
 
 ### TC-TCM-148: Remove test cases from a suite
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -648,6 +661,7 @@ multi-suite data-model gap, not a regression of BUG-TCM-026 itself.
 ---
 
 ### TC-TCM-149: Bulk-assign a requirement to multiple test cases
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -680,6 +694,7 @@ no row. The server-side gate itself is correct and intentional (same permission 
 ---
 
 ### TC-TCM-150: Bulk-assign replaces or adds predictably
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -703,6 +718,7 @@ Edit, see TC-TCM-298 below). Bulk-assigned a second requirement (id 6) to it via
 ---
 
 ### TC-TCM-298: Change a test case's linked Requirement from the Edit form
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -773,6 +789,7 @@ multi-suite membership rows deleted after confirmation.
 ---
 
 ### TC-TCM-299: Issues list's "Add filter" — TestSuite filter
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium

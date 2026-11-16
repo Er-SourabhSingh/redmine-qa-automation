@@ -40,6 +40,7 @@ environment list.
 ---
 
 ### TC-TCM-038: Create an environment
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -60,6 +61,7 @@ Environment modal. Confirmed via `rails runner`: `TestcaseEnvironment#name == "E
 ---
 
 ### TC-TCM-039: A created environment is selectable on a run
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -115,6 +117,7 @@ with "Name has already been taken" shown inline; confirmed via `rails runner` on
 ---
 
 ### TC-TCM-042: Edit an environment name
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium
@@ -138,6 +141,7 @@ result is intact (run page still shows "Passed"), **and** run #76's own page now
 ---
 
 ### TC-TCM-043: Delete an unused environment
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** Medium

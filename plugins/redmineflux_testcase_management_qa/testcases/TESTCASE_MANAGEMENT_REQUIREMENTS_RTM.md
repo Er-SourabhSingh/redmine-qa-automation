@@ -43,6 +43,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ---
 
 ### TC-TCM-112: Create a requirement document
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -93,6 +94,7 @@ tracked.
 ---
 
 ### TC-TCM-115: Link an existing test case to a requirement
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -110,6 +112,7 @@ the requirement's own detail page lists #1021 alongside the other cases already 
 ---
 
 ### TC-TCM-116: Link multiple test cases to one requirement
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -145,6 +148,7 @@ Filed **BUG-TCM-027**.
 ---
 
 ### TC-TCM-118: Edit a requirement
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium
@@ -163,6 +167,7 @@ intact and unaffected.
 ---
 
 ### TC-TCM-119: Delete an unlinked requirement
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** Medium
@@ -238,6 +243,7 @@ via `#page-title`/`#page-id` DOM inspection, while the page's own project-contex
 ---
 
 ### TC-TCM-122: RTM lists requirements against their test cases
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -280,6 +286,7 @@ together, even though the RTM screen alone (as this TC narrowly describes it) do
 ---
 
 ### TC-TCM-124: RTM shows uncovered requirements
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -357,6 +364,7 @@ an explicit **"No data"** message in place of the table. No blank page, no error
 ---
 
 ### TC-TCM-269: Requirement content persists across reload for every content-editor block type
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Critical
@@ -402,6 +410,7 @@ See `bugs/closed/BUG-TCM-074.md`.
 ---
 
 ### TC-TCM-271: Link a test case to a requirement via a `#`-mention in its content
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** High
@@ -421,6 +430,7 @@ reloads and the Traceability Matrix showing the relation (requirement ↔ test c
 ---
 
 ### TC-TCM-272: Unlink a test case from a requirement by deleting its `#`-mention text
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Medium
@@ -538,6 +548,7 @@ it visually applies in the editor but can never actually be saved. Recorded as a
 ---
 
 ### TC-TCM-305: Attachment upload and download round-trip correctly
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** High
@@ -555,6 +566,7 @@ persisted correctly across reload with its title/size (`0.1KB`) shown, and its d
 ---
 
 ### TC-TCM-306: Image upload and download round-trip byte-identically
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** High
@@ -573,6 +585,7 @@ pointed to `/requirement/download?id=5&filename=qa-test-image.png`; downloaded f
 ---
 
 ### TC-TCM-307: Requirements content search matches body content correctly, but does not match on requirement title
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Medium
@@ -604,6 +617,7 @@ and clickable, navigating correctly to it. The search feature itself was never b
 ---
 
 ### TC-TCM-308: Share, Export (PDF), and Save toolbar buttons all work correctly
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Medium
@@ -651,6 +665,7 @@ reproducible on an extremely common key.
 ---
 
 ### TC-TCM-310: Link a requirement to a test case via the plain Issue Edit form's own Requirement field (distinct from the context-menu path)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** High
@@ -797,6 +812,7 @@ alone.
 ---
 
 ### TC-TCM-329: Create a standalone Requirement Template with original rich-text content (not cloned from an existing Requirement)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Medium
@@ -822,6 +838,7 @@ BUG-TCM-122). This directly verifies BUG-TCM-122 Finding 1 (no standalone create
 ---
 
 ### TC-TCM-330: Edit an existing Requirement Template — name and content both persist after Update
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Medium
@@ -848,6 +865,7 @@ persist. This directly verifies BUG-TCM-122 Finding 2 (no edit capability) is fi
 ---
 
 ### TC-TCM-331: Delete a Requirement Template — confirmation modal, removal from list
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** Low
@@ -871,6 +889,7 @@ template had just been deleted). Also exercised earlier in this same session on 
 ---
 
 ### TC-TCM-332: Select a Requirement Template while creating a new Requirement — the new Requirement's content exactly matches the template, across every editor block type
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Administrator
 **Priority:** High

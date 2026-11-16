@@ -102,6 +102,7 @@ background jobs).
 ---
 
 ### TC-TCM-152: Create a run with all fields populated
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -133,6 +134,7 @@ Assignee exactly as entered, and the grid lists exactly the 3 selected cases.
 ---
 
 ### TC-TCM-153: Create a run including all test cases
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -152,6 +154,7 @@ present too, matching the suite totals exactly.
 ---
 
 ### TC-TCM-154: Create a run with multiple environments
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -233,6 +236,7 @@ Name/Environment/Assignee, clicked Create: server refused with a 422, DB-confirm
 ---
 
 ### TC-TCM-157: Edit an existing run
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -259,6 +263,7 @@ column also reflected QA Limited on every case — both changes persisted correc
 ---
 
 ### TC-TCM-158: Close a run
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** High
@@ -302,6 +307,7 @@ non-clickable text ("Untested"), no link, consistent with TC-158's active-run ce
 ---
 
 ### TC-TCM-160: Delete a run
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Manager / Admin
 **Priority:** High
@@ -343,6 +349,7 @@ the Closed tab, unchanged, confirmed before proceeding to actually delete it in 
 ---
 
 ### TC-TCM-162: Run state values persist and display
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -432,6 +439,7 @@ email-suppression guard) — reconfirmed still reproducing, not a new finding.
 ---
 
 ### TC-TCM-165: Active and Closed tabs partition runs correctly
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -451,6 +459,7 @@ the Closed tab and was absent from Active — consistent with the original findi
 ---
 
 ### TC-TCM-166: Search a run by name and by ID
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -564,6 +573,7 @@ reference.
 ---
 
 ### TC-TCM-170: Record a Passed result
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -584,6 +594,7 @@ to "1 of 1 tested, 100.00%"), and the note is retained in the issue's Results & 
 ---
 
 ### TC-TCM-171: Record each of the six statuses
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -632,6 +643,7 @@ zero network request fired — the save is still correctly refused without a gen
 ---
 
 ### TC-TCM-173: Report a new bug from a failed execution
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -664,6 +676,7 @@ re-investigated this pass.
 ---
 
 ### TC-TCM-174: Link an existing defect to a failed execution
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -759,6 +772,7 @@ same defect reused across both the Failed and Blocked case, not double-counted a
 ---
 
 ### TC-TCM-176: Attach a file to an execution result
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -785,6 +799,7 @@ correct filename and size ("tc176-sample-attachment.txt (72 Bytes)"), and its do
 ---
 
 ### TC-TCM-177: Results are independent per environment
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -814,6 +829,7 @@ can leak a different environment's status into the current one under a timestamp
 ---
 
 ### TC-TCM-178: Re-executing a case updates the current result and keeps history
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -843,6 +859,7 @@ in re-execution generally.
 ---
 
 ### TC-TCM-179: Execute from the test case detail page
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -1012,6 +1029,7 @@ originally reported.
 ---
 
 ### TC-TCM-183: Notes on a result are preserved verbatim
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low
@@ -1075,6 +1093,7 @@ second-user first-execution + email check combined.
 ---
 
 ### TC-TCM-185: Dashboard statistics reflect execution
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -1181,6 +1200,7 @@ authenticated separately via `curl` (its own cookie jar, its own login against `
 ---
 
 ### TC-TCM-188: Bulk update results for multiple selected cases
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -1216,6 +1236,7 @@ error, same as any other Run/Environment switch on that page — see TC-TCM-179 
 ---
 
 ### TC-TCM-189: Bulk update with execution notes
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium

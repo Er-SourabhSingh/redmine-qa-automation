@@ -90,6 +90,8 @@ this user use it":
 
 ### RFTC033-1: Report renders all 8 sections for a milestone with real data in every source
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — this is the entire point of the ticket ("unifies manual, exploratory, and automation results")
 **Steps:**
 1. Enable Milestones in plugin settings. Create a Redmine Version ("milestone") in a test project.
@@ -257,6 +259,8 @@ crash on the dangling reference.
 
 ### RFTC033-11: "Found" vs "Targeted" defects are genuinely independent counts
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2 — the report deliberately keeps these two rows separate ("testing quality" vs "what's left for
 release"); a tester should confirm they don't silently collapse into the same number
 **Steps:** Create defect A, link it to a result in the milestone's run (making it "found") but leave its Target
@@ -273,6 +277,8 @@ independently while "Targeted" stayed 0/0 in that run), both directions of indep
 ---
 
 ### RFTC033-12: Print button produces a clean, menu-free print view
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2
 **Steps:** Open the report, trigger the Print button (`window.print()` / browser print preview).
@@ -292,6 +298,8 @@ the standard white-background + border style. **Now PASS.**
 ---
 
 ### RFTC033-13: Coverage list links resolve to the correct issue, capped at 10
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2 — the view explicitly caps the "not covered" list at `.first(10)`
 **Steps:** Set Target Version = this milestone on 15+ test cases, link fewer than half of them to a run in this

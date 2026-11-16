@@ -162,6 +162,7 @@ not prescribe one.
 ---
 
 ### TC-TCM-046: Create Test Suite — granted role can create
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, Manager, QA
 **Priority:** Medium
@@ -330,6 +331,7 @@ instruction to verify every section via MCP Playwright, not curl alone.**
 ---
 
 ### TC-TCM-052: Create Run — granted role can create
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, Manager, QA
 **Priority:** Medium
@@ -412,6 +414,7 @@ Run"/"Delete Run" options reachable by any click path, consistent with the earli
 ---
 
 ### TC-TCM-055: Close Run — granted role
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, Manager, QA
 **Priority:** Medium
@@ -565,6 +568,7 @@ error, no dangling reference. Cascade-delete behavior holds unchanged on the cur
 ---
 
 ### TC-TCM-059: Execute Testcase — granted role can record a result
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Admin, Manager, Developer, QA
 **Priority:** Medium
@@ -662,6 +666,7 @@ any run-management permission, confirmed live. Role reverted to zero permissions
 ---
 
 ### TC-TCM-062: View Report — granted role can view but not create
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** Developer (View Report only)
 **Priority:** High

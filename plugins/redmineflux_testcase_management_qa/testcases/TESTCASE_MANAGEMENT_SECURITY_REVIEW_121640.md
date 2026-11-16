@@ -562,6 +562,7 @@ endpoints (MCP, run, import controllers)
 ---
 
 ### TC-TCM-366: Normal testing workflows are unaffected by the security fixes
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Severity:** High — this is Acceptance Criterion #10 of the ticket ("normal tester... works exactly as before")
 **User Role:** A genuine project member with a normal QA role (e.g. Reporter/Developer on Project A)

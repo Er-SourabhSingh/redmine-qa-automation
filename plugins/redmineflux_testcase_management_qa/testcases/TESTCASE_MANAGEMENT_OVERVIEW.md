@@ -28,6 +28,7 @@ page a user lands on when opening the module, and is distinct from the plugin's 
 ---
 
 ### TC-TCM-321: Overview page loads with a working default chart, date range, and data
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -50,6 +51,7 @@ Chart: "Test Cases Executed per Day" line chart, 31 days on the x-axis, y-axis s
 ---
 
 ### TC-TCM-322: Chart dimension selector (Activity / Defects / Result)
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -86,6 +88,7 @@ Playwright `selectOption()` (a real user-level interaction) produced the correct
 ---
 
 ### TC-TCM-323: Date range picker updates the chart, legend, and persisted filter
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -148,6 +151,7 @@ chart (contrast with the Run-detail page's own donut chart, which has a confirme
 ---
 
 ### TC-TCM-326: Execution Details table — Run ID and Total Defects redirects
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -171,6 +175,7 @@ pattern was apparent in a first look).
 ---
 
 ### TC-TCM-327: Test Runs and To Do summary panels — "View All" and item redirects
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Low

@@ -91,6 +91,8 @@ independently reproduced yet by this QA pass):
 
 ### RFTC029-1: Start a session with a title only — minimal happy path
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** As a user with `create_session`, open Project → TestCases sidebar → "Sessions" → "Start Session".
 Fill only Title (e.g. "Login edge cases"), leave Charter and Issue blank, submit.
@@ -105,6 +107,8 @@ charter nor issue is set (see RFTC029-25). See Full Live Execution section below
 ---
 
 ### RFTC029-2: Start a session with a charter and a linked issue, no title
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** Start Session with Title left blank, Charter filled ("Explore the new checkout flow end to end"), and
@@ -151,6 +155,8 @@ notes list.
 
 ### RFTC029-6: Add multiple notes over time — append-only, correct chronological order, no mutation of earlier notes
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — core value proposition of the child-table design
 **Steps:** On an open session, add 3 notes in sequence: "First observation", "Second observation", "Third
 observation", each via the in-page Add Note form.
@@ -175,6 +181,8 @@ created; format.html: flash error set, redirected back to the show page, no note
 ---
 
 ### RFTC029-8: Close a session with each valid outcome value
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** For 3 separate open sessions, close one each with outcome = Passed, Failed, Inconclusive via the
@@ -258,6 +266,8 @@ UI-hidden and endpoint-denied.
 ---
 
 ### RFTC029-15: `delete_session` permission — grants Delete only
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** Grant a role ONLY `delete_session`. As that user: confirm the Delete icon + confirmation modal are
@@ -355,6 +365,8 @@ delete it (as a user with `delete_session`).
 
 ### RFTC029-23: Activity feed shows both Created and Closed events, correctly deep-linked
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Start a session, then close it. Open the project's Activity tab.
 **Expected Result:** Two distinct entries appear — one for session creation, one for its closing — each labeled
@@ -366,6 +378,8 @@ with the localized "Exploratory Session" type and linking back to the session's 
 
 ### RFTC029-24: Overview page "Sessions" block shows at most 3 most-recent sessions, same shape as "Test Runs"
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2 — `@recent_sessions = TestcaseSession.where(project_id:).order(id: :desc).limit(3)`
 **Steps:** Create 5 sessions in a project (mix of open/closed). Open the project Overview page.
 **Expected Result:** Exactly 3 sessions are listed (the 3 most-recently-created, by id descending), each showing
@@ -376,6 +390,8 @@ section. A "View all" link navigates to the full Sessions index (all 5 visible t
 ---
 
 ### RFTC029-25: A session with no linked issue behaves fully normally (issue is genuinely optional)
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P2 — guards against a regression where `issue_id` is treated as implicitly required
 **Steps:** Create, view, add notes to, and close a session that never had an issue linked.

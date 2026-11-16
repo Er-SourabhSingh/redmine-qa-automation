@@ -38,6 +38,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ---
 
 ### TC-TCM-205: To-Do lists work assigned to the current user
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA (assignee)
 **Priority:** High
@@ -67,6 +68,7 @@ consistent with the original TC-TCM-068 permission finding, not a regression.
 ---
 
 ### TC-TCM-206: Executing a case updates its To-Do state
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** High
@@ -98,6 +100,7 @@ observed working today.
 ---
 
 ### TC-TCM-207: Reassigning work moves the To-Do item
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA / Manager
 **Priority:** Medium
@@ -133,6 +136,7 @@ behavior for an orphaned environment reference. Cancelled without saving and swi
 ---
 
 ### TC-TCM-208: To-Do reflects run closure
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -268,6 +272,7 @@ display"** empty state, not an error or the unfiltered list. Same behavior as 20
 ---
 
 ### TC-TCM-211: Executing a case writes an activity entry
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA
 **Priority:** Medium
@@ -317,6 +322,7 @@ present, same precision caveat as before (no inline Pass/Fail text in the row it
 ---
 
 ### TC-TCM-212: Activity entries attribute the correct user
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** two QA users
 **Priority:** Medium

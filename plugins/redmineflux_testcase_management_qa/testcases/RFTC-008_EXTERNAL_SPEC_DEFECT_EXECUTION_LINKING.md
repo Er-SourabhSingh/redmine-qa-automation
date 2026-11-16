@@ -43,6 +43,8 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 
 ### RFTC008-F1: Link a single failed execution to an existing defect
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1
 **Steps:**
@@ -61,6 +63,8 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 ---
 
 ### RFTC008-F2 / U3: Bulk-link many executions to the SAME one defect (the core many-to-one claim)
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1
@@ -135,6 +139,8 @@ call — true all-or-nothing, not partial commit.
 
 ### RFTC008-F7 / U8 / U9 / U10: Unlink removes the join, recomputes the CSV, and retains/removes the relation correctly
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1
 **Steps:**
@@ -152,6 +158,8 @@ call — true all-or-nothing, not partial commit.
 ---
 
 ### RFTC008-F10 (SACRED/CRIT-1 half): `bulk_create` (the legacy write path) writes the join automatically
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1 — central design decision
@@ -171,6 +179,8 @@ path, with zero changes needed to that controller's own calling code.
 ---
 
 ### RFTC008-F11 / U6 (SI-8): Reverse view answers from the indexed join
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1
@@ -396,6 +406,8 @@ environment/status/date, each clickable.
 
 ### RFTC008-UI2: "Link defect" picker + bulk-link action on the Run execution view
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1 — this is the feature's entire forward-facing user workflow
 **Steps:**
@@ -416,6 +428,8 @@ API today.
 ---
 
 ### RFTC008-UI3: Per-execution "Defect ID's" column reflects a linked defect
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P2

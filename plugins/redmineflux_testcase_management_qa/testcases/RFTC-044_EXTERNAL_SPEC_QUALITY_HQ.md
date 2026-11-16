@@ -32,6 +32,8 @@ blocked by a proper 403 for anyone not authorized, never silently letting a non-
 
 ### RFTC044-1 (Positive): Admin sees the dashboard with correct aggregated, real cross-project data
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** As admin, click "Quality HQ" in the top nav.
 **Expected Result:** A page rendering: total projects tracked, active runs, overall pass rate, total failing,
@@ -98,6 +100,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 
 ### RFTC044-5 (spec Functional 1 — corrects the first pass's open question): A non-admin user holding `:view_report` on at least one project DOES see the menu and CAN open the dashboard — the gate is the permission, not `admin?`
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1
 **Steps:** Logged in as `qa.limited` (Manager on `RFTC-016 CI Ingest QA` only, not an admin); inspected the top nav; clicked through to `/quality_hq`.
 **Expected Result:** Per spec Objectives/Permissions, "Quality HQ" appears in the nav and `/quality_hq` returns 200 for any `:view_report` holder, admin or not.
@@ -142,6 +146,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 
 ### RFTC044-9 (spec Functional 6 + Edge Case 4, Gate 2 HIGH finding #3): Admin's aggregate view excludes a project with the TCM module disabled — the admin branch intersects `EnabledModule`, it does not aggregate `Project.all`
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P1 — the spec's own Gate-2 finding was that an admin-bypasses-`allowed_to` branch could resurrect QA data from a module-disabled project if not explicitly intersected with `EnabledModule`
 **Steps:** As admin (2 projects visible: `RFTC-016 CI Ingest QA`, `BUG-121896 Retest`), disabled the "Redmineflux Testcase Management" module on `BUG-121896 Retest` only, reloaded `/quality_hq`, then re-enabled the module immediately after to restore state.
 **Expected Result:** With the module disabled, `BUG-121896 Retest` disappears from the admin's own dashboard too (admin sees all **TCM-enabled** projects, not literally all projects) — `Projects Tracked` drops from 2 to 1.
@@ -153,6 +159,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 
 ### RFTC044-10 (spec Unit 14 / Data Model "coverage_pct nil not 0"): A project with zero requirements shows "No data" for coverage, never a misleading 0%
 
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
 **Priority:** P2
 **Steps:** Confirmed `RFTC-016 CI Ingest QA` has **zero** requirements (`/requirements?project_id=rftc-016-ci-qa` — empty list, "no-data" state), then checked that project's own "Requirement Coverage" column value on the Quality HQ table.
 **Expected Result:** `coverage_pct == nil` → rendered "No data", never `0%` (which would misleadingly read as "0% covered" rather than "nothing to cover").
@@ -163,6 +171,8 @@ A **new, separate user** (`qa.limited`, id 7 — kept distinct from the existing
 ---
 
 ### RFTC044-11 (spec Implementation Notes "Health band — a transparent, testable formula"): The red/amber/green threshold empirically matches the pinned formula
+
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P3 (confirmatory)
 **Steps:** Observed `RFTC-016 CI Ingest QA`'s real pass rate (67%) against its rendered health tag.

@@ -56,9 +56,16 @@ used for TC-771/772/776/777), #38 (blocker), #39 (blocked ticket, used for TC-77
   the same 3 conditions individually and are where the actual verdicts live). #37 (open+tagged+no-blocker)
   appeared correctly. Note: a brand-new tag add/first qualification needs ~1 extra page reload to appear (not a
   bug — consistent, short propagation lag observed 3 times on 3 different tickets, always resolved within ~15s).
-- **TC-CRX-773** — NOT INDEPENDENTLY VERIFIED. No Builder 1/2 worker was configured/claimable in this
-  environment, and simulating a real agent claim via Ask Crux chat was not attempted this pass given time
-  budget across 15 suites — deferred, not a bug, just unexercised.
+- **TC-CRX-773** — **PASS (2026-11-16 follow-up).** Previously deferred because no local MCP connection existed
+  to claim work against this instance (the repo's only configured `redmineflux` MCP server was wired to
+  production). Found the local Docker stack's own `crux-redmine6-mcp-1` container at `localhost:8082/mcp` and
+  added a second, local-only `redmineflux-local` MCP server entry. As `builder-1`, called
+  `redmineflux_crux_claim_next_work` and genuinely claimed #39 (it had legitimately re-qualified — its blocker
+  #38 had since closed) and, after temporarily untagging it, #40 and #62. Each claim correctly removed the
+  ticket from "Waiting for an agent"; `report_complete` correctly recorded a real Run Ledger row each time. Full
+  write-up and the autonomous-progression follow-through (claim → gate → approve, twice) is in
+  `CRUX_PLATFORM_WORK_PACKAGES.md`'s TC-CRX-1000. Tags restored on #39/#40 immediately after; no fixture state
+  changed.
 - **TC-CRX-774** — NOT INDEPENDENTLY VERIFIED (pager needs ≥26 qualifying tickets; not worth the fixture cost
   this pass — low-risk, standard Redmine pagination component, deferred).
 - **TC-CRX-775** — NOT INDEPENDENTLY VERIFIED. Could not identify an agent's own paired Redmine user in this
@@ -82,10 +89,14 @@ used for TC-771/772/776/777), #38 (blocker), #39 (blocked ticket, used for TC-77
   itself was not exercised. Deferred — would need the "Crux Capability" custom field (per dev reference §9)
   explored on a dedicated TC first.
 
-**Suite result: 5 PASS (771, 772-positive, 776, 777), 1 FAIL/bug filed (778), 4 deferred/not independently
-verified (773, 774, 775, 779) due to fixture constraints in this pass.** One new bug found: BUG-CRX-174.
+**Suite result (2026-11-05 pass): 5 PASS (771, 772-positive, 776, 777), 1 FAIL/bug filed (778), 4 deferred/not
+independently verified (773, 774, 775, 779) due to fixture constraints in this pass.** One new bug found:
+BUG-CRX-174.
 
 ## Suite status
 
-Executed 2026-11-05 — 5 PASS, 1 FAIL (BUG-CRX-174), 4 deferred (fixture constraints).
+Pass 1 (2026-11-05) — 5 PASS, 1 FAIL (BUG-CRX-174), 4 deferred (fixture constraints).
+Pass 2 (2026-11-16) — TC-773 moved to PASS once a local-only MCP connection was established (see TC-773 above).
+  3 still deferred (774, 775, 779 — fixture constraints unrelated to the MCP gap).
+Overall: 6 PASS / 1 FAIL (BUG-CRX-174, still open) / 3 deferred (774, 775, 779).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.

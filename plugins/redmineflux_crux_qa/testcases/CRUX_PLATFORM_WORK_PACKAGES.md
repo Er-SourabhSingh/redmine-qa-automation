@@ -196,10 +196,80 @@ No bugs filed. The TC-CRX-766 "potential bug candidate" finding was retracted af
 (2026-11-12): server-side confirm-time validation correctly refuses a non-existent/inaccessible ticket; no broken
 WP is created. Validation at proposal time (earlier UX refusal) would be an improvement, not a defect fix.
 
+## Execution — 2026-11-16: TC-CRX-1000 — genuine autonomous stage progression (closes the "never tested past Clarify" gap)
+
+**Background.** Every prior pass on this suite only ever verified WP *creation* (TC-759/760) and the *static
+display* of a stage chain (TC-757) — never an actual autonomous progression from one stage to the next via a
+real agent claim→work→report cycle. wp-004 ("Review testcase API coverage", ticket #62, suggest-only) sat at
+"Clarify · step 1 of 7" / "Latest update: No update yet" for 4 straight days (created 2026-11-12, still stuck
+2026-11-16) with **zero** Run Ledger entries and the ticket still "Waiting for an agent" in the Ready Queue.
+
+**Root cause found.** The `redmineflux` MCP server configured in this repo's `.mcp.json` is wired to
+**production** (`flux.zehntech.com`), confirmed earlier this cycle. The local Docker stack has its own,
+separate `crux-redmine6-mcp-1` container (`http://localhost:8082/mcp`) sitting right next to the
+`crux-redmine6-redmine-1` container (our `localhost:3015`) — but nothing in this repo was ever configured to
+call it, so no process ever claimed `readyforagent` work against this local instance. This is a **pull model**
+(confirmed against the developer's own `Crux-Ready-Queue-User-Guide.md` and a recorded demo video): Crux never
+pushes work, an agent process must itself call claim → work → report in a loop. With no such local process
+configured, the mechanism was 100% correct and healthy — it simply had no one asking it for work.
+
+**Fix (local-only, no production access).** Added a second MCP server entry `redmineflux-local` to `.mcp.json`,
+pointed at `http://localhost:8082/mcp` with the local admin user's API key (not a dedicated per-agent
+Redmineflux identity yet — see Follow-up below). Verified identity via `redmineflux_core_get_current_user`
+→ local `admin@example.net` (not the production user), confirming no production traffic.
+
+**TC-CRX-1000 — PASS.** Acting as `builder-1` via `redmineflux_crux_claim_next_work`/`report_complete` against
+`redmineflux-local` only:
+1. Claimed #62 (wp-004, stage `clarify`, no entry gate) — confirmed the exact same ticket that had been stuck
+   4 days, now claimable the instant something actually asked for it.
+2. Did genuine Clarify-stage work (a real requirements-clarification note on what #62 actually checks) and
+   called `report_complete` with `post_to_redmine: true` to test the suggest-only guarantee at the API layer
+   (not just via chat, which TC-765 already covered) — **correctly refused**: *"Flux write: refused — work
+   package 'wp-004' is suggest-only — writes are never allowed."* Run still recorded genuinely in the Run
+   Ledger (run-1372, real tokens/cost), just the Flux-side note write was blocked, exactly as documented.
+3. Dashboard → Needs your attention correctly showed a new **"Approve the requirements"** gate immediately
+   after the run. Opened Review: evidence card matched the developer's demo exactly — run cost, model,
+   the Clarify artifact text, "Acceptance: holdout tests pass", "requirements-approve: not yet approved".
+   Approved → ticket genuinely moved to **"Plan · step 2 of 7"**, "✓ Requirements approved by admin".
+4. Repeated for Plan stage: claimed (entry gate `requirements-approve: approved` correctly shown on the claim
+   response), reported a real Plan artifact, `post_to_redmine: true` **correctly refused again** (suggest-only,
+   consistent). Approve gate dialog correctly showed the full chain: *"requirements-approve: approved by admin
+   → plan-approve: not yet approved"*. Approved → ticket genuinely moved to **"Develop · step 3 of 7"**.
+
+**Side-effect finding (not a new bug — supports BUG-CRX-174's existing root-cause theory).** While finding a
+claimable ticket, `claim_next_work` legitimately claimed **#39** — the Ready Queue suite's deliberately-blocked
+fixture — because its blocker (#38) had since been closed. `redmineflux_core_list_issue_relations` confirmed
+#38 is genuinely "Done, closed, no longer blocking." This proves the **claim logic itself correctly
+re-evaluates blocker state in real time**; BUG-CRX-174's original failure (the Ready Queue *list* not
+re-showing #39 after the blocker closed) is a UI-staleness issue specifically in that list view, not a
+claim-logic defect — useful confirmation for whoever fixes BUG-CRX-174. Released #39's claim honestly (outcome
+`not-applicable`, `post_to_redmine: false`, no fabricated success) rather than inventing work that wasn't done,
+then restored its tag (and #40's, which I'd also had to temporarily untag to skip past both fixtures to reach
+#62 — both tags restored immediately after, no fixture state changed).
+
+**Follow-up for a future session (not a defect):** the local `redmineflux-local` connection currently
+authenticates as `admin`, not a dedicated "Builder 1" Redmineflux identity (the guide's §1 step 3 — "Create
+Redmineflux identity" — was never completed locally; `/crux/agents` confirms Builder 1's identity still shows
+"Not paired yet"). Runs are correctly *labeled* `builder-1` in the ledger (the `agent_id` argument, not the
+authenticating user), so this doesn't invalidate today's results, but a proper identity should be created
+before relying on this connection for routine automation.
+
+This closes the long-standing "never tested past Clarify" gap for **TC-757, TC-759, TC-760, and TC-768**:
+- TC-757's stage-chain display is now confirmed accurate against a WP that genuinely progressed through it,
+  not just a static read.
+- TC-759/760's creation tests are now followed through to real multi-stage execution.
+- **TC-768** (per-project Approve-permission scoping) is still deferred — today's gate was approved as `admin`,
+  who has Approve everywhere; a second project + a user with Approve in only one of them is still needed.
+
 ## Suite status
 
 Pass 1 (2026-11-05): 7 PASS, 1 PASS-partial, 9 deferred, 0 bugs filed.
 Pass 2 (2026-11-12): 6 more PASS (760, 762, 763, 765, 766, 767), 1 partial/deferred (768), 2 still deferred
   (758, 764), 1 bonus PASS (§14.3 WP section on issue).
-Overall: 13 PASS / 1 PASS-partial / 2 deferred (758, 764) / 1 partial-deferred (768) / 0 bugs.
-Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2.
+Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`redmineflux-local`, localhost:8082,
+  local-only). Genuine Clarify→Plan→Develop autonomous progression confirmed end-to-end, twice, with correct
+  suggest-only write refusal at the API layer both times. 0 new bugs; one supporting data point for BUG-CRX-174.
+Overall: 14 PASS / 1 PASS-partial / 2 deferred (758, 764) / 1 partial-deferred (768, now unblockable in principle
+  but still needs a second-project fixture) / 0 bugs.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,
+2026-11-16); `Crux-Ready-Queue-Work-Package-Demo-Hinglish.webm` (developer-provided demo video, 2026-11-16).

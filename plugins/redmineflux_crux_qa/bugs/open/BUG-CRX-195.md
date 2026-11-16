@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-195
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128746 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127779 (CRUX_AGENT_AUTO_FIXER), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Auto-Fixer always proposes exactly 3 subtasks (implement / regression test / verify staging) regardless of how trivial the bug is — a one-line copyright-year typo fix gets the same template as a real pagination bug
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Auto-Fixer agent)

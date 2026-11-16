@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-192
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128743 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127600 (CRUX_AGENT_HELPDESK), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Helpdesk Agent falsely denies the real `kb_reorder_page` tool exists, and suggests a non-existent "drag to reorder" native UI alternative
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Helpdesk Agent — Knowledgebase tool group)

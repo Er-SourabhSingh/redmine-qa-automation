@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-194
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128745 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127779 (CRUX_AGENT_AUTO_FIXER), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Auto-Fixer forgets subtasks it already created/confirmed in the same chat — re-proposes the identical plan instead of answering a direct status question, then denies the work is done on the next turn too
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Auto-Fixer agent)

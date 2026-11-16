@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-193
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128744 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127600 (CRUX_AGENT_HELPDESK), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: `kb_restore_version` always crashes with a raw Python `TypeError` leaked to the caller — version restore is completely non-functional
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (`redmineflux-mcp` server, Helpdesk Knowledgebase tool group, `kb_restore_version`)

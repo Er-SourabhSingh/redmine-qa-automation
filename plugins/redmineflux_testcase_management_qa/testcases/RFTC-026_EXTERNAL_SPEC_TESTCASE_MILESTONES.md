@@ -133,8 +133,12 @@ rftc_milestone_json(run) if milestones_json?` (line 73) inside a `@runs.map do |
 eager-loading the `milestone` association (`run.milestone&.name` inside `rftc_milestone_json`) — a classic N+1,
 one extra `SELECT` per milestone-linked run. Not present in the 2026-11-13 pass (this run action wasn't exercised
 with a real multi-run, milestone-heavy fixture then); introduced by, or exposed alongside, the `01bee8f`/`dc7f7ff`
-milestone-API fixes. Fix: `@runs.includes(:milestone)` before the `.map`. Flagged to the developer — not filed as
-a separate bug per the same "note on the ticket" handling as the 2026-11-13 gaps, pending user confirmation.
+milestone-API fixes. Fix: `@runs.includes(:milestone)` before the `.map`. **Filed as BUG-TCM-148**
+(`bugs/open/BUG-TCM-148.md`) — functional verification of the feature itself (switch on/off, Milestones list/
+detail, MCP summary, model-level link) was re-confirmed intact first, and the N+1 was independently re-verified
+via direct SQL-log evidence (40 identical-shape `SELECT "versions".*` queries, matching the 40 milestone-linked
+runs 1:1) before filing, per repo standard (distinct from the "note on the ticket" handling used for the
+2026-11-13 gaps, which were missing-feature gaps rather than a regression-type performance defect).
 
 ---
 
@@ -696,7 +700,7 @@ Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 |---|---|
 | PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (partial), 23*, 24 (partial), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 35 cases |
 | FAIL — cosmetic, left as-is | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1) |
+| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1 — filed as **BUG-TCM-148**) |
 | Not yet built (Phase 2, spec's own §13 table) | 31 (Reports milestone filter) |
 
 > 32/33/34 were FAIL (real API/automation gaps) on 2026-11-13; retested 2026-11-16 against commit `dc7f7ff` and
@@ -729,10 +733,13 @@ issues one extra SQL query *per milestone-linked run* when Milestones is ON — 
 `rftc-016-ci-qa` has 46 runs (40 milestone-linked) — OFF = 59 queries, ON = 99 queries, exactly +40. Fix is a
 one-line `@runs.includes(:milestone)` before the `.map`. Not cosmetic — this scales linearly with run count and
 is exactly the kind of per-row query pattern spec §10's performance target (RFTC026-37) is meant to rule out.
+**Filed as `BUG-TCM-148`** (`bugs/open/BUG-TCM-148.md`) after (a) re-confirming the Milestones feature itself is
+functionally intact post-fix (switch gating, Milestones list/detail, MCP summary stats unchanged, model-level
+link) and (b) independently re-capturing the SQL-log evidence (exact query text, not just a count) to rule out
+measurement noise — no code was changed to produce either check.
 
 These are flagged as genuinely functional/performance gaps in the automation/API surface, distinct in character
-from the two cosmetic UI-wording gaps (15/17) which remain left-as-is per instruction — worth a decision on
-whether RFTC026-5 should be filed as a bug or noted on the ticket like the others.
+from the two cosmetic UI-wording gaps (15/17) which remain left-as-is per instruction.
 
 **Newly confirmed this round** (all via a mix of live DB-transaction tests, rolled back/cleaned up afterward, and
 reading the centralized `Milestones` service module):

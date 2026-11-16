@@ -197,8 +197,16 @@ pipeline"* and line 439's *"pick a custom pipeline in chat | Not built,"* this m
 only ever be created via chat, and chat can only ever use the 3 built-in pipelines — so no custom pipeline
 created on this page can ever have a real Work Package attached to it, through any path, native or chat.**
 
-This isn't a bug (the dev reference states the limitation plainly, and both refusal attempts were honest, no
-fabrication) but it does mean:
+**Correction — on reflection this IS a bug, just a narrower one than first assessed.** The refusal *itself* is
+correct (no tool exists, by design — not a fabrication), but its own "It can be done directly in Redmineflux"
+clause is **false** for this specific capability, since no native path exists either (confirmed above). This
+exact sentence is already the subject of **BUG-CRX-061** (closed/fixed 2026-10-27) — but that bug's 17 repros
+were all about the denial itself being false for *genuinely-registered tools*; this is the opposite half of the
+same template sentence, never covered there: the suggested fallback is false for a capability that's genuinely
+unavailable everywhere. Filed as **BUG-CRX-191** (Low-Medium) — a real user hitting this would be sent looking
+for a UI feature that was never built. Not yet reported to production.
+
+This also means:
 - **TC-861** (editing a pipeline doesn't retroactively affect an existing WP) is **permanently untestable for
   any custom pipeline** — not "no fixture built yet," but "no fixture can ever exist," since no WP can ever be
   created from a custom pipeline. The only way to even approximate this TC would be to test it against editing
@@ -221,8 +229,10 @@ anyone wanting to re-verify this finding.
 ## Suite status (updated 2026-11-16)
 
 Pass 3 (2026-11-16): confirmed TC-861 and TC-867 are permanently blocked by product design (no custom pipeline
-can ever have a real Work Package attached, via chat or natively), not merely awaiting a fixture. 0 new bugs —
-this is documented, honest, non-fabricated behavior on both the chat-refusal and native-UI-absence sides.
+can ever have a real Work Package attached, via chat or natively), not merely awaiting a fixture. 1 new bug found:
+**BUG-CRX-191** (the refusal's own "directly in Redmineflux" fallback claim is false for this capability — not
+the denial itself, which is honest).
 Overall: 14 PASS / 3 genuinely-deferred (855, 856, 869 — user-fixture only) / 2 reclassified from
-deferred/partial to permanently-blocked-by-design (861, 867 — no longer counted as PASS-partial) / 0 bugs found.
+deferred/partial to permanently-blocked-by-design (861, 867 — no longer counted as PASS-partial) / 1 bug
+(BUG-CRX-191).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

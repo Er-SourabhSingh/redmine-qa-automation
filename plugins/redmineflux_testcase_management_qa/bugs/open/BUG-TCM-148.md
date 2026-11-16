@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-148
-- Production Redmine Issue ID: <!-- not yet reported to production -->
+- Production Redmine Issue ID: #128488 — reported via `report_defect`, linked to testcase RFTC026-5 (#128453, suite #532) on Run #659 ("Testcase Release 7.3.0 Sign-off"), environment "Window 11 + Chrome". Target Version set to "Testcase Management plugin Release 7.3.0" (id 2070).
 - Title: `GET /runs.json` (Runs & Results list) issues one extra SQL query per milestone-linked run (N+1) when Milestones (rtc-026, #127767) is enabled — scales linearly with run count
 - Redmine version: 6.0.11 (Docker, localhost:3000)
 - Plugin name: Redmineflux Testcase Management

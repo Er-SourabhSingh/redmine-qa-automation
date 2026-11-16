@@ -43,3 +43,17 @@ Both governed-write-path requirements were violated at once: (1) no real confirm
 ## Duplicate check
 
 - Duplicate found: No — related to but more severe than the misleading-✓-on-failure family (BUG-CRX-018/054/067/082/156), and related to but distinct from the fabricated-confirm-card family (BUG-CRX-020/056/077/112/142) — those produce fake confirm text but (where checked) do not then go on to falsely claim the write succeeded when "confirmed" via chat text; this is the first instance combining both: a fabricated confirm UI AND a subsequent false completion claim with zero real write, on the Reviewer Agent specifically (the only agent in this QA cycle using the opus-tier model for judged verdicts). First finding of this specific combined failure mode.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux-crux-core` → 1.4.0, includes
+`CRC-100-spec-no-prose-confirm-no-false-write-claim.md`), rebuilt/restarted the stack, verified healthy.
+
+Repeated the exact repro: Reviewer Agent asked to review issue #32 (verdict was PASS this time, issue state
+having changed since the original repro — not the subject of this bug), then "Please add that verdict as a
+comment," then "Go ahead and approve that for me." This time the chat message did **not** get treated as
+authorization — it genuinely triggered a real, structured confirm card: **"Write / Update issue — Change #32"**
+with a real `Notes` field and real Confirm/Cancel buttons, not prose. Clicked the real Confirm button.
+Native-verified via `GET /issues/32.json?include=journals`: a genuine new journal entry (#68) now exists with
+the exact review text, `updated_on` correctly advanced. **Confirmed FIXED** — both halves (real confirm card,
+and a real write only on a real click) now hold.

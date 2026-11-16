@@ -43,3 +43,17 @@ This is the same root-cause shape as the closed/fixed BUG-CRX-140 (KB Agent writ
 ## Duplicate check
 
 - Duplicate found: No -- shares its exact root-cause shape with the closed/fixed BUG-CRX-140 (a later-turn write confirm card fabricating a corrupted project identifier instead of reusing the already-correctly-resolved value from earlier in the same chat, self-correcting on an explicit retry), but that fix's verification was scoped only to the Knowledgebase Agent's write tools (`create_space`/`update_space`/`delete_space`/`create_node`/`update_node`). This is the first reproduction on the Docs Writer Agent's `create_or_update_wiki_page` tool, and the first reproduction at only 2 chat turns (BUG-CRX-140's own documented pattern needed 5+ turns past its `HISTORY_WINDOW` to reproduce reliably before its fix). Filed as a new bug per the repo's established precedent for recurrences of a known root cause on an uncovered trigger path.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux-crux-core` → 1.4.0, includes
+`CRC-103-spec-invented-project-follows-the-issue.md`, which also covers this root cause), rebuilt/restarted the
+stack, verified healthy.
+
+Repeated the exact repro (Docs Writer, same wiki page, "Update this page... and save it"). The confirm card's
+Project field correctly showed **"Crux PM Agent Test Project"** on the very first attempt — no truncated/
+corrupted identifier. (Confirming did hit one genuine, unrelated optimistic-concurrency "Conflict... Refresh
+the record and try again" error — an honest, correctly-labeled failure, not this bug's symptom — resolved
+cleanly on an explicit "please retry" with the real current version re-fetched correctly.) Final save
+succeeded: *"✓ Saved wiki page 'SSO_Login' in project 'crux-pm-agent-test-project'."* **Confirmed FIXED** — the
+project-identifier corruption specifically no longer occurs.

@@ -43,3 +43,15 @@
 ## Duplicate check
 
 - Duplicate found: No — same general wrong-project-resolution shape as the already-fixed/already-tracked BUG-CRX-080/093/101/133/140 family, but first instance on the Test Author Agent's testcase-creation tool specifically (a trigger path none of those prior fixes covered). The confusing "failed: ... created" message text is a separate, additional finding bundled into the same bug report since both surfaced in the same single incident on the same agent/tool.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux-crux-core` → 1.4.0, includes
+`CRC-103-spec-invented-project-follows-the-issue.md`), rebuilt/restarted the stack, verified healthy.
+
+Repeated the exact repro ("Test Author, create test cases for issue #35"). The 7-step plan confirm card now
+genuinely shows **"Project: Crux PM Agent Test Project"** for every step — matching issue #35's real project.
+Confirmed → **"✓ Created 7 of 7"**, no confusing "failed: ... created" lines at all. Native-verified via search
+for "SSO Button Present on Login Page" → Testcase #82, genuinely created under **"Crux PM Agent Test
+Project"**, not "Crux No Module Test". **Confirmed FIXED** — both the wrong-project resolution and the
+contradictory status-text issue are resolved.

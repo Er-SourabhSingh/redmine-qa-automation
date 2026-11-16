@@ -55,3 +55,15 @@ This confirms BUG-CRX-177's fix (verified only via the "+ New Agent" form, retes
 ## Duplicate check
 
 - Duplicate found: No — not a duplicate of the closed BUG-CRX-177 (same root cause and mechanism, but that fix's retest only exercised the "+ New Agent" form; this reproduces the identical overwrite via the separate "Upload Agent" entry point, which evidently writes through the same unguarded update-in-place path without the bundled-id check added to the other form). Filed as a new bug per the repo's established precedent for recurrences of a known root cause on an uncovered trigger path (e.g. BUG-CRX-093/101 → BUG-CRX-080; BUG-CRX-188 → BUG-CRX-140 earlier this same session).
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux-crux-core` → 1.4.0, includes
+`CRC-99-spec-built-in-agents-cannot-be-overwritten.md`), rebuilt/restarted the stack, verified healthy.
+
+Repeated the exact repro: Upload Agent dialog, raw content with `id: reviewer` (the real bundled agent's exact
+id). Upload now correctly refused: **"⚠ 'reviewer' is the id of a built-in agent. Built-in agents can't be
+replaced; choose a different id."** — the same error the "+ New Agent" form already had, now also enforced on
+the Upload Agent entry point. Cancelled the dialog (no overwrite attempted this time, nothing to undo).
+Native-verified: Reviewer's card still correctly reads "Reviewer — Checks work against acceptance criteria,"
+unchanged (23 runs, 100% ok). **Confirmed FIXED** — the fix now covers both entry points.

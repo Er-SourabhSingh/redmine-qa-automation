@@ -41,3 +41,15 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — first finding on the Frozen Rules admin page's Reason field validation specifically. Not related to BUG-CRX-116 (schema level validation gap, Time Agent domain) despite the similar "client accepts what native/server should reject" shape — different feature area.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code on all 3 repos (`redmineflux_crux` → 0.98.0,
+`redmineflux-crux-core` → 1.4.0, `redmineflux-mcp` → 1.0.1 — includes `CRP-55-spec-frozen-rule-reason-limit.md`
+and `CRC-98-spec-frozen-rule-reason-limit.md`), rebuilt `mcp` and `crux-core` images, restarted `redmine` in
+dependency order, verified all 3 containers healthy.
+
+Repeated the exact repro: set the Reason field to 350 chars via direct DOM value assignment (bypassing the
+`maxlength="300"` HTML attribute), clicked Freeze. Server now correctly rejects it: **"Keep the reason to 300
+characters or fewer (it has 350)."** No rule was created ("No frozen rules yet" still shown afterward).
+**Confirmed FIXED.**

@@ -46,3 +46,15 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — distinct from BUG-CRX-155/116 (both validation gaps on write-tool parameters in other agents/domains, not this admin Settings page) and from BUG-CRX-183 (Frozen Rules' Reason-field length cap, same general "client-side-only validation" shape but a different page/field and a non-breaking consequence — here the consequence breaks chat for every user). First finding on the Settings page's Default-agent field validation specifically.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux_crux` → 0.98.0, includes
+`CRP-54-spec-default-agent-validated.md`), rebuilt/restarted the stack (see BUG-CRX-183's retest note for the
+full procedure), verified healthy.
+
+Repeated the exact repro: `/crux/admin/settings` → Default agent → `totally-bogus-nonexistent-agent-xyz` →
+Save. Server now returns **HTTP 422** with a genuine inline error: **"No agent has the id
+'totally-bogus-nonexistent-agent-xyz'. Use an id from the Agents page, or leave this blank for Crux (auto)."**
+Settings were not saved with the bad value. Cleared the field and re-saved cleanly afterward. **Confirmed
+FIXED.**

@@ -44,3 +44,15 @@ This is the same general "a bundled secondary action gets silently dropped with 
 ## Duplicate check
 
 - Duplicate found: No — related to but not a duplicate of the closed/fixed BUG-CRX-110. That bug's fix was explicitly verified only for the team-member-bundled-with-project-creation trigger path; this is a fresh recurrence of the same silent-drop mechanism on a different bundled secondary action (starter task), a trigger path the fix's own retest never exercised. Filed as a new bug per this repo's established precedent for recurrences on a new, uncovered trigger path (e.g. BUG-CRX-027/028 → BUG-CRX-020; BUG-CRX-093/101 → BUG-CRX-080).
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code (`redmineflux-crux-core` → 1.4.0, includes
+`CRC-102-spec-left-out-starter-task-is-named.md`), rebuilt/restarted the stack, verified healthy.
+
+Repeated the exact repro (project "Crux Project Setup Test Retest", nonexistent tracker, then "Use tracker_id 0
+for the starter task"). This time the confirm-card turn explicitly disclosed the drop: **"I'll create this
+project — confirm? Not in this plan: the starter task you asked for. This plan creates the project only; once
+it is created, ask me to add the task to it."** No silent omission — the agent now names exactly what's missing
+and how to follow up, satisfying the bug's "Expected result" option (b). Confirmed the project creation itself
+completed normally. **Confirmed FIXED.**

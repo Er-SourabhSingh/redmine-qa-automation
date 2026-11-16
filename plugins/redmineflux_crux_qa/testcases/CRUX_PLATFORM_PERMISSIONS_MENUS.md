@@ -196,6 +196,24 @@ re-attempted TC-713 and TC-719.
 **Pass 2 result: 1 more PASS (712), 0 bugs found. 713/716/719 remain blocked on the gate-state root cause,
 not time/effort.**
 
+## Execution — 2026-11-16 (later same session): TC-716 closed with the two-project fixture
+
+Built the shared fixture this suite and `CRUX_PLATFORM_WORK_PACKAGES.md`/`CRUX_PLATFORM_DASHBOARD.md`/
+`CRUX_PLATFORM_PROJECT_TAB.md` all needed: a second project ("Crux PM Agent Test Project B", id 16, Redmineflux
+Crux module enabled) and a new role ("Crux View Only Role" — View Crux dashboard only, no Approve). Created
+ticket #81 in Project B, built wp-007 (bug pipeline) from it via chat, drove it to its own `fix-approve` gate
+via `redmineflux-local`. Added `daisy.skye` (who already holds `Crux Perm Test Role` — View Crux dashboard +
+Approve Crux gates — in Project A) to Project B as a plain Reporter (no Crux permissions there at all).
+
+- **TC-CRX-716** — PASS, decisively confirmed, even stronger than the TC's own wording asks for. As `daisy.skye`:
+  her global `Needs your attention` card showed exactly the 2 pending gates from Project A (both with a real
+  "Review" button, since she's an approver there) — wp-007's Project B gate **did not appear at all**, not even
+  as a "waiting for an approver" line. Checked the global Work Packages list too: "All 5" — wp-007 is completely
+  absent from it for her. Directly navigating to Project B's own Crux tab (`/projects/crux-pm-agent-test-project-b/crux`)
+  returned a genuine **403**, while Project A's own tab loaded fine (200) for the same user in the same session —
+  proving the scoping isn't just "button hidden," it's full per-project data isolation (she lacks `view_crux` in
+  B entirely, not just `approve_crux_gates`). Confirms per-project scoping works correctly end-to-end.
+
 ## Suite status
 
 Pass 1 (2026-11-05): 9 PASS, 3 partial, 4 deferred, 0 bugs found.
@@ -203,6 +221,8 @@ Pass 2 (2026-11-12): 1 more PASS (712); 713/716/719 still deferred (gate-state b
   same root cause as Work Packages TC-768).
 Pass 3 (2026-11-16): gate-state root cause fixed (local MCP connection). 2 more PASS (713, 719) — 713 PASS with
   a clarified precondition (needs View Crux dashboard + Approve Crux gates together, per the dev reference's own
-  documented model, not "Approve Crux gates" alone). 716 still deferred, needs a two-project fixture.
-Overall: 12 PASS / 3 partial / 1 deferred (716) / 0 bugs.
+  documented model, not "Approve Crux gates" alone).
+Pass 4 (2026-11-16, same session): built the two-project fixture (Project B + a non-admin user with Approve
+  only in Project A). TC-716 — PASS, confirmed as full per-project data isolation, not just a hidden button.
+Overall: 13 PASS / 3 partial / 0 deferred / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.

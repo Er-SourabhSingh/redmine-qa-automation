@@ -202,14 +202,33 @@ Gate Approval modal directly (TC-750/751/753).
   rather than merely rejecting one; a literal "attempt the same approval twice" probe would need the same kind
   of crafted direct API call TC-752 needed, not attempted for the same reason.
 
-Still deferred (need a non-admin approver/non-approver contrast, which needs the shared fixture noted in
-`CRUX_PLATFORM_WORK_PACKAGES.md`'s TC-768 discussion): **TC-731, TC-740** (approver vs non-approver visibility),
-**TC-741** (8+ WP cap / Done-N-delivered fold — now have 5 active WPs, still short of 8), **TC-752** (gate
-skip-ahead, needs explicit sign-off for a crafted request).
+## Execution — 2026-11-16 (later same session): TC-731/740 closed with the two-project/non-approver fixture
+
+Built the shared fixture (see `CRUX_PLATFORM_PERMISSIONS_MENUS.md` TC-716's write-up for full details): a new
+role "Crux View Only Role" (View Crux dashboard only, no Approve) assigned to the existing `zeropermtest` user
+in Project A, contrasted against `daisy.skye` (View Crux dashboard + Approve Crux gates in the same project).
+Used the 2 real pending "Approve the fix" gates already in Project A (wp-002/#56, wp-003/#40).
+
+- **TC-CRX-731** — PASS, fully confirmed with a direct side-by-side. As `zeropermtest` (non-approver): the
+  "Needs your attention" card showed **"Waiting for an approver: fix"** + a **"View"** link (pointing to
+  `/crux/work_packages`) for both gates — never a "Review" button. As `daisy.skye` (approver, same gates, same
+  session): both rows correctly showed **"Approve the fix"** + a real, clickable **"Review"** button.
+- **TC-CRX-740** — PASS, fully confirmed on the "Work in progress" card specifically (the TC's own distinct
+  target, separate from the attention card). As `zeropermtest`: both gated rows showed the pill **"Waiting for
+  approval"** with **no button at all** — not even a View link on this card. As `daisy.skye`: the same two rows
+  showed the pill **"Waiting for you"** plus a real **"Review"** button. Confirms the Review-button-only-for-
+  approvers rule holds consistently across both dashboard cards, with slightly different non-approver treatment
+  per card (View link on the attention card, no control at all on the WIP card) — both correct, neither
+  fabricated.
+
+Still deferred: **TC-741** (8+ active WPs now at 5, still short of 8 — more WP fixtures needed, not a user/
+permission gap anymore), **TC-752** (gate skip-ahead, needs explicit sign-off for a crafted request).
 
 ## Suite status
 
 Pass 1 (2026-11-05) — 15 PASS, 1 bug found (BUG-CRX-179), 11 deferred.
 Pass 2 (2026-11-16) — 5 more PASS (732, 733, 750, 751, 753), 1 not attempted pending sign-off (752).
-Overall: 20 PASS / 1 FAIL (BUG-CRX-179) / 5 deferred (731, 740, 741, 752, and the still-partial 739/743/745).
+Pass 3 (2026-11-16, same session): built the non-approver fixture. 2 more PASS (731, 740) — both confirmed with
+  a real side-by-side between an approver and a non-approver on the same live gates.
+Overall: 22 PASS / 1 FAIL (BUG-CRX-179) / 2 deferred (741, 752) / the still-partial 739/743/745.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1.

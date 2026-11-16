@@ -302,9 +302,13 @@ stages) and the Dashboard's Outcomes/cost counters incrementing exactly as docum
   stages, not just a static read.
 - TC-759/760's creation tests are now followed through to real multi-stage execution and a real delivered
   outcome.
-- **TC-768** (per-project Approve-permission scoping) is still deferred — today's gates were all approved as
-  `admin`, who has Approve everywhere; a second project + a user with Approve in only one of them is still
-  needed.
+- **TC-768** — **CLOSED later this same session.** Built the two-project fixture (Project B + `daisy.skye`
+  holding Approve only in Project A — full detail in `CRUX_PLATFORM_PERMISSIONS_MENUS.md`'s TC-716 write-up).
+  Project A's own project-scoped Crux tab/WP sub-page loaded fine (200) for Daisy; Project B's equivalent
+  returned a genuine 403 for the same user in the same session — the project-scoped Review permission is
+  enforced at the project level, not globally, confirmed via the same evidence TC-716 used (which is stronger
+  than TC-768 strictly asks for: it's not just the Review button that's scoped, the whole project-scoped page
+  is).
 - No defects found in the autonomous-progression mechanism itself. Two non-defect observations are written up
   above for future sessions: the "Deliver stays re-claimable until the tag is removed" behavior (by design, per
   the developer's guide) and the "#39 Ready Queue fixture permanently shows claimed" side effect (cosmetic,
@@ -397,7 +401,7 @@ Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`re
   TC-CRX-1002 — PASS. Third WP (wp-006, document pipeline, built from scratch via chat) driven through all 5
   stages to a second counted Outcome delivered. All 3 pipeline types (Software/Bug/Document) now confirmed
   end-to-end this session.
-Overall: 16 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764) / 1 partial-deferred (768, now
-  unblockable in principle but still needs a second-project fixture).
+Pass 4 (2026-11-16, same session): two-project fixture built. TC-768 — PASS.
+Overall: 17 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,
 2026-11-16); `Crux-Ready-Queue-Work-Package-Demo-Hinglish.webm` (developer-provided demo video, 2026-11-16).

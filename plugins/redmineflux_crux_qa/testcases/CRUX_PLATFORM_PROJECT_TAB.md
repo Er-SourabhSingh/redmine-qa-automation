@@ -193,13 +193,29 @@ deferred.
 - **TC-CRX-806** — NOT EXERCISED (no independently verifiable way to confirm the 90-day cutoff without a
   deliberately stale fixture or waiting). Deferred.
 
-- **TC-CRX-793** (negative), **TC-CRX-796**, **TC-CRX-814** — still deferred (need non-member or non-manager
+- **TC-CRX-793** (negative), **TC-CRX-814** — still deferred (need non-member or non-manager
   user fixtures with the specific permission combination required by each TC).
 
-## Suite status (updated 2026-11-12)
+## Execution — 2026-11-16 (later same session): TC-796 closed
+
+Built the two-project fixture (full detail in `CRUX_PLATFORM_PERMISSIONS_MENUS.md`'s TC-716 write-up): Project B
+("Crux PM Agent Test Project B"), `daisy.skye` holding Approve Crux gates in Project A only, added to Project B
+as a plain Reporter (no Crux permissions there).
+
+- **TC-CRX-796** — PASS. Project A's own project-scoped Crux Overview page (`/projects/crux-pm-agent-test-project/crux`)
+  loaded fine for `daisy.skye`, same session she holds Approve there — consistent with the dashboard-level
+  evidence (`CRUX_PLATFORM_DASHBOARD.md` TC-731/740) that she sees real Review buttons on Project A's gates.
+  Project B's equivalent page (`/projects/crux-pm-agent-test-project-b/crux`) returned a genuine 403 for the
+  same user, same session — she holds no Crux permission there at all, so there's no Review button to even
+  reach, let alone a cross-project leak. Confirms the project-level Approve permission scoping cross-referenced
+  correctly against the global dashboard's own per-project behavior.
+
+## Suite status (updated 2026-11-16)
 
 Pass 1 (2026-11-05): 7 PASS, 1 bug (BUG-CRX-176), 15 deferred.
 Pass 2 (2026-11-12): 7 more PASS (799, 805, 808, 809, 811, 812, 813), 1 partial (800), 6 still deferred
   (793-neg, 796, 801, 802, 803, 804, 806, 810, 814).
-Overall: 14 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 7 deferred / 0 new bugs this pass.
+Pass 3 (2026-11-16, same session): two-project fixture built. 1 more PASS (796).
+Overall: 15 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 8 deferred (793-neg, 801, 802, 803, 804, 806, 810,
+  814) / 0 new bugs this pass.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

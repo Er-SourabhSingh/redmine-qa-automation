@@ -196,12 +196,23 @@ TC-CRX-1000).
   succeeded normally (`run-1387`, no frozen-rule refusal of any kind). Confirms a frozen field blocks only
   writes to that specific field, not the ticket's claim/result-note mechanism generally. Rule removed after
   confirming.
-- **TC-CRX-930 / TC-CRX-931** — still DEFERRED. TC-930 needs a Work Package actually running at `autonomous`
-  autonomy (none exist yet — all current WPs are `execute-with-approval` or `suggest-only`); TC-931 needs a WP
-  with every gate already approved, then a frozen field tested against a *further* write attempt on it (wp-004,
-  now fully delivered, is the first candidate for this once a fresh frozen rule is set up against its ticket
-  #62 and a further write attempted). Both are one more deliberate fixture away, not blocked by the old root
-  cause anymore — just not attempted this pass.
+- **TC-CRX-930** — still DEFERRED. Needs a Work Package actually running at `autonomous` autonomy (none exist
+  yet — all current WPs are `execute-with-approval` or `suggest-only`).
+
+## Execution — 2026-11-16 (later same session): TC-931 closed
+
+Note: the first attempt used ticket #62 (wp-004), but that WP is `suggest-only`, which already refuses every
+write unconditionally — confounded, doesn't isolate the frozen-rule effect specifically. Redid it on ticket #80
+(wp-006, document pipeline, `execute-with-approval`, both its gates already approved and the WP fully
+delivered) instead.
+
+- **TC-CRX-931** — PASS, fully confirmed. Froze `priority` on ticket #80 (already fully delivered, every gate
+  approved). Via Ask Crux chat: "Change the priority of ticket #80 to High." — got a genuine confirm card
+  (`Priority: high`), which itself correctly surfaced the frozen-rule warning inline: *"frozen — fr-11: QA
+  TC-931 fixture:... (frozen by admin)."* Clicked Confirm anyway — native-verified via `GET /issues/80.json`:
+  **Priority is still "low"** — the write was genuinely refused, despite the WP being execute-with-approval
+  (not suggest-only) and every one of its gates already approved. Confirms "nothing overrides a frozen rule,"
+  including full gate approval, exactly as documented. Rule removed and tag state restored after confirming.
 
 ## Suite status
 
@@ -210,5 +221,7 @@ Pass 2 (2026-11-12): 7 more PASS, 1 bug found (BUG-CRX-183), 3 still deferred (9
   blocker — tracked against the same root cause as CRUX_PLATFORM_WORK_PACKAGES.md's TC-768).
 Pass 3 (2026-11-16): root cause fixed. 1 more PASS (929). 930/931 still deferred, now just need one more
   deliberate fixture each (an autonomous-level WP; a fully-gated WP's ticket), not blocked by infrastructure.
-Overall: 15 PASS / 1 bug / 2 deferred (930, 931). Environment clean (zero frozen rules).
+Pass 4 (2026-11-16, same session): TC-931 — PASS, confirmed on a fully-delivered, execute-with-approval WP
+  (wp-006/#80). TC-930 still deferred (needs an autonomous-autonomy WP, none exist yet).
+Overall: 16 PASS / 1 bug / 1 deferred (930). Environment clean (zero frozen rules).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.

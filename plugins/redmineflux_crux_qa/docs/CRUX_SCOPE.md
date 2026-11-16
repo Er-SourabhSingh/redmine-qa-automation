@@ -42,6 +42,12 @@
   a separate, frozen `redmineflux-agent-ops` prototype, not reachable from the Ask Crux chat picker at all.
 - DevOps Agent — out of scope per the developer's explicit 2026-11-04/05 instruction ("not yet properly
   developed"); don't test it, don't file bugs for it.
+- **TC-CRX-861 and TC-CRX-867** (`CRUX_PLATFORM_PIPELINES.md`) — confirmed 2026-11-16 to have no reachable
+  precondition in the current product: a Work Package can only be created via chat (per the dev reference), and
+  chat can only use the 3 built-in pipelines — so no custom pipeline can ever have a real Work Package attached
+  to it, through any path. Both TCs require exactly that combination. Not a defect (the limitation is documented
+  and both refusal attempts were honest), just permanently untestable until custom-pipeline WP creation is
+  actually built. Out of scope until that changes.
 
 ## Gap table — Crux platform surface, current coverage status
 

@@ -172,3 +172,57 @@ Pass 1 (2026-11-05): 11 PASS, 8 deferred, 0 bugs found.
 Pass 2 (2026-11-12): 3 more PASS (862, 865, 866), 1 partial (867), 4 still deferred (855, 856, 861, 869).
 Overall: 14 PASS / 1 PASS-partial / 4 deferred / 0 bugs found.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.
+
+## Execution — 2026-11-16: definitively confirms TC-861/867 are permanently untestable by design, not just awaiting a fixture
+
+Built a genuine custom pipeline end-to-end (`qa-custom-test`, 3 stages `draft → review → 🔒ship-approve →
+ship`, outcome type `software`) via `+ New Pipeline`, confirmed it saved correctly with Edit/Duplicate/Delete
+actions (matching TC-854's finding). Created a fresh ticket (#79), tagged `readyforagent`, and tried — twice,
+with different phrasing — to get Project Manager to create a Work Package against it using this *real, saved*
+custom pipeline (not a hypothetical non-existent name like TC-763's original test):
+
+> *"Create a work package for issue #79 using the pipeline 'qa-custom-test'. Goal: verify it works end to end."*
+
+Both attempts got the same honest refusal: *"I couldn't find a tool for this here, so I can't do it from this
+chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this
+deployment's tool setup."* — no fabricated confirm card, consistent with the established honesty pattern.
+
+**But checked the "directly in Redmineflux" claim and found no such path exists.** Searched for a native
+"New Work Package" action in 3 places a human might reasonably look: the global Work Packages list
+(`/crux/work_packages`), the project's own Crux tab, and the ticket's own issue page (`#79`, including its
+"Improve with Crux" wand) — none of them offer any Work-Package-creation control at all. Confirmed against the
+dev reference itself (`CRUX_DEV_FEATURE_REFERENCE_20261105.md` line 136): *"How a Work Package is created: only
+through Ask Crux."* Combined with line 144's *"Not possible from chat, by design:... choosing a custom
+pipeline"* and line 439's *"pick a custom pipeline in chat | Not built,"* this means: **a Work Package can
+only ever be created via chat, and chat can only ever use the 3 built-in pipelines — so no custom pipeline
+created on this page can ever have a real Work Package attached to it, through any path, native or chat.**
+
+This isn't a bug (the dev reference states the limitation plainly, and both refusal attempts were honest, no
+fabrication) but it does mean:
+- **TC-861** (editing a pipeline doesn't retroactively affect an existing WP) is **permanently untestable for
+  any custom pipeline** — not "no fixture built yet," but "no fixture can ever exist," since no WP can ever be
+  created from a custom pipeline. The only way to even approximate this TC would be to test it against editing
+  one of the 3 *built-in* pipelines — except those are read-only (View + Duplicate only, confirmed TC-853), so
+  editing a built-in isn't possible either. **This TC has no reachable precondition in the current product.**
+- **TC-867** (deleting a pipeline with an existing WP is refused) has the same permanent block for the identical
+  reason — confirmed again here with a genuinely real (not hypothetical) custom pipeline and a genuine chat
+  attempt against it, closing the question TC-867's 2026-11-12 note left open ("no such custom pipeline + WP
+  combination was available this pass"). It's now clear no session will ever be able to build one.
+
+Recommend both TCs be reclassified from "Deferred — fixture needed" to **"Blocked — no reachable precondition
+exists in this product version"** and moved to `CRUX_PLATFORM_SCOPE.md`'s Out of Scope section (per CLAUDE.md
+§2c's own rule that a gap like this can't just sit in the Traceability Matrix unaddressed) rather than carried
+forward as if more fixture-building would eventually unblock them.
+
+Cleaned up: removed the `readyforagent` tag from ticket #79 (it will never be claimed — no WP was ever attached
+to it), left the `qa-custom-test` pipeline and ticket #79 in place as a reusable demonstration fixture for
+anyone wanting to re-verify this finding.
+
+## Suite status (updated 2026-11-16)
+
+Pass 3 (2026-11-16): confirmed TC-861 and TC-867 are permanently blocked by product design (no custom pipeline
+can ever have a real Work Package attached, via chat or natively), not merely awaiting a fixture. 0 new bugs —
+this is documented, honest, non-fabricated behavior on both the chat-refusal and native-UI-absence sides.
+Overall: 14 PASS / 3 genuinely-deferred (855, 856, 869 — user-fixture only) / 2 reclassified from
+deferred/partial to permanently-blocked-by-design (861, 867 — no longer counted as PASS-partial) / 0 bugs found.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

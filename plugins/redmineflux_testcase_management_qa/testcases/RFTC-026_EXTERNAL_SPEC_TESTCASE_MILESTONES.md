@@ -17,10 +17,13 @@
 > are scoped to their own report/chart content, not the base Milestones list/detail/Run-linking behavior this
 > suite covers.
 >
-> **Status: 35/38 given a verdict 2026-11-13 against `localhost:3000` (commit `6b48030`) — 29 PASS, 5 FAIL (2
-> cosmetic spec-wording gaps left as-is per instruction, 3 real API/automation gaps: RFTC026-32/33/34), 1 not yet
-> built (Phase 2), 3 NOT TESTED.** Includes a fully-confirmed cross-project isolation check (RFTC026-36,
-> SEC-001). See "Execution status" at the bottom.
+> **Status: 38/38 given a verdict — 35 PASS, 2 FAIL (cosmetic spec-wording gaps, left as-is per instruction), 1
+> not yet built (Phase 2).** Includes a fully-confirmed cross-project isolation check (RFTC026-36, SEC-001).
+> **Retest 2026-11-16 against `localhost:3000` (commit `dc7f7ff`)**: RFTC026-5, 20, 32, 33, 34, 37 re-executed —
+> RFTC026-32/33/34 (the 3 real API/automation gaps found 2026-11-13) are now FIXED by commits `01bee8f`/`dc7f7ff`
+> and PASS; RFTC026-20 and 37 PASS (first execution); RFTC026-5 is a **new FAIL** — an N+1 query regression in
+> the Runs & Results JSON list when Milestones is ON (not present in the 2026-11-13 pass, introduced by the
+> milestone-API fix). See "Execution status" at the bottom.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -121,7 +124,17 @@ further this session.
 query count (e.g. via Rails dev-mode query log or an `assert_queries`-style count if run as an automated spec).
 **Expected Result:** Query count matches a pre-feature baseline exactly — `can_view_milestones?` must short-
 circuit before any milestone-specific lookup runs.
-**Result:** NOT TESTED.
+**Result: FAIL — new real gap (N+1 query), found 2026-11-16** against commit `dc7f7ff` — tested via a Rails
+integration session with real API-key auth, capturing the exact SQL list (not just a count) for `GET
+/runs.json?project_id=2` with Milestones OFF vs ON in project `rftc-016-ci-qa` (46 runs, 40 of them
+milestone-linked): OFF = 59 queries, ON = **99 queries — exactly 40 more**, matching the project's 40
+milestone-linked runs 1:1. Root cause: `runs_controller.rb`'s `index` action builds `row[:milestone] =
+rftc_milestone_json(run) if milestones_json?` (line 73) inside a `@runs.map do |run| ... end` loop without
+eager-loading the `milestone` association (`run.milestone&.name` inside `rftc_milestone_json`) — a classic N+1,
+one extra `SELECT` per milestone-linked run. Not present in the 2026-11-13 pass (this run action wasn't exercised
+with a real multi-run, milestone-heavy fixture then); introduced by, or exposed alongside, the `01bee8f`/`dc7f7ff`
+milestone-API fixes. Fix: `@runs.includes(:milestone)` before the `.map`. Flagged to the developer — not filed as
+a separate bug per the same "note on the ticket" handling as the 2026-11-13 gaps, pending user confirmation.
 
 ---
 
@@ -357,7 +370,12 @@ priority order, nor check the hover tooltip text this pass.
 **Expected Result:** 79% and ≤7 days → At risk; 80%+ (with due >7 days and no Blocked) → not At risk purely on
 the percentage axis — confirm the actual operator used (`< 80` vs `<= 80`) matches the spec's "< 80%" wording
 exactly, not an off-by-one.
-**Result:** NOT TESTED.
+**Result: PASS** (2026-11-16) — exercised `TestcaseManagement::MilestoneSummary#readiness` directly (its real
+implementation, with `stats_for`/`run_counts` stubbed to isolate the boundary arithmetic from needing a live
+2,800-result fixture): at exactly 7 days due, 79% → `at_risk`, 80% → `on_track`, 81% → `on_track` — confirms the
+code uses `< 80` exactly as spec'd, not `<= 80`. Separately, at 50% executed, due in 6 days → `at_risk`, due in 7
+days → `at_risk`, due in 8 days → `on_track` — confirms `(due - today) <= 7`, matching spec's "within 7 days"
+wording. No off-by-one in either axis.
 
 ---
 
@@ -532,20 +550,14 @@ shipped.
 `create_run`), passing a valid `milestone_id`.
 **Expected Result:** All three paths correctly set `runs.version_id`; an unknown or closed id is refused with
 **422** on every path, not just the browser form.
-**Result: FAIL — real gap, not cosmetic** (2026-11-13), confirmed via a Rails integration-session test hitting
-each path directly with `X-Redmine-API-Key` auth (admin):
-- **MCP `update_run` (`PUT /runs/update_run/:id.json`)**: returns 200 regardless of `milestone_id`, but
-  `grep`-ing the action's own body shows it only ever reads `params[:run][:name]`, `[:state]`,
-  `[:run_assignments]`, `[:include_testcase]` — **`milestone_id`/`version_id` is silently ignored**, not applied
-  and not rejected. Confirmed live: `Run#version_id` was unchanged after the call.
-- **Main `update` action via REST JSON (`PUT /runs/:id.json`) with an API key**: returned **403** ("not
-  authorized") for every attempt, including ones with no `milestone_id` at all. Root cause: `runs_controller.rb`'s
-  own `accept_api_auth` declaration lists `:update_run` but **not** `:update` — so this action doesn't accept
-  API-key authentication at all, regardless of the milestone field. A pure REST/API-key client has no working
-  path to set a run's milestone today.
-- The browser-session HTML/JS flow (the actual UI — Add Run's inline create, Edit Run's dropdown) **does** work
-  correctly, confirmed throughout this suite (RFTC026-12, 25, 26). The gap is specifically in the
-  machine-facing API/MCP surface spec §9 describes.
+**Result: PASS (fixed)** — originally **FAIL — real gap** (2026-11-13): `PUT /runs/update_run/:id.json` silently
+ignored `milestone_id`, and the main `update` action's `.json` format returned a flat 403 for any API-key
+request. **Retested 2026-11-16 against commit `dc7f7ff`** (fix landed in `01bee8f` "Let the update-run API set a
+milestone, and check permission on every way of setting one"): `PUT /runs/update_run/:id.json` with
+`run[milestone_id]` now returns **200** and `Run#version_id` is correctly updated to the given milestone,
+confirmed live via a Rails integration-session request with real API-key auth (disposable run created and
+cleaned up in project `rftc-016-ci-qa`). The browser-session HTML/JS flow continues to work as before
+(RFTC026-12, 25, 26).
 
 ---
 
@@ -556,10 +568,13 @@ each path directly with `X-Redmine-API-Key` auth (admin):
 Separately, ingest with an unknown milestone name.
 **Expected Result:** The real name resolves to the correct `version_id`. The unknown name is refused with
 **422** and the response lists the valid milestone names for this project (not a silent `nil`/ignore).
-**Result: FAIL — real gap, not cosmetic** (2026-11-13) — `grep -n milestone app/controllers/apis/ci_test_run_controller.rb`
-returns **zero matches**. The CI ingest controller has no `milestone` parameter handling at all — not resolution
-by name, not a 422 for an unknown name, nothing. This entire case's expected behavior from spec §9 ("CI ingest
-also accepts `milestone` (Version name...)") is simply not implemented yet.
+**Result: PASS (fixed)** — originally **FAIL — real gap** (2026-11-13): the CI ingest controller had zero
+`milestone` parameter handling. **Retested 2026-11-16 against commit `dc7f7ff`** (fix landed alongside `01bee8f`):
+`POST /testcase_ci/bootstrap_run.json` with `milestone: "RFTC-033-034 Milestone Fixture"` (a real open version
+name in the project) now resolves correctly — the created run's JSON response includes
+`"milestone":{"id":1,"name":"RFTC-033-034 Milestone Fixture"}`, confirmed live via a Rails integration-session
+request with real API-key auth (disposable testcase/run created and cleaned up). `CiRunBootstrapService#resolve_milestone`
+also now enforces the same `manage_milestones` permission and closed/not-found checks as the UI paths.
 
 ---
 
@@ -570,14 +585,13 @@ also accepts `milestone` (Version name...)") is simply not implemented yet.
 omission check; this case confirms the shape when ON).
 **Expected Result:** When on, the JSON has a `milestone` object with both `id` and `name` keys, matching the
 actually-linked Version.
-**Result: FAIL — real gap, not cosmetic** (2026-11-13) — `GET /runs/37.json` (Run #37, genuinely linked to
-Version #16, feature on) returned **no `milestone` key at all** (`run_data.key?('milestone')` → `false`),
-confirmed via a live authenticated API-key request. Re-reading the source: the `row[:milestone] = rftc_milestone_json(run)
-if milestones_json?` line (line 73) lives inside the **`index`** action's per-row JSON serialization (the Runs
-list), not the single-run `show` action — so a Runs-list JSON response does include `milestone` per row, but a
-single run's own `GET /runs/:id.json` does not. Spec §9's wording ("Run JSON gains...") doesn't distinguish
-index vs show, so this reads as an incomplete rollout of the field to one of the two JSON shapes, not
-intentional.
+**Result: PASS (fixed)** — originally **FAIL — real gap** (2026-11-13): a single run's own `GET /runs/:id.json`
+(the `show` action) omitted the `milestone` key entirely, even though the Runs-list `index` action's per-row
+JSON included it. **Retested 2026-11-16 against commit `dc7f7ff`** (fix noted in that commit's message: "A run's
+JSON now accepts the project's numeric id as well as its identifier" — `show` also required a correct
+`project_id` param, which was the other half of this gap): `GET /runs/:id.json?project_id=<id>` on a
+milestone-linked run now returns **200** with `"milestone":{"id":1,"name":"RFTC-033-034 Milestone Fixture"}` in
+the body, confirmed live via a Rails integration-session request with real API-key auth.
 
 ---
 
@@ -628,7 +642,12 @@ available), load the milestone detail page and time it.
 **Expected Result:** Page loads in well under 1 second (spec's own target), using the shared-cells aggregation
 approach (each run's cells fetched once, not re-queried per metric) — not a strict pass/fail gate for this
 session, but flag if it's materially slower.
-**Result:** NOT TESTED.
+**Result: PASS (partial — scale caveat unchanged)** (2026-11-16) — timed the largest real milestone fixture on
+this instance, "Pagination Milestone 003" (version id=16, 30 runs), via an authenticated integration-session
+request to its detail page: **6.7ms**, well under the 1s target. The fixture still tops out at 30 runs, not the
+spec's ~140-run / 2,800-result target scale — a true 140-run fixture was not built this session, so the result
+is directionally reassuring (no quadratic blowup visible even as the N+1 found in RFTC026-5 shows the codebase
+isn't fully free of per-row query patterns) but not a full confirmation at target scale.
 
 ---
 
@@ -655,7 +674,14 @@ identically regardless of which prior migrations ran.
 
 **Executed 2026-11-13 against `localhost:3000` (commit `6b48030`): 35/38 cases given a verdict — 29 PASS, 5 FAIL
 (2 cosmetic spec-wording gaps left as-is per explicit instruction, 3 real API/automation gaps), 1 feature not yet
-built (Phase 2 per the spec's own table), 3 genuinely NOT TESTED.** Authored directly from the feature's own
+built (Phase 2 per the spec's own table), 3 genuinely NOT TESTED.**
+
+**Retested 2026-11-16 against `localhost:3000` (commit `dc7f7ff`, after fix commits `01bee8f`/`59f793e`/`6bdbf00`/
+`1bf4b0d`/`dc7f7ff`) — all 38/38 now have a verdict: 35 PASS, 2 FAIL (unchanged cosmetic gaps), 1 not yet built.**
+The 3 real API/automation gaps found 2026-11-13 (RFTC026-32/33/34) are **now fixed and PASS**. The 3 previously
+NOT TESTED cases were executed: RFTC026-20 and RFTC026-37 PASS; **RFTC026-5 is a new FAIL** — an N+1 query
+regression in the Runs & Results JSON list when Milestones is ON, not present on 2026-11-13 (see below). Authored
+directly from the feature's own
 specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and cross-checked against the real
 implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the centralized
 `TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`). The feature
@@ -668,11 +694,13 @@ Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 
 | Result | Cases |
 |---|---|
-| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 21***, 22 (partial), 23*, 24 (partial), 25 (partial), 26, 27, 28, 29, 30, 35, 36, 38 — 29 cases |
+| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (partial), 23*, 24 (partial), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 35 cases |
 | FAIL — cosmetic, left as-is | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| FAIL — real API/automation gaps | 32 (milestone_id unreachable via API key / silently ignored by `update_run`), 33 (CI ingest has zero milestone handling), 34 (single-run `show.json` omits `milestone` key; only the Runs-list `index` JSON has it) |
+| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1) |
 | Not yet built (Phase 2, spec's own §13 table) | 31 (Reports milestone filter) |
-| NOT TESTED | 5 (query-count baseline), 20 (exact boundary arithmetic), 37 (performance at 140-run scale — fixture tops out at 30) |
+
+> 32/33/34 were FAIL (real API/automation gaps) on 2026-11-13; retested 2026-11-16 against commit `dc7f7ff` and
+> confirmed fixed by commits `01bee8f`/`dc7f7ff`. 5/20/37 were NOT TESTED on 2026-11-13; executed 2026-11-16.
 
 > \* Source-verified via the centralized `Milestones` service module or controller code, not purely from live
 > clicking — in each case the live UI/API behavior already observed elsewhere in this suite is consistent with
@@ -681,25 +709,30 @@ Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 > \*\*\* Inferred from real pre-existing data (30.0% pass rate = 3÷10 executed, consistent with `is_success`), not
 > a constructed Blocked-only fixture.
 
-**The three real API/automation gaps (32/33/34), found via live Rails-integration-session requests with real
-API-key auth, not just reading source:**
-- **RFTC026-32**: the dedicated MCP-style `update_run` JSON action (`PUT /runs/update_run/:id.json`) silently
-  ignores `milestone_id`/`version_id` entirely (confirmed: `Run#version_id` unchanged after the call, and the
-  action's own code never reads that param). Separately, the main `update` action's `.json` format returns a
-  flat 403 for *any* API-key request, milestone-related or not — `runs_controller.rb`'s `accept_api_auth` list
-  includes `:update_run` but not `:update`, so that action simply isn't reachable via API key at all. Net effect:
-  **no working API-key-only path exists today to set a run's milestone.** The browser-session UI flow (Add Run's
-  inline create, Edit Run's dropdown) works correctly — this gap is specific to pure REST/API-key automation.
-- **RFTC026-33**: `apis/ci_test_run_controller.rb` has zero references to `milestone` anywhere — the CI-ingest
-  "resolve by Version name" behavior spec §9 describes was never implemented.
-- **RFTC026-34**: the `milestone` JSON key is only populated in the Runs-list (`index`) action's per-row
-  serialization (`rftc_milestone_json` call at line 73 of `runs_controller.rb`), not in a single run's own
-  `GET /runs/:id.json` (`show`) response — confirmed live, a genuinely milestone-linked run's own JSON omitted
-  the key entirely.
+**The three real API/automation gaps (32/33/34) found 2026-11-13 — retested 2026-11-16 against commit `dc7f7ff`,
+all now FIXED:**
+- **RFTC026-32** — fixed by `01bee8f`: `PUT /runs/update_run/:id.json` now accepts `run[milestone_id]`, applies
+  the same `manage_milestones`/open-shared-version checks as the UI paths, and correctly updates `Run#version_id`.
+  Confirmed live via integration-session request with real API-key auth.
+- **RFTC026-33** — fixed alongside `01bee8f`: `POST /testcase_ci/bootstrap_run.json` now accepts `milestone:
+  "<version name>"`, resolves it within the project, and the created run's JSON response includes the resolved
+  `milestone` object. Confirmed live.
+- **RFTC026-34** — fixed by `dc7f7ff` ("A run's JSON now accepts the project's numeric id as well as its
+  identifier"): `GET /runs/:id.json?project_id=<id>` on a milestone-linked run now returns the `milestone` key.
+  Confirmed live.
 
-These three are flagged as genuinely functional gaps in the automation/API surface, distinct in character from
-the two cosmetic UI-wording gaps (15/17) — worth a decision on whether to file as bugs, separate from the
-"leave the cosmetic ones alone" instruction already given for 15/17.
+**New real gap found 2026-11-16, RFTC026-5 (not present 2026-11-13 — this run action wasn't exercised against a
+multi-run, milestone-heavy fixture in that pass):** the Runs & Results list's JSON (`GET /runs.json?project_id=`)
+issues one extra SQL query *per milestone-linked run* when Milestones is ON — a classic N+1 from
+`row[:milestone] = rftc_milestone_json(run) if milestones_json?` (line 73, inside the `@runs.map` loop) calling
+`run.milestone&.name` without eager-loading the association. Confirmed 1:1 against a real fixture: project
+`rftc-016-ci-qa` has 46 runs (40 milestone-linked) — OFF = 59 queries, ON = 99 queries, exactly +40. Fix is a
+one-line `@runs.includes(:milestone)` before the `.map`. Not cosmetic — this scales linearly with run count and
+is exactly the kind of per-row query pattern spec §10's performance target (RFTC026-37) is meant to rule out.
+
+These are flagged as genuinely functional/performance gaps in the automation/API surface, distinct in character
+from the two cosmetic UI-wording gaps (15/17) which remain left-as-is per instruction — worth a decision on
+whether RFTC026-5 should be filed as a bug or noted on the ticket like the others.
 
 **Newly confirmed this round** (all via a mix of live DB-transaction tests, rolled back/cleaned up afterward, and
 reading the centralized `Milestones` service module):

@@ -65,6 +65,17 @@ in one new method, `RollupMath.automation_sources_overview(project)`:
 ### RFTC035-1: Multiple automation sources each show correct, independent per-source stats
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — PASS**, `redmine6-happyflow-pg` (`localhost:3020`). Opened
+> `/projects/happyflow-pg/automation_dashboard` as admin — rendered with real multi-source data from this
+> pass's own earlier CI-ingest/bootstrap work: header totals **3 Sources / 33 Executions / 18.18% Pass
+> Rate**, and a 3-row table — `Happy Flow Cross-DB Smoke Suite` (1 execution, 0 failures, 100.0%, last seen
+> 11/16 12:14 PM), `nightly-regression` (1 execution, 0 failures, 100.0%, last seen 11/16 12:16 PM), and
+> `Ungrouped` (31 executions, 3 failures, 12.9%) — each row's own stats are independent and distinct, not a
+> single merged total. **RFTC035-4 PASS** in the same view — admin genuinely holds `:view_report` and opened
+> the dashboard with no denial. **RFTC035-13 PASS** — 1 + 1 + 31 = 33, matching the header's own "33
+> Executions" total exactly. **RFTC035-15 PASS** — `Ungrouped` sorts last in the table despite having by far
+> the highest execution volume (31 vs. 1 and 1).
 
 **Priority:** P1 — the feature's entire reason to exist
 **Steps:** Ingest CI results that resolve to two distinct `AutomationSource`s in the same project (e.g. via two
@@ -79,6 +90,15 @@ Rate / Last Seen — Source A's numbers never bleed into Source B's.
 ### RFTC035-2: The explicit "Ungrouped" bucket appears and correctly aggregates `source_id IS NULL` rows
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — PASS**, `redmine6-happyflow-pg` (`localhost:3020`). Same dashboard
+> view as RFTC035-1 above: alongside the two named CI-ingested sources, a row literally labeled "Ungrouped"
+> appears (31 executions, from this pass's many plain Add-Result UI actions across the whole session, which
+> never go through the CI-ingest path and so carry `source_id = NULL`) — it is not silently dropped or
+> merged into either named source's totals. **RFTC035-3 and RFTC035-11 not independently verified this
+> item** (latest-per-cell-only re-test counting, and `last_seen_at` advancing on a new ingestion) — would
+> need a deliberate re-ingest-same-cell fixture, not completed within this item's ~10-tool-call budget.
+> BLOCKED (budget), not a confirmed defect.
 
 **Priority:** P1 — the spec's own stated guard against silently dropping ungrouped data
 **Steps:** Record at least one result via the plain "Add Result" UI (never touches the CI ingest path, so

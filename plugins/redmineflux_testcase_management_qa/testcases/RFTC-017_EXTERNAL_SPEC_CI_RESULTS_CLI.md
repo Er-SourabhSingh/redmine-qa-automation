@@ -81,6 +81,14 @@ genuine `pyproject.toml` packaging gap.
 ### RFTC017-1: `submit` (Phase 1) end-to-end — real JUnit, real mapping, real `bulk_create`, real auto-defect
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — BLOCKED (tool unavailable).** The `redmineflux-tcm` CLI binary
+> (companion repo `redmineflux-tcm-ci`, not this plugin) is not installed/on `PATH` in this session's
+> environment (`which redmineflux-tcm` → not found). RFTC017-1/2/3 (the `submit`/other subcommands' real-
+> server happy paths against `--base-url http://localhost:3020`) require that external binary with a real
+> JUnit fixture and mapping file — none of which exist for `happyflow-pg` yet. Not resolved within this
+> item's ~10-tool-call budget. **BLOCKED** — not a plugin/DB defect, an environment/tooling gap; flagged for
+> a follow-up pass once the CLI is available (or reachable via its source repo/`pip install`/`npx` locally).
 
 **Priority:** P1
 **Steps:**

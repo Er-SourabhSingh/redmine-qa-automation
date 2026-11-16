@@ -44,6 +44,20 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 ### RFTC008-F1: Link a single failed execution to an existing defect
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — PASS (via the UI entry point, not the raw REST call).**
+> `redmine6-happyflow-pg` (`localhost:3020`). Already proven earlier this pass and recorded in
+> `TESTCASE_MANAGEMENT_TEST_RUNS.md`'s own "Verification follow-up" block: the run grid's "Defects*" select2
+> field (shown when a Failed/Blocked result is recorded) is a real search-by-numeric-ID lookup, distinct from
+> "Report Defect" — typing defect #12's numeric ID with real keystrokes found and linked it to a Failed
+> execution. Confirmed bidirectional via Redmine's own `IssueRelation` (`relation_type: "defect"`): the run
+> grid shows the defect ID on the testcase row, and issue #12's own "Related issues" panel shows "Defect
+> Testcase #N" back. This is the same single-execution-to-one-defect link RFTC008-F1 describes, exercised via
+> the UI rather than a direct `POST /testcase_status_results/link_defect.json` call — cross-referenced here
+> rather than re-proven a second time. **RFTC008-F2/U3, F7/U8/U9/U10, F10, F11/U6, UI2/UI3 not independently
+> re-verified this item** (bulk-link to the same defect, unlink, cross-run aggregation, the dedicated UI
+> panels) — not completed within this item's ~10-tool-call budget. BLOCKED (budget) for those specific sub-
+> cases, not a confirmed defect.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1

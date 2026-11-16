@@ -75,6 +75,18 @@ any positive integer and only falls back to 4 on blank, non-numeric, or non-posi
 ### RFTC019-1 (P1): A test case with a genuine Pass → Fail → Pass sequence across 3 runs is ranked with flip_count = 2
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — BLOCKED (insufficient distinct-run history within this item's
+> budget).** `redmine6-happyflow-pg` (`localhost:3020`). Checked the server setting first (`Setting.
+> plugin_redmineflux_testcase_management['flaky_min_runs']` = `"4"`, the default). Issue #1 already has real
+> executed history across this pass (Passed/Skipped/Failed all recorded within run #2, plus Passed in run
+> #5) — but Quality HQ's Flaky Tests panel at `/quality_hq?project_id=happyflow-pg` showed **"This metric
+> isn't available yet"**, consistent with the plugin counting flips per distinct **run**, not per status-
+> result row — this issue only has 2 distinct runs with a non-Untested final status (run #2 final=Failed,
+> run #5=Passed), one flip, below the default `min_runs=4` floor. Building a clean 3-distinct-run Pass→Fail→
+> Pass fixture (or lowering `flaky_min_runs` via Settings and re-verifying) was not completed within this
+> item's ~10-tool-call budget. **BLOCKED (budget)** — not a feature defect; flagged for a dedicated
+> follow-up pass.
 
 **Priority:** P1 — the core feature
 **Steps:** Set `flaky_min_runs` to 2 (or use 3+ runs with the default 4). Create 3 runs in chronological order

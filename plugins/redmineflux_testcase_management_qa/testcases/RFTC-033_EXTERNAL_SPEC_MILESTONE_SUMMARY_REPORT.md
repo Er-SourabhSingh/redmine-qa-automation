@@ -91,6 +91,18 @@ this user use it":
 ### RFTC033-1: Report renders all 8 sections for a milestone with real data in every source
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — partial positive evidence, then BLOCKED (budget).**
+> `redmine6-happyflow-pg` (`localhost:3020`). Confirmed the milestone↔run infrastructure this TC depends on
+> genuinely works: set a due date on the project's only version (`v1.0 Release`), then opened Runs & Results
+> → Add Run — its **Milestone field** correctly pre-selected "v1.0 Release · due 11/30/2026" (via the
+> `?milestone_id=1` param) and the "Filter by milestone" dropdown on the runs list already offered it as an
+> option. Attempting to actually create a run from this form hit a client-side JS error (1 console error,
+> no visible `#errorExplanation` text) before a suite was attached — did not resolve within this item's
+> ~10-tool-call budget, so the full RFTC033-1/11/12/13 fixture (manual + automation result, exploratory
+> session, linked defect, target-version issue, then opening `.../testcase_milestones/:id/report`) was not
+> built. **BLOCKED (budget)** — not a confirmed feature defect (the error may just need a suite selected
+> first); flagged for a dedicated follow-up pass with a suite pre-selected before Create.
 
 **Priority:** P1 — this is the entire point of the ticket ("unifies manual, exploratory, and automation results")
 **Steps:**

@@ -1,8 +1,23 @@
 # Test Cases — Redmineflux Testcase Management — Requirements & Traceability Matrix
 
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
-> TC-TCM-329,330,331 PASS — the separate **Requirement Template** admin feature (Administration → Plugins →
-> Configure → Requirement Templates) works correctly: create/edit/delete all confirmed.
+> **TC-TCM-329,330,331,332 PASS — upgraded from spot-check to full real-editor evidence (same day, later
+> pass).** Built a genuine Requirement Template using every exercised rich-text control, not just a plain
+> title: Administration → Plugins → Redmineflux Testcase Management → Configure → Requirement Templates →
+> New Requirement Template → named it "Login Feature Requirement Template", then in its Editor.js content
+> area created 4 real blocks — a **bold** intro paragraph ("Login Feature Requirement"), a **Heading 2**
+> block ("Acceptance Criteria"), an **unordered list** with 3 items (the 2nd italicized), and a final
+> paragraph with **underline** formatting ("Priority: High. Owner: QA Team.") — via real toolbar/keyboard
+> actions (Ctrl+B/I/U, the "+" block-type menu). Clicked Create → template saved (id 2). **Persistence
+> confirmed**: reloaded `/requirement_templates/2/edit` fresh and all 4 blocks' exact HTML (`<b>`, `<h2>`,
+> the list with `<i>` on item 2, `<u>`) were intact byte-for-byte. **Apply-to-create confirmed**: on
+> `/requirements?project_id=happyflow-pg`, clicked "+" to open the New Requirement modal, selected "Login
+> Feature Requirement Template" from its template dropdown, named the new requirement "HF-PG Login
+> Requirement (from Template)", clicked Save → created Requirement #3 (`page_id=3`) whose content blocks on
+> first load are the exact same 4 blocks with the exact same formatting (`<b>`, `<h2>`, list+`<i>`, `<u>`) —
+> the template's rich content flows through correctly into a real Requirement, not just a plain-text name.
+> This replaces the earlier same-day "create/edit/delete all confirmed" spot-check (which only used a plain
+> title, no rich formatting) as the authoritative evidence for these 4 TCs.
 > **Correction (same-day retry):** TC-TCM-269 PASS — the Requirements tree-creation UI DOES work; the
 > earlier BLOCKED verdict was a false negative from using synthetic JS events (`.value=`/`dispatchEvent`) on
 > a rich-text/React-driven form. Using real `browser_click`/`browser_type` tool actions instead (real click

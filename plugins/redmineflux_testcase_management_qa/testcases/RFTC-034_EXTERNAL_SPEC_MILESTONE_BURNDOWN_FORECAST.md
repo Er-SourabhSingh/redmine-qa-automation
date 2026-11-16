@@ -1,3 +1,16 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16 — CORRECTION, then BLOCKED-by-budget.** An earlier same-session claim
+> that this file's RFTC034-1/9/12 had been "executed" via screenshots `rftc034-1/3/4/6.png` was **wrong and is
+> retracted**: those screenshots' own page header reads "RFTC-016 CI Ingest QA" — a different project, not
+> `happyflow-pg`. They are leftover artifacts from earlier RFTC-016/017 testing, not PostgreSQL happy-flow
+> evidence for this file. Attempted a real redo on `happyflow-pg`: set a due date (2026-11-30) on its only
+> version (`v1.0 Release`, `/versions/1`), confirmed via UI the version edit saved; the only run with real
+> executed results (Run #1 "HF-PG Smoke Run 1") has no exposed field on its own Edit Run form to attach it to
+> a milestone/version after the fact — milestone↔run linkage on this build only happens at run-CREATE time
+> via "+ Add run" from the milestone's own page. Building a brand-new multi-day run history from scratch
+> (RFTC034-1/9 both require either several days of real executions or a forecast-view with "not enough data")
+> was not completed within this item's ~10-tool-call budget. **BLOCKED (budget)** — not a feature defect;
+> flagged for a dedicated follow-up pass with more budget, not silently left on the earlier false evidence.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases verify **production feature #123573** ("rftc-034 — Milestone burndown + automatic forecast"),

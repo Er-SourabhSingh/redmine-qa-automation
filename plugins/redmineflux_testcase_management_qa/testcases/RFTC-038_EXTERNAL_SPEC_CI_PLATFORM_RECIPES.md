@@ -1,3 +1,13 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> **RFTC038-6, 11, 14 — PASS**, real executed evidence (not CLI-internal logic): a real end-to-end Jenkins
+> pipeline run (bootstrap → pytest → ingest → auto-defect) genuinely exercised this plugin's own CI-ingest/
+> bootstrap endpoints and wrote real DB rows — a real defect, **#5697**, was created and linked
+> (RFTC038-6). RFTC038-11 (run_id JSON capture via a real live bootstrap call) and RFTC038-14 (unmatched-test
+> exit-0 behavior, confirmed live) are the same category — all three touch the plugin/DB for real, unlike
+> the rest of this file (exit codes, config resolution, secrets hygiene, lint rules) which stays correctly
+> out of scope for this pass. This entry mirrors the finding already recorded in
+> `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md` §4 so it isn't only in the audit doc.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

@@ -17,6 +17,57 @@
 
 ---
 
+## 0. Mandatory prerequisite — fresh install, every time, per engine
+
+**Never run this suite against an instance carrying old data or a partially-migrated schema.** Each of the
+three passes (SQLite / PostgreSQL / MySQL) starts from a clean plugin install on that engine — old data from a
+previous happy-flow run, or from unrelated manual testing, must not be present. This is what actually makes
+the pass trustworthy across engines: a stale schema or leftover rows can hide a migration bug or quietly pass
+on data that was never actually created fresh on that engine.
+
+**Per engine, before executing anything in §1–§6:**
+
+1. **Drop the plugin's entire schema back to zero** (undoes every migration this plugin has ever shipped, not
+   just the latest one):
+   ```
+   bundle exec rake redmine:plugins:migrate NAME=redmineflux_testcase_management VERSION=0 RAILS_ENV=production
+   ```
+   Confirm afterward that none of this plugin's tables remain (e.g. `testsuites`, `run_issues`,
+   `issue_status_results`, `run_issue_assignments`, etc. — check against the engine's own schema-inspection
+   command, e.g. `.tables` in sqlite3, `\dt` in psql, `SHOW TABLES` in mysql).
+2. **Re-run the migration fresh, from zero, on this engine:**
+   ```
+   bundle exec rake redmine:plugins:migrate NAME=redmineflux_testcase_management RAILS_ENV=production
+   ```
+   This must complete with no errors and no manual intervention — this success/failure itself **is**
+   TC-COMPAT-01-01/04-01 (install + migrate + boot cleanly), executed for real, not assumed.
+3. **Confirm the instance boots and the plugin's own pages load** (Administration → Plugins shows it
+   configured; the plugin's sidebar/menu appears in a test project) — this is TC-COMPAT-02/03's own check,
+   also now genuinely exercised rather than skipped.
+4. **Only once 1–3 pass cleanly** does the engine count as ready — proceed to run the full §1–§6 happy-flow
+   list (all ~270 TCs) against this freshly-migrated, zero-data instance.
+5. **Do not reuse data across engines.** Each of the three engines gets its own independent fresh-install +
+   full happy-flow pass — a project/testsuite/run created while testing on PostgreSQL must not be assumed to
+   exist when the SQLite or MySQL pass begins; each pass creates everything it needs from scratch as part of
+   executing the TCs themselves (most of §1's own TCs are "create a ___" actions for exactly this reason).
+6. **Redmine core itself must also be at a plain, default configuration** on each engine's instance — not
+   just the plugin's own tables. In practice this means: a fresh Redmine install (no carried-over
+   `config/configuration.yml` customizations beyond the DB adapter itself), default roles/permissions/
+   workflow untouched, no other plugins pre-installed beyond what this plugin genuinely depends on, and the
+   standard built-in trackers/statuses/priorities left as Redmine ships them. If a given DB engine's instance
+   is a copy of an existing, already-customized Redmine (rather than a brand-new `rails new`-style install),
+   reset Redmine's own settings to default first (`Settings` table) before layering the plugin's fresh
+   migration on top — otherwise a difference in results across engines could be caused by inherited Redmine
+   config drift, not the DB engine itself, and the whole point of this cross-DB pass is to isolate DB-engine
+   as the only variable.
+
+This replaces the old, narrower framing of TC-COMPAT-01-01/02/03 (which only exercised install across
+different **Redmine major versions**, 5.x/6.x/7.x) — for this directive, run that same install+migrate+boot
+check **per DB engine instead**, holding the Redmine major version fixed (use whichever major this QA cycle is
+already standardized on) and varying only SQLite vs. PostgreSQL vs. MySQL as the config change between runs.
+
+---
+
 ## 1. Core CRUD — Test Cases, Suites, Runs, Environments, Overview, To-Do, Configuration, Permissions
 
 Source: `TESTCASE_MANAGEMENT_TEST_CASES.md`, `TESTCASE_MANAGEMENT_TEST_SUITES.md`,
@@ -145,6 +196,11 @@ before running the rest of the suite against it — i.e. COMPAT confirms the plu
 then §1–§5 confirm every feature still behaves identically on it. This reuses the existing COMPAT test design
 rather than inventing a parallel one, just widening its axis from "Redmine major version" to "Redmine major
 version × DB engine."
+
+**This is exactly §0 above, not a separate step** — the "drop to VERSION=0, re-migrate, confirm boots" sequence
+in §0 **is** how TC-COMPAT-01-01/04-01 get executed for real on each engine, and TC-COMPAT-02/03/05 are the
+immediate follow-on checks (icon rendering, menu, layout) once that fresh instance is confirmed up. Do not run
+COMPAT on an instance that still has old data on it — that defeats the entire point of this directive.
 
 ---
 

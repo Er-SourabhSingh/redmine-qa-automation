@@ -310,6 +310,40 @@ stages) and the Dashboard's Outcomes/cost counters incrementing exactly as docum
   the developer's guide) and the "#39 Ready Queue fixture permanently shows claimed" side effect (cosmetic,
   no tool exists to reverse it).
 
+## TC-CRX-1001 — second WP from scratch (bug pipeline), tests the execute-with-approval write-success path — FAIL, found BUG-CRX-190
+
+**Context.** wp-004 is `suggest-only`, so every write-permission check throughout TC-CRX-1000 only ever verified
+the **refusal** half of `post_to_redmine` (3-for-3 correct). To close the gap, built a second Work Package from
+scratch, this time on the default `execute-with-approval` autonomy, to verify the **success** half — a write
+that should actually be allowed and land on the ticket.
+
+**Steps.** Created ticket #78 (fresh, untagged). Tagged it `readyforagent` (confirmed the documented ~15s tag
+propagation lag — a claim attempt immediately after tagging returned "no ready ticket matches," a retry ~20s
+later succeeded). Via Ask Crux chat (Project Manager): *"Create a work package for issue #78 using the bug
+pipeline. Goal: the login button renders correctly on mobile viewports."* — confirm card correctly showed
+`Type: bug`, `Autonomy: execute-with-approval`. Confirmed → **wp-005** created.
+
+As `builder-1` via `redmineflux-local`: claimed #78 at `reproduce` (1/7), reported genuine Reproduce-stage work
+with `post_to_redmine: true` — response: *"Recorded run run-1385... Flux write: posted."* Auto-advanced to
+`root cause` (2/7, no gate). Claimed again, reported a second genuine artifact (this one carrying a unique
+marker string, `UNIQUE-MARKER-RC-78-VERIFY-9f3a2b`, specifically to rule out a caching/propagation false
+negative) with `post_to_redmine: true` again — same **"Flux write: posted."** response. Correctly hit the
+`fix-approve` gate next (confirmed via Crux's own Activity Log: `advance wp=wp-005 to=develop → refused:
+gate=fix-approve requires human approval` — the gate logic itself is correct).
+
+**Result: FAIL.** Checked `GET /issues/78.json?include=journals` after both "posted" writes: `"journals": []`
+— zero notes, zero property changes — and `"updated_on"` frozen at the timestamp from an earlier, unrelated tag
+update, unchanged by either "posted" call. The Redmine UI's Notes and History tabs for #78 show nothing. The
+unique marker text from the second write appears nowhere on the ticket. Crux's own Activity Log independently
+corroborates the internal call was attempted and self-reported success:
+`mcp call tool=redmineflux_core_update_issue duration_ms=29.2 ok=true` (and again, `duration_ms=30.6 ok=true`,
+for the second write) — so this isn't a tool-response fabrication alone; the component Crux itself calls to
+perform the write also claims success while nothing persists. Filed as **BUG-CRX-190** (High) — not yet reported
+to production.
+
+Left ticket #78 / wp-005 in place (still tagged, still sitting at the `fix-approve` gate) as a live reproduction
+fixture for whoever investigates the fix, rather than cleaning it up — same precedent as BUG-CRX-189.
+
 ## Suite status
 
 Pass 1 (2026-11-05): 7 PASS, 1 PASS-partial, 9 deferred, 0 bugs filed.
@@ -318,10 +352,13 @@ Pass 2 (2026-11-12): 6 more PASS (760, 762, 763, 765, 766, 767), 1 partial/defer
 Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`redmineflux-local`, localhost:8082,
   local-only). Full 7-stage autonomous progression (Clarify→Approve→Plan→Approve→Develop→Test→Hidden
   tests→Review→Approve→Deliver) confirmed end-to-end on wp-004 — the first WP this cycle genuinely taken to a
-  counted Outcome delivered. Suggest-only write refusal confirmed 3-for-3 at the API layer. 0 new bugs; two
-  non-defect behaviors documented (Deliver re-claimable until tag removal — by design; #39 fixture permanently
-  shows claimed — cosmetic, no un-claim tool exists); one supporting data point for BUG-CRX-174.
-Overall: 14 PASS / 1 PASS-partial / 2 deferred (758, 764) / 1 partial-deferred (768, now unblockable in principle
-  but still needs a second-project fixture) / 0 bugs.
+  counted Outcome delivered. Suggest-only write refusal confirmed 3-for-3 at the API layer. Two non-defect
+  behaviors documented (Deliver re-claimable until tag removal — by design; #39 fixture permanently shows
+  claimed — cosmetic, no un-claim tool exists); one supporting data point for BUG-CRX-174.
+  TC-CRX-1001 — FAIL. Second WP (wp-005, bug pipeline, execute-with-approval, built from scratch via chat)
+  found **BUG-CRX-190**: `post_to_redmine: true` reports "Flux write: posted" with the internal MCP call logging
+  `ok=true`, but the ticket receives zero actual change, reproduced twice.
+Overall: 15 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764) / 1 partial-deferred (768, now
+  unblockable in principle but still needs a second-project fixture).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,
 2026-11-16); `Crux-Ready-Queue-Work-Package-Demo-Hinglish.webm` (developer-provided demo video, 2026-11-16).

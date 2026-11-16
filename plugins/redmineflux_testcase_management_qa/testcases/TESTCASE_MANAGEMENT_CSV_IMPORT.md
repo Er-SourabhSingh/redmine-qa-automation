@@ -1,5 +1,28 @@
 # Test Cases — Redmineflux Testcase Management — CSV Import (Steps & Expected Results)
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> **Correction (same-day retry):** TC-TCM-021 PASS and TC-TCM-333 PASS — the import wizard DOES work; the
+> earlier BLOCKED verdict had two causes, both on the test side: (1) synthetic `.click()`/`dispatchEvent`
+> calls on the wizard's React-driven Next/Import buttons silently no-op, same root cause as the Requirements
+> UI false-block (see REQUIREMENTS_RTM.md); (2) step 1 also requires actually **selecting** a target suite
+> from its "Import to:" list before Next will really advance, which wasn't done on the first attempt. Using
+> real `browser_click`/`browser_file_upload` tool actions through all 4 steps (upload → select target suite
+> → confirm auto-detected column mapping → confirm value mapping → Import) created "CSV Import Test Case 1"
+> successfully with its Step/Expected data saved exactly as in the CSV. TC-TCM-024,034,336 (50-step, 100-row,
+> every-column CSVs) not re-attempted this round (budget) but should now be reachable the same way.
+>
+> **Import entry-point audit (2026-11-16):** per explicit user request, searched the ENTIRE plugin source
+> (`grep -rl import` across all controllers/views inside the running container, not just UI clicking) for
+> other import features. Result: there is genuinely only **one** CSV import controller in this plugin
+> (`testcase_import_controller.rb`) and **one** view that links to it (`test_suites/index.html.erb`'s
+> Actions dropdown, gated on Redmine's core `import_issues` permission). That link renders identically at
+> the root Test Cases page (`/test_suites?project_id=...`, no suite selected) and inside any specific suite
+> — same single feature, not separate import features. No import option exists on Requirements, Runs &
+> Results, or Reports pages/views (confirmed by both UI inspection and source grep — "import" hits in
+> `runs/*.erb` were false positives from the word "important", and the hit in `testcase_reports/_form.erb`
+> was `Quill.import('delta')`, a JS library call, not a UI feature). Flagging for user/vendor-doc alignment
+> in case a genuinely separate 3rd import feature exists that this grep missed.
+
 > Source: `docs/TESTCASE_MANAGEMENT_CSV_IMPORT_REPORT.md`. Covers the 4-step CSV import wizard (upload → column mapping → value mapping → preview/confirm) for both the legacy single `Steps`/`Expected` column pair and the new numbered `Step N`/`Expected Result N` columns.
 >
 > Evidence for these TCs was gathered in an external session before this suite existed in-repo. Each TC below is marked **CONFIRMED (external session)** rather than the usual live-in-session marker — reproduce locally when convenient to upgrade to a full in-session confirmation. Paste each CSV fixture into `automation/uploads/` using the filename noted in that TC's Evidence line, and bug screenshots into `screenshots/BUG-TCM-00X/` (see `bugs/open/`).

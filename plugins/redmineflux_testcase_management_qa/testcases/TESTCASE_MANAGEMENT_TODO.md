@@ -1,5 +1,12 @@
 # Test Cases — Redmineflux Testcase Management — To-Do & Activity Log
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-205,208,211,212 PASS (To-Do shows assigned open runs, closed run correctly excluded, execution
+> writes an activity entry attributed to the executing user). **Correction (same-day retry):** TC-TCM-206/207 PASS — executing a case updates its state live (Results
+> Summary counts changed from 2→4 Passed as cases were executed), and reassigning via the run grid's real
+> "Reassign" bulk action (select case → Reassign → pick new assignee → Apply) correctly changed the
+> assignee shown on that case (confirmed "QA User" now shows for case #8).
+
 > Source: vendor KB "To-Do Management" and "View activity logs and to-do tracking".
 > **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23, exhaustively
 > re-executed live 2026-10-28 (§27 final-cycle regression, area 3/22).** `git log` on

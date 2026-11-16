@@ -1,3 +1,9 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC009-U1 PASS — real `POST /testcase_ci/bootstrap_run.json` call (API key, no Jenkins needed) with
+> `testcase_selection: "all"` created run #5, auto-created environment "CI", returned
+> `{"status":"success","reused":false,"run":{"id":5,...}}`. RFTC009-U3/U5/U6/U7/Struct1/Struct2/E1 not
+> individually re-executed within this pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

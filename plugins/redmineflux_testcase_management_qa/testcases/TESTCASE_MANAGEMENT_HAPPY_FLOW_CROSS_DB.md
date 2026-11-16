@@ -226,6 +226,19 @@ COMPAT on an instance that still has old data on it — that defeats the entire 
 
 ---
 
+## 7. Release 7.5.0 new features — `TESTCASE_MANAGEMENT_RELEASE_7.5.0_FEATURES.md`
+
+Production Testcase Management plugin Release 7.5.0 (version id=2076) shipped 2 features already developed+
+tested by another tester (Sheetal Sharma, status Done) plus one closely-related feature (#127458, In QA) tracked
+against the same cycle. These didn't have local TC coverage until now — added so the happy-flow pass exercises
+them too, cross-DB, without re-running the original full QA cycle:
+
+- **Results Dashboard tab (#125998):** TC-TCM-367, 368, 369
+- **JPG report — full run details (#125999):** TC-TCM-370, 371
+- **Step/Expected Result multi-line support (#127458):** TC-TCM-372, 373, 374, 375
+
+---
+
 ## Summary counts
 
 | Group | Suites covered | Happy-flow TCs pulled |
@@ -237,7 +250,8 @@ COMPAT on an instance that still has old data on it — that defeats the entire 
 | 4. Milestones/Sessions/Dashboards/QHQ/Assignee (026–045) | 10 files | ~45 |
 | 5. Core V1 release cycle | 1 file (192 cases total) | ~55 |
 | 6. COMPAT (DB/version matrix) | (subset of #5) | 10 |
-| **Total distinct happy-flow TCs** | **32 files read** | **~273** |
+| 7. Release 7.5.0 new features (#125998, #125999, #127458) | 1 file | 9 |
+| **Total distinct happy-flow TCs** | **33 files read** | **~282** |
 
 Two documented gaps (not defects — features not yet built): RFTC026-31 (Reports milestone filter, Phase 2),
 and RFTC-044's flaky-trend section. Every other distinct capability across all 32 suite files has at least one

@@ -1,5 +1,10 @@
 # Test Cases — Redmineflux Testcase Management — Project Overview Dashboard
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-321,322,326,327 PASS (chart loads with live data, dimension selector present, Run ID/Total Defects
+> links correct, View All links correct). TC-TCM-323 BLOCKED — no date-range picker control found on the page
+> within time budget; not confirmed as a bug.
+
 > Source: none — this page has **zero** documentation in `TESTCASE_MANAGEMENT_FEATURES_LIST.md` or
 > `TESTCASE_MANAGEMENT_USER_GUIDE.md` as of 2026-10-23. Authored and executed in the same session, per direct
 > user request after noticing this page (a chart-heavy dashboard with 3 chart dimensions, a date-range picker,

@@ -416,6 +416,17 @@ fixtures from this pass (suites 126–128) were fully deleted by the cascade its
 **Execution summary 2026-10-22:** 12/12 PASS. No new bugs. BUG-TCM-017, BUG-TCM-018, and BUG-TCM-022 all
 re-confirmed genuinely fixed on the current build.
 
+**CROSS-DB (PostgreSQL) — 2026-11-16:** Happy-flow pass on a fresh `redmine6-happyflow-pg` instance
+(`localhost:3020`). TC-TCM-192,193,194,197,198,199,200,201,202 all PASS — suite CRUD, sub-suite nesting to 3
+levels, cascade delete (sub-suites + cases), testcase-count toggle, and parent-grid-includes-descendants all
+confirmed working identically on PostgreSQL. **Correction (re-verified same day):** the "Remove Testcase"
+action initially looked broken on case #4, which never detached from its suite via the real UI confirm button
+(`#confirm-remove`) — but case #4 was already linked to two Runs (HF-PG Smoke Run 1 and HF-PG Exec Run 2).
+Retested with a brand-new case (#14) that had never been added to any Run: it detached cleanly on the first
+try. **This is intentional safeguard behavior, not a bug** — the plugin correctly refuses to remove a test
+case from its suite once that case has execution history in a Run, protecting that history. Confirmed
+identical to the already-known behavior pattern, not an engine-specific regression.
+
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - TC-TCM-199 and TC-TCM-200 are the highest-risk cases — both probe whether deleting a container destroys data
   it should not own.

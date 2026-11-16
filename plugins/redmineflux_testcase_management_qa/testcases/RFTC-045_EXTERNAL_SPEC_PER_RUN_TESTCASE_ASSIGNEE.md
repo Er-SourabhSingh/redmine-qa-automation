@@ -1,3 +1,10 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC045-1/2 PASS — created a second project member ("QA User"), set the per-run assignee on a case to
+> QA User while its global Assignee was unset, confirmed independence; then changed the global Assignee to
+> Redmine Admin and confirmed the per-run assignee stayed QA User. RFTC045-8 PASS — bulk-select checkboxes
+> present in the run grid. RFTC045-9,13,14,15,16,35,39,53,54,56,58,63,64 not individually re-executed within
+> this pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases are designed from **5 production feature tickets** (#123917–#123921), part of the

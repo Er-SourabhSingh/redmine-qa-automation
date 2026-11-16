@@ -1,3 +1,8 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC022-2,3,4,5,6,7 PASS (all six) — compared "HF-PG Smoke Run 1" (base) against "Renamed via API-COMPAT"
+> (run 2, exec run) at `/projects/happyflow-pg/run_comparisons`; all six output categories (New Failure,
+> Newly Fixed, Still Failing, Still Passing, New Tests, No Longer Run) rendered correctly.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

@@ -1,3 +1,8 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC020-1 PASS — created "HF-PG Slow Tests Report" via the Reports → New report flow, Slow Tests type,
+> same mechanism as other report types. RFTC020-2 not individually re-executed within this pass's time
+> budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

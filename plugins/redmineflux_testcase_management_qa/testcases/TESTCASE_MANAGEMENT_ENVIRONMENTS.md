@@ -1,5 +1,10 @@
 # Test Cases — Redmineflux Testcase Management — Environments
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass on fresh `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-038,039,042,043 all PASS — create environment (multi-select Components field required, not obvious
+> from the UI but not a bug), newly-created environments selectable on a new run, edit name persists, delete
+> unused environment works. Identical behavior to other engines.
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 1 and the vendor KB "Environment Management" section.
 > **Status: executed 2026-10-01** against a different, older instance/project (`test-project`/
 > `tcm-permissions-private-test`), same stale-instance pattern already caught in

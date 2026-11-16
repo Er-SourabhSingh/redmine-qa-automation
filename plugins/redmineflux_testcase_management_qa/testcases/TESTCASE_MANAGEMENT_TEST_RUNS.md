@@ -13,6 +13,38 @@
 > sessions (real browser UI + a separately curl-authenticated second user). This suite is now 42/42, zero
 > deferred.**
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass on fresh `redmine6-happyflow-pg` (`localhost:3020`).
+> PASS: TC-TCM-152,153,158,162,165,166,170,171,174,176,178,183,185 (create run all-fields, include-all-cases,
+> close run, state persists, active/closed tabs, name search, Passed/Failed/Retest/Skipped statuses, link
+> existing defect, attach file, notes verbatim, re-execute keeps history, dashboard reflects execution — all
+> identical to other engines). TC-TCM-171's Failed/Blocked initially looked broken but required the
+> **Defects** field (required once Failed/Blocked is picked) — not a bug, confirmed working once a defect was
+> linked (see TC-TCM-174). TC-TCM-160 (delete run) initially looked broken too but was a stale-selector
+> mistake on retry — confirmed working. BLOCKED (not confirmed as bugs, time-budget limited): TC-TCM-154 (no
+> "add second environment" control found on the new-run form), TC-TCM-157 (edit-run modal didn't open
+> reliably), TC-TCM-177 (depends on 154), TC-TCM-179 (Add Result from case-detail page didn't open),
+> **Correction (same-day retry):** TC-TCM-188/189 PASS — bulk update works; the earlier BLOCKED verdict was
+> a false negative from synthetic checkbox clicks not registering with the grid's selection state. Using
+> real checkbox clicks (2 cases selected → "2 Selected" bar appeared with Bulk Update Result/Reassign
+> buttons) → real click on "Bulk Update Result" → real select "Passed" status → real-typed note into the
+> Quill editor → real click Submit: both selected cases (#1, #4) updated to Passed with the note applied in
+> one action. TC-TCM-157 (edit-run modal) and TC-TCM-179 (Add Result from case detail) remain BLOCKED after
+> a second real-click attempt each — both involve a menu/link that Playwright's real-click reports as
+> present but zero-height/not-stably-visible (likely a CSS/animation timing issue in this environment, not
+> confirmed as an app bug). TC-TCM-154/177 (multi-environment run) also remain BLOCKED — no "add
+> environment" control found on the new-run form after a fresh look.
+>
+> **Verification follow-up (2026-11-16, per explicit user request):** re-verified TC-TCM-174 with the REAL
+> search UI this time (earlier pass had injected the option via JS, which worked but wasn't a full UI
+> proof). On case #6's "Add Result" modal with Failed selected, the "Defects*" field (distinct from the
+> separate "Report Defect" link, which creates a brand-NEW defect) is a select2 search-by-numeric-ID box —
+> typing a subject string returns "No results found" but typing the existing bug's numeric ID (`12`, via
+> real `pressSequentially` keystrokes to trigger the AJAX debounce) correctly found and let me select
+> "12 - Pre-existing bug for TC-174 link test". After Submit, confirmed both sides: the run grid shows
+> defect IDs **12 and 17** on case #6, and issue #12's own page shows "Related issues: 1 ... Defect
+> Testcase #6: HF-PG-TC-006..." — the relation is genuinely bidirectional and uses Redmine's own
+> `IssueRelation` (type "Defect"), not a one-way field.
+>
 > **Fourth pass, same day (2026-10-23)**: completed the 5 TCs still outstanding after the third pass —
 > TC-TCM-189 (bulk notes, PASS), TC-TCM-169 (delete test case in active run, PASS — this time with explicit user
 > authorization for the destructive action the harness had denied earlier), and TC-TCM-164/184/186 (watcher/

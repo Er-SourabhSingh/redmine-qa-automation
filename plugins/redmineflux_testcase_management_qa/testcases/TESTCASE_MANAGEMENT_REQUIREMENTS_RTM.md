@@ -1,5 +1,35 @@
 # Test Cases — Redmineflux Testcase Management — Requirements & Traceability Matrix
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-329,330,331 PASS — the separate **Requirement Template** admin feature (Administration → Plugins →
+> Configure → Requirement Templates) works correctly: create/edit/delete all confirmed.
+> **Correction (same-day retry):** TC-TCM-269 PASS — the Requirements tree-creation UI DOES work; the
+> earlier BLOCKED verdict was a false negative from using synthetic JS events (`.value=`/`dispatchEvent`) on
+> a rich-text/React-driven form. Using real `browser_click`/`browser_type` tool actions instead (real click
+> on the "+" icon, real fill into the Title textbox, real click on Save) created Requirement #1 "HF-PG Login
+> Requirement" successfully, and typing into its Editor.js content block + clicking the save icon persisted
+> correctly across a full reload. TC-TCM-271,272,305,306,307,308,310,332 not re-attempted this round (budget)
+> but should now be reachable with the same real-click approach — flagged for a follow-up pass, not BLOCKED
+> on the same false basis anymore.
+>
+> **Verification follow-up (2026-11-16) — RETRACTED, then corrected.** An earlier pass in this session
+> claimed the RTM only reflects the `#`-mention-in-content mechanism (TC-271) and not the Issue Edit form's
+> "Requirements" field (TC-310). **That claim was wrong — a false negative — and is retracted.** Root cause:
+> the "Submit" button ref I clicked was stale/detached after the select2 interaction re-rendered the DOM;
+> the real `<input type="submit">` was a separate element I hadn't clicked, so the form silently never
+> posted, and `requirement_issues` never got a row for that attempt — nothing to do with the RTM itself.
+> Confirmed via direct DB inspection (`SELECT * FROM requirement_issues` in the running container) and the
+> actual controller/view source (`traceability_rtms_controller.rb` + `traceability_rtms_helper.rb`): the RTM
+> reads straight from `RequirementIssue.where(requirement_id: ...)`, the exact same table the Edit form's
+> Requirements field writes to — there is only one data path, not two. Proof: created fresh Requirement #2
+> and fresh Testcase #19, linked them via the Edit form's Requirements field ONLY (no mention anywhere),
+> clicked the real submit input this time, confirmed a new `requirement_issues` row (`requirement_id:2,
+> issue_id:19`) via direct DB query, then confirmed it rendered correctly in `/traceability_rtms` as
+> `#19 : HF-PG-TC-RTM-RETEST: field-link only` under Requirement #2. TC-TCM-310 and TC-TCM-271 are TWO
+> UI ENTRY POINTS into the SAME link, both correctly reflected in the RTM — no architectural distinction,
+> no delay, no filter, no Sidekiq queue involved (checked: `queue:default` was empty throughout). No real
+> app bug here at all — this was entirely my own test-harness error.
+
 > Source: vendor KB "Requirements & Configuration" and "Access traceability matrix".
 > **Status: executed 2026-10-01; re-regressed and extended 2026-10-23** with full editor block-type coverage
 > (all 12 EditorJS tools via the real block-menu, not just the subset exercised by the original BUG-TCM-074

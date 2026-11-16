@@ -6,6 +6,16 @@
 > this cycle). All PASS except TC-TCM-140 (deliberately deferred to `TESTCASE_MANAGEMENT_TODO.md`) and TC-TCM-151
 > (FAIL, filed BUG-TCM-097, upgraded to High). BUG-TCM-021, 022, 024, 025, 026 all reconfirmed genuinely fixed;
 > BUG-TCM-095, 096, 097, 098 found/confirmed this cycle.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass on fresh `redmine6-happyflow-pg` (`localhost:3020`).
+> PASS: TC-TCM-128,129,131,132,133,136,137,142,143,297,299 (create w/ one step, multi-step, no steps, remove
+> step, reorder steps, edit, delete, issue-list tracker filter, summary search, lands-in-open-suite,
+> Add-filter TestSuite option — all identical to other engines). TC-TCM-148 (remove-from-suite) PASS on
+> re-verification — see TEST_SUITES.md cross-DB note: removing a case with run history is intentionally
+> refused (safeguard, not a bug); a fresh never-run case detached cleanly. BLOCKED (not completed within this
+> pass's time budget, not confirmed as bugs): TC-TCM-144/146 (drag-and-drop add-to-suite — jQuery UI
+> draggable not reliably automatable via Playwright MCP), TC-TCM-149/150/298 (bulk-assign/change Requirement
+> — blocked on the separate Requirements-tree creation UI not accepting input, see REQUIREMENTS_RTM.md).
 
 ## Plugin
 - Name: Redmineflux Testcase Management

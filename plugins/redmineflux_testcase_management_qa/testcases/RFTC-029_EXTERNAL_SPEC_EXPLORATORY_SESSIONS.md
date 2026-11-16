@@ -1,3 +1,8 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC029-1 PASS — "Start Session" from the Sessions page works, created "HF-PG Exploratory Session" with a
+> charter successfully (session id 1). RFTC029-2,6,8,15,23,24,25 not individually re-executed within this
+> pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

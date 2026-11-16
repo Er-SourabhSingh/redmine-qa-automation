@@ -1,3 +1,9 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC018-1 PASS — real `POST /testcase_ci/ingest_results.json` with a per-result `source:
+> "nightly-regression"` alongside a different batch-level `source: "batch-source"`: response's `source_name`
+> correctly shows `"nightly-regression"`, confirming the explicit-per-result-wins precedence rule holds
+> identically on PostgreSQL. RFTC018-3,9 not individually re-executed within this pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1
 > CYCLE FILE** ⚠️
 >

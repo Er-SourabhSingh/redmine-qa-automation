@@ -1,3 +1,8 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC044-1 PASS — Quality HQ cross-project dashboard loads with live data for the project; Flaky Tests and
+> Coverage metrics correctly show "This metric isn't available yet." matching the documented gap. RFTC044-
+> 5,9,10,11 not individually re-executed within this pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

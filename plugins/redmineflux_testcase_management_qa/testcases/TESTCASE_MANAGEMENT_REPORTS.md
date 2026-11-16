@@ -1,5 +1,15 @@
 # Test Cases — Redmineflux Testcase Management — Reports, Emailing & Scheduling
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> PASS: TC-TCM-078,079,087,088,089,091,092,093,094 (Testcase Summary + Defect Summary report creation,
+> restrict-to-specific-run, edit, delete, reflects live data, Download HTML/PDF/Excel all present and HTML
+> download confirmed real). Also PASS (follow-up pass same day): TC-TCM-082 (Tester Scorecard), TC-TCM-085 (Overdue Run Summary),
+> TC-TCM-316 (Slow Tests), TC-TCM-317 (Most Failed Tests) — all 4 remaining report types create successfully
+> the same way as Testcase/Defect Summary. BLOCKED (not confirmed as bugs): TC-TCM-080 (Activity Summary with
+> date range — submission didn't visibly create the report, not debugged further within budget), TC-TCM-083
+> (Requirement Coverage — depends on the blocked Requirements feature), TC-TCM-096,098,100,103,107,108,109,110
+> (sort/email/scheduling — not attempted, needs Mailpit/sort-UI investigation).
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >
 > **Status: authored 2026-09-14, fully regressed 2026-10-23.** TC-TCM-098 – 526 carry live evidence from the

@@ -1,5 +1,11 @@
 # Test Cases — Redmineflux Testcase Management — rtc-026: Testcase Milestones (optional)
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC026-1 PASS — enabled `enable_milestones` in plugin config, created a Redmine version ("v1.0 Release"),
+> confirmed it appears on `/projects/happyflow-pg/testcase_milestones` for the Admin role. The remaining
+> RFTC026 TCs (10,12,14,19,22,25,28-30,32-35) were not individually re-executed within this pass's time
+> budget.
+
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases verify **production feature #127767** ("rtc-026 Testcase Milestones (optional): group runs

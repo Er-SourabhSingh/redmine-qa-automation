@@ -1,5 +1,10 @@
 # Test Cases — Redmineflux Testcase Management — Configuration, Notifications & Prerequisites
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-001,002,003,004,006,015 PASS (fresh-install Testcase/Defect/Feature tracker configuration holds,
+> testcase-count toggle, add a Run Type via admin). TC-TCM-008,009,011,012,013 BLOCKED (email-template/
+> notification delivery verification via Mailpit not attempted within time budget — not confirmed as bugs).
+
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
 > **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed
 > this cycle, not just claimed, plus 7 new TCs — TC-TCM-280–286 — added 2026-10-22 to formally cover

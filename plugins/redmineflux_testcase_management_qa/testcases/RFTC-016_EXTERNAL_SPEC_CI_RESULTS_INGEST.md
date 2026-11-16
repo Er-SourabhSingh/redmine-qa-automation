@@ -1,3 +1,10 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> RFTC016-1 PASS — real `POST /testcase_ci/ingest_results.json` against run #5/env "CI": id-match passed
+> result recorded for issue #5, id-match failed result for issue #6 auto-created and linked defect #17.
+> RFTC016-2 (SACRED) PASS — re-ingesting the same failing key returned `defect_reused:true`, same defect
+> #17, `defects.created: []` — idempotency hardening confirmed identical on PostgreSQL. RFTC016-12,13,14,19,
+> 22,24,27,28(a),29,30,31(part 2),41,42 not individually re-executed within this pass's time budget.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

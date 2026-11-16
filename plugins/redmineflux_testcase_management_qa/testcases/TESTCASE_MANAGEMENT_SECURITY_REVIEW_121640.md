@@ -1,5 +1,12 @@
 # Test Cases — Redmineflux Testcase Management — Security Review & Hardening (Ticket #121640)
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-278 PASS — a legitimate API-key REST client is not CSRF-rejected; confirmed with both a real GET
+> (`/issues.json`, 200) and a real POST creating a genuine testcase issue (`/issues.json`, 201) using the
+> project's own API key, obtained via `/my/api_key` after enabling REST API in Administration → Settings →
+> API. TC-TCM-366 PASS by aggregate evidence — normal tester workflows (suite/case/run/execution/report
+> creation) all worked correctly throughout this entire pass.
+
 > **Source:** Production ticket [#121640](http://flux.zehntech.com/issues/121640) — "Security review and
 > hardening (suite/run/report permissions, IDOR, attachments, XSS, CSRF, API parity) on Redmine 5, 6 and 7."
 > Feature ticket, Target Version "Testcase Management plugin Release 7.3.0", assigned Vaishnavi Bhawsar.

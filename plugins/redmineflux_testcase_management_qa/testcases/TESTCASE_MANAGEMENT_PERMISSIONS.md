@@ -1,5 +1,10 @@
 # Test Cases — Redmineflux Testcase Management — Roles & Permissions
 
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
+> TC-TCM-046,052,055,059,062 PASS under the Admin role (create suite/run, close run, execute, view report —
+> all already demonstrated working elsewhere in this pass). Only the Admin role was directly exercised this
+> pass; Manager/QA/Developer-specific role checks were not separately re-run.
+
 > Source: `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md` (Permissions Matrix) and the vendor KB Roles & Permissions
 > section. Covers all 16 plugin permissions across 6 groups.
 >

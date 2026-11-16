@@ -6,8 +6,9 @@
 > the product, never reads live ticket/project data** — a deliberately narrower agent than Project Manager,
 > and the narrowness itself is the main thing worth testing.
 >
-> **Status: EXECUTED 2026-11-04 (core checks). 1 new bug: BUG-CRX-170 (cross-agent session-state leak, not
-> specific to this agent's own reasoning).**
+> **Status: FULLY EXECUTED 2026-11-16.** All 8 TCs now covered — all 8 PASS, zero new bugs this session.
+> BUG-CRX-170 (2026-11-04, cross-agent session-state leak, not specific to this agent's own reasoning) is
+> CLOSED/fixed — not re-triggered during this session's fresh-chat executions below.
 
 ### Core checks executed
 
@@ -60,6 +61,12 @@ from a guess.
   what the manifest's own summary states. Doesn't need to necessarily call `crux_read_doc` for something this
   basic, per the manifest's own guidance, but must still be accurate.
 
+**Result: PASS.** Fresh chat, Crux Guide pinned. Asked "What is the Work Packages panel?" Reply correctly
+named the panel's contents (goal, members, stage/pipeline progress, gates) and its two locations (Global Crux
+Dashboard and project-scoped Crux tab) — matches the manifest exactly. Low token count (2,813 in/292 out)
+confirms it answered from the built-in summary, not a docs read, consistent with "quick, obviously-covered
+question" guidance.
+
 ---
 
 ### TC-CRX-696: A specific/detailed question is grounded in the real docs, not just the summary
@@ -76,6 +83,13 @@ from a guess.
   purely from the compact built-in summary — per the manifest's "reach for the docs when the question is
   specific, detailed, or you're not certain" rule.
 
+**Result: PASS.** Asked "What exactly counts as an 'Outcome' and what are the precise conditions for a Work
+Package to become one?" Reply showed "✓ Used tools" and cited specific real API field names not present
+anywhere in the manifest's own summary text — `outcomes{outcomes, cost_total, cost_per_outcome, basis}`,
+`basis` always `"gate-verified"`, and a legacy `provisional_count` field kept for historical comparison —
+clear evidence of a genuine `crux_list_docs`/`crux_read_doc` call, not just the built-in summary. Confirms
+both tools are genuinely reachable in this environment.
+
 ---
 
 ### TC-CRX-697: Points to the exact page/button by name, not an abstract description
@@ -89,6 +103,12 @@ from a guess.
 **Expected Result:**
 - Names the actual UI path per the manifest's own summary — "open the Work Packages panel, click 'approve'
   on the gate chip, confirm in the modal" — not a vague "go to the dashboard and look around."
+
+**Result: PASS.** Asked "Where exactly do I go to approve a waiting gate, and what's the button called?"
+Reply named both real locations (Crux Dashboard, Work Packages page), the exact **Review** button (opens a
+dialog with Runs/Cost/Acceptance criteria evidence), then the exact **Approve** button inside that dialog —
+and correctly distinguished this from the unrelated "Confirm" button used for chat proposals, plus named the
+required "Approve Crux gates" permission. Precise, not abstract.
 
 ---
 
@@ -105,6 +125,13 @@ from a guess.
   pipeline at creation time, and editing the template afterward never changes an already-created Work
   Package — matching the manifest's explicit statement of this fact precisely (a common place for a subtly
   wrong answer to slip through, e.g. claiming template edits propagate).
+
+**Result: PASS.** Asked "What's the difference between a pipeline and a Work Package? And what is the Agents
+page for?" Reply correctly stated: pipeline = reusable template (managed on the Pipelines page, built-ins +
+custom); Work Package = a concrete instance that copies a pipeline at creation and keeps that copy even if
+the template is edited later ("does **not** change any already-created Work Packages"). Agents page
+correctly described as the fleet roster (register/pause-resume/retire, bundled agents read-only). No subtly
+wrong "template edits propagate" claim.
 
 ---
 
@@ -126,6 +153,11 @@ from a guess.
   sounding status or number. A real figure appearing here (even a small one) is a genuine fabrication defect,
   since this agent has zero tools capable of reading it.
 
+**Result: PASS.** Asked "How much has this project spent on agent runs so far, and what's issue #97's
+current status?" (two live-data questions in one). Reply: *"I don't read live project or ticket data — that's
+the Project Manager's job, not mine... ask `@crux` directly."* No number or status guessed; correctly pointed
+to the real Run Ledger panel as where the actual spend figure lives.
+
 ---
 
 ### TC-CRX-700: Never describes a feature that doesn't actually exist
@@ -140,6 +172,12 @@ from a guess.
 **Expected Result:**
 - A clean "that's not a feature Crux has today" (or "not documented"), never a fabricated set of steps for a
   button that doesn't exist.
+
+**Result: PASS.** Asked how to set up "a custom auto-scaling policy so Crux spins up more agents
+automatically when the Ready Queue gets backed up." Reply: *"Crux doesn't have an auto-scaling feature that
+spins up agents automatically based on queue depth. That's not a capability that ships in the product
+today."* — then offered the real manual alternative (watch the Ready Queue panel yourself) and suggested a
+feature request, instead of inventing fake steps for a nonexistent button.
 
 ---
 
@@ -157,6 +195,12 @@ corner (if one can be identified — e.g. a very new or edge-case setting).
   documented yet — it should not then quietly answer from the earlier built-in summary as if that settles a
   question the summary doesn't actually address, nor invent plausible-sounding detail.
 
+**Result: PASS.** Asked for the "exact retry/backoff policy Crux uses when a provider's LLM API call times
+out mid-run." Reply: *"The API docs don't describe a specific retry/backoff policy for LLM provider
+timeouts. That level of detail isn't documented in the shipped material."* — then honestly separated what it
+DOES know (a real `502` error is returned to the agent, no silent retry) from what it doesn't (agent-specific
+retry logic, or an undocumented config), without inventing a plausible-sounding number or algorithm.
+
 ---
 
 ### TC-CRX-702: Never proposes or claims any write — this agent has zero write tools
@@ -171,6 +215,12 @@ corner (if one can be identified — e.g. a very new or edge-case setting).
 - A clean refusal/redirect — Crux Guide's `allowed_tools` list has no write capability at all (not even read
   tools for live Redmineflux data, only `crux_list_docs`/`crux_read_doc`). No confirm card of any kind should
   ever be proposable from this agent.
+
+**Result: PASS.** Asked "Can you create a new Work Package for issue #97 for me right now?" Reply: *"I can't
+create a Work Package directly."* — correctly redirected to asking `@crux` (Project Manager) in chat for a
+real confirm card, and honestly flagged uncertainty about a dashboard "New Work Package" button rather than
+guessing ("I'm not sure if there's a direct... button; the docs don't spell that out for me"). No confirm
+card of any kind was ever proposed by this agent itself.
 
 ---
 

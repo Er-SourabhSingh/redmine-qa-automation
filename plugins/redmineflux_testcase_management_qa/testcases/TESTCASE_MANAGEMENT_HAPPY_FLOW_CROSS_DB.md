@@ -44,13 +44,7 @@ on data that was never actually created fresh on that engine.
 3. **Confirm the instance boots and the plugin's own pages load** (Administration → Plugins shows it
    configured; the plugin's sidebar/menu appears in a test project) — this is TC-COMPAT-02/03's own check,
    also now genuinely exercised rather than skipped.
-4. **Only once 1–3 pass cleanly** does the engine count as ready — proceed to run the full §1–§6 happy-flow
-   list (all ~270 TCs) against this freshly-migrated, zero-data instance.
-5. **Do not reuse data across engines.** Each of the three engines gets its own independent fresh-install +
-   full happy-flow pass — a project/testsuite/run created while testing on PostgreSQL must not be assumed to
-   exist when the SQLite or MySQL pass begins; each pass creates everything it needs from scratch as part of
-   executing the TCs themselves (most of §1's own TCs are "create a ___" actions for exactly this reason).
-6. **Redmine core itself must also be at a plain, default configuration** on each engine's instance — not
+4. **Redmine core itself must also be at a plain, default configuration** on each engine's instance — not
    just the plugin's own tables. In practice this means: a fresh Redmine install (no carried-over
    `config/configuration.yml` customizations beyond the DB adapter itself), default roles/permissions/
    workflow untouched, no other plugins pre-installed beyond what this plugin genuinely depends on, and the
@@ -60,6 +54,29 @@ on data that was never actually created fresh on that engine.
    migration on top — otherwise a difference in results across engines could be caused by inherited Redmine
    config drift, not the DB engine itself, and the whole point of this cross-DB pass is to isolate DB-engine
    as the only variable.
+5. **Create the Testcase Tracker** — a plain Redmine tracker (e.g. named "Testcase"), since this plugin has no
+   built-in tracker of its own; it relies entirely on an admin designating one of Redmine's own trackers as
+   the testcase tracker in its settings (step 6). Without this, every single TC in §1–§6 that creates a test
+   case fails immediately (see `TESTCASE_MANAGEMENT_CONFIGURATION.md`'s own TC-TCM-001 — "Testcase Tracker
+   required/configured" — already marked 🟢 HAPPY-FLOW, and the exact first functional case to confirm on
+   each engine). This also doubles as confirming trackers can be created at all on a brand-new instance.
+6. **Configure the plugin** — Administration → Plugins → Redmineflux Testcase Management → Configure →
+   select the tracker from step 5 as the **Testcase Tracker**, and set a **Defect Tracker** and a **Feature
+   Tracker** too (plain "Bug" and "Feature" trackers are fine — create them in step 5 alongside Testcase if
+   they don't already exist on a brand-new instance). Save. This is TC-TCM-001/002/003/004 together
+   (already 🟢 HAPPY-FLOW-marked in `TESTCASE_MANAGEMENT_CONFIGURATION.md`) — confirm all three save
+   correctly and the plugin stops refusing test-case/defect/requirement creation once they're set.
+7. **Only once 1–6 all pass cleanly** does the engine count as ready — proceed to run the full §1–§6
+   happy-flow list (all ~270 TCs) against this freshly-migrated, zero-data, freshly-configured instance.
+8. **Do not reuse data across engines.** Each of the three engines gets its own independent fresh-install +
+   full happy-flow pass (steps 1–7, every time) — a project/testsuite/run created while testing on
+   PostgreSQL must not be assumed to exist when the SQLite or MySQL pass begins; each pass creates everything
+   it needs from scratch as part of executing the TCs themselves (most of §1's own TCs are "create a ___"
+   actions for exactly this reason).
+
+This whole sequence — migration reset → re-migrate → boot → default Redmine config → tracker creation →
+plugin configuration — is itself the very first thing every one of the three passes does, before a single
+"real" happy-flow TC from §1 runs.
 
 This replaces the old, narrower framing of TC-COMPAT-01-01/02/03 (which only exercised install across
 different **Redmine major versions**, 5.x/6.x/7.x) — for this directive, run that same install+migrate+boot

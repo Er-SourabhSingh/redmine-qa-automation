@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-197
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128753 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127778 (CRUX_AGENT_ROOT_CAUSE), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Root-Cause Analyst collapses two reporter-offered candidate causes into one invented "race condition" theory instead of ranking them separately
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Root-Cause Analyst agent)

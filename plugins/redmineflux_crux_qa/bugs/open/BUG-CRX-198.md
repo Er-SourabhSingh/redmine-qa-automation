@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-198
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128754 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127781 (CRUX_AGENT_IMPROVER), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Improver's description-update confirm reports "✓ updated" with the new text shown, but the real issue description never changes when the acting user lacks Edit permission — regression of the historical BUG-CRX-009 shape, on a new write path
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Improver agent, `redmineflux_core_update_issue` governed write)

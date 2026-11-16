@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-196
-- Production Redmine Issue ID: <!-- fill after report_defect approved -->
+- Production Redmine Issue ID: #128752 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127778 (CRUX_AGENT_ROOT_CAUSE), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: Root-Cause Analyst declares "high confidence" for a timing-only/cross-issue-inferred cause that the agent's own manifest defines as "medium"
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Root-Cause Analyst agent)

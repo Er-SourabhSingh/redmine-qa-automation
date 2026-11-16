@@ -49,6 +49,13 @@ Fixtures built live in "Crux PM Agent Test Project" (Redmineflux Crux module con
 used for TC-771/772/776/777), #38 (blocker), #39 (blocked ticket, used for TC-778 — found BUG-CRX-174), #40
 (isolation control ticket).
 
+> **Note added 2026-11-16:** during TC-773's follow-up verification (see below), #39 was genuinely claimed by
+> `builder-1` via the now-working local MCP connection (its blocker #38 had since closed, so the claim was
+> correct) and now permanently displays **"Picked up by Builder 1"** instead of "Waiting for an agent" —
+> removing/re-adding its tag does not reset this, and no "un-claim" tool exists. #39's blocker-relation state
+> itself (what TC-778/BUG-CRX-174 actually tests) is unaffected. Full details in
+> `CRUX_PLATFORM_WORK_PACKAGES.md`'s TC-CRX-1000.
+
 - **TC-CRX-771** — PASS. Table columns for #37 populated correctly: Ticket "#37 RQ-FIX-A...", Project "Crux PM
   Agent Test Project", Who picks it up "Any available agent" (no skill-specific tag used), Status "Waiting for
   an agent".

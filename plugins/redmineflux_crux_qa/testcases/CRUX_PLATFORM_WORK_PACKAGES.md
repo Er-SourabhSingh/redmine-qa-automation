@@ -247,6 +247,44 @@ claim-logic defect — useful confirmation for whoever fixes BUG-CRX-174. Releas
 then restored its tag (and #40's, which I'd also had to temporarily untag to skip past both fixtures to reach
 #62 — both tags restored immediately after, no fixture state changed).
 
+**Continued the same session — full pipeline to Deliver.** Repeated the claim → genuine work → report →
+(gate → approve where gated) cycle through every remaining stage:
+- **Develop** (no entry gate) → genuine work reported, `post_to_redmine: false` this time (varying the test) →
+  auto-advanced straight to **Test · step 4 of 7** with no approval needed, confirming the pipeline table's "no
+  lock between Develop and Test" is accurate.
+- **Test** (4/7) → genuine work (3-case read/write parity check) → auto-advanced to **Hidden tests (holdout)
+  · step 5 of 7**.
+- **Holdout** (5/7) → genuine independent re-check reported → auto-advanced to **Review · step 6 of 7**.
+- **Review** (6/7) → genuine summary reported, `post_to_redmine: true` again → **correctly refused a third
+  time** (suggest-only), consistent with the two earlier refusals. Dashboard showed the final
+  **"Approve the release"** gate. Opened Review: the evidence card correctly listed **all 6 runs** (one per
+  stage, Clarify through Review) with real per-run cost ($0.04 total) and every artifact text in full — exact
+  match to the developer's demo video's "Approve gate" dialog. Approved → ticket genuinely moved to
+  **Deliver · step 7 of 7**, with all three approval lines shown: "✓ Requirements approved by admin", "✓ Plan
+  approved by admin", "✓ Release approved by admin".
+- **Deliver** (7/7, entry gate `deploy-approve: approved`) → reported final genuine summary → **Dashboard's
+  "Outcomes delivered" counter incremented from 0 to 1** (`$0.14 per outcome`), confirming the documented rule
+  ("the work package counts as an Outcome delivered on the dashboard" once the final gate is approved).
+
+**Observed, not a bug — Deliver stays re-claimable until a human closes it off.** After the Outcome counted,
+the WP list still showed status "In progress" / "Agent is working on: Deliver", and a further
+`claim_next_work` call claimed #62 again at the same `deliver` stage. Investigated before concluding anything:
+ticket #62's native Redmine status was still `new` (expected — wp-004 is suggest-only, so Crux correctly never
+writes to the ticket itself, confirmed three times above). Per the developer's own user guide §3 Step 5: *"Then
+remove the readyforagent tag, or close the ticket"* — Crux never does this automatically; a human must. Removed
+the `readyforagent` tag from #62 → `claim_next_work` immediately returned *"No work claimed — no ready ticket
+matches this agent"*, confirming this was the documented manual close-off step working exactly as intended, not
+a stuck/orphaned state.
+
+**Side-effect to flag for future sessions:** ticket #39 (the Ready Queue suite's own blocked-ticket fixture,
+re-tagged and re-claimed twice during this session's testing) now permanently shows **"Picked up by Builder 1"**
+in the Ready Queue list instead of its original baseline "Waiting for an agent" — removing and re-adding its tag
+does not reset this (tested explicitly). There is no "un-claim" tool available via MCP. This is cosmetic (the
+fixture's actual blocker-relation state, the thing `CRUX_PLATFORM_READY_QUEUE.md`'s TC-778/BUG-CRX-174 cares
+about, is unaffected), but a future session reading that suite's "Execution — 2026-11-05" fixture notes should
+know #39's Ready Queue display no longer matches that description — it was never un-claimed afterward because
+no mechanism to do so exists.
+
 **Follow-up for a future session (not a defect):** the local `redmineflux-local` connection currently
 authenticates as `admin`, not a dedicated "Builder 1" Redmineflux identity (the guide's §1 step 3 — "Create
 Redmineflux identity" — was never completed locally; `/crux/agents` confirms Builder 1's identity still shows
@@ -254,12 +292,23 @@ Redmineflux identity" — was never completed locally; `/crux/agents` confirms B
 authenticating user), so this doesn't invalidate today's results, but a proper identity should be created
 before relying on this connection for routine automation.
 
-This closes the long-standing "never tested past Clarify" gap for **TC-757, TC-759, TC-760, and TC-768**:
-- TC-757's stage-chain display is now confirmed accurate against a WP that genuinely progressed through it,
-  not just a static read.
-- TC-759/760's creation tests are now followed through to real multi-stage execution.
-- **TC-768** (per-project Approve-permission scoping) is still deferred — today's gate was approved as `admin`,
-  who has Approve everywhere; a second project + a user with Approve in only one of them is still needed.
+This closes the long-standing "never tested past Clarify" gap for **TC-757, TC-759, TC-760, and TC-768**, and
+wp-004 itself is now the first Work Package in this entire QA cycle to be taken genuinely, autonomously, all the
+way from creation to a counted **Outcome delivered** — the full 7-stage software pipeline (Clarify → Approve the
+requirements → Plan → Approve the plan → Develop → Test → Hidden tests → Review → Approve the release → Deliver)
+verified end-to-end, with 3-for-3 correct suggest-only write refusals along the way (Clarify, Plan, Review
+stages) and the Dashboard's Outcomes/cost counters incrementing exactly as documented:
+- TC-757's stage-chain display is now confirmed accurate against a WP that genuinely progressed through all 7
+  stages, not just a static read.
+- TC-759/760's creation tests are now followed through to real multi-stage execution and a real delivered
+  outcome.
+- **TC-768** (per-project Approve-permission scoping) is still deferred — today's gates were all approved as
+  `admin`, who has Approve everywhere; a second project + a user with Approve in only one of them is still
+  needed.
+- No defects found in the autonomous-progression mechanism itself. Two non-defect observations are written up
+  above for future sessions: the "Deliver stays re-claimable until the tag is removed" behavior (by design, per
+  the developer's guide) and the "#39 Ready Queue fixture permanently shows claimed" side effect (cosmetic,
+  no tool exists to reverse it).
 
 ## Suite status
 
@@ -267,8 +316,11 @@ Pass 1 (2026-11-05): 7 PASS, 1 PASS-partial, 9 deferred, 0 bugs filed.
 Pass 2 (2026-11-12): 6 more PASS (760, 762, 763, 765, 766, 767), 1 partial/deferred (768), 2 still deferred
   (758, 764), 1 bonus PASS (§14.3 WP section on issue).
 Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`redmineflux-local`, localhost:8082,
-  local-only). Genuine Clarify→Plan→Develop autonomous progression confirmed end-to-end, twice, with correct
-  suggest-only write refusal at the API layer both times. 0 new bugs; one supporting data point for BUG-CRX-174.
+  local-only). Full 7-stage autonomous progression (Clarify→Approve→Plan→Approve→Develop→Test→Hidden
+  tests→Review→Approve→Deliver) confirmed end-to-end on wp-004 — the first WP this cycle genuinely taken to a
+  counted Outcome delivered. Suggest-only write refusal confirmed 3-for-3 at the API layer. 0 new bugs; two
+  non-defect behaviors documented (Deliver re-claimable until tag removal — by design; #39 fixture permanently
+  shows claimed — cosmetic, no un-claim tool exists); one supporting data point for BUG-CRX-174.
 Overall: 14 PASS / 1 PASS-partial / 2 deferred (758, 764) / 1 partial-deferred (768, now unblockable in principle
   but still needs a second-project fixture) / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,

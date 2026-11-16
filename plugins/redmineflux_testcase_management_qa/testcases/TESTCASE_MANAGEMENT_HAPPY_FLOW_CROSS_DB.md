@@ -161,8 +161,13 @@ scale/timing check of a feature already covered above at normal scale, not a dis
 - **RFTC-033 (Milestone Summary Report):** RFTC033-1, 11, 12, 13
 - **RFTC-034 (Milestone Burndown):** RFTC034-1, 9, 12
 - **RFTC-035 (Automation Dashboard):** RFTC035-1, 2, 3, 4, 11, 13, 15
-- **RFTC-038 (CI Platform Recipes):** out of scope — tests a separate companion repo (CI pipeline recipes),
-  not the plugin/DB itself
+- **RFTC-038 (CI Platform Recipes):** RFTC038-6, 11, 14 — **correction (2026-11-16):** initially marked
+  entirely out of scope, but RFTC038-6 is a real, executed, PASSing end-to-end Jenkins pipeline run (bootstrap
+  → pytest → ingest → auto-defect) that genuinely exercises the plugin's own CI-ingest/bootstrap endpoints and
+  writes real DB rows (a real defect, #5697, was created and linked) — not CLI-internal logic. RFTC038-11
+  (run_id JSON capture via a real live bootstrap call) and RFTC038-14 (unmatched-test exit-0 behavior,
+  confirmed live) are the same category. The rest of this file (exit codes, config resolution, secrets
+  hygiene, lint rules) remains correctly out of scope — only these 3 touch the plugin/DB for real.
 - **RFTC-042 (TCM Testing Harness):** out of scope — dev tooling, not plugin runtime behavior
 - **RFTC-043 (Security Discovery Testing):** out of scope — SAST/DAST/secret-scan tooling by nature
 - **RFTC-044 (Quality HQ):** RFTC044-1, 5, 9, 10, 11 — **Gap:** flaky-trend detection section is still a
@@ -228,10 +233,11 @@ COMPAT on an instance that still has old data on it — that defeats the entire 
 | 1. Core CRUD | 8 files | ~75 |
 | 2. Reports/CSV/RTM | 5 files | ~55 |
 | 3. Automation/CI (008,009,016–022) | 9 files | ~45 |
+| 3b. CI Platform Recipes (RFTC-038, real Jenkins/CLI end-to-end only) | 1 file | 3 |
 | 4. Milestones/Sessions/Dashboards/QHQ/Assignee (026–045) | 10 files | ~45 |
 | 5. Core V1 release cycle | 1 file (192 cases total) | ~55 |
 | 6. COMPAT (DB/version matrix) | (subset of #5) | 10 |
-| **Total distinct happy-flow TCs** | **32 files read** | **~270** |
+| **Total distinct happy-flow TCs** | **32 files read** | **~273** |
 
 Two documented gaps (not defects — features not yet built): RFTC026-31 (Reports milestone filter, Phase 2),
 and RFTC-044's flaky-trend section. Every other distinct capability across all 32 suite files has at least one

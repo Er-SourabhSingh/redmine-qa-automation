@@ -157,6 +157,7 @@ all-unmatched run.
 ---
 
 ### RFTC038-6 (real, not mocked): Full Jenkins pipeline — bootstrap → pytest → ingest → auto-defect, against the real live plugin
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1 — this is the actual client-facing promise of rftc-038: "copy a recipe, get real results in TCM"
 **Steps:**
@@ -284,6 +285,7 @@ All 4 also correctly scope the secret to the one step/job that needs it (lint se
 ---
 
 ### RFTC038-11 (spec Unit 14): PHASE-2 `run_id` is captured from `--output json` + `jq`, never a stdout scrape — confirmed by reading AND by a real live bootstrap call
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** (a) Read the bootstrap step of all 4 `*-full.yml`/`.full.yml` files. (b) Ran a **real** `bootstrap --output json` call from inside the `tcm-ci-jenkins` container against the live `redmine6-redmine-1` plugin (`http://host.docker.internal:3000`, project 2, suite "CI Ingest"), then fed the real stdout through the exact `jq -r .run_id` + non-null guard the recipes use.
@@ -330,6 +332,7 @@ Real run #173 created on the current live instance, same JSON shape the recipes'
 ---
 
 ### RFTC038-14 (spec Functional 5, real live test): An unmatched JUnit test is a warning by default — exit `0`, build stays green
+> 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 
 **Priority:** P1
 **Steps:** `ingest` a hand-crafted JUnit file containing one test name with no automation-key match, against the real live instance, no `--strict`-equivalent flag.

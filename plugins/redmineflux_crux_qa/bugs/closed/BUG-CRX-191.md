@@ -88,3 +88,25 @@ in the "Create a work package for issue #79 usin..." chat history entries.)
   the sentence's own suggested fallback ("directly in Redmineflux") is what's false here, for a capability that
   is genuinely, permanently unavailable everywhere — not a case BUG-CRX-061's repros covered or could have
   covered, since all of them involved a real tool the agent should have called.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Code already at the fixing commit (`redmineflux-crux-core`
+d58a5ce, "CRC-105/106: result notes really reach the ticket; no false 'do it in Redmineflux' (1.4.0)" — commit
+title directly names this bug's fix). Restarted the full stack cleanly (mcp → crux-core → redmine) per explicit
+instruction; confirmed healthy.
+
+Re-ran the exact original repro: confirmed `qa-custom-test` pipeline still exists on `/crux/pipelines`, then
+asked Ask Crux chat: *"Create a work package for issue #79 using the pipeline 'qa-custom-test'. Goal: retest
+BUG-CRX-191 after the developer's fix."*
+
+New reply: *"I need to stop here: updating or deleting an existing Work Package, and picking an existing CUSTOM
+pipeline for a new one, are **not yet supported from chat**. Work Packages can only be created with one of the
+six built-in pipelines: software / bug / document / billing / customer-support / lead-to-deal [full stage
+lists given]. Given the goal is to retest after a fix, bug is the closest match... Would you like me to create a
+Work Package for issue #79 using the bug pipeline instead?"*
+
+The false **"It can be done directly in Redmineflux"** clause is **gone** — replaced with an accurate, specific
+statement that the capability is "not yet supported from chat," plainly naming the real limitation instead of
+pointing at a non-existent native UI path. This satisfies this bug's own Expected-result option (b) exactly.
+**Confirmed FIXED.**

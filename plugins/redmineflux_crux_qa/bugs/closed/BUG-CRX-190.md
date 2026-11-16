@@ -81,3 +81,16 @@ suggest-only — writes are never allowed"`, and no journal/updated_on change oc
   BUG-CRX-018/054/067/082/156/186, but those are all chat-confirm-card-level fabrications; this is a distinct
   mechanism — the server-side `report_complete` → internal `redmineflux_core_update_issue` call path itself
   silently no-ops while logging `ok=true`.
+
+## Retest — 2026-11-16 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Code was already at the fixing commit from the prior retest pass
+this same session (`redmineflux-crux-core` d58a5ce, "CRC-105/106: result notes really reach the ticket; no
+false 'do it in Redmineflux' (1.4.0)" — directly names this bug's fix). Per explicit instruction, restarted the
+full stack again cleanly (mcp → crux-core → redmine) and re-verified health before retesting.
+
+Fresh fixture (ticket #89, wp-008, bug pipeline, execute-with-approval). As `builder-1`: claimed Reproduce,
+reported with `post_to_redmine: true` and a unique marker (`RETEST-BUG-190-MARKER-a1f9c2`) — response "Flux
+write: posted." Native-verified via `GET /issues/89.json?include=journals`: **journal #69 genuinely exists**
+with the exact marker text, `updated_on` genuinely advanced. Repeated for Root cause with a second unique
+marker (`RETEST-BUG-190-MARKER-b7e4d8`) — **journal #70 genuinely exists** too. **Confirmed FIXED, 2-for-2.**

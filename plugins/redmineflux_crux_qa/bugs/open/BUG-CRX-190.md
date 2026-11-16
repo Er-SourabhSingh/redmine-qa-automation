@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-190
-- Production Redmine Issue ID: <!-- not yet reported, pending approval -->
+- Production Redmine Issue ID: #128703 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127935 (CRUX_PLATFORM_WORK_PACKAGES), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: `crux_report_complete`'s `post_to_redmine: true` reports "Flux write: posted" (and the internal MCP log shows `ok=true`) but the Redmine ticket receives zero actual change — no journal entry, no `updated_on` bump
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Work Packages / governed write path, `crux_report_complete`)

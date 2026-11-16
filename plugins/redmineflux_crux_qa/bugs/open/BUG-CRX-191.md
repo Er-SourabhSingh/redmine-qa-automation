@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-CRX-191
-- Production Redmine Issue ID: <!-- not yet reported, pending approval -->
+- Production Redmine Issue ID: #128704 (ztflux, flux.zehntech.com) — linked to Test Run #607 "Crux Run 2", Test Case #127938 (CRUX_PLATFORM_PIPELINES), Environment "Window 11 + Chrome", assigned to Prashant Chaurasia
 - Title: "I couldn't find a tool for this here... It can be done directly in Redmineflux" fallback message claims a native alternative exists for creating a Work Package on a custom pipeline, when no such native path exists anywhere in the product
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent — governed write-refusal fallback text)

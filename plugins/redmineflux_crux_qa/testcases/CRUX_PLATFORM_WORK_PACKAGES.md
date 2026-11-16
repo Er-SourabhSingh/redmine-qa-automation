@@ -341,8 +341,44 @@ for the second write) — so this isn't a tool-response fabrication alone; the c
 perform the write also claims success while nothing persists. Filed as **BUG-CRX-190** (High) — not yet reported
 to production.
 
-Left ticket #78 / wp-005 in place (still tagged, still sitting at the `fix-approve` gate) as a live reproduction
-fixture for whoever investigates the fix, rather than cleaning it up — same precedent as BUG-CRX-189.
+Left ticket #78 / wp-005 in place as a live reproduction fixture for whoever investigates the fix, rather than
+cleaning it up — same precedent as BUG-CRX-189. **Correction (2026-11-16, later same session):** the `fix-approve`
+gate was subsequently approved during this suite's own TC-750/751/753 testing (see `CRUX_PLATFORM_DASHBOARD.md`),
+so wp-005 is no longer sitting at that gate — it has since progressed to `Develop · step 3 of 7`. BUG-CRX-190's
+own evidence (screenshots, Activity Log excerpts) was already fully captured before this, so the bug report
+itself is unaffected; this note is corrected here only so a future session isn't confused by the stale claim.
+
+## TC-CRX-1002 — third pipeline type (document), built from scratch, full 5-stage flow — PASS
+
+**Context.** Software (wp-004) and Bug (wp-005) pipelines were both already verified end-to-end this session.
+Closed the last gap by building a Document-pipeline WP from scratch and taking it all the way to delivery.
+
+**Steps.** Created ticket #80 (fresh), tagged `readyforagent`. Via Ask Crux chat (Project Manager): *"Create a
+work package for issue #80 using the document pipeline. Goal: write an onboarding guide for new Crux agents."*
+— confirm card correctly showed the goal and `Autonomy: execute-with-approval`. Confirmed → **wp-006** created
+(5 stages: clarify → outline → 🔒outline-approve → draft → review → 🔒final-approve → finalize — matches
+`CRUX_PLATFORM_PIPELINES.md` TC-851's documented Document pipeline shape exactly).
+
+As `builder-1` via `redmineflux-local`, drove it through every stage with genuine artifacts each time:
+- **Clarify** (1/5) → **Outline** (2/5, auto-advanced, no gate) → hit **"Approve the outline"** gate. Evidence
+  dialog correctly showed `Acceptance: rubric/checklist + human gate` — a different acceptance-criteria wording
+  than the software/bug pipelines' "holdout tests pass," confirming acceptance text is pipeline-type-aware, not
+  a generic placeholder. Approved → advanced to **Draft**.
+- **Draft** (3/5, entry gate `outline-approve: approved` correctly shown on the claim) → **Review** (4/5,
+  auto-advanced, no gate) → hit the final gate, labeled **"Give final approval"** (a friendlier display label
+  than the pipeline card's own `final-approve` slug — confirms gate labels are humanized per-pipeline, not just
+  the raw stage id). Evidence dialog showed the full chain `outline-approve: approved by admin → final-approve:
+  not yet approved` and all 4 runs' artifacts in order. Approved → advanced to **Finalize**.
+- **Finalize** (5/5, entry gate `final-approve: approved`) → reported final artifact → **Dashboard's "Outcomes
+  delivered" counter incremented from 1 to 2** (`$19.04 per outcome`, i.e. the running total divided by 2 now).
+
+**Result: PASS.** All 3 Work Package pipeline types (Software, Bug, Document) are now confirmed to work
+end-to-end this session, each built fresh via chat and driven to a real delivered Outcome — not just read from
+pre-existing fixtures. 0 new bugs on this pipeline's own mechanics (the only Document-adjacent defect this
+session, BUG-CRX-191, is about the *custom*-pipeline creation path, not this built-in one).
+
+Cleaned up: removed `readyforagent` from #80 (delivered, won't be re-claimed); restored tags on #40/#56/#78
+that were temporarily removed mid-session to route the queue past them while reaching #80.
 
 ## Suite status
 
@@ -358,7 +394,10 @@ Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`re
   TC-CRX-1001 — FAIL. Second WP (wp-005, bug pipeline, execute-with-approval, built from scratch via chat)
   found **BUG-CRX-190**: `post_to_redmine: true` reports "Flux write: posted" with the internal MCP call logging
   `ok=true`, but the ticket receives zero actual change, reproduced twice.
-Overall: 15 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764) / 1 partial-deferred (768, now
+  TC-CRX-1002 — PASS. Third WP (wp-006, document pipeline, built from scratch via chat) driven through all 5
+  stages to a second counted Outcome delivered. All 3 pipeline types (Software/Bug/Document) now confirmed
+  end-to-end this session.
+Overall: 16 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764) / 1 partial-deferred (768, now
   unblockable in principle but still needs a second-project fixture).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,
 2026-11-16); `Crux-Ready-Queue-Work-Package-Demo-Hinglish.webm` (developer-provided demo video, 2026-11-16).

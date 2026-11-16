@@ -185,10 +185,30 @@ each frozen/unfrozen/re-frozen in turn and cleaned up after every check — zero
 deferred (929, 930, 931 — all blocked on the same local agent-claim/gate-state limitation). Overall: 14 PASS /
 1 bug (183) / 3 deferred (929-931) / 0 TCs now fully unaddressed. Environment left clean (zero frozen rules).**
 
+## Execution — 2026-11-16 (TC-929 unblocked — local MCP connection established)
+
+The local-agent-claim blocker cited above is now fixed (`redmineflux-local`, see `CRUX_PLATFORM_WORK_PACKAGES.md`
+TC-CRX-1000).
+
+- **TC-CRX-929** — PASS, fully confirmed. Froze only the `priority` field on ticket #40 (leaving everything else
+  on the ticket unfrozen). As `builder-1`, called `redmineflux_crux_claim_next_work` — claimed #40 normally, no
+  refusal. Called `redmineflux_crux_report_complete` with a genuine result note (not touching priority) — also
+  succeeded normally (`run-1387`, no frozen-rule refusal of any kind). Confirms a frozen field blocks only
+  writes to that specific field, not the ticket's claim/result-note mechanism generally. Rule removed after
+  confirming.
+- **TC-CRX-930 / TC-CRX-931** — still DEFERRED. TC-930 needs a Work Package actually running at `autonomous`
+  autonomy (none exist yet — all current WPs are `execute-with-approval` or `suggest-only`); TC-931 needs a WP
+  with every gate already approved, then a frozen field tested against a *further* write attempt on it (wp-004,
+  now fully delivered, is the first candidate for this once a fresh frozen rule is set up against its ticket
+  #62 and a further write attempted). Both are one more deliberate fixture away, not blocked by the old root
+  cause anymore — just not attempted this pass.
+
 ## Suite status
 
 Pass 1 (2026-11-05): 7 PASS, 11 deferred, 0 bugs found.
 Pass 2 (2026-11-12): 7 more PASS, 1 bug found (BUG-CRX-183), 3 still deferred (929-931, local claim/gate
   blocker — tracked against the same root cause as CRUX_PLATFORM_WORK_PACKAGES.md's TC-768).
-Overall: 14 PASS / 1 bug / 3 deferred. Environment clean.
+Pass 3 (2026-11-16): root cause fixed. 1 more PASS (929). 930/931 still deferred, now just need one more
+  deliberate fixture each (an autonomous-level WP; a fully-gated WP's ticket), not blocked by infrastructure.
+Overall: 15 PASS / 1 bug / 2 deferred (930, 931). Environment clean (zero frozen rules).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.

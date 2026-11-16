@@ -167,6 +167,32 @@ individually isolated as their own checks.
 - **TC-CRX-716 / TC-CRX-719** — still NOT INDEPENDENTLY VERIFIED this pass, same reason (both need a WP at an
   approval gate — 716 for per-project scoping, 719 for the admin-bypass check).
 
+## Execution — 2026-11-16 (root cause fixed — local MCP connection established)
+
+The blocker cited above (local-MCP/production mismatch) is now resolved — see `CRUX_PLATFORM_WORK_PACKAGES.md`'s
+TC-CRX-1000. Used the new `redmineflux-local` connection to genuinely drive a Work Package to a gate, then
+re-attempted TC-713 and TC-719.
+
+- **TC-CRX-713** — PASS, with an important clarification to the TC's own wording. First tried literally "only
+  Approve Crux gates granted" (unchecked View Crux dashboard on `daisy.skye`'s test role) — this 403'd on
+  **every** Crux page, including the Dashboard itself, so there was no way to even reach a Review button. Cross-
+  checked against the dev reference (`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.1): *"View Crux dashboard...
+  All Crux pages... Without it you get a 403"* and *"Approve Crux gates... The Review/Approve buttons on
+  gates"* — the Review/Approve UI only ever lives inside View-Crux-dashboard-gated pages, so "Approve Crux
+  gates alone" is a scenario the product's own documented permission model makes impossible, not a product bug.
+  Granted `daisy.skye` **View Crux dashboard + Approve Crux gates** together (the realistic combination) and
+  retested: the Dashboard's "Needs your attention" card showed **"Approve the fix" + a working "Review" button**
+  (not "Waiting for an approver"), and opening the Gate approval modal showed a genuinely clickable (non-
+  disabled) **Approve** button. Recommend the TC's precondition wording be updated to "View Crux dashboard +
+  Approve Crux gates" to match the product's own documented model.
+- **TC-CRX-719** — PASS, confirmed by this session's own prior history as much as by a fresh check: `admin` has
+  approved multiple gates throughout this session (wp-004 x3, wp-005 x1) despite never having been explicitly
+  granted any of the 5 Crux permissions via a role — admin bypasses the permission check entirely, exactly as
+  the dev reference states ("Admins always have it").
+- **TC-CRX-716** — still NOT INDEPENDENTLY VERIFIED. A gate alone isn't sufficient for this one — it specifically
+  needs a two-project Work Package fixture (tickets split across Project A/B) with a non-admin user holding
+  Approve in only one. Deferred, same shared-fixture need as `CRUX_PLATFORM_WORK_PACKAGES.md`'s TC-768.
+
 **Pass 2 result: 1 more PASS (712), 0 bugs found. 713/716/719 remain blocked on the gate-state root cause,
 not time/effort.**
 
@@ -175,5 +201,8 @@ not time/effort.**
 Pass 1 (2026-11-05): 9 PASS, 3 partial, 4 deferred, 0 bugs found.
 Pass 2 (2026-11-12): 1 more PASS (712); 713/716/719 still deferred (gate-state blocker, tracked against the
   same root cause as Work Packages TC-768).
-Overall: 10 PASS / 3 partial / 3 deferred (713, 716, 719) / 0 bugs.
+Pass 3 (2026-11-16): gate-state root cause fixed (local MCP connection). 2 more PASS (713, 719) — 713 PASS with
+  a clarified precondition (needs View Crux dashboard + Approve Crux gates together, per the dev reference's own
+  documented model, not "Approve Crux gates" alone). 716 still deferred, needs a two-project fixture.
+Overall: 12 PASS / 3 partial / 1 deferred (716) / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0.

@@ -165,7 +165,51 @@ and 739/743/745 as partial-but-real-data-confirmed), 1 FAIL/bug filed (BUG-CRX-1
 verified this pass (731-733, 740-741, 750-753) due to missing waiting-gate/failed-run/8+-WP fixtures not present
 in this environment's current state. No other new bugs found.**
 
+## Execution — 2026-11-16 (deferred-TC follow-up, now that a local MCP connection exists)
+
+With `redmineflux-local` now able to drive genuine agent runs and gates, unblocked the fixtures these TCs
+needed: deliberately reported a `failed` run (TC-732), pushed 2 more Work Packages (wp-002 ticket #40, wp-003
+ticket #56) to their own "Approve the fix" gates alongside wp-005's existing one (TC-733), and exercised the
+Gate Approval modal directly (TC-750/751/753).
+
+- **TC-CRX-732** — PASS. Deliberately reported run-1388 with `outcome="failed: TC-CRX-732 QA fixture..."` —
+  "Needs your attention" correctly listed it with a working "Open" link to the Run ledger. Confirmed the
+  negative half too: no successful run appears in this list (checked the full card content — only the failed
+  run and pre-existing `not-applicable` QA-skip runs show; a known-successful run from the same session is
+  absent).
+- **TC-CRX-733** — PASS, fully confirmed. Pushed 3 Work Packages to simultaneous "Approve the fix" gates
+  (wp-005/#78, wp-002/#56, wp-003/#40) plus 2 non-success runs = 6 qualifying items. Card showed exactly 5
+  (3 gates + 2 runs) and a **"+1 more"** paragraph for the 6th — cap confirmed working to the exact item.
+- **TC-CRX-750** — PASS. Clicked Approve on wp-005's "Approve the fix" gate, immediately attempted a second
+  click — the modal had already closed/transitioned by the time the second click could register (the approval
+  completed before a second submission was even possible). Verified via Crux's own Activity Log: exactly one
+  `approve wp=wp-005 gate=fix-approve by=admin → ok` line and one `POST /api/gate` call — no duplicate approval
+  recorded. Stronger than a simple disabled-button guard — the UI transitions away entirely on success.
+- **TC-CRX-751** — PASS, fully confirmed (via this session's own gate approvals on wp-004 and wp-005 — see
+  `CRUX_PLATFORM_WORK_PACKAGES.md` TC-CRX-1000/1001). Every "Approve gate" dialog this session showed the real
+  run list (agent/model/tokens/cost/outcome), a cost total, the full artifact text, the acceptance line, and the
+  approval chain so far (e.g. "requirements-approve: approved by admin → plan-approve: not yet approved") —
+  never a generic placeholder.
+- **TC-CRX-752** — NOT ATTEMPTED. Testing this requires crafting a direct API request to a later gate id ahead
+  of the current one, which the session's own tool-permission guardrails correctly treat as a security-bypass
+  attempt and refused to execute (classifier: "Undermining Oversight"). Left deferred — would need explicit
+  user sign-off before attempting a crafted out-of-order gate-approval request.
+- **TC-CRX-753** — PASS (attribution half fully confirmed; idempotency half confirmed structurally, not via a
+  literal refused-retry). Approved wp-005's gate as `admin`; the Work Package page's gate-chip tooltip reads
+  exactly **"Approve the fix: approved by admin"** — real attribution, not a generic label. Idempotency: once
+  approved, the gate's Review/Approve UI disappears entirely (the WP moves to the next stage) — there is no
+  remaining UI path to attempt a second approval of the same gate, which structurally prevents a duplicate
+  rather than merely rejecting one; a literal "attempt the same approval twice" probe would need the same kind
+  of crafted direct API call TC-752 needed, not attempted for the same reason.
+
+Still deferred (need a non-admin approver/non-approver contrast, which needs the shared fixture noted in
+`CRUX_PLATFORM_WORK_PACKAGES.md`'s TC-768 discussion): **TC-731, TC-740** (approver vs non-approver visibility),
+**TC-741** (8+ WP cap / Done-N-delivered fold — now have 5 active WPs, still short of 8), **TC-752** (gate
+skip-ahead, needs explicit sign-off for a crafted request).
+
 ## Suite status
 
-Executed 2026-11-05 — 15 PASS, 1 bug found (BUG-CRX-179), 11 deferred.
+Pass 1 (2026-11-05) — 15 PASS, 1 bug found (BUG-CRX-179), 11 deferred.
+Pass 2 (2026-11-16) — 5 more PASS (732, 733, 750, 751, 753), 1 not attempted pending sign-off (752).
+Overall: 20 PASS / 1 FAIL (BUG-CRX-179) / 5 deferred (731, 740, 741, 752, and the still-partial 739/743/745).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1.

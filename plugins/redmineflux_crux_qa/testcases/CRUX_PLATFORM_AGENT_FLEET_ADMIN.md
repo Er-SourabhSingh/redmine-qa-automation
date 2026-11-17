@@ -243,3 +243,35 @@ Overall: 23 PASS / 2 Critical bugs found (1 fixed, 1 open) / 13 deferred (828, 8
   partial, 849 partial — all genuinely need fixtures not yet built: AI Agent role precondition, queue-claim
   scale, a paired agent, a real file-upload repro, spend cross-referencing, live plugin-install).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.
+
+## Execution — 2026-11-17: TC-828/839/845 unblocked via a genuine identity fixture
+
+The missing "AI Agent" role precondition that blocked TC-828 was closed while unblocking
+`CRUX_PLATFORM_READY_QUEUE.md`'s TC-775 — created the role natively, then used "Create Redmineflux identity"
+on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine user `builder-1` (id=29) created.
+
+- **TC-CRX-828 — PASS.** The full flow's own result conditions all confirmed: the List-view roster row now
+  shows a **"Redmineflux: builder-1"** chip under the agent name (tooltip: *"Paired to Redmineflux user id
+  29 — mentionable, assignable, a real project member"*); the Agent Profile dialog's "Redmineflux identity"
+  field shows the same pairing. (The sub-case of an @-mention reply posting as the real `builder-1` user
+  specifically, rather than a service account, was not additionally re-exercised this pass — Builder 1 is a
+  Worker-type agent reached via the Ready Queue claim mechanism, not Ask Crux @-mentions, so this sub-case
+  doesn't actually apply to this agent type; flagged for a future pass against a chat-reachable custom agent
+  if that distinction matters.)
+- **TC-CRX-839 — PASS.** With Builder 1 now paired, re-opened its "More actions" (⋯) menu: **"Create
+  Redmineflux identity" is no longer offered at all** — the menu shows only Details/Pause/Edit/Retire. The
+  option is hidden entirely once paired, not merely refused on a second submit attempt — a stricter, cleaner
+  enforcement than the TC's own "refused or hidden" either/or wording required.
+- **TC-CRX-845 — PASS (folded in from TC-835's own 2026-11-05 repro, not separately re-tested).** TC-835's
+  submission of Id `"Invalid ID!"` (uppercase letters + a space + a special character, all three invalid
+  classes at once) already produced the exact documented rule message: *"⚠ Use lowercase letters, numbers
+  and dashes for the agent ID, for example support-helper."* — satisfying TC-845's own three invalid-class
+  checks in one shot. No separate re-test needed.
+
+## Suite status (updated 2026-11-17)
+
+Pass 4 (2026-11-17): 3 more PASS (828, 839, 845 — via the Builder 1 Redmineflux-identity fixture).
+Overall: 26 PASS / 2 Critical bugs found (1 fixed, 1 open) / 10 still deferred (833, 834, 843, 846-847
+  partial, 849 partial — queue-claim-scale, a real file-upload repro, spend cross-referencing, and
+  live plugin-install remain the only unclosed fixture gaps in this suite).
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

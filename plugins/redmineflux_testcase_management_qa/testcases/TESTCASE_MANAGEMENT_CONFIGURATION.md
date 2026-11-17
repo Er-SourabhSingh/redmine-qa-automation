@@ -2,8 +2,34 @@
 
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > TC-TCM-001,002,003,004,006,015 PASS (fresh-install Testcase/Defect/Feature tracker configuration holds,
-> testcase-count toggle, add a Run Type via admin). TC-TCM-008,009,011,012,013 BLOCKED (email-template/
-> notification delivery verification via Mailpit not attempted within time budget — not confirmed as bugs).
+> testcase-count toggle, add a Run Type via admin).
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict retracted for 011/013; real gap found for 012.**
+> Root cause of the earlier BLOCKED status: `Setting.notified_events` on this fresh instance only had
+> Redmine's own defaults (`issue_added`, `issue_updated`) — the plugin's own `run_added`/`run_updated`/
+> `testcase_result_added` events (registered via `Redmine::Notifiable.new`, confirmed in
+> `lib/testcase_management/patches/notifiable_patch.rb`) were never enabled, a one-time fresh-install config
+> step, not a plugin defect. Enabled them (`Setting.notified_events |= %w[run_added run_updated
+> testcase_result_added]`), confirmed `qauser`'s mail preference (`only_assigned`) matched being the test
+> fixtures' assignee, then re-tested for real via Mailpit (`localhost:8027`):
+> - **TC-TCM-011 (Run Added) — PASS.** Creating a run via the JSON API with `assignee_id=5` (qauser) produced
+>   a real delivered email: `"Run #15 Added"` to `qauser@example.com`, correct state/environment/assignee.
+> - **TC-TCM-013 (Test Case Result Added) — PASS, no duplicate.** Recording a Passed result produced exactly
+>   **1** email (`"Test Case Result Added: HF-PG-TC-001..."`) — BUG-TCM-013 (the original "arrives twice"
+>   defect) stays fixed, confirmed again on PostgreSQL.
+> - **TC-TCM-012 (Run Updated) — genuine gap found, not yet filed.** Renaming run #15 via the JSON API
+>   (`PUT /runs/update_run/:id.json`, the only route this action exposes) succeeded (HTTP 200, name changed)
+>   but produced **zero** email. Root-caused by reading `app/models/run.rb`: `send_notification_on_update`
+>   (which would call `RunMailer.run_updated`) is defined but **never registered as a callback** — only
+>   `after_update :track_activity_on_update` is wired; the method is dead code. The web UI's separate `update`
+>   action (`runs_controller.rb:628`) calls `RunMailer.run_updated(...)` explicitly and does send the email
+>   (matching this plugin's own prior TC-TCM-012/BUG-TCM-088 history) — so this is specifically an **API-path
+>   gap**: `update_run` (the JSON API's rename/reassign path) never notifies watchers of a change, unlike the
+>   equivalent web UI edit. Not yet filed as a bug pending a decision on severity/whether any real API consumer
+>   relies on this notification firing.
+> - **TC-TCM-008/009 (email template CRUD)** — mechanism unblocked by the same `notified_events` fix (template
+>   rendering reads the same mailer code path), but template-specific CRUD itself not independently re-tested
+>   this pass; carried forward as a minor remaining gap, not re-BLOCKED.
 
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
 > **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed

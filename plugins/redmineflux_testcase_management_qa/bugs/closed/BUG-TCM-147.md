@@ -74,6 +74,10 @@ in between); reopened the Run on the renamed tab — TC #320 still showed "Daisy
 Confirmed at DB level: the `RunIssueAssignment` row moved to the new environment name (`[197, "Edge-Retest-Fix", 6]`),
 no orphaned row left under the old "Edge" name.
 
+![Step 1 — Edge-tab assignee set to Daisy Skye on TC #320](../../screenshots/BUG-TCM-147/recheck-step1-assignee-set-daisy-edge.png)
+![Step 2 — Environment renamed Edge → Edge-Retest-Fix via Environment Settings](../../screenshots/BUG-TCM-147/recheck-step2-environment-renamed.png)
+![Step 3 — assignee correctly carried over to the renamed tab, not reverted](../../screenshots/BUG-TCM-147/recheck-step3-assignee-reverted-after-rename.png)
+
 Production issue #128396 updated: status In QA → Done, % done → 100.
 
 ### Console / log

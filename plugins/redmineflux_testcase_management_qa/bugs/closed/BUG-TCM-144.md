@@ -61,6 +61,8 @@ overhead), the overlay's `scrollHeight` (843) genuinely exceeds `clientHeight` (
 Create button fully within the viewport (`top: 575, bottom: 615`, both inside `innerHeight: 636`).
 
 ![Retest result — Add Defect fits fully at 1920x1080, Create/Cancel both visible](../../screenshots/BUG-TCM-144/retest-2026-11-13-pass.png)
+![Retest — constrained 1920x700 viewport, scroll reveals Create/Cancel fully within view](../../screenshots/BUG-TCM-144/retest-2026-11-13-short-viewport.png)
+![Retest — scrolled state confirming the buttons are reachable](../../screenshots/BUG-TCM-144/retest-2026-11-13-scrolled-to-buttons.png)
 
 Production issue #128386 updated: status In QA → Done, % done → 100.
 

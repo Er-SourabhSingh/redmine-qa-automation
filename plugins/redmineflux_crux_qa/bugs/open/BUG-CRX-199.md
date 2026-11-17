@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-199
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128837 (reported 2026-11-17, linked to Test Case #127938 / Run #607 / Environment "Window 11 + Chrome", marked Failed, assigned to Prashant Chaurasia)
 - Title: Work Package confirm fails with "Ticket #N isn't visible to you" for a ticket the confirming user can clearly see and owns
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

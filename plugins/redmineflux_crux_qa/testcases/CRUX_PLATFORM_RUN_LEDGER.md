@@ -120,13 +120,26 @@ fixture needed" to **"blocked — no reachable precondition without a second rea
 the same honest-reclassification pattern used for TC-861/867 in the Pipelines suite. Not a product defect —
 the honesty mechanism itself (never showing a fabricated cost) was directly confirmed correct in the source.
 
+## Execution — 2026-11-17 (continued): TC-787's @-mention/Improve-wand sub-case unblocked
+
+- **TC-CRX-787 — fully PASS.** Added a real `@crux status` comment on ticket #120 (Crux PM Agent Test
+  Project) — got a genuine reply after reload (*"— Project Manager · run-1517"*). Separately used the
+  issue's "Improve with Crux" wand → "Improve the description," got a real suggestion card (Cancelled
+  without applying, since only the run record mattered). Checked `/crux/runs`: both produced their own
+  distinct rows with distinct shapes —
+  - `run-1517`: Agent "Project Manager," What it did "Answered about #120," Note *"ask-crux turn via
+    project-manager · #120"* (the issue number genuinely threaded into the note) — the @-mention reply.
+  - `run-1518`: Agent **"Improver"** (a distinct agent identity from Project Manager), What it did "Answered
+    in Ask Crux," Note *"ask-crux turn via improver"* — the Improve-wand suggestion.
+  Confirms every interaction type genuinely produces its own run with a distinctly-shaped Note field, not a
+  generic placeholder — the specific sub-case this TC's 2026-11-05/11-12 passes left unexercised.
+
 ## Suite status (updated 2026-11-17)
 
 Pass 2 (2026-11-17): root-caused and reclassified TC-788/789 as genuinely blocked (missing a second LLM
 provider credential, not a fixture gap this QA environment can close) rather than carried forward as
-"deferred — fixture needed" indefinitely. TC-787's @-mention/Improve-wand sub-case remains low-risk-deferred
-(the broader claim it supports — every interaction type is a run — is already well-evidenced by the existing
-1,231-run ledger).
-Overall: 11 PASS / 1 bug (BUG-CRX-175) / 2 blocked-by-missing-provider-credential (788, 789) / 1 low-risk
-deferred sub-case (787's @-mention/Improve-wand row shape).
+"deferred — fixture needed" indefinitely.
+Pass 3 (2026-11-17, continued): TC-787's @-mention/Improve-wand sub-case fully confirmed PASS via real
+reproductions (run-1517, run-1518) — 0 TCs remain deferred in this suite.
+Overall: 12 PASS / 1 bug (BUG-CRX-175) / 2 blocked-by-missing-provider-credential (788, 789) / 0 deferred.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §4.

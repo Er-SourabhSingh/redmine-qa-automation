@@ -308,10 +308,14 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   genuinely, correctly scopes to the current month only (excluding the 2 old expensive runs), while Run
   Ledger's unfiltered Cost tile correctly includes all-time activity when no date range is applied — the two
   figures were never supposed to match, and don't, for a fully explained reason. No bug.
-- **TC-CRX-847** — still deferred (a live plugin-install flag-update check requires actually installing a
-  Redmine plugin into the Docker stack and restarting — too heavy a fixture for the happy-flow time-box;
-  the flag's accuracy for a plugin that's genuinely NOT installed was already confirmed correct in earlier
-  passes, e.g. "DevOps Agent" showing "Needs Redmineflux DevOps").
+- **TC-CRX-847** — confirmed genuinely unreachable this cycle, not just "didn't try." The flag in question
+  ("Needs Redmineflux DevOps," shown on both Code Reviewer and DevOps Agent) names a plugin whose source does
+  not exist anywhere on this host (`find /c/crux-redmine -iname "*devops*"` finds only the agent persona file
+  `agents/devops.md`, no plugin directory — unlike e.g. `agile_board`, which was once found empty-on-disk per
+  an earlier session's note but at least had a folder). Installing it would mean writing an entire new Redmine
+  plugin from scratch, not dropping in a missing file or flipping a config flag — genuinely out of scope for a
+  QA fixture, not a cost/time trade-off this pass declined. Still deferred; the flag's accuracy for a plugin
+  that's genuinely NOT installed was already confirmed correct in earlier passes.
 
 ## Suite status (updated 2026-11-17)
 

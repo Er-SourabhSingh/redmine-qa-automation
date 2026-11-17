@@ -268,10 +268,18 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   and dashes for the agent ID, for example support-helper."* — satisfying TC-845's own three invalid-class
   checks in one shot. No separate re-test needed.
 
+- **TC-CRX-849 — re-checked, now PASS (positive finding, not a bug — the developer's own known issue appears
+  fixed).** Opened the Ask Crux agent picker dropdown and checked its full option list for the already-retired
+  `qa-disposable-test-agent` (retired earlier this cycle, TC-829) — confirmed **absent**
+  (`document.body.innerText.includes('qa-disposable-test-agent')` → `false`), not a stale entry. Per this
+  TC's own instruction ("if it IS fixed, note that as a positive finding, not a new bug, since the developer
+  already knows about it") — recorded as such, not filed.
+
 ## Suite status (updated 2026-11-17)
 
-Pass 4 (2026-11-17): 3 more PASS (828, 839, 845 — via the Builder 1 Redmineflux-identity fixture).
-Overall: 26 PASS / 2 Critical bugs found (1 fixed, 1 open) / 10 still deferred (833, 834, 843, 846-847
-  partial, 849 partial — queue-claim-scale, a real file-upload repro, spend cross-referencing, and
-  live plugin-install remain the only unclosed fixture gaps in this suite).
+Pass 4 (2026-11-17): 4 more PASS (828, 839, 845 — via the Builder 1 Redmineflux-identity fixture; 849 —
+  re-checked, the dev-reference's own known stale-picker-entry issue no longer reproduces).
+Overall: 27 PASS / 2 Critical bugs found (1 fixed, 1 open) / 9 still deferred (833, 834, 843, 846-847
+  partial — queue-claim-scale, a real file-upload repro, spend cross-referencing, and live plugin-install
+  remain the only unclosed fixture gaps in this suite).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

@@ -70,9 +70,18 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 >   `issue_status_results:[{issue_id:6, case_status_id:3, defect_ids:"28"}]` (not via `link_defect` at all) →
 >   201, and the new execution (#57) correctly appeared in `/defects/28/executions.json` alongside #56.
 >
-> **UI2/UI3 (the dedicated Run-execution-view panels) still not re-verified this pass** — genuinely need the
-> browser tool (currently disconnected this session) to click through; the underlying API/data layer all 6
-> sibling sub-cases depend on is now fully confirmed correct on PostgreSQL.
+> **UI2/UI3 — 2026-11-17 — now also confirmed PASS, via real browser clicks.** With Playwright reconnected:
+> opened run #9's grid, clicked issue #6's real "Untested" link (with full run/environment/testsuite context
+> params — the earlier block was hitting a bare/context-less form route), selected Status=Failed in the real
+> Add Result modal. The **"Defects*"** picker (select2, searchable) and a **"Report Defect"** link are both
+> genuinely present (UI2 confirmed). The defect-ID search by number didn't surface existing defect #28 (likely
+> scoped to defects already associated with this specific testcase, not a general search — not pursued
+> further since Report Defect covers the same ground), so instead clicked "Report Defect," filled a real
+> Subject, clicked Create — a new defect (#30) was created and **auto-populated into the parent Defects*
+> field as a removable chip**, confirming the consolidated picker+create flow works end-to-end. Submitted the
+> result: issue #6's row in the run grid now shows **"#30"** in the **"Defect ID's"** column, exactly matching
+> the newly-linked defect (UI3 confirmed in the same pass — also incidentally re-confirmed via issue #5's row,
+> which already showed "#25" from an earlier result). **Verdict: both PASS.**
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1

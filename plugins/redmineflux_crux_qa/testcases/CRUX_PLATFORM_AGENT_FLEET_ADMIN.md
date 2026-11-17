@@ -287,16 +287,28 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   save occurred. Filed as **BUG-CRX-200** (High) — this makes Builder 1/2's Edit action entirely non-functional
   and makes TC-833/834 **unreachable by any fixture** until it's fixed, not merely "needs a fixture not yet
   built." Not yet reported to production.
-- **TC-CRX-843** — still deferred (needs an actual file-upload repro, not the raw-content-paste path).
+- **TC-CRX-843 — split result: PASS (malformed-frontmatter half) + new bug found (non-.md half).** Used a
+  real `browser_file_upload` (not the raw-content-paste workaround) on the Upload Agent dialog's "Definition
+  file" tab for both sub-cases:
+  - **No-frontmatter `.md` file** — genuinely rejected, cleanly: *"⚠ This file isn't in the agent template
+    format. It must start with a '---' header block (the frontmatter), close it with '---', then add the
+    prompt."* No crash, no silently-broken agent. **PASS.**
+  - **Non-`.md` file (`.txt`, with valid frontmatter+prompt content)** — accepted unconditionally twice (2
+    different fixture ids), each time genuinely creating a working agent (`✓ "..." uploaded.`, roster count
+    incremented, real Chat link present). There is **no file-extension validation of any kind** — only the
+    text content is checked. Filed as **BUG-CRX-201** (Medium). Both fixture agents retired immediately after
+    reproduction (neither had a paired Redmineflux user, so retiring needed no lock cleanup).
 - **TC-CRX-846 / TC-CRX-847** — still deferred (spend-figure cross-referencing against Run Ledger totals, and a
   live plugin-install flag-update check, both judged lower-value given the happy-flow time-box).
 
 ## Suite status (updated 2026-11-17)
 
-Pass 4 (2026-11-17): 4 more PASS (828, 839, 845 — via the Builder 1 Redmineflux-identity fixture; 849 —
-  re-checked, the dev-reference's own known stale-picker-entry issue no longer reproduces). TC-833/834
-  reclassified from "deferred — fixture needed" to "blocked" after finding a new bug (BUG-CRX-200) that makes
-  Builder 1/2's Edit action entirely non-functional, so no fixture can ever reach either TC until it's fixed.
-Overall: 27 PASS / 3 bugs found (177 fixed, 189 fixed, 200 open) / 2 blocked-by-bug (833, 834) / 3 still
-  deferred (843, 846, 847 — low-value given the happy-flow time-box).
+Pass 4 (2026-11-17): 5 more PASS (828, 839, 843-half, 845 — via the Builder 1 Redmineflux-identity fixture
+  and a real file-upload repro; 849 — re-checked, the dev-reference's own known stale-picker-entry issue no
+  longer reproduces). TC-833/834 reclassified from "deferred — fixture needed" to "blocked" after finding a
+  new bug (BUG-CRX-200) that makes Builder 1/2's Edit action entirely non-functional, so no fixture can ever
+  reach either TC until it's fixed. TC-843 itself fully resolved (not deferred) — one half PASS, one half a
+  new bug (BUG-CRX-201).
+Overall: 28 PASS / 4 bugs found (177 fixed, 189 fixed, 200 open, 201 open) / 2 blocked-by-bug (833, 834) / 2 still
+  deferred (846, 847 — low-value given the happy-flow time-box).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

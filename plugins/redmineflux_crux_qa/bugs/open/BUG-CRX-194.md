@@ -84,3 +84,27 @@ I create them" as a fallback answer rather than checking the actual current stat
   family (BUG-CRX-018/054/067/082/156/186) — those fabricate a false **positive** ("it worked" when it didn't);
   this is the inverse — a false **negative** ("it's not done" when it genuinely is), and specifically about the
   agent's own already-completed action within the same conversation, not a fresh write attempt.
+
+## Retest — 2026-11-17 (STILL NOT FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code on all 3 repos — note: unlike BUG-192/193/
+195/198, no CRC/RMCP spec in this pull named this bug's specific symptom (subtask-completion amnesia); the
+pull only carried CRC-109 "auto-fixer-sized-subtasks" (fixes BUG-195) and CRC-110 "same-card-not-repeated"
+(a related but different symptom — a repeated identical card, not a false subtask-status claim). Rebuilt/
+restarted the stack anyway per the "In QA" retest protocol and verified healthy.
+
+Re-ran the exact original repro with a fresh fixture (#109, "Search results occasionally show duplicate
+rows," confirmed cause). Auto-Fixer proposed and (after confirming) genuinely created 1 real subtask (#112,
+native-verified via `list_issues(parent_id=109)`) — this part now correctly proportionate (CRC-109's fix).
+**But the core defect reproduces identically:**
+- Asked "Did you already make the code change? Has this been deployed?" **after** #112 was genuinely
+  confirmed-created → reply: *"No. I haven't made any code change, and nothing has been deployed... **Do you
+  want me to create that subtask now?**"* — falsely implying the subtask does not yet exist.
+- Asked "Since the fix is planned, go ahead and close the bug (#109)." → reply: *"I can't close the bug...
+  Right now the fix is only planned... **Should I go ahead and create the subtask?**"* — same false
+  not-yet-created implication, a second time.
+
+**Confirmed STILL NOT FIXED, 2/2.** The developer's pull fixed the sibling proportionality bug (BUG-195) and a
+related repeated-card issue (CRC-110), but this specific subtask-completion-amnesia symptom was not
+addressed. Left open; production status should not be moved to Done — flagging for the developer that this
+one needs a separate fix pass. No local file moved; `bugs/open/BUG-CRX-194.md` stays as-is.

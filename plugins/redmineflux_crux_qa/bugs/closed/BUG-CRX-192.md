@@ -83,3 +83,15 @@ BUG-061 fix, only for the cases BUG-061's own repros happened to cover.
   fixed 2026-11-16 today) is the *other* half of this same family (a correct denial with a false "do it in
   Redmineflux" fallback) — this bug is the *first* half again (the denial itself is false), recurring on a
   brand-new tool/agent combination the BUG-061 fix evidently didn't generalize to.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code on all 3 repos (`redmineflux-crux-core`
+picked up CRC-108 "helpdesk-kb-reorder-false-denial"), rebuilt `mcp`/`crux-core` images, restarted `redmine`
+in dependency order, verified all 3 services healthy.
+
+Re-ran the exact original repro: created a fresh 2nd KB page ("Retest Second Page") in project #12, asked the
+Helpdesk Agent via chat to move it to position 1 before "VPN Setup Guide Retest." This time the agent
+genuinely proposed a real confirm card — **"Helpdesk Kb Reorder Page"**, `Position: 0` — no false denial, no
+fake drag-to-reorder suggestion. Confirmed → native-verified via a fresh `/helpdesk/knowledgebase` navigation:
+"Retest Second Page" now genuinely listed before "VPN Setup Guide Retest." **Confirmed FIXED.**

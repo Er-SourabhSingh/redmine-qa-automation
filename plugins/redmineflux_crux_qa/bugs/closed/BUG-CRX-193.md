@@ -71,3 +71,16 @@ mechanism in its current state.
   same KB tool group) — that bug is a false *denial* of a working tool (`kb_reorder_page`); this bug is a
   genuinely broken tool (`kb_restore_version`) that the agent could discover and attempt to call, but which
   fails server-side every time due to an implementation defect, not a discovery/denial issue.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code — `redmineflux-mcp` picked up RMCP-039
+"kb-restore-version-sends-a-body" (`src/tools/helpdesk.py` changed), confirming the exact root cause named in
+this bug. Rebuilt `mcp`/`crux-core` images, restarted `redmine` in dependency order, verified all 3 services
+healthy.
+
+Re-ran the exact original repro directly via MCP: overwrote page #1's content, then called
+`redmineflux_helpdesk_kb_restore_version(version_id=1)` — response: `"Page #1 restored to version #1."`, no
+crash. Native-verified via `kb_get_page`: content genuinely reverted to the real saved version text. Repeated
+once more with a second overwrite — identical clean success, content genuinely reverted again. **Confirmed
+FIXED, 2/2.**

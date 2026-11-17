@@ -79,3 +79,17 @@ after, both checkboxes still unchecked, before restoring them).
   ("file it as a fresh bug, cross-reference the historical TC, don't assume it's already known"), since the
   underlying endpoint clearly changed architecture since 2026-09-25 and this specific path was never
   independently retested until now.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code — `redmineflux-crux-core` picked up CRC-111
+"update-not-saved-is-not-success," confirming the exact root cause. Rebuilt/restarted the stack, verified
+healthy.
+
+Re-ran the exact original repro: stripped `Edit issues`/`Edit own issues` from the Manager role again
+(restored immediately after). As `luna.blossom`, proposed and confirmed a description rewrite on issue #99.
+This time the confirm card's own result text read: *"Redmineflux did not save the description of #99: it is
+unchanged. You may not have permission to edit this issue (Edit issues or Edit own issues). Ask your
+administrator for that permission, then confirm again."* — an honest, explicit error, no false "✓ updated"
+claim. Native-verified via `get_issue(99)`: description genuinely unchanged, matching the honest error.
+**Confirmed FIXED.** Permissions restored and re-verified immediately after.

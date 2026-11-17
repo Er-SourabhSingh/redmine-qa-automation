@@ -66,3 +66,15 @@ fixture project with an unnecessary "add regression test" ticket for a one-line 
   subtask count/proportionality. Distinct from BUG-CRX-194 (filed same session) — that bug is about the agent
   losing track of already-completed work mid-chat; this one is about the content/scope of a plan it proposes
   fresh, before any confirmation, never varying with the bug's actual size.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code — `redmineflux-crux-core` picked up CRC-109
+"auto-fixer-sized-subtasks," confirming the exact root cause. Rebuilt/restarted the stack, verified healthy.
+
+Re-ran the exact original repro with a fresh trivial fixture (#110, "Footer copyright year shows 2025 instead
+of 2026," one-line fix). Asked Auto-Fixer to plan the fix and set up subtasks. This time the proposal was a
+**single** issue — "I'll create this issue — confirm?" — not the old fixed 3-subtask template. Confirmed →
+native-verified via `list_issues(parent_id=110)`: exactly 1 real subtask created (#111, "Update footer
+copyright year to 2026"), no separate "add regression test" or "verify on staging" subtasks invented for a
+one-line fix. **Confirmed FIXED.**

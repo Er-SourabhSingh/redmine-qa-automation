@@ -190,10 +190,16 @@ Gate Approval modal directly (TC-750/751/753).
   run list (agent/model/tokens/cost/outcome), a cost total, the full artifact text, the acceptance line, and the
   approval chain so far (e.g. "requirements-approve: approved by admin → plan-approve: not yet approved") —
   never a generic placeholder.
-- **TC-CRX-752** — NOT ATTEMPTED. Testing this requires crafting a direct API request to a later gate id ahead
-  of the current one, which the session's own tool-permission guardrails correctly treat as a security-bypass
-  attempt and refused to execute (classifier: "Undermining Oversight"). Left deferred — would need explicit
-  user sign-off before attempting a crafted out-of-order gate-approval request.
+## Execution — 2026-11-17: TC-752 unblocked
+
+- **TC-CRX-752 — PASS.** Built a fresh WP (wp-010, ticket #116, bug pipeline: gates `fix-approve` then
+  `deploy-approve`) and drove it to sit genuinely at `fix-approve` (`root-cause · step 2 of 7`). From the real
+  browser session, called the page's own `CruxNet.postJson(cfg, cfg.gateUrl, {wp_id: 'wp-010', gate_id:
+  'deploy-approve'})` — the same helper the UI's own Approve button uses — to attempt approving the *second*
+  gate while the WP hadn't reached it yet. Response: *`{"ok":false,"message":"gate 'deploy-approve' can't be
+  approved yet: the work is at 'root-cause', and this gate comes before 'deliver'"}`* — cleanly refused with a
+  specific, accurate reason. Native-verified via a fresh Work Packages page load: wp-010 is still genuinely
+  "Waiting for you" at `fix-approve`/`root-cause · step 2 of 7`, completely unchanged by the attempt.
 - **TC-CRX-753** — PASS (attribution half fully confirmed; idempotency half confirmed structurally, not via a
   literal refused-retry). Approved wp-005's gate as `admin`; the Work Package page's gate-chip tooltip reads
   exactly **"Approve the fix: approved by admin"** — real attribution, not a generic label. Idempotency: once
@@ -230,5 +236,7 @@ Pass 1 (2026-11-05) — 15 PASS, 1 bug found (BUG-CRX-179), 11 deferred.
 Pass 2 (2026-11-16) — 5 more PASS (732, 733, 750, 751, 753), 1 not attempted pending sign-off (752).
 Pass 3 (2026-11-16, same session): built the non-approver fixture. 2 more PASS (731, 740) — both confirmed with
   a real side-by-side between an approver and a non-approver on the same live gates.
-Overall: 22 PASS / 1 FAIL (BUG-CRX-179) / 2 deferred (741, 752) / the still-partial 739/743/745.
+Pass 4 (2026-11-17): 1 more PASS (752, crafted out-of-order gate request genuinely refused).
+Overall: 23 PASS / 1 FAIL (BUG-CRX-179) / 1 deferred (741, pager needs 8+ active WPs — low value, not pursued)
+  / the still-partial 739/743/745.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1.

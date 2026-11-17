@@ -95,10 +95,22 @@ Rate / Last Seen — Source A's numbers never bleed into Source B's.
 > view as RFTC035-1 above: alongside the two named CI-ingested sources, a row literally labeled "Ungrouped"
 > appears (31 executions, from this pass's many plain Add-Result UI actions across the whole session, which
 > never go through the CI-ingest path and so carry `source_id = NULL`) — it is not silently dropped or
-> merged into either named source's totals. **RFTC035-3 and RFTC035-11 not independently verified this
-> item** (latest-per-cell-only re-test counting, and `last_seen_at` advancing on a new ingestion) — would
-> need a deliberate re-ingest-same-cell fixture, not completed within this item's ~10-tool-call budget.
-> BLOCKED (budget), not a confirmed defect.
+> merged into either named source's totals.
+>
+> **RFTC035-3/11 — 2026-11-17 — BLOCKED verdict RETRACTED, PASS confirmed with real data.** Ingested a real
+> Failed result (with `--auto-defect`), then a later real Passed result, for the exact same `(run=8, issue=1,
+> env=CI)` cell under the same named source (`HappyFlowAutomation`, via the real `ingest --source` flag).
+> Called the real `RollupMath.automation_sources_overview(project)` directly (same method the dashboard page
+> itself calls):
+> ```
+> {source_id:3, source_name:"HappyFlowAutomation", total_cells:1, pass_count:1, fail_count:0, pass_rate:100.0,
+>  last_seen_at: 2026-11-17 06:26:52 UTC}
+> ```
+> `total_cells:1` (not 2) with `pass_count:1, fail_count:0` proves the re-tested cell counted once, by its
+> LATEST result only (RFTC035-3 PASS). The underlying `AutomationSource` row's `first_seen_at` (06:26:00) vs
+> `last_seen_at` (06:26:52) confirms it genuinely advanced to the second ingestion's time, not frozen at
+> first-seen (RFTC035-11 PASS). Not re-verified via the live dashboard page itself in this pass (needs the
+> browser tool back online) — this confirms the underlying aggregation logic, not the page rendering.
 
 **Priority:** P1 — the spec's own stated guard against silently dropping ungrouped data
 **Steps:** Record at least one result via the plain "Add Result" UI (never touches the CI ingest path, so

@@ -98,6 +98,14 @@ genuine `pyproject.toml` packaging gap.
 >
 > All three PASS for real against PostgreSQL. No bug — the earlier BLOCKED verdict was a research-depth miss,
 > not a plugin/environment defect.
+>
+> **Follow-up — 2026-11-17 — new `bootstrap --milestone` flag, also PASS.** The local `redmineflux-tcm-ci`
+> checkout was 1 commit behind `origin/master` (`bd0e5f9`, "Add --milestone option to the bootstrap command")
+> — pulled it (fast-forward, no conflicts), then re-tested: `bootstrap --project 1 --name 'CLI bootstrap with
+> milestone' --suites 'Happy Flow Cross-DB Smoke Suite' --milestone 'v1.0 Release'` → `Run created: id=10
+> suites=[1] reused=False`, `EXIT_CODE=0`. Confirmed the link is real, not just a successful call: run #10
+> appears correctly inside `/testcase_mcp/milestones/1/summary.json`'s `runs` array alongside run #9, and the
+> milestone's aggregate stats correctly sum both runs (total:14, executed:2).
 
 **Priority:** P1
 **Steps:**

@@ -236,3 +236,51 @@ Overall: 14 PASS / 3 genuinely-deferred (855, 856, 869 — user-fixture only) / 
 deferred/partial to permanently-blocked-by-design (861, 867 — no longer counted as PASS-partial) / 1 bug
 (BUG-CRX-191).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.
+
+## Execution — 2026-11-17: TC-855/869 unblocked; TC-856 unblocked, found BUG-CRX-199
+
+Fixture reused from the Project B / Crux View Only Role / `daisy.skye` setup (originally built for the
+Work Packages/Project Tab approver-vs-non-approver TCs): `daisy.skye` holds `view_crux` on Project B but
+NOT `manage_crux_pipelines`, giving the clean "can browse Crux, cannot manage Pipelines" split TC-855/869
+need, that `daisy.skye`'s own Permissions-suite-era role (all 5 Crux permissions) could never provide.
+
+- **TC-CRX-855 — PASS.** Logged in as `daisy.skye`, navigated to `/crux/pipelines` on Project B. The page
+  loads and lists all 3 built-in pipelines plus any visible custom ones — genuinely browsable with only
+  `view_crux` held. Every card shows **View + Duplicate only**, with no Edit/Delete control anywhere on the
+  page for this user, confirming the page is reachable but every mutating action is correctly absent from
+  the UI for a non-manager.
+- **TC-CRX-869 — PASS.** With the same `daisy.skye` session, called the page's own `CruxNet.postJson(cfg,
+  cfg.pipelineSaveUrl, {name: "daisy-hack-pipeline", outcome_type: "software", stages: [...], gates: [...]})`
+  helper directly via the browser console (reusing the real authenticated session/CSRF token, not a raw
+  bypass) — the server genuinely rejected the save with a permission error, confirming `manage_crux_pipelines`
+  is enforced server-side on the save endpoint itself, not just hidden client-side by omitting the Edit
+  button. Native-verified no new pipeline named `daisy-hack-pipeline` appeared in the list afterward.
+- **TC-CRX-856 — unblocked, found a genuine new bug (BUG-CRX-199), not a clean PASS.** Logged in as `admin`,
+  opened Ask Crux (Project Manager) on the Crux Helpdesk Agent Test Project, and asked: *"Create a work
+  package for ticket #31 using the customer-support pipeline."* The confirm card correctly resolved the
+  real ticket (`Goal: Resolve scanner paper jam error on 2nd floor`, `Tickets: #31`, `Type: customer-support`,
+  `Autonomy: execute-with-approval`) — proving the agent genuinely supports a non-built-in outcome type
+  (`customer-support`) from chat, contrary to this suite's own earlier assumption (line ~196 above) that
+  chat can only ever use the 3 built-in pipelines; `customer-support`/`lead-to-deal`/`billing` are evidently
+  also chat-reachable outcome types. However, clicking **Confirm** failed 3 times in a row (3 separate fresh
+  button refs, ruling out a stale-DOM artifact) with a genuine server-side rejection:
+  `POST /crux/ask/confirm` → 400, `{"ok":false,"error":"Ticket #31 isn't visible to you in Redmineflux, so
+  the Work Package wasn't created. Remove it, or ask someone who can open it."}` — despite `admin` being
+  ticket #31's own author AND assignee (confirmed via `redmineflux_core_get_issue(31)`), and the exact same
+  ticket data having just been read correctly to build the confirm card in the first place. Filed as
+  **BUG-CRX-199** (High — blocks Work Package creation outright for a ticket the confirming user plainly
+  owns and can see). Not yet reported to production.
+  - This also **narrows TC-856's own original intent**: the question "is `customer-support`/`lead-to-deal`/
+    `billing` usable from chat at all" is now answered **yes** (the confirm card itself proves it) — the
+    remaining open question is purely whether the *write* succeeds, which BUG-CRX-199 currently blocks for
+    this outcome type specifically. `lead-to-deal`/`billing` were not attempted this pass given the time-boxed
+    happy-flow priority; flagged for a future pass once BUG-CRX-199 is fixed.
+
+## Suite status (updated 2026-11-17)
+
+Pass 4 (2026-11-17): 2 more PASS (855, 869, via the Project B/daisy.skye view-only fixture), TC-856 unblocked
+but surfaced a new bug rather than a clean pass (BUG-CRX-199 — WP-creation confirm falsely denies ticket
+visibility to the ticket's own owner).
+Overall: 16 PASS / 2 reclassified permanently-blocked-by-design (861, 867) / 1 unblocked-with-bug (856,
+BUG-CRX-199) / 2 bugs total this suite (BUG-CRX-191, BUG-CRX-199) / 0 TCs still awaiting a fixture.
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

@@ -75,3 +75,14 @@ curl ... -d '{"project_id":1,"run":{"name":"Milestone Summary Check Run v2","inc
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — closest prior pattern is the "raw 500 instead of clean validation error" class (BUG-TCM-043, BUG-TCM-046, BUG-TCM-053), but none of those cover this specific `run_assignments` (non-`_attributes`) param path.
+
+## Retest — 2026-11-17 — CONFIRMED FIXED
+
+- Dev commit `dcf15c1` ("Faster run list, safer run creation and Run updated email from the API") fixes
+  BUG-TCM-148/149/150 together, adds `test/functional/bug_tcm_148_149_150_test.rb`.
+- Pulled the fix into `redmine6-happyflow-pg`'s mounted plugin checkout, restarted the `redmine`/`sidekiq`
+  containers to clear Rails' production class cache.
+- Re-ran the exact original repro: `POST /runs.json` with the old `run_assignments` (non-`_attributes`) shape
+  → **HTTP 201**, `{"message":"Run created successfully","run":{"id":17,...}}` — the previous raw 500
+  (`ActiveModel::ForbiddenAttributesError`) no longer occurs.
+- **Confirmed fixed.**

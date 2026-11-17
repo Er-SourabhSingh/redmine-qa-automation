@@ -72,3 +72,14 @@ end
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — related but distinct from BUG-TCM-088 (which is about the web-UI email's *content* being stale by one edit, not about the API path never sending an email at all) and BUG-TCM-087 (web UI run-ADD notification being suppressed by a hardcoded `from=API` flag — the inverse problem, a notification wrongly suppressed vs. here, one that's simply never wired up for this specific action).
+
+## Retest — 2026-11-17 — CONFIRMED FIXED
+
+- Same dev commit `dcf15c1` as BUG-TCM-149 (joint fix for 148/149/150).
+- Pulled, restarted `redmine6-happyflow-pg` containers.
+- `PUT /runs/update_run/16.json` (run #16, assignee = `qauser`, a different user than the actor) with a
+  changed name → Mailpit message count went from 7 to 8, new message: **"Run Updated:
+  TC-TCM-008-Email-Template-Check [renamed via API]"** — the API path now sends the notification correctly.
+- (A parallel attempt on run #17, assigned to the acting admin themself, produced no new email — expected,
+  since Redmine suppresses self-notification by default; not a sign the fix failed.)
+- **Confirmed fixed.**

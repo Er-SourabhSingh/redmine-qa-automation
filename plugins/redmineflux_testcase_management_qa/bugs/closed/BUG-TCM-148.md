@@ -106,3 +106,12 @@ Sanity check:
   the same file. This makes the suggested fix even more clear-cut: reuse the existing `@milestone_names` hash in
   `rftc_milestone_json`/the `index` JSON branch instead of touching the `belongs_to :milestone` association at
   all, rather than merely adding `.includes(:milestone)`.
+
+## Retest — 2026-11-17 — CONFIRMED FIXED
+
+- Same dev commit `dcf15c1` as BUG-TCM-149/150 (joint fix for 148/149/150).
+- Pulled, restarted `redmine6-happyflow-pg` containers.
+- Re-ran the query-count check against 16 runs on `happyflow-pg` (several milestone-linked): subscribing to
+  `sql.active_record` and calling `run.milestone&.name` on each produced only **2** `SELECT "versions"`
+  queries total, not one per milestone-linked run — confirms the N+1 is resolved (batched, not per-row).
+- **Confirmed fixed.**

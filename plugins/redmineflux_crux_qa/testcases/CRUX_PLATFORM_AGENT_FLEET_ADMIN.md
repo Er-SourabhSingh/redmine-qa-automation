@@ -197,9 +197,13 @@ Fixtures: used the real 26-agent roster live in this environment, plus one dispo
   update-in-place write path. Immediately reverted the damage in-session (restored Name, Capabilities, and the
   real 5-tool `allowed_tools` list, confirmed via the Agent profile: "Reads: 4 tools / Changes: 1 change").
   Filed as BUG-CRX-189.
-- **TC-CRX-838** — NOT INDEPENDENTLY VERIFIED this pass (would need a dedicated non-manager user fixture;
-  deferred — the inverse case, all 5 Crux permissions including Manage Crux agents, was already exercised in the
-  Permissions suite).
+## Execution — 2026-11-17: TC-838 unblocked
+
+- **TC-CRX-838 — PASS.** As `daisy.skye` (`Crux Perm Test Role` — `view_crux` + `approve_crux_gates`, confirmed
+  via `get_role(8)` that `manage_crux_agents` is NOT among her 6 permissions). `/crux/agents` loaded fine
+  (she has `view_crux`), but the page toolbar had no "+ New Agent" / "Upload Agent" buttons anywhere, and
+  clicking the bundled Project Manager agent's "More actions" (⋯) menu showed **only "Details"** — no
+  Pause/Resume/Edit/Retire.
 - **TC-CRX-839** — NOT INDEPENDENTLY VERIFIED (no paired agent exists in this environment to test the
   already-paired refusal case). Deferred.
 - **TC-CRX-840** — PASS, fully confirmed. Clicking "Retire agent" with the checkbox unchecked produced a clean
@@ -234,5 +238,8 @@ Reviewer agent restored (Name, Capabilities, 5-tool allowed_tools), disposable Q
 Pass 1 (2026-11-05): 19 PASS, 1 Critical bug found (BUG-CRX-177, since closed/fixed), 15 deferred.
 Pass 2 (2026-11-12): 3 more PASS, 1 Critical bug found (BUG-CRX-189), 14 still deferred (843 + the 13 from
   pass 1 not revisited this round: 828, 833, 834, 838, 839, 845-850 partial).
-Overall: 22 PASS / 2 Critical bugs found (1 fixed, 1 open) / 14 deferred.
+Pass 3 (2026-11-17): 1 more PASS (838, non-manager fixture via daisy.skye).
+Overall: 23 PASS / 2 Critical bugs found (1 fixed, 1 open) / 13 deferred (828, 833, 834, 839, 843, 845-847
+  partial, 849 partial — all genuinely need fixtures not yet built: AI Agent role precondition, queue-claim
+  scale, a paired agent, a real file-upload repro, spend cross-referencing, live plugin-install).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

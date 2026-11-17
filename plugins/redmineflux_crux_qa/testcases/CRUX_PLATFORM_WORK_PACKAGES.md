@@ -152,9 +152,16 @@ wp-004 "Review testcase API coverage" (suggest-only, ticket #62) created this pa
   built-in pipelines — custom pipelines aren't yet supported from chat."* Listed all available built-in pipelines
   and offered to use whichever fits. No fabricated confirm card, no silent wrong pipeline used.
 
-- **TC-CRX-764** — DEFERRED. Requires a non-admin user (admin has access to every project, so the "every ticket
-  must be visible to the person confirming" rule can't be exercised from an admin session). Needs a fresh
-  dedicated non-admin user and a private/restricted project. Deferred to a future run.
+## Execution — 2026-11-17: TC-764 unblocked
+
+- **TC-CRX-764 — PASS.** As `luna.blossom` (member of Project A only), first tried referencing a ticket in
+  Project B (#81) — got a genuine `"✓ Created work package wp-011"`, which looked like a violation at first,
+  but Project B was **Public** at the time, so Redmine's own "Non member" role legitimately granted her read
+  access — not a bug, same confound pattern as `CRUX_PLATFORM_PROJECT_TAB.md` TC-814. Made Project B private,
+  created a fresh ticket (#117) genuinely invisible to her (confirmed via a direct `/issues/117` 403), and
+  retried: *"I don't have permission to view issue #117 in Redmineflux. Your administrator needs to grant you
+  the required role and permissions to access this issue before I can create a Work Package from it."* — a
+  clean, honest refusal, no fabricated creation. Project B's Public flag restored immediately after.
 
 - **TC-CRX-765** — PASS. After creating the suggest-only wp-004 (TC-760 above), posted `@crux status - what is
   the current status of this testcase?` as a journal note on ticket #62. After 60 seconds (page refreshed and
@@ -352,6 +359,12 @@ so wp-005 is no longer sitting at that gate — it has since progressed to `Deve
 own evidence (screenshots, Activity Log excerpts) was already fully captured before this, so the bug report
 itself is unaffected; this note is corrected here only so a future session isn't confused by the stale claim.
 
+**Retest — 2026-11-16/17 (CONFIRMED FIXED).** BUG-CRX-190 was reported to production, developer fixed it
+(`redmineflux-crux-core` CRC-111 "update-not-saved-is-not-success"), and it was retested and closed per
+`bugs/closed/BUG-CRX-190.md` — `post_to_redmine: true` now either genuinely lands the write or honestly
+reports a refusal, never a false "posted" claim. This TC's own FAIL verdict is now superseded; see the bug
+file for the full retest evidence rather than re-running the original repro again here.
+
 ## TC-CRX-1002 — third pipeline type (document), built from scratch, full 5-stage flow — PASS
 
 **Context.** Software (wp-004) and Bug (wp-005) pipelines were both already verified end-to-end this session.
@@ -402,6 +415,8 @@ Pass 3 (2026-11-16): TC-CRX-1000 — PASS. Local MCP connection established (`re
   stages to a second counted Outcome delivered. All 3 pipeline types (Software/Bug/Document) now confirmed
   end-to-end this session.
 Pass 4 (2026-11-16, same session): two-project fixture built. TC-768 — PASS.
-Overall: 17 PASS / 1 PASS-partial / 1 FAIL (BUG-CRX-190) / 2 deferred (758, 764).
+Pass 3 (2026-11-17): TC-764 unblocked via genuinely-private project fixture (PASS, honest refusal). BUG-CRX-190
+  confirmed fixed and closed since the original TC-1001 FAIL — superseded.
+Overall: 19 PASS / 1 PASS-partial / 0 FAIL / 1 deferred (758, pager needs ≥26 WPs — low value, not pursued).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2; `Crux-Ready-Queue-User-Guide.md` (developer-provided,
 2026-11-16); `Crux-Ready-Queue-Work-Package-Demo-Hinglish.webm` (developer-provided demo video, 2026-11-16).

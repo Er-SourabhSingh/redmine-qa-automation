@@ -109,9 +109,18 @@ fixtures needed.
 
 **Pass 2 result: 1 more PASS (945), 0 bugs found.**
 
+## Execution — 2026-11-17: TC-949 unblocked
+
+- **TC-CRX-949 — PASS.** Noted the current buffer count (102 records), restarted `crux-core` (part of this
+  session's own routine dev-fix-pull cycle, so no extra disruption beyond what was already happening), then
+  reloaded the Activity Log: footer now read *"In-memory buffer (last 2000 records; **2 buffered**)"* with the
+  first row genuinely showing `crux-core starting host=0.0.0.0 port=8787 project=crux-qa` — the buffer was
+  genuinely cleared by the restart, exactly matching the footer's own claim.
+
 ## Suite status
 
 Pass 1 (2026-11-05): 12 PASS, 1 partial, 2 deferred, 0 bugs found.
 Pass 2 (2026-11-12): 1 more PASS (945), 949 still deferred (disruptive restart).
-Overall: 13 PASS / 1 partial / 1 deferred (949) / 0 bugs.
+Pass 3 (2026-11-17): 1 more PASS (949), via a restart already happening for other reasons this session.
+Overall: 14 PASS / 1 partial / 0 deferred / 0 bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §11.

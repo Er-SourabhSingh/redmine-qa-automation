@@ -79,7 +79,31 @@ through natural-language chat.
 
 ### Retest screenshot (fill after fix is verified)
 
-![Retest result](../../screenshots/BUG-MCP-001/retest-yyyy-mm-dd-pass.png)
+![Retest result](../../screenshots/BUG-MCP-001/retest-2026-11-17-pass.png)
+
+### Retest (2026-11-17) — CONFIRMED FIXED
+
+Pulled `redmineflux-mcp` `crux_development` (`160234a` → `ee8476f`), rebuilt and force-recreated the `mcp`
+container, confirmed healthy (495 tools loaded, 13/14 plugins detected). Source-verified the fix is present:
+`testcases_management.py`'s `get_testcase` now calls `_format_steps(issue.get("steps"))` (line 321), and
+`update_testcase` has a real `steps` parameter (line 529).
+
+Repeated the exact original repro against the same fixture (testcase #62, Crux PM Agent Test Project), pinned
+to the Testcase Agent in a fresh chat:
+
+- **Read** — *"What are the Step and Expected Result for testcase #62 in the Crux PM Agent Test Project?"* —
+  genuinely returned the real step data as a table: `# 1 | Step: Open the login page | Expected Result: Login
+  page loads UPDATED via API` — no false "no Step/Expected Result custom fields" claim this time.
+- **Update** — *"Update testcase #62's Expected Result to 'Login page loads via Crux retest'."* — produced a
+  genuine confirm card: *"Step 1 — Expected Result: 'Login page loads via Crux retest' (was 'Login page loads
+  UPDATED via API')"*. Clicked Confirm → *"✓ Testcase updated: #62 ... Expected Result: Login page loads via
+  Crux retest"*.
+- **Native-verified** via `redmineflux_testcases_management_get_testcase(project_id=1, testcase_id=62)`
+  directly against the Testcase Management plugin's own API (bypassing chat entirely): confirmed the real
+  persisted value is now *"Expected Result: Login page loads via Crux retest"* — not just a chat-side claim.
+
+Both the Read and Update halves of this bug are genuinely fixed. Production issue #128136 updated: status
+In QA → Done, % done → 100.
 
 ### Console / log
 

@@ -109,3 +109,21 @@ related repeated-card issue (CRC-110), but this specific subtask-completion-amne
 addressed. Production issue (#128745) moved back from "In QA" to **Reopen** (not just "In Progress") with an
 explanatory comment, flagging for the developer that this needs a separate fix pass. No local file moved;
 `bugs/open/BUG-CRX-194.md` stays as-is.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this back to "In QA" on production. Pulled latest code — `redmineflux-crux-core` picked up
+CRC-114 "done-work-not-offered-again" (`crux_core/askcrux/chat.py` and `proposals.py` both changed).
+Rebuilt/restarted the stack, verified healthy.
+
+Re-ran the exact original repro with a fresh fixture (#113, "Login page occasionally shows a blank screen,"
+confirmed cause). Auto-Fixer proposed and (after confirming) genuinely created 2 real subtasks (#114, #115,
+native-verified via `list_issues(parent_id=113)`). This time, both follow-up questions got honest, correct
+answers that reference the already-created subtasks by their real IDs:
+- *"Did you already make the code change? ... What I did was create two **planning cards (#114 and #115)**
+  — subtasks of #113 that outline what needs to be fixed and how to verify it."*
+- *"[close the bug] I can't close the bug... Once **#114 and #115** are complete, whoever ran them should mark
+  #113 closed."*
+
+Neither response falsely implied the subtasks didn't exist yet — both correctly cite them by number as
+already-created tracking issues. **Confirmed FIXED, 2/2.**

@@ -184,11 +184,41 @@ deferred.
   Both are present simultaneously on first open of a brand-new project. Screenshot same as TC-808:
   `screenshots/TC-CRX-808/graph-no-activity-banner.png` (both messages visible in the full-page capture).
 
-- **TC-CRX-801 / TC-CRX-802 / TC-CRX-803 / TC-CRX-804** — DEFERRED (SVG canvas elements not accessible via
-  accessibility tree). Clicking a Grouped-view bubble, Focus-view breadcrumb navigation, Table-view cell
-  drill-down, and node-click side panel all require selecting SVG canvas nodes that have no accessible role or
-  reference in the ARIA tree. This is an architectural constraint of the Graph's SVG rendering. These require
-  either coordinate-based click tooling or a Playwright spec run to exercise. Deferred.
+## Execution — 2026-11-17: TC-801/802/803/804/810 unblocked via coordinate-based canvas clicks
+
+Correction to the 2026-11-16 note above: the Grouped/Focus views are **`<canvas>`**, not SVG (confirmed via
+`document.querySelectorAll('canvas')` — 3 canvas elements, none of the real-sized ones are SVG). This still
+means zero DOM nodes to select via the accessibility tree, but it also means the app's own click handlers do
+their own coordinate-based hit-testing on the canvas — so a real `MouseEvent` (`mousedown`/`mouseup`/`click`)
+dispatched at the correct pixel position against the canvas element works exactly like a genuine user click,
+bypassing the ARIA-tree limitation entirely. Table view, by contrast, turned out to be a **real HTML
+`<table>`** with genuine `<button>` cells — directly clickable with no workaround needed.
+
+- **TC-CRX-801 — PASS.** Dispatched a coordinate click at the "Fix control-ticket cleanup behavior" bubble.
+  It genuinely opened: breadcrumb showed "All groups › Fix control-ticket cleanup behavior", the group
+  expanded to its real member ticket (#40), and a side panel opened on the right.
+- **TC-CRX-804 — PASS.** Same click's side panel showed: name ("Fix control-ticket cleanup behavior"), kind
+  ("WORK PACKAGE"), a real Connections list ("member of #40 RQ-FIX-D: control ticket..."), and a working
+  "Focus on this" button.
+- **TC-CRX-802 — PASS.** Clicking "Focus on this" switched to Focus view, genuinely centered on the group with
+  its real neighbour (#40) shown. Coordinate-clicking that neighbour node re-centered focus onto #40 itself —
+  breadcrumb correctly tracked 2 steps ("Fix control-ticket cleanup be… › #40 RQ-FIX-D..."), and side panel
+  updated to #40's own details: kind "TICKET", "In: Fix control-ticket cleanup behavior", a real working
+  "Open in Redmine →" link (`/issues/40`), and Connections (6) with directional arrows (authored/commented
+  on/member of/ran ×3). Clicking the breadcrumb's first segment navigated back correctly, re-centering on the
+  original group ("1 connected").
+- **TC-CRX-803 — PASS.** Switched to Table view (real HTML table, no coordinate workaround needed). Clicked
+  the "74" cell (Redmine Admin × "Other tickets"). A real list of 74 genuine, linked tickets appeared below
+  the table ("Redmine Admin in Other tickets · 74 tickets" — #1, #100, #52, #53... all real issue links).
+- **TC-CRX-810 — PASS.** `CONFIG.graph_node_cap` defaults to 300 (`crux_core/config.py`, env override
+  `CRUX_GRAPH_NODE_CAP`). Temporarily wired the env var through `docker-compose.yml`'s `crux-core` service and
+  set it to 50 (below this project's real ~95-node count) to force truncation without needing an actually
+  oversized project. First graph load after the restart hit a transient cold-start error ("Crux is taking
+  longer than usual to answer") — clicking "Try again" then genuinely rendered the expected banner: *"⚠ This
+  project is large, so core sent only part of its graph (tickets kept first). Counts below are for what was
+  sent."* — and the tile counts honestly dropped to match the truncated 50-node response (Tickets 50, People
+  0, Groups 0, Connections 0). Restored `CRUX_GRAPH_NODE_CAP` and reverted the `docker-compose.yml` edit
+  immediately after, confirmed back to `truncated: false` / 95 nodes.
 
 - **TC-CRX-806** — NOT EXERCISED (no independently verifiable way to confirm the 90-day cutoff without a
   deliberately stale fixture or waiting). Deferred.
@@ -216,6 +246,8 @@ Pass 1 (2026-11-05): 7 PASS, 1 bug (BUG-CRX-176), 15 deferred.
 Pass 2 (2026-11-12): 7 more PASS (799, 805, 808, 809, 811, 812, 813), 1 partial (800), 6 still deferred
   (793-neg, 796, 801, 802, 803, 804, 806, 810, 814).
 Pass 3 (2026-11-16, same session): two-project fixture built. 1 more PASS (796).
-Overall: 15 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 8 deferred (793-neg, 801, 802, 803, 804, 806, 810,
-  814) / 0 new bugs this pass.
+Pass 4 (2026-11-17): 5 more PASS via coordinate-based canvas clicks + a temporary graph_node_cap override
+  (801, 802, 803, 804, 810). 3 still deferred (793-neg, 806, 814).
+Overall: 20 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 3 deferred (793-neg, 806, 814) / 0 new bugs this
+  pass.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

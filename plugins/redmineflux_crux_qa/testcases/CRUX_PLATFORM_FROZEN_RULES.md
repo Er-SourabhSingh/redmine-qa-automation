@@ -196,8 +196,17 @@ TC-CRX-1000).
   succeeded normally (`run-1387`, no frozen-rule refusal of any kind). Confirms a frozen field blocks only
   writes to that specific field, not the ticket's claim/result-note mechanism generally. Rule removed after
   confirming.
-- **TC-CRX-930** — still DEFERRED. Needs a Work Package actually running at `autonomous` autonomy (none exist
-  yet — all current WPs are `execute-with-approval` or `suggest-only`).
+## Execution — 2026-11-17: TC-930 unblocked
+
+- **TC-CRX-930 — PASS.** Created a fresh ticket (#118), froze its `priority` field (rule fr-12, reason
+  "TC-CRX-930: verify autonomous autonomy does not bypass a frozen field"), then created a Work Package from
+  it via chat with **"autonomous"** autonomy explicitly requested — confirm card showed `Autonomy: autonomous`,
+  confirmed → wp-012. As `builder-1`, claimed it. Via chat: "Update ticket #118 priority to High." — got a
+  normal `Update issue: Priority: high` confirm card (the frozen rule isn't checked until confirm time).
+  Confirmed → the card's own result read: *"frozen — fr-12: TC-CRX-930: verify autonomous autonomy does not
+  bypass a frozen field (frozen by admin)"* — refused, with the exact rule reason echoed back. Native-verified
+  via `get_issue(118)`: priority still "medium", `updated_on` completely unchanged — the highest autonomy
+  level genuinely did not override the frozen rule.
 
 ## Execution — 2026-11-16 (later same session): TC-931 closed
 
@@ -223,5 +232,7 @@ Pass 3 (2026-11-16): root cause fixed. 1 more PASS (929). 930/931 still deferred
   deliberate fixture each (an autonomous-level WP; a fully-gated WP's ticket), not blocked by infrastructure.
 Pass 4 (2026-11-16, same session): TC-931 — PASS, confirmed on a fully-delivered, execute-with-approval WP
   (wp-006/#80). TC-930 still deferred (needs an autonomous-autonomy WP, none exist yet).
-Overall: 16 PASS / 1 bug / 1 deferred (930). Environment clean (zero frozen rules).
+Pass 4 (2026-11-17): 1 more PASS (930, via a fresh autonomous-autonomy WP + frozen-field fixture).
+Overall: 17 PASS / 1 bug / 0 deferred. Environment has 1 harmless leftover rule (fr-12, ticket #118's
+  `priority` field only — not removed, test-isolated).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.

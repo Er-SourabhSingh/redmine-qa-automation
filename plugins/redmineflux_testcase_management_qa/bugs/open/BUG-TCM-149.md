@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-TCM-149
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128776
 - Title: `RunsController#create` (POST /runs.json) crashes with an unhandled 500 (ForbiddenAttributesError) when called with the plausible `run[run_assignments]` param shape instead of the correct `run_assignments_attributes`
 - Redmine version: 6.0.0 (bookworm)
 - Plugin name: redmineflux_testcase_management

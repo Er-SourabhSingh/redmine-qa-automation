@@ -82,13 +82,22 @@ genuine `pyproject.toml` packaging gap.
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
-> **CROSS-DB (PostgreSQL) — 2026-11-16 — BLOCKED (tool unavailable).** The `redmineflux-tcm` CLI binary
-> (companion repo `redmineflux-tcm-ci`, not this plugin) is not installed/on `PATH` in this session's
-> environment (`which redmineflux-tcm` → not found). RFTC017-1/2/3 (the `submit`/other subcommands' real-
-> server happy paths against `--base-url http://localhost:3020`) require that external binary with a real
-> JUnit fixture and mapping file — none of which exist for `happyflow-pg` yet. Not resolved within this
-> item's ~10-tool-call budget. **BLOCKED** — not a plugin/DB defect, an environment/tooling gap; flagged for
-> a follow-up pass once the CLI is available (or reachable via its source repo/`pip install`/`npx` locally).
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict RETRACTED, re-tested for real, PASS.** The earlier
+> "CLI not installed" verdict was a false negative — the CLI source (`C:\redmine v6\plugins\redmineflux-tcm-ci`)
+> was right there, just not checked. Installed it (`pip install -e .` inside a disposable `python:3.11-slim`
+> container, reached `localhost:3020` via `--add-host=host.docker.internal:host-gateway`), built a real 3-case
+> JUnit XML + mapping against real `happyflow-pg` issues (#1, #5 in suite #1, project id=1), and ran all three
+> subcommands for real:
+> - **`submit` (RFTC017-1):** `Submitted 2 result(s) to run 5, env 'CI'` — #1 passed, #5 failed with a real
+>   auto-created defect **#23**, 1 unmatched correctly reported (not dropped), `EXIT_CODE=0`.
+> - **`bootstrap` (RFTC017-2):** `Run created: id=8 suites=[1] reused=False` via a real `bootstrap_run.json`
+>   call, `EXIT_CODE=0`.
+> - **`ingest` (RFTC017-3):** first run against run #8 correctly reported all 3 unmatched (no Automation Key
+>   set yet on #1/#5) — then set the Automation Key custom field on both via the REST API and re-ran: 2 matched
+>   by `automation_key`, 1 still correctly unmatched, a real auto-created defect **#24**, `EXIT_CODE=0`.
+>
+> All three PASS for real against PostgreSQL. No bug — the earlier BLOCKED verdict was a research-depth miss,
+> not a plugin/environment defect.
 
 **Priority:** P1
 **Steps:**

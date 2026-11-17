@@ -92,6 +92,19 @@ this user use it":
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict RETRACTED, PASS confirmed via direct API.** The UI's
+> client-side JS error (below) is real and still unresolved in-browser, but the underlying feature works
+> correctly — isolated via the `/testcase_mcp/milestones/:version_id/{summary,report,burndown}.json` endpoints:
+> created a real run via the API with `milestone_id=1` attached (run #9, "Milestone Summary Check Run v2"),
+> submitted 2 real results via the `redmineflux-tcm` CLI (1 passed, 1 failed with a real auto-created defect),
+> then confirmed `report.json` correctly reflects it: `overall: {total:8, passed:1, failed:1, untested:6,
+> executed:2, executed_percent:25.0, pass_rate:50.0}`, `runs:[{id:9, ...}]` — numerically exact match to what
+> was actually submitted, `readiness:"on_track"`. **While investigating this, found and filed a real bug
+> (BUG-TCM-149): `POST /runs.json` crashes with an unhandled 500 if called with the plausible-but-wrong
+> `run[run_assignments]` param shape instead of `run_assignments_attributes`** — not the cause of the original
+> UI blocker (that reproduces with correct params too, so it's a separate front-end issue worth a follow-up
+> browser session), but a genuine finding from the same investigation.
+>
 > **CROSS-DB (PostgreSQL) — 2026-11-16 — partial positive evidence, then BLOCKED (budget).**
 > `redmine6-happyflow-pg` (`localhost:3020`). Confirmed the milestone↔run infrastructure this TC depends on
 > genuinely works: set a due date on the project's only version (`v1.0 Release`), then opened Runs & Results

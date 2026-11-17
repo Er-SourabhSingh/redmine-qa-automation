@@ -1,11 +1,37 @@
-> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
-> **RFTC038-6, 11, 14 — PASS**, real executed evidence (not CLI-internal logic): a real end-to-end Jenkins
-> pipeline run (bootstrap → pytest → ingest → auto-defect) genuinely exercised this plugin's own CI-ingest/
-> bootstrap endpoints and wrote real DB rows — a real defect, **#5697**, was created and linked
-> (RFTC038-6). RFTC038-11 (run_id JSON capture via a real live bootstrap call) and RFTC038-14 (unmatched-test
-> exit-0 behavior, confirmed live) are the same category — all three touch the plugin/DB for real, unlike
-> the rest of this file (exit codes, config resolution, secrets hygiene, lint rules) which stays correctly
-> out of scope for this pass. This entry mirrors the finding already recorded in
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — real Jenkins container actually built and run against happyflow-pg
+> this time, superseding the carried-forward note below.** Repointed the `redmineflux-tcm-ci` repo's Jenkins
+> lab (`jenkins/docker-compose.jenkins.yml`, `jenkins/jenkins.yaml`, `jenkins/run_pipeline.sh` — stashing the
+> pre-existing in-progress changes pointing them at a different instance first) at `localhost:3020`/project
+> `happyflow-pg`, rebuilt the image (`docker compose ... build --no-cache` — JCasC bakes `jenkins.yaml` into
+> the image, so a plain restart alone does NOT pick up edits), brought up a fresh `happyflow-pg-jenkins`
+> container, and triggered the real `tcm-ci` pipeline job via the Jenkins REST API. Result: **SUCCESS** —
+> real bootstrap (`POST /testcase_ci/bootstrap_run.json` → run #21 "Jenkins CI Build 1", genuinely visible in
+> the TCM UI/API), a real pytest run inside the Jenkins container (4 pass/1 fail/1 skip), and a real ingest
+> (`POST /testcase_ci/ingest_results.json` → 200 OK, 6/6 correctly reported unmatched since the demo-project's
+> test names don't match any `happyflow-pg` Automation Key at that point — a matching-correctness result, not
+> a failure).
+>
+> **Follow-up, same session — user correctly asked whether real pass/fail/defect results and a milestone had
+> actually been verified. They had not, in that first run.** Fixed both: set real `Automation Key` values on
+> 2 `happyflow-pg` test cases (#6 → `test_apply_discount_code`, the demo's deliberately-failing test; #7 →
+> `test_login_valid`, a passing one), then re-ran the pipeline (`docker exec` into the Jenkins container,
+> same real CLI calls `run_pipeline.sh` makes) with `bootstrap --milestone "v1.0 Release"` added. Result: run
+> #22 "Jenkins CI Build 2 (with milestone)" — genuinely linked to the milestone (confirmed via
+> `/testcase_mcp/milestones/1/summary.json` listing it among the milestone's runs), issue #7 recorded
+> **Passed**, issue #6 recorded **Failed** with a real, newly-created defect **#31** ("CI failure:
+> test_apply_discount_code [Jenkins CI Build 2 (with milestone)]", description containing the real pytest
+> assertion message), auto-linked via a real `IssueRelation`. This is now the complete picture: real Jenkins
+> → real pytest → real matched pass/fail results → a real auto-created defect → a real milestone link, all
+> against PostgreSQL. RFTC038-6, 11, 14 all **PASS**, fully verified.
+>
+> **Earlier carried-forward note (2026-11-16, before the real Jenkins re-run above):** real executed evidence
+> (not CLI-internal logic) from an earlier session: a real end-to-end Jenkins pipeline run (bootstrap → pytest
+> → ingest → auto-defect) genuinely exercised this plugin's own CI-ingest/bootstrap endpoints and wrote real
+> DB rows — a real defect, **#5697**, was created and linked (RFTC038-6). RFTC038-11 (run_id JSON capture via
+> a real live bootstrap call) and RFTC038-14 (unmatched-test exit-0 behavior, confirmed live) are the same
+> category — all three touch the plugin/DB for real, unlike the rest of this file (exit codes, config
+> resolution, secrets hygiene, lint rules) which stays correctly out of scope for this pass. This entry
+> mirrors the finding already recorded in
 > `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md` §4 so it isn't only in the audit doc.
 >
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE

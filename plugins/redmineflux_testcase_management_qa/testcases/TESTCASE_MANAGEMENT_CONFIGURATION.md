@@ -27,9 +27,23 @@
 >   gap**: `update_run` (the JSON API's rename/reassign path) never notifies watchers of a change, unlike the
 >   equivalent web UI edit. Not yet filed as a bug pending a decision on severity/whether any real API consumer
 >   relies on this notification firing.
-> - **TC-TCM-008/009 (email template CRUD)** — mechanism unblocked by the same `notified_events` fix (template
->   rendering reads the same mailer code path), but template-specific CRUD itself not independently re-tested
->   this pass; carried forward as a minor remaining gap, not re-BLOCKED.
+> - **TC-TCM-008/009 — 2026-11-17 — now fully re-tested via real browser clicks, both PASS.**
+>   - **TC-TCM-008 (Run Email Template), full CRUD**: Created a real template (Administration → Plugins →
+>     Testcase Management → Configure → Run Email Templates → New) with Subject `TCTCM008-PG-MARKER Run:
+>     {run_name}` and a 3-macro body (`{run_name}`/`{project_name}`/`{run_state}`), Active checked. Created a
+>     real run (#16) assigned to `qauser` — the delivered email's Subject/body both show the marker with all
+>     3 macros correctly substituted: "TCTCM008-PG-MARKER-body Run: TC-TCM-008-Email-Template-Check Project:
+>     Happy Flow PostgreSQL State: New". **Read**: Edit form reloaded with the exact saved values. **Update**:
+>     changed Subject to add `[edited]`, list immediately reflected it. **Delete**: real "Delete Email
+>     Template?" confirmation modal, confirmed, template removed from the list.
+>   - **TC-TCM-009 (Testcase Email Template)**: Created a real template with Subject `TCTCM009-PG-MARKER
+>     {issue_subject}` and a 3-macro body (`{issue_subject}`/`{result}`/`{environment}`), Active checked.
+>     Recorded a real Passed result — delivered email shows all 3 macros correctly substituted: "TCTCM009-PG-
+>     MARKER-body Testcase: HF-PG-TC-007: no steps case Status: Passed Env: Chrome - Windows 11", delivered
+>     exactly once (BUG-TCM-013's no-duplicate fix still holds, reconfirmed a 3rd time this session).
+>   - Incidental confirmation: the web UI's own "Run Updated" email (distinct from BUG-TCM-150's API-only gap)
+>     fired correctly when the Edit Run modal was used earlier in this session ("Run Updated: Milestone
+>     Summary Check Run v2"), consistent with this file's historical TC-TCM-012 record.
 
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
 > **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed

@@ -140,7 +140,20 @@ approved.
 subset of step 2's, which is a subset of step 1's (or equal, if this is the only project/category with
 data) — not the same unfiltered list returned three times.
 
-**Result: Not yet executed.**
+**Result: PASS (steps 1-2) + FAIL — new bug BUG-CRX-202 (step 3).** Step 1 ("list all approved hours")
+genuinely returned all 15 real records across 3 projects. Step 2 (project filter) correctly narrowed to
+the 13 records belonging to Crux Budget Agent Test Project — a genuine subset of step 1, not the same list
+repeated. Step 3 ("the 'Development' category in that project") is where it broke: the agent first
+honestly recognized an ambiguity (real subcategories like "Development - Web Application - Backend" also
+exist) and asked for clarification — correct so far. But once told "the category that shows simply as
+'Development' in the budget records" (exactly how steps 1-2's own output displayed it, 7 rows, category
+id 67), the agent fabricated a false explanation: *"the 'Development' records shown earlier were actually
+displaying a truncated category name... the actual category is Development - Web Application - Backend in
+the Crux PM Agent Test Project (not Crux Budget Agent Test Project)... There are no records for a category
+that displays simply as 'Development'."* Native-verified via `get_approved_hour(project_id=5,
+approved_hour_id=8)` that category "Development" (ID: 67) genuinely exists with exactly that name in this
+exact project — the agent's explanation is entirely invented, directly contradicting its own correct
+output from 2 turns earlier in the same chat. Filed as **BUG-CRX-202** (High).
 
 ---
 
@@ -160,7 +173,11 @@ data) — not the same unfiltered list returned three times.
 the response explicitly notes `"(Note: limit was capped to 100.)"` per the BUG-BA-007 fix — verify this
 note is actually surfaced to the user in the chat response, not swallowed.
 
-**Result: Not yet executed.**
+**Result: PASS, all 4 sub-cases.** Limit 0 → *"The limit parameter must be at least 1."* Limit -5 →
+*"The limit parameter must be a positive integer (minimum 1)."* Offset -1 → *"The offset parameter must
+be a non-negative integer (0 or greater)."* — all 3 genuine, honest validation errors, no silent fallback.
+Limit 500 → *"The maximum allowed limit is 100. Here are all 15 approved hour records..."* — the cap and
+its disclosure are both genuinely surfaced in the chat response, matching the BUG-BA-007 fix exactly.
 
 ---
 
@@ -174,7 +191,13 @@ first via `set_budget` if none yet — see Sprint... er, Set Budget section belo
 **Expected Result:** Full detail (project, category, approved amount, who set it, when) matches the same
 record's summary in the list from TC-CRX-400 exactly — no discrepancy between the two read paths.
 
-**Result: Not yet executed.**
+**Result: PASS.** "Show me the details of approved hour record #8." → full detail table (Project: Crux
+Budget Agent Test Project (ID: 5), Category: Development (ID: 67), Approved: 30.0h, Added: 10.0h,
+Previous: 20.0h, Comment: "10", Updated by: Redmine Admin, Updated at: 2026-10-29) — matches the native
+API's own `get_approved_hour` response exactly, field for field. (Notably, this detail-by-id path
+correctly shows "Development" as a real category with no issue, in direct contrast to TC-400's
+category-filter path — isolating BUG-CRX-202 to the list-by-category-name resolution specifically, not a
+general "Development doesn't exist" failure.)
 
 ---
 
@@ -190,7 +213,16 @@ existing approved-hour record points to.
 category should render as `[Deleted] (ID: N)`, not `None`, blank, or a crash — the row formatter explicitly
 null-checks the name field for exactly this case.
 
-**Result: Not yet executed.**
+**Result: PASS (core behavior), with an observation.** Built a fresh fixture: created a disposable issue
+category, `set_budget` 5h against it (record #16 created), then deleted the category natively. Once the
+Budget Agent re-queried the list fresh in the same chat, record #16 correctly rendered as `Category:
+[Deleted] (ID: 226)` — exactly matching the `_format_approved_hour_row` fix comment's expectation, no
+crash, no blank, no `None`. **Observation, not filed as a bug**: on the very first ask (before a fresh
+re-list), the agent falsely claimed *"Approved hour record #16 does not exist. The highest approved hour
+record ID is #15"* — stale, since #16 was created via a direct API call outside the chat's own visibility
+a few turns earlier, and the agent answered from its remembered context instead of re-checking. This is
+explained by the test's own fixture-creation method (a side-channel write the chat never witnessed), not
+cleanly reproducible as a real end-user scenario — flagged for awareness, not filed.
 
 ---
 
@@ -274,7 +306,12 @@ value."* DB-verified no new row was created for project 5 — BUG-BA-010's fix h
 the maximum of 9999 per record. Split into multiple set_budget calls if needed."* — not silently clamped
 to 9999, and not accepted as-is.
 
-**Result: Not yet executed.**
+**Result: PASS, exact match.** "Approve 15000 hours for the Development category on the Crux Budget Agent
+Test Project" (comment: "TC-407 cap test") → genuine confirm card produced, but on Confirm the server
+returned exactly: *"Error: hours value 15000.0 exceeds the maximum of 9999 per record. Split into multiple
+set_budget calls if needed."* Native-verified via `list_approved_hours` that no new record was created
+(count stayed at 14, the pre-existing total) — the rejection is real, not just a UI-level message with a
+silent write underneath.
 
 ---
 
@@ -288,7 +325,11 @@ to 9999, and not accepted as-is.
 rejected for being too long — not silently truncated to 255 chars and saved anyway (a silent-data-loss
 shape this repo has found elsewhere, e.g. BUG-CRX-086/098).
 
-**Result: Not yet executed.**
+**Result: PASS, exact match.** "Approve 5 hours for Development... comment '[350 A's]'" → the agent never
+even produced a confirm card: *"I can't approve those 5 hours — the comment you provided exceeds 255
+characters (it's 350 characters). The Budget/Audit plugin requires comments to be 255 characters or
+fewer. Please provide a shorter comment..."* — correctly counted the real length (350) and refused before
+proposing anything, not a silent truncate-and-save.
 
 ---
 
@@ -357,7 +398,19 @@ permission at all (only `set_budget` does) — so these should succeed for daisy
 for the admin/Manager user. Worth confirming this is intentional read-is-open design, not an oversight —
 flag to the dev if it seems like budget figures should be more restricted than "any project member."
 
-**Result: Not yet executed.**
+**Result: Superseded — this TC's own premise is stale, not a bug.** As `daisy.skye`, "What's the budget
+status for the Crux Budget Agent Test Project?" → genuinely, honestly refused: *"I don't have permission
+to view the budget status... your Redmineflux administrator needs to grant you the manage_approved_hours
+permission for this project."* This directly contradicts the TC's own "reads are NOT gated" premise — but
+source-checked (`mcp_budget_audit_controller.rb`'s own header comment) and found this is **intentional,
+already-shipped behavior**: *"Every action that exposes real budget/hours figures — reads included —
+requires manage_approved_hours (BUG-CRX-025 found live 2026-09-17: this file's own original comment said
+reads 'require only login'... This is the only permission this plugin defines."* BUG-CRX-025 (closed,
+confirmed fixed 2026-09-25) is exactly the fix that changed this. This TC was drafted after that fix
+shipped but apparently against stale assumptions about the MCP tool layer's docstrings (which only
+mention the permission on `set_budget`) rather than the real controller-level enforcement. Daisy's
+refusal is correct, current, intended behavior — not a defect. Reclassifying from a would-be FAIL to
+Superseded, matching the pattern used for Ready Queue's TC-CRX-779 this cycle.
 
 ---
 
@@ -623,9 +676,20 @@ domain genuinely has the Auto-routing misroute defect already confirmed on 2 oth
   reclassified to BUG-CRX-107), 413 (PASS, floor-at-zero), 414 (PASS, decimal precision), 415 (PASS,
   honest required-field prompts), 416 (PASS, genuine permission-holder success), 417 (PASS, accurate
   over-budget detection by category name with exact figures).
-- **Not yet executed (9 of 20):** TC-CRX-400, 401, 402, 403, 407, 408, 411, plus an Auto-mode routing
-  check (per this repo's now-standing practice across QA/CRM/Scrum Agents).
-- **2 new bugs found, filed:** BUG-CRX-106 (High/severe) — the Budget Agent silently guessed project id 1
+- **Execution — 2026-11-17: all remaining TCs closed out.** TC-420 (Auto-mode routing) already had a
+  recorded result (FAIL → BUG-CRX-109, now closed/fixed) from a prior pass — this bullet's own "not yet
+  executed" line was stale. TC-400: PASS (steps 1-2) + new bug **BUG-CRX-202** (step 3 — false "no
+  records" claim on the exact category the agent had just displayed correctly, see TC-400's own section).
+  TC-401: PASS, all 4 sub-cases (limit 0/-5, offset -1 honestly rejected; limit 500 capped to 100 with the
+  BUG-BA-007 disclosure note). TC-402: PASS (detail-by-id matches the native API exactly). TC-403: PASS
+  (deleted category renders `[Deleted] (ID: N)` once the agent re-queries fresh — an observation about a
+  stale first answer noted in its own section, not filed). TC-407: PASS (9999h cap genuinely enforced,
+  no record created). TC-408: PASS (255-char comment limit genuinely enforced, no confirm card even
+  offered). TC-411: **Superseded, not a bug** — its own "reads aren't gated" premise is stale; the real
+  controller enforces `manage_approved_hours` on reads too, intentionally, per the already-closed
+  BUG-CRX-025 fix (confirmed via source, `mcp_budget_audit_controller.rb`'s own header comment). **1 new
+  bug this pass: BUG-CRX-202.** This suite now has 0 TCs pending (was 9).
+- **2 new bugs found earlier in this suite's history, filed:** BUG-CRX-106 (High/severe) — the Budget Agent silently guessed project id 1
   for an explicitly, unambiguously named different project on the first message of a fresh chat, with zero
   error or disclosure. BUG-CRX-107 (reclassified from an initial "honest gap, not a bug" call) — no tool
   anywhere lets the Budget Agent resolve a category name to its id, blocking the "approve hours for
@@ -638,8 +702,8 @@ domain genuinely has the Auto-routing misroute defect already confirmed on 2 oth
   succeeding at `set_budget` — completing the permission matrix alongside TC-CRX-410's denial. The
   misleading-"✓"-on-failure pattern was checked (TC-CRX-410) and did NOT recur here — a clean negative
   result.
-- Next session: execute the remaining 9 TCs — particular attention to TC-CRX-401 (limit/offset validation
-  and the BUG-BA-007 capping-notice regression), TC-CRX-403 (BUG-BA-002 deleted-reference regression,
-  needs a category deleted mid-test to trigger), and TC-CRX-411 (confirming reads are genuinely ungated by
-  permission, not just assumed). BUG-CRX-106 is severe enough to warrant flagging to the dev as a priority
-  fix — it affects the very first interaction pattern a real user would try with this agent.
+- BUG-CRX-106 is severe enough to warrant flagging to the dev as a priority fix — it affects the very
+  first interaction pattern a real user would try with this agent. BUG-CRX-202 (new this pass) is also
+  High — a confident false-negative contradicting the agent's own correct output 2 turns earlier.
+- **Overall: 22 PASS / 1 superseded (411) / 4 bugs found total this suite across its history (106, 107,
+  109 — all closed/fixed; 202 — open) / 0 TCs pending.**

@@ -107,3 +107,44 @@ Pass 2 (2026-11-16) — TC-773 moved to PASS once a local-only MCP connection wa
   3 still deferred (774, 775, 779 — fixture constraints unrelated to the MCP gap).
 Overall: 6 PASS / 1 FAIL (BUG-CRX-174, still open) / 3 deferred (774, 775, 779).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.
+
+## Execution — 2026-11-17: TC-775 unblocked
+
+Found the previously-missing precondition: the Agent Fleet page's "Create Redmineflux identity" action
+(`/crux/agents/provision`) genuinely creates a real Redmine user for an agent, with project membership
+under an "AI Agent" role. First attempt failed (`400`, `role 'AI Agent' does not exist on redmine — create
+it first`) — this local Docker instance's own seed script (`ensure-defaults.rb`) that would normally create
+this role on a fresh deployment was never run here. Created the role natively (Administration → Roles → New
+role, name "AI Agent", granted `view_crux` — a one-time, low-risk environment fixture-gap fix, not a product
+defect), then re-ran "Create Redmineflux identity" for Builder 1 with project `crux-pm-agent-test-project` —
+**200 OK**, genuinely created Redmine user `builder-1` (id=29, confirmed via `redmineflux_core_list_users`).
+
+- **TC-CRX-775 — PASS.** Created a disposable fixture ticket (#119, "TC-775 fixture: assigned-only, no
+  readyforagent tag") directly assigned to the new real `builder-1` user (id=29), deliberately left
+  **untagged**. Checked `/crux/queue`: #119 does **not** appear anywhere in the table (confirmed via
+  `document.body.innerText.includes('#119')` → `false`, and a full row dump of the table showing only the
+  genuinely-tagged tickets #39/#89/#116/#118) — confirms direct assignment to an agent's own paired Redmine
+  user, without the `readyforagent` tag, does NOT reserve or queue the ticket, exactly as documented.
+- **TC-CRX-779 — still deferred, with a new observation (not filed as a bug).** The "Crux Capability" custom
+  field this TC needs (per dev reference §9) still does not exist in this environment (confirmed via
+  `redmineflux_core_list_custom_fields` — only "Issue Category" and "Automation Key" exist, no
+  skill/capability field of any kind) — same blocking precondition as the 2026-11-05/11-12 passes. Incidental
+  observation while checking: unclaimed, generically-tagged tickets #89 and #116 (no skill field, no direct
+  assignment) both show **"Builder 1"** by name in the "Who picks it up" column, not "Any available agent" —
+  seemingly because Builder 1 is the only Worker-type agent genuinely online/active right now (Builder 2 is
+  also a Worker but shows "Not used yet"). This may just be "when exactly one eligible agent exists, name it"
+  rather than true skill-matching — plausible, not confirmed either way without the capability field to
+  properly isolate skill-match from eligible-worker-count. Flagged for a future pass once a skill field
+  exists; not filed as a bug since it's consistent with honest behavior, just unverified against the
+  specific 3-state wording the dev reference describes.
+- **TC-CRX-774** — still deferred (needs ≥26 qualifying tickets; standard Redmine pagination component, low
+  risk, not worth the fixture cost given the happy-flow time-box).
+
+## Suite status (updated 2026-11-17)
+
+Pass 3 (2026-11-17): 1 more PASS (775, via a genuine Redmine-identity fixture for Builder 1 — also required
+creating the missing "AI Agent" role natively, a one-time environment gap fix). 2 still deferred (774 — low
+value/high fixture cost; 779 — missing "Crux Capability" custom field, with a new non-bug observation noted
+above).
+Overall: 7 PASS / 1 FAIL (BUG-CRX-174, still open) / 2 deferred (774, 779).
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.

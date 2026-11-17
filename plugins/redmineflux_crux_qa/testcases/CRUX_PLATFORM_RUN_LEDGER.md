@@ -104,3 +104,29 @@ and 787's sub-case) due to missing unpriced-model/estimated-cost fixtures in thi
 
 Executed 2026-11-05 — 11 PASS, 1 bug found (BUG-CRX-175), 3 partially deferred.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §4.
+
+## Execution — 2026-11-17: TC-788/789's root cause confirmed, still genuinely blocked
+
+Traced the exact mechanism in `crux_core/askcrux/chat.py` (~line 1515): a run's cost is **only** ever
+`cost_estimated: true` ("(est)") or `cost_unpriced: true` when the acting provider does NOT report its own
+authoritative cost — currently true for every provider except OpenRouter (`usage.cost`, trusted verbatim).
+Checked `/crux/admin/keys`: this environment has exactly **one** LLM provider configured —
+`OpenRouter prod` (plus Builder 1's own newly-created Redmineflux identity key, which is a Redmine API key,
+not an LLM provider). With zero non-OpenRouter providers configured, every run in this environment is
+structurally guaranteed `cost_estimated:false`/`cost_unpriced:false` — there is no fixture that can be built
+to reach either state without genuine credentials for a second, non-OpenRouter LLM provider (e.g. a direct
+Anthropic or OpenAI key), which are not available in this session. Reclassifying TC-788/789 from "deferred —
+fixture needed" to **"blocked — no reachable precondition without a second real provider credential"**, per
+the same honest-reclassification pattern used for TC-861/867 in the Pipelines suite. Not a product defect —
+the honesty mechanism itself (never showing a fabricated cost) was directly confirmed correct in the source.
+
+## Suite status (updated 2026-11-17)
+
+Pass 2 (2026-11-17): root-caused and reclassified TC-788/789 as genuinely blocked (missing a second LLM
+provider credential, not a fixture gap this QA environment can close) rather than carried forward as
+"deferred — fixture needed" indefinitely. TC-787's @-mention/Improve-wand sub-case remains low-risk-deferred
+(the broader claim it supports — every interaction type is a run — is already well-evidenced by the existing
+1,231-run ledger).
+Overall: 11 PASS / 1 bug (BUG-CRX-175) / 2 blocked-by-missing-provider-credential (788, 789) / 1 low-risk
+deferred sub-case (787's @-mention/Improve-wand row shape).
+Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §4.

@@ -5,10 +5,23 @@
 > restrict-to-specific-run, edit, delete, reflects live data, Download HTML/PDF/Excel all present and HTML
 > download confirmed real). Also PASS (follow-up pass same day): TC-TCM-082 (Tester Scorecard), TC-TCM-085 (Overdue Run Summary),
 > TC-TCM-316 (Slow Tests), TC-TCM-317 (Most Failed Tests) — all 4 remaining report types create successfully
-> the same way as Testcase/Defect Summary. BLOCKED (not confirmed as bugs): TC-TCM-080 (Activity Summary with
-> date range — submission didn't visibly create the report, not debugged further within budget), TC-TCM-083
-> (Requirement Coverage — depends on the blocked Requirements feature), TC-TCM-096,098,100,103,107,108,109,110
-> (sort/email/scheduling — not attempted, needs Mailpit/sort-UI investigation).
+> the same way as Testcase/Defect Summary.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — TC-TCM-080/083 BLOCKED verdicts RETRACTED, both PASS.**
+> - **TC-TCM-080 (Activity Summary)**: created cleanly with a real date range (`[16/11/2026 - 17/11/2026]`,
+>   visible in the report's own subtitle) — real data tables with "Updated by" rows for this session's actual
+>   activity rendered correctly. The earlier "didn't visibly create" symptom didn't reproduce.
+> - **TC-TCM-083 (Requirement Coverage)**: first attempt against "HF-PG Login Requirement" correctly showed
+>   "No data to display" — traced via source (`testcase_reports_controller.rb#show`) to genuinely correct
+>   behavior: this report type measures coverage *within Runs* (`RequirementIssue` → issue ids → `Run.joins
+>   (:run_issues)`), not just a content-level requirement↔testcase link — that specific requirement's linked
+>   case had never been added to any Run. Re-tested against "HF-PG RTM Retest Requirement" (which the RTM
+>   already proved has a real link, #2→#19) after adding issue #19 to a suite, bootstrapping a fresh run, and
+>   recording a real Passed result: the report now shows a real **100.0%** pie chart (Fully Covered), matching
+>   the 1 covered run out of 1. **Verdict: both PASS** — the original block was a research-depth miss (TC-080)
+>   and a genuinely correct empty-state render misread as broken (TC-083), not plugin defects.
+>
+> TC-TCM-096,098,100,103,107,108,109,110 (sort/email/scheduling) remain not independently re-attempted this pass.
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >

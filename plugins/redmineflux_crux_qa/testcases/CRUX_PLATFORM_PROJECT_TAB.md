@@ -220,11 +220,33 @@ bypassing the ARIA-tree limitation entirely. Table view, by contrast, turned out
   0, Groups 0, Connections 0). Restored `CRUX_GRAPH_NODE_CAP` and reverted the `docker-compose.yml` edit
   immediately after, confirmed back to `truncated: false` / 95 nodes.
 
-- **TC-CRX-806** — NOT EXERCISED (no independently verifiable way to confirm the 90-day cutoff without a
-  deliberately stale fixture or waiting). Deferred.
+## Execution — 2026-11-17 (continued): TC-793-neg, TC-814 unblocked; TC-806 genuinely blocked
 
-- **TC-CRX-793** (negative), **TC-CRX-814** — still deferred (need non-member or non-manager
-  user fixtures with the specific permission combination required by each TC).
+- **TC-CRX-793 (negative half) — PASS.** Used `sage.willow` (Reporter role on this project — confirmed via
+  `get_role(5)` that Reporter has `use_ask_crux` but **not** `view_crux`). Logged in as her: no "Crux" tab in
+  the project menu at all. Navigating directly to `/projects/crux-pm-agent-test-project/crux` returned a
+  genuine **403 Forbidden** — server-enforced, not just a hidden menu link.
+- **TC-CRX-814 — PASS.** First attempt (granting `view_crux` to the built-in "Non member" role, then testing
+  with `luna.meadow` — genuinely not a member of this project) loaded the Graph page successfully with no
+  403, which looked like a failure at first — but the project was **Public**, so Redmine's own standard model
+  correctly grants a logged-in non-member the "Non member" role's permissions on any public project; that's
+  expected Redmine behavior, not a bug, and an invalid test setup for this TC's actual claim. Temporarily
+  unchecked the project's "Public" flag (restored immediately after) and retested: `luna.meadow`, now a
+  genuine non-member of a **private** project, got a clean **403** on the same URL, even with `view_crux`
+  still granted to "Non member" globally — confirming module+membership+permission are all 3 genuinely
+  required, exactly as TC-814 expects. Reverted both the project's Public flag and the Non-member role's
+  `view_crux` grant immediately after, confirmed restored.
+- **TC-CRX-806 — genuinely NOT EXERCISABLE via the real product, confirmed (not just assumed).** Found that
+  `crux_core/config.py`'s `graph_window_days` (default 90) is documented as overridable per-request via a
+  `?days=` query param — but `CruxProjectController#graph_data` (`redmineflux_crux/app/controllers/
+  crux_project_controller.rb` line 36) hard-codes the proxied URL to only `?project=<identifier>`, never
+  forwarding any `days` param from the incoming request. Confirmed via three real `fetch()` calls against the
+  live endpoint (default, `?days=1`, `?days=0`) — all three returned an identical 95-node graph, proving the
+  override is completely unreachable through the actual product surface a real user or tester can hit. This
+  means TC-806 cannot be verified short of a genuinely 90-day-old fixture or waiting — correctly deferred, not
+  a tooling gap. Side-finding, not filed as its own bug: the `?days=` override existing in core but being
+  unreachable from the Redmine-side proxy may be an intentional internal/debug-only parameter rather than a
+  product defect — flagging for awareness, not asserting it's wrong.
 
 ## Execution — 2026-11-16 (later same session): TC-796 closed
 
@@ -248,6 +270,9 @@ Pass 2 (2026-11-12): 7 more PASS (799, 805, 808, 809, 811, 812, 813), 1 partial 
 Pass 3 (2026-11-16, same session): two-project fixture built. 1 more PASS (796).
 Pass 4 (2026-11-17): 5 more PASS via coordinate-based canvas clicks + a temporary graph_node_cap override
   (801, 802, 803, 804, 810). 3 still deferred (793-neg, 806, 814).
-Overall: 20 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 3 deferred (793-neg, 806, 814) / 0 new bugs this
-  pass.
+Pass 5 (2026-11-17, same session): 2 more PASS via permission-fixture + temporary project-visibility toggle
+  (793-neg, 814). TC-806 confirmed genuinely not exercisable (proxy never forwards the `?days=` override) —
+  stays deferred, now for a verified reason rather than an assumed one.
+Overall: 22 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 1 deferred (806, genuinely not exercisable without
+  a 90-day-old fixture or waiting) / 0 new bugs this pass.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

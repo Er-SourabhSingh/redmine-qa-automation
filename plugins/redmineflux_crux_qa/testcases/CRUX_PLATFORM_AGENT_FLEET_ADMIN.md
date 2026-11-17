@@ -298,17 +298,29 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
     incremented, real Chat link present). There is **no file-extension validation of any kind** — only the
     text content is checked. Filed as **BUG-CRX-201** (Medium). Both fixture agents retired immediately after
     reproduction (neither had a paired Redmineflux user, so retiring needed no lock cleanup).
-- **TC-CRX-846 / TC-CRX-847** — still deferred (spend-figure cross-referencing against Run Ledger totals, and a
-  live plugin-install flag-update check, both judged lower-value given the happy-flow time-box).
+- **TC-CRX-846 — PASS, after resolving an apparent (but ultimately explained) large discrepancy.** Filtered
+  Run Ledger to Agent = Builder 1 (44 runs, matching the Agent Fleet roster's own "44 runs" exactly) — but its
+  all-time Cost tile showed **$14.59**, wildly more than Agent Fleet's "Spend this month" ($0.09 of $500).
+  Investigated rather than assuming a bug: paged through all 44 rows and found the real driver — 2 outlier
+  runs at **$2.10** and **$12.40** (vs. every other run being $0.00–$0.008), one of them explicitly timestamped
+  **"147d ago"** (~5 months prior, well outside the current month). $2.10 + $12.40 + the ~$0.09 of small
+  recent runs accounts for the full $14.59 all-time total almost exactly. This confirms "Spend this month"
+  genuinely, correctly scopes to the current month only (excluding the 2 old expensive runs), while Run
+  Ledger's unfiltered Cost tile correctly includes all-time activity when no date range is applied — the two
+  figures were never supposed to match, and don't, for a fully explained reason. No bug.
+- **TC-CRX-847** — still deferred (a live plugin-install flag-update check requires actually installing a
+  Redmine plugin into the Docker stack and restarting — too heavy a fixture for the happy-flow time-box;
+  the flag's accuracy for a plugin that's genuinely NOT installed was already confirmed correct in earlier
+  passes, e.g. "DevOps Agent" showing "Needs Redmineflux DevOps").
 
 ## Suite status (updated 2026-11-17)
 
-Pass 4 (2026-11-17): 5 more PASS (828, 839, 843-half, 845 — via the Builder 1 Redmineflux-identity fixture
-  and a real file-upload repro; 849 — re-checked, the dev-reference's own known stale-picker-entry issue no
-  longer reproduces). TC-833/834 reclassified from "deferred — fixture needed" to "blocked" after finding a
-  new bug (BUG-CRX-200) that makes Builder 1/2's Edit action entirely non-functional, so no fixture can ever
-  reach either TC until it's fixed. TC-843 itself fully resolved (not deferred) — one half PASS, one half a
-  new bug (BUG-CRX-201).
-Overall: 28 PASS / 4 bugs found (177 fixed, 189 fixed, 200 open, 201 open) / 2 blocked-by-bug (833, 834) / 2 still
-  deferred (846, 847 — low-value given the happy-flow time-box).
+Pass 4 (2026-11-17): 6 more PASS (828, 839, 843-half, 845, 846 — via the Builder 1 Redmineflux-identity
+  fixture, a real file-upload repro, and a Run-Ledger cost cross-check; 849 — re-checked, the dev-reference's
+  own known stale-picker-entry issue no longer reproduces). TC-833/834 reclassified from "deferred — fixture
+  needed" to "blocked" after finding a new bug (BUG-CRX-200) that makes Builder 1/2's Edit action entirely
+  non-functional, so no fixture can ever reach either TC until it's fixed. TC-843 itself fully resolved (not
+  deferred) — one half PASS, one half a new bug (BUG-CRX-201).
+Overall: 29 PASS / 4 bugs found (177 fixed, 189 fixed, 200 open, 201 open) / 2 blocked-by-bug (833, 834) / 1
+  still deferred (847 — requires actually installing a Redmine plugin, too heavy for the happy-flow time-box).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

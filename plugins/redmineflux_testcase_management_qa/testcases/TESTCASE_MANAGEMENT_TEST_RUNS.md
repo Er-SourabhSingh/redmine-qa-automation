@@ -28,8 +28,32 @@
 > real checkbox clicks (2 cases selected → "2 Selected" bar appeared with Bulk Update Result/Reassign
 > buttons) → real click on "Bulk Update Result" → real select "Passed" status → real-typed note into the
 > Quill editor → real click Submit: both selected cases (#1, #4) updated to Passed with the note applied in
-> one action. TC-TCM-157 (edit-run modal) and TC-TCM-179 (Add Result from case detail) remain BLOCKED after
-> a second real-click attempt each — both involve a menu/link that Playwright's real-click reports as
+> one action.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — TC-TCM-157 BLOCKED verdict RETRACTED, PASS confirmed.** The earlier
+> "zero-height/not clickable" symptom was a selector-scoping mistake, not a real block — this exact menu has
+> a documented duplicate-`id="action-menu-icon"` quirk (see TC-157's own 2026-10-01 note below). Scoped the
+> click to the row via `span[data-id="9"].action-menu-icon` instead, and the Edit Run modal opened cleanly
+> with real fields. First save attempt hit a genuine 422 ("Environment cannot be blank") — root-caused to
+> run #9's environment ("CI") being a raw string from an earlier API-created fixture, never a real registered
+> `TestcaseEnvironment` (confirmed via DB: only "Chrome - Windows 11" and "Firefox - Linux" are genuinely
+> registered for this project) — so the dropdown correctly couldn't pre-select a non-existent environment.
+> Not a plugin bug, a test-fixture artifact. Re-did the edit selecting a real registered environment
+> ("Chrome - Windows 11") instead: saved cleanly, zero console errors, and the run detail page now correctly
+> shows "Environment: Chrome - Windows 11". **Verdict: PASS.**
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — TC-TCM-179 BLOCKED verdict RETRACTED, PASS confirmed.** Opened issue
+> #1's detail page with the run/environment/testsuite query params matching its real `run_id=9` context,
+> clicked the "Result: Passed" link directly (no zero-height issue this time — the earlier block was likely
+> hitting the page without these required query params, landing on a broken standalone form rather than the
+> real in-context one). The real Add Result modal opened cleanly with a working Status dropdown
+> (Passed/Failed/Retest), selected "Retest," submitted — detail page updated to "Result: Retest" immediately,
+> and the run grid (`/runs/9?environment=Chrome+-+Windows+11...`) shows the identical "Retest" result for
+> issue #1 with a matching timestamp (11/17/2026 07:09 AM), the Results Summary panel correctly recalculated
+> (1 Retest/4 Untested/1 Failed out of 6). **Verdict: PASS.**
+>
+> TC-TCM-179 was previously BLOCKED after
+> a second real-click attempt — a menu/link that Playwright's real-click reported as
 > present but zero-height/not-stably-visible (likely a CSS/animation timing issue in this environment, not
 > confirmed as an app bug). TC-TCM-154/177 (multi-environment run) also remain BLOCKED — no "add
 > environment" control found on the new-run form after a fresh look.

@@ -1000,6 +1000,8 @@ Scope: same methodology as the Testcase Management suite's equivalent check (`CR
 
 ## Evidence Map (2026-10-12 cycle)
 
-- Case IDs: TC-CRX-245 through TC-CRX-267 — drafted, not yet executed.
+- Case IDs: TC-CRX-245 through TC-CRX-267 — drafted, ~~not yet executed~~ **all executed (see each TC's own
+  section above with a recorded Result) — this line was stale, written at draft time and never updated.**
 - Fixtures: `Crux CRM Agent Test Project` (new), Manager role (CRM-permission-complete), Reporter role (`Use Ask Crux` only), `luna.blossom` (full CRM), `daisy.skye` (zero CRM).
-- Next step: execute in order, filing a `BUG-CRX-0NN` for each confirmed defect per `CLAUDE.md` §5, cross-referencing the Project Manager suite's bug numbers wherever the same systemic pattern recurs (false denial, fabricated confirm, misleading checkmark, token-budget stall, wrong/hallucinated ID resolution).
+- **Correction (2026-11-17): every TC in this suite (010–022, 245–267, 356–358) has a recorded Result.
+  Nothing in this suite is pending.**

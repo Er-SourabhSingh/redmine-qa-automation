@@ -555,5 +555,7 @@ denial. Filed as **BUG-CRX-113**.
   To: 5`, `User: 6`) rather than resolving them to names, inconsistent with this codebase's own
   `CRC-11-spec-confirm-cards-resolve-every-known-id-field-to-its-name.md`. Worth a dev mention if it recurs
   widely.
-- Next session: execute TC-CRX-431 (the only remaining TC), then prioritize re-testing TC-CRX-433/434 once
-  BUG-CRX-114 is fixed.
+- ~~Next session: execute TC-CRX-431 (the only remaining TC), then prioritize re-testing TC-CRX-433/434 once
+  BUG-CRX-114 is fixed.~~ **Correction (2026-11-17): stale.** TC-CRX-431 was already executed (see its own
+  section above — FAIL, found BUG-CRX-185, now closed/fixed). BUG-CRX-114 is also closed. All 18 cases in
+  this suite have a recorded result; nothing is pending.

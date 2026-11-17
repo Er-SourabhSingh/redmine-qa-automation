@@ -1237,8 +1237,13 @@ not domain-specific). Step 1 (lexically obvious phrasing) not separately execute
   sequential-order, TC-CRX-084 self-approval, TC-CRX-085 withdraw-after-approval, TC-CRX-087
   auto-approve-threshold) — re-drafted here as TC-CRX-447, 448, 452, 456 respectively, now with the benefit
   of direct source confirmation of the exact rules involved. **452 PASS (2026-11-02); 448 partial PASS
-  (non-admin case); 447 and 456 not yet executed.**
-- **Next session, pick up exactly here**: (1) report BUG-CRX-128, 129, 130, and 131 to production; (2) fix
+  (non-admin case); 447 and 456 both PASS (2026-11-02, see their own sections above — this note was stale,
+  written before they ran and never updated).**
+- **Correction (2026-11-17): this suite is fully executed.** All 36 cases have a recorded result; only
+  TC-CRX-473 is BLOCKED by a genuine fixture role-permission limitation (not a plugin defect), the suite's
+  one remaining non-PASS/FAIL item. BUG-CRX-128/129/130/131 have since been reported to production and
+  closed. The "next session" note below is stale and kept only for history — nothing further is pending.
+- ~~**Next session, pick up exactly here**: (1) report BUG-CRX-128, 129, 130, and 131 to production; (2) fix
   TC-CRX-473's fixture (give the L2/final-level role actual time-logging rights, e.g. swap Sage Willow's role
   to Developer, or seed a time entry for her directly in the DB) and complete the last-level-escalates-to-
-  admin flow — the only test case in this suite still without a genuine PASS/FAIL verdict.
+  admin flow — the only test case in this suite still without a genuine PASS/FAIL verdict.~~

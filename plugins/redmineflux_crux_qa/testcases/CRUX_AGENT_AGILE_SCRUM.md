@@ -28,6 +28,14 @@
 > (Reporter, holds none) — all 3 PASS, clean honest denials, no misleading "✓" on any of them. Remaining 13
 > TCs not yet executed — continuation planned next session.
 >
+> **Continued 2026-11-17 (partial):** TC-369/370 PASS (global/my-page board distinct from project board;
+> pagination genuinely disclosed, not silently truncated). TC-376 half-PASS/half-FAIL — correct
+> global-board move tool resolved, but the target status itself resolved wrong ("new" instead of "In
+> progress") — filed as **BUG-CRX-203** (reported to production as #128886). Session paused here per
+> explicit user instruction to continue the remaining ~11 TCs (my-page move variant of 376, 377, 378, 379,
+> 380, 382, 385, 386, 389, 391, 393, plus 383's positive half and 390's 8 remaining group-by values) next
+> session.
+>
 > Original suite, Redmine 6 cycle (`localhost:3015`, plugin `agile_board` installed but **not yet enabled
 > on any fixture project** as of 2026-10-29, now resolved — see above). Supersedes the historical
 > `testcases/old_suites/CRUX_AGENT_AGILE_SCRUM.md` (Redmine 7.0.0, `localhost:3014`) — that suite's
@@ -140,7 +148,11 @@ the real fixture exactly, DB-cross-checked.
 `get_my_page_board` respectively — genuinely different data/scope from the project-board call in
 TC-CRX-368, not the same response reused.
 
-**Result: Not yet executed.**
+**Result: PASS (2026-11-17).** "Show me the global board across all projects, and show me my page board."
+→ Global board genuinely scoped across ALL projects (73 issues, real cross-project data: TC-774 pager
+fixtures, SSO testcases, RIT-CRUD testcases, etc. — nothing specific to the Scrum fixture project). My
+Page Board showed the admin's own real assignments (#31, #28, ... all in Waiting for Customer Response) —
+genuinely different data/scope from both the global board and the single-project board.
 
 ---
 
@@ -156,7 +168,10 @@ enough fixture cards this time specifically to force it).
 complete accounting, or explicitly says there's more beyond what it fetched — never silently drops items
 past the first page without saying so.
 
-**Result: Not yet executed.**
+**Result: PASS (2026-11-17), via the same response as TC-CRX-369.** The global board's "new" column (73
+real issues) explicitly disclosed `[new — 73 issues, +48 more shown]` and closed with `...and 48 more in
+the new column` — never silently truncated. The "Waiting for Customer Response" column did the same
+(`+39 more shown` / `...and 39 more`). Genuine disclosure of pagination limits, not a silent drop.
 
 ---
 
@@ -286,7 +301,17 @@ plausible one).
 the plain project `move_issue` when the user clearly meant the global or my-page view) — this was never
 actually isolated in the old suite (TC-CRX-002 stopped after the base case hit BUG-CRX-020).
 
-**Result: Not yet executed.**
+**Result: Half 1 PASS (correct tool resolved) + FAIL — new bug BUG-CRX-203 (2026-11-17).** "On the global
+board, move card #15 to the 'In progress' column" → the agent correctly called the right tool variant,
+`Agile Global Move Issue` (`global_move_issue`, not the plain project `move_issue`) — the tool-selection
+half of this TC genuinely passes. But the resolved target field is wrong: the confirm card showed
+`Status: new` for a request that explicitly named "In progress" — two genuinely distinct, non-adjacent
+statuses (`id=2: new` vs `id=3: In progress`, confirmed via `redmineflux_core_list_statuses`). Cancelled
+before confirming; issue #15 was left untouched. This is the same wrong-column-resolution shape as the
+closed BUG-CRX-031, recurring on the global-board move variant specifically, a trigger path that bug's own
+fix verification never covered. Filed as **BUG-CRX-203** (reported to production as #128886). My-page
+move variant (half 2) not yet exercised this pass — deferred to the next session alongside the suite's
+other remaining TCs.
 
 ---
 

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-202
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128885 (reported 2026-11-17, linked to Test Case #120492 / Run #607 / Environment "Window 11 + Chrome", marked Failed, assigned to Prashant Chaurasia)
 - Title: Budget Agent falsely claims "no records exist" for a category it correctly displayed 7 rows of two turns earlier in the same chat
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

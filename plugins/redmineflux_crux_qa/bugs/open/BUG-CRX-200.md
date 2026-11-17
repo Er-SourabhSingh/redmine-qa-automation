@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-200
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128846 (reported 2026-11-17, linked to Test Case #127937 / Run #607 / Environment "Window 11 + Chrome", marked Failed, assigned to Prashant Chaurasia)
 - Title: Builder 1/Builder 2's own "Edit" action is completely non-functional — every save is refused as "the id of a built-in agent"
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

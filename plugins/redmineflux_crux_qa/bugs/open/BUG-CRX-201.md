@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-201
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128847 (reported 2026-11-17, linked to Test Case #127937 / Run #607 / Environment "Window 11 + Chrome", marked Failed, assigned to Prashant Chaurasia)
 - Title: Upload Agent accepts a non-.md file with no extension check at all, as long as its text content happens to parse as valid frontmatter
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

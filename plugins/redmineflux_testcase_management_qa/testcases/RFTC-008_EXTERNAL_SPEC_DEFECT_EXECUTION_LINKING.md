@@ -54,10 +54,25 @@ by three new JSON endpoints on `IssueStatusResultsController`: `link_defect`, `u
 > grid shows the defect ID on the testcase row, and issue #12's own "Related issues" panel shows "Defect
 > Testcase #N" back. This is the same single-execution-to-one-defect link RFTC008-F1 describes, exercised via
 > the UI rather than a direct `POST /testcase_status_results/link_defect.json` call — cross-referenced here
-> rather than re-proven a second time. **RFTC008-F2/U3, F7/U8/U9/U10, F10, F11/U6, UI2/UI3 not independently
-> re-verified this item** (bulk-link to the same defect, unlink, cross-run aggregation, the dedicated UI
-> panels) — not completed within this item's ~10-tool-call budget. BLOCKED (budget) for those specific sub-
-> cases, not a confirmed defect.
+> rather than re-proven a second time.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED retracted for F2/U3, F7/U8/U9/U10, F10, F11/U6, all PASS.**
+> Re-verified directly via the REST API against `happyflow-pg` (`localhost:3020`):
+> - **F2/U3 (bulk-link many executions to ONE defect):** created defect #28, `link_defect.json` with
+>   `execution_ids:[54,56]` → `{"status":"success","linked":[{execution_id:54,...},{execution_id:56,...}]}`.
+> - **F11/U6 (reverse view):** `GET /defects/28/executions.json` → both executions listed with full
+>   run/suite/environment/status detail, served from the join.
+> - **F7/U8/U9/U10 (unlink):** `unlink_defect.json` for execution 54 → removed cleanly; reverse view then
+>   showed only execution 56; issue #5's `IssueRelation` to defect #28 correctly **retained** (since
+>   execution 56 still links it) — exactly the "remove join, recompute, retain relation while any other
+>   execution still links it" behavior the spec requires.
+> - **F10 (bulk_create writes the join automatically):** `bulk_create.json` with
+>   `issue_status_results:[{issue_id:6, case_status_id:3, defect_ids:"28"}]` (not via `link_defect` at all) →
+>   201, and the new execution (#57) correctly appeared in `/defects/28/executions.json` alongside #56.
+>
+> **UI2/UI3 (the dedicated Run-execution-view panels) still not re-verified this pass** — genuinely need the
+> browser tool (currently disconnected this session) to click through; the underlying API/data layer all 6
+> sibling sub-cases depend on is now fully confirmed correct on PostgreSQL.
 
 **User Role:** QA Manager (`qa.manager`)
 **Priority:** P1

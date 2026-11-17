@@ -503,8 +503,25 @@ is outdated for this build — read `assets/javascripts/testcase.js` directly:
   suite produces exactly the expected **"Move here / Copy here / Cancel"** popup (visible, correctly
   positioned under the target suite in the tree). This is live, real confirmation from an actual human
   gesture — the feature genuinely works end-to-end; only the automated reproduction of the drop-hover event
-  was the limitation, not the plugin. **Verdict: PASS, fully confirmed** (fix present, active, and now visually
-  verified completing the real popup a user would see).
+  was the limitation, not the plugin.
+- **Both buttons' actual data behavior independently verified for real**, by calling the exact same endpoints
+  the popup's own click handlers call (`/add_issues_to_test_suite` for Move, `/copy_issues_to_test_suite` for
+  Copy — read directly from `testcase.js`'s `showMovePopup()`), bypassing only the finicky drag gesture itself:
+  - **Move**: issue #10 (previously unassigned) → `"Testcase was successfully moved."` — confirmed it now
+    genuinely lives in suite #6 (API-COMPAT Suite)'s real listing.
+  - **Copy**: issue #1 (already in suite #1) → `"Testcase was successfully copied.", "duplicated_issues":
+    [{"id":29,...}]` — **important nuance**: Copy creates a genuine **new duplicate issue** (id=29, same
+    subject) and adds that to the target suite, rather than making the same issue appear under two suites by
+    reference. Confirmed both halves: issue #1 unchanged in suite #1, and the new issue #29 genuinely appears
+    in suite #6's listing alongside #10 and #14.
+  **Verdict: PASS, fully confirmed** — fix present, active, popup visually confirmed by the user, and both
+  Move/Copy data outcomes independently verified for real.
+- **Multi-select drag also confirmed via a second user screenshot**: with cases #21 and #22 both checked, the
+  floating drag helper correctly reads "2 Test cases" (not "1") while hovering the target suite (shown
+  highlighted/selected in the tree, "2 Test cases" badge visible), and the same Move here/Copy here/Cancel
+  popup appears — confirms the helper's `container.append($(this).clone())` loop (collecting every checked
+  row, not just the one physically grabbed) works correctly for a real multi-case drag, not just a
+  single-case one.
 
 ---
 
@@ -550,11 +567,16 @@ BUG-TCM-025 to Critical to reflect this broader scope.
 **CROSS-DB (PostgreSQL) — 2026-11-17 — PASS, BUG-TCM-025 fix resolves this too.** The "Actions" menu / Edit
 form still have no dedicated "add existing case" control, but that's no longer the only path: drag-and-drop
 (TC-144/145's fix, confirmed via code + a real user screenshot showing the "Move here / Copy here / Cancel"
-popup) is the actual, working UI mechanism for associating an existing test case with a suite — "Copy here"
-specifically adds a case to a target suite without removing it from its original one, which is this TC's own
-"both cases appear under the target suite" expectation. **Verdict: PASS**, via drag-and-drop rather than a
-dedicated bulk action — not the exact mechanism the TC's steps originally assumed, but the underlying
-capability (associate an existing case with a suite) now genuinely works.
+popup) is the actual, working UI mechanism for associating an existing test case with a suite.
+**Correction on the exact mechanism** (verified by calling `/copy_issues_to_test_suite` directly, same as the
+popup's own "Copy here" button): "Copy here" does **not** make the same issue appear under two suites by
+reference — it creates a genuine **new duplicate issue** (confirmed: copying issue #1 produced a new issue
+#29 with the same subject, added to the target suite, while #1 itself stayed only in its original suite). So
+this TC's literal wording ("both cases appear under the target suite") doesn't quite match what actually
+happens — it's "the original stays put, and a copy of it appears in the target," not "the same case now
+belongs to both." **Verdict: PASS** on the underlying capability (an existing case's content can be
+associated with a new suite without manual re-entry), with this nuance now accurately documented rather than
+assumed.
 
 ---
 

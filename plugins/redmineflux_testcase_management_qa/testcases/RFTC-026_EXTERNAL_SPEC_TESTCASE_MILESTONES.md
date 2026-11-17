@@ -23,16 +23,18 @@
 > are scoped to their own report/chart content, not the base Milestones list/detail/Run-linking behavior this
 > suite covers.
 >
-> **Status: 38/38 given a verdict — 34 PASS, 2 FAIL (cosmetic spec-wording gaps, left as-is per instruction), 1
-> FAIL (real N+1 regression, BUG-TCM-148), 1 not yet built (Phase 2).** Includes a fully-confirmed cross-project
-> isolation check (RFTC026-36, SEC-001) and a fully-confirmed live close/reopen round-trip (RFTC026-22) on a
-> disposable fixture.
+> **Status (2026-11-17): 38/38 given a verdict — 35 PASS, 2 FAIL (cosmetic spec-wording gaps, left as-is per
+> instruction), 1 not yet built (Phase 2).** The one real regression (RFTC026-5, N+1 query, BUG-TCM-148) is
+> now **CONFIRMED FIXED** (commit `dcf15c1`, retested 2026-11-17 on `happyflow-pg`) — see that TC's own entry
+> and `bugs/closed/BUG-TCM-148.md`. Includes a fully-confirmed cross-project isolation check (RFTC026-36,
+> SEC-001) and a fully-confirmed live close/reopen round-trip (RFTC026-22) on a disposable fixture.
 > **Retest 2026-11-16 against `localhost:3000` (commit `dc7f7ff`)**: RFTC026-5, 20, 22, 24, 32, 33, 34, 37
 > re-executed — RFTC026-32/33/34 (the 3 real API/automation gaps found 2026-11-13) are now FIXED by commits
 > `01bee8f`/`dc7f7ff` and PASS; RFTC026-20, 22, 24, 37 PASS (first execution, 22/24 via live Playwright UI clicks);
-> RFTC026-5 is a **new FAIL** — an N+1 query regression in the Runs & Results JSON list when Milestones is ON
-> (filed as **BUG-TCM-148**, production #128488), confirmed NOT present in the HTML Runs & Results page (which
-> already uses a correct single-query lookup for the same data). See "Execution status" at the bottom.
+> RFTC026-5 was a **FAIL** at that point — an N+1 query regression in the Runs & Results JSON list when
+> Milestones is ON (filed as **BUG-TCM-148**, production #128488), confirmed NOT present in the HTML Runs &
+> Results page (which already uses a correct single-query lookup for the same data) — **now fixed, see above.**
+> See "Execution status" at the bottom.
 
 ## Plugin
 - Name: Redmineflux Testcase Management
@@ -150,6 +152,12 @@ detail, MCP summary, model-level link) was re-confirmed intact first, and the N+
 via direct SQL-log evidence (40 identical-shape `SELECT "versions".*` queries, matching the 40 milestone-linked
 runs 1:1) before filing, per repo standard (distinct from the "note on the ticket" handling used for the
 2026-11-13 gaps, which were missing-feature gaps rather than a regression-type performance defect).
+
+**Retested 2026-11-17 (commit `dcf15c1`) — CONFIRMED FIXED.** Pulled the dev's joint fix for BUG-TCM-148/149/
+150, restarted the `happyflow-pg` containers, re-ran the query-count check against 16 real runs on that
+instance (several milestone-linked): only **2** `SELECT "versions"` queries total, not one per milestone-
+linked run. BUG-TCM-148 closed (production #128488 synced to Done/100%). **RFTC026-5 verdict upgraded FAIL →
+PASS.**
 
 ---
 
@@ -729,10 +737,16 @@ built (Phase 2 per the spec's own table), 3 genuinely NOT TESTED.**
 `1bf4b0d`/`dc7f7ff`) — all 38/38 now have a verdict: 34 PASS, 2 FAIL (unchanged cosmetic gaps), 1 FAIL (new real
 N+1 regression, BUG-TCM-148), 1 not yet built.** The 3 real API/automation gaps found 2026-11-13 (RFTC026-32/33/34)
 are **now fixed and PASS**. The 5 previously NOT TESTED cases were executed: RFTC026-20, 22, 24, 37 PASS (22/24
-via live Playwright UI clicks on a disposable fixture, fully cleaned up afterward); **RFTC026-5 is a new FAIL** —
+via live Playwright UI clicks on a disposable fixture, fully cleaned up afterward); RFTC026-5 was a new FAIL —
 an N+1 query regression in the Runs & Results JSON list when Milestones is ON, not present on 2026-11-13, filed
 as **BUG-TCM-148** (production #128488), and confirmed via a second Playwright pass + source comparison that it
-does NOT affect the HTML Runs & Results page (see below). Authored directly from the feature's own
+does NOT affect the HTML Runs & Results page (see below).
+
+**Retested again 2026-11-17 against `happyflow-pg` (PostgreSQL, commit `dcf15c1`) — BUG-TCM-148 CONFIRMED
+FIXED.** 16 real runs now produce only 2 `versions` queries, not one per milestone-linked run. Production
+issue #128488 synced to Done/100%, local bug file moved to `bugs/closed/`. **Final status: 35/38 PASS, 2 FAIL
+(cosmetic, unchanged), 1 not yet built (Phase 2) — the single real regression this feature ever had is now
+closed.** Authored directly from the feature's own
 specification (`backlog/specification/rtc-026-feature-testcase-milestones.md`) and cross-checked against the real
 implementation's routes (`config/routes.rb`), permissions (`init.rb`), and the centralized
 `TestcaseManagement::Milestones` service module (`app/services/testcase_management/milestones.rb`). The feature
@@ -745,10 +759,15 @@ Basic Auth prompt that a plain in-page `fetch()` can trip on these routes).
 
 | Result | Cases |
 |---|---|
-| PASS | 1, 2, 3, 4*, 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (fully confirmed live 2026-11-16), 23*, 24 (fully confirmed live 2026-11-16), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 34 cases |
+| PASS | 1, 2, 3, 4*, 5 (fixed 2026-11-17, see below), 6, 7*, 8*, 9*, 10**, 11*, 12, 13 (partial), 14, 16 (partial), 18*, 19, 20, 21***, 22 (fully confirmed live 2026-11-16), 23*, 24 (fully confirmed live 2026-11-16), 25 (partial), 26, 27, 28, 29, 30, 32 (fixed 2026-11-16), 33 (fixed 2026-11-16), 34 (fixed 2026-11-16), 35, 36, 37 (partial — scale caveat), 38 — 35 cases |
 | FAIL — cosmetic, left as-is | 15 (no Environment(s) column), 17 (no "Add to a run" shortcut) |
-| FAIL — new real gap, found 2026-11-16 | 5 (N+1 query: Runs & Results JSON list issues one extra SQL query per milestone-linked run when Milestones is ON — 40 extra queries for 40 linked runs, confirmed 1:1 — filed as **BUG-TCM-148**, production #128488; confirmed via a second Playwright pass that the HTML Runs & Results page does NOT share this bug) |
 | Not yet built (Phase 2, spec's own §13 table) | 31 (Reports milestone filter) |
+
+> **RFTC026-5 fixed 2026-11-17** (was: N+1 query — Runs & Results JSON list issued one extra SQL query per
+> milestone-linked run when Milestones is ON, confirmed 40 extra queries for 40 linked runs on the original
+> fixture). Filed as **BUG-TCM-148**, production #128488. Dev commit `dcf15c1` fixed it jointly with
+> BUG-TCM-149/150; retested on `happyflow-pg` (PostgreSQL) — 16 runs now produce only 2 `versions` queries.
+> Production issue synced to Done/100%, local bug moved to `bugs/closed/`. Verdict upgraded FAIL → PASS.
 
 > 32/33/34 were FAIL (real API/automation gaps) on 2026-11-13; retested 2026-11-16 against commit `dc7f7ff` and
 > confirmed fixed by commits `01bee8f`/`dc7f7ff`. 5/20/22/24/37 were NOT TESTED on 2026-11-13 (22/24 had been

@@ -106,5 +106,6 @@ native-verified via `list_issues(parent_id=109)`) — this part now correctly pr
 
 **Confirmed STILL NOT FIXED, 2/2.** The developer's pull fixed the sibling proportionality bug (BUG-195) and a
 related repeated-card issue (CRC-110), but this specific subtask-completion-amnesia symptom was not
-addressed. Left open; production status should not be moved to Done — flagging for the developer that this
-one needs a separate fix pass. No local file moved; `bugs/open/BUG-CRX-194.md` stays as-is.
+addressed. Production issue (#128745) moved back from "In QA" to **Reopen** (not just "In Progress") with an
+explanatory comment, flagging for the developer that this needs a separate fix pass. No local file moved;
+`bugs/open/BUG-CRX-194.md` stays as-is.

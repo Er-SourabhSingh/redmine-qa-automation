@@ -275,11 +275,28 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   TC's own instruction ("if it IS fixed, note that as a positive finding, not a new bug, since the developer
   already knows about it") — recorded as such, not filed.
 
+- **TC-CRX-833 / TC-CRX-834 — blocked by a new bug, not just a fixture gap.** Attempted the fixture directly on
+  Builder 1 (the only way to reach either TC, since only `builder-1`/`builder-2` can ever claim Ready Queue
+  work — `WORKER_IDS` is hardcoded, confirmed via source): opened its genuine "Edit" action (offered because
+  it's labeled Custom type, not Bundled, per TC-827's own rule) and attempted to set Max concurrent 3→1 and
+  Monthly cap 500→0.10. **Every save attempt was refused** — `POST /crux/agents` → 400,
+  `{"ok":false,"error":"'builder-1' is the id of a built-in agent. Built-in agents can't be replaced; choose a
+  different id."}` — reproduced identically even with a second attempt that changed **nothing at all** (opened
+  Edit, immediately clicked Save), ruling out a specific-field validation issue. Builder 1's real settings
+  confirmed genuinely unchanged afterward (still "$0.09 of $500", still Max concurrent 3) — no partial/corrupt
+  save occurred. Filed as **BUG-CRX-200** (High) — this makes Builder 1/2's Edit action entirely non-functional
+  and makes TC-833/834 **unreachable by any fixture** until it's fixed, not merely "needs a fixture not yet
+  built." Not yet reported to production.
+- **TC-CRX-843** — still deferred (needs an actual file-upload repro, not the raw-content-paste path).
+- **TC-CRX-846 / TC-CRX-847** — still deferred (spend-figure cross-referencing against Run Ledger totals, and a
+  live plugin-install flag-update check, both judged lower-value given the happy-flow time-box).
+
 ## Suite status (updated 2026-11-17)
 
 Pass 4 (2026-11-17): 4 more PASS (828, 839, 845 — via the Builder 1 Redmineflux-identity fixture; 849 —
-  re-checked, the dev-reference's own known stale-picker-entry issue no longer reproduces).
-Overall: 27 PASS / 2 Critical bugs found (1 fixed, 1 open) / 9 still deferred (833, 834, 843, 846-847
-  partial — queue-claim-scale, a real file-upload repro, spend cross-referencing, and live plugin-install
-  remain the only unclosed fixture gaps in this suite).
+  re-checked, the dev-reference's own known stale-picker-entry issue no longer reproduces). TC-833/834
+  reclassified from "deferred — fixture needed" to "blocked" after finding a new bug (BUG-CRX-200) that makes
+  Builder 1/2's Edit action entirely non-functional, so no fixture can ever reach either TC until it's fixed.
+Overall: 27 PASS / 3 bugs found (177 fixed, 189 fixed, 200 open) / 2 blocked-by-bug (833, 834) / 3 still
+  deferred (843, 846, 847 — low-value given the happy-flow time-box).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

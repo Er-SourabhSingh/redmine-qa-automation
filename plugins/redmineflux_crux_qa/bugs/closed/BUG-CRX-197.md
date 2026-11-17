@@ -69,3 +69,16 @@ unconfirmed, independent guesses — which is itself an unverified claim (that t
   session, same agent) — that bug is about an overstated confidence *label* on a single candidate; this bug is
   about *merging two independent candidates into an invented combined theory* instead of ranking them
   separately, a different failure of the same underlying "don't overstate certainty" manifest principle.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code — `redmineflux-crux-core` picked up CRC-113
+"answers-match-what-was-read" with a direct change to `agents/root-cause.md`. Rebuilt/restarted the stack,
+verified healthy.
+
+Re-ran the exact original repro: "Root-Cause Analyst, what's causing issue #94?" Reply now genuinely presents
+**"Possible causes, ranked:"** with two separate candidates — *"1. Schedule mismatch between caching refresh
+and page load (medium confidence)"* (from the reporter's background-job comment) and *"2. Cache invalidation
+bug in the caching layer change (medium confidence)"* (from the reporter's caching-layer comment) — each
+traced to its own source comment, plus a "To tell them apart" diagnostic guide. No invented merged "race
+condition" theory this time. **Confirmed FIXED.**

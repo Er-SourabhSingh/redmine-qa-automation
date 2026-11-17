@@ -70,3 +70,16 @@ or if..." language) contradicts the certainty of the headline it assigns.
   high-confidence direct-comment case (TC-660/662, correct) and an honest-capability-denial case (TC-666,
   correct); this is the first execution of the medium-confidence timing-only comparison case (TC-661), and it
   fails the exact high/medium boundary that TC-660/661 were designed as a paired comparison to verify.
+
+## Retest — 2026-11-17 (CONFIRMED FIXED)
+
+Developer moved this to "In QA" on production. Pulled latest code — `redmineflux-crux-core` picked up CRC-113
+"answers-match-what-was-read" with a direct change to `agents/root-cause.md` itself. Rebuilt/restarted the
+stack, verified healthy.
+
+Re-ran the exact original repro: "Root-Cause Analyst, what's causing issue #90 (empty CSV export)?" Reply now
+reads: *"Probable cause (**medium confidence**): Off-by-one pagination error in the new async CSV export
+worker v2."* — and the agent now explicitly explains its own confidence choice: *"(Confidence set to medium
+by Crux: #90 has no linked commit and no comment confirming the cause. High needs a direct link on the bug
+itself.)"* This matches the manifest's own high/medium rule exactly, and the explicit self-check footnote is
+new behavior directly addressing this bug's root cause. **Confirmed FIXED.**

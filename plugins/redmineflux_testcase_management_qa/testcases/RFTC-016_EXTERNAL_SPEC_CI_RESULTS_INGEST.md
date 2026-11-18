@@ -5,6 +5,37 @@
 > #17, `defects.created: []` — idempotency hardening confirmed identical on PostgreSQL. RFTC016-12,13,14,19,
 > 22,24,27,28(a),29,30,31(part 2),41,42 not individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** all remaining happy-flow RFTC016 TCs confirmed
+> PASS on `happyflow-pg` (`localhost:3020`):
+> - **RFTC016-12/13**: `match_by: ['subject']` resolved "HF-PG-TC-001: Verify login page loads" cleanly to
+>   #1; the persisted row has `duration_ms=2500` in the structured column.
+> - **RFTC016-14**: caller-supplied `defect_ids:"35"` with `auto_defect:false` accepted a real pre-existing
+>   defect for issue #5.
+> - **RFTC016-19**: every call in this gap-check leg used `X-Redmine-API-Key` header auth exclusively,
+>   succeeding throughout.
+> - **RFTC016-22**: temporarily granted `execute_testcase` to the Developer role, ingested as `qauser`
+>   (genuinely not run #31's assignee, which is admin) — succeeded, confirming the permission-only gate.
+>   Reverted after.
+> - **RFTC016-24**: a generated, exactly-1000-element `results` array → HTTP 200, "Ingested 1000 results
+>   (1000 matched, 0 unmatched)".
+> - **RFTC016-27**: one call with all 6 default statuses → mapped exactly to `case_status_id` 2/3/3/5/6/4.
+> - **RFTC016-28**: (a) `status_map:{"flaky":4}` alongside a plain `"passed"` → both correctly mapped, same
+>   call. (b) an unmapped status → 422. (c) an invalid override target → 422, identical error.
+> - **RFTC016-29 (SACRED/CRITICAL)**: Run A → defect #39 created for a failure; Run B (same testcase, same
+>   environment) → a genuinely NEW defect #40 (not #39); re-ingesting in Run A → `defect_id:39,
+>   defect_reused:true`. Both halves hold simultaneously.
+> - **RFTC016-30**: (a) a `blocked` result with `auto_defect:true` auto-created a defect (#38, from the
+>   RFTC016-27 call). (b) one call spanning 2 real suites (testsuite_ids 1 and 6) correctly grouped each
+>   result under its own suite.
+> - **RFTC016-31 (SACRED, part 2)**: manually constructed the genuine 2-`RunIssue`-rows-per-issue
+>   precondition (same BUG-TCM-097-fix note as the SQLite leg — `bootstrap_run.json` itself no longer
+>   produces this) — without disambiguation, `unmatched`/`reason:"ambiguous_suite_membership"`; with an
+>   explicit `testsuite_id:6`, resolved cleanly. Fixture cleaned up after.
+> - **RFTC016-41/42**: bootstrapped runs, added `CI`/`Chrome - Windows 11`/`Firefox - Linux` via
+>   `update_run`, then fired 3 genuinely simultaneous background `curl` ingests (41) and the same 3 calls
+>   sequentially (42) — both DB-confirmed `{Chrome:1, Firefox:1}` exactly, no cross-contamination either way.
+> **Zero new bugs found on this leg.**
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 15 happy-flow RFTC016 TCs confirmed PASS:
 > - **RFTC016-1**: `automation_key`-match Passed (#341) + numeric-id-match Failed (#342, auto-created defect

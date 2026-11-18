@@ -1,3 +1,25 @@
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 6 happy-flow RFTC008 TCs confirmed PASS, built on a fresh defect (#388) and existing
+> Failed/Blocked executions from this leg's own RFTC-016/RFTC-027 fixtures:
+> - **F1**: `link_defect.json` (execution 2193, Failed) → 201, `link_id:30`; `defect_ids` CSV recomputed to
+>   `"384,388"` (appended to the existing auto-created link), real `IssueRelation` created.
+> - **F2/U3**: bulk-added a 2nd execution (2194, Blocked) to the same defect → 201; reverse view then listed
+>   both, one Failed + one Blocked.
+> - **F7/U8/U9/U10**: unlinked execution 2193 from #388 → 200; `defect_ids` correctly recomputed to just
+>   `"384"` (the other, still-valid link preserved); the issue-343→#388 `IssueRelation` was correctly removed
+>   (2193 was the only execution of that testcase linking #388); reverse view then showed only 2194.
+> - **F10**: `bulk_create.json` (the legacy path, NOT `link_defect`) with `defect_ids:"388"` on a fresh
+>   result → 201; the new execution (2224) appeared in `/defects/388/executions.json` automatically, via the
+>   `after_save` reconcile hook.
+> - **F11/U6**: `GET /defects/388/executions.json` correctly served from the indexed join throughout all of
+>   the above, listing full run/suite/environment/status context each time.
+> - **UI2/UI3**: clicked a real "Failed" result link (genuine run/environment context) on the live Run grid —
+>   the Add Result modal showed both a **"Report Defect"** link and a pre-populated **"Defects\*"** picker
+>   (select2) with the current defect as a removable chip (UI2). The grid's own **"Defect ID's"** column
+>   correctly reflected every link made above (e.g. `#383, #388` for issue 342 after it accumulated 2 links,
+>   `#384` for 343 before its unlink) (UI3).
+> **Zero new bugs found on this leg.**
+
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

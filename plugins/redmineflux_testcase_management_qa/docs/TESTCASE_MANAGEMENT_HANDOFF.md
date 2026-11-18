@@ -1,6 +1,26 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 12 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 13 — read this first, supersedes the sections below)
+
+**RFTC-008 (Defect↔Execution linking) — all 6 happy-flow TCs confirmed PASS on SQLite** (F1/F2/U3/F7/U8/U9/
+U10/F10/F11/U6/UI2/UI3). Full writeup in `RFTC-008_EXTERNAL_SPEC_DEFECT_EXECUTION_LINKING.md`'s new
+"CROSS-DB (SQLite) — 2026-11-18" block — link/bulk-link/unlink/reverse-view/bulk_create-auto-join/UI-picker
+mechanics all confirmed via a fresh defect (#388) built on this leg's own RFTC-016/027 fixtures.
+
+**RFTC-009 (CI Bootstrap Run) — all 5 happy-flow TCs confirmed PASS on SQLite** (U1/U3/U9, U5/U6/U7, Struct1,
+Struct2, E1). Full writeup in `RFTC-009_EXTERNAL_SPEC_CI_BOOTSTRAP_RUN.md`'s new
+"CROSS-DB (SQLite) — 2026-11-18" block. Had to use `luna.blossom` (Manager, a genuine project member) rather
+than admin to exercise the caller-default-assignee path, since admin itself is not a project member on this
+instance.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-038 (3 cases, likely needs external CI infra — may defer like RFTC-017), and
+RFTC-045's 67-case set (not yet touched on SQLite at all) — the last two remaining RFTC groups.
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 12 — superseded by round 13 above, kept for context)
 
 **RFTC-016 (CI Results Ingest) — all 15 happy-flow TCs confirmed PASS on SQLite** (1/2/12/13/14/19/22/24/27/
 28/29/30/31/41/42). Full writeup in `RFTC-016_EXTERNAL_SPEC_CI_RESULTS_INGEST.md`'s new

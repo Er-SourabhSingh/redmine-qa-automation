@@ -4,6 +4,27 @@
 > `{"status":"success","reused":false,"run":{"id":5,...}}`. RFTC009-U3/U5/U6/U7/Struct1/Struct2/E1 not
 > individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 5 happy-flow RFTC009 TCs confirmed PASS, as `luna.blossom` (Manager, a genuine project
+> member holding `create_run`+`create_test_suite`+`execute_testcase`, so the caller-default-assignee path could
+> be exercised for real — admin itself is NOT a project member on this instance, confirmed via `Member.where`,
+> so admin alone can't exercise that specific default):
+> - **U1/U3/U9**: a brand-new suite name → `created:true`, `state:2`, CI default auto-applied, assignee
+>   defaulted to the caller (`assignee_id:5`) with no explicit `run_assignments`. Separately, against an
+>   existing 2-case suite → 2 `run_issues` created, 2 Untested rows seeded, environment `CI`.
+> - **U5/U6/U7**: `on_existing:"reuse"` twice → same run #32 both times, `reused:false` then `reused:true`.
+>   `"error"` → 422 "A run named '...' already exists in this project." `"suffix"` → a new run named with a
+>   `" #2"` suffix.
+> - **Struct1**: 3 environments (`CI`/`Staging`/`Production`) in one `run_assignments` array against a 2-case
+>   suite → DB-confirmed `{CI:2, Staging:2, Production:2}` — fully independent per-environment seeding, not
+>   merged/deduped.
+> - **Struct2**: 3 suites in one call (`SQLite Happy-Flow Suite`, `API-COMPAT Suite (SQLite)`,
+>   `TC-PERM-02-1 Manager Suite (SQLite)`) → `testsuite_ids:[1,3,4]`; DB-confirmed each suite's cases landed
+>   under their own correct `testsuite_id` (`{1:6, 3:2}`, suite 4 had no cases of its own — never cross-mapped).
+> - **E1**: one `bulk_create` call submitting a Passed (#341) and a Failed-with-defect (#338,
+>   `defect_ids:"388"`) together → both results written in the same response, no separate UI step anywhere.
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

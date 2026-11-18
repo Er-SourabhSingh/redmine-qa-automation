@@ -262,7 +262,29 @@ as a plain Reporter (no Crux permissions there).
   reach, let alone a cross-project leak. Confirms the project-level Approve permission scoping cross-referenced
   correctly against the global dashboard's own per-project behavior.
 
-## Suite status (updated 2026-11-16)
+## Execution — 2026-11-18: TC-800 fully closed (deferred-TC completion pass)
+
+Per explicit user instruction to work through this suite's own remaining deferred backlog. Re-examined the
+search combobox's real DOM structure directly, rather than relying on the accessibility tree.
+
+- **TC-CRX-800 — PASS, fully confirmed (upgraded from partial).** The "Find a ticket, person or agent" field
+  is a native `<input type="search" list="crux-graph-search-list">` — a genuine HTML5 `<datalist>`-backed
+  autocomplete, not a custom JS overlay as the original pass assumed. This is exactly why it never appeared in
+  the accessibility snapshot: a native datalist's suggestion popup is rendered by the browser itself, outside
+  the page's own DOM/ARIA tree, the same way a native `<select>` dropdown is. Confirmed via direct inspection:
+  the `<datalist>` has 130 real preloaded `<option>`s (tickets/people/agents); typing "admin" genuinely
+  matches 2 of them ("Redmine Admin (Person)", "admin (Person)") — proving suggestions really do populate for
+  a real substring, not just "no crash". Selecting one (setting the input to the exact matched option string
+  and firing `input`/`change`, replicating a real datalist pick) genuinely switched the graph to Focus view
+  (`aria-pressed="true"` on the Focus button) with a real, non-empty canvas rendered — confirming "picking one
+  switches the view to Focus centered on that item." Screenshot:
+  `screenshots/TC-CRX-800/search-select-focus-confirmed.png`.
+
+This closes the suite's only remaining non-deferred-for-cause gap. TC-806 stays deferred, but for the same
+already-verified reason as Pass 5 (2026-11-17) — the `?days=` override is genuinely unreachable through the
+real product surface, not a tooling limitation — so no further attempt was made on it this pass.
+
+## Suite status (updated 2026-11-18)
 
 Pass 1 (2026-11-05): 7 PASS, 1 bug (BUG-CRX-176), 15 deferred.
 Pass 2 (2026-11-12): 7 more PASS (799, 805, 808, 809, 811, 812, 813), 1 partial (800), 6 still deferred
@@ -273,6 +295,8 @@ Pass 4 (2026-11-17): 5 more PASS via coordinate-based canvas clicks + a temporar
 Pass 5 (2026-11-17, same session): 2 more PASS via permission-fixture + temporary project-visibility toggle
   (793-neg, 814). TC-806 confirmed genuinely not exercisable (proxy never forwards the `?days=` override) —
   stays deferred, now for a verified reason rather than an assumed one.
-Overall: 22 PASS / 1 PASS-partial / 1 bug (BUG-CRX-176) / 1 deferred (806, genuinely not exercisable without
-  a 90-day-old fixture or waiting) / 0 new bugs this pass.
+Pass 6 (2026-11-18): TC-800 upgraded from partial to full PASS (native datalist confirmed, real suggestion
+  matches + real Focus-view switch on selection).
+Overall: 23 PASS / 1 bug (BUG-CRX-176) / 1 deferred (806, genuinely not exercisable without a 90-day-old
+  fixture or waiting) / 0 new bugs this pass.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5.

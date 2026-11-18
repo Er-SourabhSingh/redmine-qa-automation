@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-205
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128966 (reported 2026-11-18, assigned to Prashant Chaurasia, category Crux Plugin; linked via report_defect to Test Case #120493/Run #607 — no dedicated production TC exists for the Project Setup Agent, so this was attached to the closest tracked Crux TC per repo convention; the TC was already Failed from the unrelated BUG-CRX-204, so this attachment did not change its status)
 - Title: Project Setup Agent never discloses "the Work Package follows once it exists" (its own documented rule) when the tracked deliverable isn't yet an existing numbered ticket — two uncovered trigger paths of the closed BUG-CRX-110/114
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-207
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128970 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Test Author agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Test Author proposes 2 near-duplicate login testcases without ever flagging the already-existing, semantically identical testcase in the same suite
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Test Author agent)

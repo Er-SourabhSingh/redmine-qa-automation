@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-206
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128968 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Test Author agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Test Author Agent creates real testcases in a project with the Testcase Management module disabled, instead of the documented text-only fallback — the plugin's own MCP API has no module-enabled check at all
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Test Author agent) + redmineflux_testcase_management (native plugin, root cause)

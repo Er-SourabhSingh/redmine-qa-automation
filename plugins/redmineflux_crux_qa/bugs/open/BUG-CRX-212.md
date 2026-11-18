@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-212
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128974 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Docs Writer agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Docs Writer skips reading the existing wiki page, and discloses nothing about the content being discarded, when the user explicitly says "don't bother checking" — directly contradicting its own documented hard rule
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Docs Writer agent)

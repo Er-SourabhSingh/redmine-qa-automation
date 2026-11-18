@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-210
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128972 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Alert Triage agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Alert Triage's priority resolution degrades from the correct name to a wrong numeric id when the pending confirm card is re-rendered after an interjected question; the interjected question itself ("is it filed now?") also goes unanswered
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Alert Triage agent)

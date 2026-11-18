@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-208
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128967 (reported 2026-11-18, linked to Test Case #120496 / Run #607 / Environment "Window 11 + Chrome", marked Failed, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: generate_invoice silently bills a line item at rate 0 (not the documented DEF-2 fallback of 12/hr) when no team rate or project billing rate is configured — the MCP tool's own fallback-rate warning is now permanently dead code
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Invoice Agent) + redmineflux_invoice (native plugin, root cause) + redmineflux-mcp (stale detection logic)

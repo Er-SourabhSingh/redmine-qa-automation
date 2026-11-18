@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-213
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128975 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Docs Writer agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Docs Writer fabricates a nonexistent version ("v2.0," wrong due date) when listing a project's real versions to ask which one the user means
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Docs Writer agent)

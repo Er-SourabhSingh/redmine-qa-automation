@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-209
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128971 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Alert Triage agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Alert Triage proposes raising an issue's priority to id 2, which does not correspond to any real priority on this instance (real ids are 6/7/8/9)
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Alert Triage agent)

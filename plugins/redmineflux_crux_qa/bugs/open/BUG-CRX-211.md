@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-211
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128973 (reported 2026-11-18 as a standalone issue — no dedicated production test case exists for the Docs Writer agent's own suite, assigned to Prashant Chaurasia, category Crux Plugin)
 - Title: Docs Writer fabricates plausible-sounding, user-facing release-note descriptions for issues that have no description at all — a recurrence of the closed BUG-CRX-167 fabrication class on an uncovered trigger path
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Docs Writer agent)

@@ -3,6 +3,36 @@
 > charter successfully (session id 1). RFTC029-2,6,8,15,23,24,25 not individually re-executed within this
 > pass's time budget.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** all remaining happy-flow RFTC029 TCs confirmed
+> PASS on `happyflow-pg` (`localhost:3020`):
+> - **RFTC029-2**: created via the model layer with charter set, title blank, linked to a real in-project
+>   issue (#8) — `display_title` correctly fell back to the charter text, `issue_id` persisted.
+> - **RFTC029-6**: a full 3-note sequence ("First/Second/Third observation") persisted in correct
+>   chronological order; re-reading notes 1 and 2 after adding note 3 confirmed neither was altered.
+> - **RFTC029-8**: all 3 outcome values (note: lowercase `passed`/`failed`/`inconclusive` per
+>   `TestcaseSession::OUTCOMES`) correctly closed `is_closed:true`, `outcome` matching, `ended_at` set.
+> - **RFTC029-15**: a real minimal role (`RFTC029 DeleteOnly PG`, only `delete_session`) was granted to a real
+>   project member, logged in via the real browser: the Delete icon + confirmation modal
+>   ("Delete this session and all of its notes?") appeared and a real delete succeeded (genuine 302 redirect
+>   to the index, session confirmed gone from the DB); Create (`/new`), Edit, Close, and Add-Note were all
+>   independently confirmed endpoint-denied (403) via direct same-session `fetch()` calls. Role reverted
+>   after.
+> - **RFTC029-23**: both "Created by Redmine Admin" and "Closed by..." entries appeared on `/testcase_activities`
+>   (the plugin's own Activity feed — Redmine's core `/activity` page does NOT list this type at all, since
+>   the plugin never registers an `Activity` provider for it), correctly deep-linked to
+>   `/projects/1/testcase_sessions/<id>`. **Note**: the Closed entries showed "by Anonymous" rather than the
+>   real closing user — root-caused to this leg's own test methodology (the `close!(user: admin)` calls were
+>   made via `rails runner` without setting `User.current`, so the activity log fell back to Anonymous) and
+>   is NOT a product bug; the Created entries (made with `user_id` set directly on the record) correctly
+>   showed "Redmine Admin".
+> - **RFTC029-24**: with 8 real sessions in the project, the Overview page's "Sessions" block showed exactly
+>   the 3 most-recently-created (by id descending), each with title/tester/date/status, plus a working
+>   "View All" link — same card style as the adjacent Milestones/To-Do blocks.
+> - **RFTC029-25**: a session with no charter and no linked issue worked identically through create/view/
+>   add-note/close; its info panel was confirmed entirely absent (no stray Charter/Issue line).
+> **Zero new bugs found on this leg** (the Activity-feed "Anonymous" observation above is a test-methodology
+> artifact, not a product defect).
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. RFTC029-1/2/6/8 already confirmed earlier this leg (round 1). This pass closed out the
 > remaining happy-flow subset:

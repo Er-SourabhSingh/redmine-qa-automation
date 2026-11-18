@@ -59,6 +59,68 @@
 > RFTC026 TCs (10,12,14,19,22,25,28-30,32-35) were not individually re-executed within this pass's time
 > budget.
 
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** all 13 remaining happy-flow cases
+> (10,12,14,19,22,25,28,29,30,32,33,34,35) executed and confirmed on `redmine6-happyflow-pg` (`localhost:3020`,
+> project `happyflow-pg`/1). A 2nd Version, "v0.9 Legacy (Closed)" (id=2, status closed, 0 runs), was created
+> this pass to give the leg a closed-version fixture; "v1.0 Release" (id=1) remains the instance's only open
+> milestone.
+> - **RFTC026-10**: Open (1)/Closed (1) tabs confirmed, plus the same All/Overdue/At risk/On track/No runs yet
+>   status-chip filter bar and one table row per milestone (same table-not-card deviation as the SQLite leg,
+>   commit `5827e6e`, not a defect) — Due/Status/Runs/Executed/Pass rate/Progress/View all present.
+> - **RFTC026-12**: via Add Run's inline "+ New milestone" form, created a real Version
+>   ("RFTC026-12 PG Quick Create Fixture") with a due date — `Version.find` confirmed it genuinely persisted
+>   (id=4, correct project/due date) and it was immediately selected in the Milestone dropdown. Fixture deleted
+>   after confirming.
+> - **RFTC026-14**: "v1.0 Release" detail page stat tiles (Total results 20, Passed 1, Failed 3, Blocked 0,
+>   Untested 16, Pass rate 20.0%) plus "25.0% executed (5 of 20)" exactly match the Run page's own Results
+>   Summary tile/bar language.
+> - **RFTC026-19**: all 5 exact chip labels observed live, each on its own real/disposable fixture (not
+>   inferred): **No runs yet** ("v0.9 Legacy (Closed)", 0 runs — the `no_runs` check wins over `closed` when a
+>   version truly has zero runs, confirmed by contrast with the next point), **On track** ("v1.0 Release"),
+>   **Overdue** (disposable open version, due 5 days ago, <100% executed), **At risk** (disposable open version,
+>   due in 3 days, <80% executed), **Closed** (disposable version closed AFTER a run was linked and executed —
+>   confirms `closed` fires once `no_runs` is false, i.e. order-of-checks matches source
+>   `MilestoneSummary#readiness`). All disposable fixtures (3 versions, 1 testsuite, 3 runs) deleted after
+>   confirming.
+> - **RFTC026-22**: full close/reopen round trip via real UI clicks on a disposable version/testsuite/run
+>   fixture (never touching "v1.0 Release") — "Close milestone" → confirm modal → "Successful update," chip
+>   "Closed," version status closed; the linked run and its 1 result stayed fully intact (still "100.0% executed
+>   (1 of 1)"). "Reopen milestone" → "Successful update," chip back to "On track," version back to open. Fixture
+>   deleted after confirming.
+> - **RFTC026-25**: both halves confirmed. Add Run's Milestone `<select>` lists only "v1.0 Release" (the one
+>   open version), annotated "Closed versions are not listed," with "v0.9 Legacy (Closed)" correctly absent.
+>   Edit Run on a run temporarily pointed at the closed version (Run #9, reverted after) still showed
+>   "v0.9 Legacy (Closed) · due 10/19/2026" selected in its own Edit form, even though it's not offered fresh.
+> - **RFTC026-28**: Runs & Results list ("Add Run" page) has a "Milestone" column (after Run Type) and a
+>   "Filter by milestone" combobox with options "All milestones"/"No milestone"/"v0.9 Legacy (Closed)"/
+>   "v1.0 Release" (this filter correctly includes the closed version too, unlike Add Run's own select).
+> - **RFTC026-29**: Run #9's Run Details block (temporarily version_id=2 for this check, reverted after) shows
+>   one "Milestone:" line linking to `/projects/happyflow-pg/testcase_milestones/2`, alongside Run Name/State/
+>   Run Type/Environment/Assignee — matching the SQLite leg's finding that a separate pre-existing "Build/
+>   Version" line coincidentally duplicates the same name, unrelated to this feature's own line.
+> - **RFTC026-30**: the plugin's own Overview page (`/test_suites/releases?project_id=happyflow-pg`) shows a
+>   "Milestones" card with a "View All" link and the project's 1 open milestone (due date, readiness chip,
+>   executed%/pass rate/run count, donut progress image) — this instance has only 1 open milestone, so the
+>   "exactly 3 nearest-due" truncation itself was not independently re-triggered here (already proven on the
+>   SQLite leg with more fixtures).
+> - **RFTC026-32**: `PUT /runs/update_run/38.json` with `run[milestone_id]:1` → **200**, `Run#version_id` set,
+>   response includes `"milestone":{"id":1,"name":"v1.0 Release"}`; the same call with a closed `milestone_id:2`
+>   → **422** ("Version must be an open version shared with this project"). Disposable run deleted after
+>   confirming.
+> - **RFTC026-33**: `POST /testcase_ci/bootstrap_run.json` with `"milestone":"v1.0 Release"` resolved correctly
+>   to `"milestone":{"id":1,"name":"v1.0 Release"}` in the response (201). An unknown name
+>   ("v99.9 Nonexistent Release") was refused with **422** and a clear "was not found in this project" error.
+>   Disposable run/testsuite deleted after confirming.
+> - **RFTC026-34**: covered by the same `GET /runs/38.json?project_id=1` call under RFTC026-32 above —
+>   `milestone` object present with both `id` and `name` keys.
+> - **RFTC026-35**: all three legs confirmed live with real API-key auth: (a) with `enable_milestones` toggled
+>   off, `GET /testcase_mcp/projects/1/milestones.json` → **404** ("Milestones are not enabled."), restored
+>   immediately after. (b) as `qauser` (Developer role, confirmed no `view_milestones` by default on this leg)
+>   → **403** ("Unauthorized access"). (c) as admin, normal call → **200**, `total:2` (1 open + 1 closed,
+>   matching the UI), and `summary.json?version_id=1` → **200** with consistent `coverage`/`stats` data.
+> **Zero new bugs found on this leg. All disposable fixtures cleaned up; "v1.0 Release" and the pre-existing
+> "v0.9 Legacy (Closed)" are the only 2 Versions left on project 1.**
+
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases verify **production feature #127767** ("rtc-026 Testcase Milestones (optional): group runs

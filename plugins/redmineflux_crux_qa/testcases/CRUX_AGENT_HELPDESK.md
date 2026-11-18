@@ -1,5 +1,15 @@
 # Test Cases — Redmineflux Crux — Support Agent (Helpdesk plugin) Full CRUD
 
+> **Re-verified 2026-11-18: the capability gap-list is fully closed, nothing pending.** A separate planning
+> note (`enumerated-soaring-spring.md`) had described SLA/Support Level/Organization/Product/Holiday/Support
+> Package/Email Configuration/Prepaid Hours/Canned Response/Customer-delete/KB read/KB write as a
+> not-yet-executed "future round." That note was stale — TC-CRX-593 through TC-CRX-607 (below) already cover
+> every one of those 12 areas, executed 2026-11-05 through 2026-11-16, each with a real chat-driven write and
+> native verification. All 12 bugs those TCs found (BUG-CRX-151, 153–157, 159–162, 192, 193) are already
+> `Closed` in `bugs/_index.md`, live-retested, and production-synced. If a future session encounters that
+> planning note again, treat it as superseded by this line, not as live pending work — re-check this suite
+> file's own TC results (which are the source of truth) before re-executing anything it lists.
+>
 > **New suite, started 2026-11-04.** Tests the Support Agent (chat id/capability `helpdesk`, displayed as
 > "Support Agent", still addressed in chat as "Helpdesk,...") against the `redmineflux_helpdesk` plugin.
 > Fresh TC-IDs per the plugin-wide continuous numbering rule (CLAUDE.md §4a) — starts at **TC-CRX-571**

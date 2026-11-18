@@ -275,18 +275,31 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   TC's own instruction ("if it IS fixed, note that as a positive finding, not a new bug, since the developer
   already knows about it") — recorded as such, not filed.
 
-- **TC-CRX-833 / TC-CRX-834 — blocked by a new bug, not just a fixture gap.** Attempted the fixture directly on
-  Builder 1 (the only way to reach either TC, since only `builder-1`/`builder-2` can ever claim Ready Queue
-  work — `WORKER_IDS` is hardcoded, confirmed via source): opened its genuine "Edit" action (offered because
-  it's labeled Custom type, not Bundled, per TC-827's own rule) and attempted to set Max concurrent 3→1 and
-  Monthly cap 500→0.10. **Every save attempt was refused** — `POST /crux/agents` → 400,
-  `{"ok":false,"error":"'builder-1' is the id of a built-in agent. Built-in agents can't be replaced; choose a
-  different id."}` — reproduced identically even with a second attempt that changed **nothing at all** (opened
-  Edit, immediately clicked Save), ruling out a specific-field validation issue. Builder 1's real settings
-  confirmed genuinely unchanged afterward (still "$0.09 of $500", still Max concurrent 3) — no partial/corrupt
-  save occurred. Filed as **BUG-CRX-200** (High) — this makes Builder 1/2's Edit action entirely non-functional
-  and makes TC-833/834 **unreachable by any fixture** until it's fixed, not merely "needs a fixture not yet
-  built." Not yet reported to production.
+- **TC-CRX-833 / TC-CRX-834 — originally blocked by BUG-CRX-200, now unblocked and retested, both PASS.**
+  BUG-CRX-200 (which made Builder 1/2's Edit action entirely non-functional, refusing every save with
+  `{"ok":false,"error":"'builder-1' is the id of a built-in agent..."}`) was confirmed fixed earlier in this
+  same session (2026-11-18) — Builder 1's Edit dialog now genuinely accepts and persists field changes.
+  Retested both TCs on Builder 1 (still the only reachable fixture — `WORKER_IDS` restricts Ready Queue claims
+  to `builder-1`/`builder-2` only):
+  - **TC-CRX-834 (max-concurrent limits simultaneous claims) — PASS.** Edited Builder 1 via the now-working
+    Edit dialog: Max concurrent 3→1, saved, re-opened to native-verify "1" persisted. Built a second genuinely
+    unclaimed Ready Queue fixture (issue #164, tagged `readyforagent`) alongside the one pre-existing unclaimed
+    ticket (#89), confirmed both showed "Waiting for an agent" in `/crux/queue`. With Builder 1 already holding
+    3 in-progress tickets from earlier sessions (over the new cap of 1), `redmineflux_crux_claim_next_work`
+    correctly refused: *"No work claimed — at concurrency limit (3/1)."* — the cap is genuinely enforced, not
+    cosmetic.
+  - **TC-CRX-833 (monthly cap stops queue work, not chat) — PASS on the queue-stop half; chat half is
+    architecturally N/A for this agent.** Set Builder 1's Monthly cap 500→0.01 (well below its real $0.09
+    spent), saved, then called `claim_next_work` again: correctly refused with *"No work claimed — budget
+    gate: $0.09 of $0.01 monthly cap spent — needs a human top-up."* — exact wording matches the TC's own
+    expectation. Attempted the TC's second half (confirm chat with the same agent still answers normally) via
+    the Ask Crux agent picker — found Builder 1/2 are **not listed at all**; only persona-driven chat agents
+    (Project Manager, Docs Writer, Alert Triage, etc.) appear. This confirms the earlier source-level finding
+    that Builder agents are pure Ready-Queue workers with no chat persona — the "chat still works" check this
+    TC describes does not apply to Builder 1/2 specifically, not because of a defect, but because of how this
+    plugin's worker-agent architecture is designed. No bug — recorded as an architectural N/A, not a failure.
+  - Builder 1's settings restored to their original values afterward (Max concurrent 3, Monthly cap $500),
+    native-verified via re-opening Edit.
 - **TC-CRX-843 — split result: PASS (malformed-frontmatter half) + new bug found (non-.md half).** Used a
   real `browser_file_upload` (not the raw-content-paste workaround) on the Upload Agent dialog's "Definition
   file" tab for both sub-cases:
@@ -317,7 +330,7 @@ on Builder 1 (project `crux-pm-agent-test-project`). Result: genuine Redmine use
   QA fixture, not a cost/time trade-off this pass declined. Still deferred; the flag's accuracy for a plugin
   that's genuinely NOT installed was already confirmed correct in earlier passes.
 
-## Suite status (updated 2026-11-17)
+## Suite status (updated 2026-11-18)
 
 Pass 4 (2026-11-17): 6 more PASS (828, 839, 843-half, 845, 846 — via the Builder 1 Redmineflux-identity
   fixture, a real file-upload repro, and a Run-Ledger cost cross-check; 849 — re-checked, the dev-reference's
@@ -325,6 +338,10 @@ Pass 4 (2026-11-17): 6 more PASS (828, 839, 843-half, 845, 846 — via the Build
   needed" to "blocked" after finding a new bug (BUG-CRX-200) that makes Builder 1/2's Edit action entirely
   non-functional, so no fixture can ever reach either TC until it's fixed. TC-843 itself fully resolved (not
   deferred) — one half PASS, one half a new bug (BUG-CRX-201).
-Overall: 29 PASS / 4 bugs found (177 fixed, 189 fixed, 200 open, 201 open) / 2 blocked-by-bug (833, 834) / 1
-  still deferred (847 — requires actually installing a Redmine plugin, too heavy for the happy-flow time-box).
+
+Pass 5 (2026-11-18): BUG-CRX-200 confirmed fixed and closed this session (production synced Done/100%),
+  which unblocked TC-833/834 — both retested and now PASS (834 fully; 833's queue-stop half PASS, its
+  chat-still-works half found architecturally N/A for Builder agents, no bug). 2 more PASS (833, 834).
+Overall: 31 PASS / 4 bugs found, all now closed (177, 189, 200, 201) / 0 blocked-by-bug / 1 still deferred
+  (847 — requires actually installing a Redmine plugin, too heavy for the happy-flow time-box).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6.

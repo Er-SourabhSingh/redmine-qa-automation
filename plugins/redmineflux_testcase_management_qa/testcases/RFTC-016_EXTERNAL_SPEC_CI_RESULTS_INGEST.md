@@ -5,6 +5,59 @@
 > #17, `defects.created: []` — idempotency hardening confirmed identical on PostgreSQL. RFTC016-12,13,14,19,
 > 22,24,27,28(a),29,30,31(part 2),41,42 not individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 15 happy-flow RFTC016 TCs confirmed PASS:
+> - **RFTC016-1**: `automation_key`-match Passed (#341) + numeric-id-match Failed (#342, auto-created defect
+>   #380) in one call — `2 matched, 0 unmatched`.
+> - **RFTC016-2 (SACRED)**: re-ingesting the same failure for #342 returned `defect_reused:true`, same defect
+>   #380, `defects.created: []`.
+> - **RFTC016-12**: `match_by: ['subject']` resolved "Verify remember-me checkbox" cleanly to #343.
+> - **RFTC016-13**: the persisted `IssueStatusResult` row for that result has `duration_ms=2500` in the
+>   structured column, matching the submitted value exactly (not just notes prose).
+> - **RFTC016-14**: caller-supplied `defect_ids:"375"` with `auto_defect:false` accepted a real pre-existing
+>   defect — `defect_id:375`, `defects.created/reused` both empty.
+> - **RFTC016-19**: every call in this leg's entire RFTC-016/018/020/026/033/034/035 sessions used
+>   `X-Redmine-API-Key` header auth exclusively — all succeeded identically to how Basic Auth would, confirming
+>   `accept_api_auth` honors the header path throughout.
+> - **RFTC016-22**: a genuine **Reporter**-role project member (`aurora.wren`, default `execute_testcase`
+>   grant, NOT in this run's `run_assignments`) successfully ingested a result — confirms the gate is
+>   permission-only, assignee status is irrelevant.
+> - **RFTC016-24**: a generated, exactly-1000-element `results` array → HTTP 200, "Ingested 1000 results (1000
+>   matched, 0 unmatched)" — the cap is inclusive at exactly 1000.
+> - **RFTC016-27**: one call with all 6 default statuses (`passed/failed/error/blocked/skipped/retest`) →
+>   mapped exactly to `case_status_id` 2/3/3/5/6/4, matching spec precisely.
+> - **RFTC016-28**: (a) `status_map:{"flaky":4}` alongside a plain `"passed"` → `flaky`→Retest(4), `passed`
+>   still default-mapped, same call. (b) an unmapped status (`"exploded"`) → 422, nothing written. (c) an
+>   invalid override target (`status_map:{"passed":999}`) → 422, identical error — confirms an invalid
+>   *override target* is rejected exactly like an unmapped status.
+> - **RFTC016-29 (SACRED/CRITICAL)**: Run A → defect #386 created for a failure; Run B (same testcase, same
+>   environment) → a genuinely NEW defect #387 (not #386) — cross-run isolation holds; re-ingesting in Run A →
+>   `defect_id:386, defect_reused:true` — same-run reuse still works. Both halves hold simultaneously.
+> - **RFTC016-30**: (a) a `blocked` result with `auto_defect:true` (default) auto-created a defect (#385) —
+>   Blocked is failure-class. (b) one call spanning 2 suites (testsuite_ids 3 and 1) correctly grouped each
+>   result under its own suite, never cross-mapped — confirmed in the same RFTC016-27 call above.
+> - **RFTC016-31 (SACRED)**: manually constructed the genuine 2-`RunIssue`-rows-per-issue precondition (the
+>   bootstrap API itself no longer produces this naturally — see note below) — without disambiguation, the
+>   result came back `unmatched`/`reason:"ambiguous_suite_membership"`; with an explicit `testsuite_id:3`, it
+>   resolved cleanly. Fixture (the extra suite membership) cleaned up after.
+> - **RFTC016-41**: bootstrapped a run, added `CI`/`Chrome`/`Edge` in one `update_run` call, fired 3 genuinely
+>   simultaneous background `curl` ingests (one per environment) — all 3 returned 200 independently; DB-confirmed
+>   `IssueStatusResult.where(run_id:28).group(:environment).count` = `{CI:3, Chrome:2, Edge:2}` — no
+>   cross-contamination, no data loss.
+> - **RFTC016-42**: same 3-environment setup, ingested **sequentially** (CI → Chrome → Edge) instead — each call
+>   succeeded independently with no disturbance to the earlier environments' results
+>   (`{CI:3, Chrome:1, Edge:1}` exactly as submitted).
+>
+> **Incidental finding (not a new bug, confirms an existing fix holds)**: `CiRunBootstrapService#build_run`'s
+> own code comment (citing **BUG-TCM-097**) explains that `pairs.uniq { |issue_id, _ts_id| issue_id }` now
+> deliberately collapses a test case belonging to 2 attached suites down to ONE `RunIssue` per run — meaning
+> RFTC016-31's documented reproduction steps ("bootstrap a run containing both suites so the issue has 2
+> run_issue rows") can no longer happen via `bootstrap_run.json` itself on this build; the precondition had to
+> be constructed directly (a 2nd `RunIssue` row inserted manually) to exercise the `ambiguous_suite_membership`
+> path at all. This is the BUG-TCM-097 fix holding correctly, not a new problem — but it does mean the
+> ambiguity path is now effectively unreachable through the CI-bootstrap route in normal use.
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

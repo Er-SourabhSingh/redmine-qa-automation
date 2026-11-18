@@ -1,6 +1,28 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 11 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 12 — read this first, supersedes the sections below)
+
+**RFTC-016 (CI Results Ingest) — all 15 happy-flow TCs confirmed PASS on SQLite** (1/2/12/13/14/19/22/24/27/
+28/29/30/31/41/42). Full writeup in `RFTC-016_EXTERNAL_SPEC_CI_RESULTS_INGEST.md`'s new
+"CROSS-DB (SQLite) — 2026-11-18" block. Highlights:
+- RFTC016-29 (SACRED/CRITICAL): cross-run defect-reuse isolation re-confirmed with a fresh 2-run fixture.
+- RFTC016-31 (SACRED): the `ambiguous_suite_membership` precondition could not be reproduced via
+  `bootstrap_run.json` itself anymore — **BUG-TCM-097**'s fix (`pairs.uniq` by `issue_id`) now dedupes a
+  multi-suite test case to one `RunIssue` per run at the bootstrap layer, confirming that fix still holds.
+  Had to construct the 2-`RunIssue` precondition directly to exercise the ambiguity path at all; both halves
+  (ambiguous without disambiguation, resolved with explicit `testsuite_id`) still PASS.
+- RFTC016-41/42: genuinely parallel (background `curl`) and sequential multi-environment ingestion, both
+  DB-confirmed with zero cross-contamination.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-008/009 (remaining sub-cases), RFTC-038 (3, likely needs external CI infra — may
+defer like RFTC-017), and RFTC-045's 67-case set (not yet touched on SQLite at all). These are the last
+remaining RFTC groups before this leg's happy-flow pass is complete.
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 11 — superseded by round 12 above, kept for context)
 
 **RFTC-018 (Automation Sources) — all 3 happy-flow TCs confirmed PASS on SQLite** (1/3/9). RFTC018-1/3 are pure
 `AutomationSourceResolver.derive_key` logic with no DB dependency, re-run directly for formal completeness

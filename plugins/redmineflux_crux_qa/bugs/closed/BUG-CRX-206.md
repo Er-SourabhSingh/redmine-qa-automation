@@ -86,3 +86,18 @@ silently created 7 real testcase records in a project where the module is off.
   regardless of which project was intended). Not a recurrence of any closed bug — first finding on the
   Testcase Management plugin's own module-gating (or lack of it) at the API layer, surfaced via the Test
   Author agent's documented fallback behavior never getting a chance to trigger.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128968)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Built a fresh fixture issue (#162) in "Crux No Module Test"
+(module still genuinely disabled, confirmed via Settings -> Modules) and repeated the exact original repro:
+
+1. "Test Author, write test cases for issue #162." -> correct text-only cases, as before.
+2. "Please create those as real test cases." -> now refuses with the documented fallback message naming
+   that a project manager must enable the Testcase Management module in Settings -> Modules first.
+
+Native-verified via list_testcases(project_id=13, tracker_id=1): "No testcases found for project #13" --
+zero real testcases created, confirming the module-enabled check now genuinely exists at this layer.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128968 synced In QA -> Done.

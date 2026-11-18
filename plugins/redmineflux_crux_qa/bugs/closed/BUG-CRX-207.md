@@ -66,3 +66,15 @@ the existing #11 instead of silently proposing 2 duplicate confirm-card entries 
   Distinct from BUG-CRX-187 (wrong-project resolution) and BUG-CRX-206 (module-enablement gap) — this is
   a semantic-matching gap: the lookup runs, but its results are never compared against the newly-drafted
   cases before they're proposed.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128970)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Built a fresh fixture issue (#163, "login with valid credentials")
+in "Crux QA Agent Test Project" and repeated the exact original repro: "Test Author, write and create test
+cases for issue #163 in the Login and Auth suite." The agent's draft now explicitly flags the match: it
+names Test case #11 "Verify login with valid credentials" as already covering one scenario, and proposes
+only the genuinely new cases as additions -- the duplicate-check's own results are now genuinely used to
+exclude the redundant case, not just run and ignored.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128970 synced In QA -> Done.

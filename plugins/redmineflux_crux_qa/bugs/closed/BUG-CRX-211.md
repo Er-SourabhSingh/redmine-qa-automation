@@ -77,3 +77,16 @@ detail available in the issue," never an invented specific claim about what was 
   verification ever exercised. Filed as a new bug per this repo's established precedent for recurrences on
   an uncovered trigger path (see BUG-CRX-185/203/204/205's own duplicate-check entries for the same
   reasoning pattern).
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128973)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro against the same fixture (v1.0,
+issues #37/#57 with empty descriptions, #97 with a real one): "Docs Writer, write the release notes for
+version v1.0 of the Crux PM Agent Test Project." The draft now shows #37 and #57 honestly as having no
+description in the issue (subject-line-only text), plus an explicit note that those two issues have no
+description and the text shown comes from their subject lines only. #97 (real description) still gets a
+correctly grounded gloss, confirming the fix is specific to the zero-description case without regressing
+the working case.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128973 synced In QA -> Done.

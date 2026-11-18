@@ -71,3 +71,17 @@ in their chat list.
   Distinct from TC-CRX-1000's own retention-rule confirmation (that TC's own PASS — the 20-newest rule itself
   works correctly for ordinary, unpinned turnover) — this bug is specifically that pinning does not carve out
   an exemption from it.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128994)
+
+Developer moved 12 bugs to "In QA." Pulled latest code -- notably redmineflux_crux's own backlog now
+includes CRP-59-spec-pinned-chats-kept.md -- rebuilt crux-core/mcp, restarted redmine (full infra details in
+BUG-CRX-204's Retest section). Rebuilt the exact original repro: pinned all 20 of the account's real existing
+chats (confirmed via DOM -- single "Pinned" group, 20 rows), noted the oldest by name, then created one
+brand-new, unrelated, unpinned chat. After a full page reload, all 20 originally-pinned chats remained
+genuinely present under "Pinned" (including the oldest one, which previously got evicted) -- the new chat
+correctly appeared as a 21st, separate entry under "Today". Unpinned all 20 afterward to restore normal
+state.
+
+Conclusion: FIXED. Pinning now genuinely exempts a chat from the global 20-newest-chats retention cutoff.
+Moved to bugs/closed/, production #128994 synced In QA -> Done.

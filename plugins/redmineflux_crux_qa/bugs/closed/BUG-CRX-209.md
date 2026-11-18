@@ -61,3 +61,14 @@ priorities (`list_priorities`)"), any severity-to-priority mapping must resolve 
   this QA cycle (closed BUG-CRX-102, open BUG-CRX-204 — both on the Agile Board Agent) — but this is the
   first instance found on the Alert Triage agent specifically, a trigger path neither of those findings'
   scope covered.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128971)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro: "Alert Triage, in the Crux Zero
+Activity QA project, users say password reset emails never arrive." The resulting confirm card now shows
+Priority: high -- a real priority name, resolved via a genuine List priorities tool call visible in the
+"Checked 7 things" disclosure (previously fabricated as id 2, which matches no real priority). Cancelled
+before confirming.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128971 synced In QA -> Done.

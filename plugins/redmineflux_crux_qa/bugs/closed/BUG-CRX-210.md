@@ -70,3 +70,15 @@ degrade field resolution on re-display.
   an interjected, unrelated question. Kept as its own bug per this repo's convention for a new trigger path
   of an already-documented defect class. The unanswered-question half (no honest "not yet" response) is a
   distinct, additional finding bundled into the same report since both surfaced in the same incident.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128972)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro (fresh chat, new-issue report,
+genuine confirm card with Priority: immediate), then interjected "Is the bug filed now?" before confirming.
+The agent now gives an honest, direct answer: nothing has been created or changed yet, the card is still
+waiting -- no re-render occurred at all; the original card's Priority: immediate remained genuinely unchanged
+(confirmed via DOM -- only one card table exists on the page, still showing immediate). Cancelled before
+confirming.
+
+Conclusion: FIXED (both halves). Moved to bugs/closed/, production #128972 synced In QA -> Done.

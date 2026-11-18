@@ -98,3 +98,18 @@ Work Package will follow once it exists**. Silence on the WP half is itself the 
   pattern). Grounded directly in the persona file's own current text (`agents/project-setup.md`, "How you
   work" step 4) rather than inferred expected behavior — the spec explicitly requires disclosing "the Work
   Package follows once they exist," which neither repro step did.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128966)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (see
+BUG-CRX-204's Retest section for full infra details, shared across this batch). Re-ran both original
+repros with Project Setup Agent pinned, fresh project ("Crux Project Setup Retest 205"):
+
+- Repro 1 (combined "create a project... and track the onboarding guide as a work package too"): the
+  agent now proposes a 2-step plan (Create project + Create issue) AND explicitly discloses the WP-follows
+  rule in text.
+- Repro 2 (standalone follow-up, no existing ticket): the agent no longer silently proposes a bare
+  create_issue -- it now asks a clarifying question explicitly naming the work-package intent.
+
+Conclusion: FIXED. Both previously-silent trigger paths now carry the documented "WP follows once it
+exists" disclosure. Moved to bugs/closed/, production #128966 synced In QA -> Done.

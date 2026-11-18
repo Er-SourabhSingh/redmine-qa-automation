@@ -65,3 +65,13 @@ itself be accurate. Both listed versions should match `list_versions`'s real out
   distinct and more severe failure mode — those fabricated *descriptions* of real issues; this fabricates
   an entirely nonexistent *version* presented alongside a genuinely real one, in what's meant to be an
   honest disambiguation list. First finding of fabrication on the version-listing path specifically.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128975)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro: "Docs Writer, write the release
+notes for the Crux PM Agent Test Project." (no version named). The response now lists both real versions
+exactly -- v1.0 (due 2026-12-31) and v1.1 (due 2027-03-31), both still open -- no fabricated "v2.0," both
+name and due date now match the real list_versions data exactly.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128975 synced In QA -> Done.

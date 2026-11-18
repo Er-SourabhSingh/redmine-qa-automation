@@ -82,3 +82,19 @@
   `update_issue`'s resolution path, which BUG-CRX-102's fix verification never covered. The wrong-tool
   half (core `update_issue` instead of the Agile-specific `update_backlog_issue`) is a distinct, separate
   defect not covered by any prior bug in this suite.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128920)
+
+Developer moved 12 bugs to "In QA." Pulled latest code across 4 repos (`redmineflux_crux` → `fb164a6`,
+`redmineflux-crux-core` → `6f6603b`, `redmineflux-mcp` `crux_development` → `44c1029`,
+`redmineflux_invoice` → `e7ed6eb`), rebuilt+force-recreated `crux-core`/`mcp` images, restarted `redmine`
+(ran a real migration, `CreateRunIssueAssignments`). Re-ran both original repros live:
+
+- **Repro 1** ("update the backlog item 'Retest 102 Priority Check' to set priority to High"): confirm card's
+  `Priority` field now resolves to the real name `"high"` (not id `6`/"low"). Confirmed — native-verified via
+  `get_issue(24)`: `Priority: high`, `Updated` timestamp genuinely changed.
+- **Repro 2** (card #15, "set priority to Medium"): confirm card's `Priority` now resolves to `"medium"` (not
+  a fabricated non-existent id). Confirmed — native-verified via `get_issue(15)`: `Priority: medium`.
+
+**Conclusion: FIXED.** Both repros now resolve the correct real priority and genuinely persist it. Moved to
+`bugs/closed/`, production #128920 synced In QA → Done.

@@ -65,3 +65,13 @@ Reviewer).
   Guide), and BUG-CRX-173 (Code Reviewer) — all 3 misroute a topic-matching question to Project Manager instead
   of the correct specialist agent. This is a 4th, distinct instance on the Workload Agent's domain, found while
   executing the previously-deferred TC-CRX-986 (broader Auto-routing sample).
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128995)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro twice, fresh chats, Auto mode:
+"What is our current team workload and capacity?" Both attempts now correctly route to Workload Agent (not
+Project Manager), using the Workload dashboard/Workload capacity tools and returning real data -- 2/2,
+matching the original bug's own reproduction standard.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128995 synced In QA -> Done.

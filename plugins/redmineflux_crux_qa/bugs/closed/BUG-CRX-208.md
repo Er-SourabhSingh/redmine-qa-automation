@@ -88,3 +88,16 @@ plugin silently bills at 12/hr"), a line item with no team rate should resolve t
   changed to resolve to 0.0 in this configuration, a silent-zero-billing defect in its own right; (2) the
   MCP tool's DEF-2 detection logic is now stale and can never catch this specific failure mode, since it
   only ever checks for the old hardcoded value.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #128967)
+
+Developer moved 12 bugs to "In QA." Pulled latest code, rebuilt crux-core/mcp, restarted redmine (full infra
+details in BUG-CRX-204's Retest section). Repeated the exact original repro against the same fixture (ticket
+#25, 5h logged, still no team/project billing rate configured): "Generate an invoice for the Crux Invoice
+Agent Test Project covering 2026-11-01 to 2026-11-05." The response now carries a genuine, specific warning
+naming the line item billed at 0/hr, explaining neither a team rate nor a project billing rate is set, and
+telling the user to set one and regenerate before sending -- the MCP tool's detection logic has been updated
+to match the native plugin's current fallback chain, matching the pulled RMCP-047 backlog spec. Deleted the
+resulting draft invoice (#15, $0 total) afterward to leave the fixture clean.
+
+Conclusion: FIXED. Moved to bugs/closed/, production #128967 synced In QA -> Done.

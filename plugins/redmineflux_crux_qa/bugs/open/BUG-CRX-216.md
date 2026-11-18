@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-216
-- Production Redmine Issue ID: <!-- pending report -->
+- Production Redmine Issue ID: #129011 (reported 2026-11-18 via report_defect, linked to Test Case #127940 / Run #607 / Environment "Window 11 + Chrome", assigned Prashant Chaurasia, category Crux Plugin)
 - Title: An agent excluded via Settings → Chat agents remains the persisted picker selection and genuinely answers — the 3rd TC-CRX-984 "ignore condition" (excluded-by-setting) was never actually fixed by BUG-CRX-180
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux — agent picker, Settings → Chat agents)

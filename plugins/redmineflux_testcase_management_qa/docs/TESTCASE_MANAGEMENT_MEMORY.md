@@ -1523,6 +1523,43 @@
   let core migrations create `settings` etc., then stop it and start the real plugin-mounted container against
   the now-migrated DB. Not a plugin bug — an inherent chicken-and-egg order issue with any DB-querying initializer
   on a truly first-ever boot.
+- **(2026-11-18, SQLite leg) The CI-bootstrap API (`bootstrap_run.json`) accepts any free-text environment
+  name, including ones NOT registered in the project's own Environment list (`TestcaseEnvironment`)** —
+  Edit Run's environment `<select>` then has no matching `<option>` for that run's existing assignment, which
+  renders as a blank/unselected dropdown (not a product bug — just a mismatch between the CI path's own
+  free-text acceptance and the UI picker's registered-list-only options). Workaround: always use
+  `TestcaseEnvironment`-registered names when building a CI-ingest fixture that Edit Run will later need to
+  open cleanly. `TestcaseEnvironment.new` requires BOTH `name` and `components` (an array, via its own setter)
+  — `components` presence is easy to forget when creating one via `rails runner`.
+- **(2026-11-18) `RunIssueAssignment.seed_for!` (the #128320 per-environment-assignee seeding) only creates a
+  row for an environment whose own `RunAssignment.assignee_id` is both present AND different from the run's
+  shared default** — since Edit Run has no Assignee field at all (confirmed empty-handed, same observation
+  below), any environment added via Edit Run always has `assignee_id: nil`, so `seed_for!`'s own guard
+  (`next if assignment.assignee_id.blank?`) correctly skips seeding — a newly Edit-Run-added environment is
+  therefore ALWAYS Unassigned by construction, not merely by the display-fallback logic.
+- **(2026-11-18) BUG-TCM-097's fix (`CiRunBootstrapService#build_run`'s `pairs.uniq { |issue_id, _ts_id|
+  issue_id }`) means the `ambiguous_suite_membership` precondition (a testcase in 2 suites both attached to
+  the same run) can no longer arise via `bootstrap_run.json` at all** — bootstrap now always dedupes to one
+  `RunIssue` per issue per run. To exercise `RFTC016-31`'s ambiguity path at all now requires manually
+  inserting a 2nd `RunIssue` row directly (simulating a pre-fix/legacy state), not reachable through any live
+  API/UI path on this build.
+- **(2026-11-18) `RunsController#reassign_testcases` is NOT in `runs_controller.rb`'s own
+  `accept_api_auth` list** — an `X-Redmine-API-Key` header gets a flat 403 regardless of the key's own
+  permissions. Testing this endpoint's permission boundary (RFTC045-21-25/47/65) genuinely requires a real
+  browser session login (or an in-page `fetch()` using the logged-in session's cookie), not a curl/API-key
+  call — same pattern already known for `TestcaseMilestonesController`'s index/show.
+- **(2026-11-18) The `redmineflux-tcm-ci` Jenkins CI harness repo lives at `C:\redmine v6\plugins\
+  redmineflux-tcm-ci`** (separate repo, outside this QA repo). Its `jenkins/jenkins.yaml` (JCasC) hardcodes
+  the target `TCM_BASE_URL`/`TCM_PROJECT_ID`/`TCM_PROJECT_IDENT` directly inside the pipeline's own Groovy
+  `environment {}` block — the sibling `docker-compose.jenkins.yml`'s own `TCM_BASE_URL` env var is NOT what
+  the job actually uses (shadowed by the hardcoded Groovy value), so repointing the lab at a different
+  Redmine instance means editing `jenkins.yaml` itself, not just compose env vars. JCasC bakes `jenkins.yaml`
+  into the image at build time (`COPY` in the Dockerfile) — a plain container restart will NOT pick up an
+  edit; a rebuild (`docker compose -p jenkins -f jenkins/docker-compose.jenkins.yml up -d --build`) is
+  required every time. The one existing container (image `tcm-ci-jenkins:local`) is reused across different
+  Redmine legs by repointing+rebuilding rather than running multiple Jenkins containers at once — leave it
+  pointed back at whichever leg "owns" it (currently the PostgreSQL leg, `localhost:3020`/`happyflow-pg`)
+  when done with a one-off cross-DB check elsewhere.
 
 ## Release 7.2.0 Closure (2026-10-28/29)
 

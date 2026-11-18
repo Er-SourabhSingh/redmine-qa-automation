@@ -1,6 +1,61 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 2 — read this first, supersedes the sections below)
+
+**SQLite leg widened to full exhaustive coverage of the master happy-flow list (~282 TCs), not just the
+representative sample the first round covered.** Gap-analysis against `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`
+found many groups only partially touched (Test Cases group, Permissions, Reports, RTM, several RFTC-026/029/
+033/034/035/038/044 sub-cases, all of RFTC-045). Now working through every untouched TC ID live via Playwright
+MCP, per the user's explicit instruction.
+
+**Test Cases group (§1) — 13 of 16 remaining items now confirmed PASS on SQLite:**
+- TC-TCM-129 (#367): 5 ordered steps, distinct content, correct order — PASS.
+- TC-TCM-131 (#368): Subject only, zero steps — PASS.
+- TC-TCM-132 (#369): 3 steps, deleted the middle one via the real "Remove Step?" confirm modal
+  (`.rf_testcase_management_modal_btn_confirm`) — remaining 2 steps persisted correctly — PASS.
+- TC-TCM-133 (#370): 3 steps reordered via the real drag handle (`.sort-handle`, title="Move") — new order
+  persisted exactly — PASS.
+- TC-TCM-136 (#367 edited): Subject/Priority/one step's Expected all changed and persisted, other steps
+  untouched — PASS.
+- TC-TCM-137 (#371): deleted via the real "Delete issue" link + native browser confirm() dialog
+  (`browser_handle_dialog`) — confirmed 404 after — PASS.
+- TC-TCM-142 (#372): new case correctly appears in the standard Redmine Issues list filtered to the Testcase
+  tracker — PASS.
+- TC-TCM-143: Testcase Summary's "Search by subject or ID" box is a server-side search (Enter submits
+  `?search=...`, not a live JS filter) — full subject, partial subject, and numeric ID all correctly found
+  #372, an unmatched term correctly excluded it — PASS.
+- TC-TCM-144 (#372 → suite 1): **drag-and-drop onto a suite tree node pops a "Move here / Copy here / Cancel"
+  choice** (confirmed only after the user pointed this out — my first several drag attempts failed because I
+  wasn't selecting "Move here" afterward). Once that's clicked, the move persists correctly — PASS.
+- TC-TCM-146 (#369+#370 → suite 2): checkbox-selecting 2 cases then dragging ONE of them moves **both**
+  selected cases together via the same Move-here flow — PASS.
+- TC-TCM-148 (#372 removed from suite 1): the issue row's own "Actions" context menu has a "Remove Testcase"
+  entry → real "Confirm Removal" modal → Remove. Case vanishes from the suite but still exists as a normal
+  issue (`GET /issues/372.json` → 200) — PASS.
+- TC-TCM-297 (#373, created via suite 1's own "New Test Case" link, which carries `?testsuite_id=1`): new case
+  correctly lands inside that same suite, not unassigned — PASS.
+- **Still remaining in this group:** TC-TCM-149 (bulk-assign requirement to multiple cases), TC-TCM-150
+  (bulk-assign replace-vs-add behavior), TC-TCM-298 (change linked Requirement from Edit form), TC-TCM-299
+  (Issues list's TestSuite filter).
+
+**Key UI mechanics learned this round (useful for any future suite-tree work on this plugin):**
+- The suite tree's test-case rows are jQuery-UI `ui-draggable`/suite nodes are `ui-droppable` — a raw
+  Playwright `dragTo()` single-jump often doesn't register; a real multi-step `mouse.move()` sequence (15-20
+  intermediate steps with small waits) is what reliably triggers `ui-droppable-hover`, and the drop STILL
+  needs an explicit "Move here" click from the popup choice afterward — it is not a one-step gesture.
+- BUG-TCM-152 (the global `localStorage['savedSteps']` leak) is re-triggered by touching ANY "Add Testcase"
+  form; the mitigation used throughout this round is `localStorage.removeItem('savedSteps')` immediately
+  before navigating to a fresh Add Testcase page, every time.
+
+**Still to come this round:** remainder of Test Cases group (above), then Test Suites (§1, 193/194/198-202),
+Test Runs & Execution (153/154/157-189), Overview (322/323/327), To-Do/Activity (205-212), Configuration
+(002-015), Reports (§2, ~23 TCs), CSV Import (333/336), Requirements/RTM (§2, ~19 TCs), RFTC-008/009/016/018/
+020 remaining sub-cases, RFTC-026/029/033/034/035/038/044 remaining sub-cases, and RFTC-045's 16 happy-flow
+cases (previously only run on the PostgreSQL leg, not yet repeated on SQLite).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 1 — superseded by round 2 above, kept for context)
 
 **SQLite leg of the happy-flow cross-DB pass IN PROGRESS (not yet complete).** BUG-TCM-151 (SQLite install
 blocker) confirmed fixed on commit `dd1ad1d`/`92e446f` and closed. Fresh SQLite instance (`redmine6-happyflow-sqlite`,

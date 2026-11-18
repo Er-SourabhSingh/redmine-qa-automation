@@ -76,11 +76,37 @@
   test fixture; very likely reproducible identically on PostgreSQL/MySQL since it's unrelated to persistence
   layer, but not independently re-confirmed on those two legs this session.
 
+## Live Reproduction (2026-11-18, same session as discovery)
+
+Re-reproduced end-to-end, cleanly, as a deliberate repro rather than an incidental discovery:
+
+1. Opened #341's **Edit** page, scrolled to confirm its real Step 1/2 content, then navigated away via a
+   plain "view issue" link — no form submitted, nothing saved, no deliberate interaction with the Steps
+   editor beyond viewing it.
+2. Navigated to a brand-new `/projects/rftc-016-ci-qa/issue_testcase/new` (no `testsuite_id`, no prior
+   context) — confirmed Subject is empty.
+3. **Scrolled to the Steps section before typing anything at all** — Step 1/2 were already filled with
+   #341's exact content ("Click the logout link" → "User is redirected to the login page"; "Try to access a
+   protected page" → "User is redirected to login again"). Screenshots below.
+4. Typed **only** a Subject ("BUG-TCM-152 live repro: brand-new testcase, Steps never touched by me") —
+   deliberately left the Steps section completely untouched — and clicked **Create**.
+5. New issue **#355** created. `GET /get_testcase/355.json` confirms the DB genuinely persisted 2 step rows
+   (`id: 4309, 4310`) with content byte-identical to #341's own steps, despite never being typed for #355.
+
+```
+GET /get_testcase/355.json →
+"steps":[{"id":4309,"step":"Click the logout link","expected":"User is redirected to the login page"},
+         {"id":4310,"step":"Try to access a protected page","expected":"User is redirected to login again"}]
+```
+
 ## Evidence
 
-### Screenshot
+### Screenshots
 
-![Bug evidence — fresh Add Testcase form already shows Step 1 pre-filled with unrelated content](../../screenshots/BUG-TCM-152/stale-steps-prefilled.png)
+![1 — opening #341's edit page](../../screenshots/BUG-TCM-152/repro-1-edit-341.png)
+![2 — confirming #341's own Step 2 content](../../screenshots/BUG-TCM-152/repro-2-341-step2-visible.png)
+![3 — a brand-new Add Testcase form, Subject empty, nothing typed yet](../../screenshots/BUG-TCM-152/repro-3-fresh-form-empty-subject.png)
+![4 — same untouched form, scrolled down: Step 1/2 already pre-filled with #341's content](../../screenshots/BUG-TCM-152/repro-4-stale-steps-prefilled.png)
 
 ### Console / log
 

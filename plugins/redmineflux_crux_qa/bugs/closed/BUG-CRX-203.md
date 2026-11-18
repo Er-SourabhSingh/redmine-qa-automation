@@ -62,3 +62,21 @@
   (TC-CRX-375, this suite) was scoped to the plain project board only. This reproduces the identical shape
   on the global-board move variant (`global_move_issue`), a path BUG-CRX-031's fix never covered — filed
   as a new bug per this repo's standing convention for recurrences on an uncovered trigger path.
+
+## Retest — 2026-11-18, CONFIRMED FIXED
+
+- Build: `redmineflux-crux-core` pulled to `747af39` (CRC-117 1.12.0), MCP server pulled to `01dac41`
+  (RMCP-044 1.0.7), Agile Board plugin pulled to `e84c651` (includes `ef8f72c` "find a card by its number
+  on PostgreSQL (Crux BUG-CRX-203)"), containers rebuilt/force-recreated, redmine restarted with plugin
+  migration.
+- Repeated the exact original repro: "On the global board, move card #15 to the 'In progress' column." →
+  confirm card now correctly shows `Status: In progress` (the named status, not a wrong guess). Confirmed;
+  native-verified via `get_issue(15)` — genuinely moved to "In progress".
+- Also regression-checked the my-page-move variant (this bug's 2nd confirmed repro): "On my page board,
+  move card #3 to the 'In progress' column." → also correctly resolved `Status: In progress`, confirmed,
+  native-verified, then reverted back to its original status.
+- Per the dev's commit message (CRC-117): `field_check.py` now makes the status the user names win,
+  matching a `status_name` exactly, and never proposes an unknown name or id; `agile-scrum.md` updated to
+  pass `status_name`.
+- Production issue #128886 synced: status In QA → Done, % done → 100, retest-summary comment added.
+- **Status: Closed — CONFIRMED FIXED on all 3 move-tool variants (project, global, my-page).**

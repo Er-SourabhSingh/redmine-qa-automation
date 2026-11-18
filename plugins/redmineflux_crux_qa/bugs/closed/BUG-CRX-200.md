@@ -83,3 +83,19 @@
   (those are about a NEW/different agent's create or upload call wrongly succeeding at overwriting a bundled
   agent's id; this is the opposite failure mode — a Worker agent's own genuine self-edit being wrongly refused
   as if it were such an overwrite attempt, a regression in the other direction from those fixes).
+
+## Retest — 2026-11-18, CONFIRMED FIXED
+
+- Build: `redmineflux-crux-core` pulled to `747af39` (includes CRC-115 1.10.0), `redmineflux_crux` plugin
+  pulled to `3c5ffd2` (CRP-58 0.100.0), containers rebuilt/force-recreated, redmine restarted.
+- Repeated the exact original repro: opened Builder 1's Edit dialog (fields pre-filled correctly), clicked
+  "Save agent" with zero changes. Genuinely succeeded — **"✓ Agent \"Builder 1\" saved."** — no "built-in
+  agent" refusal. Re-opened Edit afterward: all fields unchanged (Name, Capabilities, Provider, Model,
+  Max concurrent 3, Monthly cap 500) — no corruption.
+- Root cause per the dev's commit message (CRC-115): `is_editable()` now distinguishes non-built-in
+  agents plus worker slots (not shipped as bundled) from genuinely read-only Bundled agents.
+- Regression-checked the other direction: Reviewer (a genuinely Bundled agent) still correctly has **no**
+  Edit option in its "More actions" menu — only Details/Pause/Create Redmineflux identity/Retire. The fix
+  did not over-correct and expose Edit on protected agents.
+- Production issue #128846 synced: status In QA → Done, % done → 100, retest-summary comment added.
+- **Status: Closed.**

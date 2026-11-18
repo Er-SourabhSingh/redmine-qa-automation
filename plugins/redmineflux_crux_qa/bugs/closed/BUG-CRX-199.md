@@ -50,3 +50,19 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — distinct from BUG-CRX-190/191 (those were about `report_complete`'s Flux-write silently not persisting, and a Pipelines defect respectively; this is a visibility-check false-negative at WP-creation confirm time, a different code path/symptom entirely).
+
+## Retest — 2026-11-18, CONFIRMED FIXED
+
+- Build: `redmineflux-crux-core` pulled to `747af39` (includes CRC-115 1.10.0, CRC-116 1.11.0, CRC-117
+  1.12.0), containers rebuilt and force-recreated.
+- Repeated the exact original repro: "For project crux-helpdesk-agent-test-project, create a work
+  package for ticket #31 using the customer-support pipeline." Confirm card showed the same correct
+  `Goal`/`Tickets: #31`/`Type`/`Autonomy` fields. Confirmed → **"✓ Created work package wp-013"** — no
+  "isn't visible to you" error. Native-verified via `/crux/work_packages`: the WP "Resolve scanner paper
+  jam error on 2nd floor" genuinely appears in the panel.
+- Root cause per the dev's commit message (CRC-115): the confirm-time read check looked for
+  "error"/"failed" anywhere in `get_issue`'s answer text, so the ticket's own subject text ("paper jam
+  error") made it count as a hidden/failed read. Fixed to only treat a refusal as a refusal when the
+  answer doesn't start with the issue's own header.
+- Production issue #128837 synced: status In QA → Done, % done → 100, retest-summary comment added.
+- **Status: Closed.**

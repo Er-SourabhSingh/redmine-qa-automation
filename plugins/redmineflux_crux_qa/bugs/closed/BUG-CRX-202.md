@@ -78,3 +78,20 @@
   genuinely has and uses the right data (displays it correctly twice), then fabricates a false "doesn't
   exist, was actually something else" explanation when asked to filter by it — a confident false-negative
   contradicting its own immediately-prior correct output, a new failure shape for this agent.
+
+## Retest — 2026-11-18, CONFIRMED FIXED
+
+- Build: `redmineflux-crux-core` pulled to `747af39` (CRC-117 1.12.0), MCP server (`crux_development`
+  branch) pulled to `01dac41` (RMCP-044 1.0.7), containers rebuilt/force-recreated.
+- Repeated the exact original repro steps 1–3 then asked for the literal "Development" category — the
+  agent now directly resolved and returned **"Here are the 7 approved hour records for the Development
+  category (category 67) in Crux Budget Agent Test Project"** with the exact 7 real rows (IDs 2–8) — no
+  disambiguation detour, no fabricated denial. Native-verified via `get_approved_hour(project_id=5,
+  approved_hour_id=8)`: Category "Development" (ID 67), 30.0h — matches exactly.
+- Per the dev's commit message (CRC-117): `budget-audit.md` rule 0a now says to use the record's category
+  id or exact name and never deny records already shown in the chat; an answer built on reads is kept
+  when a capability-denial retry adds nothing new (`_TURN_READS`).
+- Regression-checked a budget write on an adjacent category (`set_budget` on "DevOps - Cloud and Server":
+  add 1h, then subtract 1h to revert) — both genuinely applied, native-verified, fixture left clean.
+- Production issue #128885 synced: status In QA → Done, % done → 100, retest-summary comment added.
+- **Status: Closed.**

@@ -72,3 +72,16 @@
   the **id** being a bundled agent's id, already correctly refused); this is a missing **file-type** check,
   an entirely separate validation gap on the same Upload Agent feature. First finding on file-extension
   enforcement specifically.
+
+## Retest — 2026-11-18, CONFIRMED FIXED
+
+- Build: `redmineflux_crux` plugin pulled to `3c5ffd2` (CRP-58 0.100.0), redmine restarted
+  (`rails redmine:plugins:migrate` ran automatically).
+- Repeated the exact original repro: created a fresh `.txt` file with valid frontmatter, chose it on the
+  "Definition file" tab. Now correctly refused client-side: **"⚠ \"bug201-retest.txt\" isn't a Markdown
+  file. Choose an agent file ending in .md."** — the Raw content box stayed empty (nothing auto-filled),
+  Upload button never reachable with that file. No agent created.
+- Per the dev's commit message (CRP-58): the controller also refuses a non-.md/.markdown filename
+  server-side (400), so this isn't just a client-side-only check.
+- Production issue #128847 synced: status In QA → Done, % done → 100, retest-summary comment added.
+- **Status: Closed.**

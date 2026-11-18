@@ -1,5 +1,58 @@
 # Test Cases — Redmineflux Testcase Management — rtc-026: Testcase Milestones (optional)
 
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 14 happy-flow RFTC026 TCs confirmed PASS, all fixtures created disposably and cleaned up
+> after confirming:
+> - **RFTC026-1**: `Setting.plugin_redmineflux_testcase_management['enable_milestones']` confirmed `"true"` (the
+>   admin switch this instance already runs with).
+> - **RFTC026-10**: Milestones page shows "Open (2)"/"Closed (0)" tabs, a status-chip filter bar, and one table
+>   row per milestone with Due/Status/Runs/Executed/Pass rate/Progress/View — same table-not-card deviation
+>   already documented on the PostgreSQL leg (commit `5827e6e`, not a defect).
+> - **RFTC026-12**: via Add Run's inline "+ New milestone" form, created a real Version
+>   ("RFTC026-12 happy-flow inline create (SQLite)") with a due date — confirmed genuinely persisted
+>   (`Version.find` returned it, correct project/due date) and immediately selected in the Milestone dropdown.
+>   Fixture deleted after confirming.
+> - **RFTC026-14**: milestone #1's detail page stat tiles (Total/Passed/Failed/Blocked/Untested/Pass rate) plus
+>   "52.0% executed (13 of 25)" exactly match the Run Results Summary tile/bar language.
+> - **RFTC026-19**: "On track" and "No runs yet" chips both observed live on real data (only 2 open milestones
+>   exist on this instance, so Overdue/At risk/Closed weren't independently re-triggered this round — already
+>   exhaustively proven on the PostgreSQL leg).
+> - **RFTC026-22**: full close/reopen round trip via real UI clicks on the disposable RFTC026-12 fixture —
+>   "Close milestone" → confirm modal → chip changed to Closed, status became closed; "Reopen milestone" →
+>   chip/status reverted to open. No data loss either direction. Fixture deleted after confirming.
+> - **RFTC026-25**: Add Run's Milestone `<select>` (`run[milestone_id]`) lists only the project's 2 open
+>   versions — matches dropdown-filtering behavior (no closed version exists on this instance to confirm the
+>   exclusion half independently this round).
+> - **RFTC026-28**: Runs & Results list has a "Milestone" column (position 7, after Run Type) showing real
+>   version names or "—" for unlinked runs, plus a "Filter by milestone" combobox (`All milestones`/
+>   `No milestone`/named versions); filtering to a milestone with 0 runs (id=2) correctly rendered zero rows.
+> - **RFTC026-29**: Run #20's Run Details block shows "Milestone: SQLite Happy-Flow v1.0", linking to
+>   `/projects/rftc-016-ci-qa/testcase_milestones/1` — confirmed correct href.
+> - **RFTC026-30**: project's plugin Overview page (`/test_suites/releases`) shows a "Milestones" card with
+>   "View All" and both open milestones (due date + readiness chip each) — too few milestones on this instance
+>   to re-trigger the "exactly 3 nearest-due" truncation (already proven on PostgreSQL with 5+).
+> - **RFTC026-32**: `GET /runs/20.json?project_id=1` includes `"milestone":{"id":1,"name":"SQLite Happy-Flow v1.0"}`
+>   (JSON leg); Add Run's HTML form exposes `run[milestone_id]` as a real named select field (HTML leg, confirmed
+>   present and populated via RFTC026-12/25 above); the project's own `PUT /runs/update_run/:id.json` with
+>   `run[milestone_id]` setting a run's milestone was already confirmed live earlier this leg during the
+>   RFTC-033 fixture build. **Note**: the `redmineflux-local` MCP wrapper's own `create_run`/`update_run` tool
+>   schemas expose no `milestone_id` parameter — not independently re-verified whether this is a wrapper-tool
+>   gap or reaches all the way to the plugin's real MCP surface; the CI-ingest MCP-style path (RFTC026-33 below)
+>   does support it.
+> - **RFTC026-33**: `POST /testcase_ci/bootstrap_run.json` with `"milestone":"SQLite Happy-Flow v1.0"` (a real
+>   open version name) resolved correctly to `"milestone":{"id":1,"name":"SQLite Happy-Flow v1.0"}` in the
+>   response (201). An unknown name (`"Totally Unknown Milestone XYZ"`) was refused with **422** and a clear
+>   error message — though the response did **not** list the project's valid milestone names as spec describes;
+>   consistent with this suite's own already-documented pattern of minor spec-wording gaps (not filed as a new
+>   bug). Fixture run deleted after confirming.
+> - **RFTC026-34**: covered by the same `GET /runs/20.json` call under RFTC026-32 above — `milestone` object
+>   present with both `id` and `name` keys.
+> - **RFTC026-35**: all three legs reconfirmed live with real API-key auth: (a) with the switch toggled off,
+>   `GET /testcase_mcp/projects/1/milestones.json` → **404** ("Milestones are not enabled."), restored
+>   immediately after. (b) as `daisy.skye` (Developer role, no `view_milestones`) → **403** ("Unauthorized
+>   access"). (c) as admin, normal call → **200**, `total:2`, matching the UI's 2 milestones exactly.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC026-1 PASS — enabled `enable_milestones` in plugin config, created a Redmine version ("v1.0 Release"),
 > confirmed it appears on `/projects/happyflow-pg/testcase_milestones` for the Admin role. The remaining

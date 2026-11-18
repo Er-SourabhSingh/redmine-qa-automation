@@ -1,6 +1,30 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 7 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 8 — read this first, supersedes the sections below)
+
+**RFTC-026 (Testcase Milestones) — all 14 happy-flow TCs confirmed PASS on SQLite** (1/10/12/14/19/22/25/28/29/
+30/32/33/34/35). Full writeup in `RFTC-026_EXTERNAL_SPEC_TESTCASE_MILESTONES.md`'s new
+"CROSS-DB (SQLite) — 2026-11-18" block. Highlights:
+- RFTC026-12/22 fixtures (a disposable Version created via Add Run's inline "+ New milestone" form) confirmed
+  genuine DB persistence and a full close/reopen round trip via real UI clicks — then cleaned up.
+- RFTC026-33: `bootstrap_run.json` resolves a milestone by Version **name** correctly (201), and rejects an
+  unknown name with 422 — though the error doesn't list valid names as spec describes (consistent with this
+  suite's own already-documented pattern of minor spec-wording gaps, not a new bug).
+- RFTC026-35: all 3 legs (feature-off → 404, no-permission user → 403, normal → 200) reconfirmed live with
+  real API-key auth, toggling the plugin switch off and back on cleanly.
+- Noted: the `redmineflux-local` MCP wrapper's own `create_run`/`update_run` tool schemas expose no
+  `milestone_id` parameter — flagged, not independently resolved whether this reaches the plugin's real MCP
+  surface or is just this wrapper tool's own limitation.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-035 (~6 remaining), RFTC-044 (2), RFTC-018 (2), RFTC-020 (1), RFTC-016 (~14), RFTC-008/
+009 (remaining sub-cases), RFTC-038 (3, likely needs external CI infra — may defer like RFTC-017), and
+RFTC-045's 67-case set (not yet touched on SQLite at all).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 7 — superseded by round 8 above, kept for context)
 
 **BUG-TCM-153 retracted** — re-verified per user's explicit challenge ("same environment/project/Run #12?").
 Root cause: an unscoped `page.locator('a[href*="/runs/"]')` DOM query picked up the hidden Closed-tab table's

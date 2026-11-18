@@ -987,16 +987,18 @@ misroute is still suspected.
 
 - Case IDs: TC-CRX-368 through TC-CRX-389 (22 cases) — all drafted from `agents/agile-scrum.md`'s real
   tool catalog and behavioral rules, 2026-10-29.
-- **Executed this pass (17 of 30):** TC-CRX-368 (PASS), 371 (PASS backlog / FAIL epics → BUG-CRX-100), 372
-  (PASS), 373 (PASS), 374 (PASS plain reuse / FAIL discovery-gated reuse → BUG-CRX-101), 375 (PASS), 381
-  (PASS — sprint assignment), 383 (PASS negative half), 384 (discovery PASS, but → BUG-CRX-101), 387 (FAIL
-  → BUG-CRX-102), 388 (PASS — all 3 Agile permissions, clean honest denials), 390 (PASS, 2 of 10 group-by
-  values sampled), 392 (PASS, WIP limit), 394 (PASS write / unusable config → BUG-CRX-103), 395 (update
-  PASS / delete-negative FAIL → BUG-CRX-104 / delete-positive PASS), 396 (FAIL → BUG-CRX-105, reclassified
-  from an initial "not a bug" call), 397 (PASS, Auto-mode routing — no misroute found).
-- **Not yet executed (13 of 30):** TC-CRX-369, 370, 376, 377, 378, 379, 380, 382, 383 (positive half),
-  385, 386, 389, 390 (8 remaining group-by values), 391, 393.
-- **6 new bugs found, all filed:** BUG-CRX-100 (fake "epics," plugin API-level defect, not an AI
+- **Executed, final state as of 2026-11-18 — all 30 of 30 TCs complete:** TC-CRX-368 (PASS), 369/370
+  (PASS), 371 (PASS backlog / FAIL epics → BUG-CRX-100), 372 (PASS), 373 (PASS), 374 (PASS plain reuse /
+  FAIL discovery-gated reuse → BUG-CRX-101), 375 (PASS), 376 (FAIL both halves → BUG-CRX-203), 377 (PASS),
+  378/379 (FAIL → BUG-CRX-204), 380 (PASS), 381 (PASS — sprint assignment), 382 (PASS), 383 (PASS both
+  halves), 384 (discovery PASS, but → BUG-CRX-101), 385 (PASS reorder; delete deferred, environmental
+  constraint), 386 (PASS, full board-config CRUD), 387 (FAIL → BUG-CRX-102), 388 (PASS — all 3 Agile
+  permissions, clean honest denials), 389 (documentation placeholder by design, no TC to force-fail), 390
+  (PASS, all 10 of 10 group-by values), 391 (PASS), 392 (PASS, WIP limit), 393 (PASS, board-type toggle),
+  394 (PASS write / unusable config → BUG-CRX-103), 395 (update PASS / delete-negative FAIL →
+  BUG-CRX-104 / delete-positive PASS), 396 (FAIL → BUG-CRX-105, reclassified from an initial "not a bug"
+  call), 397 (PASS, Auto-mode routing — no misroute found).
+- **8 new bugs found, all filed:** BUG-CRX-100 (fake "epics," plugin API-level defect, not an AI
   hallucination), BUG-CRX-101 (discovery-gated `create_column` resolved the wrong project from an
   unrelated chat — caught by a lucky permission denial before any write), BUG-CRX-102 (`create_issue`
   resolved "Low" priority to id 4/"Blocker" instead of the real id 1 — caught and cancelled manually
@@ -1005,9 +1007,14 @@ misroute is still suspected.
   denial on a vague board-config-delete request, contradicted by the same chat's own prior successful
   calls), BUG-CRX-105 (High — no tool lets the Scrum Agent set Story Points, a core Scrum ceremony;
   sprint assignment via the same tool family works correctly, TC-CRX-381, proving this is a
-  field-specific gap not a broader write defect). Also regression-checked and confirmed still fixed:
-  BUG-CRX-020 (fabricated-confirm, 2 distinct write actions both rendered genuine clickable buttons) and
-  BUG-CRX-031 (wrong-status resolution — card move resolved the exact correct column both times).
+  field-specific gap not a broader write defect), BUG-CRX-203 (High — card-move's target status resolves
+  wrong across all 3 move-tool variants, recurrence of the closed BUG-CRX-031 on a trigger path its fix
+  never covered; reported to production as #128886), BUG-CRX-204 (High — backlog/field update resolves
+  to the wrong tool AND a wrong/fabricated priority value, 2 reproductions; reported to production as
+  #128920). Also regression-checked and confirmed still fixed: BUG-CRX-020 (fabricated-confirm, 2 distinct
+  write actions both rendered genuine clickable buttons) and BUG-CRX-031 (wrong-status resolution — card
+  move resolved the exact correct column both times, prior to BUG-CRX-203's later, narrower recurrence on
+  the global/my-page move variants specifically).
 - **Board Settings / Group-By / Board Config round (per explicit user request, native UI explored first):**
   confirmed via source that Board Settings (live per-viewer column visibility/WIP/card-fields/totals) and
   Board Config (named/saved board with its own `group_by`+`filters`) are two genuinely distinct features,
@@ -1023,11 +1030,8 @@ misroute is still suspected.
   capability denial on a vague delete request, immediately contradicted by the same chat's own prior
   successful calls (**BUG-CRX-104**). The actual named delete, once past that false denial, genuinely
   works and is DB-verified. **2 new bugs this sub-round.**
-- Next session: execute the remaining 15 TCs (global/my-page board variants, card field updates, sprint
-  create/assign/update, column reorder/delete, non-admin permission matrix, remaining 8 group-by values,
-  board-type toggle), then re-derive the real Agile permission model (TC-CRX-388's note) before relying on
-  the old suite's assumption about a dedicated `View Agile Board` permission (confirmed still accurate
-  this round via DB, but worth a live non-admin check too). Also worth flagging to the dev: **every board
-  config created via the native UI should be spot-checked too** — BUG-CRX-103's crash may also be
-  reachable from the native "New Board Config" form in edge cases (e.g. an "any"/"none" operator with no
-  values), even though the mainline native path was confirmed to produce the correct nested shape.
+- **Suite complete as of 2026-11-18 — all 30 of 30 TCs executed, nothing left to pick up next session** on
+  this suite itself. Still worth flagging to the dev: **every board config created via the native UI
+  should be spot-checked too** — BUG-CRX-103's crash may also be reachable from the native "New Board
+  Config" form in edge cases (e.g. an "any"/"none" operator with no values), even though the mainline
+  native path was confirmed to produce the correct nested shape.

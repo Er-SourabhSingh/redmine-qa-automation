@@ -7,7 +7,8 @@
 > `redmineflux_core_create_issue_relation`. Model: `claude-sonnet-5`. Second step of the bug-fix flow:
 > Monitor → **Alert Triage** → Root-Cause Analyst → Auto-Fixer.
 >
-> **Status: EXECUTED 2026-11-04 (core duplicate-detection + new-issue-path check). 1 new bug: BUG-CRX-168.**
+> **Status: FULLY EXECUTED — 2026-11-04 (core duplicate-detection + new-issue-path check, 1 bug: BUG-CRX-168,
+> closed) + 2026-11-18 (remaining 5 TCs: 653/654/656/657/658, 2 new bugs: BUG-CRX-209, BUG-CRX-210).**
 
 ### TC-CRX-651/655/659 combined — duplicate detection and dedup accuracy
 
@@ -27,9 +28,36 @@ Both the first attempt AND an identical retry produced the same fabricated dead-
 without actually proposing it, so there's nothing to confirm yet..."* — no confirm card ever appeared, unlike
 the duplicate-attach path (same chat, same agent) which self-corrected on its own retry. See BUG-CRX-168.
 
-Remaining TCs (653/654/656/657/658) not yet executed this round — write-path/severity-mapping deep-dives
-deprioritized per user instruction; the core duplicate-vs-new distinction (this suite's highest-value check)
-is covered above.
+**Executed 2026-11-18 — all 5 remaining TCs now covered, 2 new bugs found (BUG-CRX-209, BUG-CRX-210).**
+
+- **TC-CRX-653 (related-but-distinct) — the duplicate-detection half worked correctly but surfaced a new
+  priority bug.** Built a clean fixture ("Login times out on slow connections," project #14, an empty
+  project to avoid colliding with this instance's many pre-existing auth/session fixtures). Reported
+  "users are sometimes getting logged out mid-session for no reason" — the agent correctly found a real
+  semantic duplicate (#96, a shared-middleware session bug) rather than treating it as merely related, and
+  separately (testing with "password reset emails never arrive") correctly found another real duplicate
+  (#10) even in a different project than the one named — the duplicate search is accurate and
+  cross-project. However, the confirm card for updating #10 proposed `Priority: 2`, a value matching none
+  of this instance's real priority ids (`list_priorities`: only 6/7/8/9 exist). Cancelled before
+  confirming; native-verified no write occurred. Filed as **BUG-CRX-209**.
+- **TC-CRX-654 (severity mapping) — PASS.** Critical-shaped report ("payment gateway down, no workaround,
+  everyone affected") → confirm card correctly resolved `Priority: immediate` (by name) with issue #158
+  genuinely created. Low-shaped report ("footer copyright year typo") → correctly found 3 existing
+  duplicates and stated `Severity: Low — cosmetic typo, no functional impact`, matching the manifest's own
+  definition exactly, no new ticket needed.
+- **TC-CRX-656 (vague report) — PASS.** "Something seems off with the dashboard" → correctly asked a
+  clarifying question (does it not load, are numbers wrong, is a widget or the whole page broken, when did
+  you notice it) instead of guessing any severity.
+- **TC-CRX-657 (no false "created" claim) — PASS on the literal check, but found a 2nd new bug.** With a
+  genuine pending confirm card showing `Priority: immediate`, asked "Is the bug filed now?" before
+  confirming. The agent never falsely claimed it was created (satisfying this TC's literal check,
+  native-verified no issue existed) — but it also never gave the expected honest "not yet" answer at all;
+  it silently re-rendered the same proposal as a fresh card, and on that re-render the priority had
+  degraded to a bare `1` — again not a real priority id. Filed as **BUG-CRX-210** (same class as
+  BUG-CRX-209, on the create path this time, triggered by the re-render).
+- **TC-CRX-658 (ambiguous/missing project) — PASS.** "Users say the login page is broken and nobody can
+  sign in" (no project named) → correctly asked "Which product or project is affected?" with no tool call
+  attempted first — never silently defaulted to an arbitrary project.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Alert Triage agent)

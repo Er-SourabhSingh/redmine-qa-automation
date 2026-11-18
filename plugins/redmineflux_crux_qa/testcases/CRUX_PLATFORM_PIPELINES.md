@@ -276,11 +276,40 @@ need, that `daisy.skye`'s own Permissions-suite-era role (all 5 Crux permissions
     this outcome type specifically. `lead-to-deal`/`billing` were not attempted this pass given the time-boxed
     happy-flow priority; flagged for a future pass once BUG-CRX-199 is fixed.
 
-## Suite status (updated 2026-11-17)
+## Execution — 2026-11-18: TC-856 fully closed now that BUG-CRX-199 is fixed
+
+BUG-CRX-199 (the "ticket isn't visible to you" false confirm-rejection) was confirmed fixed earlier this
+session (retested live against the fix build, moved to `bugs/closed/`). This directly unblocks the "future
+pass once BUG-CRX-199 is fixed" this suite's own 2026-11-17 note flagged for the remaining 2 outcome types.
+
+- **TC-CRX-856 — now fully PASS, all 3 non-built-in outcome types confirmed end-to-end.**
+  - **`customer-support`** (re-run of the exact original repro): "Create a work package for ticket #31 using
+    the customer-support pipeline." → Helpdesk Agent, confirm card resolved correctly, **Confirm → "✓ Created
+    work package wp-015"** — the exact write that failed 3/3 times under BUG-CRX-199 now succeeds cleanly.
+  - **`lead-to-deal`** (new fixture, disposable ticket #160 created in Crux CRM Agent Test Project): "Create a
+    work package for ticket #160 using the lead-to-deal pipeline." → CRM Agent, confirm card showed
+    `Type: lead-to-deal`, **Confirm → "✓ Created work package wp-016"**.
+  - **`billing`** (reused the existing DEF-2 fixture ticket #25 in Crux Invoice Agent Test Project): "Create a
+    work package for ticket #25 using the billing pipeline." → Invoice Agent, confirm card showed
+    `Type: billing`, **Confirm → "✓ Created work package wp-017"**.
+  - Native-verified all 3 (`wp-015`/`wp-016`/`wp-017`) genuinely appear in the real `/crux/work_packages` list
+    with their correct goal text.
+  - This confirms BUG-CRX-199's fix was genuine and general — not scoped to the one ticket/outcome-type
+    combination originally tested — and that all 3 documented non-built-in outcome types
+    (`customer-support`/`lead-to-deal`/`billing`) are now fully usable from chat end-to-end, closing TC-856
+    completely.
+
+Ticket #160 and its wp-016 are left in place as a reusable demonstration fixture, consistent with this
+suite's own established pattern (e.g. ticket #79 for TC-861/867).
+
+## Suite status (updated 2026-11-18)
 
 Pass 4 (2026-11-17): 2 more PASS (855, 869, via the Project B/daisy.skye view-only fixture), TC-856 unblocked
 but surfaced a new bug rather than a clean pass (BUG-CRX-199 — WP-creation confirm falsely denies ticket
 visibility to the ticket's own owner).
-Overall: 16 PASS / 2 reclassified permanently-blocked-by-design (861, 867) / 1 unblocked-with-bug (856,
-BUG-CRX-199) / 2 bugs total this suite (BUG-CRX-191, BUG-CRX-199) / 0 TCs still awaiting a fixture.
+Pass 5 (2026-11-18): TC-856 fully closed — BUG-CRX-199's fix confirmed to resolve the write-path for all 3
+non-built-in outcome types (customer-support/lead-to-deal/billing), not just the originally-tested one.
+Overall: 17 PASS / 2 reclassified permanently-blocked-by-design (861, 867) / 2 bugs total this suite
+(BUG-CRX-191, BUG-CRX-199 — both now tracked per their own status) / 0 TCs still deferred or awaiting a
+fixture.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7.

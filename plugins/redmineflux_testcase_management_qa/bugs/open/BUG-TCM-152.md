@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-TCM-152
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #128944 (assigned to Vaishnavi Bhawsar, Priority: High)
 - Title: New Testcase form's Steps editor restores stale content from a single global `localStorage['savedSteps']` key, silently persisting unrelated steps on a brand-new, unrelated test case
 - Redmine version: 6.0 (official `redmine:6.0-bookworm` Docker image)
 - Plugin name: redmineflux_testcase_management

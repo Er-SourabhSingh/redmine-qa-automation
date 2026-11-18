@@ -717,6 +717,8 @@ Per explicit user request ("separate the remaining test suites, stating that Cru
 
 | 2026-11-04 (continued — 12 production testcases created for the new agent suites) | 6.0-bookworm (local Docker, `crux-redmine6`, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | Per user instruction, created a production testcase in `ztflux` (project #122) for each of the 12 new Crux agent suites that didn't already have one (Reviewer #127769, Test Author #127774, Docs Writer #127775, Monitor #127776, Alert Triage #127777, Root-Cause Analyst #127778, Auto-Fixer #127779, Research #127780, Improver #127781, Crux Guide #127782, Design Agent #127783, Code Reviewer #127784), matching the existing house style (e.g. #127600 Helpdesk) — each description cites its local suite file + TC-CRX range, fixture, a per-TC result summary, and current bug status (reflecting today's retest). Moved all 12 into suite #435 "crux-agents" alongside the 11 pre-existing agent-suite testcases (now 23 total).
 
+| 2026-11-18 (full-day session: 12-bug retest/close round + deferred-suite sweep across all 15 platform suites) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **12-bug retest round**: developer moved BUG-CRX-204–215 to "In QA"; pulled latest code across 4 repos, rebuilt crux-core+mcp, retested all 12 live against their original repro steps — all 12 CONFIRMED FIXED, closed, production synced to Done/100% (#128920, #128966–128975, #128994, #128995). Added inline "Retest — CONFIRMED FIXED" notes to each bug's originating TC entry across 7 suite files, per explicit user correction that this step had been skipped. **Deferred-suite sweep** ("baaki deferred suites bhi kr do"): closed out the remaining deferred-TC backlog across `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` (TC-833/834, unblocked by BUG-CRX-200's fix — both PASS), `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md`/`ASK_CRUX_BUBBLE_ERRORS.md`/`SETTINGS.md`/`PROJECT_TAB.md`/`PIPELINES.md` (closed 2026-11-18 earlier in this same day), and re-verified `CRUX_PLATFORM_FROZEN_RULES.md`'s TC-929/930/931 (no regressions, cleaned up a leftover rule). Found and fixed a stale line in `CRUX_PLATFORM_READY_QUEUE.md`'s own summary (BUG-CRX-174 was actually already closed). 4 new bugs found and reported to production this day (BUG-CRX-214/215/216/217, #128994/128995/129011/129012). **Swept all 15 platform suites' own "Overall" lines — confirmed every suite is at 0 genuinely-outstanding deferred TCs**, except a documented handful deferred by design (low-value pagers, infra-constrained, permanently-blocked-by-design). Open bug count now 2 (216, 217, both still "New" on production). `STATUS.md`, `bugs/_index.md`, `TIME_LOG.md` updated; all findings committed and pushed to `origin master`.
+
 ## Next Session Start Point (2026-11-04, continued)
 
 - **File BUG-CRX-163 and BUG-CRX-165 to production ztflux** (category Crux Plugin, id 6177) per AGENT-TEST-GUIDE.md §5's format, once the user says to proceed ("ham bad me krnge" — deferred, not declined). BUG-CRX-163's title/scope was narrowed during this session's retest — file the narrowed version (verdict-omission only), not the original fabrication-inclusive title.
@@ -968,14 +970,39 @@ indefinitely** — each one is either a recorded PASS/FAIL, or correctly reclass
 superseded-by-a-later-product-change / a genuine single-session tooling constraint, each with its own
 documented reason rather than an open-ended "not done yet."
 
+### Session continuation (2026-11-18, later same day)
+
+- Developer moved 12 of the 14 open bugs (204–215) to "In QA." Pulled latest code across 4 repos, rebuilt
+  crux-core+mcp, restarted redmine. Retested all 12 live against their exact original repro steps — all 12
+  CONFIRMED FIXED, moved `bugs/open/` → `bugs/closed/` with Retest sections. Production synced per explicit
+  user approval ("haan sync kr do production pe"): all 12 issues (#128920, #128966–128975, #128994, #128995)
+  moved In QA → Done, 100%. Added inline "Retest — CONFIRMED FIXED" notes to the originating TC entries in all
+  7 affected suite files (`CRUX_AGENT_AGILE_SCRUM.md`, `CRUX_AGENT_PROJECT_SETUP.md`, `CRUX_AGENT_TEST_AUTHOR.md`,
+  `CRUX_AGENT_INVOICE_BILLING.md`, `CRUX_AGENT_ALERT_TRIAGE.md`, `CRUX_AGENT_DOCS_WRITER.md`,
+  `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md`) — per explicit user correction that this had been skipped initially.
+- Continued "do the remaining deferred suites too": `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md`'s TC-833/834 were
+  unblocked once BUG-CRX-200 (which made Builder 1/2's Edit action non-functional) was confirmed fixed above.
+  Both retested and PASS — TC-834 (max concurrent genuinely enforced, refused a claim at 3/1); TC-833 (budget
+  gate genuinely stops queue claims; the "chat still works" half found architecturally N/A since Builder
+  agents have no chat persona at all). Builder 1 restored to its original settings afterward.
+- Re-verified `CRUX_PLATFORM_FROZEN_RULES.md`'s TC-929/930/931 with fresh fixtures (not realizing at the time
+  these were already PASS from the 2026-11-16/17 passes) — no regressions, and cleaned up a previously-noted
+  leftover rule plus this pass's own fixtures. Environment now has zero frozen rules.
+- Swept all 15 platform suites' own "Overall" lines to confirm genuine completeness: every suite is at 0
+  outstanding deferred TCs except a handful left deferred by design (TC-741/758/806/788-789 — low-value
+  pager/infra-constrained; PIPELINES 861/867 — permanently blocked by design; ASK_CRUX_BUBBLE_ERRORS 11 items
+  — need a second simultaneous browser session). None of these are time-boxing shortcuts; each has a
+  documented, re-confirmed reason.
+
 ### Next Session Start Point (2026-11-18, current)
 
 - `CRUX_REQUIREMENTS.md`/`CRUX_USER_GUIDE.md` refresh — still not done, lowest-priority carried-forward item.
 - BUG-CRX-108 — still unresolved, carried forward.
-- 14 open bugs remain (`bugs/open/`): BUG-CRX-204 through 217. All reported to production already. Check
-  `bugs/_index.md` for which are still "New" vs. "In QA" on production before planning the next retest round.
-- The 10 agent suites' own remaining depth (if any) — check each suite file's own "Suite status" directly;
-  this handoff file's older notes on them are stale per the gap noted above.
-- Consider backfilling this file's own Run History/narrative for the 2026-11-11 → 2026-11-17 gap if a future
-  session has spare time and wants a single authoritative document instead of relying on `git log` + per-suite
-  footers for that period — not urgent, each suite file's own history is self-contained and accurate.
+- **Open bug count now 2** (`bugs/open/`): BUG-CRX-216, BUG-CRX-217 — both reported to production today
+  (#129011, #129012), both still "New" (developer hasn't picked them up yet). Check their status before
+  planning the next retest round.
+- The 10 agent suites not yet given a full platform-surface sweep (only the 15 platform suites + the handful
+  of agent suites touched incidentally above have been swept this cycle) — check each suite file's own "Suite
+  status" directly for remaining depth.
+- Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (216, 217) and no final-cycle regression has
+  run since the last bug closed.

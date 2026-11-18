@@ -1,11 +1,42 @@
-> **CROSS-DB (SQLite) — 2026-11-18 — DEFERRED, same precedent as RFTC-017.** `redmine6-happyflow-sqlite`
-> (`localhost:3021`) has no Jenkins/CLI harness standing against it — RFTC038-6/11/14 all require a real
-> `redmineflux-tcm` CLI invocation (bootstrap → pytest/JUnit → ingest → auto-defect) driven by an actual CI
-> container, not just REST calls against the plugin. Standing up a Jenkins container for a single cross-DB
-> spot-check isn't worth the cost relative to the actual risk (the plugin-side logic these 3 cases exercise —
-> `bootstrap_run.json`, `ingest_results.json`, auto-defect creation — is the exact same code already
-> exhaustively re-verified on this SQLite leg via RFTC-016/RFTC-008/RFTC-009 directly). Deferred, not executed;
-> flag for a dedicated session if/when a Jenkins harness is actually needed against this instance.
+> **CROSS-DB (SQLite) — 2026-11-18 — UPGRADED from deferred to fully executed, real Jenkins container, all 3
+> PASS.** The earlier same-day deferral note (kept below for history) was superseded on explicit user request:
+> reused the existing `happyflow-pg-jenkins` container (image `tcm-ci-jenkins:local`, repo mounted at
+> `C:\redmine v6\plugins\redmineflux-tcm-ci`) rather than standing up a second one — repointed its JCasC
+> config (`jenkins/jenkins.yaml`'s pipeline script + `jenkins/docker-compose.jenkins.yml`) at
+> `http://host.docker.internal:3021`/project `1`/ident `rftc-016-ci-qa`/env `CI`, minted a fresh
+> `TCM_API_KEY` for `luna.blossom` (a genuine SQLite-instance project member holding `create_run`+
+> `create_test_suite`+`execute_testcase`), and rebuilt the image (`docker compose -p jenkins ... up -d
+> --build` — JCasC bakes `jenkins.yaml` into the image, so a plain restart does not pick up edits). Created 6
+> real testcases in `rftc-016-ci-qa` with Automation Keys matching the demo-project's own pytest tests
+> (`test_login_valid`, `test_login_invalid_password`, `test_add_item_to_cart`, `test_remove_item_from_cart`,
+> `test_apply_discount_code` — the deliberate failure, `test_password_reset_email`), linked into a real new
+> "CI Ingest" suite, so the pipeline's automation-key matching would have real targets instead of running
+> entirely unmatched.
+> - **RFTC038-6**: triggered build #2 via the real Jenkins UI ("Build Now", verified visually via Playwright
+>   on `http://127.0.0.1:8080/job/tcm-ci/2/console`) — real console log: `base_url: http://host.docker.internal:3021`,
+>   `project: 1 (rftc-016-ci-qa)`, bootstrap created Run #40, real `pytest` ran (`4 passed, 1 failed, 1
+>   skipped`), `ingest --auto-defect` reported `Ingested 6 results (6 matched, 0 unmatched)`, build result
+>   `SUCCESS`. Opened Run #40 live on `localhost:3021`: `4 Passed / 1 Failed / 1 Skipped out of 6`, a genuinely
+>   new defect **#395** ("CI failure: test_apply_discount_code [Jenkins CI Build 2]") auto-created and linked
+>   — a real stack-trace-backed defect from a real CI failure, matching the original PostgreSQL-leg evidence
+>   class exactly.
+> - **RFTC038-11**: the same console log shows `RUN_ID=40` captured cleanly from
+>   `jq -r '.run_id' "$WS/bootstrap.json"` — no stdout scrape, confirmed live in this exact run.
+> - **RFTC038-14**: separately, `python3 -m redmineflux_tcm ingest` inside the Jenkins container with a
+>   fabricated JUnit report containing one test with no matching Automation Key anywhere in the project →
+>   `UNMATCHED: test_totally_unmatched_case_xyz (passed)`, `Ingested 1 results (0 matched, 1 unmatched)`,
+>   **CLI exit code 0** — a warning, not a failure; the build would have stayed green.
+> **Zero new bugs found on this leg — all 3 cases now fully executed, not deferred.**
+>
+> **CROSS-DB (SQLite) — 2026-11-18 — DEFERRED, same precedent as RFTC-017 (superseded above, kept for
+> history).** `redmine6-happyflow-sqlite` (`localhost:3021`) has no Jenkins/CLI harness standing against it —
+> RFTC038-6/11/14 all require a real `redmineflux-tcm` CLI invocation (bootstrap → pytest/JUnit → ingest →
+> auto-defect) driven by an actual CI container, not just REST calls against the plugin. Standing up a
+> Jenkins container for a single cross-DB spot-check isn't worth the cost relative to the actual risk (the
+> plugin-side logic these 3 cases exercise — `bootstrap_run.json`, `ingest_results.json`, auto-defect creation
+> — is the exact same code already exhaustively re-verified on this SQLite leg via RFTC-016/RFTC-008/
+> RFTC-009 directly). Deferred, not executed; flag for a dedicated session if/when a Jenkins harness is
+> actually needed against this instance.
 >
 > **CROSS-DB (PostgreSQL) — 2026-11-17 — real Jenkins container actually built and run against happyflow-pg
 > this time, superseding the carried-forward note below.** Repointed the `redmineflux-tcm-ci` repo's Jenkins

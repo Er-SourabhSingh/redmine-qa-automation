@@ -1,6 +1,22 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 15 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 16 — read this first, supersedes the sections below)
+
+**RFTC-038 upgraded from deferred to fully executed — all 3 happy-flow TCs confirmed PASS via a REAL Jenkins
+container.** User explicitly asked to actually stand up Jenkins rather than defer. Reused the existing
+`happyflow-pg-jenkins` container (`tcm-ci-jenkins:local` image), repointed its JCasC config at
+`localhost:3021`/project `rftc-016-ci-qa`, rebuilt, minted a fresh API key for `luna.blossom`, and created 6
+real testcases with Automation Keys matching the demo-project's own pytest tests. Triggered a real build via
+the Jenkins UI (verified visually with Playwright): bootstrap → real pytest (4 passed/1 failed/1 skipped) →
+ingest with `--auto-defect` → a genuinely new defect (**#395**) auto-created and linked to Run #40. Separately
+confirmed the CLI's unmatched-test exit-0 warning behavior inside the same container. **Zero new bugs.**
+
+**This closes the SQLite leg's happy-flow pass completely — every RFTC group now fully executed, nothing
+deferred.**
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 15 — superseded by round 16 above, kept for context)
 
 **RFTC-038 deferred** — a note added to its own file explaining why (needs a real Jenkins/CLI harness this
 instance doesn't have; the underlying plugin logic it would exercise is already re-verified directly via

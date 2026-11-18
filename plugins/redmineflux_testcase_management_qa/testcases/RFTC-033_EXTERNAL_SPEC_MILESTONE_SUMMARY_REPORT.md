@@ -131,6 +131,22 @@ this user use it":
 > UI blocker (that reproduces with correct params too, so it's a separate front-end issue worth a follow-up
 > browser session), but a genuine finding from the same investigation.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED — RFTC033-11/12/13, and the UI blocker no longer
+> reproduces.** Reopened `/projects/happyflow-pg/testcase_milestones/1/report` live — **0 console errors**, the
+> full 8-section report rendered correctly this time (the earlier client-side JS blocker was evidently
+> transient/fixture-dependent, consistent with the SQLite leg's own finding that it "does not reproduce").
+> - **RFTC033-11**: before, `report.json` showed `found_open:3, targeted_open:0`. Created a targeted-only defect
+>   (`fixed_version_id=1`, no execution link) — `found_open` stayed exactly **3** (unaffected), `targeted_open`
+>   moved to **1** — the two rows are genuinely independent counts. Fixture deleted after confirming.
+> - **RFTC033-12**: live Print button computed style — class `rf-ms-btn rf-ms-btn-secondary`,
+>   `background-color: rgb(255,255,255)`, bordered — matches the standard white-background+border style;
+>   BUG-TCM-137's fix holds on PostgreSQL too.
+> - **RFTC033-13**: set `fixed_version_id=1` on 15 test case issues. Coverage section read "2 covered, 13 not in
+>   any run yet." (true full counts, confirmed via both `report.json` and the live page), while the rendered
+>   "not covered" `<ul>` held exactly **10** `<a href="/issues/...">` links — confirming both the true-count
+>   text and the view's `.first(10)` render cap. `fixed_version_id` reverted on all 15 issues after confirming.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16 — partial positive evidence, then BLOCKED (budget).**
 > `redmine6-happyflow-pg` (`localhost:3020`). Confirmed the milestone↔run infrastructure this TC depends on
 > genuinely works: set a due date on the project's only version (`v1.0 Release`), then opened Runs & Results

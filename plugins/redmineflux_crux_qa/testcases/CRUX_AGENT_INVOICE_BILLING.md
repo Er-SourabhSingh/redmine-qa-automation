@@ -471,6 +471,20 @@ no client email to snapshot. This is a genuine missing precondition in this fixt
 link set up), not a defect in `generate_invoice` or the DEF-2 fallback-rate behavior itself — deferred to a
 follow-up session that first links a customer to the project via the native UI/CRM before retrying this TC.
 
+**Executed 2026-11-18 — FAIL, found new bug BUG-CRX-208.** The missing precondition from the earlier pass
+was already resolved by this point — a customer ("Autumn Grace") was linked via the project's own Billing
+Settings page. Re-confirmed the rest of the precondition natively: `Project Billing Rate: 0.0` (unset),
+`list_team_rates(project_id=10)` shows rates for 2 other members only, none for `admin`; the same fixture
+time entry (5.0h, 2026-11-03, issue #25) from the earlier attempt still existed. "Generate an invoice for
+the Crux Invoice Agent Test Project covering 2026-11-01 to 2026-11-05" → confirmed; response: `"✓ Invoice
+generated: #14 ... Subtotal: 0.0 ... Total: 0.0"` — **no DEF-2 warning anywhere**. Native-verified via
+`get_invoice`: the real line item is genuinely `qty:5.0 × 0.0 = 0.0`. Root-caused via source read: the
+native plugin's `TeamRate.rate_for` no longer has a hardcoded 12/hr fallback — it now falls back to the
+project's own `project_billing_rate` (0.0 here, unset), a 3-tier chain the MCP tool's DEF-2 detection
+(which only checks for `rate == 12.0`) was never updated to match. The agent isn't hiding anything here —
+the warning code it relies on is simply looking for a value the native plugin no longer produces. Filed as
+**BUG-CRX-208**. Deleted the resulting $0 invoice (#14) afterward to leave the fixture clean.
+
 ---
 
 ### TC-CRX-487: Send invoice — draft → sent, InvoiceHistory event recorded

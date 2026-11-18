@@ -75,9 +75,27 @@ succeed for a non-admin Manager, confirming the gate isn't simply broken-closed.
 separately isolated — the UI's rename path wasn't found quickly; `create_test_suite`'s own gate already proves
 the permission check fires correctly for this role.)
 
-**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), Release 7.5.0's multi-line
-Step/Expected cases (372-375 — not yet re-tested on SQLite specifically, though the underlying mechanism was
-exercised repeatedly this pass). Then the MySQL leg (not started at all).
+**Also confirmed — TC-TCM-372 (multi-line Step/Expected support)**: typed real multi-line text (via
+`.fill()` with embedded `\n`) into both Step and Expected on a test case's Steps editor, submitted.
+`GET /get_testcase/<id>.json` confirms `\r\n` preserved in the saved value (not collapsed to one line); the
+rendered issue page's raw HTML shows real `<br>` tags between each line (`<p>Line one of the step<br>\nLine
+two of the step<br>\nLine three of the step</p>`) — matches the PostgreSQL leg's own confirmed result exactly.
+(Incidentally hit BUG-TCM-152's leak again mid-test — an existing step row was already present on a test case
+that should have had none; worked around by clearing and overwriting it before testing the multi-line
+behavior itself, which is unrelated to BUG-TCM-152.)
+
+**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), TC-TCM-373/374/375 (the other 2
+multi-line entry points + the 40,000-char boundary nuance — not independently re-tested on SQLite, though
+372's core mechanism confirms the same underlying code path). Then the MySQL leg (not started at all).
+
+**SQLite leg assessment**: coverage is now broad and deep across essentially every feature area in the
+happy-flow list — install/config, core CRUD, RUN→EXEC→DEFECT, environments, reports+PDF/JPG export,
+requirements/RTM, milestones, sessions, automation dashboard, run comparisons, CSV import, the full CI/
+automation REST surface (bootstrap_run, ingest_results, automation sources, flaky/slow detection, Quality HQ),
+the complete V1 TC-API set (18/18), RFTC-008's defect-linking core, TC-PERM-02-1 as a real non-admin role, and
+Release 7.5.0's Results Dashboard/JPG/multi-line features — plus one new genuine bug found and reported
+(BUG-TCM-152). What remains on this leg is narrow (a handful of RFTC edge cases, 3 multi-line entry-point
+variants) rather than broad gaps.
 
 ---
 

@@ -1,6 +1,29 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 13 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 14 — read this first, supersedes the sections below)
+
+**RFTC-045 (Per-Run/Per-TC/Per-Environment Assignee) — all 16 happy-flow TCs confirmed PASS on SQLite**
+(1/2/8/9/13/14/15/16/35/39/53/54/56/58/63/64). Full writeup in
+`RFTC-045_EXTERNAL_SPEC_PER_RUN_TESTCASE_ASSIGNEE.md`'s new "CROSS-DB (SQLite) — 2026-11-18" block. Covers
+independent per-run vs. global assignee storage, bulk/inline reassignment (including both "this environment"
+and "all environments" scopes), per-environment assignee independence (the BUG-TCM-140/146 fix class), and
+Edit Run's assignee-free environment management (add/new-TC starts Unassigned).
+
+**Noted (not a bug)**: the CI-bootstrap API accepts free-text environment names not registered in the
+project's own Environment list, which then can't be pre-selected in Edit Run's dropdown (no matching
+`<option>`) — a fixture/UI mismatch, not a product defect; resolved by using registered environment names.
+
+**Zero new bugs found this round.**
+
+**This completes every remaining RFTC group for the SQLite happy-flow pass except RFTC-038** (CI Platform
+Recipes, 3 cases) **and RFTC-045's own full 67-case set beyond the happy-flow subset** — RFTC-038 needs a real
+CI harness (Jenkins/CLI container) this instance doesn't have, matching RFTC-017's precedent; recommend
+deferring it rather than building that infra just for a cross-DB spot-check. The SQLite leg's happy-flow pass
+is otherwise functionally complete across every RFTC group in `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 13 — superseded by round 14 above, kept for context)
 
 **RFTC-008 (Defect↔Execution linking) — all 6 happy-flow TCs confirmed PASS on SQLite** (F1/F2/U3/F7/U8/U9/
 U10/F10/F11/U6/UI2/UI3). Full writeup in `RFTC-008_EXTERNAL_SPEC_DEFECT_EXECUTION_LINKING.md`'s new

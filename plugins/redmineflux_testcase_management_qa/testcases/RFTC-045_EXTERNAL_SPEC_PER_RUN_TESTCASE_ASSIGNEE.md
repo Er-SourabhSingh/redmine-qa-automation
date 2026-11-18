@@ -5,6 +5,45 @@
 > present in the run grid. RFTC045-9,13,14,15,16,35,39,53,54,56,58,63,64 not individually re-executed within
 > this pass's time budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 16 happy-flow RFTC045 TCs confirmed PASS, on a 2-then-3-environment fixture run (#36/37,
+> 6 test cases from "SQLite Happy-Flow Suite"):
+> - **RFTC045-1/2**: inline-reassigned issue #339's per-run (Chrome) assignee to Aurora Wren — issue #339's own
+>   global `assigned_to_id` stayed `nil` throughout. Then set the global assignee to Daisy Skye via
+>   `PUT /issues/339.json` — the per-run override stayed `15` (Aurora Wren), confirmed independent both
+>   directions.
+> - **RFTC045-8/9/13/14**: selected 3 non-contiguous rows (339, 343, 377) → "3 Selected" banner; bulk-Reassigned
+>   to a user already assigned to some of them (Luna Blossom) → all 3 updated cleanly, no duplicate-assignment
+>   error, unselected rows untouched.
+> - **RFTC045-15/16**: clicked issue #339's assignee cell → real dropdown listing actual testers (Aurora Wren,
+>   Autumn Grace, ...) → clicked a name → updated in-place, URL stayed at `/runs/36`, 2 clicks total.
+> - **RFTC045-35**: same test case (#339), same run, set Chrome tab → Aurora Wren and Edge tab → Autumn Grace
+>   independently — switching back to Chrome still showed Aurora Wren, confirmed both directions.
+> - **RFTC045-39**: bootstrapped a run with 2 environments (`Chrome`→Luna Blossom id 5, `Edge`→Aurora Wren id
+>   15) — DB-confirmed `RunIssueAssignment.effective_map` returns `{issue: 5}` for every case on Chrome and
+>   `{issue: 15}` for every case on Edge — Chrome's assignee never leaked into Edge (the exact BUG-TCM-140/146
+>   gap class).
+> - **RFTC045-53/54**: Edit Run's environment rows exposed only `environment` `<select>`s, no `assignee_id`
+>   select anywhere; "Assignee" rendered only as a read-only `span.run_assignee_readonly` with the tooltip
+>   "Assignees are not changed here..."; the "+ Add"/trash controls operate purely on the Environment field.
+> - **RFTC045-56**: registered a 3rd project environment ("Safari-RFTC045") and added it via Edit Run's
+>   "+ Add" — DB-confirmed its `RunAssignment.assignee_id` is `nil` and all 6 test cases got
+>   `RunIssueAssignment` rows with `assignee_id: nil` for it — fully Unassigned, nothing borrowed from Chrome
+>   Latest/test.
+> - **RFTC045-58**: used Edit Run's "Only the following test runs" → Select Cases to add a brand-new test
+>   case (#338) to the run — its `RunIssue.assignee_id` is `nil` and zero `RunIssueAssignment` rows exist for
+>   it, confirming it did not inherit any of the run's existing per-TC values.
+> - **RFTC045-63/64**: inline single reassignment (2 clicks, no navigation) still works unaffected; bulk
+>   reassignment's **both scopes** confirmed distinctly — "Only this environment" updated just Chrome's
+>   `RunIssueAssignment` rows (Edge untouched); "All environments" updated the shared `RunIssue`-level default
+>   instead and cleared any environment-specific overrides, correctly propagating everywhere.
+> **Note**: the CI-bootstrap API accepts arbitrary free-text environment names that are NOT registered in the
+> project's own Environment list (`TestcaseEnvironment`) — Edit Run's environment `<select>` then can't show a
+> selected option for such a run (no matching `<option>` exists), which looks like a blank dropdown. This is a
+> fixture-setup mismatch (API allows unregistered names; the UI's own picker only offers registered ones), not
+> a product bug — resolved by rebuilding the fixture with registered environment names (`Chrome Latest`/`test`).
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases are designed from **5 production feature tickets** (#123917–#123921), part of the

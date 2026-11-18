@@ -198,7 +198,81 @@ settings page (budget-cap spend-driving, bubble live-preview, navigation live-to
 live-test). All deliberate negative-test values were restored and the environment was left healthy and
 Test-connection-verified before moving on.**
 
-## Suite status
+## Execution — 2026-11-18 (deferred-TC completion pass)
 
-Executed 2026-11-05 — 15 PASS, 1 bug found (BUG-CRX-178), 17 deferred, environment restored.
-Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §9.
+Closed out all 17 previously-deferred TCs, per explicit user instruction. Recorded every current field value
+first (Core URL `http://crux-core:8787`, blank Chat budget, Show-Crux/Show-Agents both checked, bubble position
+`br`/size `comfortable`/icon `chat`, Accent `#FC641F`, default greeting/prompts, blank default agent/teaser,
+Chat agents all unchecked) and restored every one of them at the end, with a final Test-connection confirming
+the environment was left healthy.
+
+- **TC-CRX-891 — PASS.** Set the admin chat budget to $1.00, sent a real message: the answer carried `"⚠ 94%
+  of today's $1.00 chat budget used ($0.94 spent) — resets at 00:00 UTC."` — correct wording, real % and spend.
+- **TC-CRX-892 — PASS.** Lowered the cap to $0.50 (today's real spend was already ~$0.95) and sent another
+  message: it was genuinely refused — `"You've reached today's $0.50 chat spending cap ($0.95 spent) — it
+  resets at 00:00 UTC. Please try again after the reset, or ask an admin to raise the cap."` — no answer was
+  generated, just the refusal.
+- **TC-CRX-893 — PASS.** UTC-reset half: server time was confirmed `2026-11-18 11:34 UTC` via a native check,
+  well before the message's own claimed `00:00 UTC` reset — consistent, not stale. Per-user half: logged in as
+  Sage Willow (Reporter) while admin was fully blocked by the $0.50 cap — her own chat answered completely
+  normally with no warning or refusal at all, confirming independent per-user tracking.
+- **TC-CRX-894 — PASS** (demonstrated twice — once raising to $1.00, once lowering to $0.50 mid-session, no
+  restart either time): both changes were enforced on the very next chat call, immediately.
+- **TC-CRX-895 — PASS.** Cleared the field and saved: hint read exactly `"No admin override set — using the
+  environment default ($0.00)."`, and a real chat message afterward got a normal answer with zero warning —
+  confirming "blank = genuinely unrestricted," not a hidden $0 cap.
+- **TC-CRX-896 / TC-CRX-897 — PASS, both live-toggle-tested directly** (not just cross-referenced this time).
+  Unchecking "Show the Crux entry" made the `/crux` top-menu link genuinely disappear on the very next page
+  load; re-checking it brought it back. Separately unchecking "Show the Agents entry" removed `/crux/agents`
+  from the top menu while `/crux` itself stayed; re-checked afterward.
+- **TC-CRX-898 — PASS, both halves.** Set the Top-menu caption to "CruxTest123": the top-menu link's own text
+  changed to that exact string on the next page load. Cleared it: reverted to "Crux".
+- **TC-CRX-899 — Partially confirmed, 1 new bug filed (BUG-CRX-217).** Greeting, Suggested prompts, and Launch
+  teaser were all confirmed to update the live "Bubble preview" panel immediately, before Save (verified via
+  direct DOM inspection, not just visual read). **Accent color does NOT** — changing it to `#00AA00` left the
+  preview's own button background and `--crux-accent` CSS variable stuck at the old `#FC641F`, confirmed via
+  `getComputedStyle`, regardless of which DOM event was fired. Bubble position/Panel size/Bubble icon have no
+  visual representation anywhere in this preview panel at all (it only ever renders the open chat panel's
+  interior, never a launcher mockup) — their own "preview updates live" claim could not be checked either way
+  through this panel. Filed **BUG-CRX-217** for the confirmed Accent-color gap.
+- **TC-CRX-900 — PASS, native-verified.** Saved Bubble position = Bottom left and Bubble icon = Wand, then
+  loaded a different page (`/issues/41`): the real floating bubble's root had class `crux-bubble-bl` (not the
+  default `br`) and its launcher button's SVG was genuinely the wand-style icon path, not the default chat
+  icon — both confirmed via direct DOM inspection.
+- **TC-CRX-901 — PASS, both surfaces.** Saved 3 custom suggested prompts: the bubble's empty state showed
+  exactly those 3 as clickable chips on `/issues/41`, and the full-page `/crux/ask` New Chat screen showed the
+  identical 3 as prompt cards — both confirmed via DOM text, not visual read alone.
+- **TC-CRX-902 — PASS, both halves.** With a blank bubble default agent, a fresh profile's full-page picker
+  fell back to "Auto ▾" as expected. Set to `Reporter:docs-writer` and logged in as Sage Willow (Reporter) with
+  cleared storage: her floating bubble's agent switcher showed "Docs Writer" as the active default — confirming
+  the per-role mapping is genuinely scoped to the bubble (the full-page picker correctly stayed on Auto, since
+  this field lives specifically under "Ask Crux bubble" settings).
+- **TC-CRX-903 — PASS, fully confirmed.** Set a teaser label "Ask Crux!", cleared storage to simulate a fresh
+  profile: the teaser text appeared next to the bubble before first open. Opened the bubble once, reloaded:
+  the teaser element was genuinely gone from the DOM.
+- **TC-CRX-905 / TC-CRX-906 — FAIL, new bug BUG-CRX-216.** Checked only "Project Manager" and "Docs Writer" in
+  Chat agents (leaving "Research" — the account's own persisted picker selection from earlier this cycle —
+  genuinely unchecked). A fresh "New chat" picker still showed **4** entries including "Research", and sending
+  a real message with "Research ▾" still active as the selection was genuinely answered, not refused or
+  fallen back to Auto. This is the exact "excluded by Chat agents setting" ignore condition from TC-CRX-984,
+  which the closed BUG-CRX-180's own retest never actually covered (that retest only checked the "Retired" and
+  URL-param conditions) — filed as a new bug, **BUG-CRX-216**, per this repo's uncovered-trigger-path
+  convention.
+- **TC-CRX-916 — PASS.** With Core genuinely pointed at an unreachable address, the Chat budget field's hint
+  resolved (after a brief async load) to the same honest `"Crux is unavailable right now. Please try again in
+  a moment — if it keeps happening, ask your Redmineflux administrator."` message used elsewhere for a
+  core-down state — not a stale value, not a silent failure. Restored the real URL immediately afterward.
+- **TC-CRX-919 — PASS, fully confirmed (the other 4 jump links).** Each of `#crux-set-core`, `#crux-set-nav`,
+  `#crux-set-bubble`, `#crux-set-agents` is a real anchor href matching a real element id on the page — the
+  identical mechanism as the already-tested `#crux-set-budget` link.
+
+**Deferred-pass summary: 17 of 17 previously-deferred TCs closed — 15 full PASS (891-898, 900-903, 916, 919),
+1 partially confirmed with 1 new bug (899 → BUG-CRX-217), 1 FAIL with 1 new bug (905/906 → BUG-CRX-216). Zero
+TCs remain deferred in this suite.**
+
+## Suite status (updated 2026-11-18)
+
+Pass 1 (2026-11-05): 15 PASS, 1 bug (BUG-CRX-178), 17 deferred.
+Pass 2 (2026-11-18): all 17 deferred TCs closed — 15 more PASS, 2 new bugs found (BUG-CRX-216, BUG-CRX-217).
+Overall: 30 PASS/confirmed, 3 bugs found (BUG-CRX-178/216/217), 0 deferred. Source:
+`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §9.

@@ -52,10 +52,25 @@ persistence), 02-04 (delete + follow-up 404), 03-01 (bulk-create 2 testcases wit
 testcase to suite — 200 first time, then exact `422 {"error":"Testcase(s) <id> are already in suite #<id>."}`
 on duplicate re-add). Not yet run: 04-04 (bulk partial failure), 07-05, 08-01.
 
-**Still to do on SQLite**: RFTC-008 (Defect↔Execution linking — core auto-defect-creation behavior already
-incidentally confirmed via TC-DEFECT-01-01 and `ingest_results`'s auto-defect path, but not the dedicated TCs),
-the rest of RFTC-017/022, the remaining 4 TC-API cases, TC-PERM-02-1, Release 7.5.0 feature TCs. Then the MySQL
-leg (not started at all).
+**Also confirmed**: remaining TC-API cases (04-04 bulk partial-failure 422, 07-04/07-05 report_defect
+negative+happy, 08-01 Swagger YAML with real `{server_url}` substitution) — all 18/18 TC-API happy-flow cases
+now done. RFTC-008's core group (F1 link_defect, F11/U6 reverse view via `defects/:id/executions.json`,
+F7/U8/U9/U10 unlink) all confirmed via direct REST calls, exact-match responses. Release 7.5.0: TC-TCM-367/
+368/369 confirmed (the "Results Dashboard" is literally the always-visible Results Summary panel already seen
+on every run page this pass — same resolution the PostgreSQL leg reached); TC-TCM-370/371 confirmed (Export
+JPG Report produces a real, fully self-contained 212KB snapshot with run metadata + linked defects).
+
+**New bug found — BUG-TCM-152 (High, filed, not yet reported to production)**: the New Testcase form's Steps
+editor persists to a single global `localStorage['savedSteps']` key with no scoping by issue/project/session.
+A brand-new "Add Testcase" form pre-fills Step 1 from whatever was last edited anywhere on the site, and this
+silently persists to the DB if unnoticed — confirmed real: test case #344 (Subject + Automation Key only, no
+manual step entry) ended up with 2 DB-persisted steps byte-identical to unrelated #341's own steps. Ruled out
+as a server-side automation_key feature (the raw REST API with the same duplicate key correctly creates zero
+steps) — isolated to the browser-side Steps editor component, not DB-specific.
+
+**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), TC-PERM-02-1, Release 7.5.0's
+multi-line Step/Expected cases (372-375 — not yet re-tested on SQLite specifically, though the underlying
+mechanism was exercised repeatedly this pass). Then the MySQL leg (not started at all).
 
 ---
 

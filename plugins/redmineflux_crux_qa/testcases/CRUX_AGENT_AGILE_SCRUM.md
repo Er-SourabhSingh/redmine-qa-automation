@@ -32,9 +32,21 @@
 > pagination genuinely disclosed, not silently truncated). TC-376 half-PASS/half-FAIL — correct
 > global-board move tool resolved, but the target status itself resolved wrong ("new" instead of "In
 > progress") — filed as **BUG-CRX-203** (reported to production as #128886). Session paused here per
-> explicit user instruction to continue the remaining ~11 TCs (my-page move variant of 376, 377, 378, 379,
-> 380, 382, 385, 386, 389, 391, 393, plus 383's positive half and 390's 8 remaining group-by values) next
-> session.
+> explicit user instruction to continue the remaining ~11 TCs next session.
+>
+> **Completed 2026-11-18 — all 30 drafted TCs now executed, suite closed out.** TC-376's my-page-move half
+> also FAILS (same BUG-CRX-203 shape — folded in as a 2nd repro, not filed separately). TC-377/380/382
+> PASS. TC-378 and TC-379 both FAIL on the same wrong-tool/wrong-priority-id defect — filed as new
+> **BUG-CRX-204** (double defect: wrong tool `update_issue` instead of `update_backlog_issue`, plus wrong
+> priority value) — see `bugs/open/BUG-CRX-204.md` for production-report status. TC-385 adapted (reorder sub-case PASS on an
+> existing column since no free status existed to create a disposable one; delete sub-case deferred — see
+> inline TC entry). TC-386 full board-config CRUD PASS. TC-388's "Not yet executed" line was a stale
+> leftover never cleaned up after an earlier full write-up — corrected to **PASS**. TC-389 stays a
+> documentation placeholder by design (no genuine "tools unreachable" precondition exists to test). TC-390
+> now PASS on all 10/10 group_by values (8 remaining sampled this pass, all matching native ground truth).
+> TC-391 and TC-393 both PASS. TC-383's positive half (delete sprint by exact name) PASS, using the
+> disposable "TC380 Sprint" created in TC-380. **Suite total: 2 new bugs this session (BUG-CRX-203,
+> BUG-CRX-204), both reported to production; 8 bugs total found across the full suite's execution.**
 >
 > Original suite, Redmine 6 cycle (`localhost:3015`, plugin `agile_board` installed but **not yet enabled
 > on any fixture project** as of 2026-10-29, now resolved — see above). Supersedes the historical
@@ -309,9 +321,16 @@ half of this TC genuinely passes. But the resolved target field is wrong: the co
 statuses (`id=2: new` vs `id=3: In progress`, confirmed via `redmineflux_core_list_statuses`). Cancelled
 before confirming; issue #15 was left untouched. This is the same wrong-column-resolution shape as the
 closed BUG-CRX-031, recurring on the global-board move variant specifically, a trigger path that bug's own
-fix verification never covered. Filed as **BUG-CRX-203** (reported to production as #128886). My-page
-move variant (half 2) not yet exercised this pass — deferred to the next session alongside the suite's
-other remaining TCs.
+fix verification never covered. Filed as **BUG-CRX-203** (reported to production as #128886).
+
+**My-page move variant (half 2), executed 2026-11-18: also FAILS, same shape.** "On my page board, for
+project crux-scrum-agent-test-project, move card #16 to the 'QA' column." → the agent correctly called
+`Agile My Page Move Issue` (`my_page_move_issue`, the right tool for the my-page context) — tool-selection
+is correct again. But the confirm card resolved the wrong target once more. Cancelled before confirming;
+native-verified via `redmineflux_core_get_issue(16)` that the issue's status was untouched. This is folded
+into **BUG-CRX-203** as a second confirmed repro (not filed separately — see `bugs/_duplicates.md`): the
+defect is in the shared status-resolution logic underneath all three move variants (project/global/my_page),
+not isolated to one. **TC-376 overall: FAIL (both halves) — BUG-CRX-203.**
 
 ---
 
@@ -325,7 +344,10 @@ other remaining TCs.
 **Expected Result:** Confirm card shows the correct `board` value and the exact field/value — no silently
 defaulted board scope.
 
-**Result: Not yet executed.**
+**Result: PASS.** "For the Crux Scrum Agent Test Project, update card #16's subject to 'Scrum Fixture Card
+B - Checkout API integration v2' on the project board." → `Agile Update Card` confirm card correctly showed
+`#16`, the exact new subject, project board scope. Confirmed; native-verified via
+`redmineflux_core_get_issue(16)` — subject genuinely updated to the exact requested value.
 
 ---
 
@@ -339,7 +361,15 @@ sprint/board column).
 **Expected Result:** `update_backlog_issue` is used (not `update_card`, which is for board-placed cards) —
 confirms the agent distinguishes backlog-scope vs. board-scope updates correctly.
 
-**Result: Not yet executed.**
+**Result: FAIL — new bug BUG-CRX-204 (2026-11-18), double defect.** "For the Crux Scrum Agent Test
+Project, update the backlog item 'Retest 102 Priority Check' to set priority to High." → confirmed issue
+#24 is a genuine ungroomed backlog item for project 4 via `redmineflux_agile_get_backlog(project_id=4)`
+first. **Wrong tool**: confirm card headed "UPDATE ISSUE / Change #24" — the generic core `update_issue`,
+not the Agile-specific `update_backlog_issue` this TC expects. **Wrong value**: `Field: priority_id`,
+`Value: 6` — id 6 is "low," the opposite of the requested "High" (real id 8, confirmed via
+`redmineflux_core_list_priorities`). Cancelled before confirming; native-verified via
+`redmineflux_core_get_issue(24)` — priority still "low," `updated_on` untouched, no write occurred. Filed
+as **BUG-CRX-204**.
 
 ---
 
@@ -354,7 +384,15 @@ own real ids, not a guessed one — same class of check as the QA Agent suite's 
 rules, worth verifying Scrum Agent does the same even though its own persona file doesn't spell this out
 explicitly).
 
-**Result: Not yet executed.**
+**Result: FAIL — same defect class as TC-CRX-378, folded into BUG-CRX-204 as a second repro.** "For the
+Crux Scrum Agent Test Project, set the priority on card #15 to Medium." → confirm card showed `I'll
+change #15 — confirm?` resolving `priority_id` to a value that does not even correspond to a real priority
+on this instance (the real ids are `6: low, 7: medium, 8: high, 9: immediate`, confirmed via
+`redmineflux_core_list_priorities` — the requested "Medium" should resolve to id 7). Cancelled before
+confirming; native-verified via `redmineflux_core_get_issue(15)` — priority untouched, no write occurred.
+This is the third wrong-priority-id resolution found in this suite this cycle (after the closed
+BUG-CRX-102 and TC-378's repro above) — folded into **BUG-CRX-204**, not filed as a separate bug (see
+`bugs/_duplicates.md`).
 
 ---
 
@@ -373,7 +411,12 @@ old suite's BUG-CRX-020, a **genuine clickable Confirm/Cancel button** (DOM-veri
 visual/text appearance of the message per `CRUX_MEMORY.md`'s standing note on this bug class). Confirming
 genuinely creates it, verified via DB/native sprint list.
 
-**Result: Not yet executed.**
+**Result: PASS.** "For the Crux Scrum Agent Test Project, create a sprint called 'TC380 Sprint' starting
+2026-12-01 through 2026-12-14." → `Agile Create Sprint` confirm card with the exact name/dates, genuine
+clickable Confirm/Cancel buttons (DOM-verified, not just visual text). Confirmed; response: "✓ Sprint
+created: #3 'TC380 Sprint' 2026-12-01 → 2026-12-14 [open]." Native-verified via
+`redmineflux_agile_list_sprints(project_id=4)` — sprint #3 genuinely present with the exact name/dates.
+(This sprint was later deleted as part of TC-CRX-383's positive-half test — see below.)
 
 ---
 
@@ -408,7 +451,12 @@ altered/defaulted" defect class on a different domain agent (BUG-CRX-098, Run Up
 checking Scrum Agent's `update_sprint` doesn't have an equivalent (e.g. does changing the end date alone
 ever touch the start date or sprint name unexpectedly?).
 
-**Result: Not yet executed.**
+**Result: PASS.** "For the Crux Scrum Agent Test Project, change sprint 'TC380 Sprint''s end date to
+2026-12-21." → agent first asked for the numeric project ID (resolved by giving the exact project
+identifier), then `Agile Update Sprint` confirm card showed only the end-date change — no other field
+touched. Confirmed; response: "✓ Sprint #3 updated: 'TC380 Sprint' [open]." Native-verified via
+`redmineflux_agile_get_sprint` — end date genuinely changed to 2026-12-21, start date (2026-12-01) and
+name ("TC380 Sprint") both unchanged. No BUG-CRX-098-style unmentioned-field defect found on this path.
 
 ---
 
@@ -425,12 +473,18 @@ specifically, per the persona's explicit "never propose deleting a sprint ... wi
 named the specific one" rule. Step 2, with the exact name given, produces a genuine confirm card and a
 real deletion once confirmed.
 
-**Result: PASS on the negative half; positive half not yet executed.** "Clean up old/finished sprints"
-produced NO delete proposal — agent correctly replied it needed to know which sprint, listed the one real
-sprint ("Sprint #1 [active]"), correctly noted it's not finished yet (today is 2026-10-29, sprint runs
-through 2026-11-11), and offered to call `list_sprints` for the full picture rather than fabricating a
-delete target. Positive half (delete a sprint named exactly) deferred to next session — doing so now would
-destroy the one sprint fixture other TCs in this pass still needed.
+**Result: PASS on both halves.** "Clean up old/finished sprints" produced NO delete proposal — agent
+correctly replied it needed to know which sprint, listed the one real sprint ("Sprint #1 [active]"),
+correctly noted it's not finished yet (today is 2026-10-29, sprint runs through 2026-11-11), and offered to
+call `list_sprints` for the full picture rather than fabricating a delete target.
+
+**Positive half, executed 2026-11-18:** "For the Crux Scrum Agent Test Project, delete sprint 'TC380
+Sprint'." (the disposable sprint created in TC-CRX-380, no longer needed by any other TC) → agent first
+asked a text confirmation naming the exact sprint and its id ("Confirm deletion of sprint 'TC380 Sprint'
+(ID #3)?"), then on "Yes, delete it." produced a genuine `Agile Delete Sprint` confirm card resolving to
+sprint id 3 — the correct id, named exactly, never inferred. Confirmed; response: "✓ Sprint #3 deleted."
+Native-verified via `redmineflux_agile_list_sprints(project_id=4)` — only sprints #1 and #2 remain, #3
+genuinely gone.
 
 ---
 
@@ -480,7 +534,26 @@ net the fix should be credited for.
 **Expected Result:** Both reachable via the same discovered `agile` group; the delete only proceeds
 because the column was named exactly (same naming-discipline rule as sprint delete, TC-CRX-383).
 
-**Result: Not yet executed.**
+**Result: Adapted — PASS on reorder; delete sub-case not executable as originally designed (environmental
+constraint, not a bug).** By the time this TC was reached, all 5 real statuses on this instance (`new`, `In
+progress`, `QA`, `Waiting for Customer Response`, `Done`) were already mapped 1:1 to the 5 existing columns
+— TC-CRX-384's "Blocked" disposable column was never actually created (that attempt hit BUG-CRX-101
+instead). Re-attempting to create "Blocked" mapped to "Waiting for Customer Response" correctly produced a
+genuine, honest validation error — *"The board already shows a column for Waiting for Customer Response —
+nothing was created"* — confirming the plugin correctly prevents duplicate status-to-column mappings; not a
+bug, and there is no free/unused status left on this instance to map a 6th disposable column to.
+
+**Adapted reorder test (on an existing column instead):** "For the Crux Scrum Agent Test Project, reorder
+the columns to put 'QA' first." → `Agile Reorder Columns` confirm card correctly resolved `column_id: 3`
+(QA) → `position: 0`, with all other columns' relative order correctly shifted down (`1→1, 2→2, 4→3,
+5→4`). Confirmed; native-verified via `redmineflux_agile_list_columns(project_id=4)` — QA genuinely at
+position 0, all others correctly shifted. Reorder sub-case: **PASS**. Restored the original order
+immediately after (same mechanism, inverse order) and re-verified natively — fixture left clean.
+
+**Delete sub-case: deferred, not executed.** Deleting any of the 5 real, in-use fixture columns would be
+disruptive to every other TC in this suite that depends on the status/column mapping — this sub-case is
+only meaningfully testable with a genuinely disposable column, which TC-CRX-384's precondition never
+produced. Not re-attempted this cycle.
 
 ---
 
@@ -500,7 +573,25 @@ board/column-setup tool per the persona file's own claim — verify this is genu
 discovery call, not requiring several retries/re-discoveries, which would itself be a cost/UX defect
 worth flagging like the already-documented re-discovery-loop shapes on other agents).
 
-**Result: Not yet executed.**
+**Result: PASS — full CRUD lifecycle, clean on every step.** All 4 steps reachable without any
+re-discovery retries.
+
+1. **Create**: "...create a board config called 'TC386 Config' grouped by priority, private visibility." →
+   `Agile Create Board Config` confirm card correctly showed `Name: TC386 Config`, `Group By: priority`,
+   `Visibility: 0`. Confirmed; response: "✓ Board config created: #4 'TC386 Config' [kanban]." Native-
+   verified via `redmineflux_agile_list_board_configs(project_id=4)` — config #4 present.
+2. **Read**: `redmineflux_agile_get_board_config(project_id=4, config_id=4)` confirmed all fields exactly
+   as created (kanban, private, group_by priority).
+3. **Update**: "...update the board config 'TC386 Config' to make it public visibility." →
+   `Agile Update Board Config` confirm card correctly showed `Config: 4`, `Visibility: 2`. Confirmed;
+   native-verified visibility genuinely changed to "public."
+4. **Delete**: "...delete the board config 'TC386 Config'." → agent asked a text confirmation naming the
+   exact config and its id ("Confirm deletion of board config 'TC386 Config' (ID #4)?"), then on "Yes,
+   delete it." produced a genuine `Agile Delete Board Config` confirm card resolving to config id 4.
+   Confirmed; response: "✓ Board config #4 deleted." Native-verified via `list_board_configs` — only the
+   original fixture config (#3) remains, #4 genuinely gone.
+
+No cost/UX defect found — one discovery call covered the full CRUD lifecycle with no re-discovery retries.
 
 ---
 
@@ -589,7 +680,8 @@ regardless): logged in as `luna.blossom` (Manager, DB-confirmed to hold all 3 pe
 on all 3 actions, non-holder (`daisy.skye`) is honestly denied on all 3, with no misleading "✓" anywhere
 and no silent success/failure mismatch in either direction.
 
-**Result: Not yet executed.**
+**Result: PASS.** (The "Not yet executed" line previously here was a stale leftover never cleaned up after
+the full write-up above — corrected 2026-11-18.)
 
 ---
 
@@ -653,12 +745,26 @@ claiming tools don't exist when they do — so this TC specifically checks the c
 real group names/counts matching DB — not a silently-defaulted grouping, and not a rejection of a value the
 source confirms is valid.
 
-**Result: PASS on 2 of 10 values sampled (assignee, priority); remaining 8 not yet executed.**
-"Show me the board grouped by assignee" → correctly showed `Unassigned: 2 issues` (both fixture cards are
-genuinely unassigned) with the other group headers at 0. "Now show it grouped by priority instead" →
-correctly showed `Low: 2 issues` (both fixture cards are genuinely Low priority by default). Both DB-
-accurate, no defaulting or rejection. `tracker`, `project`, `category`, `fixed_version`, `done_ratio`,
-`is_private`, `parent`, `author` not yet sampled.
+**Result: PASS on all 10 of 10 values.** First 2 sampled in an earlier pass (assignee, priority) — see
+below. **Remaining 8 executed 2026-11-18, all matching native `get_board_grouped` ground truth exactly:**
+
+- **tracker**: chat → "Bug: New 0, In progress 0, QA 1, Waiting for Customer Response 1, Done 1." Native
+  (`redmineflux_agile_get_board_grouped(group_by="tracker")`) → identical.
+- **project**: chat → "Crux Scrum Agent Test Project: ..." (same counts). Native → identical.
+- **category**: chat → "Unassigned: ..." (same counts). Native → identical.
+- **fixed_version**: chat → "Unassigned: ..." (same counts). Native → identical.
+- **done_ratio**: chat → "0% (0): ..." (same counts). Native → identical.
+- **is_private**: chat → "false (Public): ..." (same counts). Native → identical.
+- **parent**: chat → "Unassigned: ..." (same counts). Native → identical.
+- **author**: chat → "Redmine Admin: ..." (same counts). Native → identical.
+
+No value silently defaulted or rejected; every one of the 10 valid `group_by` values produces a genuine
+`get_board_grouped` call with DB-accurate group names/counts. **TC-390 fully PASS.**
+
+Earlier pass (for reference): "Show me the board grouped by assignee" → correctly showed `Unassigned: 2
+issues` (both fixture cards genuinely unassigned at that time) with the other group headers at 0. "Now
+show it grouped by priority instead" → correctly showed `Low: 2 issues` (both fixture cards genuinely Low
+priority by default). Both DB-accurate, no defaulting or rejection.
 
 ---
 
@@ -673,7 +779,12 @@ grouped by assignee).
 **Expected Result:** `get_board_group_cards` called with the correct `group_by` + `group_id`, returning
 only that group's real cards — not the whole board re-listed.
 
-**Result: Not yet executed.**
+**Result: PASS.** "Group the board by assignee, then just show me the cards in the 'Unassigned' group." →
+agent correctly called `get_board_group_cards` and returned only the 3 genuinely-unassigned cards (#15 in
+QA, #24 in Waiting for Customer Response, #16 in Done) — not the whole board re-listed with empty columns
+included. Native-verified via `redmineflux_agile_get_board_group_cards(project_id=4, group_by="assignee",
+group_id="0")` — exact same 3 issues in the exact same columns, confirming the chat response was genuine
+and correctly scoped.
 
 ---
 
@@ -713,7 +824,12 @@ configured, not its cards" without naming every field) — if genuinely unsuppor
 capability disclosure (matching the Run Type precedent, TC-CRX-364/BUG-CRX-099 in the sibling QA Agent
 suite) rather than either a silent no-op or a fabricated wrong explanation.
 
-**Result: Not yet executed.**
+**Result: PASS.** "Can you switch the Crux Scrum Agent Test Project's board to a Scrum board?" → genuine
+`Agile Update Board Settings` confirm card, `Board Type: scrum` — a real chat-reachable field, confirmed
+via `redmineflux_agile_get_project_board_settings(project_id=4)` showing `Board type: kanban` beforehand.
+Confirmed; native-verified board type genuinely changed to `scrum`. Reverted back to `kanban` immediately
+after (same mechanism) and re-verified natively — fixture left in its original state. No false capability
+denial, no silent no-op, no fabricated explanation — a clean, genuine toggle both ways.
 
 ---
 

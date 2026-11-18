@@ -1,6 +1,25 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 4 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 5 — read this first, supersedes the sections below)
+
+**CSV Import group (§2) — all 5 happy-flow TCs now accounted for on SQLite** (TC-TCM-021/024/034/333/336). Full
+writeup in `TESTCASE_MANAGEMENT_CSV_IMPORT.md`'s own new "CROSS-DB (SQLite) — 2026-11-18" note block.
+- TC-021 (legacy Steps/Expected columns): PASS, fresh import, issue #376, content byte-identical to the CSV.
+- TC-024/333/034 (50-step, content-fidelity, 100-row bulk): PASS, confirmed via **already-existing data** on
+  this instance from an earlier bulk import this leg (issue #333 genuinely has 50 `steps` rows in the DB,
+  verified via `rails runner` with the container's own `SECRET_KEY_BASE` env var — a bare `rails runner` call
+  fails with "Missing secret_key_base" otherwise).
+- TC-336 (every mappable column): PASS on 15/16 fields — **found a new bug, BUG-TCM-154 (Medium)**: the CSV
+  import's `Private` column only recognizes the literal string `"yes"`; any other truthy value (`true`, `1`,
+  `Y`) is silently saved as `false`, with no warning anywhere. Filed, not yet reported to production. Also
+  noted: **BUG-TCM-132 (Estimated time/% Done not saved, found on the PostgreSQL leg) does NOT reproduce
+  here** — both fields saved correctly on this SQLite leg, a genuine divergence, not treated as "fixed".
+
+**Still to come:** Requirements/RTM (~19 TCs), the remaining RFTC sub-cases, and RFTC-045's 67-case set.
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 4 — superseded by round 5 above, kept for context)
 
 **Reports group (§2) — all 23 happy-flow TCs now confirmed PASS/accounted-for on SQLite** (TC-TCM-078/079/080/
 082/083/085/087/088/089/091/092/093/094/096/098/100/103/107/108/109/110/316/317). Full per-TC evidence written

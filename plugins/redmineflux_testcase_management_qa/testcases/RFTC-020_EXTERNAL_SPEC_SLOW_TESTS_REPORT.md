@@ -3,6 +3,12 @@
 > same mechanism as other report types. RFTC020-2 not individually re-executed within this pass's time
 > budget.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** RFTC020-2 confirmed PASS on `happyflow-pg`
+> (`localhost:3020`) — ingested `duration_ms: 7500` for issue #8 (threshold 5.0s) and reloaded the same
+> "HF-PG Slow Tests Report" (id 3) with no regenerate step: #8 immediately jumped to rank 1 with
+> `p95 = 7.5 s`, `Flag = Slow` — confirming the report is a live query, not a cached snapshot, on PostgreSQL
+> too. Zero new bugs.
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). Both
 > happy-flow RFTC020 TCs confirmed PASS:
 > - **RFTC020-1**: created "RFTC020 happy-flow Slow Tests report (SQLite)" via Reports → New report. Ranked

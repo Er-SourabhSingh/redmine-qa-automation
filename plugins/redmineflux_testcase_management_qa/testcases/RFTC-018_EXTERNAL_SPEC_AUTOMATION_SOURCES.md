@@ -4,6 +4,15 @@
 > correctly shows `"nightly-regression"`, confirming the explicit-per-result-wins precedence rule holds
 > identically on PostgreSQL. RFTC018-3,9 not individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** both remaining happy-flow RFTC018 TCs confirmed
+> PASS on `happyflow-pg` (`localhost:3020`):
+> - **RFTC018-3**: `derive_key(result_source: nil, batch_source: nil, testsuite_name: 'Checkout', ...)` →
+>   `["Checkout", "testsuite"]` — byte-identical to the SQLite/original result (pure logic, no DB dependency).
+> - **RFTC018-9**: ingested a result with an explicit `source: "RFTC018-9-PG-test"` → response reported
+>   `source_id:4`; loading the persisted `IssueStatusResult` row directly confirmed `source_id == 4`, an exact
+>   match with the response payload.
+> **Zero new bugs found on this leg.**
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). All 3
 > happy-flow RFTC018 TCs confirmed PASS:
 > - **RFTC018-1/3**: `AutomationSourceResolver.derive_key` is a pure function with no DB dependency, so its

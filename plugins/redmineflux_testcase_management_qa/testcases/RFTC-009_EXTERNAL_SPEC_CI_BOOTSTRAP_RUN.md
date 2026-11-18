@@ -4,6 +4,22 @@
 > `{"status":"success","reused":false,"run":{"id":5,...}}`. RFTC009-U3/U5/U6/U7/Struct1/Struct2/E1 not
 > individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED:** all remaining happy-flow RFTC009 TCs confirmed
+> PASS on `happyflow-pg` (`localhost:3020`), as `admin` (genuine Manager-role project member here, unlike the
+> SQLite leg):
+> - **U1/U3**: a brand-new suite name ("RFTC009 Gap-Check New Suite (PG)") → `created:true`, CI default
+>   auto-applied, assignee defaulted to the caller (id 1) with no explicit `run_assignments`.
+> - **U9**: against the existing 5-case "API-COMPAT Suite" → 5 `RunIssue` rows, 5 Untested rows seeded.
+> - **U5/U6/U7**: `on_existing:"reuse"` twice → same run #27 both times (`reused:false` then `true`);
+>   `"error"` → 422 "A run named '...' already exists"; `"suffix"` → new run with a `" #2"` suffix.
+> - **Struct1**: 2 environments (`Chrome - Windows 11`/`Firefox - Linux`) in one call → DB-confirmed
+>   `{Chrome:5, Firefox:5}` — fully independent per-environment seeding.
+> - **Struct2**: 3 suites in one call → DB-confirmed each suite's cases landed under their own correct
+>   `testsuite_id` (`{1:7, 5:1, 6:5}`).
+> - **E1**: one `bulk_create` call submitting a Passed and a Failed-with-defect (a fresh defect #34) together
+>   → both results written in the same response.
+> **Zero new bugs found on this leg.**
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 5 happy-flow RFTC009 TCs confirmed PASS, as `luna.blossom` (Manager, a genuine project
 > member holding `create_run`+`create_test_suite`+`execute_testcase`, so the caller-default-assignee path could

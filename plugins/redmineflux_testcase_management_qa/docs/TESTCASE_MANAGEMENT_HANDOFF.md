@@ -34,9 +34,20 @@ MCP, per the user's explicit instruction.
   issue (`GET /issues/372.json` → 200) — PASS.
 - TC-TCM-297 (#373, created via suite 1's own "New Test Case" link, which carries `?testsuite_id=1`): new case
   correctly lands inside that same suite, not unassigned — PASS.
-- **Still remaining in this group:** TC-TCM-149 (bulk-assign requirement to multiple cases), TC-TCM-150
-  (bulk-assign replace-vs-add behavior), TC-TCM-298 (change linked Requirement from Edit form), TC-TCM-299
-  (Issues list's TestSuite filter).
+- TC-TCM-299: Issues list's "Add filter" has a "TestSuite" option; filtering by suite 2 correctly showed only
+  cases in that suite (TC-TCM-133) and excluded an unassigned one (TC-TCM-142) — PASS.
+- TC-TCM-298 (#372): linked then unlinked REQ-001 via the Edit form's Requirement multi-select; both changes
+  confirmed via the Traceability Matrix (appeared, then disappeared, then reappeared on re-link) — PASS.
+- TC-TCM-149 (#366 → REQ-001): the bulk-assign mechanism is the per-row "Actions" context menu's
+  "Requirements" entry, which reveals a nested submenu of existing requirements (needs a REAL Playwright
+  click, not a synthetic JS `dispatchEvent` — same class of fix as the drag-drop "Move here" issue). Clicking
+  REQ-001 there correctly linked it; confirmed via RTM showing #366 now alongside #338/#372 — PASS.
+- TC-TCM-150 (#366, already holding REQ-001): created a second requirement (REQ-002, via the Requirements
+  page's own "+ add" icon → inline name field → Save) and bulk-assigned it to #366 via the same context-menu
+  mechanism. Issue #366 now shows **"Requirements: REQ-001 ..., REQ-002 ..."** — both held, add-not-replace,
+  matching the PostgreSQL leg's documented behavior exactly — PASS.
+
+**Test Cases group (§1) is now 17/17 COMPLETE on SQLite.**
 
 **Key UI mechanics learned this round (useful for any future suite-tree work on this plugin):**
 - The suite tree's test-case rows are jQuery-UI `ui-draggable`/suite nodes are `ui-droppable` — a raw

@@ -235,6 +235,9 @@ the environment was left healthy.
   visual representation anywhere in this preview panel at all (it only ever renders the open chat panel's
   interior, never a launcher mockup) — their own "preview updates live" claim could not be checked either way
   through this panel. Filed **BUG-CRX-217** for the confirmed Accent-color gap.
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live on fb164a6 (CRP-60) — the preview panel's
+  own launcher button now genuinely updates to the new accent color (`rgb(0, 170, 0)`), native-verified via
+  `getComputedStyle`. BUG-CRX-217 closed, production #129012 synced Done/100%.
 - **TC-CRX-900 — PASS, native-verified.** Saved Bubble position = Bottom left and Bubble icon = Wand, then
   loaded a different page (`/issues/41`): the real floating bubble's root had class `crux-bubble-bl` (not the
   default `br`) and its launcher button's SVG was genuinely the wand-style icon path, not the default chat
@@ -258,6 +261,10 @@ the environment was left healthy.
   which the closed BUG-CRX-180's own retest never actually covered (that retest only checked the "Retired" and
   URL-param conditions) — filed as a new bug, **BUG-CRX-216**, per this repo's uncovered-trigger-path
   convention.
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live on fb164a6 (CRP-60) — a new chat with the
+  previously-persisted-but-now-excluded "Research" selection correctly falls back to "Auto ▾", and a sent
+  message is genuinely answered by an allowed agent (Project Manager), not the excluded persona. BUG-CRX-216
+  closed, production #129011 synced Done/100%.
 - **TC-CRX-916 — PASS.** With Core genuinely pointed at an unreachable address, the Chat budget field's hint
   resolved (after a brief async load) to the same honest `"Crux is unavailable right now. Please try again in
   a moment — if it keeps happening, ask your Redmineflux administrator."` message used elsewhere for a
@@ -274,5 +281,7 @@ TCs remain deferred in this suite.**
 
 Pass 1 (2026-11-05): 15 PASS, 1 bug (BUG-CRX-178), 17 deferred.
 Pass 2 (2026-11-18): all 17 deferred TCs closed — 15 more PASS, 2 new bugs found (BUG-CRX-216, BUG-CRX-217).
-Overall: 30 PASS/confirmed, 3 bugs found (BUG-CRX-178/216/217), 0 deferred. Source:
+Pass 3 (2026-11-18, same day): developer moved both to "In QA" (fix in fb164a6, CRP-60); both retested and
+  CONFIRMED FIXED, production synced Done/100%.
+Overall: 32 PASS/confirmed, 3 bugs found (BUG-CRX-178 open, BUG-CRX-216/217 closed), 0 deferred. Source:
 `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §9.

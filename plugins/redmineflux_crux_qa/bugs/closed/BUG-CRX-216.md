@@ -73,3 +73,23 @@ exactly like the other two ignore conditions are supposed to.
   condition (TC-CRX-984's 3rd documented case) was never exercised by that fix's verification. Filed as a new
   bug per this repo's established precedent for a recurrence on an uncovered trigger path (see
   BUG-CRX-185/203/204/205/211's own duplicate-check entries for the same reasoning pattern).
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #129011)
+
+Developer's fix was already present in the local repo (`redmineflux_crux` commit `fb164a6`, "CRP-60: Chat
+agents allow-list is enforced; the bubble preview shows the accent color"), pulled during this session's
+earlier 12-bug rebuild and already live via the bind-mounted `redmine` container — no further pull/rebuild
+needed.
+
+Re-ran the exact original repro: set `localStorage['crux.agent'] = 'research'` directly (simulating the
+earlier-persisted selection), checked only "Project Manager" and "Docs Writer" in Settings → Chat agents
+(leaving Research unchecked), saved, then opened a brand-new chat on `/crux/ask`.
+
+- The picker button now reads **"Auto ▾"**, not "Research ▾" — the excluded persisted selection correctly
+  falls back to Auto/default.
+- Sent "What are the agents working on?" — genuinely answered by **Project Manager** (a real response citing
+  live agent/pipeline data), confirming the fallback isn't just cosmetic on the button label; the message was
+  actually routed to an allowed agent, not silently still served by the excluded Research persona.
+
+CONFIRMED FIXED. Settings reverted to the clean/empty Chat agents allow-list afterward (no lingering test
+state). BUG-CRX-216 closed, production #129011 synced Done/100%.

@@ -68,3 +68,20 @@ immediately, before Save.
 - Duplicate found: No.
 - Existing bug reference: First finding on the Settings bubble-preview's field coverage — no prior bug in this
   suite or elsewhere this cycle has examined which specific fields the live preview actually reflects.
+
+## Retest — 2026-11-18 (FIXED — developer marked "In QA", production #129012)
+
+Developer's fix was already present in the local repo (`redmineflux_crux` commit `fb164a6`, "CRP-60: Chat
+agents allow-list is enforced; the bubble preview shows the accent color"), pulled during this session's
+earlier 12-bug rebuild and already live via the bind-mounted `redmine` container — no further pull/rebuild
+needed.
+
+Re-ran the exact original repro: on `/crux/admin/settings`, changed Accent color from the saved `#FC641F` to
+`#00AA00` via a direct value-set + `input`/`change` events. Native-verified via `getComputedStyle` across all
+elements for the new color: the preview panel's own launcher button (`.crux-bubble-preview-btn`, confirmed via
+`closest()` to be inside the preview panel, not the site-wide floating bubble) now shows `rgb(0, 170, 0)` —
+genuinely updated to the new accent color live, matching the behavior already confirmed for Greeting/Suggested
+prompts/Launch teaser.
+
+CONFIRMED FIXED. Reverted Accent color back to `#FC641F` without saving afterward (no lingering test state —
+field was never actually saved to begin with). BUG-CRX-217 closed, production #129012 synced Done/100%.

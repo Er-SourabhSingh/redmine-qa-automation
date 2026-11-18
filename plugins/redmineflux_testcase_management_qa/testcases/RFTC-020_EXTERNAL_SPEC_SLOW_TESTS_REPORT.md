@@ -3,6 +3,16 @@
 > same mechanism as other report types. RFTC020-2 not individually re-executed within this pass's time
 > budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). Both
+> happy-flow RFTC020 TCs confirmed PASS:
+> - **RFTC020-1**: created "RFTC020 happy-flow Slow Tests report (SQLite)" via Reports → New report. Ranked
+>   table (Samples/Avg/Max/p95/Flag), slowest-first (1.25s then 900ms), footer correctly read
+>   "No timing data yet: 15" for untimed cases — not omitted.
+> - **RFTC020-2**: `POST /testcase_ci/ingest_results.json` for issue #339 with `duration_ms: 7500` (threshold
+>   5.0s); reloaded the **same** report page with no regenerate step — #339 immediately jumped to rank 1 with
+>   `p95 = 7.5 s`, `Flag = Slow` — confirming the report is a live query, not a cached snapshot.
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

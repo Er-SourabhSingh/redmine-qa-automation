@@ -1,6 +1,26 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 10 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 11 — read this first, supersedes the sections below)
+
+**RFTC-018 (Automation Sources) — all 3 happy-flow TCs confirmed PASS on SQLite** (1/3/9). RFTC018-1/3 are pure
+`AutomationSourceResolver.derive_key` logic with no DB dependency, re-run directly for formal completeness
+(byte-identical to the original results). RFTC018-9 cross-checked a real ingest's persisted
+`IssueStatusResult.source_id` against the response payload — exact match. Written into
+`RFTC-018_EXTERNAL_SPEC_AUTOMATION_SOURCES.md`.
+
+**RFTC-020 (Slow Tests Report) — both happy-flow TCs confirmed PASS on SQLite** (1/2). Created a real "Slow
+Tests" report; ingested `duration_ms: 7500` for an existing test case and reloaded the same report with no
+regenerate step — it re-ranked live, confirming the report is a live query, not a cached snapshot. Written
+into `RFTC-020_EXTERNAL_SPEC_SLOW_TESTS_REPORT.md`.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-016 (~14), RFTC-008/009 (remaining sub-cases), RFTC-038 (3, likely needs external CI
+infra — may defer like RFTC-017), and RFTC-045's 67-case set (not yet touched on SQLite at all).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 10 — superseded by round 11 above, kept for context)
 
 **RFTC-044 (Quality HQ) — all 5 happy-flow TCs confirmed PASS on SQLite** (1/5/9/10/11). Full writeup in
 `RFTC-044_EXTERNAL_SPEC_QUALITY_HQ.md`'s new "CROSS-DB (SQLite) — 2026-11-18" block. This instance has only 1

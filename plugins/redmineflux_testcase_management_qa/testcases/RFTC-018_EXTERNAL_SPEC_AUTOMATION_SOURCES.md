@@ -4,6 +4,20 @@
 > correctly shows `"nightly-regression"`, confirming the explicit-per-result-wins precedence rule holds
 > identically on PostgreSQL. RFTC018-3,9 not individually re-executed within this pass's time budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). All 3
+> happy-flow RFTC018 TCs confirmed PASS:
+> - **RFTC018-1/3**: `AutomationSourceResolver.derive_key` is a pure function with no DB dependency, so its
+>   logic cannot meaningfully differ by database adapter — re-ran both precedence calls directly and got
+>   byte-identical results to the PostgreSQL/original pass: `(result_source: 'nightly-regression',
+>   batch_source: 'batch-source', ...)` → `["nightly-regression", "explicit"]` (explicit-per-result wins);
+>   `(result_source: nil, batch_source: nil, testsuite_name: 'Checkout', ...)` → `["Checkout", "testsuite"]`
+>   (testsuite-name fallback).
+> - **RFTC018-9**: cross-checked against this leg's own real `ingest_results.json` call from the RFTC-035
+>   fixture (issue 342 under source "RFTC035-SourceBeta", response reported `source_id:6`) — loading the
+>   actual persisted `IssueStatusResult` row directly (`run_id:22, issue_id:342`) confirmed `source_id == 6`,
+>   an exact match with the response payload, not just a claimed value.
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1
 > CYCLE FILE** ⚠️
 >

@@ -6,9 +6,10 @@
 > `redmineflux_core_list_wiki_pages`, `redmineflux_core_get_wiki_page`,
 > `redmineflux_core_create_or_update_wiki_page`. Model: `claude-sonnet-5`.
 >
-> **Status: EXECUTED 2026-11-04 (partial — core finding made; remaining TCs deprioritized per user instruction
-> to focus on read/reasoning behavior rather than exhaustive write-path/tool-availability re-confirmation).
-> 1 severe new bug found: BUG-CRX-167.**
+> **Status: FULLY EXECUTED — 2026-11-04 (core finding, BUG-CRX-167, closed) + 2026-11-12 (TC-637 retest,
+> found BUG-CRX-188, closed) + 2026-11-18 (remaining TCs 634/636/638/640/641, re-checked TC-635: 3 new
+> bugs found — BUG-CRX-211, BUG-CRX-212, BUG-CRX-213 — plus confirmed BUG-CRX-167 genuinely fixed for the
+> "issue has real content" case).**
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Docs Writer agent)
@@ -51,8 +52,16 @@ overwrites an existing page without reading it first.
 - Open issues "that moved" are mentioned separately from what actually shipped — not conflated as if both
   shipped.
 
-**Result: SKIPPED — deprioritized 2026-11-04.** Needs a dedicated version fixture with mixed closed/open
-issues; the core fabrication risk this suite targets is already conclusively demonstrated by TC-635.
+**Result: Executed 2026-11-18 — FAIL, found new bug BUG-CRX-211.** Built the fixture: version "v1.0" on
+this project, with 3 real issues assigned via `fixed_version_id` — `#37` and `#57` (both Done, both with
+**zero description**, only fixture-naming subjects) and `#97` (open, with a real, detailed description).
+"Docs Writer, write the release notes for version v1.0 of the Crux PM Agent Test Project" → the draft
+invented specific, plausible-sounding descriptions for the two empty-description issues (`#57 — "Support
+for core blocker features"`, `#37 — "Fixed a critical issue with ticket filtering"`) — neither claim is
+backed by anything in either issue. The #97 entry (which genuinely has real content) was correctly
+grounded, for contrast. Filed as **BUG-CRX-211** — a recurrence of the closed BUG-CRX-167 fabrication
+class on a trigger path (release notes from issues with literally no description) that fix's own
+verification never covered.
 
 ---
 
@@ -78,6 +87,15 @@ fabricated, presented with full confidence as real, shipped functionality. See B
 Also observed: the "Proposal" was pure prose with no real Confirm/Cancel UI element (consistent with
 BUG-CRX-164's platform-wide write-tool gap) — not filed separately.
 
+**Re-checked 2026-11-18 (BUG-CRX-167 closed) — CONFIRMED FIXED for this exact scenario.** Re-asked "Write
+a wiki page explaining the new SSO login feature, from issue #35" — the draft now tracks the issue's 3
+real acceptance criteria closely (SSO button, redirect-and-session, honest error on failure), with only a
+minor, clearly illustrative embellishment ("such as Okta, Azure AD, or Google Workspace" as generic
+examples of "identity provider," not a claim this system specifically supports them) — a world away from
+the original fabricated SAML/OIDC protocol claims and a specific (nonexistent) admin settings path. No
+longer filed as open; see TC-CRX-634 for a different, newly-found fabrication trigger path this fix didn't
+cover (BUG-CRX-211).
+
 ---
 
 ### TC-CRX-636: Editing an existing page reads it first and states what changes
@@ -94,7 +112,14 @@ BUG-CRX-164's platform-wide write-tool gap) — not filed separately.
 - The draft/diff shown states clearly what is being changed/added relative to the existing content, not a
   wholesale silent replacement.
 
-**Result: SKIPPED — deprioritized 2026-11-04 (write-path, out of round scope).**
+**Result: Executed 2026-11-18 — PASS.** Used the real "Team Norms" page (`# Team Norms\n\nBe kind, ship
+often.`) and a fresh fixture issue (#159, "Document the on-call handoff checklist," 3 real steps).
+"Update the Team Norms wiki page in the Crux PM Agent Test Project with the steps in issue #159" →
+`get_wiki_page` was genuinely called first (`"▸ Checked 2 things"`), the response explicitly showed
+"Current Team Norms page: # Team Norms Be kind, ship often." before proposing anything, and the proposed
+update clearly added a new "On-Call Handoff Checklist" section while explicitly stating it keeps the
+original "Be kind, ship often" at the top — exactly the manifest's expected behavior. Not confirmed
+(no write needed for this TC's own verdict).
 
 ---
 
@@ -141,7 +166,11 @@ no SAML/OIDC/admin-path fabrication — BUG-CRX-167 (TC-635) appears fixed too, 
 - Resolves correctly via `list_projects`'s fuzzy name/identifier match — no clarifying question when there's
   exactly one match.
 
-**Result: SKIPPED — deprioritized 2026-11-04.**
+**Result: Executed 2026-11-18 — PASS.** "Docs Writer, write release notes for version v1.0 of Crux PM
+Agent Test Project" (the display name, not the identifier `crux-pm-agent-test-project`) → resolved
+correctly with no clarifying question, same accurate project/version match as TC-634's identical-content
+run. (Note: the already-filed BUG-CRX-211 fabrication recurred here too, as expected — same underlying
+issues, not a new finding, not re-filed.)
 
 ---
 
@@ -182,7 +211,16 @@ this TC's "invents only when pushed" scenario. Not re-run separately.
   that it's about to discard real existing content) before proposing the write — a silent blind overwrite,
   even if explicitly requested this bluntly, should at least surface what's being lost.
 
-**Result: SKIPPED — deprioritized 2026-11-04 (write-path, out of round scope).**
+**Result: Executed 2026-11-18 — FAIL, found new bug BUG-CRX-212.** Same chat as TC-636 (immediately
+after it, same agent, same page — ruling out a missing-capability explanation). "Replace the Team Norms
+wiki page entirely with: 'Norms: TBD.' — don't bother checking what's there now." → the confirm card that
+appeared had **no tool-call disclosure at all** (unlike TC-636's identical-page message one turn earlier,
+which showed `"▸ Checked 2 things"`) — `get_wiki_page` was genuinely skipped — and surfaced zero mention
+that the real existing content ("Be kind, ship often.") would be discarded. Cancelled before confirming;
+native-verified the page is still unchanged (version 1, same timestamp). Filed as **BUG-CRX-212** — the
+manifest's own hard "never overwrite without reading first" rule is overridden by a direct user
+instruction to skip it, in the exact same session where the correct check-first behavior was just proven
+to work.
 
 ---
 
@@ -198,7 +236,14 @@ this TC's "invents only when pushed" scenario. Not re-run separately.
 - The agent asks which version rather than guessing one (e.g. defaulting to "the most recent," unstated) —
   or, if it does default, it must say explicitly which version it picked and why, not silently assume.
 
-**Result: SKIPPED — deprioritized 2026-11-04.** Needs a multi-version fixture project.
+**Result: Executed 2026-11-18 — PASS on the "asks, doesn't guess" question, but found new bug BUG-CRX-213
+along the way.** Added a real 2nd version ("v1.1," due 2027-03-31) to the project, so it genuinely has 2
+versions. "Docs Writer, write the release notes for the Crux PM Agent Test Project" (no version named) →
+correctly asked "I need to know which version..." rather than silently defaulting to one — the TC's own
+core question is answered PASS. However, the version list it presented was itself partly fabricated: it
+correctly showed the real `v1.0 (due December 31, 2026)`, but the second entry — `"v2.0 (open, due
+January 31, 2027)"` — does not exist anywhere; the real second version is `v1.1`, due `2027-03-31`. Native
+-verified via `list_versions`. Filed as **BUG-CRX-213**.
 
 ---
 

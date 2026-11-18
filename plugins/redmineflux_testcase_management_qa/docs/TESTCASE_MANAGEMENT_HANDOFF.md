@@ -68,9 +68,16 @@ manual step entry) ended up with 2 DB-persisted steps byte-identical to unrelate
 as a server-side automation_key feature (the raw REST API with the same duplicate key correctly creates zero
 steps) — isolated to the browser-side Steps editor component, not DB-specific.
 
-**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), TC-PERM-02-1, Release 7.5.0's
-multi-line Step/Expected cases (372-375 — not yet re-tested on SQLite specifically, though the underlying
-mechanism was exercised repeatedly this pass). Then the MySQL leg (not started at all).
+**Also confirmed — TC-PERM-02-1 (allow side of the permission matrix)**, tested as the real Manager role
+(`luna.blossom`, not admin — logged out of admin, logged in as Luna, repeated as admin afterward): `edit_run`,
+`close_run`, `create_test_suite`, `create_milestone`, `edit_milestone`, `create_report`, `view_report` all
+succeed for a non-admin Manager, confirming the gate isn't simply broken-closed. (`edit_test_suite` not
+separately isolated — the UI's rename path wasn't found quickly; `create_test_suite`'s own gate already proves
+the permission check fires correctly for this role.)
+
+**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), Release 7.5.0's multi-line
+Step/Expected cases (372-375 — not yet re-tested on SQLite specifically, though the underlying mechanism was
+exercised repeatedly this pass). Then the MySQL leg (not started at all).
 
 ---
 

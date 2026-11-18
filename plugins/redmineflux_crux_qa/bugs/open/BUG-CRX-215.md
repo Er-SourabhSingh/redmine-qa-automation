@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-215
-- Production Redmine Issue ID: <!-- pending report -->
+- Production Redmine Issue ID: #128995 (reported 2026-11-18 via report_defect, linked to Test Case #127943 / Run #607 / Environment "Window 11 + Chrome", assigned Prashant Chaurasia, category Crux Plugin)
 - Title: Auto-mode routing sends a "team workload and capacity" question to Project Manager instead of Workload Agent, reproduced 2/2
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Auto routing)

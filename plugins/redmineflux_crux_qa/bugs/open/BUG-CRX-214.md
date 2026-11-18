@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-214
-- Production Redmine Issue ID: <!-- pending report -->
+- Production Redmine Issue ID: #128994 (reported 2026-11-18 via report_defect, linked to Test Case #127943 / Run #607 / Environment "Window 11 + Chrome", assigned Prashant Chaurasia, category Crux Plugin)
 - Title: Pinning a chat does not exempt it from the global "20 newest chats" retention — a pinned chat is silently evicted when an unrelated new chat is created, even though all 20 chats were pinned at the time
 - Redmine version: 6.0-bookworm
 - Plugin name: redmineflux_crux (Ask Crux — full page, chat list)

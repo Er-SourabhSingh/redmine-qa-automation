@@ -23,6 +23,42 @@
 >
 > TC-TCM-096,098,100,103,107,108,109,110 (sort/email/scheduling) remain not independently re-attempted this pass.
 
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 23 happy-flow Reports TCs executed live:
+> - **TC-078/079/080/082/083/085/316/317** (one report of each of the 8 types): all PASS, each created via the
+>   real New Report form and confirmed to render genuine live data (Testcase Summary's status breakdown chart,
+>   Defect Summary's per-run defect tables, Activity Summary's date-range subtitle `[01/11/2026 - 18/11/2026]`,
+>   Tester Scorecard's per-assignee completion/pass-rate/efficiency table, Requirement Coverage's REQ-001
+>   coverage grid, Overdue Run Summary's correct "No data to display" since nothing is currently overdue — also
+>   incidentally confirms TC-095's clean-empty-state behavior — Slow Tests' timing/threshold table, Most Failed
+>   Tests' failure-rate ranking).
+> - **TC-087** (restrict to run #3 only): PASS — report shows only "SQLite Happy-Flow Run 3" data, zero other
+>   runs mixed in.
+> - **TC-088** (edit): PASS — renamed the report, list immediately reflects the new name.
+> - **TC-089** (delete): PASS — real "Delete?" confirmation modal, confirmed, report removed from the list.
+> - **TC-091** (reflects new data): PASS — submitted a fresh Passed result on issue #359 (run #3) after the
+>   report already existed; reloading the report immediately showed the new result's timestamp/status —
+>   confirms the report is a live query, not a static snapshot.
+> - **TC-092/093/094** (Download HTML/PDF/Excel): all PASS — real file downloads captured
+>   (`report.html`, `report.pdf` via Playwright's download event; Excel confirmed via direct fetch,
+>   `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`, 8.6KB, non-trivial real content).
+> - **TC-096** (list sort/pagination): corrected-premise PASS — this build's report list has no sortable column
+>   headers and, with only 15 reports total, never exceeds one page; not a defect, just nothing to exercise.
+> - **TC-098** (email HTML attachment) + **TC-103** (multiple recipients): PASS together — one report emailed
+>   with 2 addresses (one per line) delivered in a single message to both `admin@example.net` and
+>   `luna.blossom@test.local`, with a real `.html` attachment (`Content-Type: text/html`).
+> - **TC-100** (email PDF attachment): **BLOCKED — same missing Node.js/Puppeteer prerequisite as TC-019/020**
+>   (confirmed via `docker exec ... which node` → not found in this container). The attempt instead exercised
+>   **TC-101 (PDF failure must not produce a misleading email) — PASS**: the delivered email body explicitly
+>   said *"The PDF version of this report could not be generated, so an HTML version is attached instead"*, and
+>   the attachment was genuinely `.html`/`text/html` — a graceful, honest fallback, not a silent/misleading swap.
+> - **TC-107/108/109** (schedule daily/weekly/monthly): all PASS — Scheduled Reports table correctly shows
+>   "Daily at 00:00:00", "Weekly on Wednesday at 00:00:00", "Monthly on the 15th at 00:00:00" respectively.
+> - **TC-110** (cancel a scheduled report): PASS — real "Delete?" confirmation modal on the Scheduled Reports
+>   table's own row, confirmed, that schedule removed while the other 2 remained intact.
+> **Zero new bugs found on this leg.** The only environment-dependent gap (TC-100, Node/Puppeteer missing) is
+> the same pre-existing, already-documented infrastructure gap as TC-019/020, not a new finding.
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >
 > **Status: authored 2026-09-14, fully regressed 2026-10-23.** TC-TCM-098 – 526 carry live evidence from the

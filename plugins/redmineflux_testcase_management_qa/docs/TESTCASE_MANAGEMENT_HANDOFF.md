@@ -1,6 +1,30 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 3 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 4 — read this first, supersedes the sections below)
+
+**Reports group (§2) — all 23 happy-flow TCs now confirmed PASS/accounted-for on SQLite** (TC-TCM-078/079/080/
+082/083/085/087/088/089/091/092/093/094/096/098/100/103/107/108/109/110/316/317). Full per-TC evidence written
+into `TESTCASE_MANAGEMENT_REPORTS.md`'s own new "CROSS-DB (SQLite) — 2026-11-18" note block. Highlights:
+- One report of each of the 8 types created and confirmed to render genuine live data (reports #4–11).
+- TC-087 (run-restriction), TC-088 (edit), TC-089 (delete, real confirm modal), TC-091 (live-query reflects a
+  fresh result submitted after creation), TC-092/093/094 (real HTML/PDF/Excel downloads captured) all PASS.
+- TC-096 (sort/pagination): corrected-premise — no sort controls exist in this build, and 15 reports never
+  exceed one page; not a defect.
+- TC-098 + TC-103 (HTML email to multiple recipients, one address per line): PASS together, single email to
+  both addresses with a real `.html` attachment.
+- **TC-100 (PDF email) is BLOCKED** — this container has no Node.js (`docker exec ... which node` → not found),
+  the same pre-existing gap as TC-019/020, not a new finding. The attempt instead exercised **TC-101 (PDF
+  failure must not produce a misleading email) — PASS**: email body explicitly disclosed the PDF failure and
+  fell back to a real `.html` attachment, not a silent/misleading swap.
+- TC-107/108/109 (schedule daily/weekly/monthly) and TC-110 (cancel a schedule, real confirm modal) all PASS.
+- **Zero new bugs found this leg.**
+
+**Still to come:** CSV Import (TC-TCM-021/024/034/333/336), Requirements/RTM (~19 TCs), the remaining RFTC
+sub-cases, and RFTC-045's 67-case set (per the gap analysis).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 3 — superseded by round 4 above, kept for context)
 
 **Configuration group (§1) — all 11 happy-flow TCs now confirmed PASS on SQLite** (TC-TCM-001/002/003/004/006/
 008/009/011/012/013/015; TC-001 was already done earlier this round):

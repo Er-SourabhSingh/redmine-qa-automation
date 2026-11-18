@@ -60,13 +60,18 @@ F7/U8/U9/U10 unlink) all confirmed via direct REST calls, exact-match responses.
 on every run page this pass — same resolution the PostgreSQL leg reached); TC-TCM-370/371 confirmed (Export
 JPG Report produces a real, fully self-contained 212KB snapshot with run metadata + linked defects).
 
-**New bug found — BUG-TCM-152 (High, filed, not yet reported to production)**: the New Testcase form's Steps
-editor persists to a single global `localStorage['savedSteps']` key with no scoping by issue/project/session.
-A brand-new "Add Testcase" form pre-fills Step 1 from whatever was last edited anywhere on the site, and this
-silently persists to the DB if unnoticed — confirmed real: test case #344 (Subject + Automation Key only, no
-manual step entry) ended up with 2 DB-persisted steps byte-identical to unrelated #341's own steps. Ruled out
-as a server-side automation_key feature (the raw REST API with the same duplicate key correctly creates zero
-steps) — isolated to the browser-side Steps editor component, not DB-specific.
+**Bug found and reported to production — BUG-TCM-152 (High, #128944, assigned Vaishnavi Bhawsar)**: the New
+Testcase form's Steps editor persists to a single global `localStorage['savedSteps']` key with no scoping by
+issue/project/session. A brand-new "Add Testcase" form pre-fills Step 1 from whatever was last edited anywhere
+on the site, and this silently persists to the DB if unnoticed — confirmed real: test case #344 (Subject +
+Automation Key only, no manual step entry) ended up with 2 DB-persisted steps byte-identical to unrelated
+#341's own steps. Ruled out as a server-side automation_key feature (the raw REST API with the same duplicate
+key correctly creates zero steps) — isolated to the browser-side Steps editor component, not DB-specific.
+Live-reproduced end-to-end a second time with 4 evidence screenshots (view #341 → open fresh form → confirm
+Subject empty → observe pre-fill before typing anything → submit with only Subject typed → `GET
+/get_testcase/355.json` shows the same leaked steps), embedded in `bugs/open/BUG-TCM-152.md`. Re-encountered a
+third time organically while setting up the RFTC-022 fixture — consistent with being a genuine, easily-hit bug
+rather than a one-off.
 
 **Also confirmed — TC-PERM-02-1 (allow side of the permission matrix)**, tested as the real Manager role
 (`luna.blossom`, not admin — logged out of admin, logged in as Luna, repeated as admin afterward): `edit_run`,
@@ -94,19 +99,48 @@ REST-verified this pass (RFTC009-U1/U3/U9, RFTC016-1, RFTC018-1, the flaky/slow-
 a disposable Python CLI container to re-prove the same server behavior through one more layer wasn't judged
 worth the setup cost here. Not independently re-run on SQLite.
 
-**Still to do on SQLite**: RFTC-022's remaining comparison categories (New Failure/Newly Fixed/Still Failing/
-Still Passing — only New Tests/No Longer Run were naturally exercised by this session's fixture data), TC-TCM-
-373 (inline Notes-edit entry point — no journal/note existed on any fixture to exercise it) and TC-TCM-375 (the
-40,000-char boundary nuance). Then the MySQL leg (not started at all).
+**RFTC-022 — all 6 comparison categories now confirmed PASS.** Built a deliberate fixture: 4 test cases
+(#358 "Still Passing", #359 "Still Failing", #360 "New Failure", #361 "Newly Fixed", automation keys
+`rftc022_still_passing`/`_still_failing`/`_new_failure`/`_newly_fixed`), added to suite #2; bootstrapped Run
+#10 ("RFTC022 Base Run") and Run #11 ("RFTC022 Compare Run"); ingested Base=[passed,failed,passed,failed] and
+Compare=[passed,failed,failed,passed] for the 4 cases respectively. Run Comparisons UI showed exactly
+New Failures=1 (#360 Passed→Failed), Newly Fixed=1 (#361 Failed→Passed), Still Failing=1 (#359 Failed→Failed),
+Still Passing=1 (#358) — an exact match to the engineered fixture, combined with the earlier New Tests/No
+Longer Run confirmation = 6/6.
 
-**SQLite leg assessment**: coverage is now broad and deep across essentially every feature area in the
-happy-flow list — install/config, core CRUD, RUN→EXEC→DEFECT, environments, reports+PDF/JPG export,
-requirements/RTM, milestones, sessions, automation dashboard, run comparisons, CSV import, the full CI/
-automation REST surface (bootstrap_run, ingest_results, automation sources, flaky/slow detection, Quality HQ),
-the complete V1 TC-API set (18/18), RFTC-008's defect-linking core, TC-PERM-02-1 as a real non-admin role, and
-Release 7.5.0's Results Dashboard/JPG/multi-line features — plus one new genuine bug found and reported
-(BUG-TCM-152). What remains on this leg is narrow (a handful of RFTC edge cases, 3 multi-line entry-point
-variants) rather than broad gaps.
+**TC-TCM-373 — concluded NOT APPLICABLE in this Redmine 6 UI.** The PostgreSQL leg's documented entry point
+("inline update-form toggle directly on the issue SHOW page via the Edit icon next to Notes") does not exist
+here: added a note to #358, then clicked the journal's own inline "Edit" link (`/journals/<id>/edit`) — this
+only reveals an inline textarea for editing the **note's own text** (Save/Cancel), under a History/Notes/
+Results & Comments tabbed layout, never the full issue-update form with the Steps editor. Confirmed this is a
+genuine UI-layout difference, not a bug — the other two multi-line entry points (TC-TCM-372's Edit page,
+TC-TCM-374's "+ New Step" on Create) already independently confirm multi-line Step/Expected works via the
+entry points that DO exist in this version. Recorded as "entry point not present in this UI, feature itself
+independently confirmed via 2 other entry points" rather than a gap.
+
+**TC-TCM-375 — CONFIRMED PASS, boundary behavior matches the PostgreSQL leg exactly.** Via live Playwright MCP
+on a fresh test case (#366): a 40,000-character Step (exactly at the documented max) was accepted cleanly —
+`GET /get_testcase/366.json` confirms the full 40,000-char step persisted. A second test case with a
+40,001-character Step (1 over) was cleanly **rejected** with `"Steps exceeds the maximum length of 40000
+characters"` — no 500, no silent truncation, no issue created. Matches spec exactly: accept at/under the
+limit, clean validation error over it.
+
+**RFTC-017's 3 CLI subcommands (submit/bootstrap/ingest) considered equivalent-already-covered**: the CLI is a
+thin wrapper around the exact `bootstrap_run.json`/`ingest_results.json` endpoints already directly, repeatedly
+REST-verified this pass (RFTC009-U1/U3/U9, RFTC016-1, RFTC018-1, the flaky/slow-test data builds) — spinning up
+a disposable Python CLI container to re-prove the same server behavior through one more layer wasn't judged
+worth the setup cost here. Not independently re-run on SQLite.
+
+**SQLite leg assessment — all previously-identified gaps closed.** Coverage is now broad and deep across
+essentially every feature area in the happy-flow list — install/config, core CRUD, RUN→EXEC→DEFECT,
+environments, reports+PDF/JPG export, requirements/RTM, milestones, sessions, automation dashboard, run
+comparisons (6/6 categories), CSV import, the full CI/automation REST surface (bootstrap_run, ingest_results,
+automation sources, flaky/slow detection, Quality HQ), the complete V1 TC-API set (18/18), RFTC-008's
+defect-linking core, TC-PERM-02-1 as a real non-admin role, Release 7.5.0's Results Dashboard/JPG/multi-line
+features (all entry points that exist in this UI), and the 40K-char Step/Expected boundary — plus one new
+genuine bug found and reported to production (BUG-TCM-152). RFTC-017's CLI layer is the one deliberate,
+documented skip (judged equivalent to already-verified REST endpoints). **This leg can be considered done**
+for the happy-flow pass's purposes; next up is the MySQL leg (not started at all).
 
 ---
 

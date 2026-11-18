@@ -33,9 +33,21 @@ an explicit project-member assignee required and honored); RFTC016-1 (`POST inge
 auto-created and linked a brand-new defect #345, matching the spec's exact expected shape); basic core REST
 `issues.json` sanity check (TC-API group) also confirmed working.
 
-**Still to do on SQLite**: the rest of RFTC-008/017-022, remaining Milestones/Dashboards/Quality HQ cases, the
-full V1 SUITE/CASE/RUN/EXEC/DEFECT/REPORT/API release-cycle group (beyond the slice above), Release 7.5.0
-feature TCs. Then the MySQL leg (not started at all).
+**Also confirmed**: RFTC018-1 (SACRED precedence — a per-result `source` in `ingest_results.json` correctly won
+over the batch-level `source`, `AutomationSource.kind` correctly `"explicit"`); RFTC019-1 (flaky detection — built
+a real Pass→Fail→Pass→Pass→Pass run history for one test case across 4 distinct bootstrapped runs; Quality HQ's
+Flaky Tests panel correctly showed `flip_count=2, executed=4`, matching the spec's formula exactly — initially
+read "not available yet" before enough distinct-run history existed, which is correct gating behavior, not a
+bug); RFTC020-1 (Slow Tests report — ingested a result with a real `duration_ms`, created a "Slow Tests" report,
+got back the exact expected shape: ranked table, real `1.25s` p95, "No timing data yet: 2" footer for untimed
+cases, 5.0s threshold shown); RFTC021-1/RFTC044-1/9 (Most Failed Tests — Quality HQ panel correctly ranked real
+failing test cases); RFTC044-11 (health band — 67% pass rate correctly rendered "Critical", matching the
+documented `<70 → red` formula).
+
+**Still to do on SQLite**: RFTC-008 (Defect↔Execution linking — core auto-defect-creation behavior already
+incidentally confirmed via TC-DEFECT-01-01 and `ingest_results`'s auto-defect path, but not the dedicated TCs),
+the rest of RFTC-017/022, the full V1 SUITE/CASE/RUN/EXEC/DEFECT/REPORT/API release-cycle group (beyond the
+slice already covered), Release 7.5.0 feature TCs. Then the MySQL leg (not started at all).
 
 ---
 

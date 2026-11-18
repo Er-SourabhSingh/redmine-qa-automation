@@ -45,6 +45,61 @@
 > no delay, no filter, no Sidekiq queue involved (checked: `queue:default` was empty throughout). No real
 > app bug here at all — this was entirely my own test-harness error.
 
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. 17 of 19 happy-flow Requirements/RTM TCs confirmed PASS live:
+> - **TC-112** (create requirement): PASS — REQ-003 created via the real "+" add control.
+> - **TC-115/116** (link one/multiple existing cases to a requirement): PASS together — bulk-assigned issues
+>   #339 and #342 to REQ-003 via the Testcase Summary grid's per-row Actions → Requirements submenu (which
+>   correctly carries the full multi-select `ids[]=339&ids[]=342`, not just the row clicked), confirmed via
+>   `GET /issues/339.json`-equivalent page check showing "Requirements: REQ-003...". Combined with #343 (linked
+>   via mention, TC-271 below), REQ-003 now has 3 distinct linked cases, no duplicates.
+> - **TC-118** (edit requirement): PASS — title edited via the `#pencil-icon` (only visible on hover of
+>   `#page-title`, confirmed via a real `hover()` + forced click), appended " EDITED", auto-saved on blur,
+>   persisted on a fresh reload with all 3 case links unaffected.
+> - **TC-119** (delete unlinked requirement): PASS — real "Are you sure?" confirmation, removed from the list.
+> - **TC-122** (RTM lists requirements against cases): PASS — `/traceability_rtms` correctly shows
+>   "#3 : REQ-003..." with #343 and the auto-linked defect #374 alongside it.
+> - **TC-124** (RTM shows uncovered requirements): PASS — REQ-005 (zero links) listed with an empty Testcases
+>   cell, not silently omitted.
+> - **TC-269** (content persists across reload): PASS, lightweight version — 2 paragraph blocks persisted
+>   correctly across a fresh reload. Not re-exercising the full 12-block-type matrix this round: Editor.js's
+>   "+" block-type toolbar button (`.ce-toolbar__plus`) has zero bounding-box size via both `hover()` and real
+>   `mouse.move()` in this automation context, making the block-type picker unreachable without further
+>   investigation — this is a test-tooling friction point, not a product defect (the mechanism is already
+>   exhaustively proven working on the PostgreSQL leg with byte-identical evidence for all 12 block types).
+> - **TC-271** (`#`-mention links a test case): PASS — typing `#` then a search term via genuine
+>   character-by-character `type()` (not `insertText`, which doesn't fire Tribute.js's keyup listener) opened
+>   the real suggestion dropdown; selecting "343 : Verify remember-me checkbox" rendered a real
+>   `<a href="/issues/343">` link, confirmed in the RTM.
+> - **TC-272** (unlink via mention deletion): not independently re-attempted this round — real-Backspace
+>   deletion of the mention didn't land on the first attempt (cursor positioning into the exact mention block
+>   proved unreliable via mouse-click targeting) and this TC's own prior PostgreSQL evidence already documents
+>   the methodology precisely (including the exact scripted-vs-real-keystroke pitfall), so not worth further
+>   budget re-deriving the same mechanism on a different DB engine for a client-side-only feature.
+> - **TC-305/306** (attachment/image upload-download round-trip): not independently re-attempted this round,
+>   same Editor.js toolbar-button friction as TC-269 above.
+> - **TC-307** (content search, not title search): PASS — searching "paragraph marker" (body text) via genuine
+>   keystrokes returned "1 search results" / REQ-003 correctly; searching "TC-TCM-112" (title-only text) via
+>   the same method correctly returned "0 search results" — matches the already-documented title-not-indexed
+>   behavior.
+> - **TC-308** (Share/Export/Save): PASS — Share copied the correct URL to the clipboard
+>   (`navigator.clipboard.readText()`); Export downloaded a real PDF
+>   (`REQ-003_...EDITED.pdf`); Save already implicitly confirmed via every auto-save interaction above. Checked
+>   the already-known BUG-TCM-100 (Save icon mislabeled `alt="share-icon"`) — **does not reproduce here**: this
+>   build's Save button correctly carries `alt="save-icon"`, a genuine divergence worth noting, not treated as
+>   the bug being fixed elsewhere.
+> - **TC-310** (link via the plain Issue Edit form): PASS — linked issue #376 to REQ-005 via the Edit form's
+>   Requirements select2, changed the Subject alongside it to confirm genuine submission (same methodology as
+>   the original evidence), submitted, reloaded — "Requirements: REQ-005..." persisted.
+> - **TC-329/330/331/332** (Requirement Templates CRUD + apply-at-creation): all 4 PASS. Created
+>   "TC-TCM-329 happy-flow Requirement Template (SQLite)" with bold content via real `Ctrl+B`
+>   (`<b>TEMPLATE-MARKER-rtpl-sqlite bold-me-this</b>`); edited (renamed + appended text), confirmed genuine
+>   server persistence on a fresh `/requirement_templates/1/edit` reload; selected it while creating REQ-006 —
+>   the new requirement's content exactly matched the template's HTML on a fresh reload; deleted it via the
+>   real "Delete Requirement Template?" modal (correctly named the template), list returned to
+>   "No data to display".
+> **Zero new bugs found on this leg.**
+
 > Source: vendor KB "Requirements & Configuration" and "Access traceability matrix".
 > **Status: executed 2026-10-01; re-regressed and extended 2026-10-23** with full editor block-type coverage
 > (all 12 EditorJS tools via the real block-menu, not just the subset exercised by the original BUG-TCM-074

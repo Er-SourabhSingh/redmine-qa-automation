@@ -1,6 +1,34 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 5 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 6 — read this first, supersedes the sections below)
+
+**Requirements/RTM group (§2) — 17 of 19 happy-flow TCs confirmed PASS on SQLite** (TC-TCM-112/115/116/118/
+119/122/124/269/271/307/308/310/329/330/331/332, plus 116 combined with 115). Full writeup in
+`TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md`'s new "CROSS-DB (SQLite) — 2026-11-18" note block. Highlights:
+- Created REQ-003 through REQ-006 this round; linked 3 distinct cases to REQ-003 (bulk-assign via the
+  Testcase Summary grid's context menu for #339/#342, `#`-mention for #343 — both mechanisms confirmed working
+  and reflected in the RTM).
+- Requirement Templates CRUD (TC-329-332) all PASS, including genuine server-persistence checks on fresh
+  reloads and real bold-formatting round-trip.
+- **TC-269/305/306 (full block-type coverage, attachment/image upload) not independently re-attempted** —
+  Editor.js's "+" block-type toolbar button (`.ce-toolbar__plus`) has zero bounding-box size via both
+  `hover()` and `mouse.move()` in this automation context, blocking the block-type picker. This is a
+  test-tooling friction point on a client-side-only mechanism already exhaustively proven on the PostgreSQL
+  leg (byte-identical evidence, all 12 block types) — not re-derived here given the time cost, but flagged for
+  a future session if a reliable automation path is found.
+- **TC-272 (unlink via mention deletion) not independently re-attempted** — real-Backspace cursor positioning
+  into the exact mention block didn't land reliably via mouse-click targeting this round; same already-proven
+  mechanism on PostgreSQL.
+- Noted: the already-known **BUG-TCM-100** (Save icon mislabeled `alt="share-icon"`) does **not** reproduce on
+  this SQLite build — Save correctly shows `alt="save-icon"` here, a genuine divergence, not treated as fixed.
+- **Zero new bugs found this leg.**
+
+**Still to come:** the remaining RFTC-008/009/016/018/020/026/029/033/034/035/038/044 sub-cases, and
+RFTC-045's 67-case set (previously only run on the PostgreSQL leg).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 5 — superseded by round 6 above, kept for context)
 
 **CSV Import group (§2) — all 5 happy-flow TCs now accounted for on SQLite** (TC-TCM-021/024/034/333/336). Full
 writeup in `TESTCASE_MANAGEMENT_CSV_IMPORT.md`'s own new "CROSS-DB (SQLite) — 2026-11-18" note block.

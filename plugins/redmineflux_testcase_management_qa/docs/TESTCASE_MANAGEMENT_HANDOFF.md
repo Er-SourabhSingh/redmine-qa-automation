@@ -25,9 +25,17 @@ own `@issue_ids` never included it) threw a 500 (`undefined method '+' for nil` 
 Confirmed NOT reachable via genuine navigation — the real link the app generates for Run 2 (which does contain
 #339) works fine. Out of scope for this happy-flow pass per its own rules (no edge/negative cases); not filed.
 
-**Still to do on SQLite**: CSV Import, Automation/CI endpoints (RFTC-008/009/016-022 the rest), remaining
-Milestones/Dashboards/Quality HQ cases, the full V1 SUITE/CASE/RUN/EXEC/DEFECT/REPORT/API release-cycle group,
-Release 7.5.0 feature TCs. Then the MySQL leg (not started at all).
+**Also confirmed since the above**: CSV Import (TC-TCM-021/024/034 — numbered Step/Expected columns, auto-mapped
+correctly, 3/3 imported clean, spot-checked content matches); RFTC009-U1/U3/U9 (`POST bootstrap_run.json` via
+REST — run #4/#5 created, suite auto-created/reused correctly, CI environment default, `run_assignments` with
+an explicit project-member assignee required and honored); RFTC016-1 (`POST ingest_results.json` — both
+`automation_key` and numeric `id` matching worked in the same call, 2/2 matched 0 unmatched, the failed result
+auto-created and linked a brand-new defect #345, matching the spec's exact expected shape); basic core REST
+`issues.json` sanity check (TC-API group) also confirmed working.
+
+**Still to do on SQLite**: the rest of RFTC-008/017-022, remaining Milestones/Dashboards/Quality HQ cases, the
+full V1 SUITE/CASE/RUN/EXEC/DEFECT/REPORT/API release-cycle group (beyond the slice above), Release 7.5.0
+feature TCs. Then the MySQL leg (not started at all).
 
 ---
 

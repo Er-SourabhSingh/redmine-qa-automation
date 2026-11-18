@@ -139,6 +139,20 @@ Rate / Last Seen — Source A's numbers never bleed into Source B's.
 > `last_seen_at` (06:26:52) confirms it genuinely advanced to the second ingestion's time, not frozen at
 > first-seen (RFTC035-11 PASS). Not re-verified via the live dashboard page itself in this pass (needs the
 > browser tool back online) — this confirms the underlying aggregation logic, not the page rendering.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED (RFTC035-3/11 live-UI leg added; 4/13/15 newly
+> confirmed):** with the browser tool back online, re-did the RFTC035-3/11 sequence fresh (Passed → Failed
+> with `auto_defect`, reusing the already-existing defect #27 → Passed again, same `HappyFlowAutomation`
+> source/cell) and this time also opened the live dashboard page itself — matches the service exactly, closing
+> the one gap the 2026-11-17 note flagged. Also newly confirmed:
+> - **RFTC035-4**: admin (genuine `view_report` holder) opened `/projects/happyflow-pg/automation_dashboard`
+>   live with no denial — header "5 Sources / 218 Executions / 6.88% Pass Rate" matched the live table exactly.
+> - **RFTC035-13**: summed every row's Executions on the live page (4+1+1+1+211 = **218**), cross-checked
+>   against `RollupMath.set_based_status_tally(1)`'s own total row count (189+15+12+1+1 = **218**) — exact
+>   match.
+> - **RFTC035-15**: "Ungrouped" (211, by far the largest) still sorted LAST on the live page, after all 4
+>   named sources (themselves sorted by descending execution count: 4, 1, 1, 1).
+> **Zero new bugs found on this leg.**
 
 **Priority:** P1 — the spec's own stated guard against silently dropping ungrouped data
 **Steps:** Record at least one result via the plain "Add Result" UI (never touches the CI ingest path, so

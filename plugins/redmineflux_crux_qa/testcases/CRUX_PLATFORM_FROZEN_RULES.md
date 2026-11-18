@@ -235,4 +235,16 @@ Pass 4 (2026-11-16, same session): TC-931 — PASS, confirmed on a fully-deliver
 Pass 4 (2026-11-17): 1 more PASS (930, via a fresh autonomous-autonomy WP + frozen-field fixture).
 Overall: 17 PASS / 1 bug / 0 deferred. Environment has 1 harmless leftover rule (fr-12, ticket #118's
   `priority` field only — not removed, test-isolated).
+
+## Execution — 2026-11-18: re-verification pass, leftover rule cleaned up
+
+Re-ran TC-929/930/931 from scratch (fresh fixtures #165/#166/#80, not realizing at the time these TCs were
+already PASS from the 2026-11-16/17 passes above) — all three reproduced identically: TC-929's claim/result
+notes post normally on an unfrozen field, TC-930's write is genuinely refused even under `autonomous` autonomy,
+TC-931's write is genuinely refused even on a fully-delivered, every-gate-approved WP. No regressions found.
+Cleaned up the previously-noted leftover rule (fr-12 on ticket #118's `priority` field) plus the new fixtures'
+own rules — `/crux/admin/frozen_rules` now shows zero rules, a fully clean environment (improves on the "1
+harmless leftover" state noted above).
+
+Overall (updated): 17 PASS / 1 bug / 0 deferred. Environment fully clean (zero frozen rules).
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10.

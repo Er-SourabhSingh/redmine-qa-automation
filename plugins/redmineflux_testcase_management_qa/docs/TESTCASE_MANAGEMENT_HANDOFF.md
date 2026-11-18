@@ -44,10 +44,18 @@ cases, 5.0s threshold shown); RFTC021-1/RFTC044-1/9 (Most Failed Tests — Quali
 failing test cases); RFTC044-11 (health band — 67% pass rate correctly rendered "Critical", matching the
 documented `<70 → red` formula).
 
+**Also confirmed — V1 TC-API group (14 of 18 happy-flow cases), all direct REST calls, all exact-match to spec**:
+01-01 (list testcases), 01-02 (get by id), 01-03 (404 not 500 on bad id), 02-01 (create, 201), 02-02 (edit +
+persistence), 02-04 (delete + follow-up 404), 03-01 (bulk-create 2 testcases with steps), 04-01 (record result,
+201), 05-01 (rename run), 05-03 (close run + idempotent "already closed" on repeat), 05-04 (delete run), 06-01
+(list visible projects), 07-01 (list test suites with testcase_count), 07-02 (create suite, 201), 07-03 (add
+testcase to suite — 200 first time, then exact `422 {"error":"Testcase(s) <id> are already in suite #<id>."}`
+on duplicate re-add). Not yet run: 04-04 (bulk partial failure), 07-05, 08-01.
+
 **Still to do on SQLite**: RFTC-008 (Defect↔Execution linking — core auto-defect-creation behavior already
 incidentally confirmed via TC-DEFECT-01-01 and `ingest_results`'s auto-defect path, but not the dedicated TCs),
-the rest of RFTC-017/022, the full V1 SUITE/CASE/RUN/EXEC/DEFECT/REPORT/API release-cycle group (beyond the
-slice already covered), Release 7.5.0 feature TCs. Then the MySQL leg (not started at all).
+the rest of RFTC-017/022, the remaining 4 TC-API cases, TC-PERM-02-1, Release 7.5.0 feature TCs. Then the MySQL
+leg (not started at all).
 
 ---
 

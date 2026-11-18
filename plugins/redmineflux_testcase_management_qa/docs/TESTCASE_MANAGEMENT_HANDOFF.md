@@ -107,8 +107,46 @@ new bug found:**
   exactly run #15 in the actual run table (a naive whole-page-text check picks up unrelated testcase rows
   elsewhere on the page — scope the check to the run `<table>` itself) — PASS.
 
-**Still remaining in this group:** TC-TCM-170/171/173/174/176/177/178/179/183/185/188/189 (execution/result
-recording TCs, 12 remaining).
+**All 12 remaining execution/result TCs now also COMPLETE — Test Runs & Execution group is 20/20 on SQLite:**
+
+- TC-TCM-170 (Passed on #338) — PASS.
+- TC-TCM-171 (all 6 statuses: Untested/Passed/Failed/Retest/Blocked/Skipped) — PASS, with an important
+  discovery: selecting **Failed or Blocked** reveals a required **Defects\*** field (search-and-link or
+  "Report Defect") — Submit silently does nothing until a defect is linked. This is intended product behavior
+  (ties directly to TC-173/174), not a bug — my first few attempts looked like silent failures only because I
+  hadn't noticed the new required field appear.
+- TC-TCM-173 (Report Defect from a Failed execution) — clicked "Report Defect" inline, filled Subject, Create
+  → defect #374 auto-linked and Failed result submitted together — PASS.
+- TC-TCM-174 (link an EXISTING defect instead) — searched "374" in the Defects field on a different failed
+  case (#343), selected it, submitted — linked the same defect without creating a duplicate — PASS.
+- TC-TCM-176 (attach a file while recording a result) — PASS, round-tripped correctly (`tc176-sample.txt`
+  downloadable from the issue's journal).
+- TC-TCM-177 (results independent per environment) — run #16 with 2 environments (Chrome Latest/test); #338
+  marked Passed under Chrome Latest still correctly shows Untested under `test` — PASS.
+- TC-TCM-178 (re-execute updates current result, keeps history) — #339 went Passed→Retest; issue's own
+  History/journal correctly shows BOTH entries (old Passed, new Retest), nothing overwritten — PASS.
+- TC-TCM-179 (execute from the test case's own detail page) — the issue page has its own "Testcase Execution"
+  panel with Run/Environment selectors and a Result link; executing there updated the result correctly, same
+  as executing from the run page — PASS.
+- TC-TCM-183 (note with multi-line, special chars, emoji) — `< > & "quoted" 🎉` plus a second line all
+  preserved byte-correct in the journal — PASS.
+- TC-TCM-185 (dashboard stats reflect execution) — the Results Summary panel updates live after every single
+  result submission throughout this whole session (counts/percentages/donut chart all tracked correctly) —
+  confirmed repeatedly, PASS.
+- TC-TCM-188 (bulk update 2+ selected cases) — selected #356+#358 via checkboxes, "Bulk Update Result" bar
+  appeared, set Passed, both updated simultaneously — PASS.
+- TC-TCM-189 (bulk update with a note) — same bulk action with a note in the Note field — note correctly
+  applied to both cases' journals — PASS.
+
+**Self-correction mid-way, worth recording:** several of my own click/select attempts on the "Add Result"
+modal appeared to silently fail (no network POST fired) when checking visibility via `element.offsetParent
+!== null` in `evaluate()` calls — this modal uses `position: fixed`, and fixed-position elements can report
+`offsetParent === null` in some browser engines even while fully visible. Switching to Playwright's own
+role-based locators (`page.locator('role=button[name="Submit"]')`, `browser_select_option`) resolved this
+immediately and reliably. Any future session scripting this modal should avoid `offsetParent`-based
+visibility checks entirely.
+
+**Test Runs & Execution group (§1) is now 20/20 COMPLETE on SQLite.**
 
 **Key UI mechanics learned this round (useful for any future suite-tree work on this plugin):**
 - The suite tree's test-case rows are jQuery-UI `ui-draggable`/suite nodes are `ui-droppable` — a raw

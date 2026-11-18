@@ -1,6 +1,45 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 6 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 7 — read this first, supersedes the sections below)
+
+**BUG-TCM-153 retracted** — re-verified per user's explicit challenge ("same environment/project/Run #12?").
+Root cause: an unscoped `page.locator('a[href*="/runs/"]')` DOM query picked up the hidden Closed-tab table's
+row for run #12 alongside the visible Active-tab table (both tabs' tables are pre-rendered into the DOM
+simultaneously, toggled via CSS display, not loaded per-tab-click). Full-page screenshot + `isVisible()`
+filtering confirmed run #12 genuinely IS in the Active tab. Bug file deleted, `bugs/_index.md` updated with a
+retraction note, TC-TCM-165 corrected back to PASS in `TESTCASE_MANAGEMENT_TEST_RUNS.md` with the full
+root-cause writeup. **This was never a real product bug.**
+
+**RFTC-029 (Exploratory Sessions) — 4 happy-flow sub-cases (15/23/24/25) confirmed PASS on SQLite.** Full
+writeup appended to `RFTC-029_EXTERNAL_SPEC_EXPLORATORY_SESSIONS.md`'s own "CROSS-DB (SQLite) — 2026-11-18"
+block: role-based 403 on delete, delete-confirmation modal, Activity feed + Overview Sessions block reflecting
+a session, and the no-linked-issue session workflow end-to-end.
+
+**RFTC-033 (Milestone Summary Report) — all 4 happy-flow TCs (1/11/12/13) confirmed PASS on SQLite.** The
+PostgreSQL leg's client-side JS blocker on RFTC033-1 **does not reproduce here** — full report page rendered
+live with no console error. Built an 8-section fixture on milestone `SQLite Happy-Flow v1.0` (Manual run,
+Automation run via `bootstrap_run.json`+`ingest_results.json`, exploratory session, targeted-only defect).
+RFTC033-13 confirmed both the true-count coverage text and the view's own `.first(10)` render cap on the
+"not covered" list (JSON API itself is NOT capped). Written into
+`RFTC-033_EXTERNAL_SPEC_MILESTONE_SUMMARY_REPORT.md`.
+
+**RFTC-034 (Milestone Burndown + Forecast) — all 3 happy-flow TCs (1/9/12) confirmed PASS on SQLite.** Built a
+6-day backdated execution history (via sanctioned `ingest_results.json` + a narrow `rails runner`
+`update_column(:created_at,...)` timestamp-only backdate) crossing the `MIN_HISTORY_DAYS = 3` boundary;
+live chart state matched a direct `MilestoneBurndown` service call exactly before and after the threshold.
+One earlier same-session "Done"/`remaining_today:0` observation that appeared to contradict the service was
+re-checked on a fresh reload and resolved — concluded a test-sequencing timing artifact, not a defect; not
+filed. Written into `RFTC-034_EXTERNAL_SPEC_MILESTONE_BURNDOWN_FORECAST.md`.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-026 (~10 remaining), RFTC-035 (~6), RFTC-044 (2), RFTC-018 (2), RFTC-020 (1), RFTC-016
+(~14), RFTC-008/009 (remaining sub-cases), RFTC-038 (3, likely needs external CI infra — may defer like
+RFTC-017), and RFTC-045's 67-case set (not yet touched on SQLite at all).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 6 — superseded by round 7 above, kept for context)
 
 **Requirements/RTM group (§2) — 17 of 19 happy-flow TCs confirmed PASS on SQLite** (TC-TCM-112/115/116/118/
 119/122/124/269/271/307/308/310/329/330/331/332, plus 116 combined with 115). Full writeup in

@@ -23,6 +23,32 @@
 > Version #46 ("Delete Testcase Fixture"). Results and the one confirmed defect were also recorded against
 > production Run #659 (testsuite #527). See each case below for its own Actual Result.
 
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 4 happy-flow RFTC-033 TCs confirmed PASS — and the UI's client-side JS blocker noted on
+> the PostgreSQL leg (RFTC033-1) **does not reproduce here**: the full report page rendered correctly live,
+> no console error:
+> - **RFTC033-1**: built a complete 8-section fixture on the existing milestone (`SQLite Happy-Flow v1.0`,
+>   id=1): a Manual run (already had Passed/Failed history), an Automation run (bootstrapped via
+>   `POST /testcase_ci/bootstrap_run.json` + `PUT /runs/update_run/:id.json` with `run[milestone_id]`, then a
+>   real `ingest_results.json` call with a named `source`), the exploratory session created during this leg's
+>   RFTC029 pass (closed, 1 note), a targeted-only defect (`fixed_version_id=1`, no execution link). Opened
+>   `/projects/rftc-016-ci-qa/testcase_milestones/1/report` live: Headline, Result by source (Manual+Automation
+>   summing to the overall total), Runs (2), Automation sources ("RFTC033 CI Automation Source", 1
+>   execution/0 failures/100%), Exploratory sessions (1 closed/1 passed/1 note), Defects, Coverage, and risk
+>   lists all rendered real, mutually-consistent data — no crash, no section silently omitted.
+> - **RFTC033-11**: confirmed via the same fixture — "Found in this milestone's runs" (`found_open:2`) and
+>   "Targeted at this version" (`targeted_open:1`) are genuinely independent counts, matching the report.json
+>   API exactly.
+> - **RFTC033-12**: the Print button's own class/computed background (`rf-ms-btn rf-ms-btn-secondary`,
+>   `rgb(255,255,255)`) matches the standard white-background+border style — BUG-TCM-137's fix holds on SQLite.
+> - **RFTC033-13**: set `fixed_version_id=1` on 23 test cases, linked 6 to a milestone run. Coverage text read
+>   "5 covered, 18 not in any run yet." (true full counts) while the rendered "not covered" list container held
+>   exactly **10** `<a href="/issues/...">` links, each resolving to a distinct, correct issue — confirming
+>   both the true-count text and the view's `.first(10)` render cap. (Note: the JSON API's own `not_covered`
+>   array is NOT capped — only the HTML view applies `.first(10)`; checking the live page rather than the API
+>   was the right call here, since this TC's own wording specifically concerns "the rendered... list".)
+> **Zero new bugs found on this leg.**
+
 # Test Cases — Redmineflux Testcase Management — rftc-033: Unified Milestone Summary Report
 
 ## Plugin

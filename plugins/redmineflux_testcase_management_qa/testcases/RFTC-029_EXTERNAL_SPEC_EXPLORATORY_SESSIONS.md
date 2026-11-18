@@ -3,6 +3,30 @@
 > charter successfully (session id 1). RFTC029-2,6,8,15,23,24,25 not individually re-executed within this
 > pass's time budget.
 >
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. RFTC029-1/2/6/8 already confirmed earlier this leg (round 1). This pass closed out the
+> remaining happy-flow subset:
+> - **RFTC029-15** (`delete_session` grants Delete only): PASS. Created a real minimal role
+>   ("RFTC029 DeleteOnly SQLite", only `delete_session` checked) via Administration → Roles → New, assigned it
+>   to a real user (Aurora Wren) in place of her normal Reporter role via `PUT /memberships/3.json`. As that
+>   user: `GET /testcase_sessions/new` → **403**; opening an existing session's show page correctly hid
+>   Edit/Close Session/Add Note (UI check) and showed only Delete; clicking Delete raised the real "Delete
+>   Session? ... Delete this session and all of its notes?" modal, confirmed, and the session was genuinely
+>   gone (redirected to the index). Restored Aurora Wren to Reporter afterward.
+> - **RFTC029-23** (Activity feed shows Created + Closed, deep-linked): PASS — the plugin's own
+>   `/testcase_activities` page (not core Redmine's `/activity`, which has no Exploratory Session event type at
+>   all) correctly showed both "Created by Redmine Admin" and "Closed by Redmine Admin" rows, each labeled
+>   "Exploratory Session", for a session created with a milestone link and then closed.
+> - **RFTC029-24** (Overview "Sessions" block, max 3 most recent): PASS — created 5 sessions total; the real
+>   project Overview page's Sessions block showed exactly the 3 most-recently-created (ids 5, 4, 3, descending),
+>   correctly excluding the 2 oldest, each with title/tester/date/status, same card style as "Test Runs", plus
+>   a working "View All" link.
+> - **RFTC029-25** (session with no linked issue is fully normal): PASS — created a session with a title only
+>   (no charter, no issue), confirmed its show page's info panel entirely absent (no stray "Charter:"/"Issue:"
+>   line), added a real note, and closed it with outcome Passed — every step behaved identically to a session
+>   with a linked issue.
+> **Zero new bugs found on this leg.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

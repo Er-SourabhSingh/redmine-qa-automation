@@ -45,6 +45,28 @@
 > `20261106000000_create_testcase_milestone_snapshots`, the table this feature's daily history depends on). See
 > each case below for its own Actual Result.
 
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 3 happy-flow RFTC-034 TCs confirmed PASS:
+> - **RFTC034-1**: built a 6-day backdated execution history on milestone `SQLite Happy-Flow v1.0` (id=1,
+>   due 2026-12-10) via a dedicated run (#20, 6 `IssueStatusResult` rows set to Passed through the sanctioned
+>   `POST /testcase_ci/ingest_results.json` path, then backdated with a narrow `rails runner`
+>   `update_column(:created_at, ...)` call — singular column, timestamp only — to 11/15, 11/16, 11/17, and
+>   3×11/18, giving `history_days >= 3`). Loaded `/projects/rftc-016-ci-qa/testcase_milestones/1/report` live:
+>   state moved from `no_data`/"Not enough data" to a real forecast state with a non-zero velocity, matching a
+>   direct `rails runner` call to the live `MilestoneBurndown` service exactly, confirming the chart and the
+>   service agree on both scope/executed/remaining counts and the forecast state.
+> - **RFTC034-9**: toggled the milestone closed then reopened — the burndown/forecast section continued to
+>   render on both the closed and reopened view without error, matching the documented closed-milestone
+>   behavior.
+> - **RFTC034-12**: cross-checked the "no_data" vs real-state transition boundary (`MIN_HISTORY_DAYS = 3`):
+>   before the 3rd distinct history day was backdated, the live page read "Not enough data"/`remaining_today:14`,
+>   `state:no_data` — matching the service's own `remaining_today`/`state` fields precisely before and after the
+>   3-day threshold was crossed. (One earlier same-session observation of a stale "Done"/`remaining_today:0`
+>   render that *appeared* to contradict the service was re-checked on a fresh page reload with no code change
+>   and resolved correctly — concluded to be a timing artifact in test sequencing, not a product defect; not
+>   filed.)
+> **Zero new bugs found on this leg.**
+
 # Test Cases — Redmineflux Testcase Management — rftc-034: Milestone Burndown + Automatic Forecast
 
 ## Plugin

@@ -82,6 +82,34 @@ tree UI:
   selecting child suite #5 (0 own cases) correctly shows "No data to display", not the parent's cases —
   confirms no aggregation/leakage between tree levels — PASS.
 
+**Test Runs & Execution group (§1) — 8 of 20 run-management TCs done (153/154/157/158/160/162/165/166), one
+new bug found:**
+- TC-TCM-153 (run #12, "Include all test run" default radio) — created cleanly once the Environment/Assignee
+  required fields were filled (the "Add" link adds a SECOND env/assignee row, which must either be filled or
+  deleted before Create — leaving it blank causes a 422 "Environment and assignee cannot be blank") — PASS.
+- TC-TCM-154 (run #13, 2 environments via "Add") — `run_assignments` confirmed via REST: `[{Chrome
+  Latest, assignee 6}, {test, assignee 5}]` — PASS.
+- TC-TCM-157 (edit run #12 — name + status) — both changes persisted and displayed correctly — PASS.
+- TC-TCM-158 (close run #12 via Action menu → Close Run → Confirm) — correctly shows a warning ("15 test
+  cases... not marked as Passed... permanently archived") before archiving; confirmed via REST
+  `is_closed:true` — PASS.
+- TC-TCM-160 (delete run #13 via Action menu → Delete Run → Delete) — confirmed gone via REST afterward — PASS.
+- TC-TCM-162 (run state persistence — all 5 states: New/In progress/Done/Rejected/Under review) — all
+  confirmed round-tripping correctly via create+edit. Noted: both "Done" and "Rejected" states lock the run's
+  Action menu down to **only** "Delete Run" (no Edit/Close) — consistent, not a bug.
+- TC-TCM-165 (Active/Closed tab partition) — **FAILED. New bug filed: BUG-TCM-153** (Medium) — the closed run
+  (#12, confirmed `is_closed:true` via REST) still appears under the **Active** tab, reproduced 3 ways (default
+  page load, `?tab=Active` URL, and a genuine click on the Active tab link). Correctly appears under Closed
+  too (so it's not *missing* from Closed, just *also* wrongly shown in Active). TC-TCM-165 was previously
+  confirmed PASS against a different (PostgreSQL) instance per this file's own 2026-10-23 entry — this is
+  either a regression or environment-specific; not yet determined which.
+- TC-TCM-166 (search by run name/ID — full name, partial name, numeric ID) — all three correctly isolate
+  exactly run #15 in the actual run table (a naive whole-page-text check picks up unrelated testcase rows
+  elsewhere on the page — scope the check to the run `<table>` itself) — PASS.
+
+**Still remaining in this group:** TC-TCM-170/171/173/174/176/177/178/179/183/185/188/189 (execution/result
+recording TCs, 12 remaining).
+
 **Key UI mechanics learned this round (useful for any future suite-tree work on this plugin):**
 - The suite tree's test-case rows are jQuery-UI `ui-draggable`/suite nodes are `ui-droppable` — a raw
   Playwright `dragTo()` single-jump often doesn't register; a real multi-step `mouse.move()` sequence (15-20

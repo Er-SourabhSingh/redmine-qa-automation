@@ -24,9 +24,9 @@ dangling per BUG-CRX-169) returned a bogus, irrelevant "nothing to confirm yet" 
 switching to Crux Guide — not a Crux Guide reasoning defect, but a cross-agent session-state leak. See
 BUG-CRX-170.
 
-Remaining TCs (live-data redirect, nonexistent-feature refusal, empty-docs-read honesty, zero-write-tool
-confirm) not yet executed this round — deprioritized per user instruction; the suite's most important finding
-(the cross-agent state leak) is already conclusively demonstrated.
+All remaining TCs (live-data redirect, nonexistent-feature refusal, empty-docs-read honesty, zero-write-tool
+confirm) were executed 2026-11-16 as TC-CRX-695–702 below, all PASS — this line was a stale leftover from
+before that completion; corrected 2026-11-18.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Crux Guide agent)

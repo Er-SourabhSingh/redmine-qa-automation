@@ -13,7 +13,8 @@
 > validation preventing time logging from ever directly pushing a category over its approved hours; the
 > only way to reach a genuine over-budget state is reducing the approved total below already-spent hours —
 > built that scenario live and confirmed the Budget Agent correctly identifies the exact over-budget
-> category, by name, with accurate figures (TC-CRX-417). Remaining 9 TCs not yet executed.
+> category, by name, with accurate figures (TC-CRX-417). **Suite completed 2026-11-17 — all 20 TCs now
+> executed, 0 pending; see the Evidence Map at the bottom of this file for the final tally.**
 >
 > Original suite, Redmine 6 cycle (`localhost:3015`). Fresh fixture project **Crux Budget Agent Test Project**
 > (`crux-budget-agent-test-project`, id=5) created 2026-10-29 specifically for this suite. Starts at
@@ -706,4 +707,4 @@ domain genuinely has the Auto-routing misroute defect already confirmed on 2 oth
   first interaction pattern a real user would try with this agent. BUG-CRX-202 (new this pass) is also
   High — a confident false-negative contradicting the agent's own correct output 2 turns earlier.
 - **Overall: 22 PASS / 1 superseded (411) / 4 bugs found total this suite across its history (106, 107,
-  109 — all closed/fixed; 202 — open) / 0 TCs pending.**
+  109, 202 — all closed/fixed as of 2026-11-18) / 0 TCs pending.**

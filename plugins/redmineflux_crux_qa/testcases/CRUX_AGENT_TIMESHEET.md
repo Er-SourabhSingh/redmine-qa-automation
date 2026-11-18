@@ -1,6 +1,8 @@
 # Test Cases — Redmineflux Crux — Time Agent (Timesheet plugin) Full CRUD
 
-> **New suite, drafted 2026-10-30, not yet executed.** This agent/plugin domain was previously tested only
+> **Suite fully executed — see the closing "Correction (2026-11-17)" note at the bottom of this file.**
+> ("not yet executed" below is the original drafting-time note, stale since execution began; kept for
+> history, corrected 2026-11-18.) This agent/plugin domain was previously tested only
 > against the OLD Redmine 7.0.0 stack — see `testcases/old_suites/CRUX_AGENT_TIMESHEET.md` for that
 > historical record (not re-verified on the current Redmine 6 build, and its TC-CRX numbers are NOT reused
 > here per CLAUDE.md §4a). This is the first execution pass for this domain on the current
@@ -1215,34 +1217,49 @@ not domain-specific). Step 1 (lexically obvious phrasing) not separately execute
   source read):
   1. **TC-CRX-448** — self-approval is blocked for admin too, UNCONDITIONALLY, directly contradicting the
      old suite's documented KB expectation ("only admin can complete" a self-approval scenario) — a real
-     risk that the agent's own training reflects the outdated rule. **Not yet executed.**
+     risk that the agent's own training reflects the outdated rule. **PARTIALLY PASS, executed 2026-11-02
+     (non-admin case only)** — the admin-specific self-approval scenario this TC was written for remains
+     genuinely untested; see the TC's own section for what was and wasn't covered.
   2. **TC-CRX-453** — withdrawal is also blocked by any rejection history alone, even with zero approvals —
      a distinct guard from the already-known after-approval block, found only via direct source read.
      **PASS, executed 2026-11-02** — the Time Agent surfaced the exact `cannot_withdraw_resubmitted_after_
      rejection` validation error verbatim and did not fabricate a wrong reason or incorrectly allow it.
   3. **TC-CRX-461** — schema-snapshot immutability: editing a schema mid-flight must not retroactively alter
-     an already-active approval instance. **Not yet executed.**
+     an already-active approval instance. **PASS, executed 2026-11-02** (via a stronger guarantee than
+     originally envisioned — the native/chat layer blocks the drift-causing edit entirely while any
+     submission on that schema is in-flight, rather than needing a snapshot to mask drift). The "Not yet
+     executed" wording previously here was a stale leftover never cleaned up after the write-up — corrected
+     2026-11-18.
 - **A 4th and 5th novel scenario emerged mid-session, not anticipated by the original draft at all**:
   **TC-CRX-465** corrected a wrong premise (the Time Agent DOES have working time-log/update/delete access
   via cross-agent core tools) and directly motivated **TC-CRX-469/470** (time-entry resolution and
   error-message accuracy — 2 new bugs) and **TC-CRX-471** (the Late Submission Unlock Queue — 1 new bug),
   none of which existed as test concepts until the suite's own premise was found wrong live.
-- **9 regression-check targets from the old (7.0.0) suite, still to be re-verified fresh on Redmine 6:**
-  BUG-CRX-020 (fabricated-confirm on schema/settings writes), BUG-CRX-038 (team-name-to-id guessing),
-  BUG-CRX-039 (Administrator self-timesheet-submission exception), BUG-CRX-041 (team-id discovery for
-  ordinary members), BUG-CRX-042 (blind-submit-on-empty-period), BUG-CRX-044 (fabricated-absence vs. honest
-  scoping limit), BUG-CRX-045 (silent-substitution on submit-for-another-user), BUG-CRX-046 (withdraw
-  missing from audit log).
+- **8 regression-check targets from the old (7.0.0) suite — 6 of 8 confirmed re-verified fresh on Redmine 6,
+  2 genuinely still pending (corrected 2026-11-18; this bullet previously claimed all 9/8 "still to be
+  re-verified," which was stale — most were in fact checked in their own TCs below):**
+  - **Confirmed re-verified, does not recur:** BUG-CRX-020 (fabricated-confirm on schema/settings writes —
+    TC-CRX-467), BUG-CRX-038 (team-name-to-id guessing — TC-CRX-442), BUG-CRX-042
+    (blind-submit-on-empty-period — TC-CRX-445), BUG-CRX-044 (fabricated-absence vs. honest scoping limit —
+    TC-CRX-440), BUG-CRX-045 (silent-substitution on submit-for-another-user — TC-CRX-444), BUG-CRX-046
+    (withdraw missing from audit log — TC-CRX-466).
+  - **Still genuinely pending — no TC in this suite actually regression-checks these on the current build:**
+    BUG-CRX-039 (Administrator self-timesheet-submission exception) and BUG-CRX-041 (team-id discovery for
+    ordinary members).
 - **4 TCs from the old suite that were BLOCKED and never actually executed on any stack at all** (TC-CRX-083
   sequential-order, TC-CRX-084 self-approval, TC-CRX-085 withdraw-after-approval, TC-CRX-087
   auto-approve-threshold) — re-drafted here as TC-CRX-447, 448, 452, 456 respectively, now with the benefit
   of direct source confirmation of the exact rules involved. **452 PASS (2026-11-02); 448 partial PASS
   (non-admin case); 447 and 456 both PASS (2026-11-02, see their own sections above — this note was stale,
   written before they ran and never updated).**
-- **Correction (2026-11-17): this suite is fully executed.** All 36 cases have a recorded result; only
-  TC-CRX-473 is BLOCKED by a genuine fixture role-permission limitation (not a plugin defect), the suite's
-  one remaining non-PASS/FAIL item. BUG-CRX-128/129/130/131 have since been reported to production and
-  closed. The "next session" note below is stale and kept only for history — nothing further is pending.
+- **Correction (2026-11-17): this suite is fully executed** for all 36 drafted cases — only TC-CRX-473 is
+  BLOCKED by a genuine fixture role-permission limitation (not a plugin defect). BUG-CRX-128/129/130/131
+  have since been reported to production and closed. The "next session" note below is stale and kept only
+  for history.
+  **Correction (2026-11-18): "nothing further is pending" above was itself inaccurate** — two genuine gaps
+  remain: (1) TC-CRX-448's admin-specific self-approval scenario was never actually tested (only the
+  non-admin case ran); (2) BUG-CRX-039/041 regression checks (see the bullet above) have no corresponding
+  TC in this suite despite being listed as targets.
 - ~~**Next session, pick up exactly here**: (1) report BUG-CRX-128, 129, 130, and 131 to production; (2) fix
   TC-CRX-473's fixture (give the L2/final-level role actual time-logging rights, e.g. swap Sage Willow's role
   to Developer, or seed a time entry for her directly in the DB) and complete the last-level-escalates-to-

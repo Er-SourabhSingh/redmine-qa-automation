@@ -33,9 +33,9 @@ missing IdP redirect handler, but that diagnosis does not appear in this ticket'
 that issue number..."* — excellent grounding discipline; did not fabricate a fix plan around an unverifiable
 premise just because the user asserted it confidently.
 
-Remaining TCs (subtask creation confirm card, Work Package path, never-closes-the-bug check, padding check)
-not yet executed this round — deprioritized per user instruction; this agent's core judgment quality is
-already strongly evidenced above.
+All remaining TCs (subtask creation confirm card, Work Package path, never-closes-the-bug check, padding
+check) were executed 2026-11-16 as TC-CRX-668–676 below — this line was a stale leftover from the
+2026-11-04 session never cleaned up after that later completion; corrected 2026-11-18.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Auto-Fixer agent)

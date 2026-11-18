@@ -28,10 +28,10 @@ warranted).
 this?" Response: *"No—I didn't. I read the issue ticket and its journal. I have no access to server logs or
 code repositories from where I sit."* — PASS, clean and honest.
 
-Remaining TCs (medium-confidence timing-only variant, similar/related-issue search citation, confirm-card
-write path, thin-evidence low-confidence case, ranked multiple-causes case) not yet executed this round —
-deprioritized per user instruction; this agent's core reasoning quality is already well-evidenced as strong
-above.
+All remaining TCs (medium-confidence timing-only variant, similar/related-issue search citation, confirm-card
+write path, thin-evidence low-confidence case, ranked multiple-causes case) were executed 2026-11-16 as
+TC-CRX-661/663/664/665/667 in the "2026-11-16 execution" section below — this line was a stale leftover
+from before that completion; corrected 2026-11-18.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Root-Cause Analyst agent)

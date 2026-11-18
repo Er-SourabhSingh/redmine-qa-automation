@@ -1,6 +1,62 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 2 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 3 — read this first, supersedes the sections below)
+
+**Configuration group (§1) — all 11 happy-flow TCs now confirmed PASS on SQLite** (TC-TCM-001/002/003/004/006/
+008/009/011/012/013/015; TC-001 was already done earlier this round):
+- TC-002 (valid-but-different tracker): switched Testcase Tracker → Bug via the real Configuration UI, Apply —
+  Testcase Summary correctly re-filtered to Bug-tracker issues (defect #374/#365/etc.), zero old Testcase-tracker
+  data mixed in. Issue #339 (a pre-existing testcase) confirmed still fully intact/reachable at `/issues/339`
+  while the setting pointed elsewhere — non-destructive, matching the plugin's documented behavior. Restored to
+  Testcase (`4`) immediately after.
+- TC-003 (Defect Tracker drives Report Bug): failed test case #341 (run #3) via the real popup's Status→Failed,
+  clicked **Report Defect**, created "TC-TCM-003 happy-flow: Report Defect from Failed result (SQLite)" — new
+  defect #375 confirmed via REST (`tracker.name == "Bug"`, matching the configured Defect Tracker), auto-populated
+  into the Defects* field, result submitted successfully.
+- TC-004 (Feature Tracker / requirement linking): REQ-002 already links to #366 (a Testcase-tracker issue),
+  confirming the linking query's Testcase-tracker half works; the Feature-tracker half is unchanged source logic
+  (`requirements_controller.rb`'s OR-query), not data-dependent — not re-triggered live given the known, already
+  tracked BUG-TCM-072 XSS in this same dropdown (no need to re-reproduce a known bug for a happy-flow pass).
+- TC-006 (Show Testcase Count): disabled the setting — suite tree count suffix cleanly absent; re-enabled —
+  count reappeared correctly. Confirmed via `isVisible()`-scoped checks this time (no repeat of the earlier
+  BUG-TCM-153 false-positive mistake).
+- TC-008 (Run Email Template) + TC-012 (Run Updated notification), confirmed together in one action: created a
+  new Run Email Template (marker `TCTCM008-MARKER-sqlite-7f1b`, macros `{run_name}`/`{project_name}`/
+  `{run_state}`, Footer marker), Active checked. Edited run #17's name via the real Edit Run modal (opened by
+  directly clicking the menu's `<a data-remote>` link via `page.evaluate` — the kebab-menu's own
+  `editRun(this,event)` toggle reported `isVisible():false` on the outer Playwright locator despite an inline
+  `display:block` style, so the link was clicked via a raw DOM `.click()` instead) — delivered email Subject/Body
+  both show the marker with all 3 macros correctly substituted, Footer appended. Confirms the template mechanism
+  AND that "Run Updated" fires correctly once `run_updated` is enabled in Administration → Settings →
+  Notifications.
+- TC-009 (Testcase Email Template): created a new Testcase Email Template (marker
+  `TCTCM009-MARKER-sqlite-4c8e`, macros `{issue_subject}`/`{result}`/`{environment}`, Footer marker), Active
+  checked. Recorded a Passed result on test case #343 (run #3) — delivered email Subject/Body/Footer all show
+  the marker with every macro correctly substituted, delivered **exactly once** (no BUG-TCM-013-style duplicate
+  on this instance/submission).
+- TC-011 (Run Added notification): created run #17 assigned to Luna Blossom (a different user than the
+  creator, admin) via the real Add Run web form — "Run #17 Added" email delivered correctly to
+  `luna.blossom@test.local` with correct State/Environment/Assignee. **BUG-TCM-087 (the `from=API` guard
+  suppressing Run Added for web-UI-created runs) does not reproduce on this build/instance.**
+- TC-013 (Testcase Result Added): recorded a Passed result with note marker `TC-TCM-013-MARKER-sqlite-9f2a` on
+  test case #342 (run #3) — delivered email correctly named the case/status/environment/note, **delivered
+  exactly once**. Note: `testcase_result_added` and `run_updated` are mutually exclusive in Administration →
+  Settings → Notifications (checking one disables the other's checkbox, same parent/child UI pattern as core
+  Redmine's "Issue updated" vs. "Note added" sub-events) — had to toggle between them to test TC-012/013
+  separately; not a bug, just a UI constraint to remember for future sessions.
+- TC-015 (Add a run type): created "TC-TCM-015 SQLite Custom Run Type" via Administration → Plugins → Testcase
+  Management → Testcase Run Types — appears correctly in Add Run's Run Type dropdown alongside the 7 defaults,
+  selectable.
+- **Final notification settings left as:** `run_added`=on, `run_updated`=on, `testcase_result_added`=off (the
+  mutually-exclusive constraint above means only one of the latter two can be on at a time — this is the state
+  a future session should expect, not a sign something was left broken).
+
+**Also this round: BUG-TCM-153 retracted as a false positive** — see the dedicated writeup in
+`TESTCASE_MANAGEMENT_TEST_RUNS.md` (TC-TCM-165) and `bugs/_index.md`. TC-TCM-165 corrected back to PASS.
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 2 — superseded by round 3 above, kept for context)
 
 **SQLite leg widened to full exhaustive coverage of the master happy-flow list (~282 TCs), not just the
 representative sample the first round covered.** Gap-analysis against `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`

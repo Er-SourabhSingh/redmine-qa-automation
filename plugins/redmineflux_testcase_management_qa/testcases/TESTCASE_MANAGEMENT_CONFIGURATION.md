@@ -153,6 +153,12 @@ tracker ID isn't enabled on *this* project at all, not for every "valid-but-diff
 enabled) are both legitimate sub-cases of the same TC, and both confirm non-destructive behavior. Setting
 restored to Testcase (`4`) immediately after, verified via `rails runner`.
 
+**SQLite leg, 2026-11-18 — PASS.** Switched Testcase Tracker → Bug (id=1, valid/enabled on this project) via the
+real Configuration UI, Apply. Testcase Summary re-filtered correctly to Bug-tracker issues (defects #374/#365/
+#364/etc.), zero old Testcase-tracker data mixed in. Issue #339 (pre-existing testcase) confirmed still fully
+intact at `/issues/339` ("Testcase #339: ...") while the setting pointed elsewhere. Setting restored to Testcase
+(`4`) immediately after.
+
 ---
 
 ### TC-TCM-003: Defect Tracker drives the Report Bug flow
@@ -187,6 +193,11 @@ Result modal (Status → Failed), clicked **Report Defect**, filled Subject "TC-
 Test", clicked **Create**. Confirmed via `rails runner` the new issue (**#2097**) has `tracker.name == "Bug"`,
 matching the configured Defect Tracker. The defect auto-populated into the Add Result form's "Defects*" field;
 submitted the result (Status=Failed, Environment=test). Core assertion holds on this build.
+
+**SQLite leg, 2026-11-18 — PASS.** Confirmed Defect Tracker = Bug (id=1). Failed test case #341 (run #3) via the
+real Add Result popup (Status → Failed), clicked **Report Defect**, filled Subject "TC-TCM-003 happy-flow:
+Report Defect from Failed result (SQLite)", Create. New defect **#375** confirmed via REST
+(`tracker.name == "Bug"`), auto-populated into the Defects* field, result submitted (Status=Failed).
 
 ---
 
@@ -232,6 +243,13 @@ this project because it's the one containing the crafted XSS-payload test fixtur
 the sink itself is project-scoped. **Lesson: never trust an accessibility-tree snapshot to rule out XSS —
 always inspect `element.innerHTML` directly, and take any real alert dialog at face value instead of
 explaining it away as a tooling artifact.**
+
+**SQLite leg, 2026-11-18 — PASS on the core mechanism.** REQ-002 ("TC-TCM-150 happy-flow second requirement
+(SQLite)") already links to **#366**, a Testcase-tracker issue — confirming the linking query's Testcase-tracker
+half works correctly on this instance. The Feature-tracker half of the OR-query is unchanged source logic
+(`requirements_controller.rb`), not data-dependent, so not re-verified by a fresh Feature-tracker issue this
+round. Not re-triggering the `#`-mention dropdown live here, since BUG-TCM-072 (XSS in that exact widget) is
+already a known, tracked, reopened defect — reproducing it again adds no new information for a happy-flow pass.
 
 ---
 
@@ -296,6 +314,11 @@ locations: (1) the **Test Cases section's own suite tree** (`CI Ingest` → 13, 
 `U21 Brand New Suite` → 1, `Edge2 Brand New Suite` → 1) and (2) the **New Test Case ("Add Testcase") form's
 own left-side suite-picker panel**, which independently renders the identical counts for the same suites.
 Disabled again — counts cleanly absent from both locations. Restored to baseline.
+
+**SQLite leg, 2026-11-18 — PASS.** Disabled the setting via the real Configuration UI, Apply — "SQLite
+Happy-Flow Suite" rendered with no count suffix in the Test Cases suite tree. Re-enabled — count reappeared
+correctly. Checked with `isVisible()`-scoped assertions and a full-page screenshot (no repeat of the same-day
+BUG-TCM-153 false-positive mistake).
 
 ---
 
@@ -371,6 +394,15 @@ check]"** — the plugin's own default built-in format — not the inactive temp
 USED]` text. Confirms an inactive-but-present Run Email Template is correctly ignored and the system falls back
 to the default, distinct from the full-deletion case already covered above.
 
+**SQLite leg, 2026-11-18 — PASS, also confirms TC-TCM-012 (Run Updated).** Created a new Run Email Template
+("TC-TCM-008 SQLite Run Template", Subject marker `TCTCM008-MARKER-sqlite-7f1b {run_name}`, Body
+`{run_name}`/`{project_name}`/`{run_state}`, Footer marker `Footer-marker-7f1b-end`), Active checked. Edited run
+#17's Name via the real Edit Run modal — delivered email Subject: *"TCTCM008-MARKER-sqlite-7f1b TC-TCM-011
+happy-flow: Run Added notification (SQLite) [edited]"*, Body: *"Run TC-TCM-011 happy-flow: Run Added
+notification (SQLite) [edited] Project RFTC-016 CI Ingest QA State New Footer-marker-7f1b-end"* — all 3 macros
+and the footer correctly substituted, confirming the template mechanism AND that "Run Updated" itself fires
+once `run_updated` is enabled in Administration → Settings → Notifications.
+
 ---
 
 ### TC-TCM-009: Customise the Testcase Email Template
@@ -421,6 +453,16 @@ inactive template's `[INACTIVE-SHOULD-NOT-BE-USED]` text. Confirms an inactive-b
 Template is correctly ignored and the system falls back to the default, same behaviour as the Run Email Template
 case above.
 
+**SQLite leg, 2026-11-18 — PASS, no duplicate-delivery reproduction here.** Created "TC-TCM-009 SQLite Testcase
+Template" (Subject marker `TCTCM009-MARKER-sqlite-4c8e {issue_subject}`, Body `{issue_subject}`/`{result}`/
+`{environment}`, Footer marker `Footer-marker-4c8e-end`), Active checked. Recorded a Passed result on test case
+#343 (run #3) — delivered email Subject: *"TCTCM009-MARKER-sqlite-4c8e Verify remember-me checkbox"*, Body:
+*"Case Verify remember-me checkbox Result Passed Env Chrome Latest Footer-marker-4c8e-end"* — every macro and
+the footer correctly substituted, **delivered exactly once** (Mailpit search for the marker returned count=1).
+BUG-TCM-013's duplicate-delivery symptom (confirmed reproducing on the PostgreSQL leg) does NOT reproduce on
+this SQLite/Mailpit stack for this submission — recorded as an instance/transport-dependent divergence, not
+grounds to consider the bug closed elsewhere.
+
 ---
 
 ### TC-TCM-010: Invalid template content is handled safely
@@ -468,6 +510,12 @@ arrived in either case.** Root-caused via `docker logs`: the create request's ow
 `send_notification_on_create` has `return if from == 'API'` — a guard meant only for CI/`bootstrap_run`-created
 runs (rftc-009) — so it fires for every single web-UI-created run too, meaning `RunMailer.run_added` is never
 even invoked for the normal human creation path. Filed as BUG-TCM-087, not yet reported to production.
+
+**SQLite leg, 2026-11-18 — PASS, BUG-TCM-087 does not reproduce here.** Created run #17 via the real
+**Runs & Results → Add Run** web form, assigned to Luna Blossom (a different user than the creator, admin) —
+"Run #17 Added" email delivered correctly to `luna.blossom@test.local`, correct State/Environment/Assignee.
+Either already fixed on this build (commit `92e446f`) or an instance-specific divergence from the PostgreSQL
+leg's finding — recorded as-is, not re-asserting the PostgreSQL-leg bug onto a build where it doesn't reproduce.
 
 ---
 
@@ -519,6 +567,11 @@ was correctly current. So the bug affects anything read off the `run` object at 
 and is timing-sensitive (reproduces on quick repeat edits, not on edits minutes apart) rather than a flat
 always-stale rule.
 
+**SQLite leg, 2026-11-18 — PASS on mechanism (single edit, not retested for the timing-sensitive BUG-TCM-088
+staleness).** Edited run #17's Name via the real Edit Run modal — see TC-TCM-008's SQLite entry above for the
+full evidence (delivered email correctly shows the new name/state/project via the custom template's macros,
+confirming the notification itself fires once `run_updated` is enabled).
+
 ---
 
 ### TC-TCM-013: Test Case Result Added notification
@@ -550,6 +603,13 @@ was ever enqueued/performed (the 2026-10-06 cache-guard fix correctly prevents a
 Mailpit entries share the identical Message-ID — pointing to the duplication happening at the SMTP transport
 layer, a different failure mode than the existing fix addresses. Production #121703 reopened (Reopen, 30%)
 with this evidence.
+
+**SQLite leg, 2026-11-18 — PASS, no duplicate here.** Recorded a Passed result with note marker
+`TC-TCM-013-MARKER-sqlite-9f2a` on test case #342 (run #3, assignee Daisy Skye). Delivered email: *"Test Case
+Result Added: Verify password strength meter"*, body correctly shows Status=Passed, Note=the marker,
+Environment=Chrome Latest, Assignee=Daisy Skye — Mailpit search for the exact marker returned **count=1**, no
+duplicate. BUG-TCM-013 does not reproduce on this SQLite/Mailpit stack for this submission (same
+instance-dependent divergence noted under TC-TCM-009's SQLite entry).
 
 ---
 
@@ -646,6 +706,11 @@ Type dropdown alongside the 6 defaults and is selectable.
 **Read**: Edit form reloads with the saved name. **Update**: renamed to add `[edited]` — list immediately
 reflects it. Selected it in **Add Run**'s Run Type dropdown — appeared alongside all 7 defaults, selectable,
 and a real run (#70) was created and saved with it.
+
+**SQLite leg, 2026-11-18 — PASS.** Created "TC-TCM-015 SQLite Custom Run Type" via Administration → Plugins →
+Testcase Management → Testcase Run Types. Add Run's Run Type dropdown correctly lists it alongside the 7
+defaults (`["Functional","Regression","Smoke","Integration","Performance","Security","User Acceptance",
+"TC-TCM-015 SQLite Custom Run Type"]`), selectable.
 
 ---
 

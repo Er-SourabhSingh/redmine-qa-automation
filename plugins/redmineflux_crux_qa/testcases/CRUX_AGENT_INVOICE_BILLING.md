@@ -485,6 +485,11 @@ project's own `project_billing_rate` (0.0 here, unset), a 3-tier chain the MCP t
 the warning code it relies on is simply looking for a value the native plugin no longer produces. Filed as
 **BUG-CRX-208**. Deleted the resulting $0 invoice (#14) afterward to leave the fixture clean.
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Re-ran the same repro on the same fixture ticket (#25) — the
+response now carries a genuine warning naming the zero-rate line item and telling the user to set a rate
+before sending, matching the updated fallback chain. Test invoice (#15) deleted afterward. BUG-CRX-208
+closed, production #128967 synced Done/100%.
+
 ---
 
 ### TC-CRX-487: Send invoice — draft → sent, InvoiceHistory event recorded

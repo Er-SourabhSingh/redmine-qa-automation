@@ -331,11 +331,16 @@ explicit user instruction to work through this suite's own deferred backlog.
   "What is our current team workload and capacity?" routed to Project Manager instead of Workload Agent,
   reproduced 2/2 in two fresh chats. Content was accurate (real tool call, real team/sprint data) — only the
   routing was wrong, same shape as BUG-CRX-171/172/173 on a 4th domain.
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same question re-run twice, fresh chats, Auto mode — both now
+  correctly route to Workload Agent, 2/2. BUG-CRX-215 closed, production #128995 synced Done/100%.
 - **TC-CRX-997 — FAIL, new bug BUG-CRX-214.** Pinned all 20 of the account's real existing chats (confirmed via
   DOM — single "Pinned" group, 20 rows), then created one brand-new, unrelated, unpinned chat. The oldest of
   the 20 pinned chats was silently evicted from the Pinned group entirely — not via a 21st pin attempt, but via
   the ordinary global "keep 20 newest" retention rule, which does not appear to exempt pinned chats at all.
   Unpinned the remaining 19 afterward to restore normal state.
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same repro rebuilt (pin 20 chats, create 1 new unrelated one) —
+  all 20 pinned chats now genuinely survive, the new chat appears as a separate 21st entry. BUG-CRX-214
+  closed, production #128994 synced Done/100%.
 - **TC-CRX-1000** — PASS (now independently confirmed, not just inferred). With the account's real multi-day
   QA-cycle history (many more than 20 chats ever created), the sidebar consistently showed exactly 20 — no
   more, no less — confirming the "only 20 newest kept" retention rule is real and not a UI pagination limit.

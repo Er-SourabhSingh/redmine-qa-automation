@@ -371,6 +371,10 @@ not the Agile-specific `update_backlog_issue` this TC expects. **Wrong value**: 
 `redmineflux_core_get_issue(24)` — priority still "low," `updated_on` untouched, no write occurred. Filed
 as **BUG-CRX-204**.
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live after a code pull/rebuild — priority now
+resolves to the real name "high" and genuinely persists, native-verified via `get_issue(24)`. BUG-CRX-204
+closed, production #128920 synced Done/100%.
+
 ---
 
 ### TC-CRX-379: `update_issue_field` for a field-only edit from board/backlog context
@@ -393,6 +397,10 @@ confirming; native-verified via `redmineflux_core_get_issue(15)` — priority un
 This is the third wrong-priority-id resolution found in this suite this cycle (after the closed
 BUG-CRX-102 and TC-378's repro above) — folded into **BUG-CRX-204**, not filed as a separate bug (see
 `bugs/_duplicates.md`).
+
+**Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live — priority now resolves to the real name
+"medium" and genuinely persists, native-verified via `get_issue(15)`. BUG-CRX-204 closed, production
+#128920 synced Done/100%.
 
 ---
 

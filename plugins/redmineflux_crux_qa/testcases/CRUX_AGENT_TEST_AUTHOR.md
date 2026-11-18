@@ -199,6 +199,11 @@ source read: `mcp_testcase_controller.rb` has permission guards but no module-en
 the agent's safety fallback can never actually trigger for a permitted user. Filed as **BUG-CRX-206**. The
 7 erroneous testcases were deleted afterward (`bulk_delete_testcases`) to leave the fixture project clean.
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Re-ran the same repro on a fresh fixture issue (#162) in the same
+module-disabled project — the agent now correctly refuses and names the documented fallback (enable the
+module first); `list_testcases` confirms zero real testcases created. BUG-CRX-206 closed, production
+#128968 synced Done/100%.
+
 ---
 
 ### TC-CRX-631: Never marks a case as tested or passed
@@ -250,6 +255,10 @@ confirming the duplicate-check step itself ran) — but the resulting 5-item con
 both semantically identical to the already-existing #11, with zero mention of it anywhere. Cancelled before
 confirming (no bad data created). Filed as **BUG-CRX-207** — the lookup runs, but its result is never
 actually compared against the newly-drafted cases before proposing.
+
+**Retest — 2026-11-18: CONFIRMED FIXED.** Re-ran the same repro on a fresh fixture issue (#163, identical
+scenario) in the same suite — the draft now explicitly flags testcase #11 as already covering one scenario
+and proposes only the genuinely new cases. BUG-CRX-207 closed, production #128970 synced Done/100%.
 
 ---
 

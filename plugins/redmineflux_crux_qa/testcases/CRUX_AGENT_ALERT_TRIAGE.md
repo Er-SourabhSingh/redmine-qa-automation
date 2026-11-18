@@ -40,6 +40,9 @@ the duplicate-attach path (same chat, same agent) which self-corrected on its ow
   cross-project. However, the confirm card for updating #10 proposed `Priority: 2`, a value matching none
   of this instance's real priority ids (`list_priorities`: only 6/7/8/9 exist). Cancelled before
   confirming; native-verified no write occurred. Filed as **BUG-CRX-209**.
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live — confirm card now shows `Priority: high`,
+  a real name resolved via a genuine `List priorities` call. BUG-CRX-209 closed, production #128971 synced
+  Done/100%.
 - **TC-CRX-654 (severity mapping) — PASS.** Critical-shaped report ("payment gateway down, no workaround,
   everyone affected") → confirm card correctly resolved `Priority: immediate` (by name) with issue #158
   genuinely created. Low-shaped report ("footer copyright year typo") → correctly found 3 existing
@@ -55,6 +58,10 @@ the duplicate-attach path (same chat, same agent) which self-corrected on its ow
   it silently re-rendered the same proposal as a fresh card, and on that re-render the priority had
   degraded to a bare `1` — again not a real priority id. Filed as **BUG-CRX-210** (same class as
   BUG-CRX-209, on the create path this time, triggered by the re-render).
+  **Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live, including the interjected question —
+  the agent now gives an honest "not yet, the card is still waiting" answer with no re-render, and the
+  original card's `Priority: immediate` stays unchanged. BUG-CRX-210 closed, production #128972 synced
+  Done/100%.
 - **TC-CRX-658 (ambiguous/missing project) — PASS.** "Users say the login page is broken and nobody can
   sign in" (no project named) → correctly asked "Which product or project is affected?" with no tool call
   attempted first — never silently defaulted to an arbitrary project.

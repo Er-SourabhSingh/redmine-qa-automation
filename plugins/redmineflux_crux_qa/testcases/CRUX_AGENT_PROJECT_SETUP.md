@@ -425,6 +425,12 @@ outcome_type question, but found a new bug (BUG-CRX-205) getting there.**
 **Net: the outcome_type resolution itself (this TC's original question) is genuinely correct once the tool
 is reached — the remaining problem is entirely about getting there, now tracked as BUG-CRX-205.**
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Re-ran both original disclosure-gap repros live after a code
+pull/rebuild. Combined one-message ask now proposes a 2-step plan (project + ticket) and explicitly
+discloses the WP will follow once the ticket exists. Standalone no-ticket-yet follow-up now asks a
+clarifying question naming the work-package intent instead of silently dropping it. BUG-CRX-205 closed,
+production #128966 synced Done/100%.
+
 ---
 
 ## CRX-35 Confirm-Gate Regression Checks

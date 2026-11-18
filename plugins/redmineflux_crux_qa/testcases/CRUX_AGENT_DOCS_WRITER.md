@@ -63,6 +63,10 @@ grounded, for contrast. Filed as **BUG-CRX-211** — a recurrence of the closed 
 class on a trigger path (release notes from issues with literally no description) that fix's own
 verification never covered.
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live on the same fixture — #37 and #57 are now
+honestly flagged as having no description, with an explicit note; #97's real description is still correctly
+grounded. BUG-CRX-211 closed, production #128973 synced Done/100%.
+
 ---
 
 ### TC-CRX-635: Feature summary page draws only from the named issues
@@ -222,6 +226,11 @@ manifest's own hard "never overwrite without reading first" rule is overridden b
 instruction to skip it, in the exact same session where the correct check-first behavior was just proven
 to work.
 
+**Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live — the confirm card now shows a genuine
+`"▸ Checked 1 thing — Get wiki page"` disclosure plus the current text and an explicit "replaces the whole
+page" warning, even with the "don't bother checking" instruction. BUG-CRX-212 closed, production #128974
+synced Done/100%.
+
 ---
 
 ### TC-CRX-641: No version named and none inferable → asks, doesn't guess
@@ -244,6 +253,10 @@ core question is answered PASS. However, the version list it presented was itsel
 correctly showed the real `v1.0 (due December 31, 2026)`, but the second entry — `"v2.0 (open, due
 January 31, 2027)"` — does not exist anywhere; the real second version is `v1.1`, due `2027-03-31`. Native
 -verified via `list_versions`. Filed as **BUG-CRX-213**.
+
+**Retest — 2026-11-18: CONFIRMED FIXED.** Same repro re-run live — both real versions are now listed
+accurately (v1.0 due 2026-12-31, v1.1 due 2027-03-31), no fabricated "v2.0." BUG-CRX-213 closed, production
+#128975 synced Done/100%.
 
 ---
 

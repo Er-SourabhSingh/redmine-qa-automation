@@ -80,3 +80,17 @@ PRAGMA foreign_key_list(testcase_reports) =>
 ## Found via
 
 - Found while provisioning a fresh SQLite-backed Redmine 6 instance (`redmine6-happyflow-sqlite`, Docker, port 3021) for this cycle's SQLite leg of the happy-flow cross-DB regression suite (`TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`) — not found via an automated Playwright spec (the suite never got far enough to run any; this is an install-time crash).
+
+## Retest Result (2026-11-18)
+
+- Developer fixed via commit `dd1ad1d` ("Make the plugin install on SQLite (BUG-TCM-151)"), pulled to `92e446f` on `master`. Fix matches the suggested root cause exactly: `remove_foreign_key` now always names `:users` explicitly (plus a `foreign_key_exists?` guard before removing), instead of relying on `column:` alone.
+- Wiped the crash-looped SQLite data volume (`redmine6-happyflow-sqlite_sqlitedata`) for a genuine fresh-install retest, rebuilt the stack (`docker compose -f docker-compose.sqlite.yml --env-file .env.happyflow-sqlite up -d --build`).
+- **CONFIRMED FIXED**: migration `20261015000000_nullify_testcase_reports_user_fks_on_delete.rb` now migrates cleanly —
+  ```
+  Migrating to NullifyTestcaseReportsUserFksOnDelete (20261015000000)
+  == 20261015000000 NullifyTestcaseReportsUserFksOnDelete: migrating ============
+  == 20261015000000 NullifyTestcaseReportsUserFksOnDelete: migrated (0.1047s) ===
+  ```
+- Verified the resulting FK state directly via `PRAGMA foreign_key_list(testcase_reports)` (bypassing ActiveRecord): both `created_by_id`/`updated_by_id` now carry `ON DELETE SET NULL` — the originally-intended BUG-TCM-064 behavior, now correct on SQLite too, matching PostgreSQL/MySQL.
+- Container `redmine6-happyflow-sqlite-redmine-1` reached `healthy`, Puma listening on `0.0.0.0:3000`, `/login` returns `200 OK`.
+- **SQLite is now a viable install target for this plugin.** The SQLite leg of the happy-flow cross-DB regression pass can proceed.

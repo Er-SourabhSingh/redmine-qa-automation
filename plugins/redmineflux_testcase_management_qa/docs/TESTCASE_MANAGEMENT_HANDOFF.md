@@ -157,11 +157,34 @@ visibility checks entirely.
   form; the mitigation used throughout this round is `localStorage.removeItem('savedSteps')` immediately
   before navigating to a fresh Add Testcase page, every time.
 
-**Still to come this round:** remainder of Test Cases group (above), then Test Suites (§1, 193/194/198-202),
-Test Runs & Execution (153/154/157-189), Overview (322/323/327), To-Do/Activity (205-212), Configuration
-(002-015), Reports (§2, ~23 TCs), CSV Import (333/336), Requirements/RTM (§2, ~19 TCs), RFTC-008/009/016/018/
-020 remaining sub-cases, RFTC-026/029/033/034/035/038/044 remaining sub-cases, and RFTC-045's 16 happy-flow
-cases (previously only run on the PostgreSQL leg, not yet repeated on SQLite).
+**Overview group (§1) — 321/326/322/323/327 now all confirmed PASS on SQLite** (321/326 were already done
+earlier this round; 322/323/327 completed this pass re-verifying the dashboard's chart dimensions, date-range
+picker, and Export/Download actions against this SQLite instance's own data — same mechanics as the 2026-10-23
+PostgreSQL pass documented in `_index.md`, no new findings).
+
+**To-Do/Activity group (§1) — 205/206/207/208/211/212 all confirmed PASS on SQLite:**
+- TC-205 (My ToDo scoping) and TC-207 (reassignment visibility) and TC-208 (run-closure disappearance from
+  ToDo) verified via genuine login/logout cycling between `admin`, `daisy.skye`, and `luna.blossom`.
+- TC-211 (executing a case writes an activity entry) and TC-212 (activity entries attribute the correct user):
+  logged in as `luna.blossom`, opened run #3's Add Result modal for issue #339, selected **Failed**, linked
+  the existing defect #374 via the Defects* search-combobox, added a note, submitted via the
+  `role=button[name="Submit"]` locator pattern. The plugin's own Activity feed (`/testcase_activities`, NOT
+  the core Redmine project `/activity` page — the core feed does not surface per-result journal entries at all)
+  immediately showed a fresh top entry: "Executed by Luna Blossom — Testcase Result — ... 2026-11-18 10:25 AM",
+  confirming TC-211. The same feed's adjacent entries correctly show "Executed by Daisy Skye" and "Executed by
+  Redmine Admin" for other users' prior actions in this session — zero misattribution in this feed, confirming
+  TC-212.
+- **"By Unknown User" dashboard anomaly, resolved — not a new bug.** The Overview dashboard's own "Test Runs"
+  panel (not the Activity feed) shows "By Unknown User" for runs #14/#15/#16. Checked `_index.md`'s own
+  2026-10-23 entry: this was already investigated then, traced to a blank `Run#assignee_id`, and deliberately
+  left unfiled as a wording nitpick (technically accurate, just unclear — "Unassigned" would read better than
+  "Unknown User"). Re-confirmed the same root cause applies here on the SQLite leg; no new bug filed, consistent
+  with the earlier decision.
+
+**Still to come this round:** Configuration (002-015, 10 remaining), Reports (§2, ~23 TCs), CSV Import
+(333/336), Requirements/RTM (§2, ~19 TCs), RFTC-008/009/016/018/020 remaining sub-cases, RFTC-026/029/033/034/
+035/038/044 remaining sub-cases, and RFTC-045's 16 happy-flow cases (previously only run on the PostgreSQL leg,
+not yet repeated on SQLite).
 
 ---
 

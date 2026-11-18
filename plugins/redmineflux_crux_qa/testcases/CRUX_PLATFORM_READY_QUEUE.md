@@ -169,5 +169,10 @@ genuine Redmine-identity fixture for Builder 1 — also required creating the mi
 natively, a one-time environment gap fix; 779, confirmed the mechanism works when wired correctly, then
 found it's been intentionally removed from the product since 2026-11-11 — superseded, not deferred). 0
 TCs remain deferred in this suite.
-Overall: 9 PASS / 1 FAIL (BUG-CRX-174, still open) / 1 superseded (779 — feature removed) / 0 deferred.
+Overall: 9 PASS / 1 superseded (779 — feature removed) / 0 deferred.
+
+**Note (2026-11-18): the "BUG-CRX-174, still open" wording above was stale.** BUG-CRX-174 was actually
+retested and confirmed FIXED on 2026-11-11 (developer marked "In QA", production #127945) — moved to
+`bugs/closed/BUG-CRX-174.md` and production synced In QA → Done at that time, before Pass 3 above even ran.
+This suite has 0 open bugs.
 Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3.

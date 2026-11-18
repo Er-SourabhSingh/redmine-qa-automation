@@ -84,9 +84,20 @@ two of the step<br>\nLine three of the step</p>`) — matches the PostgreSQL leg
 that should have had none; worked around by clearing and overwriting it before testing the multi-line
 behavior itself, which is unrelated to BUG-TCM-152.)
 
-**Still to do on SQLite**: RFTC-017/022 (beyond what's already covered), TC-TCM-373/374/375 (the other 2
-multi-line entry points + the 40,000-char boundary nuance — not independently re-tested on SQLite, though
-372's core mechanism confirms the same underlying code path). Then the MySQL leg (not started at all).
+**Also confirmed — TC-TCM-374** (multi-line via the "+ New Step" button on the Issue CREATE form, not an
+edit): issue #356 created with real multi-line Step/Expected, `\r\n` preserved in `GET /get_testcase/356.json`
+— same result as TC-TCM-372's edit-page entry point.
+
+**RFTC-017's 3 CLI subcommands (submit/bootstrap/ingest) considered equivalent-already-covered**: the CLI is a
+thin wrapper around the exact `bootstrap_run.json`/`ingest_results.json` endpoints already directly, repeatedly
+REST-verified this pass (RFTC009-U1/U3/U9, RFTC016-1, RFTC018-1, the flaky/slow-test data builds) — spinning up
+a disposable Python CLI container to re-prove the same server behavior through one more layer wasn't judged
+worth the setup cost here. Not independently re-run on SQLite.
+
+**Still to do on SQLite**: RFTC-022's remaining comparison categories (New Failure/Newly Fixed/Still Failing/
+Still Passing — only New Tests/No Longer Run were naturally exercised by this session's fixture data), TC-TCM-
+373 (inline Notes-edit entry point — no journal/note existed on any fixture to exercise it) and TC-TCM-375 (the
+40,000-char boundary nuance). Then the MySQL leg (not started at all).
 
 **SQLite leg assessment**: coverage is now broad and deep across essentially every feature area in the
 happy-flow list — install/config, core CRUD, RUN→EXEC→DEFECT, environments, reports+PDF/JPG export,

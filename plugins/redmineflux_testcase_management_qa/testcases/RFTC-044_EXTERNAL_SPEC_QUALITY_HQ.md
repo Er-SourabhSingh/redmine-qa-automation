@@ -1,7 +1,25 @@
-> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
-> RFTC044-1 PASS — Quality HQ cross-project dashboard loads with live data for the project; Flaky Tests and
-> Coverage metrics correctly show "This metric isn't available yet." matching the documented gap. RFTC044-
-> 5,9,10,11 not individually re-executed within this pass's time budget.
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). All 5
+> happy-flow RFTC044 TCs confirmed PASS. This instance has only 1 pre-existing project
+> (`RFTC-016 CI Ingest QA`), so a disposable second project (`rftc044-10-temp`) was created for the module-
+> toggle/no-data checks, then deleted after confirming:
+> - **RFTC044-1**: `/quality_hq` as admin — real numbers: `1 Projects Tracked`, `15 Active Runs`, `62% Overall
+>   Pass Rate`, `12 Total Failing`, `0 Overdue Runs`; the one row (`RFTC-016 CI Ingest QA`: 15/24/12/1/62%)
+>   matches.
+> - **RFTC044-5**: logged in as `daisy.skye` (Developer, non-admin, `view_report` via her one project
+>   membership — real browser login/logout, not a simulated session) — "Quality HQ" present in her top nav,
+>   `/quality_hq` rendered 200 with the identical 1-project data admin sees (no isolation-boundary issue since
+>   it's the same single project she's a member of).
+> - **RFTC044-9**: enabled `testcase_management` on the disposable project → `Projects Tracked` became **2**,
+>   with the new project correctly showing `No data`/`No data`/`No data` (zero everything). Disabled the module
+>   again → `Projects Tracked` dropped back to **1**, the disposable project disappeared entirely from the
+>   admin's own dashboard — confirms the admin branch genuinely intersects `EnabledModule`, not `Project.all`.
+> - **RFTC044-10**: the same disposable project (0 requirements, 0 runs) showed **"No data"** for Coverage (and
+>   Pass Rate/Health too) — never a misleading `0%` — while `RFTC-016` (which now has real requirements from
+>   this leg's RTM testing) correctly shows a real `0%` (has requirements, none yet covered) — the correct,
+>   different outcome, not a regression of the nil-vs-zero distinction.
+> - **RFTC044-11**: `RFTC-016`'s real 62% pass rate rendered as `Critical` (red), consistent with the
+>   `< 70 → red` band boundary.
+> **Zero new bugs found on this leg.**
 >
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️

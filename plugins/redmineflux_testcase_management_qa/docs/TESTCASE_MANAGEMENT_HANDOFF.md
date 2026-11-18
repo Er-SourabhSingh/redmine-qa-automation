@@ -1,6 +1,22 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 9 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 10 — read this first, supersedes the sections below)
+
+**RFTC-044 (Quality HQ) — all 5 happy-flow TCs confirmed PASS on SQLite** (1/5/9/10/11). Full writeup in
+`RFTC-044_EXTERNAL_SPEC_QUALITY_HQ.md`'s new "CROSS-DB (SQLite) — 2026-11-18" block. This instance has only 1
+pre-existing project, so a disposable second project was created for the module-toggle/no-data checks (RFTC044-
+9/10), then deleted. RFTC044-5 used a real browser login/logout as `daisy.skye` (not a simulated session) to
+confirm the non-admin `view_report` gate.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-018 (2), RFTC-020 (1), RFTC-016 (~14), RFTC-008/009 (remaining sub-cases), RFTC-038 (3,
+likely needs external CI infra — may defer like RFTC-017), and RFTC-045's 67-case set (not yet touched on
+SQLite at all).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 9 — superseded by round 10 above, kept for context)
 
 **RFTC-035 (Automation Dashboard) — all 7 happy-flow TCs confirmed PASS on SQLite** (1/2/3/4/11/13/15). Full
 writeup in `RFTC-035_EXTERNAL_SPEC_AUTOMATION_DASHBOARD.md`'s new "CROSS-DB (SQLite) — 2026-11-18" block. Built

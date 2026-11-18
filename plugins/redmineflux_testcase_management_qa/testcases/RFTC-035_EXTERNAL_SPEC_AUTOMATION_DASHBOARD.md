@@ -1,3 +1,31 @@
+> **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 7 happy-flow RFTC035 TCs confirmed PASS live on the real dashboard page, built on a
+> single disposable fixture (run #22, testcases 339/342): ingested a Passed → Failed (`auto_defect`) → Passed
+> result for the exact same `(run=22, issue=339, environment=CI)` cell under source `RFTC035-SourceAlpha`, and
+> one Passed result for issue 342 under a separate source `RFTC035-SourceBeta`.
+> - **RFTC035-1**: SourceAlpha and SourceBeta appear as two independent rows (1/0/100% each), each distinct from
+>   the 4 other pre-existing named sources ("CI Bootstrap Happy Flow" 10/5/50%, "RFTC034 burndown fixture
+>   source" 6/0/100%, "RFTC033 CI Automation Source" 1/0/100%) — no bleed between any of them.
+> - **RFTC035-2**: "Ungrouped" row present (`source_id: nil`) with 110 executions, 7 failures, 9.09% — not
+>   dropped or merged into a named source.
+> - **RFTC035-3 (SACRED)**: despite 3 ingestions for the same cell (Passed, Failed+auto_defect, Passed),
+>   SourceAlpha's `total_cells` stayed at **1** with `pass_count:1, fail_count:0` — the LATEST (Passed) result
+>   is the only one counted, confirmed via direct `RollupMath.automation_sources_overview` call.
+> - **RFTC035-4**: admin opened `/projects/rftc-016-ci-qa/automation_dashboard` live with no denial (header:
+>   "6 Sources / 129 Executions / 18.6% Pass Rate").
+> - **RFTC035-11**: SourceAlpha's `first_seen_at` (12:07:57 UTC) vs `last_seen_at` (12:08:21 UTC) — genuinely
+>   advanced to the latest ingestion's time across the 3 calls, not frozen at first-seen.
+> - **RFTC035-13**: summed every row's Executions on the live page (10+6+1+1+1+110 = **129**), cross-checked
+>   against `RollupMath.set_based_status_tally(1)`'s own total row count (89+24+12+2+1+1 = **129**) — exact
+>   match, no cell double-counted or dropped.
+> - **RFTC035-15**: "Ungrouped" (110 executions, by far the largest) still sorted LAST in the rendered table,
+>   after all 5 named sources (themselves sorted by descending execution count: 10, 6, 1, 1, 1).
+> Also confirmed in passing: `AutomationSourceResolver.lock_source_scope!`'s advisory lock is a documented
+> Postgres-only no-op (`return unless conn.adapter_name =~ /postgres/i`) — on SQLite the race-guard is simply
+> absent, exactly as the source code's own comment states; not independently stress-tested for a concurrent-
+> ingest race on this leg (same as the already-documented PostgreSQL-only guard behavior, not a new finding).
+> **Zero new bugs found on this leg.**
+
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1/RFTC021
 > FILES** ⚠️
 >

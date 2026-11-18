@@ -1,6 +1,25 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 8 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 9 — read this first, supersedes the sections below)
+
+**RFTC-035 (Automation Dashboard) — all 7 happy-flow TCs confirmed PASS on SQLite** (1/2/3/4/11/13/15). Full
+writeup in `RFTC-035_EXTERNAL_SPEC_AUTOMATION_DASHBOARD.md`'s new "CROSS-DB (SQLite) — 2026-11-18" block. Built
+one disposable fixture (run #22, testcases 339/342): a Passed→Failed→Passed sequence for the same cell under a
+new source "RFTC035-SourceAlpha" (confirms SACRED latest-per-cell-only counting, `total_cells` stayed 1), plus
+a second source "RFTC035-SourceBeta". Cross-checked the live dashboard page's own numbers (6 Sources/129
+Executions/18.6% Pass Rate) against two independent `RollupMath` service calls — exact match on every count.
+Also noted (not a new finding): `AutomationSourceResolver`'s advisory-lock race guard is a documented
+Postgres-only no-op, absent on SQLite exactly as the source comment states.
+
+**Zero new bugs found this round.**
+
+**Still to come:** RFTC-044 (2), RFTC-018 (2), RFTC-020 (1), RFTC-016 (~14), RFTC-008/009 (remaining
+sub-cases), RFTC-038 (3, likely needs external CI infra — may defer like RFTC-017), and RFTC-045's 67-case set
+(not yet touched on SQLite at all).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 8 — superseded by round 9 above, kept for context)
 
 **RFTC-026 (Testcase Milestones) — all 14 happy-flow TCs confirmed PASS on SQLite** (1/10/12/14/19/22/25/28/29/
 30/32/33/34/35). Full writeup in `RFTC-026_EXTERNAL_SPEC_TESTCASE_MILESTONES.md`'s new

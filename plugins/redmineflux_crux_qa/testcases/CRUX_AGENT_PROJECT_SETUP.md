@@ -398,11 +398,32 @@ final sign-off."
 **Expected Result:** `outcome_type: document` (matches the `document` template's `clarify→outline→draft→
 review→finalize` pipeline) — not defaulted to `software` regardless of what's actually being described.
 
-**Result: BLOCKED by BUG-CRX-114.** Since the agent never genuinely reaches a `crux_create_work_package`
-proposal at all for software-shaped requests (TC-CRX-433), there was no point testing whether a
-document-shaped request correctly resolves `outcome_type: document` — the more fundamental defect (the tool
-is never called) would mask any `outcome_type`-selection-specific finding. Re-test once BUG-CRX-114 is
-fixed.
+**Result: Re-executed 2026-11-18 (BUG-CRX-114 confirmed fixed 2026-11-02; this TC's BLOCKED result was
+discarded per CLAUDE.md §26's BLOCKED-TC rule, not treated as a valid prior result) — PASS on the core
+outcome_type question, but found a new bug (BUG-CRX-205) getting there.**
+
+1. Combined one-message ask ("Create a project called 'Crux Project Setup Test K' and I want the
+   onboarding guide tracked as a work package too...") → per the persona file's own documented rule
+   (`agents/project-setup.md`, "How you work" step 4: "for a ticket that's being created in the same
+   message, propose the project and ticket now and say the Work Package follows once they exist"), the
+   correct behavior was to propose the ticket too and disclose the pending WP. Instead neither happened —
+   only the project got created, zero mention of the ticket or the WP anywhere. Filed as part of
+   **BUG-CRX-205** (recurrence of the closed BUG-CRX-110's bundling-drop class on a 3rd bundled element).
+2. Explicit standalone follow-up, no existing issue number yet ("Now track the onboarding guide as a work
+   package too...") → correctly proposed the ticket (`create_issue`), but never disclosed that a Work
+   Package would follow — the exact missing half of the same documented rule. From the user's side this
+   looks identical to BUG-CRX-114's original tool-substitution shape, but more precisely it's a missing
+   mandatory disclosure, on an uncovered trigger path (BUG-CRX-114's own retest always referenced an
+   existing issue number). Also part of **BUG-CRX-205**.
+3. Created the ticket manually (issue #146), then explicitly named it: "Now track issue #146 as a work
+   package — it needs an outline review before drafting, and a final sign-off before it's done." →
+   **correctly** proposed `crux_create_work_package` with `Type: document` (not `software`) — this TC's own
+   core question. Confirmed; native-verified via `/crux/work_packages`: "Agent is working on: Clarify /
+   Then: your approval of the outline" for `#146 Onboarding Guide`, matching the `document` template's
+   `clarify→outline→draft→review→finalize` pipeline exactly.
+
+**Net: the outcome_type resolution itself (this TC's original question) is genuinely correct once the tool
+is reached — the remaining problem is entirely about getting there, now tracked as BUG-CRX-205.**
 
 ---
 

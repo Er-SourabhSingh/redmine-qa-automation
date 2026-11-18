@@ -185,6 +185,20 @@ TC-628's updated result, BUG-CRX-187). Still DEFERRED this pass — would need a
 cycle on a fixture project specifically for this TC's precondition, not built this pass. No longer blocked by
 "zero create path," just by a missing fixture.
 
+**Executed 2026-11-18 — FAIL, found new bug BUG-CRX-206.** Found the precondition already satisfied: "Crux
+No Module Test" (project #13) genuinely has the Testcase Management module disabled, confirmed natively via
+`/projects/crux-no-module-test/settings/modules` (the checkbox is unticked) — no disposable disable/
+re-enable cycle needed. Created a plain fixture issue (#147, with 3 explicit acceptance criteria) in that
+project. "Test Author, write test cases for issue #147" correctly produced 7 text-only cases. "Please
+create those as real test cases" was expected, per the persona file's own "How you work" step 4 ("without
+the plugin, give the cases as text and say they can be added once Testcase Management is installed"), to
+fall back to text-only with that disclosure. Instead, it called `list_test_suites`/`list_testcases` (which
+both succeeded), produced a genuine 7-item confirm card, and on confirmation **genuinely created all 7
+testcases** (#148–154) — native-verified via `list_testcases(project_id=13, tracker_id=4)`. Root-caused via
+source read: `mcp_testcase_controller.rb` has permission guards but no module-enabled check anywhere, so
+the agent's safety fallback can never actually trigger for a permitted user. Filed as **BUG-CRX-206**. The
+7 erroneous testcases were deleted afterward (`bulk_delete_testcases`) to leave the fixture project clean.
+
 ---
 
 ### TC-CRX-631: Never marks a case as tested or passed
@@ -224,6 +238,18 @@ the newly-generated cases (seed one manually first if needed).
 **Re-verified 2026-11-12:** TC-628 now shows a real create path IS reachable. Still DEFERRED this pass —
 needs a real pre-existing testcase seeded in the target suite first, which wasn't set up this pass. No longer
 blocked by "zero create path," just by a missing fixture.
+
+**Executed 2026-11-18 — FAIL, found new bug BUG-CRX-207.** Found the precondition already satisfied
+without building anything new: project #3 (Crux QA Agent Test Project), suite #1 "Login and Auth," already
+has testcase #11 "Verify login with valid credentials" (confirmed via `list_testcases`). Created a fresh
+fixture issue (#155) describing the identical scenario in its acceptance criteria. "Test Author, write and
+create test cases for issue #155 in the Login and Auth suite" → the agent genuinely called `Get issue`,
+`List test suites`, `List testcases`, `List projects`, and `List testcases in suite` (5 real tool calls,
+confirming the duplicate-check step itself ran) — but the resulting 5-item confirm card still proposed
+**"User logs in with valid email and password"** and **"User logs in with valid username and password,"**
+both semantically identical to the already-existing #11, with zero mention of it anywhere. Cancelled before
+confirming (no bad data created). Filed as **BUG-CRX-207** — the lookup runs, but its result is never
+actually compared against the newly-drafted cases before proposing.
 
 ---
 

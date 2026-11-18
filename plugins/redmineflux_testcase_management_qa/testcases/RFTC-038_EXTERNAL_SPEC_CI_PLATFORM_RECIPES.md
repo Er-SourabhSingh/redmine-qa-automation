@@ -1,3 +1,12 @@
+> **CROSS-DB (SQLite) — 2026-11-18 — DEFERRED, same precedent as RFTC-017.** `redmine6-happyflow-sqlite`
+> (`localhost:3021`) has no Jenkins/CLI harness standing against it — RFTC038-6/11/14 all require a real
+> `redmineflux-tcm` CLI invocation (bootstrap → pytest/JUnit → ingest → auto-defect) driven by an actual CI
+> container, not just REST calls against the plugin. Standing up a Jenkins container for a single cross-DB
+> spot-check isn't worth the cost relative to the actual risk (the plugin-side logic these 3 cases exercise —
+> `bootstrap_run.json`, `ingest_results.json`, auto-defect creation — is the exact same code already
+> exhaustively re-verified on this SQLite leg via RFTC-016/RFTC-008/RFTC-009 directly). Deferred, not executed;
+> flag for a dedicated session if/when a Jenkins harness is actually needed against this instance.
+>
 > **CROSS-DB (PostgreSQL) — 2026-11-17 — real Jenkins container actually built and run against happyflow-pg
 > this time, superseding the carried-forward note below.** Repointed the `redmineflux-tcm-ci` repo's Jenkins
 > lab (`jenkins/docker-compose.jenkins.yml`, `jenkins/jenkins.yaml`, `jenkins/run_pipeline.sh` — stashing the

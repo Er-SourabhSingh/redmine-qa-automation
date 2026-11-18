@@ -44,6 +44,98 @@
 > a product bug — resolved by rebuilding the fixture with registered environment names (`Chrome Latest`/`test`).
 > **Zero new bugs found on this leg.**
 >
+> **CROSS-DB (SQLite) — 2026-11-18, EXTENDED PASS beyond the happy-flow subset (user-directed):** on explicit
+> request, went beyond the 16 designated happy-flow cases and worked through the remaining 51 cases in this
+> 67-case suite on this same SQLite leg (runs #37-39, environments `Chrome Latest`/`test`/`Safari-RFTC045`/
+> `Firefox-RFTC045`, suite "SQLite Happy-Flow Suite" + a temporary 126-case suite for RFTC045-10). All confirmed
+> PASS unless noted:
+> - **3/4**: run creation auto-populated `assignee_id=5` on every original suite member (not later-added ones,
+>   matching RFTC045-58); env-level `RunAssignment` rows (`Chrome Latest:5, test:15, Safari-RFTC045:nil`)
+>   unaffected by the new per-TC field.
+> - **5/11/12/17/18**: captured exact `IssueStatusResult` row ids/statuses before and after both a bulk and an
+>   inline reassignment — byte-identical after; global `assigned_to_id` stayed `nil` throughout both paths.
+> - **6/7**: superseded — RFTC045-35 (below) already confirms the CURRENT build implements independent
+>   per-environment assignees (the fix for **BUG-TCM-140**, closed); 6/7's "shared value" premise described
+>   the pre-fix build.
+> - **10**: temporarily added 120 existing testcases to a suite (126 total), selected all 126 via
+>   `per_page=200` + "Select all on this page" ("126 Selected" banner), bulk-reassigned — DB-confirmed all 126
+>   `RunIssue.assignee_id` updated, zero truncation. Temporary suite membership cleaned up after.
+> - **19**: clicked an assignee cell to open the dropdown, then dismissed by clicking elsewhere — assignee and
+>   result stayed unchanged, no reset.
+> - **20**: triggered the inline dropdown on two different rows in quick succession — exactly one dropdown
+>   visible at a time, no stuck/duplicate state.
+> - **21/22/23/24/25**: as a genuine `edit_run`-holding Reporter (`aurora.wren`, real browser login), bulk AND
+>   inline reassignment both succeeded. As a genuine non-`edit_run` Developer (`daisy.skye`), both UI paths
+>   were absent AND a direct same-session `fetch()` to `reassign_testcases.json` returned a real 403. Granting
+>   `edit_run` to Developer **mid-session** (same login, no logout) made the UI paths appear on the next page
+>   load and the reassignment succeed — permission changes take effect without re-authentication. Reverted the
+>   role change after.
+> - **26/29/30/31**: Assignee filter narrowed correctly to the 2 real per-run-assigned cases (not global
+>   assignee, which was `nil` on both); combined with a Subject filter → correct AND narrowing (2→1); cleared
+>   → back to all 17; "Unassigned" (value `0`) option confirmed present in the filter's own option list.
+> - **27/28/49**: "My test cases" (as `aurora.wren`) showed exactly her 2 per-run-assigned cases on the Chrome
+>   tab and a different count (5) on the `test` tab — confirms answer (a), scoped to the active environment
+>   tab, not any-environment. No standalone/global "My Test Cases" nav entry exists anywhere in the plugin
+>   menu.
+> - **32/33**: Milestones list page (already exhaustively exercised earlier this leg) shows no regression from
+>   the new field; the Run's Test Case table has no CSV export option at all (`N/A`, matches the original
+>   finding — no feature to regress).
+> - **34**: DB-confirmed issue #342 has 20 distinct `RunIssue` rows across 20 different runs, independent ids
+>   and values — data-model isolation by construction, no shared-row risk.
+> - **36/37/38**: `RunIssueAssignment.effective_map` on Chrome Latest in one call showed all three resolution
+>   steps simultaneously on real data — override wins (`342/376→15`), falls back to the TC-level default when
+>   no override exists (`339/373/377→5`), and resolves to genuinely `nil`/Unassigned when neither exists
+>   (`341`) — never silently borrowing the environment's own `RunAssignment` default.
+> - **40**: superseded — Edit Run has no Assignee field at all (RFTC045-53/54), so a newly Edit-Run-added
+>   environment's `RunAssignment.assignee_id` is always `nil`; `seed_for!`'s own guard
+>   (`next if assignment.assignee_id.blank?`) correctly skips seeding in that case — confirmed directly
+>   (6 rows, all `assignee_id: nil`). The "seeds existing TCs from a real new-environment assignee" scenario
+>   can only happen via Add Run (RFTC045-39), not via Edit Run on this build.
+> - **41**: renamed the `test` environment directly — all 5 `RunIssueAssignment` rows and the `RunAssignment`
+>   row moved cleanly to the new name, zero orphans — confirms **BUG-TCM-147**'s fix (closed) holds. Reverted
+>   the rename after.
+> - **42**: removing an environment via Edit Run ("Safari-RFTC045") deleted its 6 `RunIssueAssignment` rows
+>   cleanly; Chrome Latest's and test's own rows were byte-identical before/after.
+> - **43**: superseded — a TC added to the run after creation does NOT get seeded per-environment rows
+>   (confirmed via #341/#338: `nil` everywhere until manually touched), consistent with RFTC045-58/59's own
+>   confirmed "starts Unassigned, not inherited" design — the effective_map fallback makes explicit seeding
+>   unnecessary.
+> - **44**: superseded — its premise (changing an environment's assignee via Edit Run cascades to TCs still at
+>   the old default) can't be exercised at all on this build since Edit Run has no Assignee field to change
+>   (RFTC045-53/54 already confirm this is a deliberate, later removal).
+> - **45/51**: the bulk Reassign modal's scope radio defaults to "Only this environment (<name>)" checked,
+>   "All environments" unchecked, confirmed on every modal open this session.
+> - **46**: explicitly selected "All environments" and reassigned #373 — DB-confirmed the same new assignee
+>   (7) landed on ALL THREE real environments (`Chrome Latest`, `test`, `Safari-RFTC045`) in one action.
+> - **47**: same `reassign_testcases` endpoint/permission gate re-exercised fully in 21-25 above; email send
+>   path unchanged (code path identical regardless of scope param, not independently re-verified via Mailpit
+>   this leg).
+> - **48**: filtered Assignee=Aurora Wren on the Chrome tab (2 results) then switched to the `test` tab with
+>   the same filter still active — 5 DIFFERENT results (test's own per-environment data), not a stale
+>   cross-environment result.
+> - **50**: the To Do page lists one row per Run×environment, each showing that **environment's own
+>   `RunAssignment` assignee** (e.g. "Run 3 (test)" → Unassigned, "Run 3 (Chrome Latest)" → Daisy Skye) even
+>   though individual TCs inside differ — confirms To Do stays driven by the Run-level environment assignee,
+>   never the new per-TC field, exactly as the ticket's "Out of scope" section states.
+> - **52**: implicitly confirmed throughout — every single-environment-equivalent check in this pass (e.g.
+>   run 39, one environment only) behaved exactly like the pre-#128320 model with zero special-casing needed.
+> - **55**: Add Run's own form still has a real `run[run_assignments_attributes][0][assignee_id]` select —
+>   confirms the Assignee-field removal is scoped to Edit Run only.
+> - **57**: the new "Safari-RFTC045" environment's 6 seeded rows are real `RunIssueAssignment` rows with
+>   `assignee_id: nil` (not zero rows) — same already-documented minor spec-wording deviation, not a defect.
+> - **59**: issue #341 (added after creation, never touched) resolves to `nil` on ALL THREE environment tabs,
+>   not just the one most recently viewed.
+> - **60/61/62/66/67**: three separate Edit Run saves (name-only change; add a 4th environment
+>   "Firefox-RFTC045"; remove "Safari-RFTC045") each produced "Run updated successfully" with the pre-existing
+>   15 `RunIssueAssignment` rows byte-identical before/after every single save — old per-TC/per-environment
+>   data and the new Assignee-less form coexist with zero migration surprise across repeated cycles.
+> - **65**: as `daisy.skye` (no `edit_run`), the Edit Run menu item was absent from the UI AND a direct
+>   `GET /runs/37/edit?project_id=1` returned a real `403 "Unauthorized access"` — same enforcement pattern as
+>   RFTC045-23/24, confirming the Assignee-field removal touched only the view layer, not the authorization
+>   path.
+> **Zero new bugs found across this extended 51-case pass — every genuine regression risk this suite checks
+> for (carry-over, isolation, permission gate, email, filter correctness, display resolution order) held.**
+
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES** ⚠️
 >
 > These test cases are designed from **5 production feature tickets** (#123917–#123921), part of the

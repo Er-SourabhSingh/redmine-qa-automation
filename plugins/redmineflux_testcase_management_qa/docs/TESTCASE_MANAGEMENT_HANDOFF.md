@@ -1,6 +1,31 @@
 # Handoff — Redmineflux Testcase Management
 
-## CURRENT STATUS (updated 2026-11-18, round 14 — read this first, supersedes the sections below)
+## CURRENT STATUS (updated 2026-11-18, round 15 — read this first, supersedes the sections below)
+
+**RFTC-038 deferred** — a note added to its own file explaining why (needs a real Jenkins/CLI harness this
+instance doesn't have; the underlying plugin logic it would exercise is already re-verified directly via
+RFTC-016/008/009). Same precedent as RFTC-017.
+
+**RFTC-045 — user-directed EXTENDED pass beyond the 16 happy-flow cases: all 67/67 cases now confirmed on
+SQLite.** Worked through the remaining 51 cases (permissions, filtering, display-resolution order,
+Edit-Run-save survival, env rename/add/remove, exports, regression guards). Full writeup appended to
+`RFTC-045_EXTERNAL_SPEC_PER_RUN_TESTCASE_ASSIGNEE.md`'s SQLite block. Highlights:
+- Confirmed **BUG-TCM-140** and **BUG-TCM-147**'s fixes both hold on this leg (independent per-env
+  assignees; environment-rename correctly cascades to `RunIssueAssignment`).
+- RFTC045-40/43/44 flagged as **superseded** — their premises describe an earlier build (Edit Run used to
+  have an Assignee field; a new TC used to get seeded per-env rows) that the later #128320/53-54 changes
+  deliberately removed. Not defects — documented for whoever reads this suite next.
+- Real permission-boundary testing throughout: genuine browser logins as `aurora.wren` (has `edit_run`) and
+  `daisy.skye` (doesn't), including a direct `fetch()` 403 and a mid-session permission grant with no
+  re-login required.
+- Zero new bugs found in the extended pass.
+
+**This completes the SQLite leg's happy-flow pass across every RFTC group — RFTC-038 deferred (documented),
+every other group 100% done**, including RFTC-045's full 67-case suite (not just its happy-flow subset).
+
+---
+
+## CURRENT STATUS (updated 2026-11-18, round 14 — superseded by round 15 above, kept for context)
 
 **RFTC-045 (Per-Run/Per-TC/Per-Environment Assignee) — all 16 happy-flow TCs confirmed PASS on SQLite**
 (1/2/8/9/13/14/15/16/35/39/53/54/56/58/63/64). Full writeup in

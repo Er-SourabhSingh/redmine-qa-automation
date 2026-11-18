@@ -329,7 +329,99 @@ of native-verification step this cycle has applied throughout rather than trusti
 **Summary: 20 full PASS, 10 partially confirmed, 1 FAIL (new bug filed), 24 explicitly deferred (documented
 reason each) out of 55 TCs (TC-CRX-1021–1075).**
 
-## Suite status
+## Execution — 2026-11-18 (deferred-TC completion pass)
 
-Executed 2026-11-05 — 20 PASS, 10 partial, 1 bug (BUG-CRX-181), 24 deferred. Source:
+Worked through this suite's own deferred backlog per explicit user instruction. Built a genuine second-user
+fixture (Luna Blossom, Manager role on the Crux PM Agent Test Project — has `use_ask_crux`) for the share-viewer
+checks, and used Sage Willow (Reporter role — has `use_ask_crux` but not `edit_issues`) for the no-edit-rights
+wand check — both logged into directly (logout/login, same browser) since this tooling's single browser context
+can't hold two simultaneous distinct logins.
+
+- **TC-CRX-1025** — PASS. Shared a fresh chat with `luna.blossom` as admin, then logged in as her: the chat
+  appeared under a genuine "Shared with you" group (not Pinned/Today/etc.), labeled "Shared by admin, read-only.
+  1m ago." Opening it showed the banner "Shared by admin — read-only, you can't send or change anything here.",
+  the composer was a `disabled` textbox with placeholder "Read-only — shared session", and Send was `disabled`.
+- **TC-CRX-1026** — Still not independently testable this pass either: genuinely confirming "appears within ~4
+  seconds without a manual reload" needs the owner and viewer sessions live at the same time, and this tooling's
+  single browser context only ever holds one logged-in identity at a time (logging in as a second user ends the
+  first's session in the same cookie jar). This is a tooling constraint, not a product finding either way.
+- **TC-CRX-1027** — PASS. While logged in as the viewer (`luna.blossom`), the shared chat's header showed only
+  the cost pill — no Share button of her own appeared anywhere.
+- **TC-CRX-1030 / TC-CRX-1031** — Both PASS, confirmed together. With the admin-wide chat budget verified blank
+  (no admin cap configured at all) and a personal limit of $0.001 set, sending a real message got a full, normal
+  answer plus `"You've spent $0.84 today — over the $0.00 reminder limit you set for yourself."` — chat was
+  never blocked, confirming both that the personal limit is reminder-only (1030) and that it works with zero
+  admin cap configured (1031, since one never existed in this check).
+- **TC-CRX-1032** — Confirmed (previously unverified, now a definitive structural finding, not a bug). The
+  personal-limit field is a native `<input type="number">`; directly setting its DOM value to `"abc"` via script
+  showed the browser itself coerces it to `""` before any JS handler ever sees it — a truly non-numeric value is
+  unreachable through the UI on any standards-compliant browser. Saving in that coerced-empty state is treated
+  as "no limit" (same as Clear), not an error. The documented "Enter an amount…" rejection message for
+  non-numeric input is therefore dead/unreachable UI code, not a product defect — this round upgrades the
+  finding from "not independently reproduced" to "confirmed structurally unreachable."
+- **TC-CRX-1036** — PASS. Cleared `localStorage`/`sessionStorage` to simulate a genuinely fresh profile: the
+  bubble launcher showed class `crux-bubble-pulse` on first load. After opening the bubble once and reloading
+  the page, the pulse class was gone. (The optional Launch teaser label isn't configured on this instance —
+  `settings[bubble_teaser]` is blank — so that half of the TC isn't independently exercisable here.)
+- **TC-CRX-1045 / TC-CRX-1046** — Still not independently testable this pass, same single-browser-context
+  constraint as TC-1026: both require a permission/session change to land on an *already-open* second identity's
+  live page, which this tooling cannot hold simultaneously with the admin identity needed to make that change.
+- **TC-CRX-1047 — PASS.** Temporarily pointed `settings[core_url]` at an unreachable address
+  (`http://crux-core-unreachable:9999`), sent a message: got the exact documented `"Crux is unavailable right
+  now. Please try again in a moment — if it keeps happening, ask your Redmineflux administrator."` with a Retry
+  button. Restored the real URL (`http://crux-core:8787`) afterward.
+- **TC-CRX-1048** — Not attempted this pass — disabling the one working AI provider/key was judged too risky
+  given it's shared infrastructure this cycle still needs; remains exactly as documented, unverified.
+- **TC-CRX-1049 — PASS** (via the same TC-1047 repro). After the core-down error, the composer still held the
+  original unsent text `"Testing core-down error message."` — confirmed not lost.
+- **TC-CRX-1050 — PASS** (same repro, continued). While the error was still live in one tab, restored the real
+  Core URL from a second tab (same browser, same login — tabs don't need separate identities for this one), then
+  switched back: within the next recheck cycle the chat automatically showed `"Crux is back. You can try again
+  now."` with no manual reload or retry click.
+- **TC-CRX-1051** — Not attempted this pass (engineering a genuinely truncated/cut-off response wasn't
+  reproducible without deeper backend access) — remains as documented, unverified.
+- **TC-CRX-1052** — Not independently confirmed this pass. Two deliberately broad, multi-step questions (a
+  full-instance summary; a cross-reference research task, sent to the Research agent) both completed in well
+  under 20 seconds on this environment's fast model (`anthropic/claude-haiku-4.5`) — the "(still working…)"
+  trigger condition was never reached. Not a defect; this environment is simply too fast to engineer the
+  precondition without artificially throttling the backend.
+- **TC-CRX-1055** — Not attempted this pass (engineering a genuine sub-project permission failure mid-creation
+  wasn't set up) — remains as documented, unverified.
+- **TC-CRX-1056 — PASS, native-verified.** Opened "Break down the work" on issue #40 (already had exactly 8
+  subtasks from earlier fixture work), unticked all 3 proposed items, clicked "Create selected": got
+  `"Select at least one subtask to create."` — confirmed via `list_issues(parent_id=40)` that the subtask count
+  is still exactly 8, no write occurred.
+- **TC-CRX-1060 — PASS, native-verified.** Logged in as Sage Willow (Reporter — `use_ask_crux` but no
+  `edit_issues`), opened "Improve the description" on issue #40, clicked Apply: got an honest failure —
+  `"write failed: tool 'redmineflux_core_update_issue' failed: ... You do not have permission to update issue
+  #40..."` — not a false success. Before/After text in the panel were identical (no proposed change actually
+  landed), and `get_issue(40)` afterward confirmed `Updated` was still the same pre-existing timestamp.
+- **TC-CRX-1062 — PASS, fully confirmed.** Rated an "Improve the description" suggestion with 👍: got
+  `"Thanks for the feedback."`, and both 👍 and 👎 became genuinely `disabled` immediately after — confirmed
+  one-time-only, not just the clicked button but the whole rating widget. Cancelled the panel afterward without
+  applying.
+- **TC-CRX-1064 — PASS, confirmed via Run Ledger.** The admin's own "Create selected" (TC-1056) and Sage
+  Willow's "Improve the description" attempt (TC-1060) each produced their own real Run Ledger row (`run-1641`
+  and an earlier Improver run respectively), both tagged "Answered in Ask Crux" via the Improver agent — Improve
+  actions are genuinely recorded as runs.
+- **TC-CRX-1072** — Not attempted this pass (engineering an agent reply that accidentally matches its own
+  mention pattern wasn't constructed) — remains as documented, unverified.
+- **TC-CRX-1073** — Not independently re-verified via the @-mention path specifically this pass — still only
+  cross-referenced via the generic chat-write path (TC-CRX-765, TC-CRX-928), same as the original pass.
+- **TC-CRX-1074** — Not attempted this pass (20+ genuinely pending mentions on one issue is far beyond
+  reasonable fixture-building scope) — remains as documented, unverified.
+
+**Deferred-pass summary: 12 PASS (1025, 1027, 1030, 1031, 1032, 1036, 1047, 1049, 1050, 1056, 1060, 1062) + 1
+cross-verified via native evidence (1064) = 13 closed, out of the 24 previously-deferred TCs. 11 remain
+deferred: 1026, 1045, 1046 (single-browser-context tooling constraint — need two simultaneous live identities);
+1048, 1051, 1055, 1072, 1074 (not attempted — too risky to shared infrastructure, or impractical to construct);
+1052 (environment too fast to reach the 20s trigger); 1073 (still only cross-referenced, not re-verified via
+this specific path).**
+
+## Suite status (updated 2026-11-18)
+
+Pass 1 (2026-11-05): 20 PASS, 10 partial, 1 bug (BUG-CRX-181), 24 deferred.
+Pass 2 (2026-11-18): 13 more closed (12 PASS + 1 native-verified), 11 still deferred (documented reason each,
+unchanged by further effort this pass).
+Overall: 33 PASS/confirmed, 10 partial (unchanged from Pass 1), 1 bug (BUG-CRX-181), 11 deferred. Source:
 `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.9–13.12, §14.

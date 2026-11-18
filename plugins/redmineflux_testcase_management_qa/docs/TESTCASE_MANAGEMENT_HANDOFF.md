@@ -49,6 +49,39 @@ MCP, per the user's explicit instruction.
 
 **Test Cases group (§1) is now 17/17 COMPLETE on SQLite.**
 
+**Test Suites group (§1, TC-TCM-192/193/194/197/198/199/200/201/202) — 9/9 COMPLETE on SQLite**, but with an
+important self-correction mid-way that's worth recording for any future session touching this plugin's suite
+tree UI:
+
+- TC-TCM-193 (sub-suite #5 under suite #1) and TC-TCM-194 (3rd-level sub-suite #6 under #5) — PASS, created
+  cleanly via the hover-revealed kebab menu's "Add Sub Test Suite".
+- **Self-correction:** the suite tree renders a `<span id="testsuite-menu-icon" data-testsuite-id="N">` kebab
+  icon **once per suite row**, all sharing the literal id `testsuite-menu-icon` (duplicate IDs, invalid HTML
+  but real). A bare `document.querySelector('#testsuite-menu-icon')` therefore grabs whichever one happens to
+  be first in DOM order — **not necessarily the suite currently being viewed.** My first attempts at TC-198
+  (delete empty suite #6) and TC-200 (delete parent-with-subsuites) both silently clicked the wrong suite's
+  menu this way: the "Delete Test Suite?" modal's own "Related testcase counts" line didn't match the suite I
+  intended (a real, useful tell), and a `GET .../test_suites.json` recheck afterward proved suite #6 was still
+  there and suite #200's sub-suite had actually been created under the wrong parent. **Fix:** always select the
+  icon via `Array.from(document.querySelectorAll('[id="testsuite-menu-icon"]')).find(e =>
+  e.getAttribute('data-testsuite-id') === '<id>')`, and sanity-check the modal's own testcase count against
+  what's actually expected before clicking Delete. Re-did both TCs correctly afterward and confirmed via the
+  REST test-suites list before and after.
+- TC-TCM-198 (delete empty suite #6) — PASS, re-verified: suite count went from 9 to 8, confirmed via REST.
+- TC-TCM-199 (delete a suite with cases, #7 holding 2 cases) — PASS. The delete confirmation modal's own
+  wording ("All its sub-suites and test cases will be deleted too") is **misleading** — actual behavior just
+  unassigns the cases; both survived with `GET /issues/<id>.json` returning 200 and unchanged content. Noted as
+  a UI-copy inaccuracy, not filed as a bug since no data is actually lost.
+- TC-TCM-200 (delete parent suite #8 with sub-suite #10) — PASS (after the self-correction above): deleting
+  the parent correctly cascade-deleted its sub-suite too, confirmed via REST (`total_count` dropped by 2,
+  neither #8 nor #10 present afterward).
+- TC-TCM-201 (testcase count display toggle) — enabled "Show Testcase Count In Test Suites" in plugin
+  settings; the suite tree correctly shows a `(4)`-style badge next to "SQLite Happy-Flow Suite" matching its
+  real case count — PASS.
+- TC-TCM-202 (suite tree state/selection) — selecting suite #1 filters the grid to exactly its own 4 cases;
+  selecting child suite #5 (0 own cases) correctly shows "No data to display", not the parent's cases —
+  confirms no aggregation/leakage between tree levels — PASS.
+
 **Key UI mechanics learned this round (useful for any future suite-tree work on this plugin):**
 - The suite tree's test-case rows are jQuery-UI `ui-draggable`/suite nodes are `ui-droppable` — a raw
   Playwright `dragTo()` single-jump often doesn't register; a real multi-step `mouse.move()` sequence (15-20

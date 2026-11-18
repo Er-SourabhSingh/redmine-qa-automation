@@ -97,12 +97,18 @@ new bug found:**
 - TC-TCM-162 (run state persistence — all 5 states: New/In progress/Done/Rejected/Under review) — all
   confirmed round-tripping correctly via create+edit. Noted: both "Done" and "Rejected" states lock the run's
   Action menu down to **only** "Delete Run" (no Edit/Close) — consistent, not a bug.
-- TC-TCM-165 (Active/Closed tab partition) — **FAILED. New bug filed: BUG-TCM-153** (Medium) — the closed run
-  (#12, confirmed `is_closed:true` via REST) still appears under the **Active** tab, reproduced 3 ways (default
-  page load, `?tab=Active` URL, and a genuine click on the Active tab link). Correctly appears under Closed
-  too (so it's not *missing* from Closed, just *also* wrongly shown in Active). TC-TCM-165 was previously
-  confirmed PASS against a different (PostgreSQL) instance per this file's own 2026-10-23 entry — this is
-  either a regression or environment-specific; not yet determined which.
+- TC-TCM-165 (Active/Closed tab partition) — **PASS** (corrected). Initially mis-marked FAILED with a bug filed
+  (BUG-TCM-153): an early DOM scan (`page.locator('a[href*="/runs/"]')` across the whole page, no `isVisible()`
+  check) found run #12's link present in the markup and wrongly concluded it was listed under Active. The user
+  asked for a direct re-check ("153 tcm wala bug check kro... active tab me run 12 nhi dikha"), which exposed the
+  mistake: both the Active and Closed tab tables are pre-rendered into the DOM and toggled via CSS, not loaded
+  per-tab via AJAX — so an unscoped selector picks up the other tab's hidden rows too. Re-checked with
+  `isVisible()` and a full-page screenshot of the real rendered Active tab: run #12 is `visible:false` there and
+  `visible:true` in the Closed tab — the plugin's partition is correct, exactly matching the already-confirmed
+  2026-10-01/2026-10-23 PostgreSQL evidence. **BUG-TCM-153 retracted and deleted** (never reported to production,
+  no sync needed). Same class of self-inflicted error as the earlier `offsetParent`-on-`position:fixed` mistake
+  this round — any future DOM scan of this plugin's tabbed views must check `isVisible()`/scope to the visible
+  tab panel, not just search raw href/selector matches across the whole page.
 - TC-TCM-166 (search by run name/ID — full name, partial name, numeric ID) — all three correctly isolate
   exactly run #15 in the actual run table (a naive whole-page-text check picks up unrelated testcase rows
   elsewhere on the page — scope the check to the run `<table>` itself) — PASS.

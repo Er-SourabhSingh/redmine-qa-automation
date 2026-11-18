@@ -512,6 +512,21 @@ review" (run #19) stays in Active, only "Done"/"Rejected" land in Closed (see TC
 **RETESTED 2026-10-23 — PASS, spot-check.** After closing run #82 (State → Done), confirmed it appeared only in
 the Closed tab and was absent from Active — consistent with the original finding.
 
+**SQLite leg, 2026-11-18 — initial FAIL (BUG-TCM-153) RETRACTED as a false positive, corrected to PASS.** First
+pass used a bare `document.querySelector`/`page.locator('a[href*="/runs/"]')` scan of the page's raw DOM without
+checking element visibility — found an `<a href="/runs/12?...">` present in the markup and concluded run #12
+(closed, `is_closed:true`) was listed under Active. Filed as BUG-TCM-153. The user asked for a direct re-check
+("153 tcm wala bug check kro... active tab me run 12 nhi dikha"), which caught the mistake: both tabs' tables are
+pre-rendered into the DOM and toggled with CSS visibility, not loaded via AJAX per tab-click — so a DOM-only
+query finds BOTH tables' rows regardless of which is actually showing. Re-checked with `locator(...).isVisible()`:
+run #12's row in the Active-tab table is `visible: false`; the same row in the Closed tab is `visible: true`.
+A full-page screenshot of the real rendered Active tab confirms only 10 runs (#15/#11/#10/#8/#7/#6/#5/#3/#2/#1),
+run #12 not among them. **BUG-TCM-153 retracted — deleted from `bugs/open/`, removed from `bugs/_index.md`** (it
+was never reported to production, so no production sync needed). Lesson for future DOM scans on this plugin's
+tabbed views: always gate on `isVisible()`/scope to the active tab's container — a bare href/selector match
+across the whole page silently includes the other tab's hidden content, exactly the same class of self-inflicted
+error as this session's earlier `offsetParent`-on-`position:fixed` mistake.
+
 ---
 
 ### TC-TCM-166: Search a run by name and by ID

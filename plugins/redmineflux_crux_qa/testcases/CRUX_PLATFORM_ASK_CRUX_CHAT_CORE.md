@@ -308,7 +308,61 @@ for several TCs). Exploratory verification beyond the written steps throughout (
 **Summary: 23 full PASS, 7 partially confirmed, 1 FAIL (new bug filed), 11 explicitly deferred (documented
 reason each) out of 55 TCs (TC-CRX-966–1020).**
 
-## Suite status
+## Execution — 2026-11-18 (deferred-TC completion pass)
 
-Executed 2026-11-05 — 23 PASS, 7 partial, 1 bug (BUG-CRX-180), 11 deferred. Source:
-`CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.1–13.10.
+Closed out the 11 previously-deferred TCs (975, 981, 983, 986, 997, 1000, 1002, 1006, 1007, 1009, 1010), per
+explicit user instruction to work through this suite's own deferred backlog.
+
+- **TC-CRX-975** — PASS. Opened the floating bubble on a real issue page (`/issues/40`), typed `@re` into its
+  composer via real keystrokes: no autocomplete menu appeared at all (confirmed via DOM — zero visible
+  `.crux-menu-item`/`[role=menu]` elements), text stayed plain `"@re"` in the textarea. Confirms the full-page-
+  only `@`-mention behavior.
+- **TC-CRX-981** — PASS, all 3 exclusion rules independently confirmed. (1) Plugin-missing: "DevOps Agent" and
+  "Code Reviewer" are absent from the full 23-agent picker list (DevOps plugin not installed on this instance).
+  (2) Worker exclusion: "Builder 1"/"Builder 2" also absent from the same list. (3) Chat-agents allow-list:
+  checking only "Research" in Settings → Chat agents and saving reduced the live picker to exactly 2 entries —
+  "Crux (auto)" and "Research" — confirming the setting genuinely restricts the list; reverted after
+  confirming.
+- **TC-CRX-983** — PASS. Cleared `localStorage`/`sessionStorage` (simulating a fresh browser profile) with
+  Settings → Default agent left blank — the picker fell back to "Auto ▾" on reload, instead of the
+  previously-persisted "Docs Writer ▾". Per-role default differing was not independently tested — this
+  instance's Settings page has only one global "Default agent" field, no per-role variant found.
+- **TC-CRX-986 — FAIL, new bug BUG-CRX-215.** Broader Auto-routing sample beyond the 3 already-filed misroutes:
+  "What is our current team workload and capacity?" routed to Project Manager instead of Workload Agent,
+  reproduced 2/2 in two fresh chats. Content was accurate (real tool call, real team/sprint data) — only the
+  routing was wrong, same shape as BUG-CRX-171/172/173 on a 4th domain.
+- **TC-CRX-997 — FAIL, new bug BUG-CRX-214.** Pinned all 20 of the account's real existing chats (confirmed via
+  DOM — single "Pinned" group, 20 rows), then created one brand-new, unrelated, unpinned chat. The oldest of
+  the 20 pinned chats was silently evicted from the Pinned group entirely — not via a 21st pin attempt, but via
+  the ordinary global "keep 20 newest" retention rule, which does not appear to exempt pinned chats at all.
+  Unpinned the remaining 19 afterward to restore normal state.
+- **TC-CRX-1000** — PASS (now independently confirmed, not just inferred). With the account's real multi-day
+  QA-cycle history (many more than 20 chats ever created), the sidebar consistently showed exactly 20 — no
+  more, no less — confirming the "only 20 newest kept" retention rule is real and not a UI pagination limit.
+  (This same evidence directly fed the TC-997 bug above.)
+- **TC-CRX-1002** — PASS. Set a personal daily limit of $0.001 via the chat header's limit pill: the pill
+  immediately changed to the documented format `"$0.00/day · $0.82 today"` (rounds the tiny limit to 2dp,
+  shows the real today-total). Cleared afterward.
+- **TC-CRX-1006** — PASS. Patched `navigator.clipboard.writeText`/`execCommand` to capture the copied argument
+  (avoiding a clipboard-permission hang) and clicked Copy: the captured text was exactly the clean answer body
+  — no "Checked N things" chip text, no button labels, no cost footer, no `#40` link markup.
+- **TC-CRX-1007** — PASS. Clicking "Ask again" resent the identical original question ("What is the status of
+  ticket #40?") as a genuinely fresh turn (confirmed via DOM — 2 full question/answer pairs with identical
+  question text), not an edited or different one.
+- **TC-CRX-1009** — PASS. Set the admin-wide chat budget to $1.00 (today's real spend was already ~$0.82–0.83)
+  and sent one more message: the answer correctly showed `"⚠ 83% of today's $1.00 chat budget used ($0.83
+  spent) — resets at 00:00 UTC."` Reverted the budget to blank afterward.
+- **TC-CRX-1010** — PASS. With the $0.001 personal limit from TC-1002 still active and today's real spend over
+  it, the next answer showed `"You've spent $0.82 today — over the $0.00 reminder limit you set for
+  yourself."` — correctly distinct, self-set-reminder wording, separate from TC-1009's admin-cap wording.
+
+**Deferred-pass summary: 9 PASS, 2 FAIL (2 new bugs: BUG-CRX-214, BUG-CRX-215) out of the 11 previously-deferred
+TCs.**
+
+## Suite status (updated 2026-11-18)
+
+Pass 1 (2026-11-05): 23 PASS, 7 partial, 1 bug (BUG-CRX-180), 11 deferred.
+Pass 2 (2026-11-18): all 11 deferred TCs closed out — 9 more PASS (975, 981, 983, 1000, 1002, 1006, 1007, 1009,
+1010), 2 new bugs found (997 → BUG-CRX-214, 986 → BUG-CRX-215).
+Overall: 32 full PASS, 7 partial (same as Pass 1, not re-exercised), 3 bugs found (BUG-CRX-180/214/215), 0
+TCs still deferred. Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.1–13.10.

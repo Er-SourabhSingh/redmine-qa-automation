@@ -1,3 +1,20 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED (entire group untested on this leg before now):** all
+> 5 happy-flow RFTC044 TCs confirmed PASS on `happyflow-pg` (`localhost:3020`):
+> - **RFTC044-1**: `/quality_hq` as admin — real numbers: `1 Projects Tracked`, `27 Active Runs`, `54% Overall
+>   Pass Rate`, `12 Total Failing`, `7 Overdue Runs`; the one row matches exactly.
+> - **RFTC044-5**: temporarily switched `qauser` (genuine non-admin) to the Manager role (holds `view_report`)
+>   via a real browser login/logout — "Quality HQ" present in her top nav, `/quality_hq` rendered 200 with
+>   data identical to admin's view. Role reverted to Developer after.
+> - **RFTC044-9**: created a disposable 2nd project, enabled `testcase_management` → `Projects Tracked`
+>   became **2** with the new project correctly showing `No data`/`No data`/`No data`; disabled the module
+>   again → back to **1**, the disposable project disappeared entirely — confirms the admin branch
+>   genuinely intersects `EnabledModule`, not `Project.all`.
+> - **RFTC044-10**: the same disposable project (0 requirements, 0 runs) showed **"No data"** for Coverage/
+>   Pass Rate/Health — never a misleading `0%`.
+> - **RFTC044-11**: `happyflow-pg`'s real 54% pass rate rendered as `Critical` (red), consistent with the
+>   `< 70 → red` band boundary.
+> Disposable project deleted after confirming. **Zero new bugs found on this leg.**
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). All 5
 > happy-flow RFTC044 TCs confirmed PASS. This instance has only 1 pre-existing project
 > (`RFTC-016 CI Ingest QA`), so a disposable second project (`rftc044-10-temp`) was created for the module-

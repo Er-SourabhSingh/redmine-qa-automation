@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Settings
 
+> **Regression (2026-11-19):** PASS -- Core URL Test connection returned "Connected to the Crux core service."
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-888.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §9. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

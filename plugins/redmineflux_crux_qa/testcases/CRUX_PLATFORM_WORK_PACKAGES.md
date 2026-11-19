@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Work Packages List & Detail
 
+> **Regression (2026-11-19):** PASS -- filter tabs show real live counts (All 18, Waiting for you 5, In progress 11), table rows match.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-754.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

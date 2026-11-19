@@ -246,6 +246,8 @@ setup steps for new hires.") — grounded in a real `get_node` read, not paraphr
 
 ### TC-CRX-506: Create node (page) — positive
 
+> **Regression (2026-11-19):** PASS -- confirm card exact title/content; confirmed; node #16 genuinely created as draft (status later published in TC-512).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -349,6 +351,8 @@ title change, leaving the live page and its own "Current Version" record permane
 ---
 
 ### TC-CRX-512: Publish a node — positive
+
+> **Regression (2026-11-19):** PASS -- confirmed; node #16 native-verified status=published.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

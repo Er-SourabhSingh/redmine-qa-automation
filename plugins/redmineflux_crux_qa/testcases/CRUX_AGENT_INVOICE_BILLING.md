@@ -494,6 +494,8 @@ closed, production #128967 synced Done/100%.
 
 ### TC-CRX-487: Send invoice — draft → sent, InvoiceHistory event recorded
 
+> **Regression (2026-11-19):** PASS -- send genuinely moved invoice #16 from DRAFT to SENT, native-verified.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`. **Precondition:** a genuine Draft invoice.
@@ -698,6 +700,8 @@ mentions the user at all). Filed as **BUG-CRX-139**.
 ---
 
 ### TC-CRX-496: Create invoice with two line items, each attributed to a different, genuine project member — Notes field verification
+
+> **Regression (2026-11-19):** PASS -- confirm card showed both line items with correct distinct user ids; confirmed; invoice #16 native-verified with correct line items/total (870.0) and exact Notes text.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

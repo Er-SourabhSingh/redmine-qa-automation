@@ -3,6 +3,24 @@
 > (run 2, exec run) at `/projects/happyflow-pg/run_comparisons`; all six output categories (New Failure,
 > Newly Fixed, Still Failing, Still Passing, New Tests, No Longer Run) rendered correctly.
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. Scope per `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md` §3: RFTC022-2,3,4,5,6,7 (all six core
+> output buckets). Built a dedicated 6-issue fixture suite (`RFTC022 QA Fixtures (MySQL)`, suite id 13) and two
+> real runs (`RFTC022-Base-Run (MySQL)` id=26, `RFTC022-Compare-Run (MySQL)` id=27) via `bin/rails runner`, with
+> results written through real `IssueStatusResult.create!` calls (one per bucket): A=Passed→Failed (New Failure,
+> with a real linked defect), B=Failed→Passed (Newly Fixed, defect on both sides), C=Failed→Failed (Still
+> Failing, same defect both runs), D=Passed→Passed (Still Passing), E=absent-in-base→Passed (New Test), F=Passed→
+> absent-in-compare (No Longer Run). Called `RollupMath.suite_diff(base_run, compare_run, project:, user:)`
+> directly: **all six buckets classified their fixture correctly** — new_failure{A}, newly_fixed{B},
+> still_failing{C}, still_passing{D}, new_test{E, base_status=nil}, no_longer_run{F, compare_status=nil} — one
+> entry each, matching RFTC022-2 through RFTC022-7's expected results exactly. Re-confirmed live via Playwright at
+> `/projects/happy-flow-mysql/run_comparisons?base_run_id=26&compare_run_id=27`: summary tiles read
+> 1/1/1/1/1/1 (New Failures/Newly Fixed/Still Failing/Still Passing/New Tests/No Longer Run), and each bucket's
+> drill-down table showed the correct issue, environment ("CI"), base run status, and compare run status —
+> identical to the backend tally. All PASS, zero new bugs. (MySQL's reserved-word bug, BUG-TCM-155, is scoped to
+> `AutomationSourceResolver`'s CI-source lookup only — `suite_diff`/`each_result_timeline_cell` use no raw SQL on
+> the `key` column, so this feature is unaffected, confirmed by this pass's own clean results.)
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

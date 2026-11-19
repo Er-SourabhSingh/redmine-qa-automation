@@ -82,6 +82,24 @@ genuine `pyproject.toml` packaging gap.
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql` (`project_id:1`). All 3 happy-flow RFTC017 TCs confirmed PASS, via a real `pip install -e .`
+> of the `redmineflux-tcm-ci` checkout (`C:\redmine v6\plugins\redmineflux-tcm-ci`, copied to a space-free path
+> first — Docker's bind-mount source must be a real Windows path, not a Git-Bash `/tmp` path, which resolves
+> inside the Bash shell only and is invisible to the Docker Desktop daemon) inside a disposable
+> `python:3.11-slim` container reaching the server via `host.docker.internal:3022`:
+> - **`bootstrap` (RFTC017-2):** `Run created: id=20 suites=[11] reused=False` via a real `bootstrap_run.json`
+>   call, exit 0, real `{"status": "success", "run_id": 20, ...}` JSON.
+> - **`ingest` (RFTC017-3):** against run #20, a real 2-test JUnit XML (1 pass, 1 failure) with
+>   `--auto-defect` → `Ingested 2 results (2 matched, 0 unmatched)`, defect #124 auto-created, exit 0. (First
+>   attempt without `--auto-defect` correctly surfaced the server's own "A failed or blocked result requires a
+>   defect" error as exit 1 — confirmed the CLI's auto-defect flag is a real pass-through, not a no-op.)
+> - **`submit` (RFTC017-1):** a real 3-test JUnit XML + a `cases` mapping JSON (`{name: {testcase_id,
+>   testsuite_id}}`) against a fresh run (#21) — `Parsed 3 JUnit testcases: 2 mapped, 1 unmatched` (correctly
+>   reported, not silently dropped), a real defect (#125) auto-created for the failing test, `bulk_create`
+>   succeeded, exit 0.
+> **Zero new bugs found on this leg.**
+>
 > **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict RETRACTED, re-tested for real, PASS.** The earlier
 > "CLI not installed" verdict was a false negative — the CLI source (`C:\redmine v6\plugins\redmineflux-tcm-ci`)
 > was right there, just not checked. Installed it (`pip install -e .` inside a disposable `python:3.11-slim`

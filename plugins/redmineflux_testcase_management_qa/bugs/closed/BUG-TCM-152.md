@@ -115,6 +115,30 @@ localStorage.getItem('savedSteps')
 => "[{\"step\":\"Click the logout link\",\"expected\":\"User is redirected to the login page\"},{\"step\":\"Try to access a protected page\",\"expected\":\"User is redirected to login again\"},{\"step\":\"\",\"expected\":\"\"}]"
 ```
 
+## Retest — FIXED (2026-11-19)
+
+Developer fix: commit `a6cb342` ("Stop a new test case from getting another test case's steps (BUG-TCM-152)"),
+replacing the global `localStorage['savedSteps']` key with an in-memory `window.rftcStepsDraft` object scoped
+to `{scope: 'new' | issue.id, steps: [...]}` — survives Redmine's own in-page form refresh but never persists
+across page loads or different issues. The old `localStorage` key is actively removed on every page load so
+stale data left by earlier plugin versions is never read again.
+
+Pulled the fix into the shared plugin checkout (`C:\redmine v6\plugins\redmineflux_testcase_management`) and
+restarted all three cross-DB happy-flow containers (SQLite/PostgreSQL/MySQL legs share this same mount).
+Retested live on the SQLite leg (`localhost:3021`), repeating the exact original repro:
+
+1. Opened #341's Edit page, confirmed its own Step 1 ("Click the logout link"), navigated away without saving.
+2. Opened a brand-new `/projects/rftc-016-ci-qa/issue_testcase/new` form — Steps section genuinely empty, no
+   pre-filled content. Confirmed via `localStorage.getItem('savedSteps')` → `null` (old key cleared).
+3. Typed only a Subject and, after the server's own "Steps and expected result cannot be blank" validation
+   forced at least one real step, typed a step with content clearly distinct from #341's own ("Retest step
+   for BUG-TCM-152 fix verification"). Created issue **#396**.
+4. `GET /get_testcase/396.json` → exactly 1 step, byte-for-byte what was typed — zero trace of #341's content.
+5. Re-checked #341 itself (`GET /get_testcase/341.json`) — unaffected, still shows its own original 2 steps.
+
+**Confirmed fixed, both directions, no regression.** Production issue **#128944** updated: In QA → **Done**,
+% done → **100%** (approved by user, 2026-11-19).
+
 ## Duplicate check
 
 - Duplicate found: No (checked `bugs/_duplicates.md` and `bugs/_index.md` — no prior entry about a

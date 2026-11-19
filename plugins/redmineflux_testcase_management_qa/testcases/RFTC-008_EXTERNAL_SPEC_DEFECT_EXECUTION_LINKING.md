@@ -1,3 +1,30 @@
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 6 happy-flow RFTC008 TCs confirmed PASS, driven directly via `curl` with admin's real
+> API key against two fresh defects (#115, #116) and fresh executions — this build requires `defect_ids` at
+> creation time for any Failed/Blocked `bulk_create` call (confirmed: the UI's own "Defects*" field is required,
+> matching this), so F1 here demonstrates `link_defect` **adding a second defect** to an already-defect-bearing
+> execution rather than zero→one, which is the same shape of evidence the SQLite leg's own F1 recorded:
+> - **F10** (bulk_create writes the join automatically): `bulk_create.json` on run 1 for issue 4 (Failed) with
+>   `defect_ids:"115"` → 201 (execution #3); `ExecutionDefect` row auto-created (`issue_status_result_id:3,
+>   defect_issue_id:115`), confirmed via DB.
+> - **F1**: created defect #116, then `link_defect.json` with `execution_ids:[3]` → 201, `link_id:5`;
+>   `defect_ids` recomputed from `"115"` to `"115,116"` (appended, not replaced); both `IssueRelation`s
+>   (issue 4→115, issue 4→116) confirmed via DB.
+> - **F2/U3**: created 2 more fresh executions (issue 6/Failed on run 1, issue 9/Blocked on run 3) with
+>   `defect_ids:"115"`, then bulk-`link_defect.json` with `execution_ids:[2,54]` to defect #116 → 201 for both.
+> - **F11/U6**: `GET /defects/116/executions.json` → all 3 executions listed (executions 3, 2, 54 — 2 Failed +
+>   1 Blocked, 2 different runs), full run/suite/environment/status context, served from the join.
+> - **F7/U8/U9/U10**: `unlink_defect.json` with `execution_ids:[3]` for defect 116 → 200; `defect_ids` on
+>   execution 3 correctly recomputed back to `"115"` (116 removed, 115 retained); the issue-4→116
+>   `IssueRelation` was correctly removed (execution 3 was the only link); issue-6→116 `IssueRelation` correctly
+>   **retained** in the same check (execution 2 still links it) — both halves of the "remove join, recompute,
+>   retain/remove relation" behavior confirmed in one pass.
+> - **UI2/UI3**: on the live run grid, opening the Add Result modal and switching Status to Failed revealed both
+>   a real **"Defects\*"** picker and a **"Report Defect"** link (UI2). The grid's own **"Defect ID's"** column
+>   correctly showed **"#115"** for issue 4 and **"#115, #116"** for issue 6, exactly matching the links made
+>   above (UI3); the run's own "Linked defects (2)" sidebar panel also correctly listed both #115 and #116.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 6 happy-flow RFTC008 TCs confirmed PASS, built on a fresh defect (#388) and existing
 > Failed/Blocked executions from this leg's own RFTC-016/RFTC-027 fixtures:

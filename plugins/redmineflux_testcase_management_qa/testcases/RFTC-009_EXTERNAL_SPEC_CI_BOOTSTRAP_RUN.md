@@ -20,6 +20,42 @@
 >   → both results written in the same response.
 > **Zero new bugs found on this leg.**
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql` (`project_id:1`). All 5 happy-flow RFTC009 TCs confirmed PASS, as `qa_mysql` (Developer, a
+> genuine project member — **admin itself is NOT a project member on this instance either**, confirmed via
+> `Member.where(project_id:1)`, matching the same finding on the SQLite leg, so admin alone can't exercise the
+> caller-default-assignee path):
+> - **U1/U3/U9**: a brand-new suite name ("RFTC009 New Suite (MySQL)") → `created:true`, `state:2`, CI default
+>   auto-applied, assignee defaulted to the caller (`assignee_id:5`).
+> - **U5/U6/U7**: `on_existing` default (`reuse`) → same run #10 both times, `reused:false` then `reused:true`.
+>   `"error"` → 422 "A run named '...' already exists in this project." `"suffix"` → a new run (#11) named with
+>   a `" #2"` suffix.
+> - **Struct1**: 3 environments (`CI`/`Staging`/`Production`) in one `run_assignments` array (each needing an
+>   explicit `assignee_id:5` — a bare `{environment:...}` entry without one is correctly rejected with "Every
+>   run assignee must be a project member who can execute test cases") against a 1-case suite → DB-confirmed
+>   `{CI:1, Staging:1, Production:1}` — fully independent per-environment seeding.
+> - **Struct2**: 3 suites in one call (`RFTC009 New Suite`, `TC-TCM-202 parent`, `TC-TCM-202 child`, 1 case
+>   each) → `testsuite_ids:[10,6,7]`; DB-confirmed each suite's case landed under its own correct
+>   `testsuite_id` (`{6:1, 7:1, 10:1}`), no cross-mapping.
+> - **E1**: one `bulk_create` call submitting a Passed (issue 9) and a Failed-with-defect (issue 10,
+>   `defect_ids:"115"`, the same defect created earlier this leg for RFTC008) together → both results written
+>   in the same response (ids 58, 59).
+> - **Methodology note (not a product bug):** `POST /testcase_ci/bootstrap_run.json` with `project_id` as the
+>   project's **slug string** (`"happy-flow-mysql"`) returned `404 Project not found`; the **numeric** id
+>   (`1`) worked correctly — the reverse of RFTC009-U4's own "uses the identifier string, not the numeric id"
+>   claim about `Testsuite#project_id`'s own storage, but consistent with how every other REST endpoint on
+>   this build (`issues.json`, `test_suites.json`, etc.) expects the numeric project id. Not pursued as a bug
+>   since the spec's U4 claim is about `Testsuite#project_id`'s storage format, not this endpoint's accepted
+>   input — a separate, correctly-documented-elsewhere behavior.
+> - **Tooling note:** to seed a suite for Struct1/Struct2, a fresh testcase issue (#117) had to be added to a
+>   suite via a direct DB insert into the real `issue_test_suites` join table — `Issue#testsuite_id` is a
+>   legacy/unused column (confirmed: even issue #4, a long-seeded real suite member, shows `testsuite_id: nil`
+>   on the Issue model itself); actual suite membership lives in `issue_test_suites`, not on the issue row.
+>   `POST /projects/.../issue_testcase.json` as `qa_mysql` returned 403 (Developer lacks the create permission
+>   used by that specific form endpoint), so the join row was inserted directly for this one-off fixture setup
+>   rather than treated as a finding.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 5 happy-flow RFTC009 TCs confirmed PASS, as `luna.blossom` (Manager, a genuine project
 > member holding `create_run`+`create_test_suite`+`execute_testcase`, so the caller-default-assignee path could

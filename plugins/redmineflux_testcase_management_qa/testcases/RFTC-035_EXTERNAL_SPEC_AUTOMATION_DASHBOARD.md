@@ -1,3 +1,33 @@
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 7 happy-flow RFTC035 TCs confirmed PASS live on the real dashboard page, built on a
+> dedicated fixture (run #31, testcases 154/155 — "SourceAlpha Case"/"SourceBeta Case"):
+> - **RFTC035-1**: SourceAlpha (1 Passed + 1 Failed, two different cells) and SourceBeta (1 Passed) ingested
+>   via real `IssueStatusResult.create!` calls — confirmed independent, non-bleeding stats both via
+>   `RollupMath.automation_sources_overview` directly and live on the dashboard.
+> - **RFTC035-2**: this project's pre-existing 92 manually-recorded (`source_id IS NULL`) results appear as an
+>   explicit "Ungrouped" row alongside the 3 named sources, never merged or silently dropped.
+> - **RFTC035-3 (SACRED)**: retested the exact same `(run=31, issue=154, environment=CI)` cell under
+>   SourceAlpha with a later Failed result — `total_cells` stayed exactly **2** (not 3) for SourceAlpha, and
+>   `pass_count` dropped from 1 to 0 (only the LATEST result counted, the earlier Passed attempt was correctly
+>   superseded, not double-counted).
+> - **RFTC035-4**: a real dedicated test user (`rftc026viewer`, holds only `:view_issues`/`:view_report`, no
+>   milestones permission) opened `/projects/happy-flow-mysql/automation_dashboard` via a genuine login — clean
+>   200, header "4 Sources / 96 Executions / 39.58% Pass Rate" matching the live table exactly. Confirmed
+>   identically as admin beforehand.
+> - **RFTC035-11**: SourceAlpha's `last_seen_at` genuinely advanced from unset to the retest's timestamp
+>   (`2026-11-19 10:37:31 UTC`) on the second ingestion — not frozen at first-seen.
+> - **RFTC035-13**: summed every row's `total_cells` via `RollupMath.automation_sources_overview` (96) and
+>   independently cross-checked against `RollupMath.set_based_status_tally(project.id)`'s own total row count
+>   (also 96) — exact match, reconfirmed live on the dashboard's own header ("96 Executions").
+> - **RFTC035-15**: sorted source order was `[SourceAlpha(2 cells), CI Fixture Suite(1 cell), SourceBeta(1
+>   cell), Ungrouped(92 cells, nil source_id)]` — Ungrouped sorted strictly LAST despite having by far the
+>   largest volume, matching the `[source_id.nil? ? 1 : 0, -total_cells]` sort key exactly.
+> **Zero new bugs found on this leg.** (BUG-TCM-155's MySQL-reserved-word bug is scoped to
+> `AutomationSourceResolver.find_by_key_ci`'s CI-ingest-time lookup only — every source here was created via
+> `AutomationSource.find_or_create_by!` directly, the same path a real CI ingest that finds no existing match by
+> key would also use; `RollupMath.automation_sources_overview`'s own SQL groups by `source_id` with no `key`
+> column reference at all, so this page is unaffected once a source genuinely exists.)
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 7 happy-flow RFTC035 TCs confirmed PASS live on the real dashboard page, built on a
 > single disposable fixture (run #22, testcases 339/342): ingested a Passed → Failed (`auto_defect`) → Passed

@@ -134,6 +134,36 @@
 > which remains genuinely deferred (needs 2 independent, simultaneously-authenticated browser contexts — a real
 > tooling limitation, not a coverage gap). This does not by itself complete the plugin's CLAUDE.md §27 full-cycle
 > regression — `TESTCASE_MANAGEMENT_REPORTS.md` and `TESTCASE_MANAGEMENT_TODO.md` remain fully outstanding.
+>
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`).
+> **TC-TCM-152 PASS** — created run #1 ("TC-TCM-152 all-fields run (MySQL)") with Name/Note/TestRun
+> Status/Environment ("Chrome - Windows 11")/Assignee ("QA MySQL") all set and specific-case selection (issues
+> #3, #4, #6). One methodology note: the modal's first fill-in (Name + Note + Status) was discarded by a full
+> page reload done mid-flow for unrelated environment-fixture setup — the Add Run modal's client-side state does
+> not survive a navigation. Recovered by using the real **Edit Run** feature afterward to re-apply Note/Status
+> plus a Due Date change (this also covers TC-TCM-157's own scope) — DB-verified via `rails runner`:
+> `r.attributes.slice('notes','state','due_date')` → `{"notes"=>"<p>TC-TCM-152/157 happy-flow note, edited via
+> Edit Run (MySQL)</p>", "state"=>2, "due_date"=>Wed, 25 Nov 2026}`. Run/environment/assignee data is stored on
+> the separate `RunAssignment` join table (`run_assignments_attributes`), not on `Run#environment`/`#assignee_id`
+> directly — querying the `Run` model's own columns for this looked like a failure at first but was simply the
+> wrong table (own verification mistake, not a bug). **TC-TCM-157 PASS** — covered by the Edit Run
+> re-application above (Note + TestRun Status + Due Date all persisted correctly).
+>
+> **TC-TCM-153 PASS, with one self-inflicted fixture bug caught and fixed before recording the verdict.** First
+> real-UI "Include all test run" creation (run #2) only pulled `RunIssue`s [3, 4, 6] — missing issues #9/#10,
+> which live under testsuites #6/#7 (the TC-TCM-202 parent/child chain created earlier this leg). Root cause:
+> `Testsuite#project_id` stores the project's **string slug** (`"happy-flow-mysql"`), not the numeric Redmine
+> project ID — confirmed via `rails runner` (`Testsuite.find(1).project_id => "happy-flow-mysql"` vs.
+> `Testsuite.find(6).project_id => "1"`). Suites #6/#7 had been created earlier this leg directly via `rails
+> runner` with the numeric ID instead of the slug, so the real UI's "Include all" query (scoped by the string
+> slug) correctly never saw them — a test-fixture artifact, not a plugin bug (same class of mistake the
+> PostgreSQL leg's own TC-153/154 note already flagged re: this same column). Fixed the two rows
+> (`Testsuite.where(id:[6,7]).update_all(project_id: 'happy-flow-mysql')`), deleted the incorrect run #2, and
+> recreated it fresh through the real Add Run UI (run #3, "TC-TCM-153 include-all run (MySQL)", Chrome -
+> Windows 11 / QA MySQL, default "Include all test run" radio left selected). DB-verified: `RunIssue` for run #3
+> = `[3, 4, 6, 9, 10]`, exactly matching every suite-linked issue across all 3 testsuites in the project — zero
+> missing, zero extra. Confirms "Include all" genuinely pulls the whole project, same behavior as the SQLite/PG
+> legs.
 
 ## Plugin
 - Name: Redmineflux Testcase Management

@@ -5,6 +5,18 @@
 > from the UI but not a bug), newly-created environments selectable on a new run, edit name persists, delete
 > unused environment works. Identical behavior to other engines.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
+> project `happy-flow-mysql`. **TC-TCM-038 PASS** — created `ENV-A-MYSQL` with component "Hardware" via Add
+> Environment; DB-verified `TestcaseEnvironment#name/#components` match exactly. **TC-TCM-039 PASS** — the Add
+> Run form's Environment dropdown correctly offers `ENV-A-MYSQL` alongside the existing Chrome/Firefox options.
+> **TC-TCM-042 PASS** — created run #9 (`TC-TCM-042 env-rename run (MySQL)`) against `ENV-A-MYSQL`, recorded a
+> Passed result on case #3, renamed the environment to `ENV-A-MYSQL-RENAMED` via the real Edit Environment
+> modal. Confirmed: the existing result survives the rename (`case_status_id` still 2/Passed), and run #9's own
+> page shows the new name everywhere (0 mentions of the old name, 3 of the new) — BUG-TCM-020's fix holds on
+> MySQL too. **TC-TCM-043 PASS** — created `ENV-DELETE-UNUSED-MYSQL` (component "Software"), deleted via the
+> row's own Delete action with the real "Delete Environment? ... This action cannot be undone." confirmation
+> naming the environment — DB-verified it no longer exists. **Zero new bugs filed.**
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 1 and the vendor KB "Environment Management" section.
 > **Status: executed 2026-10-01** against a different, older instance/project (`test-project`/
 > `tcm-permissions-private-test`), same stale-instance pattern already caught in

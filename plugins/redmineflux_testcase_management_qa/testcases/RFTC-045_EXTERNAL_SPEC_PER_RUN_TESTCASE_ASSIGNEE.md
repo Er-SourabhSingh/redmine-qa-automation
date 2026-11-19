@@ -50,6 +50,45 @@
 > issue #42, and the "Safari-RFTC045-PG" environment) deleted after confirming. **Zero new bugs found on this
 > leg.**
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 16 happy-flow RFTC045 TCs confirmed PASS, on a dedicated run (#32, 4 test cases
+> eventually, "RFTC045 QA Fixtures (MySQL)" suite) with 2 real dedicated tester users:
+> - **RFTC045-1/2**: inline-reassigned issue #157's per-run (Chrome) assignee to RFTC045 Tester2 — issue #157's
+>   own global `assigned_to_id` stayed `nil` throughout. Then set the global assignee to QA MySQL directly — the
+>   per-run override (`RunIssueAssignment`) stayed Tester2 (`10`), confirmed independent both directions.
+> - **RFTC045-8/9/13/14**: selected 2 non-full rows (157, 158) → "2 Selected" banner; bulk-Reassigned to a user
+>   already assigned to one of them (RFTC045 Tester1, already on 158) → both updated cleanly (no duplicate-
+>   assignment error), the unselected row (159) untouched.
+> - **RFTC045-15/16**: clicked issue #157's assignee cell → a real dropdown listing actual project members
+>   (QA MySQL, RFTC026 Viewer, RFTC029 Deleter, RFTC045 Tester1/2) → clicked a name → updated in-place, URL
+>   stayed at `/runs/32`, 2 clicks total.
+> - **RFTC045-35**: same test case (#157), same run, set Chrome tab → RFTC045 Tester2 and Firefox tab → QA MySQL
+>   independently — switching back to Chrome still showed Tester2, confirmed both directions.
+> - **RFTC045-53/54**: via the REAL "Edit Run" UI flow (clicking the run list's Edit icon, which loads the modal
+>   via an AJAX `format: js` request), the environment rows exposed only `environment` `<select>`s, no
+>   `assignee_id` select anywhere; "Assignee" rendered only as a read-only span with the tooltip "Assignees are
+>   not changed here...". **Methodology note (not a product bug):** direct browser navigation to the plain HTML
+>   URL (`/runs/:id/edit`) instead renders a completely blank content area — traced to
+>   `app/views/runs/edit.html.erb` using `<% render partial: 'edit_form' %>` (missing the `=` that would actually
+>   emit the partial's output), while the real AJAX path (`edit.js.erb`) correctly uses `<%= j render 'edit_form' %>`.
+>   Since the actual UI never links to the bare HTML URL (only the JS-driven modal), this blank-direct-URL gap
+>   is not reachable through real usage and is noted here for awareness, not filed as a bug.
+> - **RFTC045-56**: registered a 3rd project environment ("Safari-RFTC045 (MySQL)") and added it via the real
+>   Edit Run modal's "+ Add" link (a genuine Playwright click on the actual button, selecting the new
+>   `<select>` via its own ref) — DB-confirmed its `RunAssignment.assignee_id` is `nil` and all 3 existing test
+>   cases got `RunIssueAssignment` rows with `assignee_id: nil` for it — fully Unassigned, nothing borrowed from
+>   Chrome/Firefox.
+> - **RFTC045-58**: used Edit Run's "Only the following test runs" → Select Cases to add a brand-new test case
+>   (#160) to the run — its `RunIssue.assignee_id` is `nil` and zero `RunIssueAssignment` rows exist for it,
+>   confirming it did not inherit any of the run's existing per-TC values.
+> - **RFTC045-63/64**: inline single reassignment (2 clicks, no navigation) still works unaffected; bulk
+>   reassignment's **both scopes** confirmed distinctly via the real Reassign dialog's radio buttons — "Only
+>   this environment" updated just Chrome's `RunIssueAssignment` rows (Firefox's independent override on the
+>   same issue stayed untouched); "All environments" updated the shared `RunIssue`-level default instead and
+>   cleared ALL of that issue's environment-specific overrides (both Chrome and Firefox), correctly propagating
+>   everywhere — confirmed live on both the Chrome and Firefox tabs afterward.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 16 happy-flow RFTC045 TCs confirmed PASS, on a 2-then-3-environment fixture run (#36/37,
 > 6 test cases from "SQLite Happy-Flow Suite"):

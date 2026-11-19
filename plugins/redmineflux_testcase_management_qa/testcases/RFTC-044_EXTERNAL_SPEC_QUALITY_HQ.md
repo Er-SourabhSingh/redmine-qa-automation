@@ -1,3 +1,28 @@
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). All 5
+> happy-flow RFTC044 TCs confirmed PASS. This instance has only 1 pre-existing project (`happy-flow-mysql`), so
+> a disposable second project (`rftc044-qhq-fixture-b`) was created for the module-toggle/no-data/isolation
+> checks, then deleted after confirming:
+> - **RFTC044-1**: `/quality_hq` as admin — real numbers: `2 Projects Tracked`, `25 Active Runs`, `68% Overall
+>   Pass Rate`, `15 Total Failing`, `0 Overdue Runs`; hand-verified against `QualityHqRollupService`'s own
+>   computed rollup for `happy-flow-mysql` (active_runs=25, status_counts Failed=15, pass_rate=68) called
+>   directly — exact match. The fixture project (0 requirements, 0 runs) correctly showed `No data` rather than
+>   a crash or a fabricated 0%.
+> - **RFTC044-5**: a real dedicated test user (`rftc044limited`, Manager-equivalent role holding only
+>   `:view_issues`/`:view_report`, project member of the fixture project only, NOT an admin) opened `/quality_hq`
+>   via a genuine login — "Quality HQ" present in her top nav, page rendered 200 with `1 Projects Tracked`
+>   (only her own project, zero data from `happy-flow-mysql` — the isolation boundary held).
+> - **RFTC044-9**: disabled `testcase_management` on the fixture project → `Projects Tracked` dropped from
+>   **2** to **1**, the fixture project disappearing entirely from admin's own dashboard; re-enabled the module
+>   → back to **2** — confirms the admin branch genuinely intersects `EnabledModule.where(name:
+>   'testcase_management')`, not `Project.all`.
+> - **RFTC044-10**: the same fixture project (0 requirements, 0 runs) showed **"No data"** for Pass Rate/
+>   Coverage/Health, never a misleading `0%` — correctly distinct from `happy-flow-mysql`'s own Coverage column,
+>   which shows a real `0%` (it HAS 5 requirements, genuinely 0% covered) rather than "No data", matching the
+>   pinned `nil`-not-`0` contract's two different correct outcomes exactly.
+> - **RFTC044-11**: `happy-flow-mysql`'s real 68% pass rate rendered as `Critical` (red), consistent with the
+>   `< 70 → red` band boundary, not a fixed `<50` or some other unstated cutoff.
+> Fixture project deleted after confirming. **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED (entire group untested on this leg before now):** all
 > 5 happy-flow RFTC044 TCs confirmed PASS on `happyflow-pg` (`localhost:3020`):
 > - **RFTC044-1**: `/quality_hq` as admin — real numbers: `1 Projects Tracked`, `27 Active Runs`, `54% Overall

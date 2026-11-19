@@ -1,3 +1,17 @@
+> **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED — RFTC034-9 and RFTC034-12, live chart UI this time.**
+> - **RFTC034-9**: built a disposable Version ("RFTC034-9 Snapshot Mechanism Fixture (PG)", id=8) with a linked
+>   run/result and 0 pre-existing snapshot rows. Step 1: opened its Burndown page once →
+>   `TestcaseMilestoneSnapshot.where(project_id:1, version_id:8).count` went from **0 to 1**. Step 2: reloaded
+>   the page 3 more times via Playwright → count stayed at **1** (no duplicate, no raise). Step 3: closed the
+>   version, reloaded Burndown again → count stayed at **1** (no new row for a closed milestone, confirming
+>   `snapshot!`'s early return). Fixture fully deleted after confirming.
+> - **RFTC034-12**: on "v1.0 Release" (real data, 3 runs, 20 total results), opened the Burndown page and read
+>   the chart's own today-marker tooltip: "11/19/2026: Remaining 15, Executed 5, Scope 20" and the "Remaining
+>   today" stat card (15). Expanded "Show as table": today's row read Scope=20, Executed=5, Remaining=15,
+>   Ideal=17 — exactly matching both the stat card and the chart's today-marker. No discrepancy between the two
+>   renderings of the same `points` array.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict superseded, PASS confirmed via direct API.** Created a
 > run via the REST API with `milestone_id=1` attached from creation (run #9), submitted 2 real results (1
 > passed, 1 failed), then called `/testcase_mcp/milestones/1/burndown.json` directly: before results,

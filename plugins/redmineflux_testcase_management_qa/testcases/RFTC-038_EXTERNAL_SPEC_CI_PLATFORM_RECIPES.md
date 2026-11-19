@@ -1,3 +1,34 @@
+> **CROSS-DB (MySQL) — 2026-11-19 — real Jenkins container, all 3 PASS.** Reused the existing `tcm-ci-jenkins`
+> container (image `tcm-ci-jenkins:local`, repo mounted at `C:\redmine v6\plugins\redmineflux-tcm-ci`) rather
+> than standing up a second one — repointed its JCasC config (`jenkins/jenkins.yaml`'s pipeline environment
+> block + `jenkins/docker-compose.jenkins.yml`'s default) at `http://host.docker.internal:3022`/project
+> `1`/ident `happy-flow-mysql`/env `CI`, used `qa_mysql`'s own real API key (already minted earlier this leg;
+> `qa_mysql` genuinely holds `create_run`+`create_test_suite`+`execute_testcase` on this project), and rebuilt
+> the image (`docker compose -p jenkins -f jenkins/docker-compose.jenkins.yml up -d --build` — JCasC bakes
+> `jenkins.yaml` into the image, so a plain restart does not pick up edits). Created 6 real testcases in
+> `happy-flow-mysql` with Automation Keys matching the demo-project's own pytest tests (`test_login_valid`,
+> `test_login_invalid_password`, `test_add_item_to_cart`, `test_remove_item_from_cart`,
+> `test_apply_discount_code` — the deliberate failure, `test_password_reset_email`), linked into a real new "CI
+> Ingest" suite, so the pipeline's automation-key matching would have real targets instead of running entirely
+> unmatched.
+> - **RFTC038-6**: triggered build #3 via the real Jenkins REST API (crumb-authenticated POST), confirmed via
+>   both the real console log and the live TCM UI: `base_url: http://host.docker.internal:3022`,
+>   `project: 1 (happy-flow-mysql)`, bootstrap created Run #33, real `pytest` ran (`4 passed, 1 failed, 1
+>   skipped`), `ingest --auto-defect` reported `Ingested 6 results (6 matched, 0 unmatched)`, build result
+>   `SUCCESS`. Opened Run #33 live on `localhost:3022`: `4 Passed / 1 Failed / 1 Skipped out of 6` — exact
+>   match, and a genuinely new defect **#168** ("CI failure: test_apply_discount_code [Jenkins CI Build 3]")
+>   auto-created and linked to testcase #166 as a "Defect" relation — a real stack-trace-backed defect
+>   (`AssertionError: SAVE10 should have made the total 90.00, but it did not / assert 100.0 == 90.0`) from a
+>   real CI failure, matching the original PostgreSQL/SQLite-leg evidence class exactly.
+> - **RFTC038-11**: the same console log shows `RUN_ID=33` captured cleanly from
+>   `jq -r '.run_id' "$WS/bootstrap.json"` — no stdout scrape, confirmed live in this exact run.
+> - **RFTC038-14**: separately, `python3 -m redmineflux_tcm ingest` inside the Jenkins container with a
+>   fabricated JUnit report containing one test with no matching Automation Key anywhere in the project →
+>   `UNMATCHED: test_totally_unmatched_case_xyz (passed)`, `Ingested 1 results (0 matched, 1 unmatched)`,
+>   **CLI exit code 0** — a warning, not a failure; the build would have stayed green.
+> **Zero new bugs found on this leg — all 3 cases fully executed, not deferred, completing §4 of the MySQL
+> leg's happy-flow cross-DB pass in full.**
+
 > **CROSS-DB (SQLite) — 2026-11-18 — UPGRADED from deferred to fully executed, real Jenkins container, all 3
 > PASS.** The earlier same-day deferral note (kept below for history) was superseded on explicit user request:
 > reused the existing `happyflow-pg-jenkins` container (image `tcm-ci-jenkins:local`, repo mounted at

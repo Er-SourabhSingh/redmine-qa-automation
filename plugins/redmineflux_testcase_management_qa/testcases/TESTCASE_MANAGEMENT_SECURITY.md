@@ -185,6 +185,14 @@ entry) for full detail, including a minor unrelated observation (`IssueStatusRes
 flat/non-nested params body instead of a clean validation error — not a CSRF issue, not filed as a bug, noted for
 a future input-robustness pass).
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. Re-verified both variants against `test_suites.json` with admin's real API key
+> (`ca86a07ff5e8cb741b382773376c0f1d595794e6`): HTTP-Basic-key-as-username → `201 Created` (testsuite #8); the
+> `?key=` URL-param variant → `201 Created` (testsuite #9). Server log confirmed `Current user: admin (id=1)`
+> for both requests; grepped the full container log for `Filter chain halted` and found 6 unrelated hits
+> (`rftc_authorize_testcase_new!`, `find_issue`, `find_optional_project` — none for `rftc_verify_session_csrf!`
+> and none from these two requests). PASS, zero new bugs.
+
 ---
 
 ## Authorization enforcement at the endpoint (beyond role — zero-permission member)

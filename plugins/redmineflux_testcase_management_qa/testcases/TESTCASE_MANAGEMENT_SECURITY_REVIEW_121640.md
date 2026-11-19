@@ -581,3 +581,16 @@ endpoints (MCP, run, import controllers)
 **Expected Result:**
 - Every one of these normal, in-project actions succeeds exactly as before — none of the added authorization/
   sanitization/allow-list checks block a legitimate same-project user doing their normal job.
+
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. PASS, evidenced by this entire MySQL-leg session's own happy-flow work rather than a
+> standalone repeat — every action this TC lists was already performed successfully, with zero
+> authorization/sanitization/allow-list blocks, across §1 and §2 of `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`
+> on this leg: test suite creation (TC-112-adjacent and the main suite setup), test case creation (TC-001/128/
+> 129/132/133/136/137 etc.), run creation and result recording (Test Runs & Execution group, TC-TCM-152 through
+> 189), defect linking/reporting (TC-173/174/177, BUG-TCM-173 et al.), a requirement created and an issue linked
+> to it both via bulk-edit and the Edit form (TC-112/115/116/310), a CSV import (TC-021/024/034/336), a report
+> generated and emailed (TC-078-110's Reports group), and run search/filtering (Filters panel used throughout
+> Test Runs & Execution). Zero new bugs. As a genuine normal-role cross-check (not just admin), qa_mysql's own
+> Developer-role session (TC-046/052/055/059/062 in the Permissions group) also performed suite/run creation,
+> run closing, and report viewing without any block.

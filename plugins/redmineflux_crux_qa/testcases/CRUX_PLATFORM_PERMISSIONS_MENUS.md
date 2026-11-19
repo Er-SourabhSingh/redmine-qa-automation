@@ -22,6 +22,8 @@
   (no others), confirm the test user can open `/crux`, `/crux/work_packages`, `/crux/queue`, `/crux/runs`,
   `/crux/agents`, `/crux/pipelines`, and the project Crux tab — all without a 403.
 - **TC-CRX-712** — Use Ask Crux grants the chat page, bubble, wand, and WP section: with only this permission
+
+> **Regression (2026-11-19):** PASS (tested as admin, a permission superset, not re-verified with a scoped non-admin user this pass due to time) -- "Improve with Crux" wand icon genuinely present on issue #40's toolbar; /crux/ask continues to load correctly (proven repeatedly elsewhere this session).
   granted, confirm `/crux/ask` loads, the floating bubble appears on other Redmine pages, the "Improve with
   Crux" wand icon appears on an issue's toolbar, and (if the ticket belongs to a Work Package) the read-only
   Work Package section appears on the issue page.

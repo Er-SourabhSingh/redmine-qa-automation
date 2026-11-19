@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Project Crux Tab (Overview, Graph, scoped pages)
 
+> **Regression (2026-11-19):** PASS -- project-scoped Crux tab renders correctly with real project-specific stats (Agent runs 103, Outcomes 2).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-794.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

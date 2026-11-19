@@ -2,20 +2,23 @@
 
 ## Last Session
 
-- Date: 2026-11-12
+- Date: 2026-11-19
 - Redmine Version: 6.0-bookworm (local Docker instance, localhost:3015)
-- Environment: Local
+- Environment: Local (`C:\crux-redmine`) + production `ztflux`
 
 ## Completed This Session
 
-- Executed deferred WP TCs (TC-760, 762, 763, 765, 766, 767) — committed ae60fe3
-- Reported BUG-MCP-001 to production (#128136) — committed 7fc7bc8
-- Executed deferred Graph TCs (TC-799, 800, 805, 811, 812, 813) — Graph interactive behaviors pass
-- Executed Pipeline Validation TCs (TC-862, 865, 866) — all PASS
-- TC-867 extended: delete dialog rule text confirmed; server-side rejection unconfirmed (no custom-pipeline WP)
-- Wrote Execution 2026-11-12 sections to `CRUX_PLATFORM_PROJECT_TAB.md` and `CRUX_PLATFORM_PIPELINES.md`
-- Generated daily report `reports/CRX-Functional-2026-11-12.md`
-- Screenshots committed for TC-799, 800, 808, 811, 812, 813, 862, 866, 867
+- Closed BUG-CRX-216/217 (carried in from 2026-11-18, confirmed fixed)
+- Installed the DevOps plugin locally; wrote `CRUX_AGENT_DEVOPS.md` (13 TCs); found + closed BUG-CRX-218/219
+  (fix: crux-core CRC-122, 1.16.0)
+- Wrote and executed `CRUX_CHAT_KEEP_SHARE_REGRESSION.md` (3/3 PASS), closing #117162's last open criterion;
+  closed production #116773 and #117162 to Done/100%
+- Selected and marked 57 happy-flow TCs across all 39 Crux suite files as today's fast regression subset
+  (`CRUX_AGENT_RESEARCH.md` flagged as a genuine zero-coverage gap, not substituted)
+- Executed the happy-flow regression live (backgrounded, multiple resumes): 53 PASS / 1 BLOCKED / 1 deferred
+- Found, root-caused, and reported 4 new bugs to production, assigned to Prashant Chaurasia: BUG-CRX-220
+  (#129140), BUG-CRX-221 (#129141), BUG-CRX-222 (#129142), BUG-CRX-223 (#129143)
+- See the dated "2026-11-19" entry in Run History below for full detail
 
 ## In Progress
 
@@ -718,6 +721,7 @@ Per explicit user request ("separate the remaining test suites, stating that Cru
 | 2026-11-04 (continued — 12 production testcases created for the new agent suites) | 6.0-bookworm (local Docker, `crux-redmine6`, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | Per user instruction, created a production testcase in `ztflux` (project #122) for each of the 12 new Crux agent suites that didn't already have one (Reviewer #127769, Test Author #127774, Docs Writer #127775, Monitor #127776, Alert Triage #127777, Root-Cause Analyst #127778, Auto-Fixer #127779, Research #127780, Improver #127781, Crux Guide #127782, Design Agent #127783, Code Reviewer #127784), matching the existing house style (e.g. #127600 Helpdesk) — each description cites its local suite file + TC-CRX range, fixture, a per-TC result summary, and current bug status (reflecting today's retest). Moved all 12 into suite #435 "crux-agents" alongside the 11 pre-existing agent-suite testcases (now 23 total).
 
 | 2026-11-18 (full-day session: 12-bug retest/close round + deferred-suite sweep across all 15 platform suites) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **12-bug retest round**: developer moved BUG-CRX-204–215 to "In QA"; pulled latest code across 4 repos, rebuilt crux-core+mcp, retested all 12 live against their original repro steps — all 12 CONFIRMED FIXED, closed, production synced to Done/100% (#128920, #128966–128975, #128994, #128995). Added inline "Retest — CONFIRMED FIXED" notes to each bug's originating TC entry across 7 suite files, per explicit user correction that this step had been skipped. **Deferred-suite sweep** ("baaki deferred suites bhi kr do"): closed out the remaining deferred-TC backlog across `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` (TC-833/834, unblocked by BUG-CRX-200's fix — both PASS), `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md`/`ASK_CRUX_BUBBLE_ERRORS.md`/`SETTINGS.md`/`PROJECT_TAB.md`/`PIPELINES.md` (closed 2026-11-18 earlier in this same day), and re-verified `CRUX_PLATFORM_FROZEN_RULES.md`'s TC-929/930/931 (no regressions, cleaned up a leftover rule). Found and fixed a stale line in `CRUX_PLATFORM_READY_QUEUE.md`'s own summary (BUG-CRX-174 was actually already closed). 4 new bugs found and reported to production this day (BUG-CRX-214/215/216/217, #128994/128995/129011/129012). **Swept all 15 platform suites' own "Overall" lines — confirmed every suite is at 0 genuinely-outstanding deferred TCs**, except a documented handful deferred by design (low-value pagers, infra-constrained, permanently-blocked-by-design). Open bug count now 2 (216, 217, both still "New" on production). `STATUS.md`, `bugs/_index.md`, `TIME_LOG.md` updated; all findings committed and pushed to `origin master`.
+| 2026-11-19 (full-day session: DevOps plugin install + agent suite, Keep/Share regression, BUG-CRX-216/217 closed, happy-flow selection + regression, 4 new bugs) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **BUG-CRX-216/217 closed** (both CONFIRMED FIXED, carried in from 2026-11-18). **DevOps plugin installed/migrated locally** (0→68 MCP tools); wrote `CRUX_AGENT_DEVOPS.md` (13 TCs, 11 PASS, BUG-CRX-218/219 found) and re-verified the 7 remaining Code Reviewer TCs plus a new positive-path TC-625 now that DevOps is installed. **Keep/Share regression** written and executed (`CRUX_CHAT_KEEP_SHARE_REGRESSION.md`, 3/3 PASS, closing #117162's last open criterion; BUG-CRX-010/011 re-verified not reproducing on the current stack). Production tickets **#116773 and #117162 closed** Done/100%. **BUG-CRX-218/219 retested** after pulling+rebuilding `crux-core` (CRC-122, 1.16.0) — both CONFIRMED FIXED, closed, production synced. **Happy-flow regression scope**: selected and marked 57 already-PASSing TCs across all 39 suite files (`> **Happy Flow**` markers, `CRUX_AGENT_RESEARCH.md` flagged as a genuine gap with no happy-flow TC to mark) as a faster substitute for a full regression, per explicit user time-boxing instruction. Executed live via a backgrounded fork (several 200-turn resumes): **53 PASS / 1 BLOCKED (TC-CRX-447, no fixture state to exercise it) / 1 deferred (TC-CRX-1088, low risk, mechanism separately proven via TC-CRX-1021)**. **4 new bugs found, root-caused, and reported to production** (assigned Prashant Chaurasia): BUG-CRX-220 (#129140, Code Reviewer intermittent false DevOps-access denial — root-caused to a specific `chat.py` retry-preference heuristic discarding a correct retry, NOT a Cloudflare-tunnel/connectivity issue as first suspected — confirmed via server logs), BUG-CRX-221 (#129141, CRM multi-step create-contact-at-new-company guesses the wrong future company id), BUG-CRX-222 (#129142, Improver subtask-creation confirm non-deterministically sends `project_id` as int not string), BUG-CRX-223 (#129143, Close Run misleading ✓ on a genuine rejection, same class as BUG-CRX-018/040/054/067/082). `bugs/_index.md`, suite files, and this handoff all committed/pushed to `origin master` across the session.
 
 ## Next Session Start Point (2026-11-04, continued)
 
@@ -994,7 +998,7 @@ documented reason rather than an open-ended "not done yet."
   — need a second simultaneous browser session). None of these are time-boxing shortcuts; each has a
   documented, re-confirmed reason.
 
-### Next Session Start Point (2026-11-18, current)
+### Next Session Start Point (2026-11-18 — superseded, see the 2026-11-19 entry below for the current one)
 
 - `CRUX_REQUIREMENTS.md`/`CRUX_USER_GUIDE.md` refresh — still not done, lowest-priority carried-forward item.
 - BUG-CRX-108 — still unresolved, carried forward.
@@ -1005,4 +1009,27 @@ documented reason rather than an open-ended "not done yet."
   of agent suites touched incidentally above have been swept this cycle) — check each suite file's own "Suite
   status" directly for remaining depth.
 - Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (216, 217) and no final-cycle regression has
+  run since the last bug closed.
+
+### Next Session Start Point (2026-11-19, current)
+
+- **Open bug count now 4** (`bugs/open/`): BUG-CRX-220, BUG-CRX-221, BUG-CRX-222, BUG-CRX-223 — all reported
+  to production today (#129140–#129143), all assigned to Prashant Chaurasia, all still "New" (not yet picked
+  up). Check their status before planning the next retest round — when they move to "In QA", pull+rebuild
+  `crux-core`/`mcp` before retesting (this session needed 3 separate pull+rebuild rounds because new fixes
+  kept landing mid-session without being pulled first — always `git fetch`/check `git status -sb` against
+  `origin` before assuming the running build is current).
+- **Happy-flow regression markers are now live in all 39 suite files** (`> **Happy Flow — selected for
+  today's quick regression (2026-11-19):**`, plus `> **Regression (2026-11-19):** PASS/FAIL/BLOCKED` lines
+  next to 55 of them) — this is a fast subset, not a substitute for the real full-cycle regression CLAUDE.md
+  §13/§27 still requires before `STATUS.md` can ever say `Complete`. Run that full regression once `bugs/open/`
+  is empty again.
+- **TC-CRX-447** (Timesheet, sequential approval order) is BLOCKED, not failed — needs a submission sitting at
+  Level 1 as a precondition; no such fixture existed today. Stand one up before retrying.
+- **TC-CRX-1088** (Keep/Share, shared-viewer visibility on a write-enabled turn) was deferred this pass (would
+  need a full `daisy.skye` login/share cycle) — low priority since the Share mechanism itself was independently
+  re-proven via TC-CRX-1021 in the same pass, but still genuinely unexecuted.
+- `CRUX_AGENT_RESEARCH.md` has **zero happy-flow coverage** — its flagship "find/cite real hits" TC was never
+  executed; only negative/refusal TCs have a recorded PASS. Worth a dedicated session, not a quick fix.
+- Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (220-223) and no final-cycle regression has
   run since the last bug closed.

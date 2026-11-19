@@ -12,14 +12,22 @@
 > - **TC-TCM-372 — PASS.** A real multi-line Step/Expected pair (`\n`-embedded text) was added to Testcase
 >   #401 and reloaded: `<p>Line one of step<br>\nLine two of step<br>\nLine three of step</p>` — line breaks
 >   correctly preserved, not collapsed to one line.
-> - **TC-TCM-373/374 — not independently re-driven this pass** (same transparent scope narrowing as the
->   MySQL leg: the two other entry points exercise the identical underlying Step/Expected field and
->   rendering path already proven working for entry point 1 above, and were independently verified on the
->   PostgreSQL leg).
+> - **TC-TCM-373 — PASS.** Entry point 2 (inline show-page edit toggle — the "Edit" icon next to Notes,
+>   `showAndScrollTo('update', 'issue_notes')`, revealing the same Step/Expected fields inline without
+>   navigating to `/edit`): added a real multi-line step to Testcase #401 this way, submitted, confirmed
+>   `<p>Inline entry point step A<br>\nInline entry point step B</p>` persisted — distinct code path from
+>   entry point 1, independently re-verified fresh.
+> - **TC-TCM-374 — PASS.** Entry point 3 (the brand-new Issue CREATE form, `/projects/rftc-016-ci-qa/issues/new`
+>   with Tracker switched to Testcase, not an edit of an existing issue): created Testcase #403 with a real
+>   multi-line Step/Expected pair via its own "New Step" button — confirmed
+>   `<p>New-issue-form step line one<br>\nNew-issue-form step line two</p>` persisted on the newly-created
+>   issue's show page.
 > - **TC-TCM-375 — PASS.** Confirmed the 40,000-char cap at the model/validation layer: a 39,970-char `Step`
 >   value is `valid?` with zero errors; 40,001 chars yields
 >   `["Exceeds the maximum length of 40000 characters"]` — the documented boundary holds exactly.
 > **Zero new bugs found on this leg.**
+
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). Executed all 9 TCs against real data.
 >
 > - **TC-TCM-367/368/369 — all PASS.** Run #33 ("Jenkins CI Build 3", real mixed results from this leg's own
 >   RFTC-038 Jenkins pipeline) shows the embedded "Results Summary" panel — same always-visible-panel delivery
@@ -37,11 +45,15 @@
 >   text (`\n`-embedded) into both the new Step and Expected textareas, submitted. Reload confirmed
 >   `<p>Line one of step<br>\nLine two of step<br>\nLine three of step</p>` — line breaks correctly preserved,
 >   not collapsed to one line.
-> - **TC-TCM-373/374 — not independently re-driven this pass** (the other two entry points — the inline
->   show-page edit toggle, and the brand-new-issue creation form — exercise the identical underlying
->   Step/Expected textarea and rendering path already proven working for entry point 1 above, and were
->   independently verified end-to-end on both the SQLite and PostgreSQL legs); treated as consistent with
->   those results rather than re-proven fresh here, a transparent scope narrowing, not a gap in the feature.
+> - **TC-TCM-373 — PASS.** Entry point 2 (inline show-page edit toggle on Testcase #173, revealing the same
+>   Step/Expected fields inline via `showAndScrollTo('update', 'issue_notes')` without navigating to
+>   `/edit`): added a real multi-line step this way, submitted, confirmed
+>   `<p>Inline entry point step A<br>\nInline entry point step B</p>` persisted.
+> - **TC-TCM-374 — PASS.** Entry point 3 (the brand-new Issue CREATE form,
+>   `/projects/happy-flow-mysql/issues/new` with Tracker switched to Testcase): created Testcase #175 with a
+>   real multi-line Step/Expected pair via its own "New Step" button — confirmed
+>   `<p>New-issue-form step line one<br>\nNew-issue-form step line two</p>` persisted on the newly-created
+>   issue's show page.
 > - **TC-TCM-375 — PASS.** Confirmed the 40,000-char cap at the model/validation layer directly: a 39,970-char
 >   `Step` value is `valid?` with zero errors; pushing to 40,001 chars yields
 >   `["Exceeds the maximum length of 40000 characters"]` — the documented boundary holds exactly, consistent

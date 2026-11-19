@@ -49,6 +49,8 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 
 ### TC-CRX-295: Test case — Create, admin, required fields only (Subject only)
 
+> **Regression (2026-11-19):** PASS -- clean confirm card, confirmed; testcase #183 genuinely created, native-verified.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `luna.blossom` (QA Full Access).
@@ -518,6 +520,8 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 ---
 
 ### TC-CRX-335: Run — Close, admin (expected success)
+
+> **Regression (2026-11-19):** PASS -- Run #7 (which has recorded results) closed genuinely, native-verified Closed:True. Found a real misleading-checkmark defect along the way on a different run with zero results (Run #3) -- filed as BUG-CRX-223.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

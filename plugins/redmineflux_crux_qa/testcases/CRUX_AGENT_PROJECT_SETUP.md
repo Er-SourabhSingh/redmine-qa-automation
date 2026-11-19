@@ -202,6 +202,8 @@ BUG-CRX-110 a confirmed silent-drop bug rather than a capability gap.
 
 ### TC-CRX-426: Identifier correctly derived from name when the user doesn't give one, and stated plainly
 
+> **Regression (2026-11-19):** PASS -- confirm card correctly showed derived identifier regression426-mobile-app-test, stated explicitly; cancelled (not needed).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Same as TC-CRX-421.

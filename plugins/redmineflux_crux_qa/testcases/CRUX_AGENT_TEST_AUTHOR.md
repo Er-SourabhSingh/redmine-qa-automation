@@ -91,6 +91,8 @@ got only 1 test (a presence/visibility check) with no distinct negative/edge cas
 
 ### TC-CRX-627: No criteria section → falls back to the description's stated behavior, says so
 
+> **Regression (2026-11-19):** PASS -- explicitly stated no acceptance criteria section exists, worked from the description's stated behavior instead, matching the manifest's "say which you used" rule.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

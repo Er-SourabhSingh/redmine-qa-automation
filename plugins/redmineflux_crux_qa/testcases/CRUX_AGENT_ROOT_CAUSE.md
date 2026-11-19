@@ -117,6 +117,8 @@ match with #91 and a borrowed mechanism from a different issue's (#93) already-c
 
 ### TC-CRX-663: Offering to record the analysis produces a confirm card, not a silent write
 
+> **Regression (2026-11-19):** PASS -- confirm card shown; confirmed; new journal entry (id=78) native-verified on issue #33 with the full analysis text.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

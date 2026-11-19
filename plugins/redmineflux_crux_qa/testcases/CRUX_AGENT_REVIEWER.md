@@ -58,6 +58,8 @@ issues:
 
 ### TC-CRX-608: PASS verdict when every criterion is genuinely met
 
+> **Regression (2026-11-19):** PASS -- all 3 criteria shown Met with real journal evidence, none skipped. Verdict label is BLOCK rather than PASS because issue #32 itself is still genuinely in "Waiting for Customer Response" status (not an agent fabrication) -- core evidence-grounded behavior intact.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

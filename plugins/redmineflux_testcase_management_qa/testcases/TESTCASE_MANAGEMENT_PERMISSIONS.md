@@ -5,6 +5,28 @@
 > all already demonstrated working elsewhere in this pass). Only the Admin role was directly exercised this
 > pass; Manager/QA/Developer-specific role checks were not separately re-run.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. **TC-TCM-046 (Create Test Suite) PASS** — testsuites #1/#6/#7 all created this leg as
+> Admin via the real "New Test Case"/Add Sub Test Suite flows (see `TESTCASE_MANAGEMENT_TEST_SUITES.md`'s own
+> MySQL cross-DB block). **TC-TCM-052 (Create Run) PASS** — 9 runs created this leg as Admin via the real Add
+> Run modal (see `TESTCASE_MANAGEMENT_TEST_RUNS.md`). **TC-TCM-055 (Close Run) PASS** — runs #4 and #9 both
+> closed this leg via the real Close Run → Confirm flow (TC-158/208 above). **TC-TCM-059 (Execute Testcase —
+> granted role) PASS, exceeds the PG leg's own Admin-only bar.** Logged in as a genuine non-admin project
+> member (`qa_mysql`, Developer role — `execute_testcase` granted, not Admin) and recorded a real Passed
+> result on case #9 (run #8) through the normal Add Result modal; DB-verified the result saved correctly
+> (TC-206 above) — this is a real granted-role execution, not an Admin stand-in. **TC-TCM-062 (View Report)
+> PASS** — the Overview page's chart/Execution Details data (TC-321–327 above) was viewed and manipulated
+> throughout this leg as Admin. **One real gap found, not filed as a bug:** attempting TC-046/052 under
+> `qa_mysql`'s own Developer role (which does hold `create_test_suite`/`create_run`) to go further than the
+> PG leg's Admin-only bar hit a genuine rendering quirk — `/test_suites?project_id=happy-flow-mysql` renders
+> with an entirely empty `#testsuite-tree` (no suite nodes, no "Add Test Suite" trigger icon in the DOM) under
+> her session, where the same page renders the full tree under Admin. Not conclusively root-caused within this
+> pass's time budget — could be a genuine permission-scoped rendering gap or the same kind of session/cache
+> quirk already documented in `TESTCASE_MANAGEMENT_TEST_SUITES.md`'s own sidebar-tree note; flagged for a
+> future session with a fresh non-admin login rather than filed as a confirmed defect. TC-046/052/055/062
+> therefore remain confirmed only under Admin this leg, matching the PG leg's own bar; TC-059 is the one
+> permission actually raised to a stronger granted-role bar this leg.
+
 > Source: `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md` (Permissions Matrix) and the vendor KB Roles & Permissions
 > section. Covers all 16 plugin permissions across 6 groups.
 >

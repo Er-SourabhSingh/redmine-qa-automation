@@ -13,6 +13,27 @@
 >   match with the response payload.
 > **Zero new bugs found on this leg.**
 >
+> **CROSS-DB (MySQL) — 2026-11-19 — NEW BUG FOUND (BUG-TCM-155).** happy-flow pass,
+> `redmine6-happyflow-mysql` (`localhost:3022`), project `happy-flow-mysql` (id=1):
+> - **RFTC018-3**: pure-function check, unaffected by the bug below (no DB access in `derive_key` itself) —
+>   `derive_key(result_source: nil, batch_source: nil, testsuite_name: 'Checkout', ...)` →
+>   `["Checkout", "testsuite"]`; `derive_key(result_source: 'nightly-regression', batch_source:
+>   'batch-source', ...)` → `["nightly-regression", "explicit"]` — byte-identical to the SQLite/PostgreSQL
+>   legs. **PASS.**
+> - **RFTC018-1/9: FAIL — new bug BUG-TCM-155 (High).** Real `POST /testcase_ci/ingest_results.json` calls
+>   with an explicit per-result `source` (and separately, with no source at all) both returned
+>   `source_id: null, source_name: null` in the response — never the expected resolved/created
+>   `AutomationSource`. Root-caused via server log (`CI ingest: automation source resolution failed for
+>   key=...: Mysql2::Error: You have an error in your SQL syntax ... near 'key) = LOWER(...))'`) and confirmed
+>   directly via `rails runner`: `AutomationSourceResolver.find_by_key_ci`'s raw SQL
+>   (`where('LOWER(key) = LOWER(?)', key)`) uses the bare, unquoted column name `key`, which is a **reserved
+>   word in MySQL** (not in PostgreSQL/SQLite, where this exact code already passed cleanly on both other legs
+>   of this pass, including RFTC018-9's own direct DB-row confirmation there). `AutomationSource.count` stays
+>   `0` on this project after multiple real ingest calls that would have created rows on the other two
+>   engines — the entire rftc-018 feature (and the Automation Dashboard's per-source grouping) is
+>   non-functional on a MySQL-backed instance. Filed as **BUG-TCM-155**.
+> **1 new bug found on this leg: BUG-TCM-155 (High, MySQL-only SQL portability bug).**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). All 3
 > happy-flow RFTC018 TCs confirmed PASS:
 > - **RFTC018-1/3**: `AutomationSourceResolver.derive_key` is a pure function with no DB dependency, so its

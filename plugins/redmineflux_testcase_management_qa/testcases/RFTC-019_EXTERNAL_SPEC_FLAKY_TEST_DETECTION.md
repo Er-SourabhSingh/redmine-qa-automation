@@ -93,6 +93,24 @@ any positive integer and only falls back to 4 on blank, non-numeric, or non-posi
 > Quality HQ UI itself in this pass (needs the browser tool back online) — this confirms the underlying
 > detection logic, not the panel's rendering.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql` (id=1). Built a real Pass→Fail→Pass→Pass sequence for issue #118 across 4 fresh
+> chronological runs (ids 22-25, default `flaky_min_runs:4`) via real `ingest_results.json` calls (1 real
+> auto-created-reuse defect for the Failed result). Called `RollupMath.flaky_tally` directly via
+> `bundle exec rails runner` against the project's full real run history (not a cherry-picked fixture — issue
+> #118 already had 6 prior results from this leg's own RFTC-016/017/018 testing):
+> ```
+> {issue_id:118, subject:"RFTC016 ingest testcase A (MySQL)", flip_count:4, executed_count:10,
+>  flakiness_rate:44.44, recent_cells:[...]}
+> ```
+> `flakiness_rate` matches the documented formula exactly: `(4 / (10-1)) * 100 = 44.44`. Independently
+> re-confirmed via the real live `/quality_hq?project_id=1` page (not just the direct call) — the "Flaky
+> Tests" table shows `#118 RFTC016 ingest testcase A (MySQL)` ranked #1 with the same `4 / 10 / 44.44%`, and
+> `#119 RFTC016 ingest testcase B (MySQL)` ranked #2 (`1 / 5 / 25.0%`) from its own incidental flip history.
+> Not affected by BUG-TCM-155 (the MySQL-only AutomationSourceResolver bug found earlier this leg in
+> RFTC-018) — flaky detection reads `case_status_id`/`created_at` only, never `source_id`.
+> **Zero new bugs found for this feature on this leg.**
+
 **Priority:** P1 — the core feature
 **Steps:** Set `flaky_min_runs` to 2 (or use 3+ runs with the default 4). Create 3 runs in chronological order
 for one project; for one test case, record Passed in run 1, Failed in run 2, Passed in run 3 (same

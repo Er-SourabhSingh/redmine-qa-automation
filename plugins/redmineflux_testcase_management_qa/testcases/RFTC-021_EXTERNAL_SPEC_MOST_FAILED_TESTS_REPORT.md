@@ -2,6 +2,13 @@
 > RFTC021-1 PASS — created "HF-PG Most Failed Tests Report" via the Reports → New report flow, same
 > mechanism as other report types.
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. RFTC021-1 PASS — cross-referenced from this leg's own §2 Reports-group work rather than
+> re-created standalone: "TC-TCM-317 Most Failed Tests (MySQL)" (see `TESTCASE_MANAGEMENT_REPORTS.md`'s own
+> MySQL CROSS-DB block) already confirmed a real cross-run ranked table — `#6 "TC-TCM-146/148 happy-flow
+> fixture case 4 (MySQL)"` ranked #1 (1 failure / 1 executed / 100.0%), `#3 "TC-TCM-129/297..."` ranked #2
+> (1 failure / 4 executed / 25.0%), both with real `Failing Runs` data, not synthetic. Zero new bugs.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

@@ -9,6 +9,18 @@
 > `p95 = 7.5 s`, `Flag = Slow` — confirming the report is a live query, not a cached snapshot, on PostgreSQL
 > too. Zero new bugs.
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. Both happy-flow RFTC020 TCs confirmed PASS:
+> - **RFTC020-1**: created "RFTC020 Slow Tests Verification (MySQL)" via Reports → New report. Ranked table
+>   (Samples/Avg/Max/p95/Flag), slowest-first; footer correctly read "No timing data yet: 6" for untimed
+>   cases — not omitted.
+> - **RFTC020-2**: `POST /testcase_ci/ingest_results.json` for issue #118 with `duration_ms: 7500` (threshold
+>   5.0s); reloaded the **same** report page with no regenerate step — #118 immediately showed rank 1 with
+>   `p95 = 7.5 s`, `Flag = Slow` (Avg 2.75s across 4 samples); #119 at 300ms correctly unflagged — confirming
+>   the report is a live query, not a cached snapshot.
+> **Zero new bugs found for this feature on this leg** (not affected by this leg's own BUG-TCM-155 —
+> p95/avg/max are computed from `duration_ms`, never from `automation_sources`).
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). Both
 > happy-flow RFTC020 TCs confirmed PASS:
 > - **RFTC020-1**: created "RFTC020 happy-flow Slow Tests report (SQLite)" via Reports → New report. Ranked

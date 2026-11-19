@@ -5,6 +5,28 @@
 > links correct, View All links correct). TC-TCM-323 BLOCKED — no date-range picker control found on the page
 > within time budget; not confirmed as a bug.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. **TC-TCM-321 PASS** — page loads cleanly, default dimension Activity, default date range
+> "1 Nov 26 - 30 Nov 26" (current month), chart renders. Legend percentages (Passed 11.11%, Failed 4.44%,
+> Retest 2.22%, Skipped 6.67%, Blocked 2.22% = 26.66%) initially looked inconsistent with "~100%" until
+> DB-verified: `IssueStatusResult.where(project_id:1).group(:case_status_id).count` → 33 Untested + 12
+> executed = 45 total, so 26.66% (executed) + 73.33% (Untested, not shown as a colored legend segment) ≈ 100% —
+> internally consistent, not a bug; own verification note for future legs. **TC-TCM-322 PASS, resolves the
+> PostgreSQL leg's own tooling note** — used real `selectOption()` (not a synthetic value+dispatchEvent) per
+> that leg's documented gotcha: `Defects → dimensions=by_defects`, `Result → dimensions=by_result`, both
+> confirmed via `browser_network_requests`. **TC-TCM-323 PASS, resolves the PostgreSQL leg's own BLOCKED
+> item** — the date-range control is the "1 Nov 26 - 30 Nov 26" label itself; clicking it opens a real preset
+> picker (Today/Yesterday/Current week/Last 7 days/Last 30 days/This month/Last month/Next month/Custom
+> range). Clicked "Last 7 days": fired `GET /show_chart_data?...&start_date=2026-11-13&end_date=2026-11-19&
+> dimensions=by_result` (the previously-selected Result dimension correctly carried over) plus `POST
+> /testcase_graph_filter` (201, persists the filter), and the range label updated to "13 Nov 26 - 19 Nov 26".
+> **TC-TCM-326 PASS** — run #3's `#3` ID link correctly navigated to `/runs/3?project_id=happy-flow-mysql`;
+> its Total Defects count correctly navigated to `/defects?project_id=happy-flow-mysql&run_id=3`, rendering a
+> real 5-row defects-linkage table (defect #11 listed against cases #6 and #10). **TC-TCM-327 PASS** — Test
+> Runs panel's View All → `/runs/new?project_id=happy-flow-mysql`; To Do panel's View All →
+> `/testcase_todos?project_id=happy-flow-mysql`, both confirmed via real `href` inspection. **Zero new bugs
+> filed.**
+
 > Source: none — this page has **zero** documentation in `TESTCASE_MANAGEMENT_FEATURES_LIST.md` or
 > `TESTCASE_MANAGEMENT_USER_GUIDE.md` as of 2026-10-23. Authored and executed in the same session, per direct
 > user request after noticing this page (a chart-heavy dashboard with 3 chart dimensions, a date-range picker,

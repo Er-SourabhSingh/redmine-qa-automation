@@ -54,6 +54,8 @@ notes to the issue — each a confirm card.
 
 ### TC-CRX-703: Design covers flow, screens+states, rules, and open questions — all four sections
 
+> **Regression (2026-11-19):** PASS -- all sections present: 6-step user flow incl. failure/error paths, 3 screens with per-screen states, open questions.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -100,6 +102,8 @@ own rows for "SSO token invalid or expired," "IdP returns an error," "Network ti
 ---
 
 ### TC-CRX-705: Saving the design to the wiki is a genuine confirm card
+
+> **Regression (2026-11-19):** PASS -- genuine confirm card, confirmed; native-verified new wiki page SSO_Login_Design created (updated_on matches test time).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

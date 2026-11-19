@@ -102,6 +102,8 @@ clicks Confirm.
 
 ### TC-CRX-1076: Project pipeline summary read — accurate against real fixture state, including a real auth change mid-suite
 
+> **Regression (2026-11-19):** PASS -- already effectively re-verified during BUG-CRX-220 investigation this session: project_summary read returned accurate real build/commit/PR/repo-connection data.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -185,6 +187,8 @@ match exactly, no embellishment either direction.
 ---
 
 ### TC-CRX-1079: Deployment approval action — real write, correct attribution
+
+> **Regression (2026-11-19):** PASS -- created a fresh deployment (id2), approved via confirm card, native-verified approval_status=approved, approved_by=Redmine Admin, approved_at matching test time.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

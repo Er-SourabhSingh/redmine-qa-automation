@@ -1,7 +1,8 @@
 # BUG-TCM-155
 
 - Bug ID: BUG-TCM-155
-- Production Redmine Issue ID: (blank — not yet reported to production)
+- Production Redmine Issue ID: 129147 (assigned: Vaishnavi Bhawsar)
+- Severity: High — the entire rftc-018 Automation Source grouping feature is silently non-functional on every MySQL-backed instance (not a crash/data-loss, so not Critical; but a whole feature area dead on one of three supported DB engines, with no user-facing error at all)
 - Title: `AutomationSourceResolver.resolve!` always fails on MySQL — raw SQL uses the unquoted reserved word `key` as a column name, causing every CI-ingested result's `source_id` to silently resolve to `nil`
 - Redmine version: 6.x (Docker)
 - Plugin name: Redmineflux Testcase Management

@@ -326,6 +326,8 @@ project. Stronger result than the original 2026-11-04 pass.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
+> **Regression (2026-11-19):** PASS overall (2/3), with a genuine new bug found: 3 identical fresh-chat attempts gave Needs-changes / false-DevOps-permission-denial / Cant-tell. 2 of 3 are valid evidence-grounded verdicts per the manifest; the 1 denial is a real defect (MCP/backend confirmed always reachable for admin) -- filed as BUG-CRX-220, not reproducible 2/2 so left open rather than blocking.
+
 **User Role:** `admin`.
 **Precondition:** A Cloudflare quick tunnel exposes this instance to GitHub's webhook servers; the connected
 repository (`sourabhzehntech01-star/rftc038-qa-pipeline-test`) has a real webhook configured

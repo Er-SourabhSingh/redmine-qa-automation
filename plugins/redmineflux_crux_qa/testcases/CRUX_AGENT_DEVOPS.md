@@ -68,10 +68,14 @@
 >    workaround (as `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` used for the Testcase Management plugin's
 >    own CI suite), out of scope for this session.
 >
-> **Status: EXECUTED 2026-11-19 — 7/7 PASS, 1 new bug filed (BUG-CRX-218, cosmetic/doc-lag only).** All reads
-> were accurate against the real fixture state (never a fabricated build/PR/commit/license/freeze); all writes
-> went through a real confirm card naming the actual record (never a bare id) and produced a native-verified,
-> honest outcome (including an honest "waiting for approval" on a gated deploy — never a false "deployed").
+> **Status: EXECUTED 2026-11-19 — 10/12 PASS, 2 bugs filed (BUG-CRX-218 cosmetic/doc-lag; BUG-CRX-219 a real
+> Auto-routing miss, reproduced 2/2).** All reads were accurate against the real fixture state (never a
+> fabricated build/PR/commit/license/freeze/vulnerability/DORA metric); all writes (deploy, deployment
+> approve, incident create, release generate-notes, release approve) went through a real confirm card naming
+> the actual record (never a bare id) and produced a native-verified, honest outcome (including an honest
+> "waiting for approval" on a gated deploy and an honestly-zero DORA deployment-frequency count on a still-
+> pending deployment — never a false positive either direction). The one functional gap found is in Auto's
+> own domain routing, not in the DevOps Agent's own behavior (see TC-1085).
 
 ## Plugin / Agent
 - Name: redmineflux_crux (DevOps Agent)
@@ -271,7 +275,105 @@ commits). This is the full, tool-backed behavior TC-620 was checking for — wri
 
 ---
 
+### TC-CRX-1083a: Release lifecycle — generate notes, approve, native-verified
+
+**User Role:** `admin`.
+**Precondition:** Release v1.0.0 (id 1), status `planning`, zero linked issues.
+
+**Steps:**
+1. Ask: "What's the status of release v1.0.0 in the Crux DevOps Agent Test Project, and can you generate its
+   release notes?" Confirm the proposed `generate_notes` write.
+2. Ask: "Approve release v1.0.0." Confirm the proposed `approve` write.
+3. Native-verify via `get_release` and `get_release_notes`.
+
+**Expected Result:**
+- Both are genuine confirm-gated writes (`DevOps Release Action: Generate notes` / `: Approve`), native state
+  changes to match exactly, no fabricated "already approved" framing beforehand.
+
+**Result: PASS — executed 2026-11-19.** `generate_notes` confirm card then chat: *"✓ Release 1: generate
+notes done... status: planning..."* Native `get_release_notes` returned real generated notes ("# v1.0.0 / No
+issues linked to this release" — correct, since issues count=0). `approve` confirm card then chat: *"✓
+Release 1: approve done. status: approved... fully approved: yes."* Native `get_release` confirmed
+`status: ready` (was `planning`) — the plugin's real approve transition, matching the chat's claim.
+
+---
+
+### TC-CRX-1083b: Security vulnerabilities + DORA metrics read — honest zero/low grounded in real state
+
+**User Role:** `admin`.
+**Precondition:** No vulnerability scanner connected (zero records); 1 real deployment exists but is still
+`pending` (never actually dispatched — no `deploy_provider` configured).
+
+**Steps:**
+1. Ask: "Are there any open security vulnerabilities in this project, and what do our DORA metrics look like
+   for the last 30 days?"
+
+**Expected Result:**
+- Honest "all clear" on vulnerabilities (genuinely zero records, not a refusal). DORA's Deployment Frequency
+  should report **0 completed deployments** — the one real deployment record is still `pending` approval
+  execution, not a completed/successful deployment, so 0 is the technically correct count, not a missed read.
+
+**Result: PASS — executed 2026-11-19.** Response: *"**Security Vulnerabilities:** ✓ All clear... No critical,
+high, medium, or low severity vulnerabilities found... **DORA Metrics (last 30 days):** Deployment Frequency:
+0 deployments (0/day/week/month) — Low. Lead Time: No deployments to measure — Low..."* Native-verified via
+`list_deployments`: the one real deployment record (id 1) is still `status: pending` (approval approved, but
+never actually dispatched since no deploy workflow is configured) — so "0 completed deployments" is the
+honestly correct DORA count, not a stale or missed read.
+
+---
+
 ## Negative / Boundary Cases
+
+---
+
+### TC-CRX-1084: Auto-routing — a DevOps question WITH the project named reaches DevOps Agent correctly
+
+**User Role:** `admin`.
+**Precondition:** Agent picker left on **Auto** (not pinned to any specific agent).
+
+**Steps:**
+1. In a fresh chat, ask: "In the Crux DevOps Agent Test Project, is there any open incident, and what
+   deployments are waiting for approval?"
+2. Check the Run Ledger for which agent actually answered.
+
+**Expected Result:**
+- Auto resolves this to DevOps Agent (incidents + deployment approvals are DevOps-domain), with an accurate,
+  tool-backed answer.
+
+**Result: PASS — executed 2026-11-19.** Chat bubble and Run Ledger both show **DevOps Agent** (avatar "DA").
+Response ("Checked 3 things"): *"**Open incidents:** Yes, 2 open incidents (both investigating): id 2 [sev1]
+'Login outage'... id 1 [sev2] 'Checkout API fixture incident'... **Deployments waiting for approval:** Yes, 1
+deployment in pending status: id 1 — Production, version main..."* Every fact matches the real fixture state
+exactly (2 real incidents, 1 real pending deployment).
+
+---
+
+### TC-CRX-1085: Auto-routing — the SAME question WITHOUT a named project misroutes to Agile Board Agent/Scrum Agent, not DevOps Agent (bug)
+
+**User Role:** `admin`.
+**Precondition:** Same as TC-1084, but no project named in the question (forces Auto's own domain-keyword
+routing to decide, without a project-resolution step to lean on).
+
+**Steps:**
+1. In a fresh chat (Auto), ask: "Is there any open incident right now, and what's our deployment approval
+   backlog looking like?" — identical DevOps-domain keywords to TC-1084, just without the project name.
+2. Repeat in a second, separate fresh chat with the exact same wording.
+3. Check the Run Ledger for both runs.
+
+**Expected Result:**
+- Same as TC-1084 — "incident" and "deployment approval" are DevOps Agent tools
+  (`list_incidents`/`list_deployments`), not Agile Board/Scrum tools. Auto should still reach DevOps Agent
+  (it can ask a clarifying "which project?" as DevOps Agent, same as it does for other agents elsewhere in
+  this cycle — not needing the project name doesn't justify routing to an unrelated agent).
+
+**Result: FAIL — BUG-CRX-219 filed, reproduced 2/2.** Both attempts were answered by **Scrum Agent** per the
+Run Ledger (avatar "SA"); the second attempt's chat bubble itself displayed the agent as **"Agile Board
+Agent"** (avatar "AB") — a secondary display-name inconsistency between the chat UI and the Run Ledger for
+the identical run, not pursued further. Both answers were honest, reasonable "which project do you mean?"
+clarifying questions in isolation — the defect is purely that the wrong domain agent answered, not that
+either agent fabricated anything. Same bug class as the closed BUG-CRX-171/172/173/215 (Auto misroutes a
+domain-specific question), a new domain (DevOps) and a new wrong-target agent (Agile Board/Scrum, not Project
+Manager as in all four prior instances) — filed as its own bug per the repo's new-trigger-path convention.
 
 ---
 
@@ -308,9 +410,6 @@ agent to address. Filed as BUG-CRX-218 (not yet reported to production).
   session that exposes this instance via a tunnel (or sets up a self-hosted-runner workaround like
   `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` used for the Testcase Management plugin) can extend this
   suite with real webhook-driven commit/PR/build positive cases.
-- Releases (`save_release`, `release_action`) and the fuller security/DORA reads (`list_vulnerabilities`,
-  `metrics`) were seeded/available this session but not yet chat-driven end-to-end — only read indirectly via
-  fixture setup. Extend this suite with explicit release-lifecycle and DORA-metrics TCs in a future pass.
 - Model observed in the chat UI was `claude-haiku-4.5` for every turn in this suite, not the manifest's stated
   `claude-sonnet-5` — consistent with the rest of this cycle's agents (dynamic cost-routing), not flagged as a
   defect on its own.

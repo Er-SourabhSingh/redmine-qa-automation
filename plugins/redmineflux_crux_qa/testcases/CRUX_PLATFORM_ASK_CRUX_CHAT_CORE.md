@@ -18,6 +18,8 @@
 ## Composer & Attach a ticket
 
 - **TC-CRX-966** — `+` opens "Attach a ticket" and nothing else: confirm the `+` button is not a dropdown menu —
+
+> **Regression (2026-11-19):** PASS -- "+" opened Attach a ticket dialog directly, no dropdown. PASS -- attaching ticket 40 inserted literal "#40 " into the textarea (verified via .value); sending it got a correct, specific answer (Status: Waiting for Customer Response, Priority: Low) matching the real issue exactly.
   it directly opens the Attach dialog every time.
 - **TC-CRX-967** — Attach a ticket — valid: enter a real ticket number (e.g. 450393 or a real local one),
   click Attach, confirm `#<number>` is inserted into the message box (not a file), and sending it lets the agent

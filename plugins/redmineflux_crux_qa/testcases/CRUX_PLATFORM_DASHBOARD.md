@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Global Dashboard
 
+> **Regression (2026-11-19):** PASS -- Dashboard "Agent runs: 1,821" exactly matches Run Ledger "1,821 matching this filter".
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-728.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1 (developer-authored, source-derived — authoritative).

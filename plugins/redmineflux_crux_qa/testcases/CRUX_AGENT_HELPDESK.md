@@ -139,6 +139,8 @@ no fabricated figures.
 
 ### TC-CRX-574: Create a ticket — positive, correct tracker/fields
 
+> **Regression (2026-11-19):** PASS -- confirm card showed exact project/subject/description; confirmed; ticket #178 genuinely created, native-verified via list_tickets.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -166,6 +168,8 @@ genuinely unassigned, no SLA yet.
 ---
 
 ### TC-CRX-575: First assignment starts the SLA — regression-check the documented lifecycle rule
+
+> **Regression (2026-11-19):** PASS -- SLA genuinely started on first assignment, native-verified via get_sla_status (active, real response deadline set).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

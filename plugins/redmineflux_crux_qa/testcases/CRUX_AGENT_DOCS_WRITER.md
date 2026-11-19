@@ -104,6 +104,8 @@ cover (BUG-CRX-211).
 
 ### TC-CRX-636: Editing an existing page reads it first and states what changes
 
+> **Regression (2026-11-19):** PASS -- read existing Team Norms content first, preserved it, appended new section; confirmed, native-verified wiki version 2 with exact merged content.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -160,6 +162,8 @@ no SAML/OIDC/admin-path fabrication — BUG-CRX-167 (TC-635) appears fixed too, 
 ---
 
 ### TC-CRX-638: Project resolution by fuzzy name/identifier match
+
+> **Regression (2026-11-19):** PASS -- resolved project by display name with no clarifying question, real version-linked issues cited.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

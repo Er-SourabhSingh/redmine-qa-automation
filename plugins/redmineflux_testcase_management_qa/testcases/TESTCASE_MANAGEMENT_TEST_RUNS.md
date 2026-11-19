@@ -1437,6 +1437,13 @@ the Result shown there matched the grid/DB exactly (**Skipped**) — a bulk-reco
 on the case's own detail page, not just in the run grid. (This switch also reproduces BUG-TCM-101's console
 error, same as any other Run/Environment switch on that page — see TC-TCM-179 and BUG-TCM-101.)
 
+**CROSS-DB (MySQL) — 2026-11-19 — PASS, folds in TC-189's note check.** On run #8, selected cases #4 and #6
+(both Untested) via their row checkboxes — the "2 Selected" bar appeared correctly. Opened Bulk Update Result,
+chose Skipped, entered the note "TC-188/189 bulk update note check: applied to both selected cases (MySQL).",
+Submitted. DB-verified: both `IssueStatusResult` rows (`#40` for issue #4, `#39` for issue #6) show
+`case_status_id: 6` (Skipped) with the identical note text verbatim — not dropped, truncated, or applied to
+only one. Run grid confirmed both cases show Skipped, the other 3 cases unaffected.
+
 ---
 
 ### TC-TCM-189: Bulk update with execution notes
@@ -1461,6 +1468,10 @@ applied to only one of the two.
 Result, chose Skipped, entered the note "TC-189 bulk note check: applied to both selected cases." Checked both
 issues' Results & Comments tabs independently: the identical note text appears correctly on **both** #23 and
 #28 — not dropped, truncated, or applied to only one.
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** See TC-TCM-188's own MySQL entry above — the same bulk update on
+run #8 (cases #4 and #6, Skipped, note "TC-188/189 bulk update note check: applied to both selected cases
+(MySQL).") covers this TC too: DB-verified the identical note text on both `IssueStatusResult` rows (#39, #40).
 
 ---
 

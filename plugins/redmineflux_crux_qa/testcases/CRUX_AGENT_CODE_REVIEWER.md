@@ -6,7 +6,15 @@
 > `redmineflux_devops_list_commits`, `redmineflux_devops_issue_builds`, `redmineflux_devops_get_build`,
 > `redmineflux_devops_list_repositories`. Model: `claude-opus-4-8`.
 >
-> **Known environment constraint (see `CRUX_AGENT_DEVOPS_AND_BUDGET.md` / `CRUX_HANDOFF.md`): the
+> **UPDATE 2026-11-19: the Redmineflux DevOps plugin is now installed and migrated on this instance** (see
+> `CRUX_AGENT_DEVOPS.md` for the full setup — plugin migration, module enablement, fixture project #20). The
+> "out of scope until installed" decision below is now superseded for the honest-gap TCs that depended on the
+> plugin being absent (TC-617/618/621/622/623/624 all specifically tested that absence) — **TC-620 is
+> resolved below**; the rest of this suite's TC-617–624 should be fully re-run against real (if still mostly
+> empty) fixture data in a future session, since their current PASS results describe behavior under a
+> precondition (plugin absent) that no longer holds on this instance.
+>
+> **Known environment constraint (historical — see above UPDATE): the
 > Redmineflux DevOps plugin is NOT installed on this MCP instance.** This agent's description explicitly
 > says it "Needs the Redmineflux DevOps plugin" — so most of this suite exercises the agent's honest-gap
 > behavior when its required plugin is absent, which is itself a real, testable requirement (manifest: "If
@@ -15,15 +23,20 @@
 > instance in a future cycle, re-run this suite and add the full PR/commit/build positive-path TCs that are
 > currently blocked.
 >
-> **Explicit scope decision (2026-11-12): Code Reviewer (and the DevOps Agent) are OUT OF SCOPE for this QA
-> cycle until the Redmineflux DevOps plugin is actually installed on this instance.** Do not attempt further
-> testing of either agent, including TC-620's still-unresolved re-verification attempt, until that plugin
-> dependency is satisfied — re-run both suites in full at that point, not piecemeal before then.
+> **Explicit scope decision (2026-11-12, superseded 2026-11-19): Code Reviewer (and the DevOps Agent) are OUT
+> OF SCOPE for this QA cycle until the Redmineflux DevOps plugin is actually installed on this instance.** Do
+> not attempt further testing of either agent, including TC-620's still-unresolved re-verification attempt,
+> until that plugin dependency is satisfied — re-run both suites in full at that point, not piecemeal before
+> then. **This gate is now lifted as of 2026-11-19 — see the UPDATE note above.**
 >
 > **Status: EXECUTED 2026-11-04 — 7/8 PASS, 1 inconclusive (tool-availability gap, see TC-620). No new bugs** —
 > the agent's live tool set (confirmed via its Agent Fleet profile: "Reads: 1 tool / Changes: 0 changes" —
 > part of the platform-wide pattern in BUG-CRX-164) is even thinner than its own non-DevOps manifest portion,
 > but it degraded honestly and consistently at every turn, never fabricating a capability.
+>
+> **TC-620 RESOLVED 2026-11-19** — see the TC-620 section below for the live re-verification against the now-
+> installed DevOps plugin and fixture project #20. Full re-run of TC-617/618/621/622/623/624 against real
+> fixture data remains an open item for a future session (see `CRUX_AGENT_DEVOPS.md`'s own notes section).
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Code Reviewer agent)
@@ -142,6 +155,18 @@ direct addressing failed. Not filed as a bug (routing ambiguity, not a confirmed
 future pass with a confirmed-working way to reach this specific agent (e.g. its own dedicated chat link from
 the Agent Fleet page, verified via the Run Ledger immediately after sending).
 
+**RESOLVED 2026-11-19 — PASS, DevOps plugin now installed (fixture project #20, see `CRUX_AGENT_DEVOPS.md`).**
+Pinned Code Reviewer explicitly via the agent picker (not an `@mention`, avoiding the 2026-11-12 routing
+ambiguity entirely) and asked *"Any code review needed in the Crux DevOps Agent Test Project?"* Response
+("Checked 3 things"): *"**No code review needed.** The Crux DevOps Agent Test Project has no open pull
+requests and no recent commits. There is nothing to review at this time."* Three real tool calls fired
+(project resolution by display name + `list_pull_requests` + `list_commits`), the project name was correctly
+resolved with zero ambiguity, and the answer is honestly grounded in the real fixture state (0 PRs, 0 commits
+— the repository has no API token, so this is a genuine, not a fabricated, zero). This is the full,
+tool-backed project-resolution behavior this TC was checking for from the start. Cross-posted as TC-CRX-1082
+in `CRUX_AGENT_DEVOPS.md` since that's where this session's fixture/setup context lives; this entry is the
+suite-of-record update.
+
 ---
 
 ## Negative / Boundary Cases
@@ -241,3 +266,8 @@ against (consistent with TC-620's finding).
   cases (ready verdict with real evidence, needs-changes verdict naming a real failing build, etc.) before
   calling Code Reviewer coverage complete.
 - Model is `claude-opus-4-8` for this agent.
+- **2026-11-19: DevOps plugin is now installed** (fixture project #20, `CRUX_AGENT_DEVOPS.md`). TC-620 is
+  resolved. TC-617/618/621/622/623/624 still only have their original 2026-11-04 "plugin absent" results —
+  full re-run against real (if still mostly empty) fixture data is the next step for this suite, plus the
+  real PR/commit/build positive-path TCs flagged above, once a safe test repository with an API token is
+  available (see `CRUX_AGENT_DEVOPS.md`'s own notes on the deliberately-unauthenticated fixture repo).

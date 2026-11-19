@@ -1023,6 +1023,12 @@ exercises) are unaffected and correctly get fresh rows/attribution, which is why
 sequence still shows correct authors — the gap is specifically in the untested-to-first-result transition, not
 in re-execution generally.
 
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** Re-executed case #9 on run #3 through Skipped → Passed. DB-verified:
+`IssueStatusResult.where(run_id:3, issue_id:9).order(:id)` → two rows, `#10` (status=6 Skipped,
+created 07:31:56) then `#37` (status=2 Passed, created 07:36:41) — both retained, nothing overwritten. The run
+grid's Result column for case #9 now shows the latest (**Passed**). This re-execution doubles as TC-183's note
+fixture (see below).
+
 ---
 
 ### TC-TCM-179: Execute from the test case detail page
@@ -1222,6 +1228,14 @@ the note round-tripped character-for-character, the script tag rendered as inert
 console errors, no alert fired), consistent with the original finding. (This standalone, non-modal Add Result
 page's Note field is a plain `<textarea>`, not the EditorJS rich-text widget used elsewhere in the plugin — filled
 directly for speed; the save/round-trip path exercised is identical either way.)
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS, folds in TC-178's re-execution.** Re-executed case #9 (run #3) to
+Passed via the real modal/Quill editor, typing a 3-line note with `< > & "`, emoji (😀🔥), and a raw
+`<script>alert(1)</script>` tag using real keystrokes. DB-verified the stored `notes` value: `<p>Line one &lt;
+&gt; &amp; " test 😀🔥</p><p>Line two second line</p><p>Line three: special chars &lt;script&gt;alert(1)&lt;/
+script&gt; &amp; "quoted"</p>` — correctly HTML-escaped for safe storage/render (so the `<script>` tag displays
+as inert literal text, never executes), three distinct paragraphs preserved, emoji intact, no truncation.
+Matches the SQLite/PG legs' own finding exactly.
 
 ---
 

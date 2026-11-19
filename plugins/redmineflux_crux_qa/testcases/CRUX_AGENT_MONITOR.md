@@ -44,6 +44,8 @@ first. Says "nothing needs attention" honestly when that's true. Has **no write 
 
 ### TC-CRX-643: Critical issues use the dedicated tool, not a generic filtered list
 
+> **Regression (2026-11-19):** PASS -- grounded (Checked 5 things), real overdue issues #2/#3 cited accurately; no critical-priority issue currently exists in this project (data has evolved), honestly reported rather than fabricated.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

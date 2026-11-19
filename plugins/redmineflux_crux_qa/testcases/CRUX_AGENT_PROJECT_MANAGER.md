@@ -36,6 +36,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 
 ### TC-CRX-177: One-call project status aggregate (`project_summary`)
 
+> **Regression (2026-11-19):** PASS -- resolved via single-call project_summary aggregate (Checked 1 thing), real current data cited (11 issues, 0% complete).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -121,6 +123,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 ---
 
 ### TC-CRX-182: Create an issue — confirm card matches exactly, no invented fields
+
+> **Regression (2026-11-19):** PASS -- confirm card showed exactly Project/Subject, no invented fields; confirmed; issue #182 native-verified with exact fields.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

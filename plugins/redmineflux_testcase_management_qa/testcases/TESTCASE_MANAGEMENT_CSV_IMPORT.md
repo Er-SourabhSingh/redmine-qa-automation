@@ -55,6 +55,43 @@
 >   leg**, a genuine build/instance divergence worth watching, not assumed to mean BUG-TCM-132 is fixed
 >   elsewhere.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 5 happy-flow CSV Import TCs executed live via real fresh imports (no existing-data
+> shortcuts needed on this leg):
+> - **TC-021** (legacy single Steps/Expected columns): PASS. Fixture
+>   `automation/uploads/legacy-steps-expected-mysql.csv`, full wizard (upload → select suite → confirm
+>   auto-mapping → confirm value mapping → Import). Preview: 1 OK, 0 errors, 0 warnings. Created issue #12;
+>   its Step 1 / Expected Result text is byte-identical to the CSV.
+> - **TC-024** (50-step CSV): PASS via a real fresh import — built `automation/uploads/fifty-steps-mysql.csv`
+>   (Title + Step 1..50/Expected Result 1..50). Preview: 1 OK, 0 errors/warnings. Created issue #14; opened it
+>   and confirmed Step 1 through Step 50 all present, correctly numbered and in order, each paired with its own
+>   Expected Result text, none dropped or reordered. (Note: the wizard's Next/Import controls on steps 2-4 are
+>   `<input type="submit">` elements, not `<button>` — they don't appear in the accessibility-tree snapshot
+>   when the column-mapping table is this large (100 dropdown rows for a 50-step CSV), so `browser_find`/the
+>   full snapshot missed them; located via `document.querySelectorAll('input[type=submit]')` and clicked with a
+>   real Playwright click. Not a defect — a tooling note for future large-CSV import testing.)
+> - **TC-034** (100-row bulk import): PASS via a real fresh import — built `automation/uploads/bulk-100x3-mysql.csv`
+>   (100 rows × 3 step/expected pairs each). Preview: 100 OK, 0 errors/warnings. Import ran asynchronously
+>   ("Importing…" progress page); after it completed the suite's case count rose from 6 to 106. Spot-checked
+>   row 1 (issue #15) and row 100 (issue #114, confirming no truncation/reordering across the full batch) —
+>   both correct, no crash or timeout.
+> - **TC-336** (every mappable column, one row): PASS on every field **except** `Private` — **BUG-TCM-154
+>   reproduces identically on MySQL**. Built `automation/uploads/26_all_mappable_fields_mysql.csv` (same 16
+>   columns as the other legs); created the `QA Category` issue category and `MySQL Happy-Flow v1.0` target
+>   version as the two missing preconditions (admin session). All 16 columns auto-mapped correctly;
+>   Priority→High and Status→In Progress auto-resolved in the value-mapping step. Imported with the same 1
+>   warning as other legs (not a new finding). Created issue #13: Status, Priority, Category, Target version,
+>   Start/Due date, Estimated time (2:30h), % Done (40%), the Requirements link, both Step/Expected pairs, and
+>   the Description (comma + quotes preserved exactly) all saved correctly — but `is_private` confirmed `false`
+>   via `rails runner` (`Issue.find(13).is_private` → `false`) despite the CSV cell being `true`, matching
+>   BUG-TCM-154's existing root cause (`testcase_import_controller.rb` only treats the literal string `"yes"`
+>   as true). **Note: BUG-TCM-132 (Estimated time/% Done not saved) does NOT reproduce here either** — both
+>   fields saved correctly on this MySQL leg too, consistent with the SQLite leg's own finding.
+> - **TC-333** (saved data matches the CSV exactly): PASS — demonstrated across all four imports above; every
+>   field on every spot-checked issue matched its CSV source exactly (whitespace aside), with the one already-
+>   tracked `is_private` exception (BUG-TCM-154).
+> **Zero new bugs found on this leg** — BUG-TCM-154 reproduces (same root cause, already tracked), nothing new.
+
 > Source: `docs/TESTCASE_MANAGEMENT_CSV_IMPORT_REPORT.md`. Covers the 4-step CSV import wizard (upload → column mapping → value mapping → preview/confirm) for both the legacy single `Steps`/`Expected` column pair and the new numbered `Step N`/`Expected Result N` columns.
 >
 > Evidence for these TCs was gathered in an external session before this suite existed in-repo. Each TC below is marked **CONFIRMED (external session)** rather than the usual live-in-session marker — reproduce locally when convenient to upgrade to a full in-session confirmation. Paste each CSV fixture into `automation/uploads/` using the filename noted in that TC's Evidence line, and bug screenshots into `screenshots/BUG-TCM-00X/` (see `bugs/open/`).

@@ -5,6 +5,51 @@
 > present in the run grid. RFTC045-9,13,14,15,16,35,39,53,54,56,58,63,64 not individually re-executed within
 > this pass's time budget.
 >
+> **CROSS-DB (PostgreSQL) -- 2026-11-19, GAP-CHECK CLOSED:** all 13 remaining happy-flow cases executed on
+> `redmine6-happyflow-pg` (`localhost:3020`), project `happyflow-pg`/1 -- only 2 real users (admin, qauser)
+> exist on this leg, so testing used those two plus a disposable 3rd environment ("Safari-RFTC045-PG") and a
+> disposable test case issue, rather than SQLite's richer multi-tester fixture.
+> - **RFTC045-9**: via Add Run, created Run #44 with 2 environments (Chrome -> admin, Firefox -> qauser) over
+>   the project's full 15-case pool. Selected 3 non-contiguous rows (issues 4, 8, 5) -> "3 Selected" banner ->
+>   Reassign -> QA User -> Apply. All 3 updated to QA User; every unselected case (10 others) kept its prior
+>   value -- no partial/extra application.
+> - **RFTC045-13**: with zero checkboxes selected, no "Reassign" button exists anywhere on the Run page at
+>   all (not merely disabled) -- confirmed via a full-page search.
+> - **RFTC045-14**: selected issue 4 (already QA User from RFTC045-9) plus issue 29 (still admin) -> bulk
+>   Reassign -> QA User -> Apply. Both ended at `assignee_id=5` with no duplicate-assignment error.
+> - **RFTC045-15/16**: clicked issue #1's Chrome-tab assignee cell -> real dropdown listing "Unassigned,"
+>   "QA User," "Redmine Admin" (the project's actual 2 members, not an empty/unrelated list) -> clicked "QA
+>   User" -> cell updated in-place immediately, URL stayed at `/runs/44?project_id=happyflow-pg` -- exactly 2
+>   clicks, no navigation.
+> - **RFTC045-35**: same test case (#1), same run -- set Chrome tab -> QA User, Firefox tab stayed "QA User"
+>   from creation-seeding (unaffected); then set Firefox tab -> Redmine Admin and re-checked Chrome, still
+>   "QA User" -- confirmed independent in both directions.
+> - **RFTC045-39**: Run #44's own creation (Chrome -> admin, Firefox -> qauser, "Include all test run," 15
+>   cases) showed all 15 cases as "Redmine Admin" on the Chrome tab and all 14 visible cases as "QA User" on
+>   the Firefox tab -- correctly seeded from each environment's own Add Run assignee, no cross-leak.
+> - **RFTC045-53**: opened Edit Run on Run #44 -- no `assignee_id` select anywhere; "Assignee" is a static
+>   label next to a read-only value with the identical tooltip text as the SQLite leg ("Assignees are not
+>   changed here. Change a test case's assignee inside the run (inline or Reassign).").
+> - **RFTC045-54**: clicked "+ Add" on Edit Run -- the new row has only an Environment select, no assignee
+>   control attached.
+> - **RFTC045-56**: registered a disposable 3rd environment ("Safari-RFTC045-PG"), added it to Run #44 via
+>   Edit Run and saved -- all 14 visible test cases showed "Unassigned" on the new tab, no value borrowed from
+>   Chrome's or Firefox's existing assignments.
+> - **RFTC045-58**: created a disposable test case issue (#42), linked it into the same testsuite Run #44
+>   already used, added it via Edit Run's "Only the following test cases" -> "Select Cases" picker. After
+>   saving, `RunIssue#42.assignee_id` is `nil` and zero `RunIssueAssignment` rows exist for it -- "Unassigned,"
+>   not inherited from any of the run's other individually-reassigned cases.
+> - **RFTC045-63**: inline-reassigned issue #1's Chrome-tab cell to QA User -- 2 clicks, no navigation,
+>   `RunIssueAssignment` updated immediately (same evidence as RFTC045-15 above).
+> - **RFTC045-64**: both scopes confirmed. "Only this environment" (issues 4/8/5, default scope) updated
+>   Chrome's `RunIssueAssignment` rows only. Separately selected issue 32 (Chrome tab, previously Redmine
+>   Admin), chose "All environments," reassigned to QA User: the shared `RunIssue#32.assignee_id` became 5
+>   with zero `RunIssueAssignment` override rows left for it, and "QA User" correctly appeared on both the
+>   Chrome and Firefox tabs via the shared fallback.
+> All disposable fixtures (Run #44, its `RunIssueAssignment`/`IssueStatusResult`/`RunIssue` rows, test case
+> issue #42, and the "Safari-RFTC045-PG" environment) deleted after confirming. **Zero new bugs found on this
+> leg.**
+>
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 16 happy-flow RFTC045 TCs confirmed PASS, on a 2-then-3-environment fixture run (#36/37,
 > 6 test cases from "SQLite Happy-Flow Suite"):

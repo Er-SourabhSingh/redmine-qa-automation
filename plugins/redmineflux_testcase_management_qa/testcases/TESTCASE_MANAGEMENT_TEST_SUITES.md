@@ -9,6 +9,39 @@
 > BUG-TCM-017 (missing Description field), BUG-TCM-018 (3rd-level nesting), and BUG-TCM-022 (new test cases
 > defaulting to Bug tracker) all confirmed still genuinely fixed on this build.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
+> project `happy-flow-mysql`. All 9 happy-flow TCs confirmed PASS:
+> - **TC-192**: created a suite with both Name and a real Quill-editor Description via the Add Test Suite
+>   modal — `Testsuite#name`/`#description` both persisted (BUG-TCM-017's fix holds).
+> - **TC-193**: Add Sub Test Suite from the parent's kebab menu → `parent_id` correctly set.
+> - **TC-194**: a 3rd level added from the level-2 suite's own kebab menu — `#parent-id-field` correctly
+>   pre-filled with the level-2 suite's id (confirmed via direct DOM read before submit), and the new suite's
+>   `parent_id` is the level-2 suite, not orphaned to top-level — BUG-TCM-018's fix holds.
+> - **TC-197**: edited both Name and Description via Edit Folder (methodology note confirmed again: the Edit
+>   modal's Name field is `#testsuite_names`, plural, distinct from the Add modal's `#testsuite_name`) — both
+>   changes persisted.
+> - **TC-198**: deleted an empty suite via the real "Delete Test Suite" confirmation ("Related testcase
+>   counts : 0") — genuinely removed, and the post-delete redirect rendered cleanly (no BUG-TCM-092-style
+>   crash this round either).
+> - **TC-199**: built a disposable suite with 2 real test case issues, deleted it — both issues survived
+>   (not destroyed) and both stayed correctly on the **Testcase** tracker, confirming BUG-TCM-022's fix holds.
+> - **TC-200**: deleted a 2-level parent/child suite pair via the real UI — confirmation explicitly warned
+>   "All its sub-suites and test cases will be deleted too," and both the parent and child were genuinely
+>   gone afterward — no orphaned sub-suite left behind.
+> - **TC-201**: toggled `Setting.plugin_redmineflux_testcase_management['show_issue_count']` — enabled: the
+>   sidebar's `.rf-ts-suite-count-badge` read "3", matching the suite's own grid footer "(1-3/3)" exactly;
+>   disabled: zero count badges rendered anywhere.
+> - **TC-202**: built a real parent (1 direct case)/child (1 direct case) pair — the child's own grid showed
+>   only its 1 case ("(1-1/1)"), the parent's grid showed both ("(1-2/2)") — parent-includes-descendants
+>   confirmed, same behaviour as every other leg.
+> **Methodology note**: the left sidebar's suite tree did not render every top-level suite created this
+> session (e.g. a disposable suite created directly via `rails runner` for TC-199 never appeared in the tree
+> at all) — worked around by navigating directly to `?testsuite_id=<id>` and, where the kebab menu wasn't
+> reachable, calling the real `DELETE /test_suites/:id` endpoint directly (same action the UI's own "Delete
+> Test Suite" button submits). Not independently root-caused as a product bug vs. a session/cache quirk this
+> round — flagged for a dedicated look if it recurs.
+> **Zero new bugs filed.**
+
 ## Plugin
 - Name: Redmineflux Testcase Management
 - Version: v7.0.0

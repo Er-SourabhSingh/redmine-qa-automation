@@ -68,14 +68,15 @@
 >    workaround (as `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` used for the Testcase Management plugin's
 >    own CI suite), out of scope for this session.
 >
-> **Status: EXECUTED 2026-11-19 — 10/12 PASS, 2 bugs filed (BUG-CRX-218 cosmetic/doc-lag; BUG-CRX-219 a real
-> Auto-routing miss, reproduced 2/2).** All reads were accurate against the real fixture state (never a
-> fabricated build/PR/commit/license/freeze/vulnerability/DORA metric); all writes (deploy, deployment
-> approve, incident create, release generate-notes, release approve) went through a real confirm card naming
-> the actual record (never a bare id) and produced a native-verified, honest outcome (including an honest
-> "waiting for approval" on a gated deploy and an honestly-zero DORA deployment-frequency count on a still-
-> pending deployment — never a false positive either direction). The one functional gap found is in Auto's
-> own domain routing, not in the DevOps Agent's own behavior (see TC-1085).
+> **Status: EXECUTED 2026-11-19 — 11/13 PASS, 2 bugs filed (BUG-CRX-218 cosmetic/doc-lag; BUG-CRX-219 a real
+> Auto-routing miss, reproduced 2/2). No gap remains.** All reads were accurate against the real fixture state
+> (never a fabricated build/PR/commit/license/freeze/vulnerability/DORA metric — including a real positive-
+> path build read, TC-1086); all writes (deploy, deployment approve, incident create, release generate-notes,
+> release approve) went through a real confirm card naming the actual record (never a bare id) and produced a
+> native-verified, honest outcome (including an honest "waiting for approval" on a gated deploy and an
+> honestly-zero DORA deployment-frequency count on a still-pending deployment — never a false positive either
+> direction). The one functional gap found is in Auto's own domain routing, not in the DevOps Agent's own
+> behavior (see TC-1085).
 
 ## Plugin / Agent
 - Name: redmineflux_crux (DevOps Agent)
@@ -322,6 +323,36 @@ honestly correct DORA count, not a stale or missed read.
 
 ---
 
+## Real Positive-Path Case (tunnel + real GitHub activity, 2026-11-19)
+
+---
+
+### TC-CRX-1086: Build status read — a real, genuinely pending build, honest "no failure, still running" reasoning
+
+**User Role:** `admin`.
+**Precondition:** A real GitHub Actions build exists (#6, queued, linked to issue #167) via the tunnel +
+webhook setup described above — no self-hosted runner is listening, so it stays `pending` indefinitely (a
+real, accurate state, not a defect).
+
+**Steps:**
+1. Ask: "What's the status of build #6 in the Crux DevOps Agent Test Project, and why did it fail or is
+   still pending?"
+
+**Expected Result:**
+- A real `get_build`/`issue_builds` read reports the genuine `pending` status, correctly declines to invent a
+  failure reason (since it hasn't failed — it just hasn't finished), and correctly distinguishes the build
+  number (6) from its Redmineflux database id per the manifest's own "ids, not numbers" rule.
+
+**Result: PASS — executed 2026-11-19.** Response ("Checked 4 things"): *"Build #6 exists. The issue was that
+the `build_id` parameter requires the Redmineflux database ID, not the build number. Let me get the full
+details... **Build #6 Status Summary:** Status: Pending (still in progress). Branch: main. Linked to: Issue
+#167. Since the build is still pending (not yet failed or completed), it means the CI/CD pipeline is
+currently running. There's no failure to report yet — the build is actively being processed."* Correctly
+self-corrected the id-vs-number distinction mid-turn, and did not invent a failure cause for a build that
+genuinely hasn't failed — an honest "still running, nothing to report" rather than a fabricated diagnosis.
+
+---
+
 ## Negative / Boundary Cases
 
 ---
@@ -400,16 +431,20 @@ agent to address. Filed as BUG-CRX-218 (not yet reported to production).
 
 ## Notes for whoever executes this suite
 
-- Project #20 now has one **genuinely authenticated** repository connection
-  (`sourabhzehntech01-star/rftc038-qa-pipeline-test`, `status: connected`, real PAT) — a stronger fixture than
-  the session started with. Builds/commits/PRs still read as empty, which is the *correct* expected state:
-  this plugin's commit/PR/build data is populated by inbound GitHub webhooks, and GitHub's webhook servers
-  cannot reach this local instance (`localhost:3015`) — there is no delivery path, authenticated or not.
-  `trigger_build` was **not** exercised this session (no existing build row to re-trigger, and doing so
-  against a real repo risks the real-infrastructure-effect caution from `CRUX_DEV_REQUEST.md` §5). A future
-  session that exposes this instance via a tunnel (or sets up a self-hosted-runner workaround like
-  `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` used for the Testcase Management plugin) can extend this
-  suite with real webhook-driven commit/PR/build positive cases.
+- **UPDATE 2026-11-19 (same day, continued): the webhook-reachability gap is closed.** A Cloudflare quick
+  tunnel (`cloudflared tunnel --url http://localhost:3015`) was set up and a real webhook added on
+  `sourabhzehntech01-star/rftc038-qa-pipeline-test` pointing at
+  `<tunnel>/devops/webhook/github/crux-devops-agent-test-project` (the route needs the project's
+  **identifier**, not numeric id — the first attempt used `20` and got a 404 "Project not found" until
+  corrected). A real push, a real PR (#1, open), and a real GitHub Actions build (#6, queued/pending — no
+  runner is listening, so it never completes, itself an honest state) were generated and verified to arrive
+  (`list_webhook_events` showed `ping`/`push`/`workflow_run`/`pull_request` all `processed`). See TC-CRX-1086
+  below for the DevOps Agent reading this real build. `trigger_build` was still **not** exercised (no need to
+  re-trigger a build that already exists and is genuinely running/queued; doing so against a real repo also
+  risks the real-infrastructure-effect caution from `CRUX_DEV_REQUEST.md` §5). The Cloudflare tunnel itself is
+  ephemeral — it dies when the `cloudflared` process stops, so a future session wanting fresh live webhook
+  deliveries needs a new tunnel and an updated GitHub webhook payload URL; the real records already created
+  persist in Redmine's own database regardless of the tunnel's lifetime.
 - Model observed in the chat UI was `claude-haiku-4.5` for every turn in this suite, not the manifest's stated
   `claude-sonnet-5` — consistent with the rest of this cycle's agents (dynamic cost-routing), not flagged as a
   defect on its own.

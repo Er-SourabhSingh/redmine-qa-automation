@@ -40,6 +40,17 @@
 > agent's "can't tell" / honest-gap behavior is no longer standing in for "the DevOps plugin's tools aren't
 > wired up at all" (the old precondition) — it's now a genuinely tool-backed "zero PRs/commits/builds really
 > exist for this issue" (the new, correct precondition). See each TC's "Re-verified 2026-11-19" note below.
+>
+> **REAL POSITIVE-PATH CLOSED 2026-11-19 (same day, continued) — see TC-625.** Per explicit user instruction
+> to leave no gap, set up a Cloudflare quick tunnel (`cloudflared tunnel --url http://localhost:3015`) to make
+> this local instance reachable from GitHub's webhook servers, added a real webhook on the connected repo
+> (`sourabhzehntech01-star/rftc038-qa-pipeline-test`) pointing at `<tunnel>/devops/webhook/github/<project
+> identifier>` — the route needs the project's **identifier**, not its numeric id, which the first attempt
+> got wrong (404 "Project not found") before correcting it (200/202 afterward) — then generated a real push
+> (direct commit to README.md referencing #167), a real PR (#1, open, from a second edit on a new branch),
+> and a real GitHub Actions build (#6, queued/pending — no self-hosted runner is listening, so it never
+> completes, which is itself an honest, real build state). This closes the one previously-genuine gap: a real
+> **positive-path** review verdict grounded in real PR/commit/build evidence. See TC-625.
 
 ## Plugin / Agent
 - Name: redmineflux_crux (Code Reviewer agent)
@@ -307,6 +318,49 @@ project. Stronger result than the original 2026-11-04 pass.
 
 ---
 
+## Real Positive-Path Case (tunnel + real GitHub activity, 2026-11-19)
+
+---
+
+### TC-CRX-625: Genuine "needs changes" verdict grounded in a real open PR, a real commit, and a real pending build
+
+**User Role:** `admin`.
+**Precondition:** A Cloudflare quick tunnel exposes this instance to GitHub's webhook servers; the connected
+repository (`sourabhzehntech01-star/rftc038-qa-pipeline-test`) has a real webhook configured
+(`<tunnel>/devops/webhook/github/crux-devops-agent-test-project` — the project **identifier**, confirmed via
+source read of `webhook_project` in `devops_webhooks_controller.rb`, which resolves only by identifier, not
+numeric id). Real GitHub activity was generated this session: a direct commit to `main` referencing #167
+(`5fcd2015`), a real open PR (#1, `sourabhzehntech01-star-patch-1` → `main`), and a real queued/pending build
+(#6, linked to #167 — never completes since no self-hosted runner is listening, which is itself an honest
+real state, not a defect).
+
+**Steps:**
+1. Code Reviewer pinned, ask: "Code Reviewer, review the changes for issue #167."
+
+**Expected Result:**
+- A genuine, evidence-grounded verdict (ready / needs changes / can't tell) citing the real PR number, real
+  commit SHA, and real build number/status — not the honest-gap "nothing exists yet" response from the
+  earlier re-verification pass, and no fabricated detail beyond what the three real tool calls actually
+  returned.
+
+**Result: PASS — executed 2026-11-19.** Response ("Checked 4 things" — real `get_issue` /
+`list_pull_requests` / `list_commits` / `issue_builds`): *"**Verdict: needs changes.** Here's what I found:
+1. **Pull Request #1 is open** — 'Update README.md' on branch sourabhzehntech01-star-patch-1 → main
+(2026-11-19). It has not been merged yet. 2. **Commit 5fcd2015** — 'QA webhook verification commit,
+references #167' by sourabhzehntech01-star on main (2026-11-19). This commit is already on main, which
+suggests the PR may not be in sync with the latest main or the commit may have been pushed directly. 3.
+**Build #6 is pending** on main (2026-11-19) — the build has not completed, so we don't know if the code
+passes CI/CD yet. **Issues to resolve before this is ready:** Build #6 is still pending — wait for it to
+complete and ensure it passes. Clarify the relationship between PR #1 (open, on a feature branch) and the
+commit already on main — PR #1 may be stale or represent a different change."*
+This is a genuinely correct, evidence-grounded analysis: the agent accurately noticed and flagged the real
+ambiguity in the fixture (a direct push to `main` happened independently of the still-open PR, since both
+were created manually this session for test coverage, not as a real linear workflow) rather than glossing
+over it or fabricating a clean story. Every PR number, commit SHA and build number cited is real and
+verifiable. This closes the suite's last remaining gap — the real positive-path verdict.
+
+---
+
 ## Notes for whoever executes this suite
 
 - This suite is **unusually gap-shaped** by design: most of its value is confirming the agent is honest
@@ -316,12 +370,12 @@ project. Stronger result than the original 2026-11-04 pass.
   cases (ready verdict with real evidence, needs-changes verdict naming a real failing build, etc.) before
   calling Code Reviewer coverage complete.
 - Model is `claude-opus-4-8` for this agent.
-- **2026-11-19: DevOps plugin is now installed, full suite re-verified (8/8 PASS).** Project #20 now has a
-  genuinely authenticated GitHub repository connection (`sourabhzehntech01-star/rftc038-qa-pipeline-test`,
-  real PAT) — see `CRUX_AGENT_DEVOPS.md`'s setup notes. Commits/PRs/builds still read as zero because this
-  plugin's data is populated by inbound GitHub webhooks and this local instance isn't reachable from GitHub's
-  webhook servers (no public URL) — so every TC above's "can't tell" / honest-zero verdict is still correct,
-  just for the right reason now (genuinely zero real data, not "plugin absent"). The real PR/commit/build
-  **positive-path** TCs (a real "ready" or "needs changes" verdict, naming an actual PR/build) remain the one
-  genuinely open gap — they need either a reachable public URL (tunnel) for this instance or a self-hosted
-  CI/webhook workaround, out of scope for this session.
+- **2026-11-19: DevOps plugin installed, full suite re-verified (8/8 PASS), AND the real positive-path gap
+  closed same day (TC-625).** Project #20 has a genuinely authenticated GitHub repository connection
+  (`sourabhzehntech01-star/rftc038-qa-pipeline-test`, real PAT) plus, since a Cloudflare quick tunnel was set
+  up, a real webhook actually delivering events — real commit, real open PR, real pending build, all linked
+  to issue #167. TC-625 confirms Code Reviewer gives a genuine, evidence-grounded "needs changes" verdict
+  against this real data. **No gap remains in this suite as of 2026-11-19.** Caveat: the Cloudflare quick
+  tunnel is ephemeral (dies when the `cloudflared` process stops) — a future session wanting fresh live
+  webhook deliveries needs to start a new tunnel and re-point the GitHub webhook's payload URL; the real
+  records already created (commit, PR, build) persist in Redmine's own database regardless.

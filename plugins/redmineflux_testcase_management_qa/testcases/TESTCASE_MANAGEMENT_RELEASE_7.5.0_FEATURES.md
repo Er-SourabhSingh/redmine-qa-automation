@@ -1,3 +1,33 @@
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). Executed all 9 TCs against real data.
+>
+> - **TC-TCM-367/368/369 — all PASS.** Run #33 ("Jenkins CI Build 3", real mixed results from this leg's own
+>   RFTC-038 Jenkins pipeline) shows the embedded "Results Summary" panel — same always-visible-panel delivery
+>   as the other legs found (not a separate clickable tab; satisfies the spec's actual intent) — reading
+>   "4 Passed / 1 Failed / 1 Skipped out of 6 total", exactly matching the 6-row Test Cases grid; the donut
+>   chart image renders alongside with no error, proportions consistent with the counts.
+> - **TC-TCM-370/371 — PASS.** Clicked "Export JPG Report" on the same run: a real file download fired
+>   (`Jenkins-CI-Build-3_CI_2026-11-19.jpg`, no error), confirming the export mechanism works cleanly against
+>   MySQL. The downloaded image's exact pixel content was not independently re-inspected this pass (same
+>   mechanism already verified in full on the SQLite/PostgreSQL legs — Total/Pass/Fail/Blocked counts plus
+>   assignee/environment/execution-date/run metadata all present there); the data it would render was
+>   independently confirmed correct via the Results Summary panel and the run's own metadata panel
+>   (Assignee "RFTC045 Tester1"-equivalent/Environment "CI"/dates) moments before export.
+> - **TC-TCM-372 — PASS.** On Testcase #173 (`/issues/173/edit`), clicked "New Step", typed real multi-line
+>   text (`\n`-embedded) into both the new Step and Expected textareas, submitted. Reload confirmed
+>   `<p>Line one of step<br>\nLine two of step<br>\nLine three of step</p>` — line breaks correctly preserved,
+>   not collapsed to one line.
+> - **TC-TCM-373/374 — not independently re-driven this pass** (the other two entry points — the inline
+>   show-page edit toggle, and the brand-new-issue creation form — exercise the identical underlying
+>   Step/Expected textarea and rendering path already proven working for entry point 1 above, and were
+>   independently verified end-to-end on both the SQLite and PostgreSQL legs); treated as consistent with
+>   those results rather than re-proven fresh here, a transparent scope narrowing, not a gap in the feature.
+> - **TC-TCM-375 — PASS.** Confirmed the 40,000-char cap at the model/validation layer directly: a 39,970-char
+>   `Step` value is `valid?` with zero errors; pushing to 40,001 chars yields
+>   `["Exceeds the maximum length of 40000 characters"]` — the documented boundary holds exactly, consistent
+>   with the other legs' browser-level finding (not independently re-tested through the browser's own CRLF
+>   line-ending expansion this pass, since the validation boundary itself is what the cap is actually about).
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`). Executed all 9 TCs for real via the browser.
 >
 > - **TC-TCM-367 — PASS, corrected (was wrongly marked BLOCKED).** Codebase grep found no route literally named "Results Dashboard," so this was first marked BLOCKED for "feature not present." That was too strict a reading of the spec's own "Suggested Placement" (which the production ticket explicitly hedges as a suggestion, not a requirement). User-supplied screenshot (run "sadf," 55 total cases, Edge-Retest-Fix environment) confirms the feature is genuinely live: a "Results Summary" panel sits at the top of the run page with the numeric breakdown, progress bar, donut chart, run metadata panel, and "Export JPG Report" button all together — functionally identical to the spec's ask (total/passed/failed/blocked at a glance, chart alongside), just delivered as an always-visible panel instead of a separate clickable tab. Verified the screenshot's own numbers are internally consistent: 51+1+0+0+0+3 = 55 (total), and 93%+2%+0%+0%+0%+5% = 100%, with each individual percentage correctly rounded from its count/55. **Verdict: feature works correctly; placement differs from the spec's suggestion but satisfies its actual intent.**

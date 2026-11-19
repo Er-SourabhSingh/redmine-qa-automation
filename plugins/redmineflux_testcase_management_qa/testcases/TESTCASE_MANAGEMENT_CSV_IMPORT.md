@@ -39,7 +39,7 @@
 >   probe" issues already exist on this project from an earlier bulk import on this leg, with no crash/timeout
 >   and consistent structure.
 > - **TC-336** (every mappable column, one row): PASS on every field **except** `Private`, which surfaced a
->   genuine new defect — **BUG-TCM-154** (Medium, new). Built fixture
+>   genuine new defect — **BUG-TCM-154** (Low — severity downgraded from Medium per user call 2026-11-19). Built fixture
 >   `automation/uploads/26_all_mappable_fields_sqlite.csv` (16 columns: Title, Description, Priority, Status,
 >   Category, Target version, Start/Due date, Estimated time, % Done, Private, Requirements, Step 1/2 +
 >   Expected Result 1/2), created the `QA Category` issue category as the one missing precondition. All 16

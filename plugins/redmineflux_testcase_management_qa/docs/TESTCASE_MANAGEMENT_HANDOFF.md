@@ -282,9 +282,10 @@ writeup in `TESTCASE_MANAGEMENT_CSV_IMPORT.md`'s own new "CROSS-DB (SQLite) — 
   this instance from an earlier bulk import this leg (issue #333 genuinely has 50 `steps` rows in the DB,
   verified via `rails runner` with the container's own `SECRET_KEY_BASE` env var — a bare `rails runner` call
   fails with "Missing secret_key_base" otherwise).
-- TC-336 (every mappable column): PASS on 15/16 fields — **found a new bug, BUG-TCM-154 (Medium)**: the CSV
-  import's `Private` column only recognizes the literal string `"yes"`; any other truthy value (`true`, `1`,
-  `Y`) is silently saved as `false`, with no warning anywhere. Filed, not yet reported to production. Also
+- TC-336 (every mappable column): PASS on 15/16 fields — **found a new bug, BUG-TCM-154 (Low — downgraded
+  from Medium per user call 2026-11-19)**: the CSV import's `Private` column only recognizes the literal
+  string `"yes"`; any other truthy value (`true`, `1`, `Y`) is silently saved as `false`, with no warning
+  anywhere. Filed, not yet reported to production. Also
   noted: **BUG-TCM-132 (Estimated time/% Done not saved, found on the PostgreSQL leg) does NOT reproduce
   here** — both fields saved correctly on this SQLite leg, a genuine divergence, not treated as "fixed".
 

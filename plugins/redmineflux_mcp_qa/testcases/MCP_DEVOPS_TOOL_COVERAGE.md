@@ -10,11 +10,15 @@
 > agent reasoning in between — exactly the methodology `MCP_TOOL_OPERATIONS.md` already establishes for this
 > plugin ("every result must be verified in Redmine itself, not in the assistant's reply").
 >
-> **Status: EXECUTED 2026-11-19 — 9/10 PASS, 1 new bug filed (BUG-MCP-003).** Fixture: project "Crux DevOps
+> **Status: EXECUTED 2026-11-19 — 7/8 TC blocks PASS (TC-MCP-001 through 012, one block covers 14 tools in a
+> representative sweep), 1 new bug filed (BUG-MCP-003).** Fixture: project "Crux DevOps
 > Agent Test Project" (id 20), issue #167, a genuinely authenticated GitHub repository
 > (`sourabhzehntech01-star/rftc038-qa-pipeline-test`) with real build/commit/PR activity (see
 > `plugins/redmineflux_crux_qa/testcases/CRUX_AGENT_DEVOPS.md` for how that fixture was built — a Cloudflare
-> tunnel + corrected webhook).
+> tunnel + corrected webhook). Also uses 2 non-admin test users (`zeropermtest`, partial `view_devops`-only
+> permission via the shared `Crux View Only Role` #9; `daisy.skye`, zero DevOps permission via `Developer`
+> role #3) added as real project #20 members, with their own real API keys, for TC-MCP-012's permission-parity
+> check — no admin key used for that TC.
 
 ## Plugin
 - Name: Redmineflux MCP Server (`redmineflux-mcp`, DevOps tools in `src/tools/devops.py`)
@@ -179,13 +183,39 @@ this same tool family, just not applied to builds/commits.
 
 ---
 
+### TC-MCP-012: `/api/devops` endpoint permission checks exactly match the plugin's own screens, for two real non-admin users
+
+**Precondition:** Two real, non-admin project #20 members, each with their own real API key (not the admin
+key): `zeropermtest` (role: `Crux View Only Role` #9, edited this session to add `View DevOps data` only —
+not `Manage DevOps settings`/metrics), and `daisy.skye` (role: `Developer` #3, zero DevOps permission at all,
+otherwise a broad 141-permission role).
+
+**Steps:**
+1. As `zeropermtest`: open `/projects/crux-devops-agent-test-project/devops_incidents` in the browser (real
+   login, not admin) — note whether the list renders and whether a "New incident" control is visible.
+2. As `zeropermtest`: `curl -H "X-Redmine-API-Key: <her key>" GET
+   /api/devops/projects/20/incidents.json`, then the same with `POST` (create).
+3. As `daisy.skye`: repeat both the screen visit and the two curl calls.
+
+**Expected Result:** The API's permission checks produce exactly the same allow/deny outcome as the screen,
+for both users, on both the read and the write action (ticket #128756's own criterion).
+
+**Result: PASS — executed 2026-11-19.**
+- `zeropermtest` (view_devops only): screen showed the real 3-incident list with **no "New incident" control**
+  visible. API: `GET .../incidents.json` → **200**, same 3 incidents verbatim. API: `POST .../incidents.json`
+  → **403** `{"error":"You don't have the \"manage_incidents\" permission on this project"}`. Exact match:
+  view allowed both places, create denied both places.
+- `daisy.skye` (zero DevOps permission): screen → **403 Forbidden** (whole page). API: `GET
+  .../incidents.json` → **403** `{"error":"You don't have the \"view_devops\" permission on this
+  project"}`. API: `POST .../incidents.json` → **403** `{"error":"You don't have the \"manage_incidents\"
+  permission on this project"}`. Exact match: both denied, both places, for both actions.
+- No data leaked past either user's real permission level in any of the 6 calls (2 users × screen + 2 API
+  calls each, minus the one screen-level combined check).
+
+---
+
 ## Notes for whoever executes this suite
 
-- **Not covered this pass** (genuinely open, not just deferred): direct `/api/devops` endpoint permission
-  parity with the plugin's own screens (ticket #128756's own criterion: "applies the same permission checks
-  as the plugin's screens") — this needs a real non-admin test user with a scoped API key, which wasn't set
-  up this session. A future pass should create one (see `QA_CREDENTIALS.md` conventions) and compare a
-  permission-denied screen action against the matching API call as that same user.
 - The remaining ~45 of 68 DevOps tools not explicitly called this pass (write tools like `save_dashboard`,
   `save_freeze`, `save_incident_comm_template`, `save_performance_connection`, `update_notification_prefs`,
   `update_settings`, `update_vulnerability`, `upload_test_results`, `create_branch`, `create_env_request`,
@@ -197,3 +227,9 @@ this same tool family, just not applied to builds/commits.
 - `trigger_build` was deliberately not exercised against the real connected repository (real CI/infrastructure
   effect, per the long-standing caution in `CRUX_DEV_REQUEST.md` §5) — only exercised against a nonexistent
   build id (TC-MCP-004, step 4), a safe negative case.
+- **Fixture left in place, reusable for future sessions:** `zeropermtest` and `daisy.skye` are now real
+  project #20 members (role `Crux View Only Role` #9 and `Developer` #3 respectively); role #9 was edited to
+  add `View DevOps data` (not the other two DevOps permissions). This mirrors the existing two-project
+  permission fixture pattern noted in this repo's memory (Project B + Crux View Only Role +
+  daisy.skye/zeropermtest) — reuse directly for any future DevOps permission-boundary TC rather than
+  creating a new fixture.

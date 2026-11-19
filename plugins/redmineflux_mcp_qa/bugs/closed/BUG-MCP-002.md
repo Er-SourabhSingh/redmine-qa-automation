@@ -1,5 +1,17 @@
 # BUG-MCP-002
 
+**Status: CLOSED 2026-11-19 — CONFIRMED FIXED.** Developer fix `RMCP-049` ("create_testcase with
+test_suite_id no longer fails on the suite check", redmineflux-mcp 1.0.12) pulled and rebuilt onto the local
+`mcp` Docker service (was 3 commits behind `origin/crux_development` — `44c1029` → `d9c1e8c` — before this
+retest; a first retest attempt against the stale image still 500'd, which is why the pull/rebuild happened
+mid-session). Retested with `redmineflux_testcases_management_create_testcase(project_id=20, test_suite_id=7)`
+on a disposable fixture suite: no 500, and `list_testcases_in_suite(7)` confirmed the new testcase was
+genuinely linked in the single call — matching the tool's documented one-call behavior. Fixtures (testcase
+#174 + control testcases #172/#173 + suite #7) deleted after verification. Production issue #129086 still
+needs Done/100% sync — pending (production's own `create_testcase` 500 was not independently retested after
+the pull, since the fix lives in the shared `redmineflux-mcp` codebase, not something this session redeploys
+to production).
+
 - Bug ID: BUG-MCP-002
 - Production Redmine Issue ID: #129086
 - Title: MCP `create_testcase` returns a bare 500 Internal Server Error whenever `test_suite_id` is passed, on production specifically — not reproducible on the local QA stack

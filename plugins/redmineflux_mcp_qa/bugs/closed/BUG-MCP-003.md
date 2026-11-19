@@ -1,5 +1,11 @@
 # BUG-MCP-003
 
+**Status: CLOSED 2026-11-19 — CONFIRMED FIXED.** Developer fix `RMCP-050` ("DevOps build, commit and pull
+request lists show the Redmineflux id", redmineflux-mcp 1.0.13) pulled and rebuilt onto the local `mcp`
+Docker service. Retested the exact repro from this file: `list_builds(project_id=20)` now shows `#6 (id 1)`
+and `list_commits(project_id=20)` now shows `(id 1)`/`(id 2)` next to each SHA; `get_build(build_id=1)` and
+`get_commit(commit_id=2)` both resolved cleanly using the now-visible id, no guessing required.
+
 - Bug ID: BUG-MCP-003
 - Production Redmine Issue ID: #129089
 - Title: `list_builds`/`issue_builds` (and `list_commits`) never surface the Redmineflux database id that `get_build`/`get_commit` actually require — only the provider's own build number / commit SHA, making the "get" tools practically undiscoverable without guessing

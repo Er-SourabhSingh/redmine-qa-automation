@@ -97,6 +97,8 @@ existing duplicate, create a new Bug issue, or create a new issue plus a "relate
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
+> **Regression (2026-11-19):** PASS — real duplicate target #158 ("Payment gateway is down") found via search, correctly proposed as an update_issue/notes comment (not a new issue), genuine confirm card, confirmed successfully.
+
 **User Role:** `admin`.
 **Precondition:** The fixture duplicate-target Bug issue exists with a matching real subject/keywords.
 
@@ -152,6 +154,8 @@ symptom (not a duplicate — e.g. existing issue is "login times out on slow con
 ### TC-CRX-654: Severity mapping follows the manifest's stated rule, grounded in real impact
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
+> **Regression (2026-11-19):** PASS — Critical-shaped report ("search returning zero results site-wide, blocking, no workaround") correctly got Priority: immediate (this project's real top-tier priority); Low-shaped ("footer copyright year cosmetic") correctly got Priority: low. Both mapped to real list_priorities, not hardcoded.
 
 **User Role:** `admin`.
 **Precondition:** Two distinct reports — one clearly Critical-shaped (blocks payments, no workaround, many

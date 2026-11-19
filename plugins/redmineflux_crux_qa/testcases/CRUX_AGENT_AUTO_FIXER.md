@@ -66,6 +66,8 @@ writes code, never closes the bug itself.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
+> **Regression (2026-11-19):** PASS — found and used the real cause comment on #93 (off-by-one boundary, quoted verbatim), fix plan included Risk and Verification with an explicit regression-check step.
+
 **User Role:** `admin`.
 **Precondition:** Bug I has a real cause comment on it.
 
@@ -110,6 +112,8 @@ explicitly suggested asking the Root-Cause Analyst to verify. Never proceeded as
 ### TC-CRX-670: Subtask path creates real child issues under the bug
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
+> **Regression (2026-11-19):** PASS — subtask creation confirm card correctly showed Parent Issue: 93; confirmed, native-verified via list_issues(parent_id=93): new child #177 genuinely created.
 
 **User Role:** `admin`.
 **Precondition:** TC-668's plan exists; user prefers subtasks.

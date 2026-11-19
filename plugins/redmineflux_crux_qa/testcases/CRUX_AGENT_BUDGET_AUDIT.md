@@ -235,6 +235,8 @@ cleanly reproducible as a real end-user scenario — flagged for awareness, not 
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
+> **Regression (2026-11-19):** PASS — approved 15h then 5h for category 67; confirm cards showed exact project/category/hours/comment; cumulative total correctly 30+15+5=50h, native-verified via get_budget_status.
+
 **User Role:** Same as TC-CRX-398 (needs `manage_approved_hours`).
 
 **Steps:**
@@ -550,6 +552,8 @@ TC-CRX-410) is honestly denied — no admin-bypass artifact masking either resul
 ### TC-CRX-417: Budget Agent correctly identifies a genuinely over-budget category, by name, with exact figures
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
+> **Regression (2026-11-19):** PASS — exact figures: Development (67) correctly reported over budget by 1h (50h approved vs 51h spent), all 4 categories named with real approved/spent/remaining.
 
 **User Role:** Admin.
 

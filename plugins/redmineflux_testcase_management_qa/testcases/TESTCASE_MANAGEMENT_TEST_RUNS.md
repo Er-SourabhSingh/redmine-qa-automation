@@ -184,6 +184,20 @@
 > the Action menu's "Delete Run" link — confirmation modal correctly named the run ("TC-TCM-160 delete-run
 > fixture (MySQL)... Are you sure you want to delete this run? This action cannot be undone."), confirmed via
 > "Delete". DB-verified: `Run.find_by(id: 5)` → `nil` — genuinely removed, not a UI-only hide.
+>
+> **TC-TCM-162 PASS.** All 5 run states now represented and correctly non-blank: run #3 "New" (state=1), run #1
+> "In progress" (state=2), run #4 "Done" (state=3, from the TC-158 Close Run above), run #6 "TC-TCM-162 Rejected
+> state run (MySQL)" (state=4, created directly with TestRun Status=Rejected), run #7 "TC-TCM-162 Under review
+> state run (MySQL)" (state=5, created directly with TestRun Status=Under review). DB-verified via `rails
+> runner`: `Run.order(:id).pluck(:id,:name,:state)` matches exactly. Same mechanism as other legs: setting
+> State=Rejected or Done at creation places the run directly in the Closed tab without ever going through
+> "Close Run" — confirmed again here, not a defect.
+>
+> **TC-TCM-165 PASS.** Cross-checked both tabs directly off the TC-162 fixture runs: Active tab = [7, 3, 1]
+> (run #7 "Under review" + run #3 "New" + run #1 "In progress"), Closed tab = [6, 4] (run #6 "Rejected" + run #4
+> "Done"). Zero overlap, zero duplicates — all 5 runs appear in exactly one tab, matching their state. Confirms
+> "Under review" stays in Active (only Done/Rejected land in Closed) — same pattern as the SQLite leg's original
+> 2026-10-01 finding.
 
 ## Plugin
 - Name: Redmineflux Testcase Management

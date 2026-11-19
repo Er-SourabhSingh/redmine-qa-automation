@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Ready Queue
 
+> **Regression (2026-11-19):** PASS -- Ready queue table populated with 4 real rows (Ticket/Project/Who picks it up/Status).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-771.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §3. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

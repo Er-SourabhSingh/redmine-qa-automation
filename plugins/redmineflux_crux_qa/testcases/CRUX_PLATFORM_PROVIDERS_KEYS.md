@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Providers & Keys
 
+> **Regression (2026-11-19):** PASS -- OpenRouter Test connection (real key) returned "ok · 1250ms".
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-871.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

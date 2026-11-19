@@ -53,6 +53,50 @@
 >   access"). (c) as admin, normal call → **200**, `total:2`, matching the UI's 2 milestones exactly.
 > **Zero new bugs found on this leg.**
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 14 happy-flow RFTC026 TCs confirmed PASS:
+> - **RFTC026-1**: `enable_milestones` was `nil` on this fresh MySQL instance — enabled it via
+>   `Setting.plugin_redmineflux_testcase_management` (merged into the existing hash, not overwritten) and
+>   confirmed `"true"`.
+> - **RFTC026-10**: Open (1)/Closed (1) tabs, the All/Overdue/At risk/On track/No runs yet status-chip filter
+>   bar, and the same table-not-card layout (not a defect) all confirmed live, after creating a 2nd Version
+>   ("RFTC026-10 Closed Milestone (MySQL)", status closed) to give the leg a closed-version fixture.
+> - **RFTC026-12**: via Add Run's inline "+ New milestone" form, created a real Version ("RFTC026-12 Inline
+>   Create Fixture (MySQL)", due 2026-12-15) — confirmed genuinely persisted (`Version.find` returned id=3,
+>   correct project/due date) and immediately selected in the Milestone dropdown. Fixture deleted after
+>   confirming.
+> - **RFTC026-14**: milestone #1's detail page stat tiles (Total 3/Passed 1/Failed 2/Blocked 0/Untested 0/Pass
+>   rate 33.3%) plus "100.0% executed (3 of 3)" exactly match the Run Results Summary tile/bar language, for a
+>   real existing run (`TC-TCM-152 all-fields run (MySQL)`) linked to the milestone via its `version_id`.
+> - **RFTC026-19**: "On track" (the linked run's milestone) and "No runs yet" (the closed fixture, `runs_count:0`
+>   in the JSON) both observed on real data this round.
+> - **RFTC026-22**: full close/reopen round trip via real UI clicks on the disposable RFTC026-12 fixture — "Close
+>   milestone" → confirm modal → chip changed to "closed"; "Reopen milestone" → chip/status reverted to "open".
+>   No data loss either direction. Fixture deleted after confirming.
+> - **RFTC026-25**: Add Run's Milestone `<select>` listed only the project's 1 open version
+>   ("MySQL Happy-Flow v1.0") — the closed fixture was correctly excluded, confirmed both directions this round
+>   (unlike the SQLite leg, which only had an open version to test with).
+> - **RFTC026-28**: Runs & Results list has a "Milestone" column (after Run Type) and a "Filter by milestone"
+>   combobox (All milestones/No milestone/MySQL Happy-Flow v1.0/RFTC026-10 Closed Milestone (MySQL)).
+> - **RFTC026-29**: the linked run's Run Details block shows "Milestone: MySQL Happy-Flow v1.0", linking to
+>   `/projects/happy-flow-mysql/testcase_milestones/1` — confirmed correct href.
+> - **RFTC026-30**: project Overview page's "Milestones" card shows "View All" and the one open milestone (no
+>   due date, "On track" chip, "100.0% executed · 33.3% pass rate · 1 run(s)").
+> - **RFTC026-32/34**: `GET /runs/1.json?project_id=happy-flow-mysql` includes
+>   `"milestone":{"id":1,"name":"MySQL Happy-Flow v1.0"}` (JSON leg); Add Run's HTML form exposes a real named
+>   Milestone select (HTML leg, confirmed under RFTC026-12/25 above).
+> - **RFTC026-33**: `POST /testcase_ci/bootstrap_run.json` with `"milestone":"MySQL Happy-Flow v1.0"` resolved
+>   correctly to `"milestone":{"id":1,"name":"MySQL Happy-Flow v1.0"}` in the response (201). An unknown name
+>   (`"Totally Unknown Milestone XYZ"`) was refused with **422** and a clear error message, no project-milestone
+>   list disclosed — same minor spec-wording gap already documented on the other legs, not a new bug. Both
+>   fixture runs/testsuites deleted after confirming.
+> - **RFTC026-35**: all three legs reconfirmed live with real API-key auth: (a) with the switch toggled off,
+>   `GET /testcase_mcp/projects/1/milestones.json` → **404** ("Milestones are not enabled."), restored
+>   immediately after. (b) a genuine minimal custom role (`RFTC026 NoMilestonesRole`, no `view_milestones`) and
+>   dedicated project-member test user (`rftc026viewer`) → **403** ("Unauthorized access"). (c) as admin, normal
+>   call → **200**, `total:2`, matching the UI's 2 milestones exactly.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC026-1 PASS — enabled `enable_milestones` in plugin config, created a Redmine version ("v1.0 Release"),
 > confirmed it appears on `/projects/happyflow-pg/testcase_milestones` for the Admin role. The remaining

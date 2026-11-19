@@ -1,3 +1,22 @@
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 3 happy-flow RFTC034 TCs confirmed PASS:
+> - **RFTC034-1**: built Version #4 ("RFTC034 Burndown Fixture (MySQL)", due +10 days) with a Run of 10 test
+> cases, backdating `issue_status_results.created_at` across 6 distinct days (today-6 .. today-1, 8 of 10
+> executed, 2 remaining Untested) via `rails runner`. Burndown rendered: "On track" chip, sentence "At the
+> current speed (1.1 tests a day) this milestone finishes on 11/21/2026, in time for the due date.", chart with
+> all 4 series (Remaining/Ideal/Scope/Forecast legend) plus Today/Due markers, 3 consistent stat cards
+> (Remaining today=2, Speed=1.1/day, Forecast finish=11/21/2026).
+> - **RFTC034-9**: this same Version #4 had 0 pre-existing snapshot rows. Step 1: opened its Burndown page once
+>   → `TestcaseMilestoneSnapshot.where(project_id:, version_id:).count` went from 0 to exactly 1 (row for
+>   today). Step 2: reloaded the page 3 more times → count stayed at 1 (no duplicate, no raise). Step 3: closed
+>   the milestone directly (`version.update!(status: 'closed')`), reloaded Burndown again → count stayed at 1
+>   (no new row for a closed milestone, confirming `snapshot!`'s early return). Reopened afterward.
+> - **RFTC034-12**: on the same 6-day-history fixture, expanded "Show as table": today's row (11/19/2026) read
+>   Scope=10, Executed=8, Remaining=2 — exactly matching the "Remaining today" stat card (2) and the chart's own
+>   today-marker tooltip ("11/19/2026: Remaining 2, Executed 8, Scope 10"). No discrepancy between the two
+>   renderings of the same `points` array.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-18, GAP-CHECK CLOSED — RFTC034-9 and RFTC034-12, live chart UI this time.**
 > - **RFTC034-9**: built a disposable Version ("RFTC034-9 Snapshot Mechanism Fixture (PG)", id=8) with a linked
 >   run/result and 0 pre-existing snapshot rows. Step 1: opened its Burndown page once →

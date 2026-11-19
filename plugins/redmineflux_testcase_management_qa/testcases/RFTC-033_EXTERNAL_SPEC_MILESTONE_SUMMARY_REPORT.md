@@ -118,6 +118,31 @@ this user use it":
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`, milestone "MySQL Happy-Flow v1.0" (id=1). All 4 happy-flow RFTC033 TCs confirmed PASS, zero
+> console errors (0 total messages this pass):
+> - **RFTC033-1**: built the full fixture live via `bin/rails runner` — a run linked to the milestone (29), one
+>   Manual Passed result then superseded by an Automation Failed result (via a real `AutomationSource`, "CI
+>   Fixture Suite (MySQL)") on the same cell — confirming only the latest result counts; an Exploratory Session
+>   linked via its Milestone field, closed Passed with 1 note; a defect linked via `execution_defects` on the
+>   failed result; another issue's Target Version set to this milestone. `MilestoneReport#build` returned fully
+>   consistent data: `overall` total=4/passed=1/failed=3, `manual` 3/1/2 + `automation` 1/0/1 summing exactly to
+>   `overall` (3+1=4 ✓), `sources` showing the automation source's 1 execution/1 failure/0.0% pass rate, `sessions`
+>   1 total/1 closed/1 passed/1 note, `defects` found_open=3/targeted_open=1 (independent), `readiness: :on_track`
+>   — no section crashed or was silently omitted.
+> - **RFTC033-11**: `defects.found_open` (3, from executions genuinely linked via `execution_defects`) and
+>   `defects.targeted_open` (1, a defect with only `fixed_version_id` set, zero execution link) stayed completely
+>   independent — confirmed both directions, same as the other legs.
+> - **RFTC033-12**: live Print button computed style — class `rf-ms-btn rf-ms-btn-secondary`,
+>   `background-color: rgb(255,255,255)`, `0.67px solid rgb(209,213,219)` border — matches the standard
+>   white-background+border style; BUG-TCM-137's fix holds on MySQL too.
+> - **RFTC033-13**: set Target Version on 18 test case issues (3 already covered by a run, 15 genuinely not).
+>   `coverage` returned the true full count (`total:18, covered:3, not_covered:15`), while the live page's
+>   rendered "not covered" `<ul>` held exactly **10** `a[href*="/issues/"]` links, each resolving to a real,
+>   correct issue (`/issues/5,7,8,9,10,12,13,14,15,16`) — confirming both the true-count text and the view's
+>   `.first(10)` render cap.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-17 — BLOCKED verdict RETRACTED, PASS confirmed via direct API.** The UI's
 > client-side JS error (below) is real and still unresolved in-browser, but the underlying feature works
 > correctly — isolated via the `/testcase_mcp/milestones/:version_id/{summary,report,burndown}.json` endpoints:

@@ -36,6 +36,44 @@
 >   sequentially (42) — both DB-confirmed `{Chrome:1, Firefox:1}` exactly, no cross-contamination either way.
 > **Zero new bugs found on this leg.**
 >
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql` (`project_id:1`). All 15 happy-flow RFTC016 TCs confirmed PASS:
+> - **RFTC016-1**: `automation_key`-match Passed (#118, key `RFTC016-AUTOKEY-A`) + numeric-id-match Failed
+>   (#119, auto-created defect #120) in one call — `2 matched, 0 unmatched`.
+> - **RFTC016-2 (SACRED)**: re-ingesting the same failure for #119 returned `defect_reused:true`, same
+>   defect #120, `defects.created: []`.
+> - **RFTC016-12/13**: `match_by: ['subject']` resolved "RFTC016 ingest testcase A (MySQL)" cleanly to #118;
+>   the persisted `IssueStatusResult` row has `duration_ms=2500` in the structured column.
+> - **RFTC016-14**: caller-supplied `defect_ids:"115"` with `auto_defect:false` accepted a real pre-existing
+>   defect (the same #115 created earlier this leg for RFTC008) — `defect_id:115`, created/reused both empty.
+> - **RFTC016-19**: `X-Redmine-API-Key` header auth succeeded identically to Basic Auth.
+> - **RFTC016-22**: admin (sysadmin, **not** a project member and **not** this run's assignee — see RFTC009's
+>   own same-leg finding) successfully ingested a result, corroborating "assignee status is irrelevant" —
+>   not as precisely isolated as other legs' genuine-non-admin-member test (no second real project member
+>   existed on this leg to use instead), noted transparently rather than claimed as a full re-derivation.
+> - **RFTC016-24**: a generated, exactly-1000-element `results` array → HTTP 200, "Ingested 1000 results
+>   (1000 matched, 0 unmatched)".
+> - **RFTC016-27**: one call with all 6 default statuses → mapped exactly to `case_status_id` 2/3/3/5/6/4.
+> - **RFTC016-28**: (a) `status_map:{"flaky":4}` alongside a plain `"passed"` → `flaky`→Retest(4), `passed`
+>   still default-mapped, same call. (b) an unmapped status (`"exploded"`) → 422. (c) an invalid override
+>   target (`status_map:{"passed":999}`) → 422, identical error message.
+> - **RFTC016-29 (SACRED/CRITICAL)**: Run A (#16) → defect #121 created for a failure; Run B (#17, same
+>   testcase/environment) → a genuinely NEW defect #122 (not #121); re-ingesting in Run A → `defect_id:121,
+>   defect_reused:true`. Both halves hold simultaneously.
+> - **RFTC016-30**: (a) a `blocked` result with default `auto_defect` auto-created a defect (#123). (b) one
+>   call spanning 3 suites (testsuite_ids 6, 7, 10, against run #15 from the RFTC009 session) correctly
+>   grouped each result under its own suite, never cross-mapped.
+> - **RFTC016-31 (SACRED)**: manually constructed the genuine 2-`RunIssue`-rows-per-issue precondition
+>   (`bootstrap_run.json` itself no longer produces this, same as both other legs — BUG-TCM-097's fix holds)
+>   — without disambiguation, `unmatched`/`reason:"ambiguous_suite_membership"`; with an explicit
+>   `testsuite_id:11`, resolved cleanly. Fixture (the extra `RunIssue` row and suite membership) cleaned up
+>   after.
+> - **RFTC016-41/42**: bootstrapped a run with `CI`/`Chrome - Windows 11`/`Firefox - Linux` via
+>   `run_assignments` at bootstrap time, then fired 3 genuinely simultaneous background `curl` ingests (41)
+>   and the same 3 calls sequentially (42) — both DB-confirmed `{CI:1, Chrome:1, Firefox:1}` exactly for each
+>   of 2 different testcases, no cross-contamination either way.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 15 happy-flow RFTC016 TCs confirmed PASS:
 > - **RFTC016-1**: `automation_key`-match Passed (#341) + numeric-id-match Failed (#342, auto-created defect

@@ -1,6 +1,12 @@
 ---
 # Bug Report Template
 
+**Status: CLOSED 2026-11-19 — CONFIRMED FIXED.** Developer fix `CRC-122` (redmineflux-crux-core 1.16.0)
+pulled and rebuilt onto the local `crux-core` Docker service. Retested the exact repro: two fresh Auto-mode
+chats with the identical project-less question — both now routed to **DevOps Agent** (2/2), confirmed both in
+the chat bubble's displayed name and in the Run Ledger (`/crux/runs`), with no name mismatch between the two
+this time either. Retest screenshot: `screenshots/BUG-CRX-219/retest-2026-11-19-pass.png`.
+
 - Bug ID: BUG-CRX-219
 - Production Redmine Issue ID: #129085
 - Title: Auto-mode routing sends a project-less "open incident / deployment approval backlog" question to Agile Board Agent (Scrum Agent) instead of DevOps Agent, reproduced 2/2
@@ -54,9 +60,9 @@
 
 ![Agile Board Agent answers a DevOps-domain question](../../screenshots/BUG-CRX-219/auto-routes-to-agile-board-agent.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-CRX-219/retest-yyyy-mm-dd-pass.png)
+![Retest result — both runs now correctly show DevOps Agent](../../screenshots/BUG-CRX-219/retest-2026-11-19-pass.png)
 
 ### Console / log
 

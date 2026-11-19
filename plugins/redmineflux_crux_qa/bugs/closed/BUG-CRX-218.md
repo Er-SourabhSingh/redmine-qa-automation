@@ -1,6 +1,14 @@
 ---
 # Bug Report Template
 
+**Status: CLOSED 2026-11-19 — CONFIRMED FIXED.** Developer fix `CRC-122` ("agents described as they are
+today; a DevOps backlog question reaches the DevOps Agent", redmineflux-crux-core 1.16.0) pulled and rebuilt
+onto the local `crux-core` Docker service. Retested live: opened the agent picker on a fresh chat, DevOps
+Agent's description now reads *"precise and status-first — reports builds, commits, pull requests, releases,
+environments, deployments, incidents, security scans and DORA metrics, and triggers a build, deploys or
+changes any of them only through a confirm card"* — matches the full post-CRC-116 scope. Retest screenshot:
+`screenshots/BUG-CRX-218/retest-2026-11-19-pass.png`.
+
 - Bug ID: BUG-CRX-218
 - Production Redmine Issue ID: #129084
 - Title: Agent picker's DevOps Agent short description still says "trigger a build on request" after CRC-116 expanded it to the whole DevOps plugin
@@ -50,9 +58,9 @@
 
 ![Picker still shows the old DevOps Agent description](../../screenshots/BUG-CRX-218/picker-stale-description.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-CRX-218/retest-yyyy-mm-dd-pass.png)
+![Retest result — DevOps Agent description now matches full scope](../../screenshots/BUG-CRX-218/retest-2026-11-19-pass.png)
 
 ### Console / log
 

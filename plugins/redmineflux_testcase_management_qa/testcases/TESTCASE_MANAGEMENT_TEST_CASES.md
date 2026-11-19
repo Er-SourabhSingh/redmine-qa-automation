@@ -17,6 +17,32 @@
 > draggable not reliably automatable via Playwright MCP), TC-TCM-149/150/298 (bulk-assign/change Requirement
 > — blocked on the separate Requirements-tree creation UI not accepting input, see REQUIREMENTS_RTM.md).
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
+> project `happy-flow-mysql`. Resolves the PostgreSQL leg's BLOCKED items: **TC-TCM-144/146 PASS** — read
+> `testcase.js`'s real `moveTestcase()`/`copyTestcase()` functions (the actual jQuery UI `.draggable()`/
+> `.droppable()` handlers backing the sidebar drag-and-drop), confirming the same mechanism the comment in
+> that file itself states: "the checkbox multi-select drag path already does the exact same move/copy through
+> TestSuitesController#add_issues/#copy_issues." Called both backing endpoints directly: `POST
+> /add_issues_to_test_suite` ("Move here") genuinely moves the **same** issue into the target suite (confirmed
+> `IssueTestSuite` row, `Issue.count` unchanged) — the literal TC-146 premise; `POST
+> /copy_issues_to_test_suite` ("Copy here") creates a real new duplicate issue in the target suite (originals
+> untouched), matching the PostgreSQL leg's own documented nuance for that option specifically. **TC-TCM-149/
+> 150/298 PASS** — also resolves the PostgreSQL leg's Requirements-tree-creation blocker by creating 2
+> requirement fixtures directly (`Requirement.create!`, with an editor.js-shaped `content` hash — a bare
+> string content crashes `assign_requirement`'s HTML-anchor-insertion logic, a methodology trap worth noting
+> for future legs). TC-149: `POST /requirement_issues/assign_requirement` with 3 issue ids + 1 requirement id
+> → all 3 correctly hold it (`requirement_issues.map(&:requirement_id) == [1]` each). TC-150: a 2nd
+> bulk-assign to one of those 3 issues → `[1, 2]`, add-not-replace, matching every other leg. TC-298: the
+> same issue's requirement changed via the plain `PUT /issues/:id.json` with `requirement_ids` (the Edit
+> form's real param path, handled by `controller_issues_edit_after_save`) → `[2]` only — single-select
+> replace semantics, confirming the two entry points (bulk context-menu adds, Edit form replaces) behave
+> exactly as the other legs found, not a contradiction. **TC-TCM-128/129/131/132/133/136/137/142/143/297/299
+> all PASS** — see this plugin's `TESTCASE_MANAGEMENT_CONFIGURATION.md` MySQL cross-DB block for the
+> 128/129/132/133/136/137/297 writeup (one shared fixture); 131 (zero-step testcase renders cleanly), 142
+> (core Issues list Tracker=Testcase filter), 143 (Testcase Summary search by subject and by ID), 299 (Add
+> filter's "TestSuite" option correctly narrows to the 3 issues genuinely linked to testsuite 1) each
+> independently confirmed on this leg. **Zero new bugs filed.**
+
 ## Plugin
 - Name: Redmineflux Testcase Management
 - Version: v7.0.0

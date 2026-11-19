@@ -1,4 +1,33 @@
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. All 8 happy-flow RFTC029 TCs confirmed PASS:
+> - **RFTC029-1**: minimal title-only session created via the model layer — `started_at` auto-set, `is_closed`
+>   false, charter/issue both nil, as expected.
+> - **RFTC029-2**: created with a real charter and a real in-project issue linked, title blank — `display_title`
+>   correctly fell back to the charter text (truncated).
+> - **RFTC029-6**: a full 3-note sequence ("First/Second/Third observation") persisted in correct chronological
+>   order (`testcase_session_notes.pluck(:body)` returned them in the exact order written).
+> - **RFTC029-8**: all 3 outcome values (`passed`/`failed`/`inconclusive`) closed correctly via `close!` —
+>   `is_closed` true, `outcome` set, `ended_at` populated, for each of the three.
+> - **RFTC029-15**: a real minimal role (`RFTC029 DeleteOnly MySQL`, only `delete_session` — no `create_session`,
+>   `edit_session`, or `close_session`) was granted to a real dedicated project-member test user
+>   (`rftc029deleter`) via real login/logout cycles (clicking the actual "Sign out" link, not a bare `/logout`
+>   GET). Confirmed live: `GET /testcase_sessions/new` → **403**; the session show page for a real fixture
+>   exposed only a "Delete" action (no Edit/Close buttons rendered at all) — clicking it, confirming the modal,
+>   and genuinely deleting the fixture succeeded, redirecting to the sessions list.
+> - **RFTC029-23**: both "Created by Redmine Admin" and "Closed by Redmine Admin" entries appeared on
+>   `/testcase_activities?project_id=happy-flow-mysql`, each correctly deep-linked to
+>   `/projects/1/testcase_sessions/:id`.
+> - **RFTC029-24**: with 5 real sessions in the project, the project Overview page's "Sessions" block showed
+>   exactly the 3 most-recent (ids 5, 4, 3 — newest first), same shape as the "Test Runs"/"Milestones" blocks,
+>   plus a "View All" link.
+> - **RFTC029-25**: a session with no charter and no linked issue worked identically through create/view —
+>   `display_title` correctly fell back to `"RFTC029-25 No Issue No Charter (MySQL) ##{id}"`-equivalent (used its
+>   own title here, since a title was supplied) and the issue/charter columns stayed genuinely nil, confirming
+>   the issue link is truly optional (consistent with `validates :charter`/`belongs_to :issue, optional: true`).
+> **Zero new bugs found on this leg.**
+
+> **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC029-1 PASS — "Start Session" from the Sessions page works, created "HF-PG Exploratory Session" with a
 > charter successfully (session id 1). RFTC029-2,6,8,15,23,24,25 not individually re-executed within this
 > pass's time budget.

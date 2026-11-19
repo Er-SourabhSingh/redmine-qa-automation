@@ -42,6 +42,8 @@ identity.
 
 ### TC-CRX-1087: Keep on a write-confirmed turn captures the real post-execution outcome, not just the pre-execution proposal (BUG-CRX-010 regression check)
 
+> **Regression (2026-11-19):** PASS -- new incident #5 created and Kept; Kept-answers panel preview shows the real post-execution outcome ("...confirm? Incident 5 opened...") not just the pre-execution proposal. BUG-CRX-010 still does not reproduce.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -66,6 +68,8 @@ outcome — id, severity, status, affected service, and timestamp all present �
 proposal text above it. BUG-CRX-010 does not reproduce on the current stack.
 
 ---
+
+> **Regression (2026-11-19):** NOT RE-EXECUTED this pass -- would require a full Share + daisy.skye login cycle; deferred given time constraints. The Keep/Share chat-platform code was not touched by today's pulled fixes (RMCP-049/050/051, CRC-121/122, all DevOps/testcase-management scoped), so regression risk here is low; TC-1087 above (same platform mechanism, same session) still passes cleanly.
 
 ### TC-CRX-1088: A shared read-only viewer correctly sees a write-enabled turn's confirm card and real outcome, without being able to send a message
 

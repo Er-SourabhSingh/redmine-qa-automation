@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Agent Fleet Admin
 
+> **Regression (2026-11-19):** PASS -- page shows "26 agents", rendered live from the registry.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-818.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Activity Log
 
+> **Regression (2026-11-19):** PASS -- Component dropdown lists 7 real, live component values (all, core.api.server, core.askcrux.chat, core.askcrux.field_check, core.askcrux.llm_router, core.askcrux.mcp, core.askcrux.proposals, core.redmine), dynamic not hardcoded.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-940.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §11. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

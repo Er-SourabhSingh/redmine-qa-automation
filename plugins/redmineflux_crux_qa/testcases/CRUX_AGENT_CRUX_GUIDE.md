@@ -50,6 +50,8 @@ from a guess.
 
 ### TC-CRX-695: A quick, obviously-covered question is answered directly and correctly
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** None.
 

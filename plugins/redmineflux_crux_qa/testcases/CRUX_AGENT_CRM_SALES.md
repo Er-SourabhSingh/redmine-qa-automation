@@ -49,6 +49,8 @@ CRM data and permissions are **global, not per-project** (except `link_crm_to_is
 
 ### TC-CRX-010: Sales Agent read surface — dashboard, pipeline, records, reports, audit log
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** Logged-in user with `use_ask_crux` and real CRM plugin access.
 **Precondition:** CRM plugin installed with some real contacts/companies/deals/leads.
 
@@ -72,6 +74,8 @@ Evidence (session ses-141, `luna.blossom`, 2026-09-15):
 ---
 
 ### TC-CRX-011: Create a contact, company, deal, and lead — each fully specified
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Same as TC-CRX-010.
 **Precondition:** None.

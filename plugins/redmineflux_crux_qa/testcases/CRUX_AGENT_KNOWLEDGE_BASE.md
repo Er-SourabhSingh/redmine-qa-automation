@@ -246,6 +246,8 @@ setup steps for new hires.") — grounded in a real `get_node` read, not paraphr
 
 ### TC-CRX-506: Create node (page) — positive
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 
 **Steps:** "Create a new page called 'Deployment Checklist' in the Engineering Docs space for the Crux
@@ -347,6 +349,8 @@ title change, leaving the live page and its own "Current Version" record permane
 ---
 
 ### TC-CRX-512: Publish a node — positive
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`. **Precondition:** TC-CRX-511's edit applied, page currently draft/pending.
 

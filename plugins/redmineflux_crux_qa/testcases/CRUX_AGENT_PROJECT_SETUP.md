@@ -202,6 +202,8 @@ BUG-CRX-110 a confirmed silent-drop bug rather than a capability gap.
 
 ### TC-CRX-426: Identifier correctly derived from name when the user doesn't give one, and stated plainly
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** Same as TC-CRX-421.
 
 **Steps:** "Create a project called 'Crux Project Setup Test D Mobile App'." (no identifier given)

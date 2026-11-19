@@ -233,6 +233,8 @@ cleanly reproducible as a real end-user scenario — flagged for awareness, not 
 
 ### TC-CRX-404: Approve new hours for a project/category — exact amount, cumulative behavior
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** Same as TC-CRX-398 (needs `manage_approved_hours`).
 
 **Steps:**
@@ -546,6 +548,8 @@ TC-CRX-410) is honestly denied — no admin-bypass artifact masking either resul
 > time entry was created at all.
 
 ### TC-CRX-417: Budget Agent correctly identifies a genuinely over-budget category, by name, with exact figures
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Admin.
 

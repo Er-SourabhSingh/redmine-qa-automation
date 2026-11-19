@@ -49,6 +49,8 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 
 ### TC-CRX-295: Test case — Create, admin, required fields only (Subject only)
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `luna.blossom` (QA Full Access).
 
 **Steps:** Fresh chat, QA Agent: "in the crux qa agent test project, can you create a test case titled 'Verify logout clears the session'?"
@@ -516,6 +518,8 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 ---
 
 ### TC-CRX-335: Run — Close, admin (expected success)
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `luna.blossom` (QA Full Access — `close_run` genuinely granted).
 

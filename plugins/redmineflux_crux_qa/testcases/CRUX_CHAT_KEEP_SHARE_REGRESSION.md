@@ -42,6 +42,8 @@ identity.
 
 ### TC-CRX-1087: Keep on a write-confirmed turn captures the real post-execution outcome, not just the pre-execution proposal (BUG-CRX-010 regression check)
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** None.
 
@@ -66,6 +68,8 @@ proposal text above it. BUG-CRX-010 does not reproduce on the current stack.
 ---
 
 ### TC-CRX-1088: A shared read-only viewer correctly sees a write-enabled turn's confirm card and real outcome, without being able to send a message
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `daisy.skye` (shared viewer), session owned by `admin`.
 **Precondition:** The session from TC-1087 shared with `daisy.skye` via the chat's own Share dialog

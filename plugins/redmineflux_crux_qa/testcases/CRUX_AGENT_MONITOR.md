@@ -44,6 +44,8 @@ first. Says "nothing needs attention" honestly when that's true. Has **no write 
 
 ### TC-CRX-643: Critical issues use the dedicated tool, not a generic filtered list
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Fixture project has a real Urgent/Immediate open issue.
 

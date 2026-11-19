@@ -36,6 +36,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 
 ### TC-CRX-177: One-call project status aggregate (`project_summary`)
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** `crux-qa` project exists with its 2 fixture issues.
 
@@ -119,6 +121,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 ---
 
 ### TC-CRX-182: Create an issue — confirm card matches exactly, no invented fields
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** None.

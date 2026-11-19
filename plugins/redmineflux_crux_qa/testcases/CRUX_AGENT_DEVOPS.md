@@ -102,6 +102,8 @@ clicks Confirm.
 
 ### TC-CRX-1076: Project pipeline summary read — accurate against real fixture state, including a real auth change mid-suite
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Fixture project #20, zero builds/commits/PRs throughout. Repository connection state
 changed twice during this session (see setup note above): none → unauthenticated `pending` → removed →
@@ -183,6 +185,8 @@ match exactly, no embellishment either direction.
 ---
 
 ### TC-CRX-1079: Deployment approval action — real write, correct attribution
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** Deployment id 1 (from TC-1078) is `pending approval`.

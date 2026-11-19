@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Run Ledger
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-780.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §4. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/runs`.
 > TC range: TC-CRX-780 to TC-CRX-792.

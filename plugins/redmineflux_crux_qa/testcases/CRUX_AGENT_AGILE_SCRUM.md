@@ -129,6 +129,8 @@ the static list per the 2026-09-18 cost-accounting audit — still fully callabl
 
 ### TC-CRX-368: Project board — plain, grouped, and grouped-cards views, all grounded in real tool calls
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** Admin or a Scrum-permission fixture user (TBD per Precondition #4).
 
 **Steps:**
@@ -409,6 +411,8 @@ BUG-CRX-102 and TC-378's repro above) — folded into **BUG-CRX-204**, not filed
 ---
 
 ### TC-CRX-380: Create a sprint — exact dates and name, genuine confirm card
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Same as TC-CRX-368.
 

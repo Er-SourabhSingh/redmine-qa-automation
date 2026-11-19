@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Help & Setup Guide
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-954.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §12. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/help` (any logged-in user).
 > TC range: TC-CRX-954 to TC-CRX-965.

@@ -80,6 +80,8 @@ were real engineering steps, no filler words.
 
 ### TC-CRX-686: Chat-path breakdown creation is a real confirm card per subtask
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** TC-685's subtasks are shown.
 

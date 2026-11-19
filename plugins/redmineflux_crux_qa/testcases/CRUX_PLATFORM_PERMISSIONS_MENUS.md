@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Permissions, Menus & Shared UI Behaviour
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-712.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §0 (developer-authored, source-derived — authoritative).
 > Plugin: redmineflux_crux. Redmine version: 6.0-bookworm (local Docker, localhost:3015).
 > TC range: TC-CRX-711 to TC-CRX-726.

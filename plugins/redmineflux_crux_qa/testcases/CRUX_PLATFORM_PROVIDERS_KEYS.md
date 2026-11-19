@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Providers & Keys
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-871.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/admin/keys` (admin only).
 > TC range: TC-CRX-870 to TC-CRX-887.

@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Share, Personal Limit, Floating Bubble, Errors & Issue-Page Integration
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-1021.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.9–13.12 and §14. Plugin: redmineflux_crux.
 > Redmine 6.0-bookworm, localhost:3015.
 > TC range: TC-CRX-1021 to TC-CRX-1075.

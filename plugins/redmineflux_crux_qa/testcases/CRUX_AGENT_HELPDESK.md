@@ -139,6 +139,8 @@ no fabricated figures.
 
 ### TC-CRX-574: Create a ticket — positive, correct tracker/fields
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 
 **Steps:** "Create a helpdesk ticket in project 12: subject 'Printer not connecting to network', customer
@@ -164,6 +166,8 @@ genuinely unassigned, no SLA yet.
 ---
 
 ### TC-CRX-575: First assignment starts the SLA — regression-check the documented lifecycle rule
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`. **Precondition:** TC-CRX-574's ticket exists, unassigned.
 

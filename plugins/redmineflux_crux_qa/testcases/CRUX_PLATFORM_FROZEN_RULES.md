@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Frozen Rules
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-921, TC-CRX-922.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §10. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/admin/frozen_rules` (admin only).
 > TC range: TC-CRX-921 to TC-CRX-938.

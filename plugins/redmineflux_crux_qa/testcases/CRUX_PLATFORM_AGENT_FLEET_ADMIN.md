@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Agent Fleet Admin
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-818.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §6. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/agents`.
 > TC range: TC-CRX-816 to TC-CRX-850.

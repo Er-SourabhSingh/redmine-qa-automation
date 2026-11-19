@@ -138,6 +138,8 @@ Native-verified against `/rf_teams/7/rf_workloads/1` — exact match on all figu
 
 ### TC-CRX-527: Teams / team_data / Gantt / conflicts / team_on_leave — positive read sweep
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 
 **Steps:** In one chat: "What teams exist?" → "Show me the Crux Capacity Agent Test Team." → "Show me the Gantt
@@ -417,6 +419,8 @@ adjacent to BUG-CRX-142's fabricated-confirm-prose class without being destructi
 ---
 
 ### TC-CRX-541: Add issue to workload — positive
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 

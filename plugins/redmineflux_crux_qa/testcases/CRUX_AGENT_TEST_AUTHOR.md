@@ -91,6 +91,8 @@ got only 1 test (a presence/visibility check) with no distinct negative/edge cas
 
 ### TC-CRX-627: No criteria section → falls back to the description's stated behavior, says so
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Issue F exists (no criteria list, only prose).
 

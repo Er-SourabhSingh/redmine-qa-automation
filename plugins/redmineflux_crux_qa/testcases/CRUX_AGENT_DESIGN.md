@@ -54,6 +54,8 @@ notes to the issue — each a confirm card.
 
 ### TC-CRX-703: Design covers flow, screens+states, rules, and open questions — all four sections
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Issue M exists.
 
@@ -98,6 +100,8 @@ own rows for "SSO token invalid or expired," "IdP returns an error," "Network ti
 ---
 
 ### TC-CRX-705: Saving the design to the wiki is a genuine confirm card
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** TC-703's design exists in the chat.

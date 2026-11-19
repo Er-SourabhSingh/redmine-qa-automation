@@ -223,6 +223,8 @@ Serenity Bloom: 5.0h (Nov 2) — Development work. Total: 9.0 hours"* — DB-ver
 
 ### TC-CRX-444: Submit is strictly self-scoped — asking to submit someone else's timesheet never silently substitutes without disclosure (BUG-CRX-045 regression)
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** Any non-admin user.
 
 **Steps:** "Time Agent, submit [a different named user]'s timesheet for [period]."
@@ -354,6 +356,8 @@ this suite depends on it being removed and no native "unassign" step was request
 ---
 
 ### TC-CRX-447: Sequential approval order — a higher level cannot act before the lower level has decided
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** A genuine L2 (final-level) approver, before L1 has acted.
 

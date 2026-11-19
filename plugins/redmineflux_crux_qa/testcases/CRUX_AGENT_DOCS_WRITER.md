@@ -104,6 +104,8 @@ cover (BUG-CRX-211).
 
 ### TC-CRX-636: Editing an existing page reads it first and states what changes
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** A real wiki page with known existing content exists.
 
@@ -158,6 +160,8 @@ no SAML/OIDC/admin-path fabrication — BUG-CRX-167 (TC-635) appears fixed too, 
 ---
 
 ### TC-CRX-638: Project resolution by fuzzy name/identifier match
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** A real fixture project.

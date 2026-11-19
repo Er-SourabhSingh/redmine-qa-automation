@@ -494,6 +494,8 @@ closed, production #128967 synced Done/100%.
 
 ### TC-CRX-487: Send invoice — draft → sent, InvoiceHistory event recorded
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`. **Precondition:** a genuine Draft invoice.
 
 **Steps:** Fresh chat, Invoicing Agent pinned: "Send invoice #<id> to the client now." (explicit "send now"
@@ -696,6 +698,8 @@ mentions the user at all). Filed as **BUG-CRX-139**.
 ---
 
 ### TC-CRX-496: Create invoice with two line items, each attributed to a different, genuine project member — Notes field verification
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`. **Precondition:** two real, formally-added project members (`luna.blossom`, user id 5;
 `daisy.skye`, user id 6).

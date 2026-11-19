@@ -324,6 +324,8 @@ project. Stronger result than the original 2026-11-04 pass.
 
 ### TC-CRX-625: Genuine "needs changes" verdict grounded in a real open PR, a real commit, and a real pending build
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** A Cloudflare quick tunnel exposes this instance to GitHub's webhook servers; the connected
 repository (`sourabhzehntech01-star/rftc038-qa-pipeline-test`) has a real webhook configured

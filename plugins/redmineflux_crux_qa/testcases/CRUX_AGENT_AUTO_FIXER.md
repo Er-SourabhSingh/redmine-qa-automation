@@ -64,6 +64,8 @@ writes code, never closes the bug itself.
 
 ### TC-CRX-668: Fix plan grounded in a real, already-stated cause
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Bug I has a real cause comment on it.
 
@@ -106,6 +108,8 @@ explicitly suggested asking the Root-Cause Analyst to verify. Never proceeded as
 ---
 
 ### TC-CRX-670: Subtask path creates real child issues under the bug
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** TC-668's plan exists; user prefers subtasks.

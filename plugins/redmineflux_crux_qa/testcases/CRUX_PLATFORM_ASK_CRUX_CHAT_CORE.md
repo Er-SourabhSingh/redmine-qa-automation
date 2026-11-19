@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Ask Crux Full Page (Composer, Picker, Chats, Answers, Confirm Cards)
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-966, TC-CRX-967.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.1–13.10. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/ask`. This is the single largest platform surface — split from the bubble/errors
 > half (see `CRUX_PLATFORM_ASK_CRUX_BUBBLE_ERRORS.md`) for file size.

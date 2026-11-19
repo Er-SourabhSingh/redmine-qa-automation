@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Global Dashboard
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-728.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1 (developer-authored, source-derived — authoritative).
 > Plugin: redmineflux_crux. Redmine version: 6.0-bookworm (local Docker, localhost:3015). URL: `/crux`.
 > TC range: TC-CRX-727 to TC-CRX-753.

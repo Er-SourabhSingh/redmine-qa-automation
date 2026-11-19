@@ -95,6 +95,8 @@ existing duplicate, create a new Bug issue, or create a new issue plus a "relate
 
 ### TC-CRX-651: A genuine duplicate is found and the correct action (add detail) is proposed
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** The fixture duplicate-target Bug issue exists with a matching real subject/keywords.
 
@@ -148,6 +150,8 @@ symptom (not a duplicate — e.g. existing issue is "login times out on slow con
 ---
 
 ### TC-CRX-654: Severity mapping follows the manifest's stated rule, grounded in real impact
+
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
 **Precondition:** Two distinct reports — one clearly Critical-shaped (blocks payments, no workaround, many

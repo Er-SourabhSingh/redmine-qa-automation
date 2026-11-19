@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Work Packages List & Detail
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-754.
+
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2. Plugin: redmineflux_crux. Redmine 6.0-bookworm,
 > localhost:3015. URL: `/crux/work_packages`.
 > TC range: TC-CRX-754 to TC-CRX-770.

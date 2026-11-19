@@ -58,6 +58,8 @@ issues:
 
 ### TC-CRX-608: PASS verdict when every criterion is genuinely met
 
+> **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
+
 **User Role:** `admin`.
 **Precondition:** Issue A exists (all criteria evidenced by closed subtasks/comments).
 

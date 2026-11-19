@@ -726,6 +726,16 @@ range already carried 2026-10-01 evidence, this one alone was missing.) On run #
 see below), and Submitted. Reloaded the run grid: case #2133 correctly shows **Passed** (donut/summary advanced
 to "1 of 1 tested, 100.00%"), and the note is retained in the issue's Results & Comments tab.
 
+**CROSS-DB (MySQL) — 2026-11-19 — PASS, folds in TC-176.** On run #3 (environment "Chrome - Windows 11"), case
+#3: opened Add Result (Status defaulted to Passed), filled the Note textarea with a verbatim string and attached
+`mysql-leg-sample.txt`, Submitted. DB-verified: `IssueStatusResult.find(7)` → `case_status_id: 2` (Passed),
+`notes` matches the typed string exactly, `attachments` → `[["mysql-leg-sample.txt", 50]]`. Downloaded the
+attachment's diskfile directly inside the container — content matches the original file byte-for-byte. One
+methodology note: navigating directly to the `/issue_status_results/new?...` URL (rather than clicking through
+the grid's "Untested" link) loads the Add Result form with its rich-text Note editor **not yet JS-initialized**
+— the real underlying `<textarea id="issue_status_result_notes">` is still there and works fine when filled
+directly, so this is a page-load/navigation-path quirk, not a functional defect.
+
 ---
 
 ### TC-TCM-171: Record each of the six statuses
@@ -751,6 +761,13 @@ using the same run.
 sections) genuinely exercised Untested, Failed, Blocked, and Passed live, each time with the donut chart and
 pass-percentage updating correctly to match. Retest/Skipped specifically not re-touched this pass; no sign of
 regression anywhere the chart/percentage mechanism was exercised today.
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS, all 6 values confirmed across run #3's 5 cases.** Case #3 → Passed
+(TC-170), #4 → Retest, #9 → Skipped, #6 → Failed with new defect #11 (TC-173), #10 → Blocked with the
+pre-existing defect #11 reused (TC-174) — Untested demonstrated as the pre-execution baseline on all 5 cases
+before any result was set (confirmed "5 Untested out of 5 total" at TC-153's own verification). Dashboard donut
+and Results Summary updated correctly at every step, ending at "1 Passed / 1 Failed / 1 Blocked / 1 Retest / 1
+Skipped out of 5 total" (20% each) once all 5 were executed.
 
 ---
 
@@ -807,6 +824,13 @@ shows **Failed**, Defect ID's column shows **1583**.
 correctly required the explicit second Submit step (same two-step flow as originally documented). The Report
 Defect modal's own second-invocation console `SyntaxError` (noted earlier this session, not yet filed) was not
 re-investigated this pass.
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** On run #3, set case #6 to Failed, clicked "Report Defect", filled
+Subject ("TC-TCM-173 happy-flow MySQL leg defect for case #6") on the Bug-tracker Add Defect modal, clicked
+Create — defect **#11** created, auto-injected into the Defects* field as selected. Confirmed the same
+two-step gotcha still holds: creating the defect alone does not save the result — a separate click on the Add
+Result panel's own Submit was required. After that: DB-verified `IssueStatusResult.find_by(run_id:3,
+issue_id:6)` → `case_status_id: 3` (Failed), `defect_ids: "11"`.
 
 ---
 
@@ -873,6 +897,14 @@ exactly `1`. Same for run #76 (1 `ExecutionDefect` row → 1 distinct defect, al
 closed **BUG-TCM-057** specifically to stop filtering by a defect's own stale `run_id` scalar and instead use
 `ExecutionDefect.where(...).distinct.count(:defect_issue_id)` — the same bug class as BUG-TCM-050/058/102, just
 one more location that **was** already fixed. **Total Defects is accurate; working correctly, not a bug.**
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** On run #3, case #10: set Status to Blocked, typed `11` (the
+pre-existing defect created for TC-173) into the Defects* search box via real keystrokes — it correctly
+returned and offered `"11 - TC-TCM-173 happy-flow MySQL leg defect for case #6"`, explicitly clicked the option
+(per the documented ARIA-select-isn't-enough gotcha) to commit it as a real chip, Submitted. DB-verified:
+`IssueStatusResult.find_by(run_id:3, issue_id:10)` → `case_status_id: 5` (Blocked), `defect_ids: "11"` — the
+same pre-existing issue, and `Issue.where(tracker: Bug).count` stayed at **1**, confirming no duplicate issue
+was created.
 
 ---
 

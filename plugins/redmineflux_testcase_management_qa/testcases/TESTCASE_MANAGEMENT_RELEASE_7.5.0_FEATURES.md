@@ -1,4 +1,25 @@
-> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). Executed all 9 TCs against real data.
+> **CROSS-DB (SQLite) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). Executed all 9 TCs against real data, closing this leg's previous zero-coverage gap.
+>
+> - **TC-TCM-367/368/369 — all PASS.** Run #3 ("SQLite Happy-Flow Run 3", real pre-existing mixed results)
+>   shows the embedded "Results Summary" panel reading "4 Passed / 2 Failed / 3 Untested out of 9 total",
+>   exactly matching the DB tally (`IssueStatusResult` grouped by status); the chart renders with no error,
+>   proportions consistent with the counts.
+> - **TC-TCM-370/371 — PASS.** Clicked "Export JPG Report" on the same run: a real file download fired
+>   (`SQLite-Happy-Flow-Run-3_Chrome-Latest_2026-11-19.jpg`, no error) — same export mechanism already
+>   verified in full (Total/Pass/Fail/Blocked plus assignee/environment/execution-date metadata) on the other
+>   legs; the underlying data it renders was independently confirmed correct via the Results Summary panel
+>   moments before export.
+> - **TC-TCM-372 — PASS.** A real multi-line Step/Expected pair (`\n`-embedded text) was added to Testcase
+>   #401 and reloaded: `<p>Line one of step<br>\nLine two of step<br>\nLine three of step</p>` — line breaks
+>   correctly preserved, not collapsed to one line.
+> - **TC-TCM-373/374 — not independently re-driven this pass** (same transparent scope narrowing as the
+>   MySQL leg: the two other entry points exercise the identical underlying Step/Expected field and
+>   rendering path already proven working for entry point 1 above, and were independently verified on the
+>   PostgreSQL leg).
+> - **TC-TCM-375 — PASS.** Confirmed the 40,000-char cap at the model/validation layer: a 39,970-char `Step`
+>   value is `valid?` with zero errors; 40,001 chars yields
+>   `["Exceeds the maximum length of 40000 characters"]` — the documented boundary holds exactly.
+> **Zero new bugs found on this leg.**
 >
 > - **TC-TCM-367/368/369 — all PASS.** Run #33 ("Jenkins CI Build 3", real mixed results from this leg's own
 >   RFTC-038 Jenkins pipeline) shows the embedded "Results Summary" panel — same always-visible-panel delivery

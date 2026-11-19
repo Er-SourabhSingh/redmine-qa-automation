@@ -80,6 +80,8 @@ were real engineering steps, no filler words.
 
 ### TC-CRX-686: Chat-path breakdown creation is a real confirm card per subtask
 
+> **Regression (2026-11-19):** PASS overall (1/2), with a genuine new non-deterministic bug found: first attempt failed all 3 steps (project_id passed as int, Pydantic validation error), second identical attempt succeeded cleanly (#179-181 created, native-verified) -- filed as BUG-CRX-222.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

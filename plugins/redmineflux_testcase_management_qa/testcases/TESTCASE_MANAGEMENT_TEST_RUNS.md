@@ -993,6 +993,16 @@ own "Test Run:" field doesn't aggregate across environments correctly (BUG-TCM-1
 can leak a different environment's status into the current one under a timestamp-coincidence condition
 (BUG-TCM-103) — see those bug files. The core per-environment Result independence itself still holds correctly.
 
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** Created run #8 ("TC-TCM-177 per-env independence run (MySQL)") with
+Chrome - Windows 11 and Firefox - Linux as its two environment/assignee rows. Set case #3 to Passed in Chrome;
+switched to Firefox — DB-verified case #3 there was still `case_status_id: 1` (Untested), not Passed. Set case
+#3 to Failed in Firefox (linking the pre-existing defect #11 via the search box, same explicit-click-required
+mechanism as TC-174). DB-verified both rows side by side: `#38` (Chrome) → `case_status_id: 2` (Passed), `#43`
+(Firefox) → `case_status_id: 3` (Failed), `defect_ids: "11"` — neither environment's result affected the other.
+One methodology note: the Defects* option must be committed via a real `browser_click` on the rendered option —
+clicking it via `element.click()` in `page.evaluate()` does not register with the underlying framework (visually
+looked selected but the Submit silently no-opped, same class of gotcha as TC-175's own ARIA-select note).
+
 ---
 
 ### TC-TCM-178: Re-executing a case updates the current result and keeps history

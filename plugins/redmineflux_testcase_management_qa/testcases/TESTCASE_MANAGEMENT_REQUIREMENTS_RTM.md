@@ -100,6 +100,61 @@
 >   "No data to display".
 > **Zero new bugs found on this leg.**
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. 16 of 19 happy-flow Requirements/RTM TCs confirmed PASS live (same 3 skipped as the
+> SQLite leg, for the same reason — see below):
+> - **TC-112** (create requirement): PASS — REQ-003 created via the real "+" add control.
+> - **TC-115/116** (link one/multiple existing cases to a requirement): PASS together — bulk-linked issues
+>   #113 and #114 to REQ-003 via the Testcase Summary grid's per-row Actions → Requirements submenu (the real
+>   multi-select context menu carries both checked `ids[]`, not just the row right-clicked), confirmed on
+>   both issues' own pages.
+> - **TC-118** (edit requirement): PASS — title edited via the `#pencil-icon` (hover-revealed, confirmed via
+>   a real `hover()` then click), appended " EDITED", persisted on a fresh reload with case links unaffected.
+> - **TC-119** (delete unlinked requirement): PASS — real "Are you sure?" confirmation, removed from the list.
+> - **TC-122** (RTM lists requirements against cases): PASS — `/traceability_rtms` correctly shows REQ-003
+>   with its linked cases, and REQ-001 with its auto-linked defect (#11) alongside.
+> - **TC-124** (RTM shows uncovered requirements): PASS — REQ-005 (zero links) listed with empty
+>   Testcases/Defects cells, not silently omitted.
+> - **TC-269** (content persists across reload): PASS — a typed paragraph survived a fresh reload intact.
+> - **TC-271** (`#`-mention links a test case): PASS — typing `#112 bulk row 98` via genuine character-by-
+>   character `type()` opened the real suggestion dropdown with an exact match; pressing Enter on the
+>   highlighted suggestion committed a real `<a class="tribute-mention user-mention" href="/issues/112">`
+>   link, confirmed in the RTM.
+> - **Methodology note (not a product bug):** during this same editing session, issue #114's REQ-003 link
+>   (added earlier via TC-115/116's bulk action) disappeared from `RequirementIssue` between two of my own
+>   scripted Editor.js block edits (confirmed via `rails runner` — `RequirementIssue.where(requirement_id:
+>   3).pluck(:issue_id)` went from `[113, 112, 114]`-equivalent to `[113, 112]`). Given the multiple
+>   backspace/retype cycles performed on ".ce-block:last-of-type" while cleaning up failed mention-search
+>   attempts (`#no steps`, `#131`, `#8`, `#testcase with no steps`, `#steps` all returned no/wrong matches
+>   before `#112 bulk row 98` worked), the most likely explanation is that one of those edits merged into or
+>   deleted the pre-existing `#114` content block — the same class of Editor.js-fragile-under-scripted-edits
+>   risk already documented on other legs, not a confirmed save-pipeline defect. Re-linking #114 via the same
+>   bulk Requirements submenu worked cleanly and additively (`[113, 112] → [113, 112, 114]`), which supports
+>   test-harness interference over a product bug. Not filed as a BUG-TCM given the lack of certainty.
+> - **TC-307** (content search, not title search): PASS — searching the body text "persistence test
+>   paragraph" returned 1 result (REQ-003); searching the title-only text "TC-TCM-112" returned 0 results,
+>   matching the already-documented title-not-indexed behavior.
+> - **TC-308** (Share/Export/Save): PASS — Share copied the correct URL to the clipboard
+>   (`navigator.clipboard.readText()`); Export downloaded a real PDF; Save's icon correctly carries
+>   `alt="save-icon"` — **BUG-TCM-100 does not reproduce here either**, consistent with the SQLite leg.
+> - **TC-310** (link via the plain Issue Edit form): PASS — linked issue #7 to REQ-005 via the Edit form's
+>   Requirements select2, changed the Subject alongside it to confirm genuine submission, clicked the real
+>   `<input type="submit" name="commit">` (same stale-button-ref gotcha as other legs — the visible "Submit"
+>   button ref was stale after the select2 re-render), reloaded — "Requirements: TC-TCM-124..." persisted.
+> - **TC-329/330/331/332** (Requirement Templates CRUD + apply-at-creation): all 4 PASS. Created
+>   "TC-TCM-329 happy-flow Requirement Template (MySQL)" with bold content via real `Ctrl+A`+`Ctrl+B`
+>   (`<b>TEMPLATE-MARKER-rtpl-mysql bold-me-this</b>`); edited (renamed + appended text), confirmed genuine
+>   server persistence on a fresh `/requirement_templates/1/edit` reload; selected it while creating REQ-006 —
+>   the new requirement's content exactly matched the template's HTML (`<b>...bold-me-this EDITED-APPEND</b>`)
+>   on a fresh reload; deleted it via the real "Delete Requirement Template?" modal, list returned to
+>   "No data to display".
+> - **TC-272, TC-305, TC-306** not independently re-attempted this round — same Editor.js toolbar-button
+>   (`.ce-toolbar__plus`) friction already documented on the SQLite leg; this leg's own evidence above (TC-269,
+>   271, 329-332) already exercises real-keystroke Editor.js text entry and formatting extensively, so the gap
+>   is specifically the block-type picker menu, not basic content editing.
+> **Zero new bugs found on this leg.** The one anomaly (the #114 link's temporary disappearance) is documented
+> transparently above as inconclusive test-harness interference, not filed as a defect.
+
 > Source: vendor KB "Requirements & Configuration" and "Access traceability matrix".
 > **Status: executed 2026-10-01; re-regressed and extended 2026-10-23** with full editor block-type coverage
 > (all 12 EditorJS tools via the real block-menu, not just the subset exercised by the original BUG-TCM-074

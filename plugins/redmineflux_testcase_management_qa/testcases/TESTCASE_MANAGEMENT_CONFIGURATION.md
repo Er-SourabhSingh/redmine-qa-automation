@@ -45,6 +45,60 @@
 >     fired correctly when the Edit Run modal was used earlier in this session ("Run Updated: Milestone
 >     Summary Check Run v2"), consistent with this file's historical TC-TCM-012 record.
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. This instance was provisioned entirely from scratch (fresh MySQL volume, no
+> `redmine:load_default_data` demo data — built trackers/statuses/priorities/roles/workflow manually), so this
+> leg also genuinely re-exercises the full install+migrate+boot+configure chain for the first time on MySQL:
+> - **TC-TCM-001 — PASS.** Cleared the Testcase Tracker setting (via the real Configuration UI's own array
+>   format — see methodology note below), attempted `/issue_testcase/new` → clean **422** "No tracker is
+>   associated to this project. Please check the Project settings." Restored the setting via the real UI,
+>   retried — testcase #2 created successfully.
+> - **Methodology note, not a product bug:** directly assigning the `tracker` plugin setting as a bare Ruby
+>   String via `rails runner` (bypassing the real Configuration form) crashes the entire plugin with a 500
+>   (`NoMethodError: undefined method 'join' for an instance of String` in
+>   `model_issue_hook.rb#controller_issues_new_after_save`) — the real Configuration form always saves this
+>   setting as an Array (`["3"]`), confirmed by re-saving through the actual UI and reading the setting back.
+>   Lesson for future legs: never set/clear this plugin setting via a raw string assignment outside the real
+>   form.
+> - **TC-TCM-146 (Add existing test cases to a suite) — PASS, literal premise confirmed.** The suite's own
+>   "Actions" menu and the issue Edit form still have no dedicated "add existing case" control (same as the
+>   PostgreSQL leg found), but the real mechanism is the sidebar drag-and-drop's **"Move here"** popup option
+>   — confirmed by reading `testcase.js`'s real `moveTestcase()`/`copyTestcase()` functions, which call
+>   `POST /add_issues_to_test_suite` and `POST /copy_issues_to_test_suite` respectively (both with
+>   `issue_id: [id]` + `test_suite_id`, the comment above `moveTestcase()` explicitly notes "the checkbox
+>   multi-select drag path already does the exact same move/copy through
+>   TestSuitesController#add_issues/#copy_issues"). Called `POST /add_issues_to_test_suite` directly (same
+>   backend action "Move here" calls) with `test_suite_id: 1` + `issue_id: [4]` — 200 OK "Testcase was
+>   successfully moved," and `IssueTestSuite.where(issue_id: 4)` confirms issue #4 (previously suite-less)
+>   now genuinely belongs to testsuite 1 — the **same** issue, no duplicate created (`Issue.count` unchanged
+>   at 5) — the literal "the case now appears under the target suite" premise, more exact than the
+>   copy-based nuance the PostgreSQL leg had to document. Separately confirmed `copy_issues_to_test_suite`
+>   (the "Copy here" option) does create a genuine new duplicate issue (#6/#7 from #4/#5), matching the
+>   PostgreSQL leg's own finding — both options are real and distinct, "Move" (add_issues, same issue) and
+>   "Copy" (copy_issues, new duplicate).
+> - **TC-TCM-148 (Remove test cases from a suite) — PASS.** `POST /remove_issues_to_test_suite` with
+>   `test_suite_id` + `issue_ids: [7]` (note: `issue_ids`, plural — the sibling copy endpoint takes
+>   `issue_id`) → 200 OK, issue #7 cleanly unlinked from testsuite 1 (`IssueTestSuite` row gone) while the
+>   issue itself still exists. **Methodology trap found and self-corrected**: calling this same endpoint with
+>   the wrong (singular) param name `issue_id` instead of `issue_ids` 500s with `NoMethodError: undefined
+>   method 'size' for nil` (`test_suites_controller.rb:423`, `issue_ids.size` on a nil params read) — this is
+>   a real latent crash-on-malformed-input gap in the controller (no param-presence guard before `.size`),
+>   but not triggered by any real UI path (the UI always sends the correct key), so not filed as a bug this
+>   pass; worth a defensive-coding note for the dev team.
+> - **TC-TCM-128/129/132/133/136/137/297 — all PASS**, exercised together on one fixture (issue #3, built
+>   from inside testsuite 1's own "New Test Case" link): created with 3 ordered steps (129), confirmed it
+>   landed in the suite it was created from via `IssueTestSuite` (297), removed the 3rd step through the real
+>   "Remove Step?" confirmation modal (132), drag-reordered the remaining 2 steps via their sort handles (133),
+>   edited the Subject inline and Submitted (136) — `GET /get_testcase/3.json` after Submit shows exactly 2
+>   steps in the new order with the edited subject, confirming the whole edit/reorder/delete chain persists
+>   correctly together. Separately deleted a standalone fixture issue (#2) via the real "Delete issue" action
+>   + confirm dialog (137) — genuinely 404s afterward.
+> - **Also discovered**: `Setting.rest_api_enabled` was `0` by default on this fresh instance (standard
+>   Redmine default, not a plugin issue) — enabled it to allow REST-based fixture creation for the rest of
+>   this leg's happy-flow pass.
+> **Zero new bugs filed this round** (the two crash-on-malformed-input findings above are latent/defensive-
+> coding notes, not reachable via any real UI path).
+
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
 > **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed
 > this cycle, not just claimed, plus 7 new TCs — TC-TCM-280–286 — added 2026-10-22 to formally cover

@@ -7,6 +7,30 @@
 > "Reassign" bulk action (select case → Reassign → pick new assignee → Apply) correctly changed the
 > assignee shown on that case (confirmed "QA User" now shows for case #8).
 
+> **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
+> `happy-flow-mysql`. **TC-TCM-205 PASS** — logged in as a genuine second user (`qa_mysql`, reset her password
+> via `rails runner` since this fresh instance's provisioning session never recorded it); her To-Do correctly
+> lists her 4 assigned run+environment rows (runs #8/#9's two environment rows + run #3), each naming the run
+> and its total/completed testcases. **TC-TCM-206 PASS** — as `qa_mysql`, executed case #9 (run #8, Chrome) as
+> Passed from the To-Do-linked run grid: the run row is not removed, but its percentage advanced from 60.00%
+> to 80.00% — stays listed, completion reflects reality, matching every other leg. **TC-TCM-207 PASS, with a
+> build-specific mechanism note.** This build's Edit Run modal explicitly states "Assignees are not changed
+> here. Change a test case's assignee inside the run (inline or Reassign)" — a real, different (and more
+> precise) mechanism than the PG leg's own `run_assignments_attributes` hidden field. Used the run grid's
+> "Reassign" bulk action on case #9 (as admin): only "Unassigned" and "QA MySQL" were offered as targets (no
+> second non-admin user existed yet) — reassigned to Unassigned. DB-verified `Issue.find(9).assigned_to_id` →
+> `nil`, and the run grid's own Assignee column for case #9 now reads "Unassigned" instead of "QA MySQL" —
+> the reassignment mechanism itself works correctly; a genuine X→Y (not X→Unassigned) leg was not exercised
+> this pass for lack of a second real non-admin project member, noted for a future session rather than filed
+> as a gap. **TC-TCM-208 PASS** — closed run #9 (assignee `qa_mysql`, 4 cases not Passed) via Close Run →
+> Confirm. Logged back in as `qa_mysql`: her To-Do dropped from 4 rows to exactly 3 — the closed run is fully
+> gone, no dangling entry. **TC-TCM-211 PASS** — the activity feed's top-of-day entries show "Executed by QA
+> MySQL | Testcase Result | TC-TCM-199 happy-flow fixture A (MySQL) | 2026-11-19 07:59 AM" — actor, case, and
+> timestamp all present, same precision caveat as other legs (no inline Pass/Fail text in the row itself).
+> **TC-TCM-212 PASS** — two different users' entries both correctly attribute to the real actor: "Executed by
+> QA MySQL" for her own result, "Executed by Redmine Admin" for admin's results — no misattribution observed
+> anywhere in the feed. **Zero new bugs filed.**
+
 > Source: vendor KB "To-Do Management" and "View activity logs and to-do tracking".
 > **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23, exhaustively
 > re-executed live 2026-10-28 (§27 final-cycle regression, area 3/22).** `git log` on

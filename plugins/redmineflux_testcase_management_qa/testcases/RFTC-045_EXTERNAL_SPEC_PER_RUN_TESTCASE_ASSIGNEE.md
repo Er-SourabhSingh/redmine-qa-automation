@@ -257,6 +257,33 @@
 > **A note on scope for the client deliverable**: this file is being handed to the client (Nathan Coombs) as
 > the test design for this feature set, so it is written to read on its own — each case states the exact
 > acceptance criterion it verifies, not just a step list.
+>
+> **Cross-referenced with #128416 (2026-11-19)** — "rtc-046: Edit Run manages only environments, not
+> assignees" (production issue [#128416](http://flux.zehntech.com/issues/128416), In QA, 90% done, Target:
+> Release 7.4.0 [13-11-2026], on `master` commit `6bdbf00`). This is the direct successor to #128320 above:
+> it removes the per-environment Assignee field from Edit Run entirely (the read-only-span model), fixing
+> the exact confusion that caused BUG-TCM-145/146/147. Its own "For QA once built" checklist maps onto this
+> file's existing MySQL/SQLite happy-flow evidence point-for-point:
+> 1. Edit Run shows no Assignee field, existing environments display read-only → **RFTC045-53/54**.
+> 2. A new environment added via Edit Run starts "Assignee: Unassigned", every test case Unassigned →
+>    **RFTC045-56**.
+> 3. A test case added via Edit Run starts Unassigned on every environment → **RFTC045-58**.
+> 4. The reminder job sends nothing for an Unassigned environment and does not error → **confirmed directly
+>    this pass** (see below — this one genuinely had zero prior coverage anywhere in the repo).
+> 5. Inline/bulk Reassign still work and survive an Edit Run save → **RFTC045-63/64**.
+>
+> **Item 4, executed 2026-11-19** against `redmine6-happyflow-mysql` run #32 (3 real environments: "Chrome -
+> Windows 11" assignee 9, "Firefox - Linux" assignee 10, "Safari-RFTC045 (MySQL)" assignee `nil` — the
+> genuinely Unassigned one from RFTC045-56): called `ReminderWorker#send_daily_reminder` and
+> `#send_overdue_run_reminders` directly via `rails runner` (the run's due date was temporarily set to
+> yesterday to make it overdue first, then restored) — both ran with **zero exceptions** across every run on
+> the instance. Stubbed `RunMailer.reminder_email`/`overdue_reminder_email` to record every call: reminders
+> fired for "Chrome - Windows 11" and "Firefox - Linux" (the two real assignees) — **zero calls for "Safari-
+> RFTC045 (MySQL)"** anywhere in the recorded list, confirming the skip is precise (targets the one blank
+> assignment) and not an accidental skip-everything. Matches the guard read directly from
+> `app/workers/reminder_worker.rb`: `next if assignment.assignee_id.blank? # rtc-046: an environment added in
+> Edit Run has no assignee yet; nobody is reminded for it.` **#128416 — all 5 QA checklist items now have
+> real evidence; PASS.**
 
 # Test Cases — Release 7.4.0: Per-Run, Per-Test-Case Assignee
 

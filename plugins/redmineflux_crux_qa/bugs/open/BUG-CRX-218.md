@@ -2,7 +2,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-218
-- Production Redmine Issue ID: <!-- not yet reported, pending approval -->
+- Production Redmine Issue ID: #129084
 - Title: Agent picker's DevOps Agent short description still says "trigger a build on request" after CRC-116 expanded it to the whole DevOps plugin
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux

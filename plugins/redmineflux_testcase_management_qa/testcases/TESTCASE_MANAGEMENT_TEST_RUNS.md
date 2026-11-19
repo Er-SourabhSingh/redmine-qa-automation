@@ -164,6 +164,26 @@
 > = `[3, 4, 6, 9, 10]`, exactly matching every suite-linked issue across all 3 testsuites in the project — zero
 > missing, zero extra. Confirms "Include all" genuinely pulls the whole project, same behavior as the SQLite/PG
 > legs.
+>
+> **TC-TCM-154 PASS.** Created run #4 ("TC-TCM-154 multi-environment run (MySQL)") via the real "+ Add" link,
+> appending a second `run_assignments_attributes` row: row 0 = Chrome - Windows 11 / QA MySQL, row 1 = Firefox -
+> Linux / QA MySQL (only one real non-admin user exists on this fresh instance, so the same assignee was reused
+> for both rows — the environment independence is what this TC actually verifies). DB-verified:
+> `RunAssignment.where(run_id:4).pluck(:environment,:assignee_id)` → `[["Chrome - Windows 11", 5], ["Firefox -
+> Linux", 5]]`, both rows saved correctly. Run detail's `#environment_select` lists both options; switching from
+> Chrome to Firefox changes the URL to `...&environment=Firefox+-+Linux` and shows the same independent "5
+> Untested out of 5 total" baseline for that environment — matching SQLite/PG leg behavior exactly.
+>
+> **TC-TCM-158 PASS.** Closed run #4 (reusing the TC-154 fixture) via the Action menu's "Close Run" link —
+> confirmation modal warned "10 test cases in this run are not marked as Passed... it will be permanently
+> archived", confirmed via "Confirm". DB-verified: `Run.find(4).attributes.slice('state','is_closed')` →
+> `{"state"=>3, "is_closed"=>true}`. Run #4 disappeared from the Active tab and now appears under Closed with
+> State "Done" — same behavior as the SQLite/PG legs.
+>
+> **TC-TCM-160 PASS.** Created a throwaway run #5 ("TC-TCM-160 delete-run fixture (MySQL)"), then deleted it via
+> the Action menu's "Delete Run" link — confirmation modal correctly named the run ("TC-TCM-160 delete-run
+> fixture (MySQL)... Are you sure you want to delete this run? This action cannot be undone."), confirmed via
+> "Delete". DB-verified: `Run.find_by(id: 5)` → `nil` — genuinely removed, not a UI-only hide.
 
 ## Plugin
 - Name: Redmineflux Testcase Management

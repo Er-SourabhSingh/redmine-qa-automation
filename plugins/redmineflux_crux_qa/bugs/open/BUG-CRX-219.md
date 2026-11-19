@@ -2,7 +2,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-219
-- Production Redmine Issue ID: <!-- not yet reported, pending approval -->
+- Production Redmine Issue ID: #129085
 - Title: Auto-mode routing sends a project-less "open incident / deployment approval backlog" question to Agile Board Agent (Scrum Agent) instead of DevOps Agent, reproduced 2/2
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux

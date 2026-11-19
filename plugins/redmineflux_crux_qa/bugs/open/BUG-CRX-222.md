@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-222
-- Production Redmine Issue ID: <!-- not yet reported to production -->
+- Production Redmine Issue ID: #129142
 - Title: A multi-step "create subtasks" confirm sometimes passes `project_id` as an integer instead of a string to `redmineflux_core_create_issue`, failing all steps with a Pydantic validation error; the identical request succeeds cleanly on a fresh retry
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux (Improver agent, shared `core_create_issue` write path)

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-221
-- Production Redmine Issue ID: <!-- not yet reported to production -->
+- Production Redmine Issue ID: #129141
 - Title: A multi-step "create contact at a not-yet-existing company" plan guesses the new company's future ID (predicted #3) one higher than what it actually becomes (#2), causing step 2 to fail with "Company #3 not found"
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux (Sales/CRM Agent)

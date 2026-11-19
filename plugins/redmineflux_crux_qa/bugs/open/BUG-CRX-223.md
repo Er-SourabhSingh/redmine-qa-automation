@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-223
-- Production Redmine Issue ID: <!-- not yet reported to production -->
+- Production Redmine Issue ID: #129143
 - Title: "Close Run" renders a genuine server-side rejection ("Cannot close run... no execution results have been recorded") with a misleading ✓ checkmark prefix — same already-documented class as BUG-CRX-018/040/054/067/082, new trigger path
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux (QA/Testcase Agent)

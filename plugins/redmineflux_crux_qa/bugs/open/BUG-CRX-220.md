@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-220
-- Production Redmine Issue ID: <!-- not yet reported to production -->
+- Production Redmine Issue ID: #129140
 - Title: Code Reviewer intermittently (1/3) falsely tells admin "DevOps plugin tools... are not available to your account" for a review that succeeds cleanly on the very next identical attempt
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_crux
@@ -41,11 +41,33 @@
   direct `redmineflux_devops_project_summary(project_id=20)` call (same admin-tied API key) that the DevOps
   data is genuinely reachable at the MCP/backend layer throughout — the denial is specific to this one chat
   turn, not a real permission gap.
-- Non-deterministic: 1 false-denial out of 3 identical attempts. Possibly related to `CRC-122`'s permission-
-  check changes to `crux_core/agents_registry/registry.py` / `crux_core/askcrux/chat.py` (same release that
-  fixed BUG-CRX-218/219) — worth checking whether a race condition or a permission-cache warm-up window was
-  introduced there, especially since this was observed shortly after the `crux-core` container was rebuilt
-  with that release.
+- Non-deterministic: 1 false-denial out of 3 identical attempts. **Root-caused via `crux-core` server logs
+  (not a Cloudflare tunnel/connectivity issue — ruled out: no tunnel was even running at the time, and the
+  agent reads already-synced DevOps data from Redmineflux's own DB, not live from GitHub):**
+  - Log trace for attempt 1 (`act:a52df53fd8b1`, `ses:ses-550`, 2026-11-19T12:19:29–40): the agent genuinely
+    called and got real data back from `redmineflux_devops_list_pull_requests`, `list_commits`, and
+    `issue_builds` (all `ok=true`) — yet its first-pass text output was the false denial anyway.
+  - The server's own retry-on-false-denial mechanism caught this exact contradiction — log line:
+    `chat retry (tool-unavailable) agent=code-reviewer first pass: 'Can't review #167...'` — and generated a
+    retry response.
+  - **The retry's (correct) answer was then discarded by design.** In `crux_core/askcrux/chat.py`
+    (~line 3360-3373), the retry-preference logic is:
+    ```python
+    if retry_intent is not None or (retry_calls > 0 and (...)):
+        text, proposal_intent = retry_text, retry_intent
+    elif first_pass_reads > 0:
+        pass   # keeps the ORIGINAL first-pass text
+    ```
+    Because the first pass already performed 3 real reads (`first_pass_reads > 0`), the `elif` branch fires
+    and deliberately **keeps the original first-pass text** — on the documented assumption (comment
+    references `CRC-117`) that "an answer built on what this turn read is kept when the retry adds nothing."
+    That assumption doesn't hold here: the first pass *did* read real data but *still* emitted a
+    self-contradictory denial, and the heuristic has no way to distinguish that from a legitimate
+    read-grounded answer, so it protects the wrong text.
+  - This is a genuine, reproducible server-side logic gap in the retry-preference heuristic — not environment
+    flakiness, not a connectivity artifact, and not pure LLM non-determinism (the LLM's self-contradiction is
+    plausibly non-deterministic, but the server then compounds it by actively suppressing its own correct
+    retry).
 
 ## Evidence
 

@@ -1,5 +1,7 @@
 # Test Suite — Crux Platform: Help & Setup Guide
 
+> **Regression (2026-11-19):** PASS -- admin help/setup content renders correctly with real setup steps.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-954.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §12. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

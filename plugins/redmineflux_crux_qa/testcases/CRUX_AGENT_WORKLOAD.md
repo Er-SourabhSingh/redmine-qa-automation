@@ -138,6 +138,8 @@ Native-verified against `/rf_teams/7/rf_workloads/1` — exact match on all figu
 
 ### TC-CRX-527: Teams / team_data / Gantt / conflicts / team_on_leave — positive read sweep
 
+> **Regression (2026-11-19):** PASS, all legs grounded in real, current data (teams, team_data, conflicts, team_on_leave all accurate to current state, which has evolved/grown since original run).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -419,6 +421,8 @@ adjacent to BUG-CRX-142's fabricated-confirm-prose class without being destructi
 ---
 
 ### TC-CRX-541: Add issue to workload — positive
+
+> **Regression (2026-11-19):** PASS -- confirm card named real issue/workload; confirmed; genuine success "Issue added: #3 ... workload_issue_id: 5".
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

@@ -1070,6 +1070,13 @@ reproduced on issue #24 (Run switch, then Environment switch) and again independ
 at request.onreadystatechange`. The Result value itself is never wrong; only the console error is real. Filed as
 **BUG-TCM-101 (Low)** — not yet reported to production.
 
+**CROSS-DB (MySQL) — 2026-11-19 — PASS.** Opened test case #4's issue detail page directly, used its own
+"Testcase Execution" section (Run = TC-TCM-153 include-all run (MySQL), Environment = Chrome - Windows 11,
+pre-selected), clicked the "Retest" Result link, recorded Passed via the real Add Result modal. DB-verified:
+`IssueStatusResult.where(run_id:3, issue_id:4).order(:id)` → `#9` (status=4 Retest) then `#48` (status=2 Passed,
+new row) — the detail-page-recorded result correctly reflects back into the run grid, matching SQLite/PG leg
+behavior.
+
 ---
 
 ### TC-TCM-180: Execution history shows author, timestamp and environment
@@ -1304,6 +1311,12 @@ matching the three recorded results plus the 14 still-untested cases.
 **RETESTED 2026-10-23 — PASS, via incidental coverage.** Run #83's own progression this session (Untested(19) →
 Failed(1)/Untested(18) → Failed(1)/Blocked(1)/Untested(17)) tracked correctly at every step, confirming the
 dashboard statistics mechanism holds on the current build.
+
+**CROSS-DB (MySQL) — 2026-11-19 — PASS, via incidental coverage.** Run #3's own progression this session (see
+TC-170/171/173/174 above) tracked correctly at every step: "5 Untested out of 5 total" (100%) → "1 Passed / 2
+Untested / 1 Retest / 1 Skipped" → "1 Passed / 1 Failed / 1 Untested / 1 Retest / 1 Skipped" → final "1 Passed /
+1 Failed / 1 Blocked / 1 Retest / 1 Skipped out of 5 total" (20% each), with the donut chart's legend and
+percentages matching exactly at every stage — confirms the dashboard statistics mechanism holds on this leg too.
 
 ---
 

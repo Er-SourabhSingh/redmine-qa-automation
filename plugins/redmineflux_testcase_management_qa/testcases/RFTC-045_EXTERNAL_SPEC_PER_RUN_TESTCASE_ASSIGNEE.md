@@ -1,9 +1,9 @@
 > **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
 > `happyflow-mariadb`/1, after the coordinator restored a working admin login (earlier same-day attempt had
-> been blocked by a lost session with no known password). 12/16 cases in this group confirmed PASS live;
-> 4 (RFTC045-53/54/56/58, all Edit-Run-page cases) hit a reproducible rendering anomaly on THIS specific build
-> — flagged below, not filed as a bug, per the explicit instruction to stop and report a genuinely different
-> finding rather than guess at it.
+> been blocked by a lost session with no known password). 14/16 cases in this group now confirmed PASS live
+> (12 from the main pass + RFTC045-53/54 from a coordinator follow-up that root-caused the Edit Run "blank
+> content" anomaly — see below). RFTC045-56/58 remain blocked by a separate, newly-found CSRF/session issue on
+> save actions, not yet root-caused.
 > - **RFTC045-1**: Run #12, TC #19 — global Assignee was unset (`-`); inline-reassigned its per-run assignee to
 >   "Maria Manager" (2 clicks, no navigation) — the TC issue's own global Assignee field remained `-`.
 > - **RFTC045-2**: changed TC #19's own global Assignee to "Redmine Admin" via the core issues API — its
@@ -33,17 +33,37 @@
 >   (pre-selected, confirmed present on this build) — only Chrome's value changed. Separately bulk-reassigned
 >   with "All environments" selected — both Chrome and Edge tabs showed the new assignee for that TC afterward,
 >   confirming the broader-scope option genuinely applies everywhere.
-> - **RFTC045-53/54/56/58 — FLAGGED, not filed:** `/runs/:id/edit` consistently returned HTTP 200 with a full
->   ~78KB HTML response (confirmed via a direct same-origin `fetch()` of the page's own URL, containing real
->   plugin-specific JS/i18n content, not an error page) — but the browser's actual rendered DOM showed only the
->   project header/sidebar/footer chrome, with **zero** run-edit form content (`document.querySelector('form')`
->   matched only the page's own search forms, not the Edit Run form), reproducible across 2 different runs
->   (#12 and #13), a hard cache-bypassing reload, and a dedicated isolated browser tab (so not the cross-session
->   tab-sharing artifact that caused several earlier false alarms this same pass — see Session Notes). Zero
->   console errors logged either. Root cause not identified within this pass's turn budget — could be a
->   genuine client-side rendering defect specific to this build/container, or some other environment artifact
->   this pass didn't isolate. **Not filed as a bug and not claimed as PASS or FAIL** — flagged for the
->   coordinator to investigate or re-run with fresh eyes before this is treated as a confirmed defect.
+> - **RFTC045-53/54/56/58 — RESOLVED (2026-11-20, coordinator follow-up):** the "blank content" anomaly above was
+>   root-caused, not a browser/environment artifact. `app/views/runs/edit.html.erb` (the direct-full-page-GET
+>   fallback, only reachable by typing/bookmarking/reloading `/runs/:id/edit` directly) reads:
+>   `<% if request.format == :html %>` / `<% render partial: 'edit_form' %>` / `<% end %>` — missing the `=` on
+>   `render`, so the partial genuinely executes (hence the real DB queries logged) but its output is discarded,
+>   never written to the response body. This is unchanged since the plugin's initial March 2025 commit and
+>   reproduces identically on every DB engine (confirmed same code on the SQLite leg too) — never caught before
+>   because every prior pass exercised Edit Run by clicking the real link, not by direct URL navigation. The
+>   real UI flow is completely unaffected: the actual "Edit Run" link (`_active_run.html.erb`, `remote: true`,
+>   reachable from Runs & Results -> row action menu) sends an AJAX request Rails resolves to `:js` format,
+>   correctly rendering `runs/edit.js.erb` (`<%= j render 'edit_form' %>`, with the `=`) into a real modal.
+>   **User decision 2026-11-20: not filed as a bug** (low real-world impact, normal workflow unaffected) --
+>   noted in `docs/TESTCASE_MANAGEMENT_MEMORY.md`'s Known Quirks instead.
+>   With that cleared up, re-ran RFTC045-53/54 via the real UI click path (Runs & Results -> Run #13's action
+>   menu -> "Edit Run" link, genuine `click()` dispatch, not a direct navigation): the modal opened with real,
+>   substantial content (19,692 chars in `.edit_model_content`).
+>   **RFTC045-53 PASS** -- the only `<select>` elements present are
+>   `run[run_assignments_attributes][0/1][environment]`; no `assignee_id` select anywhere; each existing row's
+>   Assignee shows as a static `span.run_assignee_readonly` ("Redmine Admin"), 2 confirmed.
+>   **RFTC045-54 PASS** -- clicking `#edit-add-assignment` ("+ Add") added a 3rd row with only
+>   `run[run_assignments_attributes][2][environment]`, no assignee field, matching rows 0/1's shape exactly.
+>   **RFTC045-56/58 -- still BLOCKED, but by a different, genuinely new issue:** submitting the Edit Run form
+>   (via the real `#update-btn` UJS submit, not a manual fetch) consistently fails with HTTP 422 server-side --
+>   confirmed via container logs: `ActionController::InvalidAuthenticityToken: Can't verify CSRF token
+>   authenticity` / `Filter chain halted as :verify_authenticity_token rendered or redirected`. Reproduced on 2
+>   separate submit attempts (one direct `fetch` with a manually-read `X-CSRF-Token` header, one via the form's
+>   own real submit button) -- both using the same live, logged-in session (`admin`, confirmed via
+>   `Current user: admin` on the preceding GETs). Not pursued further within this follow-up's own turn budget --
+>   a separate, previously-unseen blocker from the original "blank content" mystery, specific to save/PATCH
+>   actions on this MariaDB leg's Edit Run modal, not yet root-caused. RFTC045-56/58 remain **not claimed PASS
+>   or FAIL** -- flagged for a future session with a fresh login/session to retry the save.
 > **Session note:** this pass's Playwright browser was shared with at least one other concurrently-running
 > session (observed tabs/navigations to unrelated ports — 3021, 3012 — appearing mid-task, and the "current"
 > tab being switched out from under this pass more than once). Opening a dedicated `isolatedContext` tab

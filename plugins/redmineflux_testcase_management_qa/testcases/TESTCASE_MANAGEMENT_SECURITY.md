@@ -193,6 +193,14 @@ a future input-robustness pass).
 > (`rftc_authorize_testcase_new!`, `find_issue`, `find_optional_project` — none for `rftc_verify_session_csrf!`
 > and none from these two requests). PASS, zero new bugs.
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. Re-verified both variants against `test_suites.json` with admin's real API key
+> (`af084b8cb6a12e69f7b6a4e6a293cfc0c409b6fe`): HTTP-Basic-key-as-username → `201 Created` (testsuite #27); the
+> `?key=` URL-param variant → `201 Created` (testsuite #28). Server log confirmed `Current user: admin (id=1)`
+> for both requests; grepped the full container log for `Filter chain halted` since these two requests — zero
+> hits. PASS, zero new bugs. This closes the last remaining gap in the plugin's happy-flow cross-DB regression
+> suite — every 🟢 HAPPY-FLOW TC across every suite file now has genuine evidence on all three DB-engine legs.
+
 ---
 
 ## Authorization enforcement at the endpoint (beyond role — zero-permission member)

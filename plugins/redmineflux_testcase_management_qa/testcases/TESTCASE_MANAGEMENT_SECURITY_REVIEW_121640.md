@@ -594,3 +594,12 @@ endpoints (MCP, run, import controllers)
 > Test Runs & Execution). Zero new bugs. As a genuine normal-role cross-check (not just admin), qa_mysql's own
 > Developer-role session (TC-046/052/055/059/062 in the Permissions group) also performed suite/run creation,
 > run closing, and report viewing without any block.
+
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. PASS, confirmed via a clean end-to-end chain as a genuine non-admin tester (`luna.blossom`,
+> Manager role — not admin): created testcase issue #428 → added it to a real test suite (#25) → created a real
+> run (#64) via `bootstrap_run.json` → recorded a real Passed execution result (#2839) → generated a real
+> Testcase Summary report (#22) via the UI's own "New report" form, which correctly lists issue #428's result —
+> no authorization/sanitization/allow-list check blocked any step. This is on top of the session's own extensive
+> other happy-flow SQLite-leg work today (§1 Core CRUD + §5 §3 completion), all performed with zero blocks.
+> Zero new bugs. This closes TC-TCM-366's own remaining DB-engine gap — all three legs now PASS.

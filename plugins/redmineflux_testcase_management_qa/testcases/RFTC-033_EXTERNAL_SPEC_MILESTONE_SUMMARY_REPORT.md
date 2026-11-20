@@ -118,6 +118,37 @@ this user use it":
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1, milestone "MariaDB Happy-Flow v1.0" (id=1), 4th and final DB-engine leg. All 4 happy-flow
+> RFTC033 TCs confirmed PASS, zero console errors:
+> - **RFTC033-1**: built the full fixture live — Run #10 linked to the milestone via `bootstrap_run.json`'s
+>   `milestone` param, a Manual Passed result (issue #19) via `bulk_create.json`, an automation-attributed Failed
+>   result (issue #20, `source:"RFTC033 CI Fixture Suite (MariaDB)"`) via `ingest_results.json` (auto-created
+>   defect #28), an Exploratory Session (#9) linked via its `version_id` field, closed Passed with 1 note, and a
+>   target-version-only issue (#1, `fixed_version_id:1`, no execution link). `GET .../milestones/1/report.json`
+>   returned all 8 sections with real, mutually-consistent data (milestone/overall/manual+automation/runs(3)/
+>   automation_sources/sessions 1-1-1-1-1/defects/coverage/top_failing) — no section crashed or was silently
+>   omitted. Live page (`/projects/happyflow-mariadb/testcase_milestones/1/report`) rendered with **0 console
+>   errors**. **Note, consistent with already-filed BUG-TCM-155 (open, production #129147), not a new bug**:
+>   the Failed result's `source` did not resolve to a named `AutomationSource` row (`automation_sources:[]`
+>   empty, the result counted under `manual` instead of `automation`) — server log showed the exact same
+>   `Mysql2::Error ... near 'key) = LOWER(...'` signature BUG-TCM-155 documents on the MySQL leg, confirming
+>   this MySQL-reserved-word bug in `AutomationSourceResolver` affects MariaDB too (expected, since MariaDB is
+>   wire/adapter-compatible with the same `mysql2` gem path) — not independently re-filed, this is the same bug.
+> - **RFTC033-11**: `defects.found_open` stayed exactly **2** (unaffected) after creating a targeted-only defect
+>   (issue #29, `fixed_version_id:1`, no execution link) — `defects.targeted_open` moved from **0 to 1** — the
+>   two rows are genuinely independent counts, same as all 3 other legs.
+> - **RFTC033-12**: live Print button computed style — class `rf-ms-btn rf-ms-btn-secondary`,
+>   `background-color: rgb(255,255,255)`, `0.67px solid rgb(209,213,219)` border — matches the standard
+>   white-background+border style; BUG-TCM-137's fix holds on MariaDB too.
+> - **RFTC033-13**: set `fixed_version_id:1` on 16 more test case issues (17 total not-covered candidates,
+>   1 already covered by a run). `report.json`'s `coverage` returned the true full count (`total:17, covered:1`,
+>   16 genuinely not-covered items listed), while the live page's rendered "not covered" section held exactly
+>   **10** `a[href*="/issues/"]` links (`/issues/1,3,4,5,6,7,8,9,10,11`) — confirming both the true-count data
+>   and the view's `.first(10)` render cap.
+> **Zero new bugs found on this leg (BUG-TCM-155 reconfirmed, not newly filed). This closes RFTC-033 on all 4
+> DB-engine legs (SQLite/PostgreSQL/MySQL/MariaDB).**
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`, milestone "MySQL Happy-Flow v1.0" (id=1). All 4 happy-flow RFTC033 TCs confirmed PASS, zero
 > console errors (0 total messages this pass):

@@ -1,3 +1,42 @@
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1, milestone "RFTC034 Burndown Fixture (MariaDB)" (version id=4, due 2026-11-30), 4th and
+> final DB-engine leg. **Session caveat, read first:** this leg's browser session logged out mid-pass and the
+> only recovery paths (reset the admin password, or log in as a fixture user whose real current password
+> wasn't `12345678`) were both correctly refused by this session's own safety controls as account-credential
+> changes — so `RFTC034-9` (which needs the session-gated HTML/JSON `burndown` controller action specifically,
+> the one that calls `calculator.snapshot!`) could not be exercised this pass. The other two cases were instead
+> confirmed via the plugin's own `X-Redmine-API-Key`-authenticated endpoints (`testcase_ci/bootstrap_run.json`,
+> `testcase_ci/ingest_results.json`, `testcase_mcp/milestones/:id/burndown.json`) plus a direct MariaDB read of
+> `issue_status_results`/`testcase_milestone_snapshots` — a data-level confirmation, consistent with this same
+> suite's own 2026-11-17 PostgreSQL-leg precedent for "browser tool not available this pass."
+> - **RFTC034-1**: built a 6-distinct-day-capable fixture live: Run #12 (`RFTC034 Burndown History Run
+>   (MariaDB)`) bootstrapped via `bootstrap_run.json` against 6 test cases (issues 19-24), linked to the
+>   milestone via its `milestone` name param. Ingested 4 Passed results via `ingest_results.json`, then
+>   backdated those 4 `IssueStatusResult` rows' `created_at` directly in MariaDB to 2026-11-17/18/19/20 (4
+>   distinct days, clearing the `MIN_HISTORY_DAYS=3` floor), leaving issues 23/24 Untested. Called
+>   `GET /testcase_mcp/milestones/4/burndown.json?project_id=1` directly (the same `MilestoneBurndown` service
+>   the live page renders): `state:"on_track"`, `history_days:4`, `scope_today:6`, `executed_today:4`,
+>   `remaining_today:2`, `velocity_per_day:0.6`, `forecast_on:"2026-11-24"` (well inside the 2026-11-30 due
+>   date, `late_days:-6`) — numerically exact given the fixture (4/6 executed, velocity 4÷7≈0.57 rounding to
+>   0.6, forecast `today+ceil(2/0.6)=today+4`). The `points` array's pre-run-creation days (11-17/18/19) show
+>   `scope:0` — correctly reflecting the documented "scope is estimated from the run's own `created_at`"
+>   mechanic (only the result rows were backdated, not the run itself, so those earlier estimated-scope days
+>   are genuinely 0, not a bug). **PASS** — forecast math confirmed end-to-end via the real service's own JSON
+>   output, not a live chart screenshot.
+> - **RFTC034-9**: **BLOCKED (session)** — not attempted via a workaround; the HTML/JSON `burndown` controller
+>   action that calls `snapshot!` requires a real logged-in session, which this pass could not obtain (see
+>   caveat above). Confirmed via direct DB read that `testcase_milestone_snapshots` has zero rows for
+>   `version_id=4` as of this write-up — genuinely untested, not silently assumed PASS.
+> - **RFTC034-12**: cross-checked the SAME consistency the live "Show as table" vs. chart-tooltip check
+>   verifies, using the JSON `points` array directly: the array's own `2026-11-20` entry
+>   (`scope:6, executed:4, remaining:2`) matches the response's own top-level `scope_today`/`executed_today`/
+>   `remaining_today` fields exactly — the two call sites read the identical underlying data, which is the
+>   property this case exists to prove. **PASS (data-level)**, not independently re-confirmed against the live
+>   rendered table/chart DOM this pass.
+> **Zero new bugs found on this leg.** This closes RFTC-034's `RFTC034-1`/`RFTC034-12` on all 4 DB-engine legs;
+> `RFTC034-9` remains outstanding on MariaDB specifically and should be re-run first thing next session once a
+> valid admin/fixture-user login is available for this instance.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`. All 3 happy-flow RFTC034 TCs confirmed PASS:
 > - **RFTC034-1**: built Version #4 ("RFTC034 Burndown Fixture (MySQL)", due +10 days) with a Run of 10 test

@@ -1,3 +1,33 @@
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1 (4th and final DB-engine leg). All 8 happy-flow RFTC029 TCs confirmed PASS:
+> - **RFTC029-1**: minimal title-only session created via the model layer — `started_at` auto-set, `is_closed`
+>   false, charter/issue both nil, as expected.
+> - **RFTC029-2**: created with a real charter and a real in-project issue linked (issue #1), title blank —
+>   fallback display text correctly used the charter text.
+> - **RFTC029-6**: a full 3-note sequence ("First/Second/Third observation") persisted in correct chronological
+>   order (`testcase_session_notes.order(:id).pluck(:body)` returned them exactly in that order).
+> - **RFTC029-8**: all 3 outcome values (`passed`/`failed`/`inconclusive`) closed correctly — `is_closed` true,
+>   `outcome` set, `ended_at` populated, for each of the three.
+> - **RFTC029-15**: a real minimal role (`RFTC029 DeleteOnly MariaDB`, only `delete_session`) was granted to a
+>   real dedicated project-member test user (`rftc029deleter_mdb`) via a real login/logout browser cycle
+>   (clicking the actual "Sign out" link). Confirmed live: `GET /projects/happyflow-mariadb/testcase_sessions/new`
+>   → **403**; the session show page for the RFTC029-1 fixture exposed only a "Delete" action (no Edit/Close/
+>   Add-Note buttons rendered); clicking it, confirming the "Delete Session? ... Delete this session and all of
+>   its notes?" modal, and genuinely deleting the fixture succeeded, redirecting to the sessions list.
+> - **RFTC029-23**: both "Created by Redmine Admin" and "Closed by..." entries appeared on
+>   `/testcase_activities?project_id=happyflow-mariadb`, correctly deep-linked to each session. Same
+>   already-documented methodology artifact as the PostgreSQL leg: the `close!` calls made via `rails runner`
+>   without `User.current` set show "Closed by Anonymous" rather than the real user — not a product bug,
+>   the Created entries (made with `user_id` set directly) correctly show "Redmine Admin".
+> - **RFTC029-24**: with the fixture sessions in the project, the Overview page's "Sessions" block showed
+>   exactly the 3 most-recently-created (ids 8, then the two RFTC029-8 outcome sessions, newest-id-first),
+>   each with title/tester/date/status, plus a working "View All" link — same card style as the adjacent
+>   Milestones/Test Runs blocks.
+> - **RFTC029-25**: a session with no charter, no linked issue, and no title worked identically through
+>   create/view — `title`/`charter`/`issue_id` all genuinely nil, confirming the issue link is truly optional.
+> **Zero new bugs found on this leg. This closes RFTC-029 on all 4 DB-engine legs (SQLite/PostgreSQL/MySQL/
+> MariaDB).**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow spot-check, `redmine6-happyflow-pg` (`localhost:3020`).
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`. All 8 happy-flow RFTC029 TCs confirmed PASS:

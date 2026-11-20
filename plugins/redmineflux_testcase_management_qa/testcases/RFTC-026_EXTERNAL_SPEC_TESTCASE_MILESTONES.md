@@ -1,5 +1,53 @@
 # Test Cases — Redmineflux Testcase Management — rtc-026: Testcase Milestones (optional)
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1 (4th and final DB-engine leg). All 14 happy-flow RFTC026 TCs confirmed PASS:
+> - **RFTC026-1**: `enable_milestones` was `nil` on this fresh MariaDB instance (matching the MySQL leg's own
+>   finding) — enabled via `Setting.plugin_redmineflux_testcase_management` (merged into the existing hash) and
+>   confirmed `"true"`.
+> - **RFTC026-10**: Open (1)/Closed (1) tabs, the All/Overdue/At risk/On track/No runs yet status-chip filter
+>   bar (At risk=1, matching the disposable fixture below), and the same table-not-card layout (not a defect,
+>   consistent with all 3 other legs) all confirmed live via real Playwright UI.
+> - **RFTC026-12**: via Add Run's inline "+ New milestone" form, created a real Version
+>   ("RFTC026-12 Inline Create Fixture (MariaDB)") — confirmed genuinely persisted (`GET /projects/1/versions.json`
+>   returned id=3, correct project) and immediately auto-selected in the Milestone dropdown. Fixture deleted
+>   after confirming (`DELETE /versions/3.json` → 204).
+> - **RFTC026-14**: milestone #1's detail page stat tiles (Passed 1/Failed 2/Blocked 1/Untested 18) plus
+>   "22.7% executed (5 of 22)" exactly match the Run Results Summary tile/bar language, for a real run
+>   ("MariaDB Include-All Run") linked to the milestone via `PUT /runs/update_run/6.json`.
+> - **RFTC026-19**: "At risk" (the linked run's milestone, due in 30 days with <80% executed) and "No runs yet"
+>   (the closed fixture version, `runs_count:0`) both observed on real data this round.
+> - **RFTC026-22**: full close/reopen round trip via real UI clicks on the disposable RFTC026-12 fixture —
+>   "Close milestone" → confirm modal ("Its runs and results are kept, and you can reopen it later") →
+>   "Redmine version, closed," Reopen link appeared; "Reopen milestone" → "Redmine version, open," Close link
+>   restored. No data loss either direction. Fixture deleted after confirming.
+> - **RFTC026-25**: Add Run's Milestone `<select>` listed only the project's 1 open version
+>   ("MariaDB Happy-Flow v1.0 · due 12/20/2026"), annotated "Closed versions are not listed," with
+>   "MariaDB v0.9 Legacy (Closed)" correctly absent.
+> - **RFTC026-28**: Runs & Results list has a "Milestone" column (after Run Type) and a "Filter by milestone"
+>   combobox (All milestones/No milestone/MariaDB Happy-Flow v1.0/MariaDB v0.9 Legacy (Closed)) — this filter
+>   correctly includes the closed version too, same as the PostgreSQL leg's own finding.
+> - **RFTC026-29**: the linked run's Run Details block shows "Milestone: MariaDB Happy-Flow v1.0", linking to
+>   `/projects/happyflow-mariadb/testcase_milestones/1` — confirmed correct href.
+> - **RFTC026-30**: project Overview page's "Milestones" card shows a "View All" link, confirmed live.
+> - **RFTC026-32/34**: `PUT /runs/update_run/6.json` with `run[milestone_id]:1` → 200, response includes
+>   `"milestone":{"id":1,"name":"MariaDB Happy-Flow v1.0"}`; the same call with the closed `milestone_id:2` →
+>   **422** ("Version must be an open version shared with this project").
+> - **RFTC026-33**: `POST /testcase_ci/bootstrap_run.json` with `"milestone":"MariaDB Happy-Flow v1.0"` resolved
+>   correctly to `"milestone":{"id":1,"name":"MariaDB Happy-Flow v1.0"}` in the response (201). An unknown name
+>   (`"Totally Unknown Milestone XYZ"`) was refused with **422** and a clear "was not found in this project"
+>   error (matching the PostgreSQL leg's clearer message, not the generic one on SQLite/MySQL — a harmless
+>   variance, not a defect). Fixture run (#9) left in place — admin-key `DELETE /runs/9.json` was unexpectedly
+>   refused with "not authorized" on this leg; not pursued further since it's a disposable artifact with no
+>   bearing on the TC's own pass/fail verdict.
+> - **RFTC026-35**: (a) with the switch toggled off, `GET /testcase_mcp/projects/1/milestones.json` → **404**
+>   ("Milestones are not enabled."), restored immediately after. (b) a genuine minimal-permission identity
+>   (Reporter role, zero testcase-management permissions, dedicated user `mariadb_noperm`) → **403**
+>   ("Unauthorized access"). (c) as admin, normal call → **200**, `total:2`, matching the UI's 2 milestones
+>   exactly; as `maria_manager` (Manager role, has `view_milestones` by default on this leg) → also **200**.
+> **Zero new bugs found on this leg. This closes RFTC-026 on all 4 DB-engine legs (SQLite/PostgreSQL/MySQL/
+> MariaDB).**
+
 > **CROSS-DB (SQLite) — 2026-11-18:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
 > `rftc-016-ci-qa`. All 14 happy-flow RFTC026 TCs confirmed PASS, all fixtures created disposably and cleaned up
 > after confirming:

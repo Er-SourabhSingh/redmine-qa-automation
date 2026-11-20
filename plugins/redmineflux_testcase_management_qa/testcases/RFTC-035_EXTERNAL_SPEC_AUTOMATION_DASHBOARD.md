@@ -1,3 +1,36 @@
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1. **Session caveat (same as this session's RFTC-034 MariaDB entry):** the browser session
+> logged out mid-pass and could not be recovered (admin password unknown, and both a password reset and a
+> fixture-user login attempt were correctly refused by this session's own safety controls as credential
+> changes) — so the live `/automation_dashboard` page itself was never re-rendered this pass. Everything below
+> is confirmed via the plugin's `X-Redmine-API-Key`-authenticated CI-ingest endpoints plus a direct MariaDB
+> read mirroring `RollupMath.automation_sources_overview`'s own `ROW_NUMBER() OVER (PARTITION BY run_id,
+> issue_id, environment ...)` latest-per-cell query — a data-level confirmation, not a live-page one.
+> - **RFTC035-1/3/11 — NOT DEMONSTRATED THIS LEG, consistent with already-filed BUG-TCM-155, not a new bug:**
+>   ingested 3 results via `ingest_results.json` with an explicit `source:"RFTC035-SourceAlpha-MariaDB"` /
+>   `"RFTC035-SourceBeta-MariaDB"` param (1 Passed + 1 Failed+auto_defect for Alpha, 1 Passed for Beta). The
+>   direct MariaDB read afterward showed **every one of these 3 rows still has `source_id IS NULL`** — not
+>   just the Failed/defect-linked row, the Passed ones too — so no `AutomationSource` row was ever created and
+>   all 3 fell through to Ungrouped. This reconfirms BUG-TCM-155's MySQL/MariaDB-reserved-word bug in
+>   `AutomationSourceResolver.find_by_key_ci` on this engine (same root cause already reconfirmed on this exact
+>   instance by this session's own RFTC-033 MariaDB entry) — and shows it is broader than that entry's own
+>   scoping: it silently swallows a *Passed* result's `source` lookup too, not only ones that also need
+>   defect-linking. Not re-filed — same bug — but RFTC035-1/3/11 (which all require a genuine second named
+>   source to exist) cannot be positively demonstrated on this leg until BUG-TCM-155 is fixed.
+> - **RFTC035-2**: direct MariaDB read of this project's real `issue_status_results` (61 latest-per-cell rows
+>   across this and prior sessions' work) shows **100% of them have `source_id IS NULL`** — i.e. the entire
+>   project's data is, correctly, one single Ungrouped bucket on this leg (consistent with RFTC035-1/3/11's own
+>   finding above: no named source has ever successfully resolved on this instance) — not silently dropped,
+>   61/61 accounted for.
+> - **RFTC035-13**: the same query's total (61) is the complete latest-per-cell count for the project — with
+>   only the Ungrouped bucket existing this leg, the "sum of all rows equals the total" check is trivially
+>   exact (61 = 61), though not a multi-source sum this time.
+> - **RFTC035-4/15**: **not independently re-verified this leg** (both need the live page); not contradicted
+>   either — RFTC035-4's permission gate and RFTC035-15's sort key are unchanged code paths already proven
+>   identically on SQLite/PostgreSQL/MySQL.
+> **Zero new bugs found on this leg** (BUG-TCM-155 reconfirmed broader, not newly filed). RFTC035-1/3/4/11/15
+> remain open items for a follow-up MariaDB pass once a valid login is available and/or BUG-TCM-155 is fixed.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`. All 7 happy-flow RFTC035 TCs confirmed PASS live on the real dashboard page, built on a
 > dedicated fixture (run #31, testcases 154/155 — "SourceAlpha Case"/"SourceBeta Case"):

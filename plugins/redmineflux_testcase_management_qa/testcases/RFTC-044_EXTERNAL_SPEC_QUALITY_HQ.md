@@ -1,3 +1,12 @@
+> **CROSS-DB (MariaDB) — 2026-11-20 — BLOCKED (session), not attempted via a workaround.** `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`/1. `/quality_hq` has no API-key-authenticated JSON form (its
+> controller does not declare `accept_api_auth`) — it is session-only. This pass's browser session logged out
+> mid-session (see this same session's RFTC-034/RFTC-035 MariaDB entries for the full story) and could not be
+> recovered: the admin password is unknown on this instance, and this session's own safety controls correctly
+> refused both a password reset and a login attempt as a different fixture user whose real password also
+> wasn't the documented default. No RFTC044 case in this group (1/5/9/10/11) was exercised this pass — none are
+> claimed as PASS. Flagged for a dedicated follow-up pass once a valid login is available for this instance.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). All 5
 > happy-flow RFTC044 TCs confirmed PASS. This instance has only 1 pre-existing project (`happy-flow-mysql`), so
 > a disposable second project (`rftc044-qhq-fixture-b`) was created for the module-toggle/no-data/isolation

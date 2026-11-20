@@ -1,3 +1,17 @@
+> **CROSS-DB (MariaDB) — 2026-11-20 — BLOCKED (session), not attempted via a workaround.** `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`/1. The checkbox/bulk-Reassign/inline-reassign/Edit Run
+> actions this group needs (`RunsController#reassign_testcases`, the Edit Run form) are session-only —
+> `reassign_testcases` is not in `RunsController`'s own `accept_api_auth` list, unlike `create`/`show`/
+> `get_testcases`/`update_run`, which are. This pass's browser session logged out mid-session (see this same
+> session's RFTC-034/RFTC-035 MariaDB entries) and could not be recovered: the admin password is unknown on
+> this instance, and this session's own safety controls correctly refused both a password reset and a login
+> attempt as a different fixture user whose real password also wasn't the documented default. No case in this
+> group (RFTC045-1/2/8/9/13/14/15/16/35/39/53/54/56/58/63/64) was exercised this pass — none are claimed as
+> PASS. **BUG-TCM-156 status**: not re-checked this leg (its own repro — Reassign vs. the To-Do list's
+> `run_assignments.assignee_id`-only read — is itself one of the session-gated actions above); still open per
+> its own bug file, no new information from this pass either way. Flagged for a dedicated follow-up pass once
+> a valid login is available for this instance.
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC045-1/2 PASS — created a second project member ("QA User"), set the per-run assignee on a case to
 > QA User while its global Assignee was unset, confirmed independence; then changed the global Assignee to

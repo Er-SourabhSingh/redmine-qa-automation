@@ -48,6 +48,18 @@
 - Native-verify: `redmineflux_crm_list_companies` showed exactly one company, id=2, "Regression Test Co." —
   confirming the real id was 2, not the 3 the plan had assumed.
 
+## Status: CLOSED 2026-11-20 — CONFIRMED FIXED
+
+- Fixed by CRC-123 (crux-core 1.17.0): `_confirm_batch` now remembers the real id each created step made, by
+  entity, and replaces a later step's guessed id (when it's above the real one) with the real one.
+- Retested on the rebuilt stack (crux-core 1.17.0): CRM Agent, "Create a contact named Rohan Das at
+  Retest-221C Logistics." — batch card correctly showed "I'll do 2 things." Step 1 created company
+  "Retest-221C Logistics" (real id 6). Step 2's confirm card for Create Contact correctly showed `Company: 6`
+  (the real id, not a guess) — retried with an email field (step 2 had separately failed only on a missing
+  email, unrelated to the id-guessing bug) and the contact was created linked to company 6.
+- Native-verified: `redmineflux_crm_list_contacts(company_id=6)` → "Rohan Das - rohan.das@retest221c.example -
+  @ Retest-221C Logistics" — real id used correctly end to end, no guessed-id mismatch.
+
 ## Duplicate check
 
 - Duplicate found: No

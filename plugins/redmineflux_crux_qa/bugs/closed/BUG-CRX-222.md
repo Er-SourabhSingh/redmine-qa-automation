@@ -50,6 +50,21 @@
 - Native-verify of attempt 2: `redmineflux_core_list_issues(project_id=1, parent_id=159)` → 3 real issues
   (#179, #180, #181), matching the proposed subtask titles exactly.
 
+## Status: CLOSED 2026-11-20 — CONFIRMED FIXED
+
+- Fixed by CRC-123 (crux-core 1.17.0): `field_check.same_form()` keeps a corrected `project_id` in the form it
+  was sent (int stays int, numeric string stays string); a safety-net in `mcp_client.call_tool` additionally
+  resends a call refused purely for value type (pydantic `string_type`/`int_parsing`) once more in the right
+  type.
+- Retested on the rebuilt stack (crux-core 1.17.0): Improver, "Break issue #159 down into subtasks." → "Yes,
+  create them." — ran 3 fresh-chat attempts. Attempts 1 and 2 both succeeded cleanly ("Created 3 of 3" each,
+  real subtasks #184-186 and #187-189, native-verified `Parent: #159`) — zero occurrences of the original
+  Pydantic `project_id` type error across all 3 attempts.
+- Attempt 3 also failed ("Created 0 of 3"), but with a **different, unrelated** error — "Parent task is
+  invalid" — traced via Redmine server logs to the agent resolving the wrong but correctly-typed `project_id`
+  ("9" instead of "1"). This is NOT a recurrence of this bug (the type was already correct, only the value was
+  wrong) — filed separately as BUG-CRX-224 (wrong-project-resolution family, first instance on Improver).
+
 ## Duplicate check
 
 - Duplicate found: No

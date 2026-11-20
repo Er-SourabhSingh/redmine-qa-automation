@@ -43,6 +43,18 @@
   misleading-✓ refusal (confirming nothing silently happened); `get_run(run_id=7)` showed `Closed: True`
   after the clean success case.
 
+## Status: CLOSED 2026-11-20 — CONFIRMED FIXED
+
+- Fixed by CRC-123 (crux-core 1.17.0): "cannot close run", "cannot create testcase", "cannot apply template",
+  and "the server rejected the" added to the failure-marker list (a bare "rejected" stayed out since it's a
+  timesheet's own success text).
+- Retested on the rebuilt stack (crux-core 1.17.0): Testcase Agent, "Can you close the 'Sprint 2 Targeted
+  Test' run?" (Run #3, still 0 suites/groups). Confirm card correctly resolved Run 3; on Confirm the response
+  was `Cannot close run #3: the server rejected the close request...` — **no ✓ checkmark prefix**, unlike the
+  original report.
+- Native-verified: `get_run(run_id=3, project_identifier=crux-qa-agent-test-project)` → `Closed: False` —
+  run genuinely stayed open, refusal was honest both in content and rendering.
+
 ## Duplicate check
 
 - Duplicate found: No (new trigger path — Close Run specifically was never checked for this defect class

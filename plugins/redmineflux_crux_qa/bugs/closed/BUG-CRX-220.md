@@ -82,6 +82,18 @@
 - Direct MCP verification (same admin key): `redmineflux_devops_project_summary(project_id=20)` → real data
   (1 build, 2 commits, 1 open PR, 1 connected repo) — confirms the backend/API layer never denied access.
 
+## Status: CLOSED 2026-11-20 — CONFIRMED FIXED
+
+- Fixed by CRC-123 (crux-core 1.17.0): when the first answer blames the user's access, the retry's answer is
+  used instead if no tool result that turn was itself a permission refusal/failed call, the retry gives a real
+  answer, and the retry's answer is not itself a denial.
+- Pulled + rebuilt crux-core (`git pull origin master` fast-forwarded b9d8e2f→afa4304; `docker compose up -d
+  --build crux-core`), confirmed healthy at crux-core 1.17.0.
+- Retested the exact repro: 3 fresh-chat attempts of "Review the changes for issue #167 in the Crux DevOps
+  Agent Test Project." via Code Reviewer, same admin session. All 3 attempts gave genuine evidence-grounded
+  verdicts ("Needs changes" ×2, citing real PR/build state; "needs changes" a 3rd time) — zero false
+  "not available to your account" denials across all 3 attempts (vs. 1/3 before the fix).
+
 ## Duplicate check
 
 - Duplicate found: No

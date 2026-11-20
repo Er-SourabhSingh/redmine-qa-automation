@@ -99,3 +99,28 @@ which is portable across all three supported adapters without needing per-adapte
   level — this is a MySQL-specific raw-SQL portability bug that only exists because of the literal, unquoted
   `key` identifier in the raw SQL string.
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-11-20 — FIXED, CLOSED
+
+- **Fix**: production commit `538ecd7` ("Show CI results under their automation source on MySQL too
+  (BUG-TCM-155)") by Vaishnavi Bhawsar, on `origin/master`/`release/7.0.0`/`release/6.0.0`. Replaces the raw
+  unquoted `LOWER(key)` SQL fragment with `AutomationSource.connection.quote_column_name('key')`-based
+  adapter-agnostic quoting — portable across MySQL/PostgreSQL/SQLite/MariaDB, not a MySQL-only special case.
+  Pulled into the local plugin checkout (`C:\redmine v6\plugins\redmineflux_testcase_management`, fast-forwarded
+  `a6cb342..97576f0`) and the MySQL leg's `redmine`/`sidekiq` containers restarted to reload it.
+- **MySQL retest (the original leg, `localhost:3022`, project `happy-flow-mysql`)**: ingested the same real
+  automation-key'd testcase (#118, key `RFTC016-AUTOKEY-A`) via `POST /testcase_ci/ingest_results.json` twice,
+  once with `"source":"Nightly-Regression"` and once with `"source":"nightly-regression"` — both calls now
+  return the SAME `source_id:4, source_name:"Nightly-Regression"` (previously always `null`). Zero
+  `Mysql2::Error`/"automation source resolution failed" hits in the server log across both calls. **PASS.**
+- **Cross-DB regression check (no regression from the rewrite)**: repeated the identical case-variant ingest
+  pair against fresh fixtures on the other two legs already running the same shared plugin code —
+  **PostgreSQL** (`localhost:3020`, issue #56, key `BUG-TCM-155-REGR-PG`): both calls → same
+  `source_id:2, source_name:"nightly-regression"`. **PostgreSQL PASS.**
+  **SQLite** (`localhost:3021`, issue #429, key `BUG-TCM-155-REGR-SQLITE`): both calls → same
+  `source_id:2, source_name:"nightly-regression"`. **SQLite PASS.**
+  MariaDB leg not re-verified in this pass (another test activity was actively using that instance
+  concurrently) — same shared plugin source applies there too; low residual risk, can be spot-checked
+  opportunistically on a future MariaDB session.
+- **Production**: issue #129147 updated to Status Done, % done 100, with a retest summary comment.
+- **Verdict: FIXED.** Moved to `bugs/closed/`.

@@ -16,7 +16,13 @@
 - Found, root-caused, reported, and assigned 1 new bug while retesting 222: **BUG-CRX-224** (#129167) —
   Improver resolves a wrong but correctly-typed `project_id` (stale project #9 instead of #1), first instance
   of the wrong-project-resolution family on Improver
-- See the dated "2026-11-20" entry in Run History below for full detail
+- **BUG-CRX-224 retested same day (CRC-124, 1.18.0), CONFIRMED FIXED, closed — `bugs/open/` now empty**
+- **#128756 and #128890 reviewed against their own acceptance criteria, both marked Done/100%**, each with a
+  QA sign-off note; added + passed **TC-CRX-1090** (discovery-found DevOps write) to close #128890's one
+  testable gap; documented as a standing infra lesson why "plugin not installed" can't be tested on this live
+  stack (two reverted attempts — folder removal crashes Redmine's boot, register-only comment leaves routes
+  live and still detected)
+- See the dated "2026-11-20" entries in Run History below for full detail
 
 ## Previous Session (2026-11-19)
 
@@ -735,6 +741,7 @@ Per explicit user request ("separate the remaining test suites, stating that Cru
 | 2026-11-18 (full-day session: 12-bug retest/close round + deferred-suite sweep across all 15 platform suites) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **12-bug retest round**: developer moved BUG-CRX-204–215 to "In QA"; pulled latest code across 4 repos, rebuilt crux-core+mcp, retested all 12 live against their original repro steps — all 12 CONFIRMED FIXED, closed, production synced to Done/100% (#128920, #128966–128975, #128994, #128995). Added inline "Retest — CONFIRMED FIXED" notes to each bug's originating TC entry across 7 suite files, per explicit user correction that this step had been skipped. **Deferred-suite sweep** ("baaki deferred suites bhi kr do"): closed out the remaining deferred-TC backlog across `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` (TC-833/834, unblocked by BUG-CRX-200's fix — both PASS), `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md`/`ASK_CRUX_BUBBLE_ERRORS.md`/`SETTINGS.md`/`PROJECT_TAB.md`/`PIPELINES.md` (closed 2026-11-18 earlier in this same day), and re-verified `CRUX_PLATFORM_FROZEN_RULES.md`'s TC-929/930/931 (no regressions, cleaned up a leftover rule). Found and fixed a stale line in `CRUX_PLATFORM_READY_QUEUE.md`'s own summary (BUG-CRX-174 was actually already closed). 4 new bugs found and reported to production this day (BUG-CRX-214/215/216/217, #128994/128995/129011/129012). **Swept all 15 platform suites' own "Overall" lines — confirmed every suite is at 0 genuinely-outstanding deferred TCs**, except a documented handful deferred by design (low-value pagers, infra-constrained, permanently-blocked-by-design). Open bug count now 2 (216, 217, both still "New" on production). `STATUS.md`, `bugs/_index.md`, `TIME_LOG.md` updated; all findings committed and pushed to `origin master`.
 | 2026-11-19 (full-day session: DevOps plugin install + agent suite, Keep/Share regression, BUG-CRX-216/217 closed, happy-flow selection + regression, 4 new bugs) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **BUG-CRX-216/217 closed** (both CONFIRMED FIXED, carried in from 2026-11-18). **DevOps plugin installed/migrated locally** (0→68 MCP tools); wrote `CRUX_AGENT_DEVOPS.md` (13 TCs, 11 PASS, BUG-CRX-218/219 found) and re-verified the 7 remaining Code Reviewer TCs plus a new positive-path TC-625 now that DevOps is installed. **Keep/Share regression** written and executed (`CRUX_CHAT_KEEP_SHARE_REGRESSION.md`, 3/3 PASS, closing #117162's last open criterion; BUG-CRX-010/011 re-verified not reproducing on the current stack). Production tickets **#116773 and #117162 closed** Done/100%. **BUG-CRX-218/219 retested** after pulling+rebuilding `crux-core` (CRC-122, 1.16.0) — both CONFIRMED FIXED, closed, production synced. **Happy-flow regression scope**: selected and marked 57 already-PASSing TCs across all 39 suite files (`> **Happy Flow**` markers, `CRUX_AGENT_RESEARCH.md` flagged as a genuine gap with no happy-flow TC to mark) as a faster substitute for a full regression, per explicit user time-boxing instruction. Executed live via a backgrounded fork (several 200-turn resumes): **53 PASS / 1 BLOCKED (TC-CRX-447, no fixture state to exercise it) / 1 deferred (TC-CRX-1088, low risk, mechanism separately proven via TC-CRX-1021)**. **4 new bugs found, root-caused, and reported to production** (assigned Prashant Chaurasia): BUG-CRX-220 (#129140, Code Reviewer intermittent false DevOps-access denial — root-caused to a specific `chat.py` retry-preference heuristic discarding a correct retry, NOT a Cloudflare-tunnel/connectivity issue as first suspected — confirmed via server logs), BUG-CRX-221 (#129141, CRM multi-step create-contact-at-new-company guesses the wrong future company id), BUG-CRX-222 (#129142, Improver subtask-creation confirm non-deterministically sends `project_id` as int not string), BUG-CRX-223 (#129143, Close Run misleading ✓ on a genuine rejection, same class as BUG-CRX-018/040/054/067/082). `bugs/_index.md`, suite files, and this handoff all committed/pushed to `origin master` across the session.
 | 2026-11-20 (BUG-CRX-220/221/222/223 retest round, 1 new bug found) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | Developer moved BUG-CRX-220/221/222/223 to "In QA." Pulled + rebuilt `crux-core` (`git pull` fast-forwarded b9d8e2f→afa4304, CRC-123, 1.17.0 — "four fixes from the happy-flow regression pass," matching all 4 bugs exactly). **All 4 CONFIRMED FIXED, closed, production synced to Done/100%**: 220 (3/3 clean Code Reviewer attempts, zero false DevOps-access denials), 221 (CRM batch now correctly uses the real id `_confirm_batch` tracked from an earlier step in the same batch, native-verified contact linkage), 222 (Improver subtask creation 2/2 clean, zero `project_id` type errors), 223 (honest "Cannot close run" refusal no longer carries a misleading ✓, native-verified run stayed open). **1 new bug found while retesting 222**: a 3rd fresh-chat repetition failed with a correctly-typed but wrong-*value* `project_id` ("9", a real unrelated stale fixture project, instead of "1" where issue #159 lives) — a distinct defect from 222's type bug, root-caused via Redmine server logs, and the first instance of the wrong-project-resolution family (BUG-CRX-080/093/101/133/140/187) on the Improver agent. Filed, reported to production, and assigned to Prashant Chaurasia as **BUG-CRX-224** (#129167). `bugs/_index.md`/`_duplicates.md`, closed bug files, and this handoff all committed/pushed to `origin master`.
+| 2026-11-20 (continued — BUG-CRX-224 closed, #128756/#128890 marked Done, TC-CRX-1090 added, plugin-toggle infra lesson) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | Developer moved BUG-CRX-224 to "In QA" same day. Pulled + rebuilt `crux-core` (CRC-124, 1.18.0, "a subtask goes in its parent issue's project" — exact match). **CONFIRMED FIXED**, 3/3 clean fresh-chat retests, native-verified correct project every time; closed, production synced to Done/100% (#129167). **`bugs/open/` now empty.** Reviewed production tickets **#128756 and #128890 against their own acceptance criteria and marked both Done/100%**, each with a QA sign-off note; closed the one testable gap on #128890 by adding and passing **TC-CRX-1090** (discovery finds a DevOps write outside the agent's static list — `save_freeze`, confirm card, native-verified, cleaned up). Attempted to test #128890's "plugin not installed" criterion two ways (moving the plugin folder out; commenting out just its `Redmine::Plugin.register` block) — both reverted: the first crashes Redmine's own boot (DB already has this plugin's migration state, so the folder's absence is an inconsistent state, not a genuine "never installed" one); the second is safe but the plugin's routes stay mounted and MCP's own probe still detects it as installed. Documented as a standing infra lesson — this criterion needs a separate, never-installed Redmine instance to test for real, not toggling this live one. Stack fully restored and verified healthy both times. All findings committed/pushed to `origin master`.
 
 ## Next Session Start Point (2026-11-04, continued)
 
@@ -1047,7 +1054,7 @@ documented reason rather than an open-ended "not done yet."
 - Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (220-223) and no final-cycle regression has
   run since the last bug closed.
 
-### Next Session Start Point (2026-11-20, current)
+### Next Session Start Point (2026-11-20, superseded — see the later same-day entry below for the current one)
 
 - **BUG-CRX-220/221/222/223 all retested and CONFIRMED FIXED via CRC-123 (crux-core 1.17.0)** — pulled +
   rebuilt crux-core (`git pull` fast-forwarded b9d8e2f→afa4304, `docker compose up -d --build crux-core`)
@@ -1070,3 +1077,43 @@ documented reason rather than an open-ended "not done yet."
   `CRUX_AGENT_RESEARCH.md` still has zero happy-flow coverage.
 - Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (224) and no final-cycle regression has run
   since the last bug closed.
+
+### Next Session Start Point (2026-11-20, later same day, current)
+
+- **BUG-CRX-224 retested and CONFIRMED FIXED via CRC-124 (crux-core 1.18.0, "a subtask goes in its parent
+  issue's project")** — pulled + rebuilt crux-core again, 3/3 clean fresh-chat attempts of the exact repro,
+  confirm card correctly showed the real project name, native-verified every new subtask landed under the
+  right project. Closed locally, production synced to Done/100% (#129167).
+- **`bugs/open/` is now completely empty** — closing this wording this entry so it's unambiguous: the plugin
+  has **zero open bugs** as of this session.
+- **#128756 ("MCP Server: Complete DevOps plugin tool coverage") and #128890 ("Crux: the DevOps Agent uses the
+  whole DevOps plugin") both reviewed against their own acceptance criteria and marked Done/100%** this
+  session, each with a QA sign-off note on record. #128756's two caveats: only incidents got a literal
+  screen-vs-tool comparison (other new read tools were checked against known fixture state instead); the
+  dev's own unit-suite claim wasn't independently re-run. #128890's two caveats: the "plugin not installed →
+  agent not offered" criterion could not be tested in this environment — see the infra lesson below; same
+  unit-suite caveat as #128756.
+- **New TC-CRX-1090 added and PASSED**: closed the one acceptance-criterion gap that *was* testable on
+  #128890 — "discovery finds a DevOps write outside the agent's static list." Asked the DevOps Agent to
+  schedule a deployment freeze (`save_freeze`, not in `allowed_tools`); discovery correctly found it, produced
+  a genuine "DevOps Create Freeze" confirm card, write succeeded, native-verified, cleaned up.
+- **Infra lesson — do not toggle a plugin's installed state on this live stack to test "plugin not installed"
+  behavior.** Two approaches were tried and both reverted: (1) moving `plugins/redmineflux_devops/` out of the
+  way entirely crashes Redmine's own Rails boot (a `db:migrate`/initializer failure) — because this instance's
+  DB already carries that plugin's migration/settings state, so a physically-missing folder is an
+  *inconsistent* state, not a genuine "never installed" one. (2) commenting out only the
+  `Redmine::Plugin.register` block in `init.rb` (keeping all files) is safe — no crash — but the plugin's
+  `/devops/*` routes stay mounted and keep returning 403, which the MCP server's own detection probe reads as
+  "installed, permission denied," so it still loads all 68 DevOps tools anyway. Neither simulates "not
+  installed" for Crux's own acceptance criterion. Testing this for real needs a **separate Redmine instance
+  that never had the plugin installed**, not toggling an already-migrated one. Both experiments were reverted
+  immediately each time; the stack is back to its normal, fully-healthy state (verified: redmine 200/healthy,
+  crux-core `{"ok": true}`, mcp logs confirm 68 devops tools + 468 total plugin tools, "server no longer
+  degraded").
+- Everything else carried forward from earlier same-day entries is still true: happy-flow markers live in all
+  39 suites but still not a substitute for the full CLAUDE.md §13/§27 regression; TC-CRX-447 still BLOCKED
+  (needs a Level-1 fixture); TC-CRX-1088 still deferred; `CRUX_AGENT_RESEARCH.md` still has zero happy-flow
+  coverage.
+- **`bugs/open/` is empty — this is the trigger condition for CLAUDE.md §13/§27's full final-cycle regression.**
+  That has NOT been run yet. `STATUS.md` cannot say `Complete` until it is (§10), regardless of the open-bug
+  count being zero.

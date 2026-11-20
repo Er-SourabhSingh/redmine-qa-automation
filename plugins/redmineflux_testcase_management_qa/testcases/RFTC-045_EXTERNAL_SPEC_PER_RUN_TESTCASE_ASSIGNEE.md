@@ -1,9 +1,9 @@
 > **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
 > `happyflow-mariadb`/1, after the coordinator restored a working admin login (earlier same-day attempt had
-> been blocked by a lost session with no known password). 14/16 cases in this group now confirmed PASS live
-> (12 from the main pass + RFTC045-53/54 from a coordinator follow-up that root-caused the Edit Run "blank
-> content" anomaly — see below). RFTC045-56/58 remain blocked by a separate, newly-found CSRF/session issue on
-> save actions, not yet root-caused.
+> been blocked by a lost session with no known password). **All 16/16 cases in this group now confirmed PASS
+> live** (12 from the main pass + RFTC045-53/54/56/58 from two coordinator follow-ups that root-caused the
+> Edit Run "blank content" anomaly as a genuine `edit.html.erb` code bug, unrelated to this test suite, and
+> then found the subsequent CSRF 422s on save were plain session timeout, not a new issue — see below).
 > - **RFTC045-1**: Run #12, TC #19 — global Assignee was unset (`-`); inline-reassigned its per-run assignee to
 >   "Maria Manager" (2 clicks, no navigation) — the TC issue's own global Assignee field remained `-`.
 > - **RFTC045-2**: changed TC #19's own global Assignee to "Redmine Admin" via the core issues API — its
@@ -54,16 +54,25 @@
 >   Assignee shows as a static `span.run_assignee_readonly` ("Redmine Admin"), 2 confirmed.
 >   **RFTC045-54 PASS** -- clicking `#edit-add-assignment` ("+ Add") added a 3rd row with only
 >   `run[run_assignments_attributes][2][environment]`, no assignee field, matching rows 0/1's shape exactly.
->   **RFTC045-56/58 -- still BLOCKED, but by a different, genuinely new issue:** submitting the Edit Run form
->   (via the real `#update-btn` UJS submit, not a manual fetch) consistently fails with HTTP 422 server-side --
->   confirmed via container logs: `ActionController::InvalidAuthenticityToken: Can't verify CSRF token
->   authenticity` / `Filter chain halted as :verify_authenticity_token rendered or redirected`. Reproduced on 2
->   separate submit attempts (one direct `fetch` with a manually-read `X-CSRF-Token` header, one via the form's
->   own real submit button) -- both using the same live, logged-in session (`admin`, confirmed via
->   `Current user: admin` on the preceding GETs). Not pursued further within this follow-up's own turn budget --
->   a separate, previously-unseen blocker from the original "blank content" mystery, specific to save/PATCH
->   actions on this MariaDB leg's Edit Run modal, not yet root-caused. RFTC045-56/58 remain **not claimed PASS
->   or FAIL** -- flagged for a future session with a fresh login/session to retry the save.
+>   **RFTC045-56/58 -- RESOLVED, both PASS (2026-11-20, coordinator 2nd follow-up):** the earlier
+>   `InvalidAuthenticityToken` 422s were investigated directly (user explicitly asked for this to be checked
+>   personally, not re-delegated) and turned out to be pure **session timeout**, not a new product bug --
+>   confirmed by hitting `/runs/new?project_id=...` again mid-investigation and finding the page had silently
+>   redirected to `/login` (session had expired from elapsed idle time during the earlier root-cause work).
+>   Logged back in fresh (`admin`/`Admin12345!`) and immediately retried the real UI flow (Runs & Results ->
+>   Run #13's action menu -> "Edit Run" -> add a 3rd environment "Firefox on Linux" -> real `#update-btn`
+>   submit): **this time it succeeded cleanly** (`PATCH /runs/13 ... Completed 200 OK`, with a real
+>   `RunMailer#run_updated` notification job genuinely enqueued and performed). **RFTC045-56 PASS** -- confirmed
+>   directly via DB (`run_issue_assignments` on the new `environment='Firefox on Linux'`): all 4 existing test
+>   cases (19-22) show `assignee_id: NULL` on the new environment. Then used Edit Run's "Select Cases" picker
+>   to add a single brand-new, previously-unlinked test case (#23) to the run (deliberately checking only that
+>   one box, after an earlier broader multi-suite selection attempt hit an unrelated real validation 422 from
+>   over-selecting cases across 4 different suites at once -- a side effect of this test's own setup, not a
+>   product bug, not pursued further since the single-case path is what RFTC045-58 actually specifies).
+>   **RFTC045-58 PASS** -- confirmed directly via DB (`run_issues` table): a new row (id=74, `run_id=13,
+>   issue_id=23, testsuite_id=3, assignee_id: NULL`) was genuinely created -- the newly added test case starts
+>   Unassigned, not inherited from any of the run's existing per-TC values. **All 16/16 RFTC-045 happy-flow
+>   cases are now confirmed PASS on the MariaDB leg.**
 > **Session note:** this pass's Playwright browser was shared with at least one other concurrently-running
 > session (observed tabs/navigations to unrelated ports — 3021, 3012 — appearing mid-task, and the "current"
 > tab being switched out from under this pass more than once). Opening a dedicated `isolatedContext` tab

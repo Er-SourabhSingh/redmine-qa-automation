@@ -9,6 +9,22 @@
 > BUG-TCM-017 (missing Description field), BUG-TCM-018 (3rd-level nesting), and BUG-TCM-022 (new test cases
 > defaulting to Bug tracker) all confirmed still genuinely fixed on this build.
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass on `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`, all 9 TCs via `testcase_mcp` API calls + live UI checks. **192**: `create_test_suite.json`
+> → suite #17 created (confirmed a leftover same-named fixture from an earlier same-leg session still existed,
+> rejected as a duplicate name — itself real evidence this suite was already exercised once before, just never
+> written up). **193**: sub-suite #18 created with `parent_id:17`. **194**: a 3rd-level suite #19 created under
+> #18; UI tree expansion confirmed all 3 levels render nested correctly. **197**: `update_test_suite.json`
+> renamed #19 + changed its description, both persisted. **198**: deleted empty #19 → 200, gone. **199**:
+> created suite #20, added case #405 to it, deleted the suite → the case **survived** (confirmed via
+> `get_testcase/405.json` returning 200 with its tracker still Testcase), matching the "issues must not be
+> silently destroyed" expectation. **200**: deleted #17 (containing sub-suite #18) → both gone, cascade
+> confirmed. **201**: toggled `Show Testcase Count In Test Suites` off then on — badges (`.rf-ts-suite-count-
+> badge`) disappeared and reappeared with correct counts (6/0/7 on reload). **202**: built a real parent (#21,
+> 1 direct case) / child (#22, 1 direct case) pair — child's own grid shows 1 case, parent's grid shows 2
+> (its own + the child's), confirming the parent-includes-descendants behavior matches every other leg.
+> **Zero new bugs.**
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
 > project `happy-flow-mysql`. All 9 happy-flow TCs confirmed PASS:
 > - **TC-192**: created a suite with both Name and a real Quill-editor Description via the Add Test Suite

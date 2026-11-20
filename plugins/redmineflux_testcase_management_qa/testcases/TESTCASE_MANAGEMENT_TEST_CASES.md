@@ -17,6 +17,29 @@
 > draggable not reliably automatable via Playwright MCP), TC-TCM-149/150/298 (bulk-assign/change Requirement
 > — blocked on the separate Requirements-tree creation UI not accepting input, see REQUIREMENTS_RTM.md).
 
+> **CROSS-DB (SQLite) — 2026-11-18/2026-11-20:** happy-flow pass on `redmine6-happyflow-sqlite`
+> (`localhost:3021`), project `rftc-016-ci-qa`. Most of this group's real fixture data (TC-TCM-132/133/136/
+> 142/297, dated 2026-11-18) was created during an earlier same-leg session but never got its own CROSS-DB
+> blockquote written into this file — confirmed genuinely real via live DB/UI inspection on 2026-11-20 (issues
+> #367/369/370/372/373 with the exact matching subjects and edits), not re-fabricated. The remaining items
+> (128/129/131/137/143/144/146/148/149/150/298/299) were freshly executed on 2026-11-20 to close that gap
+> cleanly: **128/129/131** — `create_testcase.json` with 1 step+all fields (#404), 3 ordered steps (#405, IDs
+> 4350<4351<4352 confirming submission order), and 0 steps (#406, no error). **137** — `DELETE
+> /delete_testcase/406.json` → 200, subsequent GET 404s. **143** — subject search (`get_testcases.json?
+> subject=...`) and ID lookup (`get_testcase/405.json`) both match exactly. **144/146** — real checkbox-select
+> + stepped-mousemove drag of #404 onto suite #1's tree node, "Move here": flash "Testcase was successfully
+> moved.", confirmed in the suite. **148** — "Remove Testcase" from the suite's Actions menu, confirm: flash
+> "Testcase was successfully removed". **149/150** — `POST /requirement_issues/assign_requirement` (form-
+> encoded body, not JSON — a `Content-Type: application/json` body is silently ignored by this endpoint, a
+> methodology trap for future legs) with issues [404,405] + requirement [1]: both now hold REQ-001; a 2nd call
+> adding requirement [2] to #404 left it holding **both** REQ-002 and REQ-001 — add-not-replace, matching
+> every other leg. **298** — `PUT /issues/404.json` with `requirement_ids:[2]`: #404 now holds **only**
+> REQ-002 — single-select replace semantics via the Edit-form path, confirming the same two-entry-point
+> distinction (bulk context-menu adds, Edit form replaces) found on every other leg. **299** — the Issues
+> page's real "Add filter" → TestSuite UI control uses the param name `test_suite_id` (not `testsuite_id` as a
+> naive guess would assume); applying it with a real suite id correctly narrowed 375 testcase-tracker issues
+> down to the 2 genuinely in that suite. **Zero new bugs** — all items PASS, matching every other leg.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
 > project `happy-flow-mysql`. Resolves the PostgreSQL leg's BLOCKED items: **TC-TCM-144/146 PASS** — read
 > `testcase.js`'s real `moveTestcase()`/`copyTestcase()` functions (the actual jQuery UI `.draggable()`/

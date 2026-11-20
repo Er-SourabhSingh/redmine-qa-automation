@@ -29,6 +29,49 @@
 > **Zero new bugs found on this leg — all 3 cases fully executed, not deferred, completing §4 of the MySQL
 > leg's happy-flow cross-DB pass in full.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20 — real Jenkins container, all 3 PASS.** Reused the same `tcm-ci-jenkins`
+> container (image `tcm-ci-jenkins:local`) rather than standing up a 4th one — repointed the live job's own
+> pipeline config via the real Jenkins REST API (`POST /job/tcm-ci/config.xml`, crumb-authenticated) at
+> `http://host.docker.internal:3023`/project `1`/ident `happyflow-mariadb`, and swapped the `tcm-api-key`
+> Jenkins credential to the MariaDB leg's real admin API key via the Jenkins Script Console
+> (`CredentialsStore.updateCredentials`) — no image rebuild needed since JCasC only bakes the *initial*
+> credential, not later admin API-key rotations. First build (#4) genuinely failed with HTTP 422 (`Every run
+> assignee must be a project member who can execute test cases`) because this fresh leg's admin (id=1) — unlike
+> the other 3 legs — had only ever been used to bootstrap/configure the project and was never itself added as a
+> project member (only the `maria_manager` fixture was); added admin as a real project member (Manager role) via
+> `POST /projects/1/memberships.json`, confirmed via `GET /projects/1/memberships.json`. Created 6 real testcases
+> (issues #19–24) in `happyflow-mariadb` with Automation Keys matching the demo-project's own pytest tests
+> (`test_login_valid`, `test_login_invalid_password`, `test_add_item_to_cart`, `test_remove_item_from_cart`,
+> `test_apply_discount_code` — the deliberate failure, `test_password_reset_email`), linked into suite #3
+> "CI Ingest" (auto-created by an earlier bootstrap call with `--on-existing reuse`) via
+> `POST /testcase_mcp/add_testcases_to_suite.json`, so the pipeline's automation-key matching would have real
+> targets instead of running entirely unmatched (confirmed this distinction directly: build #5, run before the
+> Automation Keys existed, genuinely reported `Ingested 6 results (0 matched, 6 unmatched)`; build #6, after,
+> reported the full match).
+> - **RFTC038-6**: triggered build #6 via the real Jenkins REST API (`trigger.sh`, crumb-authenticated POST),
+>   confirmed via both the real console log and a direct REST read of the live DB: `base_url:
+>   http://host.docker.internal:3023`, `project: 1 (happyflow-mariadb)`, bootstrap created Run #3, real `pytest`
+>   ran (`4 passed, 1 failed, 1 skipped`), `ingest` reported `Ingested 6 results (6 matched, 0 unmatched)`, build
+>   result `SUCCESS`. Read back Run #3 and defect issue #25 directly via `GET /issues/25.json?include=relations`:
+>   a genuinely new defect **#25** ("CI failure: test_apply_discount_code [Jenkins CI Build 6]") was auto-created
+>   with the real pytest stack-trace message in its description, and a real `IssueRelation` (`relation_type:
+>   "defect"`) links testcase #23 ("Apply discount code") → defect #25 — exact match to the other 3 legs'
+>   evidence class.
+> - **RFTC038-11**: the same console log shows `RUN_ID=3` captured cleanly from
+>   `jq -r '.run_id' "$WS/bootstrap.json"` (raw JSON: `{"status": "success", "run_id": 3, "testsuite_ids": [3],
+>   "reused": false}`) — no stdout scrape, confirmed live in this exact run.
+> - **RFTC038-14**: separately, ran `python3 -m redmineflux_tcm ingest` by hand inside the Jenkins container
+>   against Run #3 with a fabricated JUnit report containing one test (`test_totally_unmatched_case_mariadb`)
+>   with no matching Automation Key anywhere in the project → `UNMATCHED: test_totally_unmatched_case_mariadb
+>   (passed)`, `Ingested 1 results (0 matched, 1 unmatched)`, **CLI exit code 0** — a warning, not a failure; the
+>   build would have stayed green.
+> **Zero new bugs found on this leg — all 3 cases fully executed, not deferred. This closes RFTC-038 on the 4th
+> and final DB-engine leg (MariaDB), alongside SQLite/PostgreSQL/MySQL.** One genuine environment-setup gap was
+> found and fixed along the way (admin not auto-added as a project member on a brand-new project — a real,
+> reproducible plugin/Redmine-core behavior, not specific to MariaDB; worth remembering for any future from-
+> scratch leg, not filed as a bug since this is standard Redmine project-membership behavior, not a plugin
+> defect).
+
 > **CROSS-DB (SQLite) — 2026-11-18 — UPGRADED from deferred to fully executed, real Jenkins container, all 3
 > PASS.** The earlier same-day deferral note (kept below for history) was superseded on explicit user request:
 > reused the existing `happyflow-pg-jenkins` container (image `tcm-ci-jenkins:local`, repo mounted at

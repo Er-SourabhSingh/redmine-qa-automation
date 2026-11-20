@@ -135,6 +135,38 @@
 > tooling limitation, not a coverage gap). This does not by itself complete the plugin's CLAUDE.md §27 full-cycle
 > regression — `TESTCASE_MANAGEMENT_REPORTS.md` and `TESTCASE_MANAGEMENT_TODO.md` remain fully outstanding.
 >
+> **CROSS-DB (SQLite) — 2026-11-18/2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`),
+> project `rftc-016-ci-qa`. A good share of this group (TC-TCM-162/162b "state test", TC-TCM-153/157 "all-cases
+> run EDITED", TC-TCM-177 "multi-env results", TC-TCM-011 Run-Added-notification) already had real fixture runs
+> dated 2026-11-18 but never got written up into this file — confirmed genuinely real via live inspection on
+> 2026-11-20, not re-fabricated. All 21 happy-flow TCs now confirmed, using one shared run (#44, "all-fields
+> multi-env run", later renamed to "TC-TCM-157 happy-flow edited run") plus 2 disposable ones:
+> **152/153/154** — `POST /runs.json` with name+notes+start/due dates, 2 environments (Chrome - Windows 11,
+> Firefox - Linux), and all 6 of suite #1's cases selected in one call → run #44 created exactly as requested.
+> **157** — `PUT /runs/update_run/44.json` renamed it; 200. **158** — `PUT /run/close_run.json?run_id=44` → 200,
+> `is_closed:true`, `state:3`. **160** — disposable run #45 created then `DELETE /run/delete_run.json` → 200,
+> deleted. **162** — state correctly shows "New" while open and "Done" on the Closed tab after close (plus the
+> pre-existing 162/162b fixture evidence). **165** — run #44 present on the Closed tab, absent from Active after
+> closing — tabs partition correctly. **166** — search by name ("TC-TCM-157...") and by numeric ID ("44") both
+> found run #44. **170/183** — `testcase_status_result/create.json` Passed with a verbatim multi-line note
+> (embedded newline, double spaces, literal quotes) — echoed back byte-for-byte. **171** — all 6 statuses
+> (Passed/Failed×2/Blocked/Retest/Skipped) recorded successfully across run #44's cases. **173** —
+> `testcase_mcp/report_defect.json` with a `defect_subject` (no existing id): new defect #408 created and
+> linked in one call. **174** — same endpoint with `defect_issue_id:407` (a pre-existing defect): linked without
+> creating a duplicate. **176** — uploaded a real file via the Add Result form's Files field; attachment #4
+> (`tc-case-06-01-import.csv`, `text/csv`) persisted and is associated with the saved result. **177** — case
+> #377 marked Passed in Chrome and Failed (with defect) in Firefox on the same run: independent per environment,
+> confirmed via the run's own per-environment grid. **178** — re-recorded case #377 in the SAME environment
+> (Chrome): a NEW result row (id 2472) was created, distinct from the original (id 2458) — re-execution appends
+> history rather than overwriting, and the grid's "current" column correctly shows the latest (Failed). **179**
+> — opened the issue detail page via the real `from_run=true` run-context link: the "Testcase Execution" section
+> (Run/Environment fields) renders there, confirming execution is reachable from the case detail page. **185**
+> — Quality HQ's Active Runs count and Overall Pass Rate both changed immediately after run #44's creation and
+> executions (34→35 active runs, 60%→59% pass rate) — dashboard genuinely reflects live execution data, not a
+> cached snapshot. **188/189** — `bulk_create.json` with 5 rows, each carrying its own distinct note: all 5
+> succeeded in one call with notes echoed back verbatim per row. **Zero new bugs** — all 21 PASS, matching
+> every other leg.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`).
 > **TC-TCM-152 PASS** — created run #1 ("TC-TCM-152 all-fields run (MySQL)") with Name/Note/TestRun
 > Status/Environment ("Chrome - Windows 11")/Assignee ("QA MySQL") all set and specific-case selection (issues

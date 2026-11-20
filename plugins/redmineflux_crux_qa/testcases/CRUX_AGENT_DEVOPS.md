@@ -259,6 +259,33 @@ genuinely reached via discovery (neither tool is static) and both answers are ho
 
 ---
 
+### TC-CRX-1090: Discovery fallback for a WRITE outside the static tool list (save_freeze) — closes #128890's own "discovery finds a DevOps write" acceptance criterion
+
+**User Role:** `admin`.
+**Precondition:** No deployment freeze scheduled (confirmed via `list_freezes` before this TC —
+`redmineflux_devops_save_freeze`/`create_freeze` is not in the agent's static `allowed_tools`, same discovery
+group as TC-CRX-1081, but this time exercising the write side specifically).
+
+**Steps:**
+1. Ask: "In the Crux DevOps Agent Test Project, schedule a deployment freeze from 2026-12-24 to 2026-12-26 for
+   the year-end holiday, reason 'Year-end holiday freeze'."
+2. Confirm the card.
+3. Native-verify via `list_freezes`.
+4. Delete the test freeze afterward.
+
+**Expected Result:** The agent discovers the write (not in its static list) and produces a genuine confirm
+card naming the record, per #128890's own acceptance criterion ("Given a standard Crux install ... when the
+DevOps Agent needs a DevOps write that isn't in its own list, then discovery finds it").
+
+**Result: PASS — executed 2026-11-20.** Confirm card: `Write — DevOps Create Freeze`, correctly discovered
+(`I'll do this (DevOps Save Freeze) — confirm?`). After Confirm: *"✓ Created freeze (id 1) ... starts at:
+2026-12-24T00:00:00.000Z ends at: 2026-12-26T23:59:00.000Z reason: Year-end holiday freeze ... created by id:
+1..."* Native-verify (`list_freezes`) matched exactly: `id 1 2026-12-24 00:00 UTC → 2026-12-26 23:59 UTC all
+environments one-time — Year-end holiday freeze`. Test freeze deleted afterward (`devops_delete`, confirmed
+`Deleted freeze 1`).
+
+---
+
 ### TC-CRX-1082 (Code Reviewer, re-verified — resolves the long-standing TC-CRX-620 inconclusive): project
 resolution by name now genuinely works with DevOps installed
 

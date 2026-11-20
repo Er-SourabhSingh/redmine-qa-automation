@@ -27,6 +27,26 @@
 > therefore remain confirmed only under Admin this leg, matching the PG leg's own bar; TC-059 is the one
 > permission actually raised to a stronger granted-role bar this leg.
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. **TC-TCM-046 (Create Test Suite) PASS** — testsuites #17→#18→#19 (3-level nesting) created
+> this leg as Admin via the real "New Test Case"/Add Sub Test Suite flows (see
+> `TESTCASE_MANAGEMENT_TEST_SUITES.md`'s own SQLite cross-DB block). **TC-TCM-052 (Create Run) PASS** — run #44
+> plus several disposable runs (#45, etc.) created this leg via the real Add Run modal (see
+> `TESTCASE_MANAGEMENT_TEST_RUNS.md`). **TC-TCM-055 (Close Run) PASS** — a real run closed this leg via the
+> Close Run → Confirm flow (TC-158/208 in the To-Do/Runs cross-DB blocks). **TC-TCM-059 (Execute Testcase —
+> granted role) PASS**, matching the MySQL leg's bar: logged in as a genuine non-admin project member (Luna
+> Blossom, Manager role, not Admin) and recorded real results through the normal Add Result modal as part of
+> the To-Do/Runs regression work this leg. **TC-TCM-062 (View Report — granted-but-not-create role) PASS, with
+> real negative+positive UI confirmation.** Logged in as Daisy Skye (Developer role — confirmed via `GET
+> /roles/4.json` to hold `view_report` but **not** `create_report`, unlike Manager/Reporter on this instance,
+> both of which unexpectedly carry `create_report` too). Navigated to
+> `/projects/rftc-016-ci-qa/testcase_reports` as Daisy: `browser_find` for "New report" returned **"No matches
+> found"** — confirms the create control is genuinely absent for a view-only role (the "not create" half). A
+> full snapshot of the same page showed the real Reports table rendering correctly with 17 real report rows
+> (SQLite production reports from 11/18–11/20, plus Luna Blossom's own "TC-PERM-02-1 Manager Report (SQLite)")
+> and its Scheduled Reports section — confirms the list itself genuinely renders with live data for her (the
+> "can view" half). Both halves of "can view but not create" independently confirmed via real UI, not curl.
+
 > Source: `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md` (Permissions Matrix) and the vendor KB Roles & Permissions
 > section. Covers all 16 plugin permissions across 6 groups.
 >

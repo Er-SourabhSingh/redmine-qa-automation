@@ -20,6 +20,27 @@
   BOTH users, not just the per-case Assignee column — the latter can look correct while the former never
   updates, as the PG/MySQL legs' own earlier TC-207 verdicts discovered the hard way (their original checks
   never looked at either user's ToDo list, only the Assignee column changing).
+- **(2026-11-20) `runs/edit.html.erb`'s direct-URL fallback silently renders blank — missing `<%=` not a
+  browser/environment issue.** Navigating straight to `/runs/:id/edit?project_id=...` (bookmark, typed URL,
+  hard reload) produces a genuine HTTP 200 with a full page shell but an empty `#content` div — confirmed via
+  same-origin `fetch()` of the raw response, not a client-side rendering glitch. Root cause:
+  `app/views/runs/edit.html.erb` has `<% render partial: 'edit_form' %>` (missing the `=`), so the partial
+  genuinely executes (hence the real DB queries logged) but its output is discarded, never written to the
+  response body. The **real UI flow is unaffected** — the actual "Edit Run" link (`_active_run.html.erb`,
+  `remote: true`) sends an AJAX request that Rails resolves to `:js` format, which correctly renders
+  `runs/edit.js.erb` (`<%= j render 'edit_form' %>`, with the `=`) into a modal. This bug has existed unchanged
+  since the plugin's initial March 2025 commit, reproduces identically on every DB engine (confirmed same code
+  on the SQLite leg too) — it was only ever masked because every prior pass tested via clicking the real link,
+  never by direct URL navigation. **User decision 2026-11-20: not filed as a bug** (low real-world impact,
+  normal workflow unaffected) — noted here so a future session doesn't re-investigate it as a mystery if a
+  direct-URL test (e.g. a future RFTC-045 Edit-Run check) hits it again.
+- **(2026-11-20) BUG-TCM-154 (CSV import's "Private" column, Low severity) is still open, not yet reported to
+  production.** `testcase_import_controller.rb`'s `data['is_private'] = data['is_private'].downcase == 'yes'`
+  only recognizes the literal string "yes" (case-insensitive) — any other truthy-looking CSV value (`true`,
+  `1`, `Y`, `TRUE`) is silently saved as not-private, with zero warning in the import preview or on the created
+  issue. Confirmed on SQLite leg commit `92e446f`, `localhost:3021`. Every other mapped column on the same test
+  row imported correctly — this is isolated to the one `Private` column's value-parsing strictness, not a
+  broader CSV-import defect.
 - **(2026-10-25) The `redmineflux-tcm-ci` CLI's mapping file "cases" values must be objects
   `{testcase_id, testsuite_id}`, not bare strings/ids.** `{"cases": {"key": "23"}}` crashes with an unhandled
   `TypeError` deep in `junit_to_tcm.py#resolve_rows` (`case["testcase_id"]` on a string) — confirmed real and now

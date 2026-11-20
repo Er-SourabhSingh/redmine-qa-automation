@@ -1,7 +1,7 @@
 # BUG-TCM-156
 
 - Bug ID: BUG-TCM-156
-- Production Redmine Issue ID: (blank — not yet reported to production)
+- Production Redmine Issue ID: #129166
 - Severity: High — the per-testcase assignee feature (RFTC-045 / rtc-046, production #128320/#128416) shipped
   alongside a deliberate change that made the run-level Assignee field read-only in Edit Run, but the My ToDo
   list was never updated to read the new per-testcase assignee column — the net effect is that **reassigning

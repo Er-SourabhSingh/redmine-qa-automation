@@ -51,6 +51,8 @@ CRM data and permissions are **global, not per-project** (except `link_crm_to_is
 
 > **Regression (2026-11-19):** PASS -- pipeline/dashboard read grounded in real tool call (Checked 2 things), accurate real entity counts/values.
 
+> **Regression (2026-11-20):** PASS -- "CRM, what's the state of our pipeline?" answered grounded (Checked 2 things), real pipeline status, no regression.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Logged-in user with `use_ask_crux` and real CRM plugin access.
@@ -78,6 +80,8 @@ Evidence (session ses-141, `luna.blossom`, 2026-09-15):
 ### TC-CRX-011: Create a contact, company, deal, and lead — each fully specified
 
 > **Regression (2026-11-19):** PASS -- all 4 entities (contact id4, company id2, deal id3, lead id3) genuinely created with exactly the requested fields, native-verified. Found a genuine same-turn multi-step ID-prediction bug along the way (new company guessed as id3, real id was 2) -- filed as BUG-CRX-221, recovered via a follow-up single-step request.
+
+> **Regression (2026-11-20):** PASS (light-touch, write path only) -- "create a company called Regress20 Verify Co" -> clean confirm card (Name: Regress20 Verify Co) -> "Company 'Regress20 Verify Co' created (ID: 7)". Confirm-gated create path still genuine; full 4-entity re-creation not repeated this pass (time-boxed happy-flow check, not a full TC re-run).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

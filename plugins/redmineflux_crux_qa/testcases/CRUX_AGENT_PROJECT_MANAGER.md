@@ -38,6 +38,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 
 > **Regression (2026-11-19):** PASS -- resolved via single-call project_summary aggregate (Checked 1 thing), real current data cited (11 issues, 0% complete).
 
+> **Regression (2026-11-20):** BLOCKED (fixture missing, not an app regression) -- "What's the status of the crux-qa project?" correctly answered "there's no project with the identifier crux-qa" (Checked 2 things). Native-verified via `get_project(project_id="crux-qa")` -> genuinely 404, and the full 20-project list on this instance has no `crux-qa` identifier at all (only `crux-qa-agent-test-project`, a different fixture). This TC's own precondition project is gone from this instance; the agent's honest "project not found" response is itself correct behavior, not a defect. Needs this TC's fixture project recreated (or the TC repointed at an existing project) before it can be meaningfully re-executed.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -125,6 +127,8 @@ Each of the 3 users has their own real Redmine API key generated (Rails console,
 ### TC-CRX-182: Create an issue — confirm card matches exactly, no invented fields
 
 > **Regression (2026-11-19):** PASS -- confirm card showed exactly Project/Subject, no invented fields; confirmed; issue #182 native-verified with exact fields.
+
+> **Regression (2026-11-20):** BLOCKED (same fixture gap as TC-CRX-177) -- the `crux-qa` project this TC targets no longer exists on this instance (confirmed via `get_project` 404 and the full project list). Not re-executed against a substitute project this pass since the TC's own confirm-card expectation ("Project: crux-qa") can't be met honestly without it; needs the fixture restored.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

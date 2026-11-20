@@ -225,6 +225,8 @@ Serenity Bloom: 5.0h (Nov 2) — Development work. Total: 9.0 hours"* — DB-ver
 
 > **Regression (2026-11-19):** PASS -- explicit, correct refusal to submit another named user's timesheet, no silent substitution, no false success (tested as admin; the rule is universal regardless of caller).
 
+> **Regression (2026-11-20):** PASS -- "Please submit Selene Frost's timesheet for this week" (as admin) -> *"I can only submit the timesheet for the current user (admin), not for another person..."* -- explicit refusal, no silent substitution, no false success.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Any non-admin user.
@@ -360,6 +362,8 @@ this suite depends on it being removed and no native "unassign" step was request
 ### TC-CRX-447: Sequential approval order — a higher level cannot act before the lower level has decided
 
 > **Regression (2026-11-19):** BLOCKED -- no suitable fixture state found this pass: the only pending submission (#14, Serenity Bloom) is already at Level 2/2 (L1 already approved), so the "L2 acts before L1 has decided" scenario this TC needs cannot be exercised without first fabricating a fresh multi-level submission and logging in as the real non-admin L2 approver. Not re-verified this pass.
+
+> **Regression (2026-11-20):** BLOCKED -- same reason, re-checked: still only submission #14 pending, still at Level 2/2 (final level, URGENT). No fresh Level-1 fixture exists; still needs a new multi-level submission to be stood up before this TC can be genuinely re-exercised.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

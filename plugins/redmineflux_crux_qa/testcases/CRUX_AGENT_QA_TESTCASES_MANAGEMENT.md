@@ -51,6 +51,8 @@ CRUD coverage requested, admin (`luna.blossom`/QA Full Access) and non-admin (`d
 
 > **Regression (2026-11-19):** PASS -- clean confirm card, confirmed; testcase #183 genuinely created, native-verified.
 
+> **Regression (2026-11-20):** PASS -- "create a test case titled 'Regress20 verify create path'" -> clean confirm card (Subject only) -> "Testcase created... (tracker #4, project #3)". Confirm-gated create path still genuine.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `luna.blossom` (QA Full Access).
@@ -522,6 +524,8 @@ The native "Add Run" dialog has `Run Type`, `Notes` (rich text), and `Watchers` 
 ### TC-CRX-335: Run — Close, admin (expected success)
 
 > **Regression (2026-11-19):** PASS -- Run #7 (which has recorded results) closed genuinely, native-verified Closed:True. Found a real misleading-checkmark defect along the way on a different run with zero results (Run #3) -- filed as BUG-CRX-223.
+
+> **Regression (2026-11-20):** PASS -- the TC's own target (Run #4 "Sprint 3 Full Fields Test") was already closed from a prior session (honest "already closed" response, correct). Substituted Run #1 "Sprint 1 Regression" (had recorded results, not yet closed) for a live close-path check: confirm card correctly resolved `Run: 1`, confirmed, "✓ Run #1 closed successfully." -- genuine success, no misleading checkmark (BUG-CRX-223 stays fixed).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

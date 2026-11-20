@@ -140,6 +140,8 @@ Native-verified against `/rf_teams/7/rf_workloads/1` — exact match on all figu
 
 > **Regression (2026-11-19):** PASS, all legs grounded in real, current data (teams, team_data, conflicts, team_on_leave all accurate to current state, which has evolved/grown since original run).
 
+> **Regression (2026-11-20):** PASS -- teams list accurate (6 teams, correct member/workload counts, now 22 members on Team #7 reflecting fixture growth); conflicts leg honestly explained a genuine date-range overlap (Sprint 1 vs "test w1") as a technical, non-allocation conflict (0h actual contention) rather than fabricating a false positive; leave leg correctly reported nobody on leave today.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -423,6 +425,8 @@ adjacent to BUG-CRX-142's fabricated-confirm-prose class without being destructi
 ### TC-CRX-541: Add issue to workload — positive
 
 > **Regression (2026-11-19):** PASS -- confirm card named real issue/workload; confirmed; genuine success "Issue added: #3 ... workload_issue_id: 5".
+
+> **Regression (2026-11-20):** FAIL -- found a new bug, **BUG-CRX-225**. Issue #26 was already on the workload from the prior run, so retested with a fresh issue (#190): "Add issue #190 to the Crux Capacity Sprint 1 workload" -> confirm card incorrectly showed `Workload: 3`, not the real id (#1, confirmed by asking the agent directly in the same chat, and despite 2 prior correct resolutions of the same workload name earlier in this exact chat). Cancelled before confirming -- no incorrect write landed. Filed as BUG-CRX-225 (wrong-target-resolution family, first instance on Workload Agent's `add_issue`).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

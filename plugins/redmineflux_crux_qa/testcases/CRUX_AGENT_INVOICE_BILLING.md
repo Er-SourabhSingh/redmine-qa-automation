@@ -496,6 +496,8 @@ closed, production #128967 synced Done/100%.
 
 > **Regression (2026-11-19):** PASS -- send genuinely moved invoice #16 from DRAFT to SENT, native-verified.
 
+> **Regression (2026-11-20):** PASS -- "Send invoice #13 for the Crux Invoice Agent Test Project to the client now" -> confirm card correctly showed Invoice: 13, confirmed, "✓ Invoice #13 (INV-2026-0013) sent. Status: sent." -- native-verified via invoice list (status SENT). No wrong-project substitution this time.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`. **Precondition:** a genuine Draft invoice.
@@ -702,6 +704,8 @@ mentions the user at all). Filed as **BUG-CRX-139**.
 ### TC-CRX-496: Create invoice with two line items, each attributed to a different, genuine project member — Notes field verification
 
 > **Regression (2026-11-19):** PASS -- confirm card showed both line items with correct distinct user ids; confirmed; invoice #16 native-verified with correct line items/total (870.0) and exact Notes text.
+
+> **Regression (2026-11-20):** PASS -- same two-line-item request -> confirm card correctly showed `user_id: 5` and `user_id: 6` distinctly; confirmed, "Invoice created: #17 ... total: 870.0"; native-verified on the edit page -- Luna Blossom (5h) and Daisy Skye (3h) both correctly assigned, no cross-contamination.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

@@ -204,6 +204,8 @@ BUG-CRX-110 a confirmed silent-drop bug rather than a capability gap.
 
 > **Regression (2026-11-19):** PASS -- confirm card correctly showed derived identifier regression426-mobile-app-test, stated explicitly; cancelled (not needed).
 
+> **Regression (2026-11-20):** PASS -- "Create a project called 'Crux Project Setup Regression Check 426'" (no identifier given) -> confirm card correctly derived `crux-project-setup-regression-check-426`; cancelled (not needed).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** Same as TC-CRX-421.

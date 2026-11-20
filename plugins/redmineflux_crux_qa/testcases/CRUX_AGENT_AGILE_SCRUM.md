@@ -133,6 +133,8 @@ the static list per the 2026-09-18 cost-accounting audit — still fully callabl
 
 > **Regression (2026-11-19):** PASS — board read via "@Scrum Agent show me the board" returned real, current column/card data (grounded, "Checked 1 thing"); no fabrication.
 
+> **Regression (2026-11-20):** PASS -- "Scrum Agent, show me the board for crux-scrum-agent-test-project" answered grounded (Checked 1 thing), real board data cited, no regression.
+
 **User Role:** Admin or a Scrum-permission fixture user (TBD per Precondition #4).
 
 **Steps:**
@@ -417,6 +419,8 @@ BUG-CRX-102 and TC-378's repro above) — folded into **BUG-CRX-204**, not filed
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 > **Regression (2026-11-19):** PASS — created sprint #4 "Regression380 Sprint" via genuine confirm card; native-verified via list_sprints(project_id=4).
+
+> **Regression (2026-11-20):** PASS -- "create a sprint called 'Regress20 Sprint' starting 2026-12-15 through 2026-12-28" -> genuine confirm card (Duration Weeks: 2, exact dates/name) -> "Sprint created: #5 'Regress20 Sprint' 2026-12-15 -> 2026-12-28 [open]." Confirm-gated create path still genuine.
 
 **User Role:** Same as TC-CRX-368.
 

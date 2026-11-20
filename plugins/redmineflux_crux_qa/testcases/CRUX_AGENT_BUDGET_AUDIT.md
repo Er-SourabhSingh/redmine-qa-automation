@@ -237,6 +237,8 @@ cleanly reproducible as a real end-user scenario — flagged for awareness, not 
 
 > **Regression (2026-11-19):** PASS — approved 15h then 5h for category 67; confirm cards showed exact project/category/hours/comment; cumulative total correctly 30+15+5=50h, native-verified via get_budget_status.
 
+> **Regression (2026-11-20):** PASS — approved +1h (50→51h) then -1h to revert (51→50h), confirm cards correct both times, cumulative math exact both directions (including a negative delta), native-verified via get_budget_status.
+
 **User Role:** Same as TC-CRX-398 (needs `manage_approved_hours`).
 
 **Steps:**
@@ -554,6 +556,8 @@ TC-CRX-410) is honestly denied — no admin-bypass artifact masking either resul
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 > **Regression (2026-11-19):** PASS — exact figures: Development (67) correctly reported over budget by 1h (50h approved vs 51h spent), all 4 categories named with real approved/spent/remaining.
+
+> **Regression (2026-11-20):** PASS — after TC-404's own re-verification temporarily moved the category to exactly at-cap (51/51), re-checked and confirmed Development still correctly reported over budget by 1h (50h approved vs 51h spent) once the approved total was restored to 50h.
 
 **User Role:** Admin.
 

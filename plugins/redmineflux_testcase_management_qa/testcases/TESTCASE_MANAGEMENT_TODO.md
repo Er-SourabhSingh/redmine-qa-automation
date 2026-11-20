@@ -2,10 +2,33 @@
 
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > TC-TCM-205,208,211,212 PASS (To-Do shows assigned open runs, closed run correctly excluded, execution
-> writes an activity entry attributed to the executing user). **Correction (same-day retry):** TC-TCM-206/207 PASS — executing a case updates its state live (Results
-> Summary counts changed from 2→4 Passed as cases were executed), and reassigning via the run grid's real
-> "Reassign" bulk action (select case → Reassign → pick new assignee → Apply) correctly changed the
-> assignee shown on that case (confirmed "QA User" now shows for case #8).
+> writes an activity entry attributed to the executing user). **Correction (same-day retry):** TC-TCM-206 PASS — executing a case updates its state live (Results
+> Summary counts changed from 2→4 Passed as cases were executed). **TC-TCM-207 — verdict RETRACTED, see the
+> SQLite leg's block below and BUG-TCM-156.** The original note only confirmed reassigning via the run grid's
+> "Reassign" bulk action changed the assignee shown on that case ("QA User" now shows for case #8) — it never
+> checked either user's actual My ToDo list, the TC's own literal ask. Not re-verified on this leg, only
+> flagged as very likely reproducing (the root cause is DB-engine-independent).
+
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. **205/206/208/211/212 PASS.** Reset a real existing project member's (Daisy Skye, Developer
+> role — `view_all_todos` confirmed absent from the role's own permission list) password, created run #47
+> assigned to her: her My ToDo correctly lists it (205); executed its one case as Passed as her (via the real
+> `/issue_status_results/new` modal reached from the run grid) — the run stays listed but its percentage
+> changes 0%→100% (206); closed the run as admin — it disappears from her My ToDo entirely (208); the
+> Activity feed shows "Executed by Daisy Skye" at the exact timestamp of her own submission, and "Executed by
+> Redmine Admin" for admin's own actions, each correctly attributed (211/212). **207 — FAILS, genuine new bug,
+> filed as BUG-TCM-156.** Checked BOTH users' actual My ToDo lists after reassigning (the TC's own literal
+> step 2), not just the case's own Assignee column — and the item never moved at all. Root-caused: the
+> run-level `run_assignments.assignee_id` field that `testcase_todos_controller.rb` reads is now deliberately
+> read-only in Edit Run (per a code comment citing rtc-046/#128320/#128416 — "Edit Run manages environments
+> only... Test case assignees are changed inside the run (inline or bulk Reassign)"), but the "Reassign"
+> control that comment points to only writes the newer per-testcase `run_issues.assignee_id`, which the ToDo
+> controller never reads at all. Confirmed live: reassigned run #47's only case from Daisy Skye to Autumn
+> Grace (the run grid's own Assignee column for that case correctly updated to "Autumn Grace") — Daisy's My
+> ToDo still listed the run afterward, unchanged; Autumn's My ToDo never listed it at all. **This same gap
+> almost certainly already exists on the PostgreSQL and MySQL legs too** — both of their own TC-207 notes only
+> checked the per-case Assignee column, the same incomplete signal, and have been retracted above pending
+> re-verification. Not DB-engine-specific (pure Ruby/ActiveRecord logic, no raw SQL involved).
 
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`. **TC-TCM-205 PASS** — logged in as a genuine second user (`qa_mysql`, reset her password
@@ -13,10 +36,15 @@
 > lists her 4 assigned run+environment rows (runs #8/#9's two environment rows + run #3), each naming the run
 > and its total/completed testcases. **TC-TCM-206 PASS** — as `qa_mysql`, executed case #9 (run #8, Chrome) as
 > Passed from the To-Do-linked run grid: the run row is not removed, but its percentage advanced from 60.00%
-> to 80.00% — stays listed, completion reflects reality, matching every other leg. **TC-TCM-207 PASS, with a
-> build-specific mechanism note.** This build's Edit Run modal explicitly states "Assignees are not changed
-> here. Change a test case's assignee inside the run (inline or Reassign)" — a real, different (and more
-> precise) mechanism than the PG leg's own `run_assignments_attributes` hidden field. Used the run grid's
+> to 80.00% — stays listed, completion reflects reality, matching every other leg. **TC-TCM-207 — verdict
+> RETRACTED, see the SQLite leg's block below and BUG-TCM-156.** This leg's original note (kept verbatim
+> below for history) only confirmed the run grid's own per-case Assignee column changed after using the
+> "Reassign" bulk action — it never actually checked either user's My ToDo list, which is the TC's own literal
+> step 2 ("Check X's and Y's To-Do lists"). The SQLite leg went the extra step and found a real regression:
+> `testcase_todos_controller.rb` only ever reads `run_assignments.assignee_id`, never the per-testcase
+> `run_issues.assignee_id` that "Reassign" actually writes, so no UI action moves a run between two users' My
+> ToDo on this build at all. Not DB-engine-specific — this almost certainly reproduces here unchanged; not
+> re-verified on this leg specifically, only flagged. Original (incomplete) note: Used the run grid's
 > "Reassign" bulk action on case #9 (as admin): only "Unassigned" and "QA MySQL" were offered as targets (no
 > second non-admin user existed yet) — reassigned to Unassigned. DB-verified `Issue.find(9).assigned_to_id` →
 > `nil`, and the run grid's own Assignee column for case #9 now reads "Unassigned" instead of "QA MySQL" —

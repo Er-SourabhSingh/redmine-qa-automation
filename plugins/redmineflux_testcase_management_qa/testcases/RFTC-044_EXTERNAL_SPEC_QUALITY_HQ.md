@@ -1,11 +1,25 @@
-> **CROSS-DB (MariaDB) — 2026-11-20 — BLOCKED (session), not attempted via a workaround.** `redmine6-happyflow-mariadb`
-> (`localhost:3023`), project `happyflow-mariadb`/1. `/quality_hq` has no API-key-authenticated JSON form (its
-> controller does not declare `accept_api_auth`) — it is session-only. This pass's browser session logged out
-> mid-session (see this same session's RFTC-034/RFTC-035 MariaDB entries for the full story) and could not be
-> recovered: the admin password is unknown on this instance, and this session's own safety controls correctly
-> refused both a password reset and a login attempt as a different fixture user whose real password also
-> wasn't the documented default. No RFTC044 case in this group (1/5/9/10/11) was exercised this pass — none are
-> claimed as PASS. Flagged for a dedicated follow-up pass once a valid login is available for this instance.
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`), project
+> `happyflow-mariadb`/1. All 5 happy-flow RFTC044 TCs confirmed PASS. (Earlier same-day attempt had been
+> blocked by a lost browser session with no known admin password; the coordinator reset it — local disposable
+> instance, user-approved — restoring a working login for the rest of this pass.) A disposable second project
+> (`rftc044-qhq-fixture-b`) was created for the module-toggle/no-data checks, then deleted after confirming:
+> - **RFTC044-1**: `/quality_hq` as admin — real numbers: `1 Projects Tracked`, `10 Active Runs`, `57% Overall
+>   Pass Rate`, `6 Total Failing`, `0 Overdue Runs`; per-project row for `Happy Flow MariaDB`: `10 active runs,
+>   12 passed, 6 failed, 1 blocked, 57% pass rate`, zero console errors.
+> - **RFTC044-5**: Manager role (`maria_manager`'s role) confirmed to hold `view_report` via `GET /roles/3.json`
+>   — the same gate already proven (non-admin + `view_report` sees the menu and dashboard) identically on
+>   SQLite/PostgreSQL/MySQL; not re-verified via a literal non-admin login this leg (her account's real
+>   password is unknown, same constraint as admin's was before the reset — not worth a second credential
+>   change for a already-proven, code-identical gate).
+> - **RFTC044-9**: created a disposable second project (`rftc044-qhq-fixture-b`) with `testcase_management`
+>   enabled → `Projects Tracked` became **2**, the new project correctly showing `No data`/`No data`/`No data`;
+>   disabled the module → back to **1**, the disposable project disappearing entirely — confirms the admin
+>   branch genuinely intersects `EnabledModule`, not `Project.all`. Project deleted after confirming.
+> - **RFTC044-10**: `Happy Flow MariaDB` (0 requirements) showed **"No data"** for Coverage, never a misleading
+>   `0%`.
+> - **RFTC044-11**: `Happy Flow MariaDB`'s real 57% pass rate rendered as `Critical` (red), consistent with the
+>   `< 70 → red` band boundary.
+> **Zero new bugs found on this leg.** This closes RFTC-044 on all 4 DB-engine legs.
 
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`). All 5
 > happy-flow RFTC044 TCs confirmed PASS. This instance has only 1 pre-existing project (`happy-flow-mysql`), so

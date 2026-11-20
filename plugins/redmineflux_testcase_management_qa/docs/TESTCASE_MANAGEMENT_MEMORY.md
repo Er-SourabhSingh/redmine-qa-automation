@@ -4,6 +4,22 @@
 
 ## Known Quirks
 
+- **(2026-11-20) A grep for one documentation convention can produce a false "coverage gap."** Most SQLite-leg
+  suite files use a consolidated top-of-file `> **CROSS-DB (SQLite)...**` blockquote, but
+  `TESTCASE_MANAGEMENT_CONFIGURATION.md` instead uses a per-TC inline convention (`**SQLite leg, 2026-11-18 —
+  PASS...**` directly under each TC heading). Grepping only for `"CROSS-DB (SQLite)"` wrongly flagged this file
+  as 100% untested; it was actually fully covered. Before concluding a file has zero coverage on a leg, also
+  grep for `"<leg> leg"` (e.g. `"SQLite leg"`) as a second pattern — a miss on one convention doesn't rule out
+  the other.
+- **(2026-11-20) `testcase_todos_controller#index` was never updated for the rtc-046 per-testcase-assignee
+  split (BUG-TCM-156).** The non-admin branch still reads only `run_assignments.assignee_id`; it has no
+  `run_issues.assignee_id` fallback. Since `_edit_run_assignment.html.erb` now deliberately makes Edit Run's
+  own assignee field read-only (the only remaining way to change an assignee is the per-testcase "Reassign"
+  control), there is currently **no UI action at all** that moves a run between two users' My ToDo lists. Any
+  future TC that touches reassignment-and-ToDo-visibility together needs to check the literal ToDo list for
+  BOTH users, not just the per-case Assignee column — the latter can look correct while the former never
+  updates, as the PG/MySQL legs' own earlier TC-207 verdicts discovered the hard way (their original checks
+  never looked at either user's ToDo list, only the Assignee column changing).
 - **(2026-10-25) The `redmineflux-tcm-ci` CLI's mapping file "cases" values must be objects
   `{testcase_id, testsuite_id}`, not bare strings/ids.** `{"cases": {"key": "23"}}` crashes with an unhandled
   `TypeError` deep in `junit_to_tcm.py#resolve_rows` (`case["testcase_id"]` on a string) — confirmed real and now

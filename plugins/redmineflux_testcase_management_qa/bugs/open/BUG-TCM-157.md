@@ -1,7 +1,7 @@
 # BUG-TCM-157
 
 - Bug ID: BUG-TCM-157
-- Production Redmine Issue ID: (blank — not yet reported to production)
+- Production Redmine Issue ID: #129192 (assigned: Vaishnavi Bhawsar)
 - Severity: Low — the onboarding "product tour" walkthrough silently never fires; no core Testcase Management functionality depends on these two files, and no error is shown to the user beyond a browser console 404
 - Title: `testcase-tour.css`/`testcase-tour.js` always 404 on every Redmine version (5.x/6.x/7.x) — `stylesheet_path`/`javascript_path` misuse in the Test Suites sidebar passes a full relative path to a helper that already prepends its own fixed prefix
 - Redmine version: 5.1, 6.x, 7.0 (confirmed reproducing on all three)

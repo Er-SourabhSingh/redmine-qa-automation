@@ -1,7 +1,7 @@
 # BUG-TCM-158
 
 - Bug ID: BUG-TCM-158
-- Production Redmine Issue ID: (blank — not yet reported to production)
+- Production Redmine Issue ID: #129193 (assigned: Vaishnavi Bhawsar)
 - Severity: High — not limited to the one onboarding-tour file; this is a general Redmine-7 compatibility gap
   that will silently break ANY plugin asset (CSS/JS/images) that relies on the legacy `public/plugin_assets/`
   mirroring convention, once a project actually tries to use such an asset on Redmine 7

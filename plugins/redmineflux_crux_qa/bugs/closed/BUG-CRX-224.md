@@ -54,6 +54,21 @@
   both succeeded ("Created 3 of 3" each), confirming BUG-CRX-222's own fix (CRC-123) holds — this is a distinct,
   new defect on project resolution, not a recurrence of the type-coercion bug.
 
+## Status: CLOSED 2026-11-20 — CONFIRMED FIXED
+
+- Fixed by CRC-124 (crux-core 1.18.0): new `field_check._parent_project_fix()` runs for every create-issue
+  write with a `parent_issue_id` — the parent's real project is read from the parent issue itself, and
+  whenever the sent `project_id` differs, it's replaced by the parent's project (same form preserved), unless
+  the user's own message explicitly named a different project for a deliberate cross-project subtask.
+- Pulled + rebuilt crux-core (`git pull origin master` fast-forwarded afa4304→ea35cb9, CRC-124, 1.18.0),
+  confirmed healthy.
+- Retested the exact repro 3 times in fresh chats: "Break issue #159 down into subtasks." → "Yes, create
+  them." → confirm. All 3 attempts showed the confirm card correctly resolving **"Project: Crux PM Agent Test
+  Project"** and succeeded "Created 3 of 3" each time (#190-192, #193-195, #196-198) — zero occurrences of the
+  wrong project id "9" across all 3 attempts.
+- Native-verified via `get_issue`: #190 and #196 both show `Project id: 1`, `Parent: #159` — correct every
+  time, no cross-project misfire.
+
 ## Duplicate check
 
 - Duplicate found: No — first instance of the wrong-project-resolution family (BUG-CRX-080/093/101/133/140/187)

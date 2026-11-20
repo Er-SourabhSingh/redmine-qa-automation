@@ -116,6 +116,25 @@ genuine `pyproject.toml` packaging gap.
 >
 > All three PASS for real against PostgreSQL. No bug — the earlier BLOCKED verdict was a research-depth miss,
 > not a plugin/environment defect.
+
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa` (id=1). Installed the `redmineflux-tcm-ci` checkout (copied to a space-free path first, same
+> Docker bind-mount constraint as the MySQL leg) inside a disposable `python:3.11-slim` container reaching the
+> server via `host.docker.internal:3021`. Used Luna Blossom's own API key (Manager, a real project member) as
+> the CLI identity — Admin's own key was tried first and correctly **rejected** by `bootstrap_run.json` with
+> `422: 'Every run assignee must be a project member who can execute test cases.'`, since Admin is not actually
+> a member of this project; this is the server enforcing the same real constraint, not a CLI bug.
+> - **`bootstrap` (RFTC017-2):** `Run created: id=49 suites=[1] reused=False` via a real `bootstrap_run.json`
+>   call, exit 0, real `{"status": "success", "run_id": 49, ...}` JSON.
+> - **`ingest` (RFTC017-3):** against run #49, a real 3-test JUnit XML (2 mapped via Automation Key set on the
+>   run's own real fixture testcases #342/#343, 1 deliberately unmapped) with `--auto-defect` →
+>   `Ingested 3 results (2 matched, 1 unmatched)`, defect **#413** auto-created for the failing case (#343),
+>   the unmapped case correctly reported, not silently dropped, exit 0.
+> - **`submit` (RFTC017-1):** a second bootstrapped run (#50) plus a real `cases` mapping JSON mapping 2 of 3
+>   JUnit names to the same real fixtures (#342/#343) → `Parsed 3 JUnit testcases: 2 mapped, 1 unmatched`
+>   (correctly reported), defect **#414** auto-created for the failing test, `bulk_create` succeeded
+>   (`run=50 suite=1 env=CI results=2`), exit 0.
+> **Zero new bugs found on this leg.** Disposable container and checkout copy cleaned up after.
 >
 > **Follow-up — 2026-11-17 — new `bootstrap --milestone` flag, also PASS.** The local `redmineflux-tcm-ci`
 > checkout was 1 commit behind `origin/master` (`bd0e5f9`, "Add --milestone option to the bootstrap command")

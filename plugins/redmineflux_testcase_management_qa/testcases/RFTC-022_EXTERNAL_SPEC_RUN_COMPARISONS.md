@@ -21,6 +21,22 @@
 > `AutomationSourceResolver`'s CI-source lookup only — `suite_diff`/`each_result_timeline_cell` use no raw SQL on
 > the `key` column, so this feature is unaffected, confirmed by this pass's own clean results.)
 >
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa` (id=1). Scope per `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md` §3: RFTC022-2,3,4,5,6,7 (all
+> six core output buckets). Four of the six buckets were already backed by real, pre-existing fixture issues
+> from 2026-11-18 (`RFTC022 Base Run` id=10, `RFTC022 Compare Run` id=11, issues #358-361 — created during an
+> earlier session's work but never actually written up in this suite file until now): confirmed live at
+> `/projects/rftc-016-ci-qa/run_comparisons?base_run_id=10&compare_run_id=11` — summary tiles read
+> New Failures 1 / Newly Fixed 1 / Still Failing 1 / Still Passing 1, each drill-down showing the correct real
+> issue (`#360` Passed→Failed, `#361` Failed→Passed, `#359` Failed→Failed, `#358` Passed→Passed, environment
+> "CI"). The remaining two buckets (New Test, No Longer Run) had no existing fixture, so built one: a
+> dedicated suite (`RFTC022 NewTest-NoLongerRun Fixtures (SQLite)`, id=24) with 2 new real testcase issues
+> (#416/#417), and two fresh runs (`...Base` id=54, `...Compare` id=55) via `bootstrap_run.json` — recorded
+> Passed for #417 in the base run only (not in compare) and Passed for #416 in the compare run only (not in
+> base). Confirmed live at `run_comparisons?base_run_id=54&compare_run_id=55`: New Tests 1 (`#416`,
+> Untested→Passed), No Longer Run 1 (`#417`, Passed→Untested), all other four tiles correctly 0. **All six
+> buckets now have genuine live confirmation on this leg. Zero new bugs.**
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

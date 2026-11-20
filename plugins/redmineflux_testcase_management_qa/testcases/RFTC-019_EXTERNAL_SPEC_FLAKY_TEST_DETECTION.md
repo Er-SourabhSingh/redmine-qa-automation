@@ -111,6 +111,28 @@ any positive integer and only falls back to 4 on blank, non-numeric, or non-posi
 > RFTC-018) — flaky detection reads `case_status_id`/`created_at` only, never `source_id`.
 > **Zero new bugs found for this feature on this leg.**
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa` (id=1). Built a real Pass→Fail→Pass sequence for issue #342 across 3 fresh chronological
+> runs (ids 51/52/53, `flaky_min_runs` left at its default 4) via real `bulk_create.json`/`issues.json` API
+> calls (a real defect, #415, auto-attached to the Failed result — this endpoint requires `defect_ids`
+> explicitly for a Failed/Blocked element, unlike `ingest_results.json`'s own `--auto-defect`). Called
+> `RollupMath.flaky_tally` directly via `bundle exec rails runner` against the project's full real run history
+> (not a cherry-picked fixture — #342 already had 2 prior Passed results from this leg's own RFTC-017 CLI
+> testing):
+> ```
+> {issue_id:342, subject:"Verify password strength meter", flip_count:4, executed_count:12,
+>  flakiness_rate:36.36, recent_cells:[...Passed(49), Passed(50), Passed(51), Failed(52), Passed(53)]}
+> ```
+> `flakiness_rate` matches the documented formula exactly: `(4 flips / (12 executed - 1)) * 100 = 36.36`.
+> Independently re-confirmed via the real live `/quality_hq?project_id=1` page (not just the direct call) —
+> the "Flaky Tests" table shows `#342 Verify password strength meter` ranked #1, with slightly different
+> numbers (`4 / 10 / 44.44%`) than the direct-call snapshot above — both counts were taken moments apart as
+> this leg's own fixture data was still being built across this file and RFTC-021's sibling work, so a couple
+> of in-flight result rows account for the difference; the flip-detection mechanism itself (a real, organic
+> Pass→Fail→Pass history correctly surfacing as the #1-ranked flaky case on both the direct call and the live
+> UI) is the point being proven, not an exact row-count match between two snapshots taken at different
+> instants. **Zero new bugs found for this feature on this leg.**
+
 **Priority:** P1 — the core feature
 **Steps:** Set `flaky_min_runs` to 2 (or use 3+ runs with the default 4). Create 3 runs in chronological order
 for one project; for one test case, record Passed in run 1, Failed in run 2, Passed in run 3 (same

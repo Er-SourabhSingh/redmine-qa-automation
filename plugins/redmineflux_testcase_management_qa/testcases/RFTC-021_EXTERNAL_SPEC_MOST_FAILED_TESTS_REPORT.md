@@ -9,6 +9,16 @@
 > fixture case 4 (MySQL)"` ranked #1 (1 failure / 1 executed / 100.0%), `#3 "TC-TCM-129/297..."` ranked #2
 > (1 failure / 4 executed / 25.0%), both with real `Failing Runs` data, not synthetic. Zero new bugs.
 >
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. RFTC021-1 PASS — created a dedicated "RFTC021-1 SQLite Most Failed Tests" report (#19) via
+> the real Reports → New report flow (same mechanism as the PG leg), default criteria (Failed-only, Include
+> all test run). The report's chart and ranked table both show real cross-run failure data, not synthetic:
+> `#343 "Verify remember-me checkbox"` ranked #1, `#344 "RFTC016-1 happy-flow: CI ingest automation"` #2,
+> `#342 "Verify password strength meter"` ranked #3 (3 failures / 16 executed / 18.75% — the same real
+> fixture built for this leg's own RFTC-019 flaky-detection block), plus real `RFTC022 fixture: Still
+> Failing`/`Still Passing` rows further down — every row backed by genuine accumulated `IssueStatusResult`
+> history from this leg's own testing, not a purpose-built isolated fixture. Zero new bugs.
+>
 > ⚠️ **EXTERNAL SOURCE — DO NOT MERGE WITH THIS PLUGIN'S OWN TC-TCM-xxx SUITES, AND SEPARATE FROM THE V1 CYCLE
 > FILE** ⚠️
 >

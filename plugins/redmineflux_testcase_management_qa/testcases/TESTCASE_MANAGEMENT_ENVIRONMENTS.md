@@ -5,6 +5,15 @@
 > from the UI but not a bug), newly-created environments selectable on a new run, edit name persists, delete
 > unused environment works. Identical behavior to other engines.
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass on `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 4 PASS via the real Add/Edit/Delete Environment UI. **038** — created "TC-TCM-038-039
+> Safari on macOS" with component "Software"; appeared in the environment list immediately. **039** — a
+> disposable run (#46) created with this exact environment name in `run_assignments_attributes`: accepted,
+> confirming a newly-created environment is selectable on a run. **042** — renamed it to "TC-TCM-042 renamed
+> environment" via the real Edit modal; the list immediately reflects the new name. **043** — created a
+> separate, genuinely unused environment ("TC-TCM-043 unused environment"), deleted it via the Delete modal →
+> flash "Environment was successfully deleted." Identical behavior to the other two legs. **Zero new bugs.**
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass on fresh `redmine6-happyflow-mysql` (`localhost:3022`),
 > project `happy-flow-mysql`. **TC-TCM-038 PASS** — created `ENV-A-MYSQL` with component "Hardware" via Add
 > Environment; DB-verified `TestcaseEnvironment#name/#components` match exactly. **TC-TCM-039 PASS** — the Add

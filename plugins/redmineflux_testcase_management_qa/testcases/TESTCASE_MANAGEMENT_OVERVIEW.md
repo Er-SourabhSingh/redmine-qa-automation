@@ -5,6 +5,18 @@
 > links correct, View All links correct). TC-TCM-323 BLOCKED — no date-range picker control found on the page
 > within time budget; not confirmed as a bug.
 
+> **CROSS-DB (SQLite) — 2026-11-20:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`), project
+> `rftc-016-ci-qa`. All 5 PASS, including **TC-TCM-323** (closing the PostgreSQL leg's own BLOCKED item — the
+> date-range picker genuinely exists, just needs clicking the date label itself to open it, not a separate
+> visible button). **321**: page loads with the default "Test Cases Executed per Day" chart already populated.
+> **322**: switching the dimension selector (Result→Activity) re-renders the chart with visibly different data
+> (scale changed from max "40" to max "2500"). **323**: clicking the date label opened the real preset picker;
+> "Last 7 days" changed the label to "14 Nov 26 - 20 Nov 26" and the chart re-rendered. **326**: the Execution
+> Details table's "#44" run-id link correctly navigates to `/runs/44`. **327**: both "Test Runs" and "To Do"
+> panels' "View All" links point to the correct index pages, and clicking an individual run item ("TC-TCM-039
+> env-selectable disposable run") correctly navigates to that run's own detail page (`/runs/46`). **Zero new
+> bugs.**
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql`. **TC-TCM-321 PASS** — page loads cleanly, default dimension Activity, default date range
 > "1 Nov 26 - 30 Nov 26" (current month), chart renders. Legend percentages (Passed 11.11%, Failed 4.44%,

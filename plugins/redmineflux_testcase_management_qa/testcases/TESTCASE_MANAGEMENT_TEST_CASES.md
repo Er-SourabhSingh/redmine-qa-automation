@@ -66,6 +66,27 @@
 > filter's "TestSuite" option correctly narrows to the 3 issues genuinely linked to testsuite 1) each
 > independently confirmed on this leg. **Zero new bugs filed.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb` — 4th DB-engine leg, after a full §0 fresh-install/migrate/
+> configure bootstrap (zero carried-over data/schema). **TC-TCM-128** — `POST /create_testcase.json` with
+> tracker_id 4 → issue #1 created cleanly. **TC-TCM-129** — same endpoint, then `PUT /issues/2.json` to edit
+> priority/add a note → 204, confirmed via re-fetch. **TC-TCM-131** — real browser UI session (admin), opened
+> `/issues/3/edit`, used the plugin's own "New Step" control to add two ordered Step/Expected-Result rows,
+> submitted, reloaded `/issues/3` — both rows persisted in the correct order. **TC-TCM-132/133** — priority and
+> status fields set via `PUT /issues/{id}.json`, both 204. **TC-TCM-136/137/142/143/297/298/299** — testcase
+> issues #6/7/8/9/15/16/17 created the same way; #143's subject/tracker filtering and #297's REST API-key-auth
+> creation path exercised directly (every `create_testcase.json` call in this pass authenticated via HTTP
+> Basic API key, the same mechanism TC-297 checks). **TC-TCM-144/146** — genuine mouse-driven drag-and-drop
+> (checkbox-select + incremental mouse.move→down→up, not the Playwright built-in drag tool) moved issue #2 from
+> its suite into a newly created sibling suite "MariaDB Suite B" via the real "Move here" popup (flash:
+> "Testcase was successfully moved."), confirmed by reloading both suites; `copy_testcases_to_suite.json`
+> separately confirmed the Copy path creates a genuine new duplicate issue (#26, `copied_from: 1`), originals
+> untouched. **TC-TCM-148** — `DELETE /issues/18.json` (a duplicate fixture) → 204, subsequent list no longer
+> shows it. **TC-TCM-149/150** — `unassigned_testcases.json` correctly lists every testcase not yet linked to a
+> suite; add_testcases_to_suite/remove_testcases_from_suite both exercised (remove correctly refused while the
+> testcase was linked to an active run — "Cannot remove testcases: suite is linked to 2 active run(s)...", the
+> same safeguard documented on every other leg, not a bug). **Zero new bugs filed** on this leg for this group.
+
 ## Plugin
 - Name: Redmineflux Testcase Management
 - Version: v7.0.0

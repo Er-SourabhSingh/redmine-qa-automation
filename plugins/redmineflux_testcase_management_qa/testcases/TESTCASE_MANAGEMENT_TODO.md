@@ -59,6 +59,31 @@
 > QA MySQL" for her own result, "Executed by Redmine Admin" for admin's results — no misattribution observed
 > anywhere in the feed. **Zero new bugs filed.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`. **TC-205 PASS** — `GET /testcase_mcp/todos.json` as
+> `maria_manager` (Manager role, non-admin) correctly lists her own assigned run+environment rows only.
+> **TC-206 PASS** — recording results against her assigned testcases correctly advanced the row's
+> `executed`/`testcases` completion count on reload, row stays listed. **TC-207 — BUG-TCM-156 DOES REPRODUCE
+> on MariaDB**, confirmed via the TC's own literal steps, not just the surface Assignee-column check: reassigned
+> run #5's testcase (issue #1) from admin to `maria_manager` via `PUT /testcase_mcp/runs/5/reassign.json` —
+> the server confirmed success ("1 test case(s) reassigned to Maria Manager"). Re-fetched both users' own
+> `/testcase_mcp/todos.json` immediately after: **neither list changed at all** — both still show the run's
+> Chrome/Firefox rows attributed to "Redmine Admin", unchanged count (4 for each user), and the reassigned-to
+> user's own To-Do did not gain the run. This is the exact root cause already diagnosed on the SQLite leg
+> (`testcase_todos_controller.rb` reads only `run_assignments.assignee_id`, never the per-testcase
+> `run_issues.assignee_id` that Reassign actually writes) — a pure Ruby/ERB code bug with no DB-engine-specific
+> logic, so reproducing unchanged here was the expected outcome, not a surprise. **Not re-filed as a new bug —
+> this is the same BUG-TCM-156, confirmed present on a 4th DB engine**, consistent with its nature as an
+> application-code bug rather than a DB-engine difference. (A separate, narrower check earlier in this same
+> session's work — confirming the Assignee *column* in the To-Do table renders the correct name for a run that
+> was never reassigned — PASSED and is not in conflict with this finding; that check never exercised the
+> Reassign action itself, so it could not have caught this bug.) **TC-208 PASS** — closing a run removed it
+> from the assigned user's To-Do (confirmed via `is_closed: true` + a shrunk `todos` list after closing run
+> #1). **TC-211/212 PASS** — execution results created by both `admin` and `maria_manager` this pass are
+> correctly attributable to their real actor (`added_by: 1` vs `added_by: 5` on their respective
+> `issue_status_result` rows, confirmed via `list_testcase_results`) — no misattribution. **Zero new bugs
+> filed** (TC-207's finding reconfirms an existing bug, not a new one).
+
 > Source: vendor KB "To-Do Management" and "View activity logs and to-do tracking".
 > **Status: authored 2026-09-14, all 10 TCs executed 2026-10-01, regressed 2026-10-23, exhaustively
 > re-executed live 2026-10-28 (§27 final-cycle regression, area 3/22).** `git log` on

@@ -26,6 +26,19 @@
 > row's own Delete action with the real "Delete Environment? ... This action cannot be undone." confirmation
 > naming the environment — DB-verified it no longer exists. **Zero new bugs filed.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`, via `/testcase_mcp/projects/1/environments.json`. **TC-038
+> PASS** — created "Chrome on Windows" with components `["Chrome","Windows"]` → persisted exactly. **TC-039
+> PASS** — the same environment name was accepted directly by `POST /runs.json`'s `run_assignments.environment`
+> field when creating run #1, confirming it's available for run assignment the same way the Add Run dropdown
+> offers it. **TC-042 PASS** — run #1 already had a real Passed result recorded against "Chrome on Windows"
+> (TC-176/177 evidence) before the environment was renamed to "Chrome on Windows 11" via `PUT
+> .../environments/1.json`; re-fetching the run afterward showed the existing result unaffected and the run's
+> own environment list showing only the new name — rename-survives-results confirmed, same as the other 3
+> legs. **TC-043 PASS** — created a disposable "Firefox on Linux" environment (id=2), deleted it via `DELETE
+> .../environments/2.json` → "deleted successfully", confirmed gone from the environments list on re-fetch.
+> **Zero new bugs filed.**
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 1 and the vendor KB "Environment Management" section.
 > **Status: executed 2026-10-01** against a different, older instance/project (`test-project`/
 > `tcm-permissions-private-test`), same stale-instance pattern already caught in

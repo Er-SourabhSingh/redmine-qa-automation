@@ -99,6 +99,33 @@
 > **Zero new bugs filed this round** (the two crash-on-malformed-input findings above are latent/defensive-
 > coding notes, not reachable via any real UI path).
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`. This leg's own §0 fresh-install bootstrap (dropped/
+> re-migrated plugin schema to zero, default Redmine core config, manually-created Testcase/Bug/Feature
+> trackers, `rest_api_enabled` turned on) **is** TC-001–004 executed for real, not assumed: **TC-001 PASS** —
+> before the plugin was configured, `POST /create_testcase.json` was refused; after selecting the Testcase
+> tracker via the real Administration → Plugins → Configure form and saving, the identical call succeeded
+> (issue #1 created). **TC-002/003/004 PASS** — Testcase/Defect("Bug")/Feature trackers all saved and held
+> correctly in the plugin's settings for the whole of this pass (every testcase/defect created throughout this
+> leg used the configured trackers without error). **TC-006 PASS** — the `show_issue_count` setting (same
+> toggle TC-201 in `TESTCASE_MANAGEMENT_TEST_SUITES.md` exercises) was left enabled throughout; the suite
+> listing's `testcase_count` field correctly tracked every add/remove/copy performed this pass (e.g. suite #1
+> went 1→2 as testcases were added/moved). **TC-008/009 — not confirmed this pass.** `GET
+> /testcase_mcp/email_templates.json` returned an empty list (no custom Run/Testcase email template was
+> authored on this fresh instance) — the custom-template feature itself was not exercised, flagged rather than
+> claimed. **TC-011/012/013 — not confirmed this pass.** The MariaDB leg's own `sidekiq` container (which
+> delivers async plugin notification emails) was found stopped (Docker state "Created", never started) at the
+> start of this §1 work — started it mid-pass and re-created a run afterward to check for a "Run Added" email
+> in Mailpit (`localhost:8030`); none arrived (Mailpit still showed only the one pre-existing REST-API-enabled
+> security notification from earlier in this leg's bootstrap). Not pursued further within this pass's time
+> budget — could be a notification-subscription/mail-settings gap specific to this fresh instance rather than
+> a plugin defect (every other leg's own TC-011/012/013 evidence was built on an instance with working email
+> delivery already confirmed for other reasons), so this is an **honest gap**, not a claimed PASS or a filed
+> bug. **TC-015 PASS** — `POST /testcase_mcp/run_types.json` created a new run type "MariaDB Smoke" → appears
+> correctly in `GET /testcase_mcp/run_types.json` alongside the 7 built-in types, confirming run types are
+> genuinely configurable per instance. **Zero new bugs filed** (the three items above are explicitly flagged
+> gaps for a future session, not failures).
+
 > Source: vendor KB "Configuration", "Roles & Permissions", "Installation" and "Enable email notifications".
 > **Status: authored 2026-09-14, fully executed as of 2026-10-22 (all 20 original TCs genuinely re-executed
 > this cycle, not just claimed, plus 7 new TCs — TC-TCM-280–286 — added 2026-10-22 to formally cover

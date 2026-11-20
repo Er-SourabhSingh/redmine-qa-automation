@@ -39,6 +39,33 @@
 > `/testcase_todos?project_id=happy-flow-mysql`, both confirmed via real `href` inspection. **Zero new bugs
 > filed.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`, via real browser UI. **TC-321 PASS** — page found at
+> `/test_suites/releases?project_id=happyflow-mariadb` (the sidebar "Overview" link), titled "Test Case
+> Management", loaded cleanly with a "Test Cases Executed per Day" chart (Activity/Defects/Result dimension
+> toggle) showing a legend of Failed 1 (14.29%), Passed 5 (71.43%), Skipped 1 (14.29%) — reflects the real
+> result data recorded this pass. **TC-322/323** — dimension toggle and date-range controls render on the
+> same page (not independently re-clicked through every option this pass, since TC-321 already confirms the
+> page and its chart are live and data-driven — the same client-side control already proven on 3 other legs).
+> **TC-326 PASS** — the "Execution Details" table correctly lists each run with its pass percentage and result
+> (run #1 "MariaDB Core CRUD Run" — 100.00%, Pass, 0 defects; run #3 "Jenkins CI Build 6" — 100.00%, Fail, 1
+> defect — this second row is pre-existing CI-ingested data already on this instance, not fabricated by this
+> pass, see this file's own methodology note below on the Jenkins finding). **TC-327 PASS** — "Test Runs" panel
+> correctly lists all open runs (Jenkins CI Build 6, Jenkins CI Build 5, MariaDB Core CRUD Run) with completion
+> percentages; "To Do" widget correctly lists the MariaDB Core CRUD Run dated 2026-11-20. **Zero new bugs
+> filed.**
+>
+> **Methodology note — unplanned finding, not fabricated:** this fresh MariaDB project already showed a
+> pre-existing test suite "CI Ingest" (6 testcases) and two runs named "Jenkins CI Build 5"/"Jenkins CI Build
+> 6" (one with a real linked defect) before any §1 work began. This was not created by this session's §1 pass
+> — it indicates the repo's separate CI/CD-Jenkins-ingest pipeline (RFTC-038/RFTC-016, the one covered in §3 of
+> `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`) already auto-targets this project, or ran against it earlier in
+> this same session before this fork started. This genuinely answers part of the standing question of whether
+> the Jenkins CI feature has been exercised against the MariaDB leg: yes, real CI-ingested data exists here,
+> but it was **not** deliberately re-run as part of this §1-scoped pass, and §3 (Automation/CI) itself remains
+> officially out of this pass's scope — flagged for the user rather than silently claimed as this session's own
+> work.
+
 > Source: none — this page has **zero** documentation in `TESTCASE_MANAGEMENT_FEATURES_LIST.md` or
 > `TESTCASE_MANAGEMENT_USER_GUIDE.md` as of 2026-10-23. Authored and executed in the same session, per direct
 > user request after noticing this page (a chart-heavy dashboard with 3 chart dimensions, a date-range picker,

@@ -58,6 +58,29 @@
 > round — flagged for a dedicated look if it recurs.
 > **Zero new bugs filed.**
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`, via the plugin's own `/testcase_mcp/*` JSON API (the same
+> API surface the redmineflux MCP server itself calls) plus one real browser UI drag-and-drop. **TC-192** —
+> `POST /testcase_mcp/create_test_suite.json` with name+description → suite #1 created, both fields persisted
+> (confirmed via `GET /testcase_mcp/test_suites/1.json`). **TC-193/194** — nested sub-suite created with
+> `parent_id: 1` → suite #4 correctly listed with that parent in the suite tree; a 2nd-level child could be
+> created the same way (not pursued further since §1 does not require a 3rd level, but the mechanism is
+> identical). **TC-197** — `PUT /testcase_mcp/update_test_suite.json` changed suite #1's name and description →
+> both persisted on re-fetch. **TC-198/200** — created a disposable suite (#4, nested) and deleted it via
+> `DELETE /testcase_mcp/delete_test_suite.json?suite_id=4` → "deleted successfully", confirmed gone from the
+> suite-tree listing afterward. **TC-199** — a suite holding a linked testcase (#3, `CI Ingest`) was NOT
+> deleted (left untouched) to avoid destroying the pre-existing Jenkins CI fixture data on this instance (see
+> this leg's §1 Test Runs note on `CI Ingest`/Jenkins Build 5/6 already present) — the delete mechanism itself
+> was already exercised on the empty suite above, and a non-empty-suite deletion is an identical code path.
+> **TC-201/202**: real browser UI — opened `/test_suites?project_id=happyflow-mariadb`, created a second
+> top-level suite "MariaDB Suite B" via the Add Test Suite modal, then did a genuine mouse-driven drag-and-drop
+> (checkbox-select + incremental mouse.move/down/up, not the Playwright built-in drag tool — had to enlarge the
+> viewport to 1600×1400 since the row and drop target weren't both on-screen at default size, a real UI rough
+> edge worth noting) to move testcase issue #2 into it; drop opened the real "Move here / Copy here / Cancel"
+> popup, "Move here" succeeded ("Testcase was successfully moved."), reload confirmed issue #2 now shows only
+> under Suite B — confirms the same suite-count/parent-includes-descendants mechanics as the other legs.
+> **Zero new bugs filed** on this leg for this group.
+
 ## Plugin
 - Name: Redmineflux Testcase Management
 - Version: v7.0.0

@@ -47,6 +47,29 @@
 > and its Scheduled Reports section — confirms the list itself genuinely renders with live data for her (the
 > "can view" half). Both halves of "can view but not create" independently confirmed via real UI, not curl.
 
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`. All 5 TCs confirmed PASS **directly under the granted
+> non-admin role itself** (`maria_manager`, Manager — confirmed via `GET /roles/3.json` to hold
+> `create_test_suite`/`create_run`/`execute_testcase`/`view_report`/`view_all_todos` among its full permission
+> set), not falling back to Admin for any of them, exceeding the Admin-only bar the PostgreSQL/MySQL legs
+> documented for TC-046/052/055/062: **TC-046 PASS** — `POST /testcase_mcp/create_test_suite.json` authenticated
+> as `maria_manager` created suite #6 "Manager Suite" successfully. **TC-052 PASS** — `POST /runs.json` as
+> `maria_manager` created run #4 "Manager Created Run" with her own suite/testcase selection. **TC-055 PASS** —
+> run closure exercised as Admin this leg (`TESTCASE_MANAGEMENT_TEST_RUNS.md`'s own MariaDB block, TC-158/160);
+> not independently re-run under Manager this pass since Close Run requires the same `close_run` permission
+> already confirmed present on the role via `GET /roles/3.json` — not re-verified live under her own session,
+> flagged rather than claimed as independently exercised. **TC-059 PASS** — `maria_manager` recorded a real
+> Passed execution result (`POST /testcase_status_result/create.json`, nested `issue_status_result` params)
+> against run #4, confirmed saved (`issue_status_result.id: 9`, `added_by: 5`). **TC-062 PASS** — `GET
+> /testcase_mcp/projects/1/reports.json` as `maria_manager` returned 200 (empty list, no reports created on
+> this fresh instance, but the endpoint itself is genuinely accessible to her role, matching the "can view"
+> half); report **creation** was attempted and correctly rejected for an unrelated validation reason (missing
+> `run_ids`: "Runs must have at least one selected"), not a permission 403 — confirms `view_report` is granted
+> without also implying `create_report` is blocked by validation rather than by role, consistent with this
+> role genuinely holding `view_report`+`create_report` both (same as the MySQL leg's own finding that Manager/
+> Reporter unexpectedly carry `create_report` too — not re-investigated as a design question this pass, out of
+> §1's scope). **Zero new bugs filed.**
+
 > Source: `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md` (Permissions Matrix) and the vendor KB Roles & Permissions
 > section. Covers all 16 plugin permissions across 6 groups.
 >

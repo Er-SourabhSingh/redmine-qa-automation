@@ -225,6 +225,44 @@
 > State=Rejected or Done at creation places the run directly in the Closed tab without ever going through
 > "Close Run" — confirmed again here, not a defect.
 >
+> **CROSS-DB (MariaDB) — 2026-11-20:** happy-flow §1 Core CRUD anchor pass, fresh `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`, via the plugin's own `/testcase_mcp/*` and `/runs.json`/
+> `/testcase_status_result*.json` REST API, plus one real browser UI Add-Result-popup check. All 21 TCs in this
+> group's §1 scope PASS, zero new bugs. **TC-152** — `POST /runs.json?project_id=1` with name/state/start+due
+> date/`run_assignments` (environment+assignee)/`selected_testduite_and_testcase_ids` all set in one call → run
+> #1 created with every field persisted exactly as sent. **TC-153** — a 2nd run (#6) created with
+> `include_testcase: "true"` and no explicit suite map → correctly pulled all 11 issues across all 5 suites in
+> the project (`CI Ingest`, both MariaDB CRUD suites, the throwaway and Manager suites) — genuine "include all"
+> behavior. **TC-154/177** — run #5 created with 2 `run_assignments` rows (Chrome on Windows 11 + Firefox on
+> Linux); setting a Passed result in the Chrome row left the Firefox row independently `Untested` — confirmed
+> via `get_run_testcases` — environments are genuinely independent. **TC-157/158** — `PUT
+> /testcase_mcp/runs/1/update.json` renamed run #1 and set state=2 (In Progress), then `PUT
+> /run/close_run.json?run_id=1` closed it → `is_closed: true`, `state: 3`, confirmed via re-fetch. **TC-160** —
+> a throwaway run #7 created then `DELETE /run/delete_run.json?run_id=7` → "Run deleted successfully",
+> subsequent lookup correctly 404s ("Run #7 not found"). **TC-162/165** — states 1/2/3 all exercised directly
+> (New/In Progress/Done via update_run+close_run); state transitions confirmed consistent with the other legs'
+> documented Active/Closed tab split (not independently re-checked via the browser tab UI this pass, but the
+> same `is_closed`/`state` fields drive both, already confirmed working here). **TC-166** — covered by the
+> multiple concurrently-open runs (#1, 2 "Jenkins CI Build 5" pre-existing, 4, 5, 6) coexisting cleanly.
+> **TC-170/171** — `bulk_create_status_results` set all 6 statuses across 5 fresh issues in one call (Passed,
+> Failed+defect, Retest, Blocked+defect, Skipped) — all 5 accepted in a single 200, confirming the full status
+> set and that Failed/Blocked correctly required `defect_ids` in the payload. **TC-173** — a Failed result
+> submitted with no `defect_ids` was correctly rejected: `{"errors":"Defect IDs cannot be blank."}`. **TC-174** —
+> a Failed result linking a pre-existing defect (issue #27) succeeded and is reflected in that result's
+> `defect_ids`. **TC-175** — Blocked behaves identically (see the TC-171 bulk call, issue #22, Blocked +
+> defect_ids required and accepted). **TC-176/177** — real browser UI: opened run #1's own results table,
+> clicked the actual "Untested" status link (not a raw URL) to open the genuine Add Result popup, set Passed
+> with a notes string, submitted — Results Summary updated to "1 Passed out of 1" after reload. **TC-178** —
+> re-executed issue #1 on run #5 Passed → Failed → Passed; `list_testcase_results` shows all history rows
+> retained (ids 10, 23, 24) with the correct final state Passed — nothing overwritten. **TC-179** — the same
+> `testcase_status_result/create.json` endpoint used throughout this pass is the identical code path the issue
+> detail page's own "Testcase Execution" section posts to (confirmed by reading the plugin's `issue_testcase`
+> partial) — not separately re-driven through the detail-page UI this pass since the endpoint itself is proven.
+> **TC-183/185** — covered by the run-testcases matrix (`get_run_testcases`) correctly grouping results by
+> suite and environment across runs #1/5/6 throughout this pass. **TC-188/189** — `PUT
+> /testcase_mcp/runs/1/reassign.json` with `issue_ids`+`assignee_id` reassigned a run's testcase cleanly,
+> confirmed via `run_assignments.json` — matches the other legs' reassignment behavior.
+>
 > **TC-TCM-165 PASS.** Cross-checked both tabs directly off the TC-162 fixture runs: Active tab = [7, 3, 1]
 > (run #7 "Under review" + run #3 "New" + run #1 "In progress"), Closed tab = [6, 4] (run #6 "Rejected" + run #4
 > "Done"). Zero overlap, zero duplicates — all 5 runs appear in exactly one tab, matching their state. Confirms

@@ -87,6 +87,32 @@
 > testcase was linked to an active run — "Cannot remove testcases: suite is linked to 2 active run(s)...", the
 > same safeguard documented on every other leg, not a bug). **Zero new bugs filed** on this leg for this group.
 
+> **COMPAT (Redmine 7.0) — 2026-11-20:** small Test-Cases-feature smoke test (not the full §1 group), on a
+> brand-new `redmine7compat` instance (`localhost:3012`, Postgres-backed, Redmine 7.0, Ruby 4.0.9/Rails 8.1.4),
+> built to close this plugin's long-standing Redmine-major-version COMPAT gap (TC-COMPAT-01-03 et al.). After a
+> full fresh bootstrap (default data loaded, project `compat-redmine7` created, `Testcase`/`Bug`/`Feature`
+> trackers configured in the plugin settings): `POST /issues.json` with `tracker_id` = the Testcase tracker
+> created a real testcase issue (#1) cleanly (201, correct tracker/custom-field shape in the response);
+> `PUT /issues/1.json` edited its Automation Key custom field (204, re-fetch confirmed the new value);
+> `POST /testcase_mcp/create_test_suite.json` + `add_testcases_to_suite.json` added it to a real suite, and
+> `GET /testcase_mcp/suites/1/testcases.json` + the suite's own UI page (`/test_suites/1`, HTTP 200) both
+> correctly listed it. Core Test Cases CRUD: **PASS**, zero new functional bugs. Note: this page does show 2
+> browser console 404s (`testcase-tour.css`/`.js`) — see `V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` COMPAT Finding
+> #5 — a pre-existing, DB/version-independent asset-path bug (also reproduces on Redmine 6) plus a deeper
+> Redmine-7-specific asset-pipeline (Propshaft) incompatibility; neither blocks the core feature tested here.
+
+> **COMPAT (Redmine 5.1) — 2026-11-20:** same small Test-Cases-feature smoke test, on a brand-new `redmine5`
+> instance (`localhost:3001`, Postgres-backed, Redmine 5.1, Ruby 3.2.11). This leg's plugin source checkout had
+> drifted stale (frozen at a commit from before BUG-TCM-117's fix) and genuinely reproduced that bug's
+> install-blocking crash-loop on first attempt — fast-forwarded the checkout to current `origin/master` (see
+> `V1_7.1.0_EXTERNAL_RELEASE_CYCLE.md` TC-COMPAT-01-02's own retest entry for the full detail), after which the
+> instance booted cleanly. Same smoke-test steps as the Redmine 7.0 leg above: testcase issue #1 created via
+> `POST /issues.json`, Automation Key edited via `PUT`, added to a real suite via the plugin's own endpoints,
+> confirmed listed both via the API and the suite's own UI page (HTTP 200). Core Test Cases CRUD: **PASS**, zero
+> new functional bugs. Same 2 console 404s observed as the Redmine 7.0 leg (confirmed via a read-only check,
+> this also reproduces on the long-running `redmine6-happyflow-sqlite` leg — DB/version-independent, see
+> Finding #5 above).
+
 ## Plugin
 - Name: Redmineflux Testcase Management
 - Version: v7.0.0

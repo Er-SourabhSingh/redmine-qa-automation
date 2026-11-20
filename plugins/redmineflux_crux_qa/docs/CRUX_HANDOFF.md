@@ -2,11 +2,23 @@
 
 ## Last Session
 
-- Date: 2026-11-19
+- Date: 2026-11-20
 - Redmine Version: 6.0-bookworm (local Docker instance, localhost:3015)
 - Environment: Local (`C:\crux-redmine`) + production `ztflux`
 
 ## Completed This Session
+
+- Developer moved BUG-CRX-220/221/222/223 to "In QA" — pulled + rebuilt `crux-core` (CRC-123, 1.17.0, "four
+  fixes from the happy-flow regression pass") before retesting
+- **All 4 CONFIRMED FIXED, closed, production synced to Done/100%** (#129140–#129143): 220 (3/3 clean, zero
+  false DevOps-access denials), 221 (real id used by `_confirm_batch`'s new tracking, native-verified), 222
+  (2/2 clean, zero `project_id` type errors), 223 (no misleading checkmark, run stayed open)
+- Found, root-caused, reported, and assigned 1 new bug while retesting 222: **BUG-CRX-224** (#129167) —
+  Improver resolves a wrong but correctly-typed `project_id` (stale project #9 instead of #1), first instance
+  of the wrong-project-resolution family on Improver
+- See the dated "2026-11-20" entry in Run History below for full detail
+
+## Previous Session (2026-11-19)
 
 - Closed BUG-CRX-216/217 (carried in from 2026-11-18, confirmed fixed)
 - Installed the DevOps plugin locally; wrote `CRUX_AGENT_DEVOPS.md` (13 TCs); found + closed BUG-CRX-218/219
@@ -722,6 +734,7 @@ Per explicit user request ("separate the remaining test suites, stating that Cru
 
 | 2026-11-18 (full-day session: 12-bug retest/close round + deferred-suite sweep across all 15 platform suites) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **12-bug retest round**: developer moved BUG-CRX-204–215 to "In QA"; pulled latest code across 4 repos, rebuilt crux-core+mcp, retested all 12 live against their original repro steps — all 12 CONFIRMED FIXED, closed, production synced to Done/100% (#128920, #128966–128975, #128994, #128995). Added inline "Retest — CONFIRMED FIXED" notes to each bug's originating TC entry across 7 suite files, per explicit user correction that this step had been skipped. **Deferred-suite sweep** ("baaki deferred suites bhi kr do"): closed out the remaining deferred-TC backlog across `CRUX_PLATFORM_AGENT_FLEET_ADMIN.md` (TC-833/834, unblocked by BUG-CRX-200's fix — both PASS), `CRUX_PLATFORM_ASK_CRUX_CHAT_CORE.md`/`ASK_CRUX_BUBBLE_ERRORS.md`/`SETTINGS.md`/`PROJECT_TAB.md`/`PIPELINES.md` (closed 2026-11-18 earlier in this same day), and re-verified `CRUX_PLATFORM_FROZEN_RULES.md`'s TC-929/930/931 (no regressions, cleaned up a leftover rule). Found and fixed a stale line in `CRUX_PLATFORM_READY_QUEUE.md`'s own summary (BUG-CRX-174 was actually already closed). 4 new bugs found and reported to production this day (BUG-CRX-214/215/216/217, #128994/128995/129011/129012). **Swept all 15 platform suites' own "Overall" lines — confirmed every suite is at 0 genuinely-outstanding deferred TCs**, except a documented handful deferred by design (low-value pagers, infra-constrained, permanently-blocked-by-design). Open bug count now 2 (216, 217, both still "New" on production). `STATUS.md`, `bugs/_index.md`, `TIME_LOG.md` updated; all findings committed and pushed to `origin master`.
 | 2026-11-19 (full-day session: DevOps plugin install + agent suite, Keep/Share regression, BUG-CRX-216/217 closed, happy-flow selection + regression, 4 new bugs) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | **BUG-CRX-216/217 closed** (both CONFIRMED FIXED, carried in from 2026-11-18). **DevOps plugin installed/migrated locally** (0→68 MCP tools); wrote `CRUX_AGENT_DEVOPS.md` (13 TCs, 11 PASS, BUG-CRX-218/219 found) and re-verified the 7 remaining Code Reviewer TCs plus a new positive-path TC-625 now that DevOps is installed. **Keep/Share regression** written and executed (`CRUX_CHAT_KEEP_SHARE_REGRESSION.md`, 3/3 PASS, closing #117162's last open criterion; BUG-CRX-010/011 re-verified not reproducing on the current stack). Production tickets **#116773 and #117162 closed** Done/100%. **BUG-CRX-218/219 retested** after pulling+rebuilding `crux-core` (CRC-122, 1.16.0) — both CONFIRMED FIXED, closed, production synced. **Happy-flow regression scope**: selected and marked 57 already-PASSing TCs across all 39 suite files (`> **Happy Flow**` markers, `CRUX_AGENT_RESEARCH.md` flagged as a genuine gap with no happy-flow TC to mark) as a faster substitute for a full regression, per explicit user time-boxing instruction. Executed live via a backgrounded fork (several 200-turn resumes): **53 PASS / 1 BLOCKED (TC-CRX-447, no fixture state to exercise it) / 1 deferred (TC-CRX-1088, low risk, mechanism separately proven via TC-CRX-1021)**. **4 new bugs found, root-caused, and reported to production** (assigned Prashant Chaurasia): BUG-CRX-220 (#129140, Code Reviewer intermittent false DevOps-access denial — root-caused to a specific `chat.py` retry-preference heuristic discarding a correct retry, NOT a Cloudflare-tunnel/connectivity issue as first suspected — confirmed via server logs), BUG-CRX-221 (#129141, CRM multi-step create-contact-at-new-company guesses the wrong future company id), BUG-CRX-222 (#129142, Improver subtask-creation confirm non-deterministically sends `project_id` as int not string), BUG-CRX-223 (#129143, Close Run misleading ✓ on a genuine rejection, same class as BUG-CRX-018/040/054/067/082). `bugs/_index.md`, suite files, and this handoff all committed/pushed to `origin master` across the session.
+| 2026-11-20 (BUG-CRX-220/221/222/223 retest round, 1 new bug found) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` | Claude (guided by Sourabh Singh) | Developer moved BUG-CRX-220/221/222/223 to "In QA." Pulled + rebuilt `crux-core` (`git pull` fast-forwarded b9d8e2f→afa4304, CRC-123, 1.17.0 — "four fixes from the happy-flow regression pass," matching all 4 bugs exactly). **All 4 CONFIRMED FIXED, closed, production synced to Done/100%**: 220 (3/3 clean Code Reviewer attempts, zero false DevOps-access denials), 221 (CRM batch now correctly uses the real id `_confirm_batch` tracked from an earlier step in the same batch, native-verified contact linkage), 222 (Improver subtask creation 2/2 clean, zero `project_id` type errors), 223 (honest "Cannot close run" refusal no longer carries a misleading ✓, native-verified run stayed open). **1 new bug found while retesting 222**: a 3rd fresh-chat repetition failed with a correctly-typed but wrong-*value* `project_id` ("9", a real unrelated stale fixture project, instead of "1" where issue #159 lives) — a distinct defect from 222's type bug, root-caused via Redmine server logs, and the first instance of the wrong-project-resolution family (BUG-CRX-080/093/101/133/140/187) on the Improver agent. Filed, reported to production, and assigned to Prashant Chaurasia as **BUG-CRX-224** (#129167). `bugs/_index.md`/`_duplicates.md`, closed bug files, and this handoff all committed/pushed to `origin master`.
 
 ## Next Session Start Point (2026-11-04, continued)
 
@@ -1011,7 +1024,7 @@ documented reason rather than an open-ended "not done yet."
 - Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (216, 217) and no final-cycle regression has
   run since the last bug closed.
 
-### Next Session Start Point (2026-11-19, current)
+### Next Session Start Point (2026-11-19 — superseded, see the 2026-11-20 entry below for the current one)
 
 - **Open bug count now 4** (`bugs/open/`): BUG-CRX-220, BUG-CRX-221, BUG-CRX-222, BUG-CRX-223 — all reported
   to production today (#129140–#129143), all assigned to Prashant Chaurasia, all still "New" (not yet picked
@@ -1033,3 +1046,27 @@ documented reason rather than an open-ended "not done yet."
   executed; only negative/refusal TCs have a recorded PASS. Worth a dedicated session, not a quick fix.
 - Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (220-223) and no final-cycle regression has
   run since the last bug closed.
+
+### Next Session Start Point (2026-11-20, current)
+
+- **BUG-CRX-220/221/222/223 all retested and CONFIRMED FIXED via CRC-123 (crux-core 1.17.0)** — pulled +
+  rebuilt crux-core (`git pull` fast-forwarded b9d8e2f→afa4304, `docker compose up -d --build crux-core`)
+  before retesting, per last session's own lesson. 220: 3/3 clean, zero false DevOps-access denials. 221:
+  real company id correctly used by `_confirm_batch`'s new id-tracking, native-verified contact linkage. 222:
+  2/2 clean, zero `project_id` type errors. 223: no misleading checkmark on the honest "Cannot close run"
+  refusal, run stayed open (native-verified). All 4 closed locally and production synced to Done/100%
+  (#129140–#129143).
+- **New bug found while retesting 222**: a 3rd fresh-chat repetition failed differently — not the type error,
+  but a correctly-typed, wrong-*value* `project_id` ("9", a real but unrelated stale fixture project, instead
+  of "1" where issue #159 actually lives), causing an honest cross-project "Parent task is invalid" rejection.
+  Root-caused via Redmine server logs (`Started POST "/issues.json"` showing the actual payload). This is the
+  wrong-project-resolution family's (BUG-CRX-080/093/101/133/140/187) first instance on the Improver agent —
+  filed as **BUG-CRX-224** (#129167), reported to production, assigned Prashant Chaurasia, still "New."
+- **Open bug count now 1** (`bugs/open/`): BUG-CRX-224 only. Check its production status before the next
+  retest round — when it moves to "In QA", pull+rebuild `crux-core` first.
+- Everything else carried forward from the 2026-11-19 entry is still true and unaddressed this session (not
+  revisited): happy-flow markers live in all 39 suites but still not a substitute for the full CLAUDE.md §13/§27
+  regression; TC-CRX-447 still BLOCKED (needs a Level-1 fixture); TC-CRX-1088 still deferred;
+  `CRUX_AGENT_RESEARCH.md` still has zero happy-flow coverage.
+- Not yet `Complete` per CLAUDE.md §10 — `bugs/open/` is not empty (224) and no final-cycle regression has run
+  since the last bug closed.

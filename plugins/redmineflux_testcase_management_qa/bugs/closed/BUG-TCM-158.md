@@ -83,3 +83,18 @@ GET http://localhost:3012/plugin_assets/redmineflux_testcase_management/styleshe
 - Found during the Redmine 5.1/7.0 COMPAT pass (2026-11-20), commit `52042cdd`. This is flagged as a
   forward-looking compatibility risk for whenever the plugin's official Redmine-7 support is actually targeted —
   not an active production incident today, since production Redmine instances are not yet on Redmine 7.
+
+## Retest (2026-11-23) — CONFIRMED FIXED, closing
+
+Dev fix (production #129193 journal): the Requirements page's hand-built icon URLs (arrow, close, article) were
+replaced with a lookup against Redmine's own asset pipeline, which correctly resolves on Redmine 7's Propshaft
+convention (the legacy `public/plugin_assets/` path is kept only as a fallback).
+
+Retested on Redmine 7.0 (`localhost:3012`, project `compat-redmine7`) after pulling the fix (`git merge
+--ff-only origin/master` to `f10faff`+) and restarting the container. Opened the Requirements page and verified
+via real browser network requests (`browser_network_requests`): the tree's icons (`arrow-right`, `close_icon`,
+and the rest of the plugin's SVG/asset set) all load **200 OK** via the new `/assets/plugin_assets/
+redmineflux_testcase_management/...` fingerprinted path. Zero console errors (2 unrelated pre-existing
+EditorJS/Tribute deprecation warnings, nothing to do with this bug).
+
+Production issue #129193 updated to Done/100%. Moving to `bugs/closed/`.

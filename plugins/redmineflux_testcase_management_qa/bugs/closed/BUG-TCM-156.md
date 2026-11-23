@@ -102,3 +102,29 @@ Source read, app/controllers/testcase_todos_controller.rb lines 22-31:
   distinct root cause introduced by the rtc-046 assignee-ownership split (production #128320/#128416), not a
   recurrence of either of those.
 - Existing bug reference (if duplicate): —
+
+## Retest (2026-11-23) — CONFIRMED FIXED, closing
+
+Dev fix (commit `7f7a7d0`/`061d798`, production #129166 journal): `testcase_todos_controller.rb#index`'s
+non-admin branch rewritten to own a run via `run_issues`/`run_issue_assignments` (the per-testcase assignee),
+not `run_assignments.assignee_id` directly — matching rtc-046's own assignee-ownership model.
+
+Retested on the SQLite leg (`redmine6-happyflow-sqlite`, `localhost:3021`, project `rftc-016-ci-qa`) after
+pulling the fix (`git merge --ff-only origin/master` to `f10faff`+) and restarting the container:
+
+- Built a disposable run (#68) with one environment ("Chrome Latest"), assignee = Daisy Skye (Developer role,
+  no `view_all_todos`).
+- Confirmed via real browser login as Daisy Skye: the run appeared in her My ToDo.
+- As admin, reassigned every test case on that environment from Daisy Skye to Autumn Grace via the real
+  Reassign dialog (bulk select + Reassign + Apply) — confirmed via DB (`run_issues.assignee_id`) that all were
+  genuinely moved.
+- Logged back in as Daisy Skye: **the run was gone from her My ToDo** — confirmed via the page, not just data.
+- Logged in as Autumn Grace: **the run now appeared in her My ToDo** — confirmed live.
+
+Both directions of the original bug's repro (run doesn't leave A's list, run never appears in B's list) are now
+fixed. **Minor cosmetic observation, not re-opening the bug**: the My ToDo table's own "Assignee" column still
+showed "Daisy Skye" after the reassignment (likely still reading `run_assignments.assignee_id` for display,
+a separate field from the one that now correctly drives list membership) — worth a follow-up polish item, not
+a functional defect.
+
+Production issue #129166 updated to Done/100%. Moving to `bugs/closed/`.

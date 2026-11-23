@@ -85,3 +85,24 @@ drwxr-xr-x redmineflux_scarlet
   where even a *correctly-constructed* asset URL would still 404 due to a deeper asset-pipeline incompatibility
   (Propshaft vs. the legacy `public/plugin_assets/` convention).
 - Found during the Redmine 5.1/7.0 COMPAT pass (2026-11-20), commit `52042cdd`.
+
+## Retest (2026-11-23) — CONFIRMED FIXED, closing
+
+Dev fix (production #129192 journal): the hand-built asset path was replaced with a lookup that asks Redmine's
+own asset pipeline for the correct URL, resolving correctly regardless of which asset-pipeline convention the
+running Redmine version uses.
+
+Retested across all 3 Redmine versions this bug originally reproduced on, after pulling the fix (`git merge
+--ff-only origin/master` to `f10faff`+ in each of the `v5`/`v6`/`v7` plugin checkouts) and restarting each
+container. Verified via real browser network requests (`browser_network_requests`), not just a guessed URL:
+
+- **Redmine 5.1** (`localhost:3001`, project `compat-redmine5`): `/plugin_assets/redmineflux_testcase_management
+  /stylesheets/testcase-tour.css` and `.../javascripts/testcase-tour.js` — both **200 OK**.
+- **Redmine 6.x/SQLite leg** (`localhost:3021`, project `rftc-016-ci-qa`): `/assets/plugin_assets/
+  redmineflux_testcase_management/testcase-tour-<hash>.css`/`.js` — both load successfully (304 Not Modified,
+  i.e. genuinely cached after a real 200).
+- **Redmine 7.0** (`localhost:3012`, project `compat-redmine7`): same fingerprinted-asset path — both **200 OK**.
+
+Zero console errors on any of the three. Fix confirmed working on every Redmine version this bug reproduced on.
+
+Production issue #129192 updated to Done/100%. Moving to `bugs/closed/`.

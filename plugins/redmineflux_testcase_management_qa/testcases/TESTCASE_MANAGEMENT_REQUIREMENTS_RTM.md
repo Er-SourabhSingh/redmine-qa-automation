@@ -1273,6 +1273,10 @@ bugs.**
 >   paragraph" returned exactly 1 search result (requirement #2, the fixture holding that paragraph);
 >   searching the title-only text "TC-TCM-112" returned 0 search results, matching the already-documented
 >   title-not-indexed behavior confirmed on the SQLite and MySQL legs.
-> - TC-308, TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
+> - **TC-308** (Share/Export/Save): PASS — Share copied the correct current-page URL to the clipboard
+>   (`navigator.clipboard.readText()` confirmed it); Export triggered a real PDF download ("TC-TCM-112
+>   happy-flow Requirement (MariaDB) EDITED.pdf"); Save's icon correctly carries `alt="save-icon"` —
+>   BUG-TCM-100 does not reproduce here either, consistent with the SQLite and MySQL legs.
+> - TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
 > **Zero new bugs found on this leg so far.** Both anomalies above are transparently documented test-harness
 > interference, consistent with the precedent already established on the SQLite and MySQL legs.

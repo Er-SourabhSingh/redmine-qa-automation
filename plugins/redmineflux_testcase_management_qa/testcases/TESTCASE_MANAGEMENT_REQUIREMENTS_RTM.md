@@ -1242,3 +1242,33 @@ bugs.**
   guarantee, and the save-race regression target respectively. TC-TCM-303 (all 12 block types via the real
   block-menu) is the highest-value case added 2026-10-23 — the broadest single check of the content editor's
   actual feature surface.
+
+> **CROSS-DB (MariaDB) — 2026-11-23:** partial happy-flow pass, `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb` (numeric id 1). Requirement #2
+> ("TC-TCM-112 happy-flow Requirement (MariaDB) EDITED") used as the test fixture, same as other legs.
+> - **TC-269** (content persists across reload): PASS — typed a new paragraph
+>   ("TC-TCM-269 happy-flow persistence test paragraph (MariaDB)") via genuine `page.keyboard.type()`
+>   keystrokes into a real Editor.js block, confirmed surviving a fresh page reload.
+> - **TC-271** (`#`-mention links a test case): **not conclusively PASS this leg** — typing `#` followed by a
+>   search term (`149`, `bulk create`, and `13 bulk create`, matching the working MySQL-leg pattern of
+>   `<issue-id> <subject fragment>`) repeatedly failed to produce a live-updating Tribute.js suggestion
+>   dropdown; the `.tribute-container` element stayed `display:none` and, once populated from an earlier
+>   trigger, appeared frozen on a stale result set that didn't update with further keystrokes. No mention
+>   link was ever genuinely confirmed-created from a live dropdown selection on this leg. Matches the already-
+>   documented class of Editor.js/Tribute.js scripted-interaction fragility (same precedent as TC-272/305/306
+>   on the SQLite/MySQL legs) rather than a new product defect — not filed as a bug given the lack of
+>   certainty this is anything other than a headless-automation limitation.
+> - **Methodology note (not a product bug):** during this same session's scripted editing, requirement #2's
+>   linked-issue set in `requirement_issues` fluctuated twice — `[16,17] → [16,135]` (TC-269's paragraph
+>   insert caused #17's link to be replaced by #135), then after a re-link attempt and further mention-search
+>   attempts, back down to `[16,135,135]` (a duplicate #135 row, #17 dropped again). This is the same
+>   Editor.js-fragile-under-scripted-edits risk already documented on other legs. The stray/duplicate blocks
+>   and unresolved literal `#...` search text were cleaned from the editor before leaving the page; the
+>   underlying `requirement_issues` duplication/#17-drop was **not** re-fixed a second time in this session to
+>   avoid further destabilizing the fixture through more scripted edits — left as transparently documented
+>   test-harness noise, not corrected via direct DB writes (per CLAUDE.md: real UI only for functional state).
+> - **TC-272, TC-305, TC-306** not independently attempted this leg — same precedent as other legs (Editor.js
+>   toolbar/block-picker and Tribute.js scripted-interaction friction).
+> - TC-307, TC-308, TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
+> **Zero new bugs found on this leg so far.** Both anomalies above are transparently documented test-harness
+> interference, consistent with the precedent already established on the SQLite and MySQL legs.

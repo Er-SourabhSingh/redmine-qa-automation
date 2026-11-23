@@ -137,7 +137,11 @@
 >   attempt instead exercised **TC-101-equivalent (PDF failure must not produce a misleading email) — PASS**:
 >   the delivered email body explicitly said *"The PDF version of this report could not be generated, so an
 >   HTML version is attached instead"*.
-> Remaining TCs in this group (107, 108, 109, 110) — in progress.
+> - **TC-107/108/109** (schedule daily/weekly/monthly): all PASS — Scheduled Reports table correctly shows
+>   "Daily at 00:00:00", "Weekly on Wednesday at 00:00:00", "Monthly on the 15th at 00:00:00" respectively.
+> - **TC-110** (cancel a scheduled report): PASS — real "Delete?" confirmation modal on the Scheduled Reports
+>   table's own row, confirmed, the Weekly schedule removed while Daily and Monthly remained intact.
+> **Zero new bugs found on this leg.** This closes the entire Reports group (24 TCs) on the MariaDB leg.
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >

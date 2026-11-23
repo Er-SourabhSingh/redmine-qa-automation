@@ -92,6 +92,38 @@
 >   tracked `is_private` exception (BUG-TCM-154).
 > **Zero new bugs found on this leg** — BUG-TCM-154 reproduces (same root cause, already tracked), nothing new.
 
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass (§2 remaining-scope extension), `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`. All 5 happy-flow CSV Import TCs executed live via real fresh
+> imports through the actual wizard (upload → select target suite → confirm auto-mapping → confirm value
+> mapping → Import), not API shortcuts:
+> - **TC-021** (legacy single Steps/Expected columns): PASS. Fixture
+>   `automation/uploads/legacy-steps-expected-mariadb.csv`. Preview: 1 OK, 0 errors/warnings. Created issue #33;
+>   its Step 1 / Expected Result text is byte-identical to the CSV.
+> - **TC-024** (50-step CSV): PASS. Fixture `automation/uploads/fifty-steps-mariadb.csv`. Preview: 1 OK, 0
+>   errors/warnings. Created issue #34; confirmed via DB (`steps` table) — exactly 50 rows, sequential ids
+>   (no gaps/reordering), Step 1 through Step 50 all present and correctly paired with their own Expected
+>   Result text.
+> - **TC-034** (100-row bulk import): PASS. Fixture `automation/uploads/bulk-100x3-mariadb.csv`. Preview: 100
+>   OK, 0 errors/warnings. Project's testcase-issue count rose by exactly 100 (26→126). Spot-checked row 1
+>   (issue #35) and row 100 (issue #134) — both created with exactly 3 steps each, confirming no truncation or
+>   reordering across the full batch.
+> - **TC-336** (every mappable column, one row): PASS on every field **except** `Private` — **BUG-TCM-154
+>   reproduces identically on MariaDB**, consistent with every other leg. Built
+>   `automation/uploads/26_all_mappable_fields_mariadb.csv` (16 columns, adapted for this leg's actual category/
+>   version/requirement names); created the `QA Category` issue category, used the pre-existing `MariaDB
+>   Happy-Flow v1.0` target version, and created a matching `REQ-001` requirement as the three missing
+>   preconditions. All 16 columns auto-mapped correctly; Priority→High and Status→In Progress auto-resolved in
+>   the value-mapping step. Imported with the same 1 warning as other legs (not a new finding). Created issue
+>   #135: confirmed via DB — Priority (3=High), Status (2=In Progress), Category (1=QA Category), Target
+>   version (1=MariaDB Happy-Flow v1.0), Start/Due dates, Estimated time (2.5h), % Done (40%), the Requirements
+>   link (`requirement_issues` row confirmed), both Step/Expected pairs (2 `steps` rows), and the Description
+>   (comma + quotes preserved exactly) all saved correctly — but `is_private` confirmed `0` (false) despite the
+>   CSV cell being `true`, matching BUG-TCM-154's existing root cause exactly.
+> - **TC-333** (saved data matches the CSV exactly): PASS — demonstrated across all four imports above via
+>   direct DB verification on every spot-checked issue, not just the wizard's own preview screen.
+> **Zero new bugs found on this leg** — BUG-TCM-154 reproduces (same root cause, already tracked on 3 other
+> legs), nothing new. This closes CSV Import's happy-flow group on the MariaDB leg.
+
 > Source: `docs/TESTCASE_MANAGEMENT_CSV_IMPORT_REPORT.md`. Covers the 4-step CSV import wizard (upload → column mapping → value mapping → preview/confirm) for both the legacy single `Steps`/`Expected` column pair and the new numbered `Step N`/`Expected Result N` columns.
 >
 > Evidence for these TCs was gathered in an external session before this suite existed in-repo. Each TC below is marked **CONFIRMED (external session)** rather than the usual live-in-session marker — reproduce locally when convenient to upgrade to a full in-session confirmation. Paste each CSV fixture into `automation/uploads/` using the filename noted in that TC's Evidence line, and bug screenshots into `screenshots/BUG-TCM-00X/` (see `bugs/open/`).

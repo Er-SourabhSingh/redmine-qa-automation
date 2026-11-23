@@ -122,5 +122,17 @@ which is portable across all three supported adapters without needing per-adapte
   MariaDB leg not re-verified in this pass (another test activity was actively using that instance
   concurrently) — same shared plugin source applies there too; low residual risk, can be spot-checked
   opportunistically on a future MariaDB session.
+
+## Spot-check — 2026-11-23 — MariaDB leg confirmed
+
+- **MariaDB** (`redmine6-happyflow-mariadb`, `localhost:3023`, project `happyflow-mariadb` id=1, plugin
+  checkout confirmed at/after fix commit `538ecd7`): bootstrapped run #14 via real `POST
+  /testcase_ci/bootstrap_run.json`, set automation key `BUG-TCM-155-REGR-MARIADB` on issue #2 via the real
+  Edit form, then ingested the same real `POST /testcase_ci/ingest_results.json` case-variant pair twice
+  (`source:"Nightly-Regression"` then `source:"nightly-regression"`) — both calls returned the SAME
+  `source_id:4, source_name:"Nightly-Regression"`. Confirmed via direct DB: `automation_sources` row id=4 has
+  `executions_count:2` (both calls correctly resolved to the one row, not two), and zero
+  `Mysql2`/`Mariadb`-equivalent SQL errors in `production.log`. **MariaDB PASS** — this closes the one
+  remaining leg from the original fix regression check; all 4 supported DB engines now confirmed.
 - **Production**: issue #129147 updated to Status Done, % done 100, with a retest summary comment.
 - **Verdict: FIXED.** Moved to `bugs/closed/`.

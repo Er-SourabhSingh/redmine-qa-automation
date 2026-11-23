@@ -1,3 +1,21 @@
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`),
+> project `happyflow-mariadb` (id=1). This leg also closes the one remaining gap from **BUG-TCM-155**'s
+> original fix-regression check (the MariaDB leg wasn't re-verified then — see `bugs/closed/BUG-TCM-155.md`'s
+> 2026-11-23 spot-check section for full detail):
+> - **RFTC018-3**: pure-function check — `derive_key(result_source: nil, batch_source: nil, testsuite_name:
+>   'Checkout', ...)` → `["Checkout", "testsuite"]`; `derive_key(result_source: 'nightly-regression',
+>   batch_source: 'batch-source', ...)` → `["nightly-regression", "explicit"]` — byte-identical to every
+>   other leg. **PASS.**
+> - **RFTC018-1/9**: bootstrapped a fresh run (#14) via real `POST /testcase_ci/bootstrap_run.json`, set
+>   automation key `BUG-TCM-155-REGR-MARIADB` on issue #2 via the real Edit form, then ingested the same
+>   real `POST /testcase_ci/ingest_results.json` case-variant pair twice (`source:"Nightly-Regression"` then
+>   `source:"nightly-regression"`) — both calls returned the SAME `source_id:4,
+>   source_name:"Nightly-Regression"`. Confirmed via direct DB: `automation_sources` row id=4 has
+>   `executions_count:2` (correctly resolved to one row, not two), zero SQL errors in `production.log`.
+>   Confirms **BUG-TCM-155's fix (`538ecd7`, quoted column name) genuinely covers MariaDB too**, not just
+>   MySQL/PostgreSQL/SQLite. **PASS.**
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC018-1 PASS — real `POST /testcase_ci/ingest_results.json` with a per-result `source:
 > "nightly-regression"` alongside a different batch-level `source: "batch-source"`: response's `source_name`

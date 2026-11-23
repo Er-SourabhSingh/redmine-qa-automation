@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-TCM-159
-- Production Redmine Issue ID: <!-- to be filled after report, pending user approval -->
+- Production Redmine Issue ID: #129223
 - Title: `GET /projects/:id/get_testcases.json` leaks the assignee's `hashed_password` and `salt` in the JSON response
 - Redmine version: 6.0.12.stable
 - Plugin name: redmineflux_testcase_management

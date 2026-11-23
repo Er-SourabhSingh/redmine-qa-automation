@@ -64,6 +64,24 @@ No screenshot — pure API finding, not a UI defect.
   code path, different defect class).
 - Existing bug reference (if duplicate): —
 
+## Retest (2026-11-23) — CONFIRMED FIXED, closing
+
+- **Fix**: production commit `acf042b` ("Stop the test case list API from exposing assignees' password data
+  (BUG-TCM-159)") by Vaishnavi Bhawsar, on `origin/master`. Replaces the bare
+  `render json: @test_cases, include: [:status, :priority, :assigned_to]` with
+  `@test_cases.as_json(include: { status: {}, priority: {}, assigned_to: { only: [:id, :login, :firstname,
+  :lastname] } })` — exactly the fix suggested in this bug's original report.
+- **Retest**: pulled the fix into the local plugin checkout (`C:\redmine v6\plugins\redmineflux_testcase_management`,
+  fast-forwarded `f10faff..acf042b`), restarted the MariaDB leg's Redmine container to reload it. Re-ran the
+  exact original repro: `GET /projects/1/get_testcases.json?subject=Login` — response's `assigned_to` is now
+  `{"id":1,"login":"admin","firstname":"Redmine","lastname":"Admin"}`, no `hashed_password`/`salt`/`twofa_*`
+  fields anywhere. Spot-checked a second testcase with a different assignee
+  (`{"id":6,"login":"mariadb_noperm","firstname":"NoPerm","lastname":"Tester"}`) — same safe shape, confirming
+  the fix isn't user-specific. `status`/`priority` objects still present and correctly shaped, confirming no
+  regression to the rest of the response.
+- **Production**: issue #129223 updated to Status Done, % done 100, per explicit user approval.
+- **Verdict: FIXED.** Moved to `bugs/closed/`.
+
 ## Note on ID assignment
 
 - Originally filed in this session as `BUG-TCM-174`, picked via a naive text-grep of the highest

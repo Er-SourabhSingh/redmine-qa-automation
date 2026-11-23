@@ -197,6 +197,11 @@ single-argument call) and `mcp` rebuilt clean, back to the real 1800 s default.
 configured; the tracer provider is the no-op `ProxyTracerProvider` — per RMCP-037, confirming no telemetry
 data leaves this server by default.
 
+**Result: PASS — executed 2026-11-23.** `pip list` inside the `mcp` container shows only
+`opentelemetry-api 1.45.2` — no `opentelemetry-sdk`, no exporter package. No `OTEL_EXPORTER_*` env var set.
+`trace.get_tracer_provider()` returns a `ProxyTracerProvider` (the SDK's no-op default) — confirms no
+telemetry data can leave this server by default, exactly as RMCP-037 states.
+
 ---
 
 ### TC-MCP-020: Same-origin redirect — `/mcp/` redirects to `/mcp` on the same host; `/mcp` itself returns 200 directly
@@ -209,6 +214,10 @@ data leaves this server by default.
 
 **Expected Result:** Step 1 returns `200` directly. Step 2 returns `307` redirecting to the same host's `/mcp`
 (not a different host, not an open redirect) — per RMCP-037's own "Pass" finding.
+
+**Result: PASS — executed 2026-11-23.** `POST /mcp` returned `200` directly. `POST /mcp/` returned
+`307 Temporary Redirect` with `Location: http://localhost:8082/mcp` — same host, same scheme, no open
+redirect.
 
 ---
 
@@ -223,6 +232,17 @@ data leaves this server by default.
 **Expected Result:** A deprecation notice is logged at start-up pointing to Streamable HTTP (per RMCP-038:
 "every SSE start logs a deprecation warning"); SSE itself still functions for at least one real call, since
 removing SSE is explicitly out of scope for this release.
+
+**Result: PASS — executed 2026-11-23.** The deprecation log line only fires in the `_run_sse` code path,
+which only runs when `REDMINEFLUX_TRANSPORT=sse` — this instance's default config runs
+`streamable-http`, so the code path (and the warning) never fires under normal operation. Temporarily set
+`REDMINEFLUX_TRANSPORT=sse` (`# QA-TEMP-TC-MCP-021` in `docker-compose.yml`), rebuilt `mcp`: startup logs
+showed `WARNING:redmineflux-mcp:SSE transport is deprecated in the MCP specification. It keeps working, but
+switch to REDMINEFLUX_TRANSPORT=streamable-http (clients connect to /mcp). See DEPLOYMENT.md.` Opened a real
+SSE stream (`GET /sse`), got an `event: endpoint` with a session id, `POST`ed `initialize` to
+`/messages/?session_id=...` and received a correct `serverInfo` response back over the open SSE stream —
+confirms SSE still functions for a real call. Reverted `REDMINEFLUX_TRANSPORT` back to `streamable-http`
+immediately after, rebuilt `mcp` clean, confirmed `/mcp` reachable again (`200`).
 
 ---
 
@@ -240,7 +260,18 @@ removing SSE is explicitly out of scope for this release.
 - Step 2: the server refuses to start with a clear message (per RMCP-035: "anything else stops the server at
   start with a clear message").
 
+**Result: PASS — executed 2026-11-23.** Step 1 (`https://example.com/icon.png`): `serverInfo.icons` returned
+`[{"mimeType":"image/png","src":"https://example.com/icon.png"}]` — correct type from the `.png` extension.
+Step 2 (`http://example.com/icon.png`, plain http): server crashed at start-up with
+`ValueError: REDMINEFLUX_ICON_URL must be an https:// URL, got: http://example.com/icon.png` — exactly the
+documented refusal. Both were temporary env toggles (`# QA-TEMP-TC-MCP-022` in `docker-compose.yml`); reverted
+to no `REDMINEFLUX_ICON_URL` afterward, rebuilt `mcp` clean, confirmed `/mcp` reachable again (`200`).
+
 ---
+
+**Section A summary:** 9 PASS (TC-MCP-013, 015, 016, 017, 018, 019, 020, 021, 022), 1 FAIL (TC-MCP-014, bug
+filed as BUG-MCP-004). All temporary env/source toggles used during execution (TC-015, 018, 021, 022) were
+reverted immediately after their test and confirmed clean before moving to the next TC.
 
 ## Section B — OAuth server-side mechanics (testable on this instance without Redmine's own Doorkeeper)
 

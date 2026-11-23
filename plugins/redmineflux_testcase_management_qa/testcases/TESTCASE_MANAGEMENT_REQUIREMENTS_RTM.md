@@ -1269,6 +1269,10 @@ bugs.**
 >   test-harness noise, not corrected via direct DB writes (per CLAUDE.md: real UI only for functional state).
 > - **TC-272, TC-305, TC-306** not independently attempted this leg — same precedent as other legs (Editor.js
 >   toolbar/block-picker and Tribute.js scripted-interaction friction).
-> - TC-307, TC-308, TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
+> - **TC-307** (content search, not title search): PASS — searching the body text "persistence test
+>   paragraph" returned exactly 1 search result (requirement #2, the fixture holding that paragraph);
+>   searching the title-only text "TC-TCM-112" returned 0 search results, matching the already-documented
+>   title-not-indexed behavior confirmed on the SQLite and MySQL legs.
+> - TC-308, TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
 > **Zero new bugs found on this leg so far.** Both anomalies above are transparently documented test-harness
 > interference, consistent with the precedent already established on the SQLite and MySQL legs.

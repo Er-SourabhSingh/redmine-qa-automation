@@ -1,3 +1,45 @@
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`),
+> project `happyflow-mariadb` (`project_id:1`). All 15 happy-flow RFTC016 TCs confirmed PASS, as `admin`
+> (genuine project member here — see RFTC-009's own same-leg finding):
+> - **RFTC016-1**: `automation_key`-match Passed (#20, key `test_login_invalid_password`) + numeric-id-match
+>   Failed (#21, auto-created defect #137) in one call — `2 matched, 0 unmatched`.
+> - **RFTC016-2 (SACRED)**: re-ingesting the same failure for #21 returned `defect_reused:true`, same defect
+>   #137, `defects.created: []`.
+> - **RFTC016-12/13**: `match_by: ['subject']` resolved "Login with valid credentials" cleanly to #19; the
+>   persisted `IssueStatusResult` row has `duration_ms=2500` in the structured column (DB-confirmed, not just
+>   the response claim).
+> - **RFTC016-14**: caller-supplied `defect_ids:"136"` with `auto_defect:false` accepted a real pre-existing
+>   defect — `defect_id:136`, created/reused both empty. **Methodology note (not a product bug):**
+>   `auto_defect` must be a **top-level** request field, not nested inside each result object — nesting it
+>   per-result silently falls back to the create-a-new-defect default (confirmed via 3 failed attempts before
+>   finding the correct shape); once moved to top level, behaved exactly as documented.
+> - **RFTC016-15**: `auto_defect:false` with no `defect_ids` for a different failed result (#26) → HTTP 200
+>   overall, that row skipped with a clear per-row error "A failed or blocked result requires a defect...",
+>   nothing written for it.
+> - **RFTC016-19**: `X-Redmine-API-Key` header auth succeeded (used for every call this leg).
+> - **RFTC016-22**: bootstrapped a run explicitly assigned to a *different* real project member
+>   (`assignee_id:5`, not admin) and ingested as admin anyway — succeeded, confirming assignee status is
+>   irrelevant to who may ingest.
+> - **RFTC016-24**: a generated, exactly-1000-element `results` array → HTTP 200, "Ingested 1000 results".
+> - **RFTC016-27**: one call with 5 submittable statuses (passed/failed/skipped/blocked/retest) → mapped
+>   exactly to `case_status_id` 2/3/6/5/4 respectively, matching this project's `case_statuses` table.
+> - **RFTC016-29 (SACRED/CRITICAL)**: Run A (#20) → defect #141 created for a failure on #26; Run B (#21,
+>   same testcase/environment) → a genuinely NEW defect #142 (not #141); re-ingesting in Run A → `defect_id:
+>   141, defect_reused:true`. Both halves hold simultaneously.
+> - **RFTC016-30**: (a) a `blocked` result with `auto_defect:true` auto-created a defect (#143). (b) one call
+>   spanning 2 suites (testsuite_ids 2, 3 against run #20) correctly grouped each result under its own suite,
+>   never cross-mapped.
+> - **RFTC016-31 (SACRED)**: bootstrapping a run across 2 suites that share a testcase did **not** itself
+>   produce the 2-`run_issue`-row precondition (`bootstrap_run.json` dedupes by issue id across suites, same
+>   as both other legs — BUG-TCM-097's fix holds); manually inserted the second `run_issues` row directly to
+>   create the genuine precondition. Without disambiguation → `unmatched`/`reason:"ambiguous_suite_membership"`;
+>   with an explicit `testsuite_id:6` → resolved cleanly to that suite. Fixture rows cleaned up after.
+> - **RFTC016-41/42**: bootstrapped a run with `CI`/`Chrome - Windows 11`/`Firefox - Linux` via
+>   `run_assignments` at bootstrap time, then fired 3 genuinely simultaneous background `curl` ingests (41)
+>   and the same 3 calls sequentially (42) — both DB-confirmed `{CI:1, Chrome:1, Firefox:1}` exactly for each
+>   of 2 different testcases, no cross-contamination either way.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC016-1 PASS — real `POST /testcase_ci/ingest_results.json` against run #5/env "CI": id-match passed
 > result recorded for issue #5, id-match failed result for issue #6 auto-created and linked defect #17.

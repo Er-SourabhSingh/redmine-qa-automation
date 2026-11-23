@@ -1277,6 +1277,14 @@ bugs.**
 >   (`navigator.clipboard.readText()` confirmed it); Export triggered a real PDF download ("TC-TCM-112
 >   happy-flow Requirement (MariaDB) EDITED.pdf"); Save's icon correctly carries `alt="save-icon"` —
 >   BUG-TCM-100 does not reproduce here either, consistent with the SQLite and MySQL legs.
-> - TC-310, TC-329–332 **not yet executed on this leg** — pending continuation.
+> - **TC-310** (link via the plain Issue Edit form, distinct from the context-menu path): PASS — linked issue
+>   #13 to the uncovered REQ "TC-TCM-124 happy-flow uncovered requirement (MariaDB)" via the Edit form's
+>   Requirements select (`#testcase_requirement`), confirmed by a real `requirement_issues` row
+>   (id=8, requirement_id=4, issue_id=13) after submit. Mid-session, a stray accidental click (user-side,
+>   not scripted) landed in the Subject field while it was mid-edit, truncating it to "TC-" and triggering an
+>   unplanned auto-submit — caught immediately via a DB check, corrected back to the original subject text
+>   through the same real Edit form before finishing the TC. Not a product bug — an operator slip caught and
+>   fixed within the same session.
+> - TC-329–332 **not yet executed on this leg** — pending continuation.
 > **Zero new bugs found on this leg so far.** Both anomalies above are transparently documented test-harness
 > interference, consistent with the precedent already established on the SQLite and MySQL legs.

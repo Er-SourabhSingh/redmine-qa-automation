@@ -640,6 +640,62 @@
   under one suite's tab left it **Untested** under the other suite's tab in the same run/environment — a genuine
   contradictory-status defect, which is why the bug was upgraded Medium→High.
 
+- **(2026-11-23) Several of this plugin's own REST endpoints require a request param at the TOP LEVEL of the
+  JSON body, not nested per-row — easy to get wrong by analogy with the sibling endpoints that do nest it.**
+  Confirmed by direct source read + live retry each time:
+  - `POST /testcase_ci/ingest_results.json`: `environment` and `auto_defect` must be top-level fields, not
+    inside each `results[]` entry — nesting `auto_defect` per-result silently falls back to the
+    create-a-new-defect default instead of honoring caller-supplied `defect_ids`.
+  - `POST /testcase_status_results/bulk_create.json`: `run_id` must be top-level, not inside each
+    `issue_status_results[]` entry — nesting it raises `ActiveRecord::RecordNotFound ("Couldn't find Run
+    without an ID")` inside the controller (a real 500, not a validation error). This endpoint also has no
+    `auto_defect` support at all (that flag only exists on the CI ingest endpoint) — a Failed/Blocked row here
+    always needs an explicit `defect_ids` value or it 422s with "Defect IDs cannot be blank for Issue ID N".
+  - `POST /testcase_mcp/update_test_suite.json` expects `test_suite_id` (snake, singular "suite"), not
+    `testsuite_id` — the create endpoint's own response body uses `testsuite_id`/`testsuite:{}`, which makes
+    the mismatch easy to miss when copying a field name from one call's response into the next call's request.
+  - `POST /testcase_mcp/case_statuses.json` expects `name` at the top level, not nested under a `case_status:`
+    key (unlike most other create endpoints in this plugin, which nest the resource).
+  - `POST /testcase_mcp/create_report.json`-style endpoint (`projects/:id/reports.json`) also expects `name`/
+    `report_type`/`run_ids` at the top level, not nested — and `report_type` must be the internal slug
+    (`summary`, `testcase`, `activity`, `tester_scorecard`, `requirement`, `overdue_run`), not the UI's display
+    label ("Testcase Summary" etc.) — sending the display label gets a clear `422` naming the valid slugs, so
+    it fails loud, not silent.
+- **(2026-11-23) `bootstrap_run.json` dedupes by issue id across the suites passed in one call — it does NOT
+  create one `run_issues` row per suite membership for a testcase that's in more than one of the bootstrapped
+  suites.** Confirmed via direct DB check: bootstrapping a run with two suites that share one testcase produces
+  exactly ONE `run_issues` row (under whichever suite the issue's membership is resolved first), not two. This
+  matches the already-documented precedent on other legs (BUG-TCM-097's fix holds) that `bootstrap_run.json`
+  itself no longer naturally produces the "testcase genuinely ambiguous between 2 suites in the same run"
+  precondition RFTC016-31 needs — a direct `INSERT INTO run_issues` (same technique already used for
+  RFTC-009's own suite-seeding workaround) is still the only way to construct that fixture for testing.
+  Re-bootstrapping an EXISTING run (`on_existing` default `reuse`) also does **not** re-sync newly-added suite
+  members into `run_issues` — adding a testcase to a suite after a run was bootstrapped from that suite
+  requires a manual `run_issues` row insert too, not just re-calling `bootstrap_run.json` again.
+- **(2026-11-23) `POST /testcase_mcp/copy_testcases_to_suite.json` (the JSON-API clone path) behaves
+  differently from the real UI's drag-and-drop "Copy here" action that D1 (TC-CASE-03-01's clone-stays-fixed
+  finding) was originally about** — the API path left the clone linked to BOTH the source and target suites
+  (`IssueTestSuite` rows for both), not singly-linked to just the target like the UI drag path. This was not
+  independently confirmed as a regression of D1 itself (different code path, not re-tested via the real UI
+  drag this round) — flag this distinction explicitly if a future session needs to re-verify D1's exact
+  guarantee via the API instead of the UI.
+- **(2026-11-23) BUG-TCM-159 (Critical, reported as production #129223): `GET
+  /projects/:id/get_testcases.json` (`RunsController#get_testcases_attribute`) leaks the assignee's full
+  `User` AR object — including `hashed_password`, `salt`, `twofa_totp_key` — via `render json: @test_cases,
+  include: [:assigned_to]` with no `:only`/`:except` scoping.** Only triggers when a returned testcase actually
+  has an assignee (the `assigned_to` key is simply absent from the JSON for unassigned testcases), which is
+  likely why this was missed on every other DB-engine leg's own earlier TC-API-06-02 pass — their quick
+  spot-check queries happened to return an unassigned testcase. **Pure Ruby/ActiveRecord serialization bug,
+  zero DB-engine dependency** — check this response shape on any future leg's own TC-API-06-02 run, regardless
+  of which engine, whenever the matched testcase has a real assignee.
+- **(2026-11-23) When picking the next `BUG-TCM-NNN` number, never trust a bare `grep -rhoE "BUG-TCM-[0-9]{3}"
+  | sort -u | tail`** — it matches ANY text occurrence of that pattern anywhere in the repo, including a stray
+  prose mention in an unrelated doc with no real bug file behind it (this session's own near-miss: a lone
+  "BUG-TCM-173" reference inside `TESTCASE_MANAGEMENT_SECURITY_REVIEW_121640.md`, apparently a typo/slip from
+  an earlier session, caused 159–173 to look "taken" when they were genuinely free). Always cross-check against
+  the real files in `bugs/open/` and `bugs/closed/` before assigning a number — same discipline as §4a's
+  TC-ID-numbering rule, just for bug IDs instead of test-case IDs.
+
 ## Confirmed Working
 
 - **Daily/overdue run reminder emails (`ReminderWorker`) intentionally go ONLY to the per-environment Assignee,

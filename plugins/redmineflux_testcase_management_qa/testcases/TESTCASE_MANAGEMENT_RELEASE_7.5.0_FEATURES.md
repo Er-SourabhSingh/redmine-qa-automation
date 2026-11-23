@@ -1,3 +1,30 @@
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`),
+> project `happyflow-mariadb` (`project_id:1`). Executed all 9 TCs against real data.
+> - **TC-367/368/369 — all PASS.** Run #18 ("RFTC009 Struct2 Run (MariaDB)", real mixed results) shows the
+>   embedded "Results Summary" panel reading "2 Passed / 5 Failed / 1 Blocked / 1 Retest / 1 Skipped out of 10
+>   total", exactly matching the grid, with the donut chart rendering alongside.
+> - **TC-370/371 — PASS.** Clicked "Export JPG Report": a real file download fired
+>   (`RFTC009-Struct2-Run-MariaDB_CI_2026-11-23.jpg`), confirming the export works cleanly against MariaDB.
+> - **TC-372 — PASS (entry point 1: "New Step" on the full `/issues/N/edit` page).** On Testcase #21, typed
+>   real multi-line text into both Step and Expected, submitted. Reload confirmed
+>   `<p>Line one of step<br>\nLine two of step<br>\nLine three of step</p>` — line breaks preserved, DB-confirmed
+>   genuine `\r\n` (0D0A hex) stored, not literal text.
+> - **TC-373 — PASS (entry point 2: inline show-page edit toggle, `onclick="showAndScrollTo('update',
+>   'issue_notes')"`, distinct from navigating to `/edit`).** Edited Testcase #21's existing Step 1 in place
+>   with new multi-line text — persisted correctly, matching the documented scenario exactly (editing an
+>   existing step, not adding a new one). **Methodology note (not a bug):** separately found that adding a
+>   *brand-new* step with a **blank Expected field** silently fails to persist (200 OK, no error, nothing
+>   written) — but this reproduces identically via the plain `/edit` page too (confirmed on a fresh issue),
+>   so it is a general app behavior unrelated to this entry point, outside TC-373's documented scope (which
+>   always fills both fields), and not pursued further as a bug.
+> - **TC-374 — PASS (entry point 3: the new Issue CREATE form).** Created Testcase #148 via
+>   `/projects/happyflow-mariadb/issues/new` with Tracker switched to Testcase, used its own "New Step" button
+>   with a multi-line Step/Expected pair — DB-confirmed persisted on the newly-created issue.
+> - **TC-375 — PASS.** Confirmed the 40,000-char cap at the model/validation layer: a 39,970-char `Step` value
+>   is `valid?` with zero errors; 40,001 chars yields `["Exceeds the maximum length of 40000 characters"]` —
+>   boundary holds exactly, consistent with other legs.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (SQLite) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-sqlite` (`localhost:3021`). Executed all 9 TCs against real data, closing this leg's previous zero-coverage gap.
 >
 > - **TC-TCM-367/368/369 — all PASS.** Run #3 ("SQLite Happy-Flow Run 3", real pre-existing mixed results)

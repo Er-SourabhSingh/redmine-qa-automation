@@ -109,8 +109,21 @@
 >   with genuine timestamps. Slow Tests — real automation timing data (13 ms), unlike the "no timing data
 >   yet" seen on other legs (this leg has automation-submitted timing results). Most Failed Tests — real
 >   failure-rate ranking (50.0% shown for one case).
-> Remaining TCs in this group (087, 088, 089, 091, 092, 093, 094, 096, 098, 100, 103, 107, 108, 109, 110) —
-> in progress.
+> - **TC-087** (restrict to run #1 only): PASS — report #1 restricted to "MariaDB Core CRUD Run" only via the
+>   real checkbox form, confirmed the detail breakdown showed only that run's testcase, zero other runs mixed
+>   in.
+> - **TC-088** (edit): PASS — renamed report #1, "successfully" confirmation shown, new name reflected in the
+>   list.
+> - **TC-089** (delete): PASS — created a disposable report, deleted it via the real "Delete?" confirmation
+>   modal, "Report was successfully deleted" shown, removed from the list.
+> - **TC-091** (reflects new data): PASS — noted run #5's "Firefox on Linux" row showed "Untested"; submitted a
+>   fresh Passed result for issue #1 on that run/environment via the real **Add Result popup** (clicking the
+>   status link in the run grid, not a constructed URL — run #1 itself turned out to be closed and correctly
+>   rejected a submission with "You cannot edit this run, because it is closed", and Failed/Blocked statuses
+>   correctly require a Defect ID — both genuine validation behaviors, not bugs); reloading report #1
+>   immediately showed that same row flip from "Untested" to "Passed" with the exact submission timestamp
+>   (2026-11-23 07:03:00 UTC) — confirms the report is a live query, not a static snapshot.
+> Remaining TCs in this group (092, 093, 094, 096, 098, 100, 103, 107, 108, 109, 110) — in progress.
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >

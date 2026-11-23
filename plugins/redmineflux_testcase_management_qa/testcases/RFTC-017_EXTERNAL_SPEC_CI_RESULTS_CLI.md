@@ -82,6 +82,29 @@ genuine `pyproject.toml` packaging gap.
 
 > 🟢 **HAPPY-FLOW** — part of the cross-DB (SQLite/PostgreSQL/MySQL) regression suite. See `TESTCASE_MANAGEMENT_HAPPY_FLOW_CROSS_DB.md`.
 >
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`),
+> project `happyflow-mariadb` (`project_id:1`). All 3 happy-flow RFTC017 TCs confirmed PASS, via a real
+> `pip install -e .` of the `redmineflux-tcm-ci` checkout (copied to a space-free path, `C:\tcm-ci-cli-mariadb`
+> — same Docker bind-mount constraint as other legs) inside a disposable `python:3.11-slim` container reaching
+> the server via `host.docker.internal:3023`:
+> - **`bootstrap` (RFTC017-2):** `Run created: id=24 suites=[3] reused=False` via a real `bootstrap_run.json`
+>   call, exit 0.
+> - **`ingest` (RFTC017-3):** against run #24, a real 2-test JUnit XML (1 pass via automation key
+>   `test_login_valid`, 1 failure via `test_login_invalid_password`) — first attempt without `--auto-defect`
+>   correctly surfaced the server's own "defect required" rejection as `1 matched, 0 unmatched` with
+>   **exit 1**; with `--auto-defect` → `Ingested 2 results (2 matched, 0 unmatched)`, defect #144 auto-created
+>   (DB-confirmed via `execution_defects`), exit 0 — confirms the CLI's auto-defect flag is a real
+>   pass-through, not a no-op.
+> - **`submit` (RFTC017-1):** a real 3-test JUnit XML + a `cases` mapping JSON (`{name: {testcase_id,
+>   testsuite_id}}`, scoped to issues genuinely in the bootstrapped run's own suite — a mapping entry for an
+>   issue not in the run's `run_issues` is correctly rejected with "Issue ID N is not associated with run N",
+>   not silently accepted) against a fresh run (#25) — `Parsed 3 JUnit testcases: 2 mapped, 1 unmatched`
+>   (correctly reported, not silently dropped), a real defect (#147) auto-created for the failing test,
+>   `bulk_create` succeeded, exit 0.
+> **Zero new bugs found on this leg.** Disposable container cleaned up after; the space-free checkout copy
+> was left on disk outside this repo (harness safety check declined the broad `rm -rf`) — safe to remove
+> manually.
+
 > **CROSS-DB (MySQL) — 2026-11-19:** happy-flow pass, `redmine6-happyflow-mysql` (`localhost:3022`), project
 > `happy-flow-mysql` (`project_id:1`). All 3 happy-flow RFTC017 TCs confirmed PASS, via a real `pip install -e .`
 > of the `redmineflux-tcm-ci` checkout (`C:\redmine v6\plugins\redmineflux-tcm-ci`, copied to a space-free path

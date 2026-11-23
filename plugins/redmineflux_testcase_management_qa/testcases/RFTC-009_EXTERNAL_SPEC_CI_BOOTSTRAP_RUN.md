@@ -1,3 +1,24 @@
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass, `redmine6-happyflow-mariadb` (`localhost:3023`),
+> project `happyflow-mariadb` (`project_id:1`). All 5 happy-flow RFTC009 TCs confirmed PASS, as `admin`
+> (genuine project member here, unlike the MySQL/SQLite legs — `members` table confirmed admin's row):
+> - **U1/U3/U9**: `testcase_selection: "all"` created run #15, CI default auto-applied, assignee defaulted to
+>   the caller (`assignee_id:1`).
+> - **U5/U6/U7**: `on_existing` default (`reuse`) → same run #15 both times, `reused:false` then `reused:true`.
+>   `"error"` → 422 "A run named '...' already exists in this project." `"suffix"` → a new run (#16) named
+>   with a `" #2"` suffix.
+> - **Struct1**: 3 environments (`CI`/`Staging`/`Production`) in one `run_assignments` array (each needing an
+>   explicit `assignee_id:1` — a bare `{environment:...}` entry without one is correctly rejected with "Every
+>   run assignee must be a project member who can execute test cases") → DB-confirmed `run_assignments` table
+>   shows all 3 environments independently seeded for run #17.
+> - **Struct2**: 3 existing suites in one call (`testcase_selection:"suites"`, array of suite names) →
+>   `testsuite_ids:[1,2,3]`, each name correctly mapped to its own suite id, no cross-mapping — this leg
+>   already had real cases in each named suite, so no DB-insert tooling workaround was needed (unlike the
+>   MySQL leg).
+> - **E1**: one `ingest_results.json` call submitting a Passed (issue #19) and a Failed-with-defect (issue #4,
+>   auto-created defect #136 on a prior probe call, correctly reused here — `defect_reused:true`) together →
+>   both results written in the same response.
+> **Zero new bugs found on this leg.**
+
 > **CROSS-DB (PostgreSQL) — 2026-11-16:** happy-flow pass, `redmine6-happyflow-pg` (`localhost:3020`).
 > RFTC009-U1 PASS — real `POST /testcase_ci/bootstrap_run.json` call (API key, no Jenkins needed) with
 > `testcase_selection: "all"` created run #5, auto-created environment "CI", returned

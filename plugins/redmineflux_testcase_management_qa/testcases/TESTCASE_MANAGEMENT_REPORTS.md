@@ -128,7 +128,16 @@
 > - **TC-096** (list sort/pagination): corrected-premise PASS, same as other legs — column headers are plain
 >   text, not sortable links, and with only 8 reports total the list never exceeds one page; nothing to
 >   exercise, not a defect.
-> Remaining TCs in this group (098, 100, 103, 107, 108, 109, 110) — in progress.
+> - **TC-098** (email HTML attachment) + **TC-103** (multiple recipients): PASS together — one report emailed
+>   with 2 addresses (one per line) delivered (via Mailpit at `localhost:8030`) to both specified recipients
+>   plus the creator's own account (`[+2]` shown), with a real `.html` attachment
+>   ("TC-TCM-098 Email HTML test (MariaDB).html").
+> - **TC-100** (email PDF attachment): **BLOCKED — same missing Node.js/Puppeteer prerequisite as other legs**
+>   (confirmed via `docker exec ... which node` on both the Redmine and Sidekiq containers → not found). The
+>   attempt instead exercised **TC-101-equivalent (PDF failure must not produce a misleading email) — PASS**:
+>   the delivered email body explicitly said *"The PDF version of this report could not be generated, so an
+>   HTML version is attached instead"*.
+> Remaining TCs in this group (107, 108, 109, 110) — in progress.
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >

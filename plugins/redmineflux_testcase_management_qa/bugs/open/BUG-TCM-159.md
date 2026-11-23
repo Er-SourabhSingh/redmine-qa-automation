@@ -1,6 +1,6 @@
 # Bug Report Template
 
-- Bug ID: BUG-TCM-174
+- Bug ID: BUG-TCM-159
 - Production Redmine Issue ID: <!-- to be filled after report, pending user approval -->
 - Title: `GET /projects/:id/get_testcases.json` leaks the assignee's `hashed_password` and `salt` in the JSON response
 - Redmine version: 6.0.12.stable
@@ -63,3 +63,11 @@ No screenshot — pure API finding, not a UI defect.
   was about this controller's sibling `get_testcases` ignoring pagination, a performance issue — unrelated
   code path, different defect class).
 - Existing bug reference (if duplicate): —
+
+## Note on ID assignment
+
+- Originally filed in this session as `BUG-TCM-174`, picked via a naive text-grep of the highest
+  `BUG-TCM-NNN` substring anywhere in the repo. That grep matched a **lone prose mention** of
+  "BUG-TCM-173" inside `testcases/TESTCASE_MANAGEMENT_SECURITY_REVIEW_121640.md` (a stray/typo reference,
+  no actual bug file ever existed for 159–173) — not a real filed bug. Corrected to **159**, the genuine
+  next number after the last real file (`bugs/*/BUG-TCM-158.md`), per user correction 2026-11-23.

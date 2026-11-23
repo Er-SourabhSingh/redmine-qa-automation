@@ -123,7 +123,12 @@
 >   correctly require a Defect ID — both genuine validation behaviors, not bugs); reloading report #1
 >   immediately showed that same row flip from "Untested" to "Passed" with the exact submission timestamp
 >   (2026-11-23 07:03:00 UTC) — confirms the report is a live query, not a static snapshot.
-> Remaining TCs in this group (092, 093, 094, 096, 098, 100, 103, 107, 108, 109, 110) — in progress.
+> - **TC-092/093/094** (Download HTML/PDF/Excel): all PASS — real file downloads captured via Playwright's
+>   download event (`report-1.html`, `report-1.pdf`, `report_1.xlsx`) via the real download-dropdown menu.
+> - **TC-096** (list sort/pagination): corrected-premise PASS, same as other legs — column headers are plain
+>   text, not sortable links, and with only 8 reports total the list never exceeds one page; nothing to
+>   exercise, not a defect.
+> Remaining TCs in this group (098, 100, 103, 107, 108, 109, 110) — in progress.
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >

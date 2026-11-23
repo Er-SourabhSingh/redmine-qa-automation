@@ -292,6 +292,14 @@ reverted immediately after their test and confirmed clean before moving to the n
 **Expected Result:** `401`, with a `WWW-Authenticate: Bearer resource_metadata="...", scope="..."` header — per
 RMCP-038's "401 challenge" behavior.
 
+**Result: PARTIAL FAIL — BUG-MCP-005 filed.** `401` returned correctly in both the no-credentials case
+(`WWW-Authenticate: Bearer resource_metadata="http://localhost:8082/.well-known/oauth-protected-resource"`)
+and the invalid-bearer-token case (adds `error="invalid_token"` and `error_description="..."` correctly). But
+neither case ever includes `scope="..."`, even with `REDMINEFLUX_OAUTH_SCOPES="redmine:api"` configured —
+root-caused to `oauth.py`'s `challenge()` never reading `self.config.oauth_scopes` at all. The
+`resource_metadata`/`error`/`error_description` parts of this TC all PASS; only the `scope` part is missing —
+filed as BUG-MCP-005 rather than failing the whole TC silently.
+
 ---
 
 ### TC-MCP-024: Discovery documents are served at every documented path
@@ -307,6 +315,18 @@ RMCP-038's "401 challenge" behavior.
 (not Redmine's), and the endpoints listed are this server's own `/mcp/oauth/authorize`, `/token`, `/register`,
 `/revoke`, `/callback` — per the 2026-11-12 revision's "sign in with only the server address" design (the MCP
 server is the only OAuth client Redmine knows; it is the issuer for every client).
+
+**Result: PASS — executed 2026-11-23.** All 5 documented forms returned `200` with valid metadata once
+`REDMINEFLUX_PUBLIC_URL` was set correctly to include the `/mcp` path (`http://localhost:8082/mcp` — an
+earlier attempt with just `http://localhost:8082`, no path, caused the `/mcp`-suffixed/prefixed forms to 401;
+this was this test's own misconfiguration, not a product defect — `oauth.py`'s `document_for()` derives the
+accepted path set from `public_url`'s own path component, so a `public_url` with no path collapses all three
+forms into one, exactly per `DEPLOYMENT.md`'s own documented requirement that `REDMINEFLUX_PUBLIC_URL` include
+`/mcp`). Protected-resource metadata: `resource`/`authorization_servers` both `http://localhost:8082/mcp`
+(this server's own address, not Redmine's). Authorization-server metadata: `issuer`
+`http://localhost:8082/mcp`, `authorization_endpoint`/`token_endpoint`/`registration_endpoint`/
+`revocation_endpoint` all under this server's own `/mcp/oauth/*` — confirms the MCP server is the sole OAuth
+client Redmine knows, exactly per the "sign in with only the server address" design.
 
 ---
 
@@ -324,6 +344,14 @@ loopback ... plus hosted callbacks: claude.ai, claude.com, vscode.dev, insiders.
 redirect URI yields the same client id both times (HMAC-signed, stable across restarts); registration is
 otherwise open and stateless.
 
+**Result: PASS — executed 2026-11-23.** `POST /mcp/oauth/register` with `http://localhost:51234/callback`
+(loopback) twice returned the exact same `client_id` both times (`rfx.eyJuIjoiQUkgY2xpZW50...`), confirming
+HMAC-signed, input-derived stability — no server-side storage needed. `POST ... ` with
+`https://claude.ai/api/mcp/auth_callback` (hosted redirect) was accepted with a different, correctly-derived
+`client_id`. Both responses carried `token_endpoint_auth_method: "none"`, `grant_types:
+["authorization_code","refresh_token"]`, `response_types: ["code"]`, `scope: "redmine:api"` — matches the
+public-client, open-registration design.
+
 ---
 
 ### TC-MCP-026: `/mcp/register` refuses an untrusted, non-loopback redirect URI
@@ -337,6 +365,12 @@ otherwise open and stateless.
 **Expected Result:** Registration is refused — matches ticket #128313's own acceptance criterion ("Given a
 callback address that is not on the user's computer and not trusted, when a client tries to register it, then
 registration is refused").
+
+**Result: PASS — executed 2026-11-23.** `POST /mcp/oauth/register` with `https://evil.example.com/callback`
+returned `400` with `{"error": "invalid_redirect_uri", "error_description": "Only addresses on this computer
+(http://localhost or http://127.0.0.1) or a trusted client callback are accepted. Ask your administrator to
+add it to REDMINEFLUX_OAUTH_REDIRECT_URIS: https://evil.example.com/callback"}` — refused with a clear,
+actionable, specific message naming the exact fix.
 
 ---
 
@@ -353,6 +387,13 @@ registration is refused").
 **Expected Result:** Both are refused **without any redirect** — per the spec: "never redirects for a bad
 client or URI." This specific validation step happens before the server would forward the browser to
 Redmine's own `/oauth/authorize`, so it is testable here even without Redmine 6.1's Doorkeeper.
+
+**Result: PASS — executed 2026-11-23.** Both cases returned `400 Bad Request` directly (no `Location` header,
+no 3xx status) — confirming "never redirects for a bad client or URI." Forged client id: a plain-language HTML
+page, "This AI client is not registered with this server. Remove it and add the server again." Mismatched
+redirect URI (valid client id, wrong `redirect_uri`): "The sign-in request came back to an address this AI
+client did not register." Both are clear, human-readable refusals rather than a bare error code or a silent
+redirect to an attacker-controlled URI.
 
 ---
 
@@ -371,7 +412,23 @@ the actual failure mode observed (404 from Redmine, a clear upstream error from 
 this is expected to fail at the Redmine boundary, not before it; a failure earlier than this (e.g. the client
 id or PKCE being wrongly rejected) would itself be a bug.
 
+**Result: PASS — executed 2026-11-23.** With a fully valid, registered client id, matching redirect URI, valid
+PKCE `code_challenge` (S256) and `response_type=code`, the server correctly passed its own validation and
+returned `302 Found` with `Location: http://localhost:3015/oauth/authorize?client_id=...&redirect_uri=...&
+response_type=code&scope=redmine%3Aapi&state=...&code_challenge=...&code_challenge_method=S256` — a
+well-formed redirect to Redmine's own `/oauth/authorize`, confirming the server got exactly as far as the
+Redmine boundary and no further. Following that URL directly against Redmine 6.0 confirmed it genuinely
+doesn't exist (`404`) — exactly the expected failure mode on this instance, not an earlier/premature rejection
+of the client id, redirect, or PKCE. This is the precise boundary documented in the suite's own "Known
+environment gap" section; the actual browser-to-Redmine round trip (Section C) requires Redmine 6.1+.
+
 ---
+
+**Section B summary:** 5 PASS (TC-MCP-024, 025, 026, 027, 028), 1 PARTIAL FAIL (TC-MCP-023 — 401 challenge's
+`resource_metadata`/`error` parts PASS, `scope` part missing, filed as BUG-MCP-005). All temporary OAuth env
+settings (`REDMINEFLUX_OAUTH_ENABLED`, `REDMINEFLUX_PUBLIC_URL`, `REDMINEFLUX_OAUTH_REDMINE_URL`,
+`REDMINEFLUX_OAUTH_CLIENT_ID`/`_SECRET`, `REDMINEFLUX_OAUTH_SCOPES`) were temporary test toggles in
+`docker-compose.yml` (`# QA-TEMP-TC-MCP-023..028`) — reverted immediately after this section, before Section C.
 
 ## Section C — Full OAuth sign-in end-to-end (BLOCKED — requires Redmine 6.1+)
 

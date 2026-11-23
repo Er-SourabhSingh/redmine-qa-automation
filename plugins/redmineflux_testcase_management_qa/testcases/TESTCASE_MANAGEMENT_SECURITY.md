@@ -198,8 +198,20 @@ a future input-robustness pass).
 > (`af084b8cb6a12e69f7b6a4e6a293cfc0c409b6fe`): HTTP-Basic-key-as-username → `201 Created` (testsuite #27); the
 > `?key=` URL-param variant → `201 Created` (testsuite #28). Server log confirmed `Current user: admin (id=1)`
 > for both requests; grepped the full container log for `Filter chain halted` since these two requests — zero
-> hits. PASS, zero new bugs. This closes the last remaining gap in the plugin's happy-flow cross-DB regression
-> suite — every 🟢 HAPPY-FLOW TC across every suite file now has genuine evidence on all three DB-engine legs.
+> hits. PASS, zero new bugs.
+>
+> **Correction (2026-11-23):** the line above ("this closes the last remaining gap... every HAPPY-FLOW TC now
+> has genuine evidence on all three DB-engine legs") was wrong — a later audit found this exact TC (TC-TCM-278)
+> had never actually been run on the PostgreSQL leg. Closed properly below.
+>
+> **CROSS-DB (PostgreSQL) — 2026-11-23:** happy-flow gap-check, `redmine6-happyflow-pg` (`localhost:3020`),
+> project `happyflow-pg`. Re-verified both variants against `test_suites.json` with a freshly-generated admin
+> API key (`ac81e5998663c95b8fd20c4e552df7ca23632070`): HTTP-Basic-key-as-username → `201 Created` (testsuite
+> #19); the `?key=` URL-param variant → `201 Created` (testsuite #20). Server log confirmed `Current user:
+> admin (id=1)` for both requests; grepped the full container log for `Filter chain halted` — zero hits. PASS,
+> zero new bugs. This closes the genuinely last remaining gap in the plugin's happy-flow cross-DB regression
+> suite — every 🟢 HAPPY-FLOW TC across every suite file now has real evidence on all three DB-engine legs
+> (SQLite/PostgreSQL/MySQL).
 
 ---
 

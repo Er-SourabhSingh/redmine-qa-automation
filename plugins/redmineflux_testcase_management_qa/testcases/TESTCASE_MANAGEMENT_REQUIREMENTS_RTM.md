@@ -1285,6 +1285,15 @@ bugs.**
 >   unplanned auto-submit — caught immediately via a DB check, corrected back to the original subject text
 >   through the same real Edit form before finishing the TC. Not a product bug — an operator slip caught and
 >   fixed within the same session.
-> - TC-329–332 **not yet executed on this leg** — pending continuation.
+> - **TC-329/330/331/332** (Requirement Templates CRUD + apply-at-creation): all 4 PASS. Created
+>   "TC-TCM-329 happy-flow Requirement Template (MariaDB)" with bold content via real `Ctrl+B`
+>   (`TEMPLATE-MARKER-rtpl-mariad<b>b bold-me-this</b>`); edited (renamed to "... EDITED", appended
+>   " EDITED-APPEND" inside the bold run), confirmed genuine server persistence on a fresh
+>   `/requirement_templates/1/edit` reload; selected it while creating "TC-TCM-332 happy-flow Requirement
+>   from Template (MariaDB)" — the new requirement's content exactly matched the template's HTML
+>   (`TEMPLATE-MARKER-rtpl-mariad<b>b bold-me-this EDITED-APPEND</b>`) on a fresh reload; deleted the template
+>   via the real "Delete Requirement Template?" confirmation modal, list returned to "No data to display".
+> **Zero new bugs found on this leg.** All remaining Requirements/RTM happy-flow TCs for this leg are now
+> complete (TC-269, 271 (documented friction), 307, 308, 310, 329–332).
 > **Zero new bugs found on this leg so far.** Both anomalies above are transparently documented test-harness
 > interference, consistent with the precedent already established on the SQLite and MySQL legs.

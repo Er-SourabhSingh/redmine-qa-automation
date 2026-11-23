@@ -1,7 +1,7 @@
 # BUG-MCP-005
 
 - Bug ID: BUG-MCP-005
-- Production Redmine Issue ID: —
+- Production Redmine Issue ID: #129247 (reported, assigned to Prashant Chaurasia)
 - Title: 401 challenge's `WWW-Authenticate` header never includes `scope="..."`, even though RMCP-038's own spec requires it and `REDMINEFLUX_OAUTH_SCOPES` is configured
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: Redmineflux MCP Server (`redmineflux-mcp`'s `src/oauth.py`, OAuth sign-in feature, production ticket #128313 / RMCP-038)

@@ -77,14 +77,23 @@ strings off this server.
 
 **Expected Result:** `ttl_ms: 300000` and `cache_scope: "public"` present on the response, per RMCP-035.
 
-**Result: FAIL — BUG-MCP-004 filed.** The `tools/list` response body has no caching field anywhere (checked
-the complete raw response, not a truncated preview); the HTTP headers show only the generic SSE
+**Result: FAIL (2026-11-23) — BUG-MCP-004 filed.** The `tools/list` response body has no caching field anywhere
+(checked the complete raw response, not a truncated preview); the HTTP headers show only the generic SSE
 `cache-control: no-cache, no-transform` (unrelated to the TTL). Also tried `server/discover` (the hint's other
 documented method) — it doesn't exist (`-32601 Method not found`). Root-caused to the installed SDK (`mcp`
 2.3.0, correctly within the ticket's own required range) storing `self.cache_hints` but never reading it back
 anywhere in the package to attach it to a response. The local code's own construction of the hint
 (`_server_identity()` in `src/server.py`) is correct and type-matches the SDK's constructor signature exactly
 — the gap is entirely inside the SDK's own incomplete wiring, not this plugin's code.
+
+**Retest: PASS — executed 2026-11-23 (same day), redmineflux-mcp commit `b782e62` (1.1.14, RMCP-053).**
+Developer's fix: the SDK-level `ttlMs`/`cacheScope` fields belong to the 2026-07-28 MCP protocol only, which
+the SDK strips for 2025-era connections (2025-06-18, 2025-11-25) — every current client. The server now also
+places the hint in the result's `_meta`, which every protocol version carries:
+`"_meta": {"com.redmineflux/cache": {"ttlMs": 300000, "cacheScope": "public"}}` on `tools/list`. Pulled the fix,
+rebuilt `mcp`, confirmed directly: `tools/list` on all three protocol versions (`2025-06-18`, `2025-11-25`,
+`2026-07-28`) now carries `_meta."com.redmineflux/cache": {"ttlMs":300000,"cacheScope":"public"}`; with
+`REDMINEFLUX_TOOL_LIST_CACHE_SECONDS=0` the hint is correctly absent. **CONFIRMED FIXED — BUG-MCP-004 closed.**
 
 ---
 
@@ -269,9 +278,9 @@ to no `REDMINEFLUX_ICON_URL` afterward, rebuilt `mcp` clean, confirmed `/mcp` re
 
 ---
 
-**Section A summary:** 9 PASS (TC-MCP-013, 015, 016, 017, 018, 019, 020, 021, 022), 1 FAIL (TC-MCP-014, bug
-filed as BUG-MCP-004). All temporary env/source toggles used during execution (TC-015, 018, 021, 022) were
-reverted immediately after their test and confirmed clean before moving to the next TC.
+**Section A summary:** 10/10 PASS as of the 2026-11-23 retest (TC-MCP-014 initially FAIL/BUG-MCP-004, now
+CONFIRMED FIXED and retested PASS same day). All temporary env/source toggles used during execution (TC-015,
+018, 021, 022) were reverted immediately after their test and confirmed clean before moving to the next TC.
 
 ## Section B — OAuth server-side mechanics (testable on this instance without Redmine's own Doorkeeper)
 
@@ -292,13 +301,23 @@ reverted immediately after their test and confirmed clean before moving to the n
 **Expected Result:** `401`, with a `WWW-Authenticate: Bearer resource_metadata="...", scope="..."` header — per
 RMCP-038's "401 challenge" behavior.
 
-**Result: PARTIAL FAIL — BUG-MCP-005 filed.** `401` returned correctly in both the no-credentials case
-(`WWW-Authenticate: Bearer resource_metadata="http://localhost:8082/.well-known/oauth-protected-resource"`)
+**Result: PARTIAL FAIL (2026-11-23) — BUG-MCP-005 filed.** `401` returned correctly in both the no-credentials
+case (`WWW-Authenticate: Bearer resource_metadata="http://localhost:8082/.well-known/oauth-protected-resource"`)
 and the invalid-bearer-token case (adds `error="invalid_token"` and `error_description="..."` correctly). But
 neither case ever includes `scope="..."`, even with `REDMINEFLUX_OAUTH_SCOPES="redmine:api"` configured —
 root-caused to `oauth.py`'s `challenge()` never reading `self.config.oauth_scopes` at all. The
 `resource_metadata`/`error`/`error_description` parts of this TC all PASS; only the `scope` part is missing —
 filed as BUG-MCP-005 rather than failing the whole TC silently.
+
+**Retest: PASS — executed 2026-11-23 (same day), redmineflux-mcp commit `b782e62` (1.1.14, RMCP-053).**
+Developer's fix: both 401 challenges now end with `scope="..."`, holding the same scopes the metadata
+documents publish as `scopes_supported` (`REDMINEFLUX_OAUTH_SCOPES` when set, otherwise role-derived scopes).
+Pulled the fix, rebuilt `mcp` with OAuth temporarily re-enabled (`REDMINEFLUX_OAUTH_SCOPES="redmine:api"`),
+confirmed directly: no-credentials case now returns `WWW-Authenticate: Bearer resource_metadata="...",
+scope="redmine:api"`; invalid-token case now returns `Bearer error="invalid_token",
+error_description="...", resource_metadata="...", scope="redmine:api"`. **CONFIRMED FIXED — BUG-MCP-005
+closed.** OAuth settings reverted to baseline immediately after (OAuth off), rebuilt clean, confirmed
+API-key auth still works.
 
 ---
 
@@ -424,11 +443,11 @@ environment gap" section; the actual browser-to-Redmine round trip (Section C) r
 
 ---
 
-**Section B summary:** 5 PASS (TC-MCP-024, 025, 026, 027, 028), 1 PARTIAL FAIL (TC-MCP-023 — 401 challenge's
-`resource_metadata`/`error` parts PASS, `scope` part missing, filed as BUG-MCP-005). All temporary OAuth env
-settings (`REDMINEFLUX_OAUTH_ENABLED`, `REDMINEFLUX_PUBLIC_URL`, `REDMINEFLUX_OAUTH_REDMINE_URL`,
+**Section B summary:** 6/6 PASS as of the 2026-11-23 retest (TC-MCP-023 initially PARTIAL FAIL/BUG-MCP-005,
+now CONFIRMED FIXED and retested PASS same day). All temporary OAuth env settings
+(`REDMINEFLUX_OAUTH_ENABLED`, `REDMINEFLUX_PUBLIC_URL`, `REDMINEFLUX_OAUTH_REDMINE_URL`,
 `REDMINEFLUX_OAUTH_CLIENT_ID`/`_SECRET`, `REDMINEFLUX_OAUTH_SCOPES`) were temporary test toggles in
-`docker-compose.yml` (`# QA-TEMP-TC-MCP-023..028`) — reverted immediately after this section, before Section C.
+`docker-compose.yml` — reverted immediately after both the original execution and the retest.
 
 ## Section C — Full OAuth sign-in end-to-end (BLOCKED — requires Redmine 6.1+)
 

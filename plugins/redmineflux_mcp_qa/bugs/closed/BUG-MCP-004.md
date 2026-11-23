@@ -1,4 +1,13 @@
-# Bug Report Template
+# BUG-MCP-004
+
+**Status: CLOSED 2026-11-23 — CONFIRMED FIXED.** Developer fix `RMCP-053` ("401 challenge names the scopes;
+tool-list cache hint in `_meta`", redmineflux-mcp commit `b782e62`, 1.1.14) pulled and rebuilt onto the local
+`mcp` Docker service (`crux_development` branch). Retested TC-MCP-014's exact repro: `tools/list` now carries
+`_meta."com.redmineflux/cache": {"ttlMs": 300000, "cacheScope": "public"}` on all three protocol versions
+(`2025-06-18`, `2025-11-25`, `2026-07-28`) — the fix moved the hint into `_meta` (carried by every protocol
+version) instead of top-level `ttlMs`/`cacheScope` fields (a 2026-07-28-only convention the SDK strips from
+2025-era connections, which is what every current client — including this one — uses). Confirmed
+`REDMINEFLUX_TOOL_LIST_CACHE_SECONDS=0` still correctly disables the hint.
 
 - Bug ID: BUG-MCP-004
 - Production Redmine Issue ID: #129246 — "BUG-MCP-004: tool-list caching hint (RMCP-035) never attached to tools/list responses" (reported, assigned to Prashant Chaurasia)

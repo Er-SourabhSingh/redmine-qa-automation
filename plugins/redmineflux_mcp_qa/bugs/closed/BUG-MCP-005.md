@@ -1,5 +1,13 @@
 # BUG-MCP-005
 
+**Status: CLOSED 2026-11-23 — CONFIRMED FIXED.** Developer fix `RMCP-053` ("401 challenge names the scopes;
+tool-list cache hint in `_meta`", redmineflux-mcp commit `b782e62`, 1.1.14) pulled and rebuilt onto the local
+`mcp` Docker service (`crux_development` branch). Retested TC-MCP-023's exact repro with OAuth temporarily
+re-enabled (`REDMINEFLUX_OAUTH_SCOPES="redmine:api"`): both the no-credentials 401
+(`WWW-Authenticate: Bearer resource_metadata="...", scope="redmine:api"`) and the invalid-token 401
+(`Bearer error="invalid_token", error_description="...", resource_metadata="...", scope="redmine:api"`) now
+carry the `scope="..."` parameter. OAuth settings reverted to baseline immediately after.
+
 - Bug ID: BUG-MCP-005
 - Production Redmine Issue ID: #129247 — "BUG-MCP-005: 401 challenge's WWW-Authenticate header never includes scope=\"...\"" (reported, assigned to Prashant Chaurasia)
 - Title: 401 challenge's `WWW-Authenticate` header never includes `scope="..."`, even though RMCP-038's own spec requires it and `REDMINEFLUX_OAUTH_SCOPES` is configured

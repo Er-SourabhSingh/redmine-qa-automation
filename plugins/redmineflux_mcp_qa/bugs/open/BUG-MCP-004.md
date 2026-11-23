@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-MCP-004
-- Production Redmine Issue ID: #129246 (reported, assigned to Prashant Chaurasia)
+- Production Redmine Issue ID: #129246 — "BUG-MCP-004: tool-list caching hint (RMCP-035) never attached to tools/list responses" (reported, assigned to Prashant Chaurasia)
 - Title: Tool-list caching hint (RMCP-035) is never actually attached to `tools/list` responses — `cache_hints` is stored on the SDK server instance but never read anywhere in the installed MCP SDK (2.3.0); `server/discover` (the hint's other documented method) doesn't exist as a method at all
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux-mcp (MCP Server, SDK 2.x upgrade feature RMCP-035, production ticket #128313)

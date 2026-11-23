@@ -96,6 +96,22 @@
 > **Zero new bugs found on this leg.** The only environment-dependent gap (TC-100, Node/Puppeteer missing) is
 > the same pre-existing, already-documented infrastructure gap as other legs, not a new finding.
 
+> **CROSS-DB (MariaDB) — 2026-11-23:** happy-flow pass in progress, `redmine6-happyflow-mariadb`
+> (`localhost:3023`), project `happyflow-mariadb`.
+> - **TC-078/079/080/082/083/085/316/317** (one report of each of the 8 types): all PASS. Testcase Summary —
+>   real status breakdown (Passed 11, Failed 7, Untested 38, Blocked 1) with per-run tables. Defect Summary —
+>   real per-run defect bar charts and a genuine defect table ("CI failure: test_apply_discount_code").
+>   Activity Summary — correct date-range subtitle `[01/11/2026 - 23/11/2026]`. Tester Scorecard — real
+>   per-assignee completion/pass-rate table. Requirement Coverage — "No data to display", confirmed via DB
+>   (`requirement_issues` JOIN `issue_status_results`) this is genuinely correct for this leg: neither
+>   requirement-linked issue (#16, #13) has ever had a run result recorded — not a defect, just this leg's
+>   fixture state differing from the MySQL leg's by chance. Overdue Run Summary — real overdue-results table
+>   with genuine timestamps. Slow Tests — real automation timing data (13 ms), unlike the "no timing data
+>   yet" seen on other legs (this leg has automation-submitted timing results). Most Failed Tests — real
+>   failure-rate ranking (50.0% shown for one case).
+> Remaining TCs in this group (087, 088, 089, 091, 092, 093, 094, 096, 098, 100, 103, 107, 108, 109, 110) —
+> in progress.
+
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >
 > **Status: authored 2026-09-14, fully regressed 2026-10-23.** TC-TCM-098 – 526 carry live evidence from the

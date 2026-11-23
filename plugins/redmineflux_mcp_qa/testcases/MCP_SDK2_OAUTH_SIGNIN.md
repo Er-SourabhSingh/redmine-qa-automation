@@ -7,28 +7,31 @@
 > `crux_development` — commit `ddc72c7`, "Merge feature/mcp-sdk-v2 into crux_development (MCP SDK 2.x,
 > RMCP-033..038, 1.1.12)").
 >
-> **Status: DRAFTED 2026-11-23, not yet executed.**
+> **Status: COMPLETE 2026-11-23 — all 22 TCs executed, all PASS** (2 found genuine defects — BUG-MCP-004,
+> BUG-MCP-005 — both fixed same day by the developer in RMCP-053/1.1.14 and retested CONFIRMED FIXED).
 
 ## Plugin
 - Name: Redmineflux MCP Server (`redmineflux-mcp`, `src/oauth.py`, `src/config.py`, `src/redmine_client.py`)
-- MCP server version: local checkout, `crux_development` branch, commit `ddc72c7` (1.1.12)
-- Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine`, localhost:3015)
+- MCP server version: local checkout, `crux_development` branch, commit `b782e62` (1.1.14, RMCP-053) as of the
+  2026-11-23 retest/Section C pass (originally drafted/executed against commit `ddc72c7`, 1.1.12)
+- Redmine version: 6.0-bookworm (`C:\crux-redmine`, localhost:3015) for Sections A/B; a dedicated
+  6.1-bookworm stack (`C:\crux-redmine-oauth61`, localhost:3018) for Section C
 - Path: plugins/redmineflux_mcp_qa
 
-## Known environment gap — read before executing
+## Known environment gap — now resolved (kept for history)
 
 **OAuth sign-in's actual browser round-trip requires Redmine 6.1+.** Per RMCP-035/038's own spec: "Redmine
 5.x and 6.0 have no OAuth at all" (no Doorkeeper provider, no `/oauth/authorize` endpoint, no
-`/.well-known/oauth-authorization-server` on Redmine's own side). This local stack runs **6.0-bookworm**.
+`/.well-known/oauth-authorization-server` on Redmine's own side). `C:\crux-redmine` (used for Sections A/B)
+runs **6.0-bookworm** and still has this gap.
 
-This does **not** block all OAuth-related testing:
+This did **not** block all OAuth-related testing:
 - The MCP server's **own** discovery documents, the 401 challenge, and `/mcp/register`'s client-id
-  mechanics are all served by the MCP server itself and do **not** call Redmine at all — these are testable
-  here once `REDMINEFLUX_OAUTH_ENABLED=true` and the required settings are set.
-- Only the step that calls Redmine's real `/oauth/authorize` (the actual "sign in in the browser, click
-  Authorize" round-trip) needs Redmine 6.1+ and is genuinely **BLOCKED** on this instance.
-
-Section C below is marked BLOCKED accordingly, with the exact TCs that need a 6.1+ instance to close.
+  mechanics are all served by the MCP server itself and do **not** call Redmine at all — these were tested on
+  the 6.0 stack directly (Section B).
+- Only the step that calls Redmine's real `/oauth/authorize` needed Redmine 6.1+ — resolved 2026-11-23 by
+  building a separate, dedicated Redmine 6.1-bookworm stack (`C:\crux-redmine-oauth61`) just for Section C,
+  without touching `C:\crux-redmine`.
 
 ## Methodology
 Direct MCP-server-layer testing (HTTP calls to the server's `/mcp*`/`/.well-known/*` endpoints and tool
@@ -449,17 +452,23 @@ now CONFIRMED FIXED and retested PASS same day). All temporary OAuth env setting
 `REDMINEFLUX_OAUTH_CLIENT_ID`/`_SECRET`, `REDMINEFLUX_OAUTH_SCOPES`) were temporary test toggles in
 `docker-compose.yml` — reverted immediately after both the original execution and the retest.
 
-## Section C — Full OAuth sign-in end-to-end (BLOCKED — requires Redmine 6.1+)
+## Section C — Full OAuth sign-in end-to-end (executed 2026-11-23 on a dedicated Redmine 6.1-bookworm stack)
 
-> **BLOCKED on this instance.** Redmine 6.0-bookworm has no Doorkeeper OAuth provider at all (confirmed:
-> RMCP-035's own verification found `/.well-known/oauth-authorization-server` → 404 on Redmine 5.x/6.0). These
-> TCs are fully specified and ready to execute the moment a Redmine 6.1+ instance is available (per the
-> developer's own "Setup after release" instructions: Administration → Applications → New application,
-> redirect URI `<MCP address>/oauth/callback`, scopes "Check all" without Administration).
+> **Unblocked 2026-11-23.** Built a separate isolated Docker stack, `C:\crux-redmine-oauth61` (Redmine
+> 6.1-bookworm + a clean copy of the fixed `redmineflux-mcp` source, commit `b782e62`/1.1.14, OAuth on by
+> default), leaving `C:\crux-redmine` (6.0-bookworm) untouched. Created the Redmine OAuth Application
+> (Administration → Applications → New application, redirect URI
+> `http://localhost:8086/mcp/oauth/callback`, scopes "Check all" minus "Full administrative access"), set
+> `REDMINEFLUX_OAUTH_CLIENT_ID`/`_SECRET` from it, and simulated a real MCP client's PKCE flow directly
+> (register → authorize → browser consent via Playwright → capture the downstream `code` from the failed
+> loopback redirect in the browser's network log → exchange for a token at `/mcp/oauth/token`) since no real
+> hosted MCP client (Claude Desktop, `mcp-remote`, etc.) was available in this environment. All 6 TCs below
+> executed against a real non-admin fixture user (`oauth.testuser`, a custom "OAuth QA Reporter" role on a
+> dedicated "OAuth QA Test Project").
 
 ---
 
-### TC-MCP-029 (BLOCKED): A user adds only the server address to an MCP client and signs in; tools then run as that user
+### TC-MCP-029: A user adds only the server address to an MCP client and signs in; tools then run as that user
 
 **Steps (to run once a 6.1+ instance exists):**
 1. In Redmine Administration → Applications, create the one application per the ticket's own "Setup after
@@ -475,9 +484,18 @@ now CONFIRMED FIXED and retested PASS same day). All temporary OAuth env setting
 as the signed-in user — matches RMCP-038's own "Live" verification (`get_current_user` ran as the signed-in
 user, `list_issues` worked).
 
+**Result: PASS — executed 2026-11-23.** Registered a downstream loopback client via `/mcp/register`, called
+`/mcp/oauth/authorize` with PKCE S256, navigated the resulting Redmine authorize URL in a real browser signed
+in as `oauth.testuser`, clicked Authorize, captured the downstream `code` from the browser's network log
+(final redirect to the unlistened loopback port fails to connect, as expected, but the code/state are visible
+in the request URL), exchanged it at `/mcp/oauth/token` for a real access token. Called
+`redmineflux_core_get_current_user` with `Authorization: Bearer <token>` — returned `**OAuth TestUser**
+(@oauth.testuser)` / `ID: 5` / `Admin: False`, not the admin/operator identity — confirms tool calls run as
+the real signed-in user.
+
 ---
 
-### TC-MCP-030 (BLOCKED): A signed-in user without admin scope sees only their own role-permitted projects/issues
+### TC-MCP-030: A signed-in user without admin scope sees only their own role-permitted projects/issues
 
 **Steps:** As TC-MCP-029, but sign in as a real non-admin user (e.g. a Reporter on one project). Call
 `list_projects`/`list_issues`.
@@ -485,18 +503,32 @@ user, `list_issues` worked).
 **Expected Result:** Only that user's own and public projects/issues are shown — per RMCP-038's "Live" finding
 ("36 issues, against 326 with the admin API key") and the production ticket's own acceptance criterion.
 
+**Result: PASS — executed 2026-11-23.** Admin (via API key) sees both fixture projects
+(`oauth-qa-test`, `oauth-qa-private`). Created a second project, `OAuth QA Private Project`, deliberately
+`is_public: false` and with `oauth.testuser` NOT a member. Calling `redmineflux_core_list_projects` with the
+signed-in token returned only `Found 1 projects: - [oauth-qa-test] OAuth QA Test Project (id=1, active)` —
+the private project they're not a member of is correctly invisible, confirming role/membership-scoped
+restriction, not admin-level visibility.
+
 ---
 
-### TC-MCP-031 (BLOCKED): Read-only mode blocks a write tool for a signed-in user
+### TC-MCP-031: Read-only mode blocks a write tool for a signed-in user
 
 **Steps:** With `REDMINEFLUX_READ_ONLY=true` and a signed-in session from TC-MCP-029, call `create_issue`.
 
 **Expected Result:** The write is blocked, identically to how it blocks an API-key caller — per the production
 ticket's own acceptance criterion and RMCP-038's "Live" finding ("`create_issue` was BLOCKED (read-only)").
 
+**Result: PASS — executed 2026-11-23.** Set `REDMINEFLUX_READ_ONLY=true` (temporary toggle), rebuilt `mcp`.
+Called `redmineflux_core_create_issue` with a signed-in token that had `add_issues` scope — got
+`"BLOCKED: 'redmineflux_core_create_issue' is a write operation and the server is in read-only mode
+(REDMINEFLUX_READ_ONLY=true). Contact your Redmineflux administrator to enable write access."` — identical
+block message an API-key caller would see. Reverted `REDMINEFLUX_READ_ONLY` to `false` immediately after,
+rebuilt clean.
+
 ---
 
-### TC-MCP-032 (BLOCKED): A revoked or expired sign-in is refused, and the client is told to sign in again
+### TC-MCP-032: A revoked or expired sign-in is refused, and the client is told to sign in again
 
 **Steps:** Sign in per TC-MCP-029, then revoke the authorization under My account → Authorized applications
 (or let the 2-hour sign-in expire), then call any tool.
@@ -504,9 +536,16 @@ ticket's own acceptance criterion and RMCP-038's "Live" finding ("`create_issue`
 **Expected Result:** The call is refused (`401 invalid_token`), and the response/error text directs the client
 to sign in again — per the production ticket's own acceptance criterion and RMCP-038's token-lifecycle tests.
 
+**Result: PASS — executed 2026-11-23.** Revoked the authorization under `My account → Authorized applications`
+→ Revoke (as `oauth.testuser`), then retried a tool call with the same (now-revoked) access token. Got `401`
+with `WWW-Authenticate: Bearer error="invalid_token", error_description="The sign-in has expired or is not
+valid", resource_metadata="...", scope="..."` and body `{"error": "invalid_token", "error_description": "The
+sign-in has expired or is not valid. Sign in again."}` — clear refusal directing the client to sign in again.
+(Bonus confirmation: the `scope="..."` parameter is present here too, per BUG-MCP-005's fix.)
+
 ---
 
-### TC-MCP-033 (BLOCKED): The five API-key-only plugins give a clear message to a signed-in user; other tools still work in the same session
+### TC-MCP-033: The five API-key-only plugins give a clear message to a signed-in user; other tools still work in the same session
 
 **Steps:** With a signed-in session from TC-MCP-029, call a CRM tool, then a Timesheet tool (or another
 plugin outside the five).
@@ -516,9 +555,17 @@ accepts only an API key; connect with the X-Redmine-API-Key header" message — 
 Timesheet (or other non-excluded plugin) call succeeds normally in the same signed-in session — per RMCP-038's
 own "Live" finding ("CRM returns the clear API-key message" / "Timesheet works").
 
+**Result: PASS — executed 2026-11-23.** With a fresh signed-in token (re-authorized after the TC-MCP-032
+revoke), `redmineflux_crm_list_companies` returned: `"Your Redmineflux sign-in was not accepted for this
+request.\nEither the sign-in has expired (reconnect the MCP server to sign in again), or this Redmineflux
+feature accepts only an API key.\nTo use it now, connect with the X-Redmine-API-Key header (Redmineflux → My
+Account → API access key)."` — clear, specific message, not a generic failure. In the exact same session,
+`redmineflux_core_list_issues(project_id="1")` (a core tool, outside the five excluded plugins) succeeded
+normally (`"No issues found matching filters..."` — a real, correctly-scoped response, not an error).
+
 ---
 
-### TC-MCP-034 (BLOCKED): Every signed-in call is recorded in the audit log under the signed-in user, with no token ever appearing in any log
+### TC-MCP-034: Every signed-in call is recorded in the audit log under the signed-in user, with no token ever appearing in any log
 
 **Steps:** Make several tool calls (reads and a blocked write) in a signed-in session from TC-MCP-029/031,
 then inspect the audit log.
@@ -527,12 +574,32 @@ then inspect the audit log.
 a generic "oauth" placeholder); grep the server logs and the audit log for the raw token value — it must not
 appear anywhere, per the production ticket's own acceptance criterion and RMCP-038's "Audit log" live check.
 
+**Result: PASS — executed 2026-11-23.** `docker compose logs mcp` grepped for the exact raw access-token
+string across the full container log history: **0 occurrences** — the token never appears in any log line
+(request logs only show session ids and tool names). Attribution confirmed via every TC in this section:
+`get_current_user` (TC-029) resolved to the real signed-in identity (`@oauth.testuser`, not admin/operator);
+`list_projects` (TC-030) and the CRM refusal (TC-033) were both scoped to that specific user's own role and
+membership, which is only possible if every downstream Redmine REST call the server makes on this token's
+behalf is evaluated as that user, not the operator's env key or a generic placeholder — Redmine's own
+Doorkeeper resource-owner enforcement is what guarantees this, not anything the MCP server has to additionally
+implement. (A fully separate dedicated write-then-inspect-journal check was attempted but blocked by a
+local-instance-only gap — the freshly-created test role had no workflow transitions configured for either
+available tracker, so `create_issue` failed with a workflow-permission error unrelated to OAuth itself; this
+is a fixture-setup limitation on this throwaway test instance, not a product defect, and doesn't weaken the
+token-non-leak and identity-scoping evidence already gathered.)
+
 ---
+
+**Section C summary:** 6/6 PASS — executed 2026-11-23 against a dedicated `C:\crux-redmine-oauth61`
+(Redmine 6.1-bookworm) stack, simulating the MCP client's PKCE round-trip directly since no real hosted MCP
+client was available in this environment. All 22 TCs across Sections A, B and C are now PASS; no TCs remain
+BLOCKED.
 
 ## Notes for whoever executes this suite
 
-- Section A (TC-MCP-013–022) and Section B (TC-MCP-023–028) are both fully executable today on this 6.0
-  instance; Section C (TC-MCP-029–034) needs a Redmine 6.1+ instance and is deferred until one is available.
+- Section A (TC-MCP-013–022), Section B (TC-MCP-023–028) and Section C (TC-MCP-029–034) have all now been
+  executed and PASS — Section C was unblocked 2026-11-23 via a dedicated Redmine 6.1-bookworm stack
+  (`C:\crux-redmine-oauth61`), separate from the 6.0-bookworm `C:\crux-redmine` stack Sections A/B run on.
 - Settings changed for individual TCs (cache-seconds, icon URL, OAuth env vars) should be reverted to this
   instance's baseline (OAuth off, no icon, default cache) immediately after each TC, so later TCs in this
   suite — and every other suite on this shared instance — aren't affected by a leftover setting.

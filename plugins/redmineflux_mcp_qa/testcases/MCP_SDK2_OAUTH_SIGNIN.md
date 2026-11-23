@@ -56,6 +56,15 @@ the loop, every result verified against the server's own response or Redmine's o
 `website_url` `https://www.redmineflux.com` — per RMCP-035, sent regardless of protocol version. No `icons`
 field by default (no `REDMINEFLUX_ICON_URL` set).
 
+**Result: PASS — executed 2026-11-23.** Direct `initialize` calls (protocol `2024-11-05` and `2025-06-18`)
+both returned identical `serverInfo`: `title: "Redmineflux MCP Server"`, `description: "Connects AI assistants
+to Redmineflux: projects, issues, time, and the installed Redmineflux plugins, with each user's own
+Redmineflux permissions."`, `websiteUrl: "https://www.redmineflux.com"`, `version: "1.1.12"`, no `icons` field
+(default, `REDMINEFLUX_ICON_URL` unset). Minor unrelated observation: `version` has no `+<commit>` suffix even
+though `server.py`'s own code appends one when `BUILD_COMMIT != "unknown"` — this build's `BUILD_COMMIT` is
+apparently `"unknown"`, not itself a defect in this feature, just worth noting for whoever reads version
+strings off this server.
+
 ---
 
 ### TC-MCP-014: Tool-list caching hint defaults to 5 minutes, public scope
@@ -67,6 +76,15 @@ field by default (no `REDMINEFLUX_ICON_URL` set).
 2. Inspect the response for a caching hint.
 
 **Expected Result:** `ttl_ms: 300000` and `cache_scope: "public"` present on the response, per RMCP-035.
+
+**Result: FAIL — BUG-MCP-004 filed.** The `tools/list` response body has no caching field anywhere (checked
+the complete raw response, not a truncated preview); the HTTP headers show only the generic SSE
+`cache-control: no-cache, no-transform` (unrelated to the TTL). Also tried `server/discover` (the hint's other
+documented method) — it doesn't exist (`-32601 Method not found`). Root-caused to the installed SDK (`mcp`
+2.3.0, correctly within the ticket's own required range) storing `self.cache_hints` but never reading it back
+anywhere in the package to attach it to a response. The local code's own construction of the hint
+(`_server_identity()` in `src/server.py`) is correct and type-matches the SDK's constructor signature exactly
+— the gap is entirely inside the SDK's own incomplete wiring, not this plugin's code.
 
 ---
 
@@ -84,6 +102,14 @@ field by default (no `REDMINEFLUX_ICON_URL` set).
 - Step 2: the server refuses to start, with a clear message naming the bad setting (per RMCP-035: "a negative
   value is refused").
 
+**Result: PASS — executed 2026-11-23.** `=0`: clean start, server reachable, `tools/list` works (no hint
+present either way, per BUG-MCP-004 — not a regression specific to this value). `=-5`: server crashed at
+start-up with `ValueError: REDMINEFLUX_TOOL_LIST_CACHE_SECONDS must be 0 or more`, exactly the documented
+message, container exited and restarted in a crash loop until the setting was reverted. Setting reverted to
+default (line removed from `docker-compose.yml`), `mcp` restarted clean. This TC validates the **config
+parsing/validation** half of RMCP-035 independently of BUG-MCP-004 (which is about the SDK never acting on a
+*valid* config) — both halves PASS/FAIL independently and don't contradict each other.
+
 ---
 
 ### TC-MCP-016: Existing API-key client — every tool still works exactly as before the SDK 2.x upgrade
@@ -100,6 +126,11 @@ field by default (no `REDMINEFLUX_ICON_URL` set).
 **Expected Result:** No change in tool names, arguments or results — matches ticket #128313's own first
 acceptance criterion ("existing API-key client ... all tools work exactly as before").
 
+**Result: PASS — executed 2026-11-23.** Direct `redmineflux_core_get_current_user` call via admin's own API key
+against the upgraded (SDK 2.x) server returned the exact same response shape and content used throughout this
+session's earlier TCs (`**Redmine Admin** (@admin)` / `ID: 1` / `Email: admin@example.net` / `Admin: True` /
+`Created: ...`) — no change in tool name, argument shape, or result text vs. pre-upgrade behavior.
+
 ---
 
 ### TC-MCP-017: Tool error messages stay clear and specific (SDK 2.x hides them by default)
@@ -113,6 +144,11 @@ issue id, per this plugin's own established "If you expected this ... to exist, 
 **Expected Result:** The error text is the plugin's own specific, actionable message — not a generic SDK-level
 error or a swallowed/blank error, confirming the server re-implements clear errors on SDK 2.x per RMCP-033's
 own stated goal.
+
+**Result: PASS — executed 2026-11-23.** `redmineflux_core_get_issue(issue_id=999999999)` returned `isError:
+true` with a clear, specific message — "Issue #999999999 not found" plus likely reasons and next-step guidance
+— not a generic SDK-level error or a blank/swallowed message. Confirms clear, actionable tool errors survived
+the SDK 2.x upgrade.
 
 ---
 
@@ -130,6 +166,22 @@ forced override unless necessary).
 **Expected Result:** The old session is closed server-side (404 on the old session id, visible in logs); the
 client opens a new session itself and the second call succeeds cleanly — no error surfaced to the end user,
 per RMCP-037's own "Pass" finding.
+
+**Result: PASS — executed 2026-11-23.** This instance's code never exposes `session_idle_timeout` as a config
+setting at all (confirmed via `grep` — zero matches for `idle` in `config.py`, zero matches for
+`session_idle_timeout`/`StreamableHTTPSessionManager(` in `server.py`; the SDK's own real default is 1800 s /
+30 min). To test the actual behavior without a 30-minute real-time wait, made a temporary,
+clearly-commented-only source edit (`# QA-TEMP-TC-MCP-018`) passing `session_idle_timeout=5` to the one call
+site building the Starlette app (`server.streamable_http_app(...)`), mirroring RMCP-037's own documented test
+methodology ("the real server with the idle timeout set to 5 s") — **not** an edit to the developer's actual
+feature logic, purely a test harness toggle on an already-accepted SDK parameter. Rebuilt `mcp` with this
+patch, then: opened a session (`initialize` → session id A), idled 7 s, called a tool with session id A →
+server correctly returned `{"error":{"code":-32600,"message":"Session not found"}}` (the documented
+404-equivalent refusal). Opened a fresh session (session id B) and called the same tool immediately →
+succeeded cleanly (`redmineflux_core_get_current_user` returned the correct admin identity), confirming a
+client can reconnect transparently with no user-facing error. **Patch reverted immediately after this test**
+(`session_idle_timeout=5` and the `QA-TEMP-TC-MCP-018` comment removed, restored to the original
+single-argument call) and `mcp` rebuilt clean, back to the real 1800 s default.
 
 ---
 

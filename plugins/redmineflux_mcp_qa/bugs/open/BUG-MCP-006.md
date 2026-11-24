@@ -1,7 +1,7 @@
 # BUG-MCP-006
 
 - Bug ID: BUG-MCP-006
-- Production Redmine Issue ID: —
+- Production Redmine Issue ID: #129327 — "BUG-MCP-006: devops/gantt plugin auto-detection silently fails on a Redmine instance with zero projects" (reported, assigned to Prashant Chaurasia)
 - Title: Plugin auto-detection silently fails for `devops` and `gantt` on a Redmine instance with zero projects — their probe's project-scoped fallback has no project id to retry with
 - Redmine version: 6.0-bookworm (local Docker, `C:\crux-redmine-mcp-binary`, localhost:3016)
 - Plugin name: Redmineflux MCP Server — Nuitka-compiled binary distribution (`feature/nuitka-compile` branch build), `redmineflux-mcp` v1.0.14 (commit `d9c1e8ce7152`)

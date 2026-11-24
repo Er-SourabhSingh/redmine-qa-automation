@@ -413,9 +413,30 @@ re-scoped to Keep/Kept-answers instead), delete-a-chat/Stop-while-answering/file
 design), edit/delete-a-Work-Package-from-chat/custom-pipeline-in-chat (not built), auto-approved gates (not
 built), Bedrock provider (disabled), graph milestones in gate evidence (always empty for now).
 
+## Part 4 — Cross-Version / Cross-Database Compatibility (drafted + executed 2026-11-24)
+
+Not one of `CRUX_FEATURES_LIST.md`'s 30 documented features — a separate axis (install/migrate correctness
+across Redmine version + DB adapter combinations the main `crux-redmine6` stack, Postgres-only, doesn't cover),
+per explicit user request. Listed here so "is anything uncovered" checks also surface this axis, not just
+feature coverage.
+
+| # | Combination | Suite | TC Range | Suite Verdict |
+|---|---|---|---|---|
+| C1 | Redmine 5.1-bookworm + SQLite3 | `CRUX_COMPATIBILITY_INSTALL.md` | TC-CRX-1091, 1093 | EXECUTED 2026-11-24 — 2/2 PASS, 0 bugs |
+| C2 | Redmine 7.0-bookworm + MySQL 8.0 | `CRUX_COMPATIBILITY_INSTALL.md` | TC-CRX-1092, 1094 | EXECUTED 2026-11-24 — 2/2 PASS, 0 bugs |
+
+**Total: 4/4 TCs executed 2026-11-24, 4/4 PASS, 0 bugs.** Both plugin migrations (`CreateCruxCapabilityField`,
+`RemoveUnusedCruxCapabilityField`) confirmed clean on SQLite3 and real MySQL (not just the main stack's
+Postgres), on both Redmine 5.x and Redmine 7.x (the latter running a meaningfully newer Rails 8.1.4/Ruby 4.0.9
+runtime vs. the main stack's Rails 6.1/Ruby 3.2) — no SQL errors, no Ruby/Rails incompatibility, core UI
+(login, top menu, dashboard, plugin listing) renders cleanly on both. One setup-only environment gotcha found
+and resolved on both fresh stacks (Crux Settings' Core service URL defaulting to `localhost` instead of the
+Docker-internal address) — not filed as a defect, same already-documented class as `TC-MCP-042`.
+
 ## References
 
 - [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md)
 - [`CRUX_FEATURES_LIST.md`](CRUX_FEATURES_LIST.md)
 - [`bugs/_index.md`](../bugs/_index.md)
 - `testcases/old_suites/CRUX_*.md` (16 historical source files, Redmine 7.0.0 cycle) + `testcases/CRUX_*.md` (new Redmine 6 cycle)
+- `testcases/CRUX_COMPATIBILITY_INSTALL.md` (cross-version/cross-DB compatibility, Part 4 above)

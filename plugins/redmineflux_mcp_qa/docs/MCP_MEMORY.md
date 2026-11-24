@@ -4,6 +4,20 @@
 
 ## Known Quirks
 
+- **Helpdesk SLA "breached" status has two independent code paths that can disagree if Sidekiq isn't running.**
+  `redmineflux_helpdesk_dashboard`'s per-ticket badge reads `RfIssueSlaStatus#sla_health_status`, which checks
+  the live deadline (`seconds_remaining <= 0`) in addition to the `response_breached`/`resolution_breached` DB
+  columns. `get_sla_status`, `sla_analytics`, and `list_tickets(sla=...)` read *only* those DB columns. The
+  columns are set *exclusively* by `Helpdesk::SlaMonitorWorker`, a Sidekiq job scheduled every 2 minutes
+  (`config/sidekiq.yml`) — never by any request-time code. **`C:\crux-redmine`'s `docker-compose.yml` has no
+  Sidekiq service at all**, so on this stack those columns never get set, and a ticket whose deadline has
+  passed will show "breached" on `dashboard` but "not breached" on every other SLA tool — looks exactly like a
+  bug (filed once as BUG-MCP-006 — no, BUG-MCP-007 — then closed as not-a-bug after independently starting
+  Sidekiq and confirming it resolves within one 2-minute cycle). **Before concluding dashboard-vs-other-tool SLA
+  figures disagree, start Sidekiq manually first** (`bundle exec sidekiq -r ./config/environment.rb -q helpdesk
+  -q helpdesk_emails -q mailers -q default`, run from `/usr/src/redmine` inside the `redmine` container — note
+  `config/sidekiq.yml` lives under the *plugin's* own `config/`, not the app root's, but Sidekiq still finds and
+  loads it automatically once the Rails app boots) and wait ~2 minutes before treating a mismatch as real.
 - **A helpdesk customer's organization can only be set at `create_customer` time; no MCP tool can change it
   afterward.** `update_customer` doesn't expose `rf_organization_id` at all, and `update_project_customer`'s own
   `rf_organization_id` parameter is silently ignored by design — `apply_package_aware_attrs` always re-derives
@@ -46,7 +60,8 @@
 
 - **#129311 (Testcase Management tool coverage, 66→100 tools) and #129322 (Helpdesk tool coverage, 77→87
   tools) — both fully confirmed, 2026-11-24.** See `testcases/MCP_TESTCASE_MANAGEMENT_TOOL_COVERAGE.md`
-  (18/18 PASS) and `testcases/MCP_HELPDESK_TOOL_COVERAGE_V2.md` (16/17 PASS, 1 bug — BUG-MCP-007). Tool counts
+  (18/18 PASS) and `testcases/MCP_HELPDESK_TOOL_COVERAGE_V2.md` (17/17 PASS — the initial BUG-MCP-007 finding
+  was root-caused to a missing Sidekiq worker and closed as not-a-bug, see below). Tool counts
   live-verified exact against each ticket's own acceptance criterion.
 - Milestone full lifecycle (create/rename/close/reopen/delete), exploratory sessions (full lifecycle +
   closed-session lock), Run Comparison, Automation Dashboard, Most Failed/Slow/Flaky, Quality HQ, Testcase
@@ -61,10 +76,8 @@
 
 ## Recurring Issues
 
-- **BUG-MCP-007** (open, Medium, 2026-11-24): Helpdesk `dashboard` tool's per-ticket "SLA breached" badge
-  disagrees with its own aggregate SLA counter and with `get_sla_status`/`sla_analytics`/`list_tickets
-  (sla="breached")`, all of which agree on zero breaches. Isolated to that one tool's per-ticket badge
-  computation (likely a naive "deadline is in the past" check with no first-response/pause awareness).
+- (none open currently — BUG-MCP-007, the Helpdesk `dashboard` SLA-badge "mismatch," was closed 2026-11-24 as
+  not-a-bug; see the Sidekiq-dependency Known Quirk above.)
 
 ## Environment Notes
 

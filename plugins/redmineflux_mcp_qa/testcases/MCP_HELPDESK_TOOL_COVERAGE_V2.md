@@ -1,6 +1,8 @@
 # Test Suite — MCP Server: Helpdesk Full Tool Coverage, Round 2 (production #129322)
 
-> **Status: COMPLETE 2026-11-24 — all 17 TCs executed, 16/17 PASS, 1 bug found (BUG-MCP-007, open).**
+> **Status: COMPLETE 2026-11-24 — all 17 TCs executed, 17/17 PASS.** (TC-MCP-074 initially looked like 1 bug —
+> BUG-MCP-007 — but was root-caused and closed as NOT A BUG, a missing Sidekiq worker in the test environment,
+> not an MCP/plugin defect; see TC-MCP-074's own Result for the full verification.)
 >
 > Source: production ticket **#129322** ("MCP Server: Complete Helpdesk plugin tool coverage"), status In QA,
 > done 90%. Implemented as:
@@ -64,14 +66,21 @@
 **Expected Result:** Ticket cards, breakdown by priority/status, top organizations, agent workload and SLA
 health all match the underlying data; figures internally consistent with the tool's own aggregate SLA counter.
 
-**Result: PASS, with one bug found (BUG-MCP-007).** Figures matched reality for everything *except* one thing:
-the summary line correctly read `"SLA: 3 tracked | breached 0 | ... compliance 100.0%"`, but the same response's
-`Latest tickets` section tagged two of those same tickets (#178, #28) with `"· SLA breached"` — directly
-contradicting the tool's own aggregate count and three other independent SLA tools
-(`get_sla_status`, `sla_analytics`, `list_tickets(sla="breached")`), all of which agree on zero breaches for
-both tickets. Filed as **BUG-MCP-007** (Medium — misleading per-ticket badge only, the real SLA math is
-correct everywhere else). Everything else in the dashboard (ticket counts by status/priority, agent workload,
-customer/org/product counts) matched the data exactly.
+**Result: PASS.** Initially looked like a mismatch and was filed as BUG-MCP-007: the summary line correctly read
+`"SLA: 3 tracked | breached 0 | ... compliance 100.0%"`, but the same response's `Latest tickets` section tagged
+two of those same tickets (#178, #28) with `"· SLA breached"` — contradicting the tool's own aggregate count and
+three other independent SLA tools (`get_sla_status`, `sla_analytics`, `list_tickets(sla="breached")`), which all
+agreed on zero breaches at the time. **Root-caused and closed as NOT A BUG** (environment issue, fully
+re-verified, not just taken on the developer's word): `dashboard`'s badge reads
+`RfIssueSlaStatus#sla_health_status`, which correctly checks the live deadline in addition to the
+`response_breached`/`resolution_breached` DB flags; those flags are set *only* by
+`Helpdesk::SlaMonitorWorker`, a Sidekiq job scheduled every 2 minutes — and `C:\crux-redmine`'s stack has no
+Sidekiq service running at all, so the flags could never get set, while the dashboard's live check correctly
+saw the passed deadline. Started Sidekiq manually against the same stack, waited for one real cron cycle, and
+confirmed all 4 tools converged exactly afterward (`get_sla_status` → `True`, `sla_analytics` → `breached: 2`,
+`list_tickets(sla="breached")` → both tickets, `dashboard` → `SLA Breached: 2` matching its own list) — see
+BUG-MCP-007's closed file for the full before/after evidence. Everything else in the dashboard (ticket counts
+by status/priority, agent workload, customer/org/product counts) matched the data exactly throughout.
 
 ## Positive Cases — Reports (brand new)
 
@@ -86,8 +95,9 @@ with each other and with `sla_analytics` on SLA breach counts (0).
 `tickets`: `"Tickets: 5 | open 4 | closed 1 | overdue 0"`, correct status/priority breakdown. `organizations`:
 `"Tickets from organizations: 0 | without an organization: 5"` (correct — none of these 5 pre-existing tickets
 have an organization set). `projects`: `"5 tickets, 4 open, 1 closed | SLA breached 0, compliant 3"` — all four
-report kinds agree with each other and with `sla_analytics`/`get_sla_status` on zero breaches, reinforcing that
-TC-MCP-074's finding is isolated to the `dashboard` tool's per-ticket badge specifically.
+report kinds agreed with each other and with `sla_analytics`/`get_sla_status` at the time (before Sidekiq was
+started for TC-MCP-074's verification) — consistent with all of these reading only the DB flags, same as
+`get_sla_status`/`sla_analytics`, unaffected by the dashboard-specific live-check path.
 
 ## Positive Cases — Customer Import (brand new)
 
@@ -317,16 +327,21 @@ rather than something #129322 introduced or should have fixed.
 
 ## Suite Summary
 
-**17/17 TCs executed, 16/17 PASS, 1 bug found and filed (BUG-MCP-007, Medium, open).** Every one of production
-#129322's 10 new tools and 7 improved tools confirmed working and matching the ticket's acceptance criteria,
-including customer import's row-level reporting, admin-only settings enforcement, the support-package
-apply-to-customers flow (including its override-respecting rule), product/filter/attachment/time-logging
-improvements, and the documented cross-plugin TimelogController limitation (independently reproduced, not just
-cited). The one defect (`dashboard`'s per-ticket SLA-breach badge disagreeing with every other SLA source) is
-isolated and narrow — every other SLA-reporting path on this instance agrees. Two permission-check
-investigations initially looked like bugs and were not: Daisy Skye's apparent "bypass" of the Reports
-permission check was her own incidental cross-project role (not a product defect, already documented prior
-design per `BUG-HLP-057`), and `update_project_customer`'s silently-ignored `rf_organization_id` parameter
-is deliberate, already-fixed behavior per `BUG-HLP-064/065` (organization now lives on the customer record, set
-only at `create_customer` time) — both are noted inline above so a future session doesn't re-diagnose them
-from scratch.
+**17/17 TCs executed, 17/17 PASS, 0 bugs.** Every one of production #129322's 10 new tools and 7 improved tools
+confirmed working and matching the ticket's acceptance criteria, including customer import's row-level
+reporting, admin-only settings enforcement, the support-package apply-to-customers flow (including its
+override-respecting rule), product/filter/attachment/time-logging improvements, and the documented cross-plugin
+TimelogController limitation (independently reproduced, not just cited). Three findings initially looked like
+bugs and, on investigation, were not:
+1. `dashboard`'s per-ticket SLA-breach badge disagreeing with every other SLA source (filed as BUG-MCP-007) —
+   root-caused to a missing Sidekiq worker (`Helpdesk::SlaMonitorWorker`, the only writer of the DB flags the
+   other tools read) in the local test environment, not a code defect; independently re-verified by starting
+   Sidekiq and confirming all 4 tools converge after one cron cycle. Closed as Won't Fix/Done on production.
+2. Daisy Skye's apparent "bypass" of the Reports permission check was her own incidental cross-project role
+   (not a product defect, already documented prior design per `BUG-HLP-057`).
+3. `update_project_customer`'s silently-ignored `rf_organization_id` parameter is deliberate, already-fixed
+   behavior per `BUG-HLP-064/065` (organization now lives on the customer record, set only at `create_customer`
+   time).
+
+All three are noted inline above (and #1 in BUG-MCP-007's own closed file) so a future session doesn't
+re-diagnose them from scratch.

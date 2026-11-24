@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-MCP-007
-- Production Redmine Issue ID: #129351 (reported 2026-11-24 via report_defect, linked to testcase #129350, run #689, suite #308)
+- Production Redmine Issue ID: #129351 (reported 2026-11-24 via report_defect, linked to testcase #129350, run #689, suite #308) — **CLOSED 2026-11-24, NOT A BUG (environment issue, verified)**
 - Title: Helpdesk `dashboard` tool tags tickets "SLA breached" in its per-ticket list even though its own aggregate counter and every other SLA tool agree there are zero breaches
 - Redmine version: 6.0-bookworm (local Docker instance, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux-mcp (new `dashboard` tool, RMCP-054, production #129322) + redmineflux_helpdesk (HD-13)
@@ -53,3 +53,18 @@ N/A — this is an MCP tool-layer finding (raw tool call outputs), not a UI find
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): N/A — checked `bugs/_duplicates.md`, no existing entry for the `dashboard` tool or SLA-breach-badge class of defect.
+
+## Root cause — NOT A BUG, environment issue (verified 2026-11-24)
+
+Developer investigation (relayed, then independently re-verified in full before accepting): the `dashboard` tool's per-ticket "SLA breached" badge reads `Helpdesk::RfIssueSlaStatus#sla_health_status`, which returns `:breached` either when `response_breached`/`resolution_breached` is already `true` in the DB, **or** live, right now, whenever `seconds_remaining <= 0` (deadline passed) — a genuine, intentional dual-check. `get_sla_status`, `sla_analytics`, and `list_tickets(sla=...)` all read **only** the DB flags directly. Those flags are set **exclusively** by `Helpdesk::SlaMonitorWorker`, a Sidekiq job scheduled every 2 minutes via `config/sidekiq.yml`/sidekiq-scheduler — never by any request-time code path. `C:\crux-redmine`'s `docker-compose.yml` has no Sidekiq service at all, so on this stack (and apparently the original tester's machine) those flags can never get set, leaving `get_sla_status`/`sla_analytics`/`list_tickets` permanently stuck reporting "not breached" for tickets the dashboard's live check correctly flags as breached.
+
+**Independent verification performed (not taken on the developer's word alone):**
+1. Confirmed via source read that no Sidekiq service exists in the compose file, and that `mark_response_breached!`/`mark_resolution_breached!` (the only writers of those DB columns) are called exclusively from `SlaMonitorWorker#perform`.
+2. Manually started `bundle exec sidekiq` against the same running stack/DB (`docker compose exec`), confirmed via its own startup log that all 3 scheduled jobs registered, including `sla_monitor`.
+3. Waited for its first real cron firing (~2 minutes), captured the full cycle log: `[SLA][BREACH] Response check: 2 overdue ticket(s) found` → both #178 and #28 marked `response_breached = true`.
+4. Re-ran all 4 tools immediately after on the exact same 2 tickets from the original finding — **all 4 now agree exactly**: `get_sla_status` both → `Response breached: True`; `sla_analytics` → `breached: 2, Total breaches: 2`, both tickets listed under "Recently breached"; `list_tickets(sla="breached")` → returns both tickets; `dashboard` → `SLA Breached: 2` in the summary, matching the same two tickets flagged in its list. Zero disagreement after the one cycle.
+5. Stopped the manually-started Sidekiq test processes afterward (confirmed via `/proc` scan that none remained) — this was a one-off verification, not a standing change to the stack.
+
+**Conclusion:** the `dashboard` tool's badge logic is correct; the mismatch is entirely explained by a missing background worker in the test environment, not an MCP or plugin code defect. Closed per explicit user instruction.
+
+**Closed on production:** 2026-11-24, status `New` → `Won't Fix` was attempted first but silently refused by this account's workflow permissions on the Bug tracker (same class of restriction documented elsewhere in this repo for other trackers) — `Done` (also a closed-category status) was used instead and genuinely took effect, confirmed via re-fetch. `done_ratio` set to 100%. Full verification writeup posted as a production journal comment before closing.

@@ -168,14 +168,39 @@ administrator."` — matches the same clear-error convention already confirmed o
 
 ---
 
+### TC-MCP-042: Crux plugin's own Settings page can reach the crux-core compiled binary
+
+**Steps:** Open the Redmine Crux plugin's own Settings page (`/crux/admin/settings`), check the "Crux core
+service URL" field and its "Test connection" result.
+
+**Expected Result:** The plugin can confirm reachability to this stack's own `crux-core` binary.
+
+**Result: PASS, after a configuration fix (environment-specific, not a binary defect).** The field defaulted
+to `http://localhost:8787` and failed ("Couldn't reach a Crux core service at this address"). Root cause:
+this setting is tested **server-side** (Redmine's own Rails backend makes the HTTP call, not the browser),
+so it needs the **Docker-internal** address, not the host-mapped port — `http://crux-core:8787` (the
+internal service name + internal container port), not `http://localhost:8788` (this stack's host-mapped
+port, only reachable from outside Docker — the browser/curl). Setting it to `http://crux-core:8787` and
+clicking "Test connection" returned **"Connected to the Crux core service."** Saved.
+
+**Note — Ask Crux live chat not tested this round.** No `ANTHROPIC_API_KEY`/`OPENAI_API_KEY`/`GEMINI_API_KEY`
+is configured in this stack's `.env`, so an actual end-to-end Ask Crux conversation (real LLM call, agent
+tool-calling loop) was not exercised — only the infrastructure-level wiring (both binaries up, crux-core
+reachable from Redmine, MCP tools discoverable) was confirmed. Deferred; add a provider key and retest with
+a real chat message if/when full agent-level coverage on this binary distribution is needed.
+
+---
+
 ## Suite summary
 
-9 TCs executed (TC-MCP-035–041, plus TC-MCP-036/037 as a matched fail/self-heal pair): 8 PASS, 1 FAIL
+10 TCs executed (TC-MCP-035–042, plus TC-MCP-036/037 as a matched fail/self-heal pair): 9 PASS, 1 FAIL
 (TC-MCP-036 → BUG-MCP-006, filed, open). The compiled Nuitka binary distribution is confirmed genuinely
 deployable and functionally correct for its documented use cases (boots standalone, serves real tool
-calls, integrates with its own crux-core compiled sibling, enforces read-only mode, gives clear errors) —
-the one real defect found is specific to first-boot plugin detection on a completely empty Redmine
-instance, which is exactly the scenario this package's own `SETUP.md` walks a new deployer through.
+calls, integrates with its own crux-core compiled sibling both at the MCP-tool level and via Redmine's own
+Crux plugin UI, enforces read-only mode, gives clear errors) — the one real defect found is specific to
+first-boot plugin detection on a completely empty Redmine instance, which is exactly the scenario this
+package's own `SETUP.md` walks a new deployer through. **Not covered this round:** a live Ask Crux chat
+conversation (no AI provider key configured) — infrastructure-level readiness only.
 
 ## Notes for whoever executes this suite again
 

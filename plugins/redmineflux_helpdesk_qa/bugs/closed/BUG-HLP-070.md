@@ -96,6 +96,10 @@ Found incidentally while standing up an isolated environment for unrelated `redm
 (TCM) QA work for the 2026-10-07 release — this defect belongs to `redmineflux_helpdesk`, a different plugin,
 and does not block or relate to the TCM release testing in progress.
 
+## Retest — 2026-11-24 (new container `helpdesk-redmine6-redmine-1`, localhost:3019, freshly-copied plugin build)
+
+**FIXED — closing.** Reproduced the exact original conditions: brand-new instance, default `Setting.login_required` (confirmed `0` via `rails runner`, the same "fresh install" default that originally triggered this), then signed out and hit `/` and `/projects` as a genuinely anonymous visitor. Both pages rendered normally (`Page Title: Redmine` / `Projects - Redmine`, real content, no 500). Checked the container log across both anonymous requests: no `NoMethodError`, no `is_helpdesk_customer?`, no `FATAL` entries at all for these requests — only an unrelated, harmless `favicon.ico` 404. The unguarded `view_hooks.rb` calls described in this bug's root cause are evidently now guarded (or the hook itself is skipped for anonymous users).
+
 ## Production report
 
 Reported 2026-10-05 as production issue **#122006** on `ztflux` (project id 122):

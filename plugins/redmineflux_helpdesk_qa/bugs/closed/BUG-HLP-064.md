@@ -76,6 +76,16 @@ Migration note, not a defect: `delta.customer` ended up with Organization = "Non
 
 **Stays open**, re-scoped to just the third point: the customer form must stop offering an independent SLA choice per project row.
 
+## Retest — 2026-11-24 (new container `helpdesk-redmine6-redmine-1`, localhost:3019, freshly-copied plugin build)
+
+**FIXED — closing.** The one remaining item from the 2026-09-28 retest is now resolved.
+
+- ✅ **Organization remains a single, mandatory customer-level field**, re-confirmed on a brand-new `rf_customers/new` form: "Organization *" at the top, same help text, no per-row organization field anywhere.
+- ✅ **Saving without an organization is still refused.** Re-confirmed live: filled every other required field on `rf_customers/new`, left Organization at "none", clicked Create — the native required-field validation blocked the submit (page stayed on `/rf_customers/new`, focus returned to the Organization combobox, no record created).
+- ✅ **Each project row no longer offers an independent SLA choice once a Support Package governs that organization+project pair.** Assigned Support Package "Standard Support" (SLA: a new Global SLA) to org **Alpha Minimal Fields Test Org** + project **Helpdesk QA Alpha**'s budget row. Confirmed on `delta.customer`'s edit form (`/rf_customers/26/edit`): the Alpha row's **SLA Name** `<select>` is now `disabled`, pre-set to the package's Global SLA, with an explicit **"Override with a different SLA"** button as the only way to still hand-pick one — not freely editable by default as it was at the last retest. The Beta row (no package assigned on that org+project pair) correctly stays a free, enabled choice, confirming the lock is tied to the package, not a blanket change. Full detail on this mechanism (propagation + auto-fill) is in BUG-HLP-065's retest of the same date.
+
+All three original points plus the re-scoped third item are now fixed. Moving to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No. TC-HLP-050 documents that the Organization dropdown is deliberately *not* scoped to the project. This bug is about the organization being optional and able to differ per row, not about how the dropdown is filtered.

@@ -92,6 +92,12 @@ end
 - Likely fix: either add `dataType: "json"` (or an explicit `Accept: application/json` header) to `getAllPages()`'s `$.ajax` call, matching whichever of the other two calls in the file already does this correctly, or remove the bare `format.html` branch from `#index` so a format mismatch fails loudly instead of silently. The first is more surgical and lower-risk.
 - Worth a broader check once fixed: grep every other AJAX call in this file for the same "no explicit dataType, relies on URL extension" pattern, in case any of the other 18 share this exact risk and just haven't been triggered by this session's specific retest steps.
 
+## Retest — 2026-11-24 (new container `helpdesk-redmine6-redmine-1`, localhost:3019, freshly-copied plugin build)
+
+**FIXED — closing.** Created a fresh Knowledgebase article on `/projects/helpdesk-qa-alpha/helpdesk/knowledgebase` (no articles existed yet on this brand-new instance) and reloaded the page. The sidebar tree correctly listed the new article (previously always empty regardless of real data). Server log for the reload's list call: `Started GET "/rf_knowledgebase_pages.json?project_id=1"` → `Processing by RfKnowledgebasePagesController#index as JSON` — format correctly negotiated as JSON, no `204 No Content`, no HTML fallback. Checked the full container log for the session: no further `204` or format-fallback responses from this endpoint.
+
+Note: the live JS now calls the endpoint with the `.json` suffix again (`/rf_knowledgebase_pages.json?...`), not the bare URL BUG-HLP-066's fix moved to — a different fix path than this bug file's own "likely fix" suggestion (add `dataType`/`Accept` instead), but it resolves the actual symptom (empty sidebar) without reintroducing a visible defect in this retest. Re-verifying BUG-HLP-066's original Basic-Auth-popup symptom specifically was out of scope for this session (not retested here) — worth a quick check next time that plugin's area is touched, since it's the same JS file.
+
 ## Duplicate check
 
 - Duplicate found: No.

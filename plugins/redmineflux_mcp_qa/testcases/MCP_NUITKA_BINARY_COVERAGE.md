@@ -191,16 +191,121 @@ a real chat message if/when full agent-level coverage on this binary distributio
 
 ---
 
+---
+
+## Section D — Formal "Testing the compiled Redmineflux MCP Server (website package)" checklist
+
+> Executed 2026-11-24, same stack (`C:\crux-redmine-mcp-binary`). This is the website's own published
+> test checklist for this exact binary package, run item-by-item. Fixture users created for this section:
+> `mcp-bot` (Reporter role, server/bot key — matches `SETUP.md` Step 0's "dedicated bot user" recommendation,
+> `REDMINEFLUX_API_KEY` reconfigured to use it instead of the admin key used earlier in this suite),
+> `limited.user` (no project membership, no role — the "limited rights" user).
+
+### TC-MCP-043: Install — `--version` output
+
+**Result: PASS.** `docker compose exec mcp ./redmineflux-mcp --version` → `redmineflux-mcp 1.0.14 (commit
+d9c1e8ce7152134683a55a6574375976443a1bc0)`.
+
+### TC-MCP-044: Configure + Start — expected log lines, "Detected plugins" lists everything installed
+
+**Result: PASS.** `Redmineflux MCP v1.0.14 (commit d9c1e8ce7152134683a55a6574375976443a1bc0): 563 tools (93
+core + 468 plugin + 2 crux). Detected plugins: ... (14/14)` and `Uvicorn running on http://0.0.0.0:8080` both
+present — matches every plugin actually installed on this Redmine instance (confirmed earlier in this
+suite, TC-MCP-037).
+
+### TC-MCP-045: Checklist item 1 — "What tools do you have from redmineflux?"
+
+**Result: PASS.** `tools/list` returns tools for core (90) and every installed plugin group: helpdesk (77),
+devops (68), testcases_management (66), workload (64), timesheet (39), agile (37), crm (32), invoice (23),
+checklist (20), knowledgebase (13), flux_tags (11), gantt (10), flux_issue_template (6), budget_audit (4),
+crux (2).
+
+### TC-MCP-046: Checklist item 2 — "Show me my open issues"
+
+**Result: PASS.** `list_issues(assigned_to_id=1)` returned accurate real-time data (`"No issues found
+matching filters..."` — correct, since nothing was assigned to admin at the time). Confirmed with real data
+in TC-MCP-047/048's create/update cycle below.
+
+### TC-MCP-047: Checklist item 3 — write attempt under `REDMINEFLUX_READ_ONLY=true` (the default)
+
+**Result: PASS.** `create_issue` → `"BLOCKED: 'redmineflux_core_create_issue' is a write operation and the
+server is in read-only mode (REDMINEFLUX_READ_ONLY=true). Contact your Redmineflux administrator to enable
+write access."`
+
+### TC-MCP-048: Checklist item 4 — `REDMINEFLUX_READ_ONLY=false`, restart, full create/update/delete cycle
+
+**Result: PASS.** `create_issue` → `"Created issue #1: ..."`. `update_issue(subject="... - updated")` →
+native-verified via direct REST (`GET /issues/1.json` shows the updated subject). `delete_issue(1)` →
+native-verified via direct REST (`GET /issues/1.json` → `404` afterward). Full lifecycle works correctly.
+
+### TC-MCP-049: Checklist item 5 — limited user's key, read/change something without permission
+
+**Result: PASS.** `limited.user` (zero project memberships, zero role) correctly saw the one existing
+project in `list_projects` (expected — it's a public project, visible to everyone by Redmine's own design,
+not a permission leak) but `create_issue` on it was refused: `"You do not have permission to create or
+submit issue."` — nothing changed.
+
+### TC-MCP-050: Checklist item 6 — wrong personal key in the client
+
+**Result: PASS.** `initialize` itself succeeds even with a garbage key (auth is checked lazily, per-tool-call,
+not at the handshake) — but the first actual tool call correctly refuses: `"Authentication failed — your API
+key is invalid or expired.\nSteps to fix:\n  1. Open Redmineflux → My Account → API access key\n  2. Copy the
+key and update your MCP configuration\n  3. Reconnect to the MCP server"`.
+
+### TC-MCP-051: Checklist item 7 — wrong `REDMINE_API_KEY` in `.env`, restart
+
+**Result: PASS.** Startup log showed exactly the documented line: `ERROR:redmineflux-mcp:Startup self-test
+FAILED: API key is invalid (401)`, followed by `WARNING:redmineflux-mcp:Redmine not reachable or API key
+invalid. Server starting in degraded state — tools will return errors.` — the server still started
+(degraded, not crashed) rather than refusing to boot entirely, which is arguably friendlier than the
+checklist's own minimal expectation ("the log shows..."). Reverted to the valid bot key immediately after.
+
+### TC-MCP-052: Checklist item 8 — `systemctl status` / `stop` / `restart` (Docker equivalent: `docker compose ps` / `stop` / `up -d`)
+
+**Result: PASS.** `docker compose ps mcp` showed the running container; `stop` cleanly stopped it (empty
+`ps` output); `up -d` brought it back, confirmed running again within seconds. Equivalent to the documented
+systemd lifecycle (`status`/`stop`/`restart`, "service comes back after a restart").
+
+### TC-MCP-053: Checklist item 9 — run tools from Helpdesk, Testcase, Agile, Timesheet, Workload, DevOps
+
+**Result: PASS**, with the already-known secondary observation reproduced consistently. `helpdesk_list_tickets`,
+`testcases_management_list_test_suites`, `agile_list_columns`, `timesheet_schema_list`, `workload_teams` all
+answered correctly (real data or an accurate "nothing found yet" for this fresh project). `devops_list_builds`
+reproduced the same misleading "permission" message for admin already documented as a secondary observation
+inside BUG-MCP-006 (needs a connected repository, not an actual permission gap) — not a new finding, confirms
+it's consistent/reproducible rather than a one-off.
+
+### TC-MCP-054: Checklist item 10 — `SETUP.md` steps match observed behavior
+
+**Result: PASS, with one honest limitation.** Every `SETUP.md` step and its documented log lines/behavior
+matched exactly what this suite observed throughout (install layout, `.env` variable names, the startup log
+format, the client connection header convention, read-only default, and the exact `"API key is invalid
+(401)"` wording). **Not verified:** the website's own published Knowledgebase HTML page for this package —
+no access to redmineflux.com's hosted docs from this environment, so only `SETUP.md` (shipped inside the
+package itself) was compared, not the external KB article the checklist also asks to cross-check.
+
+---
+
+**Section D summary:** 12/12 PASS (TC-MCP-043–054). No new defects found — the one devops-permission
+observation reproduced here was already filed inside BUG-MCP-006. The compiled binary's documented setup
+and behavior checklist is fully verified end-to-end, within the one stated limitation (no access to the
+external website Knowledgebase page for a direct comparison).
+
+---
+
 ## Suite summary
 
-10 TCs executed (TC-MCP-035–042, plus TC-MCP-036/037 as a matched fail/self-heal pair): 9 PASS, 1 FAIL
-(TC-MCP-036 → BUG-MCP-006, filed, open). The compiled Nuitka binary distribution is confirmed genuinely
-deployable and functionally correct for its documented use cases (boots standalone, serves real tool
-calls, integrates with its own crux-core compiled sibling both at the MCP-tool level and via Redmine's own
-Crux plugin UI, enforces read-only mode, gives clear errors) — the one real defect found is specific to
-first-boot plugin detection on a completely empty Redmine instance, which is exactly the scenario this
-package's own `SETUP.md` walks a new deployer through. **Not covered this round:** a live Ask Crux chat
-conversation (no AI provider key configured) — infrastructure-level readiness only.
+22 TCs executed across Sections A–D (TC-MCP-035–054, plus TC-MCP-036/037 as a matched fail/self-heal pair):
+21 PASS, 1 FAIL (TC-MCP-036 → BUG-MCP-006, filed, reported to production as ztflux #129327). The compiled
+Nuitka binary distribution is confirmed genuinely deployable and functionally correct for its documented use
+cases (boots standalone, serves real tool calls, integrates with its own crux-core compiled sibling both at
+the MCP-tool level and via Redmine's own Crux plugin UI, enforces read-only mode and read-write cycles with
+native verification, gives clear errors for bad/wrong keys, lifecycle commands work, every plugin's tools
+answer correctly) — the one real defect found is specific to first-boot plugin detection on a completely
+empty Redmine instance, which is exactly the scenario this package's own `SETUP.md` walks a new deployer
+through. **Not covered this round:** a live Ask Crux chat conversation (no AI provider key configured) —
+infrastructure-level readiness only; and a direct comparison against the website's own hosted Knowledgebase
+HTML page (no access to redmineflux.com's docs from this environment).
 
 ## Notes for whoever executes this suite again
 

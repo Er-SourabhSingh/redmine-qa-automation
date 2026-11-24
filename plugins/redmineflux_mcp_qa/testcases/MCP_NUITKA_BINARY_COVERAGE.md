@@ -293,19 +293,82 @@ external website Knowledgebase page for a direct comparison).
 
 ---
 
+## Section E — Security check: does the compiled distribution leak readable source code?
+
+> The whole point of shipping a Nuitka-compiled binary to a client (instead of source) is that the
+> client's own business logic/implementation details stay opaque. This section checks whether that
+> actually holds for both binaries.
+
+### TC-MCP-055: Neither compiled binary exposes its own proprietary source code in readable form
+
+**Steps:**
+1. Scan every file in both extracted packages for any leftover `.py` source files (`find ... -name "*.py"`).
+2. Inspect each vendored third-party package directory (`certifi`, `jsonschema_specifications`,
+   `pydantic_core`, `rpds`, `zstandard`, `cryptography`) to confirm they contain only compiled artifacts or
+   non-code data, not plaintext source.
+3. Confirm both main executables are genuine compiled ELF binaries, not interpreted scripts (`od`/magic-byte
+   check for the `7f 45 4c 46` ELF header).
+4. Grep each compiled binary (`grep -a`, since no `strings` tool is available in the minimal
+   `debian:bookworm-slim` base image) for distinctive, known proprietary identifiers pulled directly from
+   this plugin's own earlier-read source checkout — class/function names that only exist in Redmineflux's
+   own business logic, never in a third-party dependency: `OAuthSupport`, `discover_scopes`, `authorize`
+   (the OAuth-flow method, not any generic usage), `_server_identity` for `redmineflux-mcp`; `OAuthHandler`,
+   `claim_next_work` for `redmineflux-crux-core`.
+5. Grep both binaries for hardcoded secret patterns (`sk-...`, AWS-style `AKIA...`, inline API key
+   assignments) and for internal developer file paths (`/home/.../*.py`, `/Users/.../redmineflux*`) that
+   could leak build-machine details.
+
+**Expected Result:** No proprietary source code, hardcoded secrets, or internal developer paths should be
+recoverable from either compiled binary or its accompanying files — a client who obtains this package should
+not be able to read Redmineflux's own implementation.
+
+**Result: PASS, both binaries.**
+- **Zero `.py` files** anywhere in either extracted package. Every vendored third-party directory contains
+  only compiled `.so` files or non-code data: `certifi/` → `cacert.pem` (a public CA bundle, not a secret);
+  `jsonschema_specifications/schemas/` → public JSON Schema metaschema `.json` files (the spec itself, not
+  code); `pydantic_core/`, `rpds/`, `zstandard/`, `cryptography/hazmat/bindings/` → compiled `.so` binaries
+  only.
+- Both `redmineflux-mcp` and `crux-core` confirmed as genuine ELF binaries (`7f 45 4c 46` magic bytes), not
+  wrapped interpreted scripts.
+- **All 6 proprietary identifiers: 0 occurrences** in either binary (`grep -ac` on `redmineflux-mcp` for
+  `OAuthSupport`/`discover_scopes`/`authorize`/`_server_identity`; on `crux-core` for
+  `OAuthHandler`/`claim_next_work`) — Nuitka's compilation fully strips the company's own class/function
+  names, unlike the generic dunder-method and third-party-library symbol names (e.g. pydantic's own internal
+  `__create_fn__` helper, or stdlib `numbers.Rational`/`is_str_list` checks) which do remain as compiled
+  artifacts but reveal nothing about Redmineflux's own logic — these are the same kind of leftover symbols
+  any compiled Python binary built on open-source dependencies would have.
+- **No hardcoded secrets** found in either binary (`sk-`/`AKIA`-style patterns: 0 matches).
+- **No internal developer file paths** leaked in either binary (`/home/.../*.py`, `/Users/.../redmineflux*`:
+  0 matches).
+- One expected, non-sensitive match: `crux-core`'s binary references `db.seed` 3 times — this is the
+  already-intentionally-bundled `db.seed.production.json` demo/seed data file sitting right next to the
+  binary in plain sight (not something the binary is hiding or leaking; it's meant to ship in plaintext).
+
+**Conclusion:** a client who receives either compiled package cannot read Redmineflux's own proprietary
+source code — no `.py` files ship with the package, and the compiled executables themselves don't contain
+readable/reconstructable business logic, only generic third-party-library symbol fragments and literal
+user-facing strings (error messages, log lines) that are meant to be visible anyway.
+
+---
+
+**Section E summary:** 1/1 PASS. No source-exposure or secret-leak defects found in either compiled binary.
+
+---
+
 ## Suite summary
 
-22 TCs executed across Sections A–D (TC-MCP-035–054, plus TC-MCP-036/037 as a matched fail/self-heal pair):
-21 PASS, 1 FAIL (TC-MCP-036 → BUG-MCP-006, filed, reported to production as ztflux #129327). The compiled
+23 TCs executed across Sections A–E (TC-MCP-035–055, plus TC-MCP-036/037 as a matched fail/self-heal pair):
+22 PASS, 1 FAIL (TC-MCP-036 → BUG-MCP-006, filed, reported to production as ztflux #129327). The compiled
 Nuitka binary distribution is confirmed genuinely deployable and functionally correct for its documented use
 cases (boots standalone, serves real tool calls, integrates with its own crux-core compiled sibling both at
 the MCP-tool level and via Redmine's own Crux plugin UI, enforces read-only mode and read-write cycles with
 native verification, gives clear errors for bad/wrong keys, lifecycle commands work, every plugin's tools
-answer correctly) — the one real defect found is specific to first-boot plugin detection on a completely
-empty Redmine instance, which is exactly the scenario this package's own `SETUP.md` walks a new deployer
-through. **Not covered this round:** a live Ask Crux chat conversation (no AI provider key configured) —
-infrastructure-level readiness only; and a direct comparison against the website's own hosted Knowledgebase
-HTML page (no access to redmineflux.com's docs from this environment).
+answer correctly) and does not leak readable proprietary source code, hardcoded secrets, or internal
+developer paths from either compiled binary — the one real defect found is specific to first-boot plugin
+detection on a completely empty Redmine instance, which is exactly the scenario this package's own
+`SETUP.md` walks a new deployer through. **Not covered this round:** a live Ask Crux chat conversation (no AI
+provider key configured) — infrastructure-level readiness only; and a direct comparison against the
+website's own hosted Knowledgebase HTML page (no access to redmineflux.com's docs from this environment).
 
 ## Notes for whoever executes this suite again
 

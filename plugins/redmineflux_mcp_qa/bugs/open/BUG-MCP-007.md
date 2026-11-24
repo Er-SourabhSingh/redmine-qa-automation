@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-MCP-007
-- Production Redmine Issue ID: <!-- filled after report_defect is approved and executed -->
+- Production Redmine Issue ID: #129351 (reported 2026-11-24 via report_defect, linked to testcase #129350, run #689, suite #308)
 - Title: Helpdesk `dashboard` tool tags tickets "SLA breached" in its per-ticket list even though its own aggregate counter and every other SLA tool agree there are zero breaches
 - Redmine version: 6.0-bookworm (local Docker instance, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux-mcp (new `dashboard` tool, RMCP-054, production #129322) + redmineflux_helpdesk (HD-13)

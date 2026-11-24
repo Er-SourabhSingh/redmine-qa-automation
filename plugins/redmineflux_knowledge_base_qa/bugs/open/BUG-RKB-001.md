@@ -58,3 +58,5 @@ N/A this round — evidence was captured as exact DOM/HTML snapshots (quoted abo
 ## Retest summary
 
 **6 of 7 acceptance criteria now PASS** (placeholder removal on all 3 dropdowns, numeric point sizes, CSS-based font-size with legacy-content backward compatibility, and reload persistence). **1 remains FAIL: AC#6, sticky/floating toolbar Font Size sync without reselecting.** Recommend production ticket #119878 stay **open** (not closed) with this one item re-scoped/re-assigned, rather than marking it fully Done.
+
+**Reported to production:** 2026-11-24, journal entry #639541 on #119878 (full retest summary posted as a comment). Status left as "In QA" — not closed, per the above recommendation.

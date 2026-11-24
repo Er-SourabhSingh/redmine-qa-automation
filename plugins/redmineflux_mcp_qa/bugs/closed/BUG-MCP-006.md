@@ -1,5 +1,17 @@
 # BUG-MCP-006
 
+**Status: CLOSED 2026-11-24 — CONFIRMED FIXED.** Developer fix `RMCP-055` + `RMCP-056` (redmineflux-mcp commit
+`ce420d1` + `a8fc38c`, 1.1.16) pulled onto `C:\crux-redmine`'s mcp service and retested on a dedicated,
+genuinely-zero-project Redmine instance (deleted the 2 fixture projects on `C:\crux-redmine-oauth61`, copied
+the fixed source into that stack's `mcp` service, rebuilt). Confirmed: with zero projects, `devops` now
+returns `400 Bad Request` (no `project_id`) and is correctly read as "installed (no project needed)"; `gantt`
+probes project id `0`, gets `404 Not Found`, same treatment — both load, **14/14** plugins detected (up from
+12/14). Also retested the secondary observation (RMCP-056): `list_builds` on a project with the DevOps
+module off now returns "The DevOps module is not enabled on project ... this applies to administrators too.
+A project manager or administrator can turn it on in Project → Settings → Modules → 'Redmineflux DevOps'."
+— accurate and specific, replacing the old misleading "permission denied" message.
+
+
 - Bug ID: BUG-MCP-006
 - Production Redmine Issue ID: #129327 — "BUG-MCP-006: devops/gantt plugin auto-detection silently fails on a Redmine instance with zero projects" (reported, assigned to Prashant Chaurasia)
 - Title: Plugin auto-detection silently fails for `devops` and `gantt` on a Redmine instance with zero projects — their probe's project-scoped fallback has no project id to retry with

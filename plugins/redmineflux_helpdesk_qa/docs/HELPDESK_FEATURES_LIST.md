@@ -13,9 +13,9 @@
 | 3 | Support tracker requirement | A tracker named "Support" must exist; every ticket is an issue on it | |
 | 4 | Redis + Sidekiq dependency | Background jobs (SLA monitor, mail poller, auto-close) require Sidekiq/Redis running | |
 | **B. Navigation / workspaces** | | | |
-| 5 | Helpdesk Command Center | Cross-project view; own header/icon rail, Redmine app menu hidden | |
-| 6 | Project-level Helpdesk tab | Same screens scoped to one project, with normal Redmine project chrome | |
-| 7 | Dashboard | KPI cards, recent tickets, charts — global (Command Center) and per-project (plus prepaid hours per organization) variants | |
+| 5 | Helpdesk Command Center | Cross-project view; own header/icon rail, Redmine app menu hidden | TC-HLP-435, 436, 437 |
+| 6 | Project-level Helpdesk tab | Same screens scoped to one project, with normal Redmine project chrome | TC-HLP-443, 445, 446 |
+| 7 | Dashboard | KPI cards, recent tickets, charts — global (Command Center) and per-project (plus prepaid hours per organization) variants | TC-HLP-438, 450 |
 | 8 | Global search | Search box on every list screen (tickets, customers, organizations, products, etc.); survives paging | |
 | **C. Tickets — core** | | | |
 | 9 | Ticket creation by agent | Raised from global or project Tickets screen | |
@@ -61,9 +61,9 @@
 | **H. Content & templates** | | | |
 | 45 | Canned responses | Reply templates with 9 macros filled in per ticket | |
 | 46 | Products | Per-project catalog; tickets tagged by product for reporting | |
-| 47 | Knowledgebase | Per-project articles: nesting, versioning, attachments, search, share link, PDF export | |
+| 47 | Knowledgebase | Per-project articles: nesting, versioning, attachments, search, share link, PDF export | TC-HLP-018–025, 446 |
 | **I. Reporting & automation** | | | |
-| 48 | Reports (5 tabs) | Ticket Summary, SLA Analytics, Agent Performance, Organizations, Projects | |
+| 48 | Reports (5 tabs) | Ticket Summary, SLA Analytics, Agent Performance, Organizations, Projects | TC-HLP-261, 441 |
 | 49 | Report export | CSV, Excel, or PDF, gated by `export_helpdesk_reports` | |
 | 50 | Background jobs | SLA monitor (2 min), email poller (5 min), auto-close (2 min) via Sidekiq | |
 | 51 | REST API | Full CRUD across tickets, SLAs, customers, organizations, etc.; Swagger docs (admin only) | |

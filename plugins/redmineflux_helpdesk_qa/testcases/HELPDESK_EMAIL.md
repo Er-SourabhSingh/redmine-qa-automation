@@ -437,6 +437,131 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, Helpdesk QA Gamma): *
 
 ---
 
+## Multilingual Customer Emails & Status Notifications (added 2026-11-25, feature #129343 master-merge)
+
+> Three master-merge features pulled into `development` per issue #129343: (1) notification emails render in the customer's own Redmine account language, (2) a new Settings › Status Notifications tab lets an admin choose which ticket statuses email the customer, off by default, and (3) auto-closed tickets no longer email the customer twice. All three tested live on `helpdesk-redmine6` (localhost:3019), using `alpha.customer` with her Redmine account language temporarily set to `es` (Spanish) for (1), reset to blank afterward.
+
+### TC-HLP-502: A ticket-created confirmation email renders fully in the customer's own account language
+
+**User Role:** N/A (system-driven; customer's own account setting)
+**Priority:** High
+**Precondition:** A helpdesk customer whose Redmine account language (`My account > Language`) is set to a non-English language (e.g. Spanish).
+
+**Steps:**
+1. Set the customer's account language to Spanish
+2. Have that customer create a new ticket (real inbound email, processed by `Helpdesk::EmailPollerWorker`)
+3. Check the resulting "ticket created" confirmation email the customer receives
+
+**Expected Result:**
+- The entire email — subject, heading, labels, body copy, button text — renders in Spanish, not English or whatever locale happens to be ambient on the server
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019): **PASS.** Set `alpha.customer`'s `language` to `es` via her account. Sent a real inbound email (`swaks`, subject "Spanish language ticket test", containing the identifier keyword "ticket") to `alpha.support@test.local`; manually invoked `Helpdesk::EmailPollerWorker.new.perform` (the sidekiq-cron scheduler poller is still broken per the standing environment quirk — same established methodology as the rest of this engagement). Ticket #3 was created correctly. Fetched the confirmation email via `doveadm fetch` — fully in Spanish: heading "Ticket Creado Exitosamente", "Estimado/a Cliente,", "Número de Ticket: #3", "Asunto:", "Estado:", "Prioridad:", "Creado El:", button "Ver Detalles del Ticket", "¿Qué sucede a continuación?" with 3 correctly-translated bullet points. Also confirmed the Customer Portal UI itself (logged in as `alpha.customer` in an isolated browser context, separate from the admin session) renders fully in Spanish ("Mi cuenta", "Mi Helpdesk", "Asunto", "Estado", etc.) — the account-language setting is applied consistently, not just to this one mailer.
+
+### TC-HLP-503: An agent's reply email also renders in the customer's own account language
+
+**User Role:** Admin or Agent
+**Priority:** High
+**Precondition:** TC-HLP-502's state — ticket #3, `alpha.customer` still set to Spanish.
+
+**Steps:**
+1. Reply to the ticket as an agent (Reply Note)
+2. Check the resulting reply email the customer receives
+
+**Expected Result:**
+- The reply notification email also renders fully in Spanish
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** Replied to ticket #3 as admin ("Hola, estamos revisando su caso y le responderemos pronto.") — hit the known "Support Level Mismatch" confirm overlay (admin holds no Support Level on this project; this modal is a real, working gate, not a bug — see `HELPDESK_MEMORY.md`), clicked Continue Anyway. The resulting email, fetched via `doveadm`, is fully in Spanish: "Se ha agregado una nueva nota", "Petición #3:", "Estado:", "Nota:", button "Ver el ticket", footer "Este correo fue enviado desde Helpdesk".
+
+### TC-HLP-504: The prepaid-hours-exhausted notification also renders in the customer's own account language
+
+**User Role:** N/A (system-driven)
+**Priority:** Medium
+**Precondition:** None (source-verified, not independently re-triggered live this round — see note).
+
+**Steps:**
+1. Read `HelpdeskMailer#prepaid_hours_exhausted_notification`'s source
+
+**Expected Result:**
+- The mailer wraps its `mail(...)` call in `with_recipient_locale(sender_email)`, same as every other customer-facing action
+
+- **CONFIRMED via source review 2026-11-25** (`app/mailers/helpdesk_mailer.rb` lines 404–419): **PASS**, and notably self-documenting — the method's own comment reads: *"This goes to the customer whose own ticket was refused - was missing the with_recipient_locale wrapper every other customer-facing action here uses, so it always rendered in whichever locale happened to be ambient (the mail poller's own, not the customer's)."* Confirms this exact defect (prepaid-exhausted notification ignoring the customer's language) existed and has since been fixed as part of the #129343 master-merge. Not independently re-triggered live this round — doing so would require deliberately exhausting a real budget on a shared fixture organization, which TC-HLP-245/HELPDESK_PREPAID_HOURS.md's own suite already exercises for the enforcement behavior itself; the locale-correctness question is adequately answered by the source fix plus TC-HLP-502/503's confirmed pattern (every sibling mailer method uses the identical `with_recipient_locale` wrapper, verified by direct code read).
+
+### TC-HLP-505: A customer with no language set falls back to the instance default, not a crash or a blank template
+
+**User Role:** N/A (system-driven)
+**Priority:** Low
+**Precondition:** None (source-verified).
+
+**Steps:**
+1. Read `RedminefluxHelpdesk::RecipientLocale#with_recipient_locale`'s fallback logic
+
+**Expected Result:**
+- A blank/unset `user.language` falls back to `Setting.default_language`, using Redmine core's own trusted `find_language` helper — not a custom, unverified implementation
+
+- **CONFIRMED via source review 2026-11-25**: **PASS.** `lib/redmineflux_helpdesk/recipient_locale.rb`: `lang = find_language(user.language) if user&.logged?; lang ||= Setting.default_language; ::I18n.with_locale(lang) { yield }`. `find_language` itself is not plugin code — confirmed via `grep` inside the running container that it resolves to Redmine core's own `Redmine::I18n#find_language` (`lib/redmine/i18n.rb:158`), the same well-established helper core's own `Mailer#process` uses for this exact purpose. Low risk: this is reusing trusted, long-standing core logic rather than a new custom implementation that could have its own edge-case bugs.
+
+### TC-HLP-506: Status Notifications are off by default for every status
+
+**User Role:** Admin
+**Priority:** High
+**Precondition:** A project's Status Notifications tab has never been configured.
+
+**Steps:**
+1. Open Helpdesk Settings › Status Notifications
+
+**Expected Result:**
+- Every status (New, In Progress, Resolved, Feedback, Closed, Rejected, Waiting for Customer Response) shows its "Notify customer" checkbox unchecked
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** All 7 statuses listed, every checkbox unchecked. Cross-checked via `GET /helpdesk/api/v1/settings` → `"notify_customer_status_ids":[]`, matching the UI exactly. Page's own caption confirms the documented default: "Off by default for every status. A status change on its own never reaches the customer unless it's checked here — a staff reply always still does, regardless of this list."
+
+### TC-HLP-507: Enabling one status sends the customer an email only on that specific transition
+
+**User Role:** Admin
+**Priority:** High
+**Precondition:** TC-HLP-506's state.
+
+**Steps:**
+1. Check "Resolved", Save
+2. Move a ticket authored by a real customer to Resolved (a plain status-only edit, no reply text)
+3. Check the customer's mailbox
+
+**Expected Result:**
+- Exactly one new email arrives, for that status change alone
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** Checked "Resolved", Saved — confirmed via API, `"notify_customer_status_ids":[4]` (Resolved's real id). Moved ticket #3 (status was "Waiting for Customer Response") to Resolved via the plain Edit form (no reply note). A new email arrived at `alpha.customer@test.local` within seconds: subject `[Helpdesk QA Alpha #3] Ticket Actualizado` ("Ticket Updated" — correctly in her still-Spanish account language at the time, see TC-HLP-502). Confirms both that the feature works and that it composes correctly with the multilingual-email feature.
+
+### TC-HLP-508: Moving to a status that is NOT checked sends no email
+
+**User Role:** Admin
+**Priority:** High
+**Precondition:** TC-HLP-507's state (only "Resolved" is checked).
+
+**Steps:**
+1. Move the same ticket from Resolved to a different, unchecked status (e.g. Feedback)
+2. Check the customer's mailbox again
+
+**Expected Result:**
+- No new email arrives for this transition
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** Moved ticket #3 from Resolved to Feedback (not checked in Status Notifications). Re-checked `alpha.customer@test.local`'s mailbox via `doveadm` — no new message; the latest remained the "Ticket Actualizado" email from TC-HLP-507. Confirms the gate is genuinely per-status, not a blanket "any status change" switch. (Reverted after testing: unchecked "Resolved" again, restoring the all-off default.)
+
+### TC-HLP-509: Auto-closed tickets send the customer exactly one email, not two (regression check)
+
+**User Role:** N/A (system-driven)
+**Priority:** High
+**Precondition:** A project's Auto Close Ticket Days set to a real positive value; a Resolved ticket backdated past that threshold.
+
+**Steps:**
+1. Invoke `Helpdesk::AutoCloseTicketsWorker.new.perform` directly (standard methodology — the sidekiq-cron scheduler is a known separate environment quirk)
+2. Count how many emails the ticket's customer receives for this one closure
+
+**Expected Result:**
+- Per issue #129343's "Auto-closed tickets no longer send the customer the same email twice", exactly **one** closure email — the dedicated `ticket_auto_closed` template, with the generic status-change notifier suppressed for the same save (the worker sets `Thread.current[:rf_helpdesk_customer_notified_this_save] = true` before saving, specifically to prevent `issue_patch.rb`'s own `send_customer_status_change_email` from also firing if "Closed" happens to be in the Status Notifications list)
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019): **FAIL — not a duplicate-email problem, a NO-email problem. Filed as BUG-HLP-073.** Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha; created two separate backdated Resolved tickets (#4, #5) authored by `alpha.customer`, 5 days stale. Ran the real worker — log confirmed the ticket closed and the mail job "queued"/"Performed" in ~2ms each time, but **zero emails arrived** in the customer's real mailbox on either repro, checked immediately and after a 5+ second wait. Directly calling the identical mailer method synchronously (`HelpdeskMailer.ticket_auto_closed(issue, 1, :author).deliver_now`) succeeded instantly with full SMTP logging and real delivery — proving the mailer, the locale wrapper, and the SMTP config are all correct, and isolating the defect to the worker's own `.deliver_later` call never resulting in an actual send. See `bugs/open/BUG-HLP-073.md` for full detail. (Auto Close Ticket Days reset to blank on Alpha afterward, per this file's own standing collateral-damage lesson below — confirmed no other ticket in the project was swept up, only the two dedicated fixtures #4/#5.)
+
+---
+
 ## Notes
 
 - **Auto-close testing (TC-HLP-077/151/153), 2026-09-09 — 2 new bugs, real collateral-damage incident and recovery.** User asked directly for the auto-close condition and a test-case summary; live-testing TC-153 surfaced that the real background worker (`Helpdesk::AutoCloseTicketsWorker`) closes ANY open-status ticket past the silence window, not just Resolved ones — filed as **BUG-HLP-043**. Investigating why an initial attempt via `rake redmineflux_helpdesk:auto_close_tickets` closed nothing led to a second, independent discovery: the rake task reads `auto_close_days` from a legacy `ProjectCustomField` (`helpdesk_auto_close_days`) that no longer exists on this instance (zero `ProjectCustomField` rows exist at all) — so the rake task can never close a ticket regardless of any project's real configuration, set via the current `RfHelpdeskEmailConfig`-backed Email Configuration UI. This is the exact same dead-code pattern already noted (but never filed) for `check_emails` in this file's Deferred/Out of Scope section below — filed as **BUG-HLP-044** in `HELPDESK_RAKE_TASKS.md` (TC-HLP-250), since it's that suite's own feature under test.
@@ -446,7 +571,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, Helpdesk QA Gamma): *
 
 ## Evidence Map
 
-- Case ID: TC-HLP-067 – TC-HLP-089, TC-HLP-073 – TC-HLP-075, TC-HLP-079, TC-HLP-082 – TC-HLP-086 (added 2026-09-09)
+- Case ID: TC-HLP-067 – TC-HLP-089, TC-HLP-073 – TC-HLP-075, TC-HLP-079, TC-HLP-082 – TC-HLP-086 (added 2026-09-09), TC-HLP-502 – TC-HLP-509 (multilingual customer emails, Status Notifications, auto-close dedup regression — feature #129343, added 2026-11-25; TC-HLP-509 FAIL, see BUG-HLP-073)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

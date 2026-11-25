@@ -405,9 +405,90 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** UI: `/projects/he
 
 ---
 
+## New JSON APIs for Dashboard/Reports/Settings/Support Packages/Knowledgebase (added 2026-11-25, feature #129343 master-merge — "HD-13: screen features for API callers")
+
+> Per issue #129343: "New JSON APIs for Email Configuration, SLA Analytics, Prepaid Hours, and Support Package" (Email Config/SLA Analytics/Prepaid Hours already covered above, TC-HLP-272/274/283) "plus full interactive Swagger/OpenAPI documentation" (already covered, TC-HLP-275/280), and separately the HD-13 follow-up: "New JSON APIs for dashboard, reports, customer import, settings, support package, and knowledgebase files — for MCP Server/Crux. No screen changed." The genuinely new surface tested below: `GET /dashboard`, `GET /reports/:kind`, `GET`/`PATCH`/`PUT /settings`, Support Package CRUD, and the Knowledgebase API's plain-JSON-body acceptance. Customer-import API coverage lives in `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`'s own CSV Import section (TC-HLP-495–501) rather than being duplicated here.
+
+### TC-HLP-510: `GET /helpdesk/api/v1/dashboard` always 500s — the new HD-13 dashboard endpoint is completely broken
+
+**User Role:** Admin (via API key)
+**Priority:** High
+**Precondition:** REST API enabled; valid API key.
+
+**Steps:**
+1. `GET /helpdesk/api/v1/dashboard` (global) and `GET /helpdesk/api/v1/dashboard?project_id=1` (project-scoped)
+
+**Expected Result:**
+- Per the controller's own doc comment, the Helpdesk Dashboard as JSON — KPI cards, tickets by status/priority, top organizations, agent workload, SLA summary, directory counts, recent tickets — mirroring the `/helpdesk` screen
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **FAIL — filed as BUG-HLP-072.** Every call, global and project-scoped, returns a genuine `500 Internal Server Error` (`{"status":500,"error":"Internal Server Error"}`). Root-caused via server log and source: `Api::V1::DashboardController#show` calls `prepare_dashboard_details(issues)`, a method the class comment says should be inherited from `RfHelpdeskController`, but which is **never defined anywhere in the plugin** (`NoMethodError: undefined method 'prepare_dashboard_details'`, confirmed absent via a full-plugin `grep`). Both sibling endpoints below work correctly in the same session with the same key, isolating this to the dashboard endpoint specifically. See `bugs/open/BUG-HLP-072.md`.
+
+### TC-HLP-511: `GET /helpdesk/api/v1/reports/:kind` returns real report data matching the UI
+
+**User Role:** Admin or Agent (via API key)
+**Priority:** High
+**Precondition:** REST API enabled; valid API key.
+
+**Steps:**
+1. `GET /helpdesk/api/v1/reports/tickets`
+
+**Expected Result:**
+- Real JSON matching the Tickets report's own UI figures: period, totals, breakdowns by status/priority/project, a daily trend series
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** `200`: `{"data":{"kind":"tickets","period":{"from":"2026-10-27","to":"2026-11-25"},"total_tickets":2,"open":2,"closed":0,"overdue":0,"by_status":[...],"by_priority":[...],"by_project":[...],"daily_trend":[...30 days...]}}` — total/open counts matched the dashboard's own KPI cards for the same period at the time of testing.
+
+### TC-HLP-512: `GET`/`PATCH`/`PUT /helpdesk/api/v1/settings` reads and writes Status Notifications correctly
+
+**User Role:** Admin (via API key)
+**Priority:** High
+**Precondition:** REST API enabled; valid API key.
+
+**Steps:**
+1. `GET /helpdesk/api/v1/settings` before and after toggling a status in the UI's own Status Notifications tab (`HELPDESK_EMAIL.md` TC-HLP-506/507)
+
+**Expected Result:**
+- The API reflects the exact same `notify_customer_status_ids` the UI shows, before and after a change
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019): **PASS.** Before: `{"notify_customer_status_ids":[],"statuses":[...7 statuses, all notify_customer:false...],"allow_private_mail_hosts":true}`. After checking "Resolved" in the UI and saving: `"notify_customer_status_ids":[4]` with `{"id":4,"name":"Resolved",...,"notify_customer":true}` in the `statuses` array — exact match, confirming the API reads live, current state rather than a cached/stale copy.
+  - **Separately observed, not yet filed as its own bug pending confirmation it's intentional**: this `GET` succeeded with **`HTTP 200` and a full real response even with no API key header at all** (server log: `Current user: anonymous`). Every other tested endpoint in this suite (tickets, organizations, SLAs, the dashboard above) correctly refuses an unauthenticated request. Worth a second look at whether `SettingsController#show` is missing its `accept_api_auth`/login-required guard, or is deliberately public.
+
+### TC-HLP-513: Support Package CRUD via the REST API matches the UI, including the HD-6 mandatory-SLA validation
+
+**User Role:** Admin or Agent with `manage_helpdesk` (via API key)
+**Priority:** High
+**Precondition:** REST API enabled; valid API key; at least one real SLA exists.
+
+**Steps:**
+1. `POST /helpdesk/api/v1/support_packages` with `{name, rf_sla_id}`
+2. `POST /helpdesk/api/v1/support_packages` with `{name}` only, no `rf_sla_id`
+3. `GET /helpdesk/api/v1/support_packages`
+
+**Expected Result:**
+- Step 1 succeeds (`201`); Step 2 is refused with the same "SLA cannot be blank" validation the UI shows (per the HD-6 spec change — see `HELPDESK_PREPAID_HOURS.md` TC-HLP-206's 2026-11-25 addendum); Step 3 lists real packages including the one just created, with `rf_sla_name`/`linked_customer_count`/`linked_project_count` matching the UI's own Support Packages tab
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS on all 3.** Step 1: `{"support_package":{"name":"API Test Package TC-API","rf_sla_id":3}}` → `201`, `{"data":{"id":3,"name":"API Test Package TC-API",...,"rf_sla_id":3,"rf_sla_name":"QA Global SLA BUG-HLP-065 retest",...},"message":"Support package created successfully."}`. Step 2: `{"support_package":{"name":"API Test Package No SLA"}}` → `422`, `{"errors":["SLA cannot be blank"],"field_errors":{"rf_sla_id":["cannot be blank"]}}` — identical validation message to the UI's own (TC-HLP-206 addendum), confirming the API and UI share one validation path rather than drifting. Step 3: `GET /support_packages` → `200`, lists all 3 packages present at the time (2 created earlier via the UI this session, 1 via this TC's Step 1), each with correct `rf_sla_name` and link counts matching the Settings › Support Packages tab.
+
+### TC-HLP-514: The Knowledgebase API accepts a plain, flat JSON body (no wrapper key required)
+
+**User Role:** Admin or Agent with `add_kb_page` (via API key)
+**Priority:** Medium
+**Precondition:** REST API enabled; valid API key; a project with the Knowledgebase module enabled.
+
+**Steps:**
+1. `POST /helpdesk/api/kb/pages` with a **flat** body: `{"title": "...", "project_id": ..., "content": {...}}` (not wrapped under `rf_knowledgebase_page`)
+2. `POST /helpdesk/api/kb/pages` with no `title`
+
+**Expected Result:**
+- Step 1 succeeds, creating a real page — per issue #129343/BUG-CRX-162, the API must not force every caller to know about the web form's internal `rf_knowledgebase_page` wrapper key
+- Step 2 is refused with a clear validation message, not a crash
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS on both.** Step 1: `{"title":"API Test KB Article","project_id":1,"content":{"text":"Hello from the API test."}}` (genuinely flat, no `rf_knowledgebase_page` key anywhere) → `201`, `{"id":2,"title":"API Test KB Article",...,"content":{"text":"Hello from the API test."},"project_id":1,...}` — a real page created from the flat shape, confirming `KnowledgebasePagesController#wrap_flat_page_params`'s documented behavior. Step 2: `{"project_id":1}` (no title) → `422`, `Title cannot be blank` — clear, not a stack trace.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-261 – TC-HLP-283
+- Case ID: TC-HLP-261 – TC-HLP-283, TC-HLP-510 – TC-HLP-514 (new HD-13 dashboard/reports/settings/support-package/KB-plain-JSON APIs, feature #129343, added 2026-11-25; TC-HLP-510 FAIL, see BUG-HLP-072)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

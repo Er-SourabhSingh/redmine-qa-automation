@@ -664,9 +664,115 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 
 ---
 
+## CSV Import (added 2026-11-25, feature #129343 master-merge — "Import customers from a CSV file")
+
+> `Customers > Import Customers` (`/rf_customers/import`), with a template download. Pulled into the `development` branch from master per issue #129343. Tested both the UI upload flow and the equivalent `POST /helpdesk/api/v1/customers/import` REST endpoint (same underlying `RedminefluxHelpdesk::CustomerImport` service, so one set of TCs covers both surfaces — each TC notes which surface it was actually exercised on).
+
+### TC-HLP-495: Downloading the CSV template returns the documented columns with a sample row
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. `Customers > Import Customers`, click "Download CSV template" (UI), and separately `GET /helpdesk/api/v1/customers/import_template` (API)
+
+**Expected Result:**
+- Both surfaces return the same column set and at least one example row
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS.** API: `GET .../customers/import_template` → `200`, `{"data":{"columns":["firstname","lastname","email","organization","project","support_level","sla"],"required_columns":["firstname","lastname","email","organization","project","support_level"],"csv":"firstname,lastname,email,organization,project,support_level,sla\nJane,Doe,jane.doe@example.com,Acme Inc,support,Gold,\"\"\n"}}` — `sla` is documented as optional (not in `required_columns`), consistent with the UI page's own caption ("'sla' may be left blank when the customer's organization already has a support package covering that project"). UI's own Import Customers page shows the identical column list and the same caption text.
+
+### TC-HLP-496: Uploading a valid single-row CSV creates a real customer, linked to the right project/organization/support level
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
+**Precondition:** A valid CSV with `firstname,lastname,email,organization,project,support_level,sla` matching a real existing organization/project/support level.
+
+**Steps:**
+1. UI: upload a 1-row CSV, click Import Customers. API: `POST /helpdesk/api/v1/customers/import` with the same row in the `csv` param.
+
+**Expected Result:**
+- A new customer record is created and linked to the named project, with a results summary (succeeded/failed counts, per-row messages)
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin): **PASS on both surfaces.** API: row `APITest,CustomerOne,apitest.customer1@test.local,Alpha Minimal Fields Test Org,helpdesk-qa-alpha,L1,` → `200`, `{"data":{"imported":1,"failed":0,"rows":[{"row":2,"email":"apitest.customer1@test.local","success":true,"message":"Customer created and linked to the project"}]}}`. UI: separately uploaded a 1-row CSV for `uitest.customer1@test.local` via the real file-chooser on `/rf_customers/import` — results panel correctly showed "1 succeeded / 0 failed", table row "Imported" / "Customer created and linked to the project". Both newly created customers confirmed real (not just a dry-run report) via the customer list.
+
+### TC-HLP-497: A CSV missing a required column is reported as a per-row error, not a crash
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
+**Precondition:** A CSV header row missing one of the required columns (e.g. no `email` column at all).
+
+**Steps:**
+1. `POST /helpdesk/api/v1/customers/import` with a header row that omits `email`
+
+**Expected Result:**
+- A clear, specific "Missing column(s): email" style message, not a 500 or a silent no-op
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin, API): **PASS.** `200`, `{"data":{"imported":0,"failed":1,"rows":[{"row":1,"email":null,"success":false,"message":"Missing column(s): email"}]}}` — names the exact missing column, correctly reports 0 imported/1 failed rather than crashing.
+
+### TC-HLP-498: Re-importing a row whose email already exists re-links rather than erroring or duplicating
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
+**Precondition:** A customer already created by TC-HLP-496 (`apitest.customer1@test.local`).
+
+**Steps:**
+1. Re-submit the identical CSV row (same email) to `.../customers/import`
+
+**Expected Result:**
+- Either a clean "already exists" rejection or a sensible re-link — not a duplicate customer record and not a crash
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin, API): **PASS — re-links, which is the more useful behavior of the two reasonable options.** `200`, `{"data":{"imported":1,"failed":0,"rows":[{"row":2,"email":"apitest.customer1@test.local","success":true,"message":"Existing customer linked to the project"}]}}` — the existing customer is found and (re)linked to the project rather than a second account being created or the row being rejected outright. No duplicate customer record resulted.
+
+### TC-HLP-499: A batch with one good row and one bad row reports per-row, without failing the whole batch
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
+**Precondition:** A 2-row CSV: row 1 valid, row 2 references an organization that doesn't exist.
+
+**Steps:**
+1. Submit both rows in a single import call
+
+**Expected Result:**
+- Row 1 succeeds and row 2 fails independently; the good row is not rolled back because of the bad one
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin, API): **PASS.** `200`, `{"data":{"imported":1,"failed":1,"rows":[{"row":2,"email":"apitest.customer2@test.local","success":true,"message":"Customer created and linked to the project"},{"row":3,"email":"apitest.customer3@test.local","success":false,"message":"Organization 'Nonexistent Org XYZ' was not found"}]}}` — confirms per-row, not all-or-nothing, batch semantics: the valid row's customer was genuinely created despite the other row's failure.
+
+### TC-HLP-500: An empty CSV submission is refused with a clear message, not a crash
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. `POST /helpdesk/api/v1/customers/import` with an empty `csv` value
+
+**Expected Result:**
+- A clear `400`-class error naming what's required, not a 500
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin, API): **PASS.** `400`, `{"error":"Send the CSV text in \"csv\". Get the expected columns with the import template."}` — a genuinely helpful message, not a stack trace.
+
+### TC-HLP-501: Garbage (non-CSV) content is treated as a header mismatch, not a crash
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
+**Precondition:** None.
+
+**Steps:**
+1. Submit a `csv` value that is plain non-CSV text (`"this is not a csv file at all %%%"`)
+
+**Expected Result:**
+- Rejected gracefully as a missing/malformed-header condition, not a 500
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, localhost:3019, admin, API): **PASS.** `200` (not an error status, but correctly reports zero success): `{"data":{"imported":0,"failed":1,"rows":[{"row":1,"email":null,"success":false,"message":"Missing column(s): firstname, lastname, email, organization, project, support_level"}]}}` — the parser treats the garbage line as a (badly-formed) header row and correctly reports every required column as missing, rather than raising a CSV-parse exception.
+
+> Note: production testcase `#129088` ("Helpdesk - Verify bulk import of customers from a CSV file") is currently marked **Test Case Fail** by a separate QA effort on this org's Redmine. Every case above, on both the UI and the API surface, passed cleanly on this `development`-branch environment (`helpdesk-redmine6`, commit `5fa0d9e`) — the two results may reflect different environments/versions/scenarios; worth reconciling with whoever owns #129088 rather than assuming either result is wrong.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-037 – TC-HLP-066, plus TC-HLP-058–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-049 (SLA dropdown project-scoping in Customer form), TC-HLP-050 (Organization dropdown NOT project-scoped, by design), TC-HLP-042–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-065 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin), TC-HLP-047 (Customer create with identity+password+project-access all in one Save, added 2026-09-01), TC-HLP-038 (Organization create with only required Name, added 2026-09-01), TC-HLP-044/334 (Customer edit-required-only and edit-all-fields, added 2026-09-01 after a background audit workflow), TC-HLP-039/337 (Organization edit-required-only and edit-all-fields, same pass — Organization previously had ZERO Edit-form coverage of any kind); see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-113/TC-HLP-312 for these two entities' edit-time validation-error counterparts, TC-HLP-428 – TC-HLP-430 (HD-6 customer project-access Support Package selector/override/propagation, production issue #121289, added 2026-09-28), TC-HLP-432 (one mandatory organization per customer, from a user UX review, added 2026-09-28)
+- Case ID: TC-HLP-037 – TC-HLP-066, plus TC-HLP-058–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-049 (SLA dropdown project-scoping in Customer form), TC-HLP-050 (Organization dropdown NOT project-scoped, by design), TC-HLP-042–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-065 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin), TC-HLP-047 (Customer create with identity+password+project-access all in one Save, added 2026-09-01), TC-HLP-038 (Organization create with only required Name, added 2026-09-01), TC-HLP-044/334 (Customer edit-required-only and edit-all-fields, added 2026-09-01 after a background audit workflow), TC-HLP-039/337 (Organization edit-required-only and edit-all-fields, same pass — Organization previously had ZERO Edit-form coverage of any kind); see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-113/TC-HLP-312 for these two entities' edit-time validation-error counterparts, TC-HLP-428 – TC-HLP-430 (HD-6 customer project-access Support Package selector/override/propagation, production issue #121289, added 2026-09-28), TC-HLP-432 (one mandatory organization per customer, from a user UX review, added 2026-09-28), TC-HLP-495 – TC-HLP-501 (CSV Import, UI + API, feature #129343, added 2026-11-25)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

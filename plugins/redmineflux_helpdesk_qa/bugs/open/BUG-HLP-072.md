@@ -1,7 +1,7 @@
 # BUG-HLP-072
 
 - Bug ID: BUG-HLP-072
-- Production Redmine Issue ID: <!-- #NNNN on flux.zehntech.com, filled after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #129406 (assigned to Vaishnavi Bhawsar, linked as defect on Run #690 / Test Suite #19 / Testcase #129403)
 - Title: `GET /helpdesk/api/v1/dashboard` always returns 500 Internal Server Error — `DashboardController#show` calls a `prepare_dashboard_details` method that is never defined anywhere in the plugin
 - Redmine version: 6 (local Docker, `helpdesk-redmine6`)
 - Plugin name: Redmineflux Helpdesk

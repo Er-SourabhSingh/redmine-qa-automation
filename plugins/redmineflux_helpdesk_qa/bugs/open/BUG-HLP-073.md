@@ -1,7 +1,7 @@
 # BUG-HLP-073
 
 - Bug ID: BUG-HLP-073
-- Production Redmine Issue ID: <!-- #NNNN on flux.zehntech.com, filled after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #129407 (assigned to Vaishnavi Bhawsar, linked as defect on Run #690 / Test Suite #19 / Testcase #129402)
 - Title: `Helpdesk::AutoCloseTicketsWorker`'s customer-facing `ticket_auto_closed` email is queued via `.deliver_later` but never actually sent — the SMTP send silently never happens, even though the job logs "Performed"
 - Redmine version: 6 (local Docker, `helpdesk-redmine6`)
 - Plugin name: Redmineflux Helpdesk

@@ -50,6 +50,32 @@
 
 ![Bug evidence](../../screenshots/BUG-TCM-176/quick-create-milestone-required-field-blocked.png)
 
+### Retest screenshot (2026-11-25 — FIXED)
+
+![Retest result](../../screenshots/BUG-TCM-176/retest-2026-11-25-pass.png)
+
+### Retest screenshot — Edit Run follow-up (2026-11-25 — FIXED)
+
+![Retest result](../../screenshots/BUG-TCM-176/retest-2026-11-25-edit-run-pass.png)
+
+**Retest result: PASS.** Pulled fix commit `9434037` (`master`) into the `redmine6` plugin source
+(`app/views/runs/_milestone_field.html.erb`, `app/controllers/testcase_milestones_controller.rb`,
+`app/helpers/testcase_milestones_helper.rb`), restarted the `redmine6-redmine-1` container, and re-ran the
+exact repro steps on `localhost:3000`, project `trdy`. The "+ New milestone" quick-create popup now shows
+the "QA Required Field *" input alongside Milestone name/Due date. Submitted with the required field filled
+("Retest BUG-TCM-176 Fix" / "retest-value") → milestone created successfully and auto-selected in the
+Milestone dropdown, no console errors, no 422. Confirmed fixed per developer's commit `9434037`
+("Let people create a milestone from the Add Run form when a Version field is required (BUG-TCM-176)").
+
+**Follow-up finding (same day):** the Edit Run popup has its own separate instance of this same "+ New
+milestone" link, and it initially did nothing at all when clicked (no quick-create box appeared) —
+reported back to the developer rather than filed as a new bug, since it was clearly adjacent to this same
+area. Developer fixed same day with commit `7d09303` ("Make the New milestone button work on the Edit Run
+form", `app/views/runs/edit.js.erb`). Retested after pulling that commit and restarting the container:
+**PASS** — the quick-create box (including the required custom field) now appears correctly from Edit Run
+too, and a test milestone ("Edit Run Milestone Retest") was created and auto-selected successfully, no
+console errors.
+
 ### Console / log
 
 ```

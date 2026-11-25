@@ -2,6 +2,41 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## How tool discovery actually works, and why a "missing capability" finding needs care (2026-11-25)
+
+Read `crux_core/askcrux/discovery.py` and `config.py` directly on `C:\crux-redmine` (services/redmineflux-crux-core).
+Key facts for judging a future "the agent says this tool doesn't exist" finding:
+
+- Each agent's static `allowed_tools` list (e.g. Helpdesk Agent: 33 tools) is NOT the ceiling. A generic
+  two-step discovery mechanism (`crux_discover_tool_groups` → `crux_discover_group_tools`) can load any OTHER
+  tool from the SAME MCP catalog group at runtime. Read tools from any group are always discoverable; WRITE
+  tools are only discoverable from a group listed in `CONFIG.discovery_write_groups`
+  (`DEFAULT_DISCOVERY_WRITE_GROUPS = "core,flux,helpdesk,testcases,crm,workload,timesheet,agile,invoice,devops"`
+  — i.e. helpdesk and testcases writes ARE discoverable by default on this stack).
+  There's also a keyword-triggered "hint" shortcut (`_HINTS` in `discovery.py`) that pre-loads specific tools
+  when the user's message contains certain words (e.g. "support package(s)", "holiday", "support level") —
+  built specifically because earlier bugs (BUG-CRX-158/159/160, etc.) showed discovery itself burning a whole
+  turn's token budget.
+- `mcp_client.list_tools()` calls the live MCP server's `tools/list` **fresh, every single chat request — no
+  caching, no TTL**. So Crux is NOT structurally behind a newly-updated MCP catalog; if the MCP server reports
+  N tools right now, Crux's discovery mechanism can see all N right now too, in principle.
+- **However:** a brand-new MCP tool only becomes reachable via discovery if its name matches the
+  `redmineflux_<group>_<verb>` pattern discovery groups by, and — for a WRITE — if its group is in
+  `discovery_write_groups` AND nothing group-specific blocks it. A tool can exist in the MCP catalog and still
+  never get discovered/called correctly if the agent never asks for the right group/hint, as seen today with
+  KB page deletion: `kb_delete_page` exists and works (confirmed via direct REST), but the Helpdesk Agent
+  consistently proposed the unrelated generic `redmineflux_helpdesk_delete` tool instead (which doesn't support
+  `resource_type: kb_page`) — a tool-SELECTION gap, not a catalog-visibility gap.
+- **Practical implication:** before concluding "X isn't wired into Crux yet" is a bug, check (a) whether X's
+  underlying MCP tool actually exists and works via direct `/api/chat` or raw REST, (b) whether its group is in
+  `discovery_write_groups` for a write, and (c) whether recent plugin work (e.g. HD-13's "JSON API for the
+  Helpdesk features that had only screens (MCP / Crux)") was explicitly scoped MCP-first with Crux-agent wiring
+  deferred to a separate, not-yet-filed ticket — per the user's own account of how this developer sequences
+  this kind of work. Several 2026-11-25 findings (KB-delete routing both via the correct agent and via
+  Auto-mode's wrong-agent routing, the email-config refusal wording) were intentionally NOT filed as bug files
+  this session for exactly this reason — handed to the user in chat instead, to confirm with the developer
+  first.
+
 ## Side finding, not yet filed — Helpdesk Agent's SLA listing vs. resolution mismatch (2026-11-05)
 
 While retesting BUG-CRX-160, the Helpdesk Agent's `list` response for global SLAs named "Gold SLA" as an active

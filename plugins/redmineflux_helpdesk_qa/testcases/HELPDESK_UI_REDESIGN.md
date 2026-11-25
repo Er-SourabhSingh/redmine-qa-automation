@@ -310,15 +310,33 @@
 
 ---
 
+### TC-HLP-515: The Helpdesk UI's accent colour switches from blue to orange under the Scarlet theme
+
+**User Role:** Administrator
+**Priority:** Low
+**Precondition:** The `redmineflux_scarlet` plugin is installed and its companion theme is registered (see note below — on a fresh install this requires a manual step due to BUG-RSC-005).
+
+**Steps:**
+1. Administration → Settings → Display → Theme
+2. Select "Redmineflux scarlet", Save
+3. Open the Helpdesk Command Center and inspect the top nav link and the primary "New issue" button
+
+**Expected Result:**
+- The one shared accent colour (filter chips/tabs/bars/link-hover/primary buttons) switches from its blue default to orange
+
+- **CONFIRMED LIVE 2026-11-25** (Local, helpdesk-redmine6, admin): **PASS, with a real installation defect found along the way.** The "Redmineflux scarlet" theme did **not** appear in the Theme dropdown at all on this freshly-pulled instance — root-caused and filed as **BUG-RSC-005** (`plugins/redmineflux_scarlet_qa/bugs/open/BUG-RSC-005.md`): the plugin's own documented "auto-install theme on plugin load" never runs, because `config/initializers/theme_installer.rb` is dead code — never `require`d by `init.rb`. Worked around by running the plugin's own `rake redmineflux_scarlet:install_theme` manually (confirmed working) plus `rake assets:precompile` + a restart (cleared two secondary asset-404s for the theme's own `application.css`/`favicon.png`, a normal consequence of a from-scratch disk install, not a separate defect). Once installed: theme selected and saved cleanly ("Successful update"), zero console errors post-precompile, and the Helpdesk dashboard's top nav link ("Helpdesk Command Center") and primary "New issue" button both switched to orange, confirmed via screenshot. Note: the left icon rail's own active-item highlight stayed blue rather than switching — not re-scored as a separate bug this pass (not explicitly promised to include rail highlights), worth a second look if pursued further.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-435 – TC-HLP-450
-- Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6; none found in this pass)
+- Case ID: TC-HLP-435 – TC-HLP-450, TC-HLP-515
+- Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6; none found in this suite's own scope, but TC-HLP-515 found `BUG-RSC-005` against the companion `redmineflux_scarlet` plugin)
 - Log: `logs/`
-- Bug reference: see `bugs/_index.md` — no new bug filed from this suite; all checked behavior matched the production description
+- Bug reference: see `bugs/_index.md` — no new Helpdesk bug filed from this suite; TC-HLP-515 found `BUG-RSC-005` (filed in `redmineflux_scarlet_qa`, not this plugin's own bug index, since the defect is in the Scarlet plugin itself)
 
 ## Deferred / Out of Scope
 
 - Customer CSV import, multilingual emails, Status Notifications settings, auto-close dedup email, and the new JSON APIs (same production Feature #129343) — covered in `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`, `HELPDESK_EMAIL.md` and `HELPDESK_REPORTING_AUTOMATION.md` respectively, not here.
-- Scarlet-theme accent-colour switch (blue → orange), full keyboard-only accessibility pass on the Knowledge base, and a document-with-sub-articles' chapter count were not independently exercised this pass (no Scarlet-themed project or multi-article document existed on this instance at test time) — flagged as a coverage gap for a follow-up session rather than guessed at.
+- Full keyboard-only accessibility pass on the Knowledge base, and a document-with-sub-articles' chapter count were not independently exercised this pass (no multi-article document existed on this instance at test time) — flagged as a coverage gap for a follow-up session rather than guessed at. (Scarlet-theme accent-colour switch, previously deferred here, is now covered above as TC-HLP-515.)
 - Export button's actual CSV/Excel/PDF file download was not re-clicked this pass (placement only) — download mechanics already covered by `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-265.

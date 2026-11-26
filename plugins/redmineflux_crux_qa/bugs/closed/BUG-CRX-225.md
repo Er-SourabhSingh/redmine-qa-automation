@@ -56,3 +56,21 @@
   `add_issue` write path.
 - Existing bug reference (related class, not duplicate): BUG-CRX-080, BUG-CRX-093, BUG-CRX-101, BUG-CRX-133,
   BUG-CRX-140, BUG-CRX-187, BUG-CRX-224
+
+## Retest (2026-11-25) — CONFIRMED FIXED
+
+- Context: the OpenRouter LLM key configured for this stack had expired between the original 2026-11-20 finding
+  and today, and `redmineflux_crux` was pulled to `ac0608e`/0.104.0 (CRP-61/CRP-62) plus `redmineflux_helpdesk`
+  and `redmineflux-crux-core` already current (CRC-124) earlier in today's session — retested with a fresh,
+  valid key and current code, via Playwright MCP against the real browser widget (`/crux/ask`, Workload Agent
+  explicitly pinned, brand-new session `ses-606`).
+- Reproduced the exact original turn sequence: (1) "Any scheduling conflicts on the Crux Capacity Sprint 1
+  workload? Also, who's on leave today?" — correctly cited "Workload #2 (test w1)" as the comparison workload.
+  (2) "What issues are currently on the Crux Capacity Sprint 1 workload?" — correctly listed the same 4 real
+  issues as before. (3) "Add issue #190 to the Crux Capacity Sprint 1 workload." — confirm card this time showed
+  **`Workload: 1`** — the CORRECT id (not `3`, as originally found). Cancelled before confirming (verification
+  only, no write needed).
+- Not confirmed whether the fix is specifically attributable to the CRP-61/CRP-62 pull, to CRC-124 (which fixed
+  the related subtask/project-resolution bug BUG-CRX-224), or to some other change — but the exact original
+  repro steps, same workload name, same issue number, now resolve correctly. Moving to closed as CONFIRMED FIXED
+  on retest; reopen if this resolution shape recurs.

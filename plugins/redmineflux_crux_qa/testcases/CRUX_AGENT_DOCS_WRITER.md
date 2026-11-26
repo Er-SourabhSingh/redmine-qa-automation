@@ -106,6 +106,12 @@ cover (BUG-CRX-211).
 
 > **Regression (2026-11-19):** PASS -- read existing Team Norms content first, preserved it, appended new section; confirmed, native-verified wiki version 2 with exact merged content.
 
+> **Regression (2026-11-26):** PASS (with a twist) — re-verified after the CRC-123/124 pulls. Same exact
+> request again correctly read the page first (`"Checked 3 things"`), but this time honestly reported there
+> was nothing new to add, since the "On-Call Handoff Checklist" section from the 2026-11-19 run was already
+> there verbatim — rather than fabricating a redundant edit or silently re-proposing the same content as new.
+> Still demonstrates the required read-before-edit behavior; no write needed since nothing had changed.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -164,6 +170,11 @@ no SAML/OIDC/admin-path fabrication — BUG-CRX-167 (TC-635) appears fixed too, 
 ### TC-CRX-638: Project resolution by fuzzy name/identifier match
 
 > **Regression (2026-11-19):** PASS -- resolved project by display name with no clarifying question, real version-linked issues cited.
+
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Same exact request again
+> resolved "Crux PM Agent Test Project" (display name) with no clarifying question, correctly cited 3 real
+> version-linked issues (#57, #37, #97) with honest caveats (#57/#37 have no description so subject-only is
+> used; #97 is still "new" status, flagged as a known limitation rather than silently listed as complete).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

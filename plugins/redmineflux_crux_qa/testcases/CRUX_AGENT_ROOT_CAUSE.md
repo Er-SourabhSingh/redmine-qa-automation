@@ -119,6 +119,11 @@ match with #91 and a borrowed mechanism from a different issue's (#93) already-c
 
 > **Regression (2026-11-19):** PASS -- confirm card shown; confirmed; new journal entry (id=78) native-verified on issue #33 with the full analysis text.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. "What's causing #33? Add that
+> analysis as a comment" in one turn produced a genuine `Core Update Issue` confirm card with the analysis as
+> `notes` — nothing written until Confirm. Confirmed → native-verified via `get_issue(33, include=journals)`:
+> a real new journal entry containing the "Root-Cause Analysis" text now exists (3 journals total, up from 2).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

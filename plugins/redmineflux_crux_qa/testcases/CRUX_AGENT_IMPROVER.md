@@ -82,6 +82,12 @@ were real engineering steps, no filler words.
 
 > **Regression (2026-11-19):** PASS overall (1/2), with a genuine new non-deterministic bug found: first attempt failed all 3 steps (project_id passed as int, Pydantic validation error), second identical attempt succeeded cleanly (#179-181 created, native-verified) -- filed as BUG-CRX-222.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls (BUG-CRX-222 itself was
+> CONFIRMED FIXED and closed on 2026-11-20). "Break issue 97 into subtasks, then create those" in one turn
+> produced a clean 4-step plan, all `Parent Issue: 97`, correctly typed as a string — confirmed → all 4 steps
+> succeeded with zero failures (#214-217), native-verified as genuine children of issue #97 via
+> `list_issues(parent_id=97)`. No `project_id` type error this time.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

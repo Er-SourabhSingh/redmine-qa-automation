@@ -2,6 +2,9 @@
 
 > **Regression (2026-11-19):** PASS -- filtering by DevOps Agent recomputed tile (1,821 -> 22) and table (all rows DA) correctly.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Filtering by
+> DevOps Agent recomputed the tile (2,025 → 28) and all visible table rows correctly show "DA" (DevOps Agent).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-780.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §4. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

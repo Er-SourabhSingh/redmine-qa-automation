@@ -2,6 +2,11 @@
 
 > **Regression (2026-11-19):** PASS -- filter tabs show real live counts (All 18, Waiting for you 5, In progress 11), table rows match.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Filter tabs
+> show real live counts (All 18, Waiting for you 4, In progress 12, Done 2 — minor drift from 2026-11-19 is
+> expected, ongoing pipeline activity), and the 4 visible table rows under "Waiting for you" all correctly
+> show that status.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-754.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §2. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

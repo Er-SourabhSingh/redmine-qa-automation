@@ -20,6 +20,12 @@
 - **TC-CRX-921** — Table shows Rule (a real sentence), Reason, Frozen by, and a Delete button with the confirm
 
 > **Regression (2026-11-19):** PASS, both -- table correctly shows Rule/Reason/Frozen by/Actions columns with the exact generated sentence; created a field+tracker-only rule (Bug/status), success message "Frozen: tracker "Bug" field "status"." exactly as documented. Removed after verification.
+
+> **Regression (2026-11-26):** PASS, both — re-verified via Playwright MCP after the CRC-123/124 pulls. Created
+> the same field+tracker-only rule (Tracker=Bug, Field=status) — success message `"✓ Frozen: tracker "Bug" ·
+> field "status"."` exactly as documented. Table correctly showed Rule (generated sentence "Agents can't change
+> the status field on issues with tracker Bug in every project"), Reason, Frozen by (admin), and a Remove
+> button. Removed after verification.
   text "Agents can change these tickets again straight away".
 - **TC-CRX-922** — + Freeze something — scoped by field only: create a rule freezing just the `status` field for a
   specific tracker (e.g. Bug), leaving Project/ticket id blank. Confirm the generated rule sentence correctly

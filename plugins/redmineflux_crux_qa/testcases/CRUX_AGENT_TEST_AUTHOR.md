@@ -95,6 +95,13 @@ got only 1 test (a presence/visibility check) with no distinct negative/edge cas
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. This time, rather than
+> refusing outright (the original 2026-11-04 result), it explicitly derived 4 test cases from the
+> description's stated behavior ("the description doesn't contain explicit acceptance criteria, so I'll
+> derive test cases from the behaviour it states") and said so clearly — arguably an even closer match to
+> this TC's own title ("falls back to the description's stated behavior, says so") than the original refusal.
+> Both are defensible; today's is the more literal fit.
+
 **User Role:** `admin`.
 **Precondition:** Issue F exists (no criteria list, only prose).
 

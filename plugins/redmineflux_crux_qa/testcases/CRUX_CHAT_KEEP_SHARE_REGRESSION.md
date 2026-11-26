@@ -44,6 +44,13 @@ identity.
 
 > **Regression (2026-11-19):** PASS -- new incident #5 created and Kept; Kept-answers panel preview shows the real post-execution outcome ("...confirm? Incident 5 opened...") not just the pre-execution proposal. BUG-CRX-010 still does not reproduce.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP in the real browser (not just the API),
+> after the CRC-123/124 pulls. Created a fresh incident #6 ("Keep/Share regression retest"), confirmed →
+> "✓ Incident 6 opened [sev4]..." Clicked Keep (button became "Kept ✓", disabled). Opened the "Kept answers"
+> panel: the saved entry's preview shows "I'll do this (DevOps Create Incident) — confirm? ✓ Incident..." —
+> both the pre-execution proposal AND the start of the real post-execution outcome, not the proposal alone.
+> BUG-CRX-010 still does not reproduce.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -91,6 +98,13 @@ executed outcome (not the proposal alone) renders correctly for the viewer.
 anything here."* Composer textbox labeled "Read-only — shared session" and disabled; Send button disabled.
 The already-confirmed incident-creation turn rendered its full real outcome identically to what the owner
 saw (`✓ Incident 4 opened [sev4]...`), proving visibility works correctly for a write-enabled turn.
+
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP, full real Share cycle (not deferred this
+> time). Shared TC-1087's fresh session (incident #6) with `daisy.skye` via the Share dialog ("✓ Shared with
+> daisy.skye."), logged in as `daisy.skye` for real, opened the exact shared session URL. Banner: *"Shared by
+> admin — read-only, you can't send or change anything here."* Composer textbox labeled "Read-only — shared
+> session", disabled; Send button disabled. The confirmed incident-creation turn rendered its full real outcome
+> identically to the owner's view (`✓ Incident 6 opened [sev4]... started at: 2026-11-26T05:56:23.918Z`).
 
 ---
 

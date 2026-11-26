@@ -2,6 +2,13 @@
 
 > **Regression (2026-11-19):** PASS -- Component dropdown lists 7 real, live component values (all, core.api.server, core.askcrux.chat, core.askcrux.field_check, core.askcrux.llm_router, core.askcrux.mcp, core.askcrux.proposals, core.redmine), dynamic not hardcoded.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Component
+> dropdown is still live/dynamic: now shows `all, core.api.server, core.askcrux.chat,
+> core.askcrux.field_check, core.askcrux.llm_router, core.askcrux.mcp, core.askcrux.proposals` — one fewer
+> entry than 2026-11-19 (`core.redmine` not currently present), consistent with this being populated from
+> whatever components actually have log lines in the current in-memory buffer right now, not a static list —
+> still correctly dynamic, just a different live subset today.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-940.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §11. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

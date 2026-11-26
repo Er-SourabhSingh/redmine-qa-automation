@@ -56,6 +56,13 @@ notes to the issue — each a confirm card.
 
 > **Regression (2026-11-19):** PASS -- all sections present: 6-step user flow incl. failure/error paths, 3 screens with per-screen states, open questions.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls (combined with TC-705 in one
+> turn). Native-verified saved wiki content (see TC-705 below) has all 4 sections: a 7-step User Flow with 2
+> explicit error-path steps, 4 Screens (Login Page with 3 states, IDP page, a backend redirect handler with
+> 2 states, Dashboard), a 5-item Rules & Validation section including an explicit mobile rule, and 5 real,
+> grounded Open Questions (IDP choice, SSO-required-vs-optional, user matching, error detail, account
+> auto-creation).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -104,6 +111,13 @@ own rows for "SSO token invalid or expired," "IdP returns an error," "Network ti
 ### TC-CRX-705: Saving the design to the wiki is a genuine confirm card
 
 > **Regression (2026-11-19):** PASS -- genuine confirm card, confirmed; native-verified new wiki page SSO_Login_Design created (updated_on matches test time).
+
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. "Design the flow for issue #35,
+> then save that design to the wiki" in one turn produced a genuine `Core Create Or Update Wiki Page` confirm
+> card, honestly showing the existing page's current text and "Change: Replaces the whole page" (the page
+> already existed from the 2026-11-19 run) — not silently overwriting without disclosure. Confirmed → native
+> re-fetch of `/projects/1/wiki/SSO_Login_Design.json` shows `version: 2`, `updated_on` matching today, full
+> content intact (see TC-703 above for section-completeness detail).
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

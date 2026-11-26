@@ -2,6 +2,9 @@
 
 > **Regression (2026-11-19):** PASS -- OpenRouter Test connection (real key) returned "ok · 1250ms".
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the fresh OpenRouter key was
+> configured this session (the prior one had expired). Test connection returned "ok · 1602ms".
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-871.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §8. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

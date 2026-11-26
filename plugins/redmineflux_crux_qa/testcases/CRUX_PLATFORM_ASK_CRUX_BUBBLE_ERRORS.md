@@ -2,6 +2,12 @@
 
 > **Regression (2026-11-19):** PASS -- Share with a real existing user (daisy.skye) succeeded cleanly, confirmation "Shared with daisy.skye." shown, Currently shared with list updated.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP (same session also used for the
+> Keep/Share Regression suite's TC-1088 retest today). Share dialog, added `daisy.skye` — "Currently shared
+> with:" list showed her chip, confirmation banner "✓ Shared with daisy.skye." appeared. Logged in as
+> `daisy.skye` for real and confirmed she genuinely gained access (shared session rendered correctly,
+> read-only).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-1021.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §13.9–13.12 and §14. Plugin: redmineflux_crux.

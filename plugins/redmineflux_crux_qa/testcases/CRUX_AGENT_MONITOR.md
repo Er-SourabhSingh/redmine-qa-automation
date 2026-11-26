@@ -46,6 +46,11 @@ first. Says "nothing needs attention" honestly when that's true. Has **no write 
 
 > **Regression (2026-11-19):** PASS -- grounded (Checked 5 things), real overdue issues #2/#3 cited accurately; no critical-priority issue currently exists in this project (data has evolved), honestly reported rather than fabricated.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Same grounded behavior (5 tool
+> calls): real overdue issues #2/#3 cited by number/date, plus an honest additional alert on the now-large
+> unassigned backlog (136 issues, 15+ added today) with real bug numbers (#97, #93) named — no critical/
+> immediate issue fabricated, correctly reported none currently exists.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

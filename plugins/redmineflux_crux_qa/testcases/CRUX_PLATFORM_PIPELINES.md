@@ -2,6 +2,9 @@
 
 > **Regression (2026-11-19):** PASS -- built-in Software feature pipeline shows exact 7 stages / 3 approval gates.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Built-in
+> "Software feature" pipeline still shows exactly "7 stages · 3 approval gates".
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-851.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §7. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

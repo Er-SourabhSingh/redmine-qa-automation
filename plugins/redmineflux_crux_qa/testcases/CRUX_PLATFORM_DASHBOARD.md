@@ -2,6 +2,10 @@
 
 > **Regression (2026-11-19):** PASS -- Dashboard "Agent runs: 1,821" exactly matches Run Ledger "1,821 matching this filter".
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Dashboard now
+> shows "Agent runs: 2,025" (figure naturally grew from continued testing activity), Run Ledger shows exactly
+> "2,025 matching this filter" — still an exact match, both reads genuinely live.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-728.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §1 (developer-authored, source-derived — authoritative).

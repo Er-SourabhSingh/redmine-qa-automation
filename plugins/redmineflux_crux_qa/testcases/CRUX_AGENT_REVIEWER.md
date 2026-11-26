@@ -60,6 +60,10 @@ issues:
 
 > **Regression (2026-11-19):** PASS -- all 3 criteria shown Met with real journal evidence, none skipped. Verdict label is BLOCK rather than PASS because issue #32 itself is still genuinely in "Waiting for Customer Response" status (not an agent fabrication) -- core evidence-grounded behavior intact.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls, using the manifest's canonical
+> phrasing directly. Clean `**PASS**` verdict stated first, all 3 criteria shown Met with real journal evidence
+> (QA verified in journal, 2026-11-04), none skipped, no generic "looks good" filler.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.

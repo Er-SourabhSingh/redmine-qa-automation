@@ -104,6 +104,11 @@ clicks Confirm.
 
 > **Regression (2026-11-19):** PASS -- already effectively re-verified during BUG-CRX-220 investigation this session: project_summary read returned accurate real build/commit/PR/repo-connection data.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Re-asked the identical question;
+> `project_summary` now correctly reflects the project's state as of the TC-625/BUG-CRX-220 Cloudflare-tunnel
+> session (1 build #6 pending on main, 2 commits, 1 open PR, 1 connected GitHub repository) — consistent with
+> that session's own fixture data, no stale/fabricated counts.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -209,6 +214,13 @@ match exactly, no embellishment either direction.
 approve`. After Confirm, chat reported *"✓ Deployment 1: approve done. status: approved."* Native verify
 returned `approval status: approved, approved by: Redmine Admin, approved at: 2026-11-19T06:16:50Z` — matches
 exactly, correctly attributed to the confirming user (not a service account).
+
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Deployment 1 was already
+> approved from the original run, so created a fresh deployment first ("deploy main to Production" → id 3,
+> pending approval), then "approve deployment 3" → confirm card `Action: approve` against the real deployment,
+> confirmed → `"Deployment 3: approve done, status: approved."` Native-verified via
+> `GET /api/devops/projects/20/deployments/3.json`: `approval_status: approved`, `approved_by: Redmine Admin`,
+> `approved_at: 2026-11-26T05:43:17.138Z` — matches exactly.
 
 ---
 

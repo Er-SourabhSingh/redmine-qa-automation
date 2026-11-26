@@ -2,6 +2,9 @@
 
 > **Regression (2026-11-19):** PASS -- Core URL Test connection returned "Connected to the Crux core service."
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Core URL Test
+> connection still returns "Connected to the Crux core service."
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-888.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §9. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

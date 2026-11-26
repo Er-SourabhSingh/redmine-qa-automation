@@ -2,6 +2,10 @@
 
 > **Regression (2026-11-19):** PASS -- admin help/setup content renders correctly with real setup steps.
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Page still
+> renders correctly: "First-time setup (admins)" section with ordered one-time steps, plus the agent
+> capability table (Project Manager, Project Setup Agent, etc.) populated live.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-954.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §12. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

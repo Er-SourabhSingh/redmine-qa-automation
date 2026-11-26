@@ -99,6 +99,8 @@ existing duplicate, create a new Bug issue, or create a new issue plus a "relate
 
 > **Regression (2026-11-19):** PASS — real duplicate target #158 ("Payment gateway is down") found via search, correctly proposed as an update_issue/notes comment (not a new issue), genuine confirm card, confirmed successfully.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Same exact phrasing again correctly found #158 and proposed `update_issue` with a Notes-only change (not a new issue), confirm card genuine, confirmed → native result confirms `issue_id: 158`, notes change applied, nothing else touched.
+
 **User Role:** `admin`.
 **Precondition:** The fixture duplicate-target Bug issue exists with a matching real subject/keywords.
 
@@ -156,6 +158,13 @@ symptom (not a duplicate — e.g. existing issue is "login times out on slow con
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 > **Regression (2026-11-19):** PASS — Critical-shaped report ("search returning zero results site-wide, blocking, no workaround") correctly got Priority: immediate (this project's real top-tier priority); Low-shaped ("footer copyright year cosmetic") correctly got Priority: low. Both mapped to real list_priorities, not hardcoded.
+
+> **Regression (2026-11-26):** PASS — original wording now correctly dedup-matched old fixture issues from
+> prior test runs (#176/#175/#111/#110/#98) instead of creating new ones, so re-ran with uniquely-worded
+> fresh reports to genuinely exercise severity mapping again: Critical-shaped ("invoice PDF export 500s for
+> every user, blocking, no workaround") → created #206, native-verified `priority: {"id":9,"name":"immediate"}`.
+> Low-shaped ("dashboard banner wrong shade of blue, cosmetic") → created #207, native-verified
+> `priority: {"id":6,"name":"low"}`. Both correctly mapped to this project's real priority list.
 
 **User Role:** `admin`.
 **Precondition:** Two distinct reports — one clearly Critical-shaped (blocks payments, no workaround, many

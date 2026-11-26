@@ -68,6 +68,10 @@ writes code, never closes the bug itself.
 
 > **Regression (2026-11-19):** PASS — found and used the real cause comment on #93 (off-by-one boundary, quoted verbatim), fix plan included Risk and Verification with an explicit regression-check step.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Same exact phrasing again found
+> and used the real cause verbatim, plan included Risk (Low) and Verification with an explicit regression-check
+> step (500-row export still works).
+
 **User Role:** `admin`.
 **Precondition:** Bug I has a real cause comment on it.
 
@@ -114,6 +118,12 @@ explicitly suggested asking the Root-Cause Analyst to verify. Never proceeded as
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 > **Regression (2026-11-19):** PASS — subtask creation confirm card correctly showed Parent Issue: 93; confirmed, native-verified via list_issues(parent_id=93): new child #177 genuinely created.
+
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls (the same release that fixed
+> BUG-CRX-224, "a subtask goes in its parent issue's project," on the sibling Improver agent). Confirm card
+> correctly showed `Parent Issue: 93`; confirmed → created #208, native-verified `parent: {"id":93}` and
+> `project: {"id":1,"name":"Crux PM Agent Test Project"}` (issue #93's own real project) — correct child
+> linkage and project resolution.
 
 **User Role:** `admin`.
 **Precondition:** TC-668's plan exists; user prefers subtasks.

@@ -2,6 +2,10 @@
 
 > **Regression (2026-11-19):** PASS -- project-scoped Crux tab renders correctly with real project-specific stats (Agent runs 103, Outcomes 2).
 
+> **Regression (2026-11-26):** PASS — re-verified via Playwright MCP after the CRC-123/124 pulls. Project-scoped
+> Crux tab still renders correctly with real, live project-specific stats (Agent runs: 121, grown from
+> continued testing activity), tab row intact (Overview, Graph, etc.).
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** TC-CRX-794.
 
 > Source: `CRUX_DEV_FEATURE_REFERENCE_20261105.md` §5. Plugin: redmineflux_crux. Redmine 6.0-bookworm,

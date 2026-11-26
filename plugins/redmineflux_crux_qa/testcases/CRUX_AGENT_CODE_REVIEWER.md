@@ -363,6 +363,12 @@ were created manually this session for test coverage, not as a real linear workf
 over it or fabricating a clean story. Every PR number, commit SHA and build number cited is real and
 verifiable. This closes the suite's last remaining gap — the real positive-path verdict.
 
+> **Regression (2026-11-26):** PASS — the Cloudflare tunnel used to generate live GitHub activity for this
+> fixture was stopped after the original session, so this re-run queries the same static PR #1/Build #6
+> records (no live webhook delivery) rather than regenerating fresh activity. Same "needs changes" verdict,
+> citing the same real PR #1 (still open) and Build #6 (still pending) — no false DevOps-access denial,
+> confirming BUG-CRX-220's 2026-11-20 fix still holds on this agent/tool path.
+
 ---
 
 ## Notes for whoever executes this suite

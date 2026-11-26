@@ -141,6 +141,16 @@ no fabricated figures.
 
 > **Regression (2026-11-19):** PASS -- confirm card showed exact project/subject/description; confirmed; ticket #178 genuinely created, native-verified via list_tickets.
 
+> **Regression (2026-11-26):** PASS, with a notable response-envelope anomaly found along the way. Confirm
+> card correctly showed `Project: Crux Helpdesk Agent Test Project`, `Subject`, `Description`. Confirming
+> returned `{"ok": false, "error": "Ticket created successfully. ID:209 | ..."}` — a genuine success message
+> wrapped in a protocol-level failure envelope. Native-verified ticket #209 genuinely exists with correct
+> project/subject/description/tracker (Support) — the write itself was 100% correct, only the response
+> envelope was wrong. Re-tried 5 more times (1 more via raw API, 4 via the real Playwright browser widget) —
+> all 5 came back with the normal `{"ok": true, ...}`/✓ shape, tickets #210–213 all native-verified correct.
+> Not reliably reproducible (1/6) and never observed via the actual browser UI — held per explicit user
+> instruction as an unconfirmed, low-confidence intermittent observation, not filed as a bug.
+
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 
 **User Role:** `admin`.
@@ -170,6 +180,12 @@ genuinely unassigned, no SLA yet.
 ### TC-CRX-575: First assignment starts the SLA — regression-check the documented lifecycle rule
 
 > **Regression (2026-11-19):** PASS -- SLA genuinely started on first assignment, native-verified via get_sla_status (active, real response deadline set).
+
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls, against fresh ticket #209 from
+> today's TC-574 re-run. "Assign ticket 209 to admin" → confirm card `Ticket: 209`, `Assignee: Redmine Admin`;
+> confirmed → native-verified via `sla_status.json`: `status: active`, `sla_started_at: 2026-11-26T05:52:29Z`,
+> `response_deadline: 2026-11-26T06:52:29Z` (exactly 60 minutes later, matching the SLA's configured First
+> Response Time) — lifecycle rule still holds correctly.
 
 > **Happy Flow — selected for today's quick regression (2026-11-19):** Yes.
 

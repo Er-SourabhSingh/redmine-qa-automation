@@ -71,6 +71,11 @@ Dashboard and project-scoped Crux tab) — matches the manifest exactly. Low tok
 confirms it answered from the built-in summary, not a docs read, consistent with "quick, obviously-covered
 question" guidance.
 
+> **Regression (2026-11-26):** PASS — re-verified after the CRC-123/124 pulls. Same question again correctly
+> named goal/acceptance/member tickets/stages/gates and the billing rule (last gate approved + ≥1 successful
+> member-ticket run). Low token count (2,654 in/264 out, 0 cache) again confirms the built-in summary path,
+> not a docs read.
+
 ---
 
 ### TC-CRX-696: A specific/detailed question is grounded in the real docs, not just the summary

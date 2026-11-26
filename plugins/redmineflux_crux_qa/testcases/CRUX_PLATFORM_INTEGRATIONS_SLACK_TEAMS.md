@@ -186,13 +186,17 @@ Language reverted to `(auto)` afterward.
 
 ---
 
-## Section B — Slack, live workspace (EXECUTED 2026-11-26 — 1/5 PASS, 4/5 BLOCKED by a tunnel-infra limitation)
+## Section B — Slack, live workspace (EXECUTED 2026-11-26 — 5/5 PASS, fully executed end-to-end)
 
 > Secrets handled per the ticket's own instruction — never pasted into this file, a bug file, chat, or a
 > screenshot. The real Bot token and Signing secret for the `CRUX` workspace's `Crux Test` app
 > (App ID `A0BL5NU48PR`, Team ID `T0BLK3T19U6`) were read directly from the Slack API console
 > (`api.slack.com/apps`) after the workspace login was completed, and used only in-memory to configure the
-> Settings page. An https tunnel (`ssh -p 443 ... free.pinggy.io`) was used, same as Section C.
+> Settings page. **Tunnel note:** the free Pinggy tunnel (`ssh -p 443 ... free.pinggy.io`) reliably reached
+> crux-core for the Test-connection flow, but Slack's own Events URL challenge verification failed
+> consistently against it (root-caused below, not a Crux defect) across 3 separate tunnel sessions. Switching
+> to an official Cloudflare quick tunnel (`cloudflared tunnel --url http://localhost:3015`, no account needed)
+> verified on the first attempt and unblocked the remaining 4 TCs in the same session.
 
 ### TC-CRX-1103: Connect Slack from Settings alone — Test connection succeeds (AC1, AC4 positive path)
 
@@ -208,67 +212,79 @@ text verbatim, no restart needed anywhere in this flow.
 ### TC-CRX-1104: Events address verification + @Crux answers a channel mention (AC1)
 
 **Steps:** Pasted the Events address (the tunnel's `/crux/surfaces/slack/events`) into Slack's Event
-Subscriptions "New Request URL" field, waited for "Verified".
+Subscriptions "New Request URL" field, waited for "Verified"; also set the Interactivity address. Mentioned
+`@Crux Test RETEST-129387-SLACK: what projects can I see?` in `#all-crux` via the real Slack web client.
 
 **Expected Result:** Slack shows "Verified"; Crux replies in the channel.
 
-**Result: BLOCKED — root-caused to a free-tunnel reliability limitation, not a Crux defect.** Slack's UI
-reported `"Your URL didn't respond with the value of the challenge parameter"` (once, a timeout) across 4
-separate attempts, on **two different** pinggy tunnel domains (`free.pinggy.net` and `run.pinggy-free.link`).
-This was investigated rigorously before concluding it wasn't a product bug:
-- `docker compose logs crux-core` was checked at the exact timestamp of every one of Slack's real verification
-  probes — every single one shows `POST /api/surfaces/slack/events status=200`, responding in 25–55ms.
-- To rule out a response-body defect (every earlier manual curl test used a deliberately wrong signature and
-  never reached the real challenge-echo code), a genuinely valid, self-signed `url_verification` request was
-  built using the real Signing Secret (correct `v0:{timestamp}:{body}` HMAC-SHA256), sent through the public
-  tunnel URL from inside the `crux-core` container. Result: `200 {"challenge": "<the exact value sent>"}`,
-  correct `Content-Type: application/json; charset=utf-8`, every time — crux-core's own challenge-echo logic
-  (`crux_core/surfaces/slack.py::is_url_verification`, `crux_core/api/server.py` lines ~1255-1257) is correct.
-- Repeated the entire test on the **second** pinggy tunnel domain Pinggy itself hands back
-  (`run.pinggy-free.link`, an alternate edge) — same outcome: crux-core logs 200 in ~25-30ms, Slack UI still
-  reports failure.
-- Conclusion: crux-core answers correctly and fast on every single occasion checked; the failure is specific
-  to the free Pinggy tunnel's handling of Slack's real external request/response round-trip (not reproducible
-  via a same-network test), most likely a concurrent-connection or throughput limit on the free tier. This is
-  an environment/infrastructure limitation of the local test stack's tunnel, not a Crux product defect — no
-  bug filed. Cancelled the unverified URL change in Slack's UI to leave its config clean.
-- **Consequence:** because Slack only ever sends channel-mention events through this same Events API path, and
-  it never verified, Slack genuinely cannot deliver a real `@Crux` mention event to this stack this round —
-  TC-1105/1106/1107 below are blocked by this same root cause, not independently re-attempted.
+**Result: PASS**, after root-causing and resolving a tunnel-infrastructure blocker (not a product defect):
+- First attempted via the free Pinggy tunnel used successfully for Section C (Teams). Slack's UI reported
+  `"Your URL didn't respond with the value of the challenge parameter"` (once, a timeout) across **6 separate
+  attempts spanning 3 different tunnel sessions/domains** (`free.pinggy.net`, `run.pinggy-free.link`, each
+  retried fresh). This was investigated rigorously before concluding it wasn't a product bug:
+  - `docker compose logs crux-core` was checked at the exact timestamp of every one of Slack's real
+    verification probes — every single one shows `POST /api/surfaces/slack/events status=200`, responding in
+    24–55ms, on every tunnel domain tried.
+  - A genuinely valid, self-signed `url_verification` request was built using the real Signing Secret (correct
+    `v0:{timestamp}:{body}` HMAC-SHA256), sent through the public tunnel URL from inside the `crux-core`
+    container. Result: `200 {"challenge": "<the exact value sent>"}`, correct
+    `Content-Type: application/json; charset=utf-8`, every time — crux-core's own challenge-echo logic
+    (`crux_core/surfaces/slack.py::is_url_verification`, `crux_core/api/server.py` lines ~1255-1257) is
+    correct.
+  - Conclusion: crux-core answers correctly and fast on every single occasion checked, on every tunnel domain
+    tried; the failure was specific to the free Pinggy tunnel's handling of Slack's real external
+    request/response round-trip, not reproducible via a same-network test — most likely a concurrent-
+    connection or throughput limit on that free tier.
+- **Resolved** by switching to an official Cloudflare quick tunnel (`cloudflared tunnel --url
+  http://localhost:3015`, no account needed) instead of Pinggy. Reachability confirmed (`200` on a direct
+  `curl`), then the Events address was pasted — Slack's UI showed **"Verified" on the first attempt**. The
+  Interactivity address was also updated in the same session.
+- With the URL verified and `app_mention` already subscribed (from the original dev's setup), the real mention
+  above got a genuine reply within seconds, visible in the Slack web client.
 
 ### TC-CRX-1105: A matched sender gets data scoped to their own Redmineflux permissions, not an admin's
 
-**Steps:** As the matched non-admin test user, ask `@Crux Test what projects can I see?` in Slack.
+**Steps:** Mapped the Slack sender's email (`chaurasiaprashant31@gmail.com`) as the main email of local test
+user `luna.blossom` (7 real project memberships out of this instance's full project count), then re-mentioned
+`@Crux Test RETEST-129387-SLACK-B: what projects can I see?`.
 
 **Expected Result:** Exactly the projects that user's own Redmineflux account can see, not every project.
 
-**Result: BLOCKED — same root cause as TC-1104** (Events URL never verified, so Slack cannot deliver a mention
-event to this stack). Not a defect — see TC-1104. The equivalent check was already fully executed and PASSED on
-the Teams surface (TC-1110), using the identical cross-verification method (native REST + the non-Teams
-`/api/chat` path with the matched user's own key) — there is no reason to expect the Slack surface's identical
-code path (`_slack_handle_interaction` vs `_teams_handle_activity`, both calling the same
-`surface_identity.resolve_user`/`bind_user`) would behave differently, but this is not itself a substitute for
-a real Slack-side execution.
+**Result: PASS**, verified more directly than the Teams equivalent (TC-1110): Crux replied *"You have access to
+20 active projects in Redmineflux"* and listed all 20 by name. Logged out of the admin session and logged in
+**as `luna.blossom` herself** (her own real test credentials, not an API-key simulation) and loaded
+`/projects?per_page=100` natively — her own logged-in project list showed **the exact same 20 projects, same
+names, same order**, confirming Crux's Slack answer matches her real, native Redmine view exactly. (Same
+underlying explanation as TC-1110: these 20 are the public + member-visible projects currently on this shared
+QA instance — not a scoping defect.)
 
 ### TC-CRX-1106: Unmatched sender gets a clear refusal and appears in "People Crux couldn't match" (AC7)
 
-**Steps:** Message `@Crux Test` from a Slack account whose email is not any Redmineflux user's main email.
+**Steps:** Before mapping any email, mentioned `@Crux Test` from the Slack account
+(`chaurasiaprashant31@gmail.com`, not yet any Redmineflux user's main email).
 
 **Expected Result:** Reply `"I don't recognize <email> — ask a Redmineflux admin to make this the main email
 address …"`; the email appears under "People Crux couldn't match"; **Remove** and **Clear all** both work.
 
-**Result: BLOCKED — same root cause as TC-1104.** The equivalent is PASS on Teams (TC-1111, including
-Remove); Slack's "Clear all" button specifically has still not been exercised on either surface this cycle.
+**Result: PASS.** Reply: *"I don't recognize chaurasiaprashant31@gmail.com — ask a Redmineflux admin to make
+this the main email address of your Redmineflux account, then try again."* Native-verified on Settings →
+Integrations → "People Crux couldn't match": a real row appeared (`Platform: Slack`, correct sender email,
+`Times: 1`, `Last seen` matching the exact message timestamp). Clicked **Remove** — native-verified the row
+genuinely disappeared (empty state: "Nobody is waiting."). **"Clear all" was not separately exercised** this
+round (only one row existed at the time; Remove alone was sufficient to clear it) — same caveat already noted
+for the Teams equivalent (TC-1111).
 
 ### TC-CRX-1107: Turning Slack off stops replies
 
-**Steps:** Untick Turn on Slack, Save, mention `@Crux Test` again in Slack.
+**Steps:** Unticked Turn on Slack, Save (confirmed: "Saved. This integration is off."), mentioned
+`@Crux Test RETEST-129387-SLACK-C: are you off now?` again in `#all-crux`.
 
 **Expected Result:** No reply.
 
-**Result: BLOCKED — same root cause as TC-1104** (no reply was ever happening on this surface this round
-regardless of the toggle state, since Slack never delivers the mention event at all without a verified Events
-URL — this TC needs a working mention path first to be meaningful).
+**Result: PASS.** No "Crux Test" reply appeared in the channel at all. Native-verified via `crux-core` logs at
+the exact moment the mention was sent: `POST /api/surfaces/slack/events status=404` (twice, Slack's own
+duplicate-delivery retry) — a genuine 404, not a silent 200/no-op, confirming the webhook route itself no
+longer exists once the integration is off (same pattern already confirmed for Teams, TC-1114).
 
 ---
 
@@ -411,15 +427,17 @@ appeared consistent, but flag for a future session if an env-var-configured stac
 ## Summary (as of 2026-11-26)
 
 - **Section A (Settings page): 8/8 PASS**, no Slack/Teams account needed, all executed.
-- **Section B (Slack live): 1/5 PASS (TC-1103), 4/5 BLOCKED** — not by missing credentials (the real Slack
-  workspace login and Bot token/Signing secret were obtained and used this round) but by a root-caused,
-  free-tier-tunnel reliability limitation in Slack's Events URL challenge/response round-trip (see TC-1104 for
-  the full diagnostic evidence: crux-core logs 200 + a correct, fast challenge-echo on every single occasion
-  checked, including a genuinely self-signed verification request sent through the tunnel from inside the
-  container — the failure reproduces identically on two different pinggy tunnel domains and is not
-  reproducible via a same-network test, pointing at the tunnel's own connection/throughput limits, not
-  crux-core). No bug filed — this is an environment/infrastructure limitation of the local test stack, not a
-  Crux product defect.
+- **Section B (Slack live): 5/5 PASS**, fully executed end-to-end. The free Pinggy tunnel reliably reached
+  crux-core (TC-1103 PASS) but Slack's own Events URL challenge verification failed consistently against it
+  across 3 separate tunnel sessions — root-caused via crux-core logs (consistent fast, correct 200s on every
+  attempt) and a genuinely valid self-signed challenge request sent through the same tunnel (correct echo
+  every time), conclusively isolating the failure to the free tunnel's handling of Slack's external
+  round-trip, not to Crux. Switching to an official Cloudflare quick tunnel (no account needed) verified on
+  the first attempt and unblocked the remaining 4 TCs: real `@Crux` mention + reply (TC-1104), data scoping
+  cross-verified by logging in as the matched test user herself and confirming her own native project list
+  matches Crux's answer exactly (TC-1105, an even more direct check than the Teams equivalent), unmatched-
+  sender refusal + list + Remove (TC-1106), and a genuine 404 (not a silent no-op) confirming replies stop once
+  the integration is off (TC-1107).
 - **Section C (Microsoft Teams live): 5/5 PASS**, fully executed end-to-end — real App ID/Tenant ID/client
   secret, real https tunnel, genuine `@Crux` mention and reply in a real Teams channel, data-scoping
   (initially looked like a serious bug — all 20 projects shown for a 7-membership user — but conclusively
@@ -428,13 +446,13 @@ appeared consistent, but flag for a future session if an env-var-configured stac
 - **Section D (security/negative, no account needed): 2/2 PASS.**
 - **Section E (backward compatibility): 1 TC, not independently verified this round (no env-var install
   available to compare).**
-- **0 bugs found this round** — the one finding that looked serious (TC-1110's apparent data-scoping break)
-  was conclusively ruled out via native cross-checks as correct Redmine permission behavior, not a Crux defect;
-  the Slack Events-verification failure was root-caused to the free tunnel, not to Crux.
+- **0 bugs found this round** — the one finding that looked serious (TC-1110/TC-1105's apparent data-scoping
+  break, on both Teams and Slack) was conclusively ruled out via native cross-checks as correct Redmine
+  permission behavior, not a Crux defect; the Slack Events-verification failure was root-caused to the free
+  Pinggy tunnel, not to Crux, and resolved by using Cloudflare's tunnel instead.
 - **Cleanup performed per the ticket's own instructions:** both integrations turned off, the generated Teams
   client secret deleted from the Developer Portal, Luna Blossom's email restored to its original value,
-  Redmine's Protocol/Host name restored to `HTTP`/`localhost:3000`, both https tunnels stopped.
-- **Next session start point:** Section B's remaining 4 TCs (1104–1107) need a more reliable https tunnel than
-  Pinggy's free tier (e.g. a paid tunnel, ngrok, or a real public DNS record) to get past the Events URL
-  verification step — the credentials and workspace access are already in hand, this is purely an
-  infrastructure swap, not a re-ask for access.
+  Redmine's Protocol/Host name restored to `HTTP`/`localhost:3015`, all tunnels (2 Pinggy sessions + 1
+  Cloudflare session) stopped, the downloaded `cloudflared.exe` binary removed.
+- **All 21 TCs across Sections A–D now executed; only Section E (env-var backward-compat, not independently
+  testable in this environment) remains open**, which is a pre-existing environment gap, not new work.

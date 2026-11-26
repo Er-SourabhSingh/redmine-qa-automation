@@ -64,29 +64,34 @@
   `HTTP`/`localhost:3000`, the https tunnel stopped. **Section B (Slack live, 5 TCs) remains BLOCKED** —
   only the Teams/Microsoft 365 credentials were received this round, not Slack's. Updated
   `CRUX_TRACEABILITY_MATRIX.md` Part 5 (13/15 covered, 5 BLOCKED pending Slack credentials).
-- **Slack workspace test credentials received and used — Section B partially executed, 1/5 PASS, 4/5
-  BLOCKED by a root-caused tunnel limitation, not missing access.** Logged into the real `CRUX` Slack
-  workspace, read the real Bot token and Signing secret for the `Crux Test` app (`api.slack.com/apps`),
-  configured Settings → Integrations → Slack — **Test connection: "Connected to the Slack workspace "CRUX" as
-  @crux_test."** (TC-1103 PASS, matches the ticket's expected text verbatim). Pasted the Events address into
-  Slack's own Event Subscriptions page; Slack's UI reported the challenge verification failed
-  (`"Your URL didn't respond with the value of the challenge parameter"` / once a timeout) across 4 attempts
-  on two different pinggy tunnel domains. **Root-caused rather than left unexplained or filed as a guess**:
-  checked `crux-core` logs at the exact timestamp of every one of Slack's real verification probes — every
-  one shows a `200` in 25–55ms; built a genuinely valid, self-signed `url_verification` request (real
-  HMAC-SHA256 signature computed from the actual Signing Secret) and sent it through the public tunnel from
-  inside the `crux-core` container — got back a correct `200 {"challenge": "<value>"}` every time, on both
-  tunnel domains. Conclusion: crux-core's challenge-echo logic is correct and fast on every occasion checked;
-  the failure is specific to the free Pinggy tunnel's handling of Slack's real external round-trip (likely a
-  concurrent-connection/throughput limit), not a Crux product defect — **no bug filed.** Because Slack only
-  delivers channel-mention events through this same, never-verified Events path, TC-1105/1106/1107 (data
-  scoping, unmatched sender, turn-off-stops-replies) are blocked by the identical root cause and were not
-  independently re-attempted. **Full cleanup performed**: Slack integration turned off (confirmed "Saved. This
-  integration is off."), the https tunnel (second one, used for Slack) stopped, Redmine's Protocol/Host name
-  restored to `HTTP`/`localhost:3015` (this stack's real address — the earlier same-day Teams cleanup note
-  above said `localhost:3000`, which does not match this plugin's own documented stack address; corrected
-  here). Updated `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md` Section B and `CRUX_TRACEABILITY_MATRIX.md` Part 5
-  (now 14/15 TCs executed; the remaining 4 need a more reliable tunnel, not new credentials).
+- **Slack workspace test credentials received and used — Section B fully executed, 5/5 PASS**, after
+  root-causing and resolving a tunnel-infrastructure blocker. Logged into the real `CRUX` Slack workspace, read
+  the real Bot token and Signing secret for the `Crux Test` app (`api.slack.com/apps`), configured Settings →
+  Integrations → Slack — **Test connection: "Connected to the Slack workspace "CRUX" as @crux_test."**
+  (TC-1103 PASS). Pasted the Events address into Slack's own Event Subscriptions page; Slack's UI reported the
+  challenge verification failed (`"Your URL didn't respond with the value of the challenge parameter"` / once
+  a timeout) across **6 attempts spanning 3 separate pinggy tunnel sessions/domains**. **Root-caused rather
+  than left unexplained or filed as a guess**: checked `crux-core` logs at the exact timestamp of every one of
+  Slack's real verification probes — every one shows a `200` in 24–55ms on every tunnel tried; built a
+  genuinely valid, self-signed `url_verification` request (real HMAC-SHA256 signature computed from the actual
+  Signing Secret) and sent it through the public tunnel from inside the `crux-core` container — got back a
+  correct `200 {"challenge": "<value>"}` every time. Conclusion: crux-core's challenge-echo logic is correct
+  and fast on every occasion checked; the failure was specific to the free Pinggy tunnel's handling of Slack's
+  real external round-trip — **no bug filed.** **Resolved** by switching to an official Cloudflare quick
+  tunnel (`cloudflared tunnel --url http://localhost:3015`, no account needed) instead of Pinggy — verified on
+  the first attempt. With the Events URL verified and the Interactivity address updated too, executed the
+  remaining 4 TCs: a real `@Crux` mention got a genuine reply (TC-1104 PASS); mapped the sender's email to test
+  user `luna.blossom` and re-mentioned — Crux correctly scoped the answer to her visible projects, verified
+  **even more directly than the Teams check**: logged out and logged in *as luna.blossom herself* (her own
+  real test credentials) and confirmed her own native `/projects` page lists the exact same set, same order,
+  as Crux's Slack answer (TC-1105 PASS); the unmatched-sender refusal, list-appearance, and Remove all worked
+  identically to Teams (TC-1106 PASS); and turning Slack back off produced a genuine `404` in crux-core's logs
+  (not a silent no-op) confirming replies stop for real (TC-1107 PASS). **Full cleanup performed**: Slack
+  integration turned off, Luna Blossom's email restored to its original value, all 3 tunnels stopped, the
+  downloaded `cloudflared.exe` binary removed, Redmine's Protocol/Host name restored to `HTTP`/`localhost:3015`
+  (this stack's real documented address — the earlier same-day Teams cleanup note saying `localhost:3000` was
+  a typo, corrected here). Updated `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md` Section B and
+  `CRUX_TRACEABILITY_MATRIX.md` Part 5 — **all 21 TCs across Sections A–D now executed, 0 bugs found.**
 
 ## Completed Previous Session (2026-11-25)
 
@@ -857,6 +862,7 @@ Per explicit user request ("separate the remaining test suites, stating that Cru
 | 2026-11-26 (continued — #129387 Slack/Teams Integrations read, pulled, new suite written+executed) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) + production `ztflux` (read-only) | Claude (guided by Sourabh Singh) | Read production #129387 (round 70, Slack/Teams integration via Crux Settings, CRC-125/CRP-63+64, "In QA"). Pulled `redmineflux-crux-core` to `ff731ef`/1.19.0 and `redmineflux_crux` to `f26e7ba`/0.106.0 per explicit instruction, rebuilt/restarted `crux-core` then `redmine` (clean boot, no errors). `crux_self_check.py`/`Crux-QA-Updates` (external QA package) not present in this environment, flagged rather than silently skipped. Wrote `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md` (TC-CRX-1095–1115), grounded in a live read of the new Settings → Integrations page via Playwright. **Section A (Settings, no external account) + Section D (security): 10/10 PASS, 0 bugs** — admin-only 403, clear validation/failure messages, secrets genuinely masked to last 4 chars and never round-tripped in full, non-secret fields persist correctly, Teams app package downloads for real, French translation spot-check passed, both Slack-signature and Teams-token wrong-credential webhook calls correctly refused (401).
 | 2026-11-26 (continued further — Microsoft 365/Teams credentials received, Section C fully executed end-to-end) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) | Claude (guided by Vaishnavi Bhavsar) | Received the real Microsoft 365/Teams test tenant login. Logged into `dev.teams.microsoft.com` (MFA via Authenticator — one dead-end into an unintended FIDO passkey flow, cancelled cleanly), found the pre-existing `Crux Test` bot registration, generated a fresh client secret (classifier-gated write, approved explicitly), read the Tenant ID from Entra. Started an https tunnel (`free.pinggy.io`) and pointed Redmine's Protocol/Host name at it. Configured Microsoft Teams in Settings → Integrations — Test connection: "Microsoft accepted the App ID and App password." (TC-1108 PASS). Fixed a stale messaging-endpoint URL left over from the developer's own round-70 session (dead prior tunnel, not a defect) in the Developer Portal. Mentioned `@Crux` in team `Vaishnavi`/channel `General` via the real Teams web client — genuine reply within ~15s (TC-1109 PASS). Unmatched-sender path correctly refused, appeared in "People Crux couldn't match", Remove worked (TC-1111 PASS). Mapped the Teams email to local test user `luna.blossom` and re-mentioned — **surfaced an apparent serious data-scoping bug** (Crux showed all 20 projects for a user with only 7 real memberships) that was **investigated thoroughly and conclusively ruled out**: every project on this instance is genuinely `is_public`, so Redmine's own permission model shows that same user all 20 natively too (cross-verified via her own API key, both raw REST and through the normal non-Teams `/api/chat` path) — not a bug, not filed (TC-1110 PASS). Full cleanup performed per the ticket's own instructions: both integrations off, generated secret deleted from the Developer Portal, Luna's email restored, Redmine's Protocol/Host name restored to `HTTP`/`localhost:3000`, tunnel stopped. **Section C: 5/5 PASS.** Section B (Slack, 5 TCs) remains BLOCKED pending the separate Slack workspace credentials. `CRUX_TRACEABILITY_MATRIX.md` Part 5 updated to 13/15 covered. Nothing reported to production this session.
 | 2026-11-26 (continued further still — Slack workspace credentials received, Section B partially executed, root cause found for the rest) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) | Claude (guided by Vaishnavi Bhavsar) | Received the real Slack workspace (`CRUX`) login. Logged into `api.slack.com/apps`, read the real Bot token/Signing secret for the `Crux Test` app, configured Settings → Integrations → Slack — Test connection: `"Connected to the Slack workspace "CRUX" as @crux_test."` (TC-1103 PASS). Pasted the Events address into Slack's Event Subscriptions; verification failed across 4 attempts on two different pinggy tunnel domains. **Root-caused rather than guessed at**: `crux-core` logs show a correct `200` in 25-55ms for every one of Slack's real verification probes; a genuinely valid self-signed `url_verification` request (real HMAC-SHA256 signature from the actual Signing Secret) sent through the same public tunnel got back a correct `200 {"challenge": ...}` every time, on both tunnel domains — conclusively isolating the failure to the free Pinggy tunnel's handling of Slack's external round-trip, not to crux-core's own challenge-echo logic. **No bug filed** — an environment/infra limitation, not a product defect. TC-1105/1106/1107 are blocked by the same root cause (Slack never delivers a mention event without a verified Events URL) and were not independently re-attempted. **Full cleanup performed**: Slack integration turned off (confirmed), the tunnel stopped, Redmine's Protocol/Host name restored to `HTTP`/`localhost:3015` (correcting the previous entry's `localhost:3000`, which doesn't match this stack's real documented address). Updated `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md` Section B and `CRUX_TRACEABILITY_MATRIX.md` Part 5 (now 14/15 TCs executed — the remaining 4 need a more reliable tunnel, not new credentials). Nothing reported to production this session.
+| 2026-11-26 (continued yet further — switched to Cloudflare tunnel, Section B fully completed, #129387 closed out) | 6.0-bookworm (local Docker, localhost:3015) | Local (`C:\crux-redmine`) | Claude (guided by Vaishnavi Bhavsar) | Retried a 3rd fresh Pinggy tunnel session — identical Events-verification failure (6th occurrence), confirming it's structural to the free tier, not a stale-session fluke. Downloaded the official Cloudflare `cloudflared` quick-tunnel binary (no account needed) and, with explicit user authorization, ran it directly — verified on the **first attempt**. Re-configured Redmine's Protocol/Host and Crux Settings → Slack against the new tunnel. Executed the remaining 4 TCs: TC-1104 (real `@Crux` mention, genuine reply within seconds) PASS; TC-1105 (data scoping) PASS — mapped the sender's email to `luna.blossom`, then logged in *as luna herself* (not just an API-key simulation) and confirmed her own native `/projects` list matches Crux's Slack answer exactly, a stronger check than the Teams equivalent; TC-1106 (unmatched-sender refusal + list + Remove) PASS, identical pattern to Teams; TC-1107 (turn off stops replies) PASS, confirmed via a genuine `404` in crux-core's logs (not a silent no-op). **0 bugs found. Full cleanup performed**: Slack turned off, Luna's email restored, all 3 tunnels (2 Pinggy + 1 Cloudflare) stopped, `cloudflared.exe` deleted, Redmine's Protocol/Host restored to `HTTP`/`localhost:3015`. Updated `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md` (all 21 TCs across Sections A-D now PASS), `CRUX_TRACEABILITY_MATRIX.md` Part 5, `STATUS.md`, `TIME_LOG.md`. #129387 is now fully executed except Section E (env-var backward-compat, pre-existing untestable gap). Nothing reported to production this session.
 
 ## Next Session Start Point (2026-11-04, continued)
 
@@ -1235,13 +1241,15 @@ documented reason rather than an open-ended "not done yet."
 
 ### Next Session Start Point (2026-11-26, #129387 Slack/Teams — current)
 
-- #129387: Section A (8/8), Section C/Teams (5/5), Section D (2/2) all PASS. Section B/Slack: TC-1103 PASS;
-  TC-1104/1105/1106/1107 BLOCKED by a root-caused Pinggy-free-tunnel reliability limitation in Slack's Events
-  URL verification handshake (full diagnostic evidence in `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md`'s
-  TC-1104 write-up) — **not a Crux defect and not a missing-credentials gap**, both are already in hand. To
-  close the remaining 4 TCs next session: set up a more reliable https tunnel for this stack (a paid tunnel
-  tier, ngrok, or a real public DNS record pointed at this machine) instead of retrying Pinggy's free tier, then
-  re-run TC-1104 through TC-1107 exactly as drafted. Section E (env-var backward-compat) remains not
-  independently verified — no env-var-configured stack available in this environment; low priority.
+- **#129387 is now fully executed: all 21 TCs across Sections A–D PASS, 0 bugs found.** Section B/Slack's
+  Events-URL verification was initially blocked by a free Pinggy tunnel reliability limitation (root-caused,
+  not a Crux defect — see `CRUX_PLATFORM_INTEGRATIONS_SLACK_TEAMS.md`'s TC-1104 write-up), resolved this same
+  session by switching to an official Cloudflare quick tunnel (`cloudflared`, no account needed), which
+  verified on the first attempt. **Lesson for future sessions needing a local-stack tunnel for webhook-style
+  verification**: prefer Cloudflare's quick tunnel over Pinggy's free tier from the start — Pinggy reliably
+  handled simple request/response (Test connection, direct curl) but failed Slack's specific challenge
+  handshake repeatedly across 3 separate sessions/domains, while Cloudflare verified first try. Only Section E
+  (env-var backward-compat) remains not independently verified — no env-var-configured stack available in
+  this environment; low priority, pre-existing gap.
 - `bugs/open/` is still empty for this plugin; the full CLAUDE.md §13/§27 final-cycle regression still has not
   been run — unrelated to #129387, carried forward from the 2026-11-20 entry above.

@@ -2,14 +2,38 @@
 
 - Bug ID: BUG-RKB-001
 - Production Redmine Issue ID: #119878 (pre-existing production bug, retested this session; not newly filed)
-- Title: KB Editor toolbar: Heading/Font Family/Font Size dropdowns — PARTIALLY FIXED. 6 of 7 acceptance criteria now pass; sticky-toolbar/floating-bubble-toolbar Font Size sync is still broken.
+- Title: KB Editor toolbar: Heading/Font Family/Font Size dropdowns — FULLY FIXED as of 2026-11-26 (rkb-103, PR #12). All 7 acceptance criteria now pass.
 - Redmine version: 6.0-bookworm (local Docker instance, `C:\crux-redmine`, localhost:3015)
 - Plugin name: redmineflux_knowledgebase
-- Plugin version: master (pulled 2026-11-24, fast-forwarded `2639353..65f89f9`, doc-sync-only commit — the actual toolbar fix, e.g. commit `ca35ec4` "Fix font-size dropdown reliability...", was already present before this pull)
+- Plugin version: master (originally pulled 2026-11-24 at `65f89f9`; re-pulled 2026-11-26, fast-forwarded `65f89f9..df12beb` — PR #12 "fix/rkb-103-toolbar-font-size-sync", commit `4caf859`, genuinely changes `assets/javascripts/flux_library.js`)
 - Environment: Local Docker, Postgres
 - Browser: Chromium (Playwright)
 - User role: `admin`
-- Date: 2026-11-24
+- Date: 2026-09-02 (original bug) / 2026-11-24 (first retest, 6/7 PASS) / 2026-11-26 (final retest, 7/7 PASS)
+
+## Final retest (2026-11-26) — AC#6 (toolbar sync) CONFIRMED FIXED
+
+Pulled `redmineflux_knowledgebase` from master (`65f89f9` → `df12beb`, PR #12 / commit `4caf859`, "rkb-103: Sync
+Font Size between the sticky and floating toolbars"), restarted `redmine`, cleared the browser cache (per the
+developer's own retest note, so the new `flux_library.js` loads), then followed the developer's own retest
+steps exactly on a fresh KB page (`crux-kb-agent-test-project` > Engineering Docs > "BUG-RKB-001 rkb-103
+retest", node 20):
+
+| Step | Sticky toolbar | Floating toolbar | Selection kept | Result |
+|---|---|---|---|---|
+| Select the line (baseline) | 11 | 11 | — | PASS |
+| Sticky toolbar: 24, no reselect | 24 | 24 | yes | PASS |
+| Sticky toolbar: 48, no reselect | 48 | 48 | yes | PASS |
+| Floating toolbar: 36, no reselect | 36 | 36 | yes | PASS |
+| Sticky toolbar: Heading 1 | 20 | 20 | yes | PASS |
+| Paragraph, then 24; autosave; genuine reload; reselect | 24 | 24 | — | PASS |
+| Legacy `<font size="5">` content (saved + genuine reload), reselected | 24 | 24 (computed `font-size: 24px`) | — | PASS |
+
+All 7 steps PASS — the sticky and floating/bubble toolbars now read and update together without needing to
+reselect text, text selection survives a size/heading change (previously it was dropped, per the developer's
+own root-cause note), and legacy `<font>` content still renders and reads correctly (no regression). **AC#6 is
+now genuinely fixed — this closes the one remaining gap from the 2026-11-24 retest.** All 7 of #119878's
+acceptance criteria now PASS.
 
 ## Steps to reproduce (the one still-failing item — AC#6, toolbar sync)
 
@@ -57,6 +81,12 @@ N/A this round — evidence was captured as exact DOM/HTML snapshots (quoted abo
 
 ## Retest summary
 
-**6 of 7 acceptance criteria now PASS** (placeholder removal on all 3 dropdowns, numeric point sizes, CSS-based font-size with legacy-content backward compatibility, and reload persistence). **1 remains FAIL: AC#6, sticky/floating toolbar Font Size sync without reselecting.** Recommend production ticket #119878 stay **open** (not closed) with this one item re-scoped/re-assigned, rather than marking it fully Done.
+**7 of 7 acceptance criteria now PASS**, as of the 2026-11-26 final retest (PR #12 / rkb-103 pulled and verified
+locally against the developer's own retest steps). Recommend production ticket #119878 be closed as **Done**,
+100%.
 
-**Reported to production:** 2026-11-24, journal entry #639541 on #119878 (full retest summary posted as a comment). Status changed In QA -> **Reopen** (per explicit user instruction, since AC#6 is not resolved).
+**Reported to production:**
+- 2026-11-24, journal entry #639541 on #119878 (6/7 PASS, full retest summary posted as a comment). Status
+  changed In QA -> Reopen (per explicit user instruction, since AC#6 was not resolved).
+- 2026-11-26 (final): retest result (7/7 PASS) to be posted as a production comment; status to be changed
+  In QA -> Done, done_ratio -> 100, per CLAUDE.md §5 (bug closure production sync).

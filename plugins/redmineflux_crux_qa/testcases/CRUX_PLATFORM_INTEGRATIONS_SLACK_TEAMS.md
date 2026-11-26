@@ -478,7 +478,6 @@ interpretation needed (`enabled()`: `if "enabled" in sec: return bool(sec["enabl
 env...)`). **Full cleanup performed**: the override file was removed and `crux-core` recreated again without
 it, confirmed via `docker compose exec crux-core env` that no `CRUX_SLACK_*` variables remain, and the whole
 stack (db/redis/mcp/redmine/crux-core) confirmed healthy afterward.
-appeared consistent, but flag for a future session if an env-var-configured stack becomes available.
 
 ---
 

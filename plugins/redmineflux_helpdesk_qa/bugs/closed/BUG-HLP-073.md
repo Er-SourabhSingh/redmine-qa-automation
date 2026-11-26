@@ -69,3 +69,14 @@ I, [2026-11-25T10:20:56.101873 #4363] [ActiveJob] [ActionMailer::MailDeliveryJob
 
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md`). Related in subject area but distinct root cause from `BUG-HLP-043` (worker closed the wrong status of ticket — fixed, unrelated to mail delivery) and `BUG-HLP-044`/`BUG-HLP-055` (the *rake task* wrapper around these same workers reading dead legacy config — this bug is about the real worker class itself, invoked directly, having its queued mail silently fail to send).
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-11-26, Local (helpdesk-redmine6, localhost:3019)
+
+- **Context**: pulled `development` branch commit `6554adc` ("Fix dashboard API error and missing auto-close emails"), fast-forward from `5fa0d9e`, container restarted. The fix itself is now visible in `auto_close_tickets_worker.rb`'s own source: the mailer calls were changed from `.deliver_later` to `.deliver_now`, with a comment directly referencing this bug's own finding ("a queued job here was performed in ~2 ms without ever opening the SMTP connection, so the customer got no email at all").
+- **Steps**: created a fresh Support-tracker ticket (#6) authored by `alpha.customer`, status Resolved, backdated `updated_on` 8 days; set Alpha's `auto_close_days` to 1; invoked `Helpdesk::AutoCloseTicketsWorker.new.perform` directly (same methodology as the original repro).
+- **Result**: server log now shows `HelpdeskMailer: Using project-specific SMTP (mail:587, user: alpha.support@test.local)` — the exact line that was missing in the original repro, proving the SMTP connection is genuinely attempted this time — followed by `[Auto-Close] Email notification sent to author of issue #6`. Confirmed via `doveadm fetch` on the real mailbox: newest message is `"Ticket #6 automatically closed due to inactivity"`, received at the exact time the worker ran.
+- **Verdict: RETEST PASS.** Closing.
+
+## Closed — 2026-11-26
+
+- Closed per explicit user confirmation, following the clean retest above.

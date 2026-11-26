@@ -55,3 +55,14 @@ Also separately observed in the same pass (noted here, not filed as its own bug 
 
 - Duplicate found: No (checked `bugs/_index.md` and `bugs/_duplicates.md`).
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-11-26, Local (helpdesk-redmine6, localhost:3019)
+
+- **Context**: pulled `development` branch commit `6554adc` ("Fix dashboard API error and missing auto-close emails"), fast-forward from `5fa0d9e`, `bundle check` confirmed no new gems needed, container restarted to load the new code.
+- **Steps**: logged in as admin, fetched the real API key from My account, navigated directly to `http://localhost:3019/helpdesk/api/v1/dashboard?key=<admin key>`.
+- **Result**: genuine `HTTP 200` with a full, well-formed JSON body — `cards` (Unassigned/Open/On Hold/SLA Breached/Resolved), `tickets_by_status`, `tickets_by_priority`, `top_organizations`, `agent_workload`, `sla` summary, `directory` counts (customers/organizations/products), and `recent_tickets` with real ticket data — matching exactly what the bug's own Expected Result described. No 500, no error body.
+- **Verdict: RETEST PASS.** Closing.
+
+## Closed — 2026-11-26
+
+- Closed per explicit user confirmation, following the clean retest above.

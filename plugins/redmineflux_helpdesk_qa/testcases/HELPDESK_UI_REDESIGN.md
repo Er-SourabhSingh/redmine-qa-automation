@@ -328,15 +328,193 @@
 
 ---
 
+### TC-HLP-516: Ticket list pagination matches Redmine's own style (one Prev/Next arrow each)
+
+**User Role:** Administrator
+**Priority:** Low
+**Precondition:** More tickets exist than fit on one page (>25).
+
+**Steps:**
+1. Create enough tickets in one project to exceed the default page size (25)
+2. Open the ticket list, inspect the pagination control at the bottom
+3. Click through to page 2 and back
+
+**Expected Result:**
+- Pagination shows "« Previous", page numbers, "Next »" — one arrow link each — not the plugin's own older custom style
+- The current page number is plain text (not a link); "« Previous"/"Next »" become plain text, not links, when there is no earlier/later page
+- Row count label ("(x-y/total)") and a "Per page: 25, 50" control are present
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** Created 30 fixture tickets on Alpha (36 total). Page 1 showed `« Previous | 1 | 2 | Next »` with `(1-25/36)` and `Per page: 25, 50`. Clicked "2": URL became `?page=2`, list correctly showed the remaining 11 tickets, `(26-36/36)`, and — correctly — "1" became a link (`« Previous` too) while "2" and "Next »" rendered as plain, non-clickable text since page 2 is the last page. Exactly matches Redmine's own native pagination component. Fixture tickets deleted after this TC to keep the environment clean.
+
+---
+
+### TC-HLP-517: New SLA policy — saving with everything empty shows a Redmine-style error box
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. Settings → SLA policies → New
+2. Press Save with every field empty
+
+**Expected Result:**
+- A red error box renders inside the form card, one message per line, no browser "Please fill out this field" bubble
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** Three errors shown together: "SLA Name cannot be blank", "First Response Time cannot be blank", "Resolution Time cannot be blank". No native browser validation bubble triggered.
+
+---
+
+### TC-HLP-518: New Support Level — saving with everything empty shows a Redmine-style error box
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. Project → Settings → Support Level → New Support Level
+2. Press Create with every field empty
+
+**Expected Result:**
+- A red error box renders inside the form card, one message per line, no browser validation bubble
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** Four errors shown together: "Support Level Name cannot be blank", "Level order cannot be blank", "Level order is not a number", "Please select at least one Support Assignee". No browser bubble.
+
+---
+
+### TC-HLP-519: New Organization — saving with everything empty shows a Redmine-style error box
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. People → Organizations → New Organization
+2. Press Create with every field empty
+
+**Expected Result:**
+- A red error box renders inside the form card, one message per line, no browser validation bubble
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** "Organization Name cannot be blank" shown in the red box. No browser bubble.
+
+---
+
+### TC-HLP-520: New Canned Response — saving with everything empty shows a Redmine-style error box
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. Settings → Canned Responses → New Canned Response
+2. Press Create with every field empty
+
+**Expected Result:**
+- A red error box renders inside the form card, one message per line, no browser validation bubble
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** "Name cannot be blank" and "Content cannot be blank" both shown together. No browser bubble.
+
+---
+
+### TC-HLP-521: New Support Package — saving with everything empty shows a Redmine-style error box
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. Settings → Support Packages → New Support Package
+2. Press Create with every field empty
+
+**Expected Result:**
+- A red error box renders inside the form card, one message per line, no browser validation bubble
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** "Name cannot be blank" and "SLA cannot be blank" both shown together (consistent with HD-6's now-mandatory SLA, see TC-HLP-206's addendum in `HELPDESK_PREPAID_HOURS.md`). No browser bubble. All 8 forms named in Feature #129343's own "For QA" checklist (Holiday, Customer, Product — TC-HLP-447–449; SLA, Support Level, Organization, Canned Response, Support Package — TC-HLP-517–521) are now confirmed.
+
+---
+
+### TC-HLP-522: A document with sub-articles shows a correct chapter count
+
+**User Role:** Administrator
+**Priority:** Low
+**Precondition:** None (fixture built live this pass).
+
+**Steps:**
+1. Open a Knowledge base article, hover its sidebar row, click the "add child" icon that appears
+2. Create two child articles under it
+3. Return to the Knowledge base home page
+
+**Expected Result:**
+- The parent now appears under "Documents" with a "N chapters" badge matching the real number of children
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** Added "Chapter One" and "Chapter Two" as children of "API Test KB Article" via the sidebar's hover-revealed add-child icon (`#addchild-N`, confirmed this is a genuine per-row control, not a menu item). Home page then showed `Documents: 1`, `Articles: 3`, `Drafts: 4`, and a Documents card reading **"API Test KB Article — 2 chapters — Draft"** — the count exactly matches the two children created.
+
+---
+
+### TC-HLP-523: "Export document (PDF)" produces one PDF covering the whole document
+
+**User Role:** Administrator
+**Priority:** Low
+**Precondition:** A document with at least one child article exists (built in TC-HLP-522).
+
+**Steps:**
+1. Open the parent article of a multi-chapter document
+2. Click Menu → "Export document (PDF)"
+
+**Expected Result:**
+- One PDF downloads containing the parent article's content plus every chapter, not just the currently-open article
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin): **PASS.** Server log confirmed three sequential content fetches in direct response to the click — `GET /rf_kb_page_content/2`, `/3`, `/4` — exactly the parent plus both chapters, proving the export assembles the whole document rather than just the open article. The file itself genuinely downloaded (`API Test KB Article.pdf`), confirmed by the browser's own download event, not just a non-erroring click.
+
+---
+
+### TC-HLP-524: The dashboard and navigation work correctly at phone width
+
+**User Role:** Administrator
+**Priority:** Medium
+**Precondition:** None.
+
+**Steps:**
+1. Resize the browser to 390×844 (a real phone viewport, not just a narrow desktop window)
+2. Open the Helpdesk Dashboard and inspect the nav, KPI cards, Needs attention list, and Prepaid Support Hours table
+
+**Expected Result:**
+- The icon rail becomes a top strip (per Feature #129343: "On phones and tablets the rail becomes a strip across the top")
+- No horizontal page scroll; cards stack to one column; ticket titles in Needs attention stay inside their card
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin), screenshot-verified: **PASS, with one minor cosmetic nit.** At 390px the left icon rail is genuinely replaced by a top bar ("JUMP TO A PROJECT..." + hamburger menu), all 5 KPI cards and the Needs attention/SLA met/Agent workload/My queue/Tickets-per-day cards stack to a single column with no horizontal scroll, and the five real "Pagination test ticket NN" titles in Needs attention render fully inside their card with no overflow — genuinely confirms TC-HLP-450's claim at a true phone viewport, not inferred from desktop width. **Nit (not filed as a bug):** the Prepaid Support Hours table's "Helpdesk QA Alpha" project-name cell word-wraps mid-word ("Helpdes­k QA Alpha") instead of breaking at a word boundary — cosmetic only, no overflow or functional impact.
+
+---
+
+### TC-HLP-525: Knowledge base is usable with keyboard only, with visible focus and real accessible names
+
+**User Role:** Administrator
+**Priority:** Low
+**Precondition:** None.
+
+**Steps:**
+1. Click into the page body, then press Tab repeatedly through the Knowledge base home page
+2. Observe focus as it lands on article cards and action buttons
+3. Press Enter on a focused article card
+
+**Expected Result:**
+- Each focused element shows a visible focus indicator
+- Icon/text buttons (Share Page, Export Page, Save Page, Delete, Publish, Menu, + New Article) all have real accessible names, not bare icons
+- Enter activates the focused control exactly like a click
+
+- **CONFIRMED LIVE 2026-11-26** (Local, helpdesk-redmine6, admin), screenshot-verified: **PASS (spot-check, not exhaustive).** Tabbing from the page body reached the "Chapter One" article card within 3 tabs; screenshot confirmed a clearly visible orange left-border + highlighted row background, not an invisible/default-only outline. Pressing Enter on it navigated to that article (`?page_id=3`), confirming genuine keyboard activation, not just visual focus. All action buttons checked carry real accessible names in the accessibility tree ("Share Page", "Export Page", "Save Page", "Delete", "Publish", "Menu", "+ New Article", "Search Pages") — none are bare unlabelled icons. Not re-verified: every single icon in the editor toolbar (bold/italic/table/etc.) individually — spot-checked the page-level controls only.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-435 – TC-HLP-450, TC-HLP-515
-- Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6; none found in this suite's own scope, but TC-HLP-515 found `BUG-RSC-005` against the companion `redmineflux_scarlet` plugin)
+- Case ID: TC-HLP-435 – TC-HLP-450, TC-HLP-515 – TC-HLP-525
+- Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6; none found in this suite's own scope, but TC-HLP-515 found `BUG-RSC-005` against the companion `redmineflux_scarlet` plugin). TC-HLP-524/525's confirming screenshots are kept as session evidence, not bug evidence.
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md` — no new Helpdesk bug filed from this suite; TC-HLP-515 found `BUG-RSC-005` (filed in `redmineflux_scarlet_qa`, not this plugin's own bug index, since the defect is in the Scarlet plugin itself)
 
 ## Deferred / Out of Scope
 
 - Customer CSV import, multilingual emails, Status Notifications settings, auto-close dedup email, and the new JSON APIs (same production Feature #129343) — covered in `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`, `HELPDESK_EMAIL.md` and `HELPDESK_REPORTING_AUTOMATION.md` respectively, not here.
-- Full keyboard-only accessibility pass on the Knowledge base, and a document-with-sub-articles' chapter count were not independently exercised this pass (no multi-article document existed on this instance at test time) — flagged as a coverage gap for a follow-up session rather than guessed at. (Scarlet-theme accent-colour switch, previously deferred here, is now covered above as TC-HLP-515.)
+- Every single icon in the Knowledge base's rich-text editor toolbar was not individually keyboard/accessible-name-audited (TC-HLP-525 spot-checked page-level controls only) — flagged honestly rather than assumed.
 - Export button's actual CSV/Excel/PDF file download was not re-clicked this pass (placement only) — download mechanics already covered by `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-265.

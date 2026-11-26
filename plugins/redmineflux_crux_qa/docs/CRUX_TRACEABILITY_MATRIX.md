@@ -433,7 +433,7 @@ runtime vs. the main stack's Rails 6.1/Ruby 3.2) — no SQL errors, no Ruby/Rail
 and resolved on both fresh stacks (Crux Settings' Core service URL defaulting to `localhost` instead of the
 Docker-internal address) — not filed as a defect, same already-documented class as `TC-MCP-042`.
 
-## Part 5 — Slack & Microsoft Teams Integration (production #129387, round 70, drafted + Section A executed 2026-11-26)
+## Part 5 — Slack & Microsoft Teams Integration (production #129387, round 70, drafted 2026-11-26, Sections A/C/D executed)
 
 Not yet in `CRUX_FEATURES_LIST.md`'s feature list — a brand-new feature as of CRC-125/CRP-63/64, added here so
 it isn't silently uncovered until that list is next revised.
@@ -441,17 +441,21 @@ it isn't silently uncovered until that list is next revised.
 | # | Requirement / Acceptance Criterion | Source | Covered by TC(s) | Latest Result | Coverage Status |
 |---|---|---|---|---|---|
 | S1 | AC6 — only admins can see/change Integrations | #129387 | TC-CRX-1095 | PASS | Covered |
-| S2 | AC4 — Test connection gives a clear success/failure reason | #129387 | TC-CRX-1096, 1097, 1103, 1108 | 2/4 PASS, 2 BLOCKED (positive path) | Partial |
+| S2 | AC4 — Test connection gives a clear success/failure reason | #129387 | TC-CRX-1096, 1097, 1103, 1108 | 3/4 PASS, 1 BLOCKED (Slack positive path) | Partial |
 | S3 | AC3 — secrets never shown in full / masked to last 4 chars | #129387 | TC-CRX-1099, 1100 | PASS | Covered |
-| S4 | AC2 — Teams downloadable app package | #129387 | TC-CRX-1101, 1112 | 1/2 PASS, 1 BLOCKED (Developer Portal upload) | Partial |
+| S4 | AC2 — Teams downloadable app package | #129387 | TC-CRX-1101, 1112 | PASS | Covered |
 | S5 | Translation (12 languages claimed) | #129387 | TC-CRX-1102 | PASS (French spot-check only) | Partial |
 | S6 | AC1 — connect Slack from Settings alone, @Crux answers in a channel | #129387 | TC-CRX-1103, 1104 | BLOCKED | Not Covered yet |
-| S7 | Data scoped to sender's own Redmineflux permissions | #129387 | TC-CRX-1105, 1110 | BLOCKED | Not Covered yet |
-| S8 | AC7 — unmatched senders appear in list, Remove/Clear all work | #129387 | TC-CRX-1106, 1111 | BLOCKED | Not Covered yet |
-| S9 | Turning an integration off stops replies | #129387 | TC-CRX-1107 | BLOCKED | Not Covered yet |
-| S10 | AC2 — connect Microsoft Teams from Settings alone, @Crux answers | #129387 | TC-CRX-1108, 1109 | BLOCKED | Not Covered yet |
+| S7 | Data scoped to sender's own Redmineflux permissions | #129387 | TC-CRX-1105, 1110 | TC-1105 BLOCKED; TC-1110 PASS (Teams) — initially looked like a serious scoping bug (all 20 projects for a 7-membership user) but conclusively ruled out: every project on this instance is genuinely public, so Redmine itself shows the same user all 20 natively | Partial (Teams covered, Slack not) |
+| S8 | AC7 — unmatched senders appear in list, Remove/Clear all work | #129387 | TC-CRX-1106, 1111 | TC-1106 BLOCKED; TC-1111 PASS (Teams, Remove verified; Clear all not separately exercised) | Partial (Teams covered, Slack not) |
+| S9 | Turning an integration off stops replies | #129387 | TC-CRX-1107 | BLOCKED (Slack only — Teams was turned off as part of cleanup, not as its own verified TC) | Not Covered yet |
+| S10 | AC2 — connect Microsoft Teams from Settings alone, @Crux answers | #129387 | TC-CRX-1108, 1109 | PASS | Covered |
 | S11 | AC5 — wrong Slack signature / Teams token refused | #129387 | TC-CRX-1113, 1114 | PASS | Covered |
 | S12 | AC8 — env-var installs behave exactly as before | #129387 | TC-CRX-1115 | Not independently verified (no env-var stack available) | Partial |
+
+**Status (2026-11-26): 13/15 TCs executed, all PASS; 5 TCs (Section B, Slack live) remain BLOCKED** pending
+the Slack workspace test credentials — the Microsoft 365/Teams credentials were received and used this round,
+closing S4, S7 (Teams half), S8 (Teams half), S10 in full.
 
 **Status: 8/15 TCs executed (Section A + D), 7/15 BLOCKED (Sections B/C) pending the Slack workspace and
 Microsoft 365 tenant logins Prashant is sharing privately.** Per CLAUDE.md §2c, the `Not Covered yet` rows

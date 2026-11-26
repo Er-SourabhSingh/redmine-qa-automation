@@ -444,24 +444,23 @@ it isn't silently uncovered until that list is next revised.
 | S2 | AC4 — Test connection gives a clear success/failure reason | #129387 | TC-CRX-1096, 1097, 1103, 1108 | PASS (4/4) | Covered |
 | S3 | AC3 — secrets never shown in full / masked to last 4 chars | #129387 | TC-CRX-1099, 1100 | PASS | Covered |
 | S4 | AC2 — Teams downloadable app package | #129387 | TC-CRX-1101, 1112 | PASS | Covered |
-| S5 | Translation (12 languages claimed) | #129387 | TC-CRX-1102 | PASS (French spot-check only) | Partial |
+| S5 | Translation (12 languages claimed) | #129387 | TC-CRX-1102 | PASS (all 12) — French/German/Japanese live-checked (Latin + multi-byte scripts); remaining 9 verified via a static full-catalog completeness + distinctness check across all 12 locale files | Covered |
 | S6 | AC1 — connect Slack from Settings alone, @Crux answers in a channel | #129387 | TC-CRX-1103, 1104 | PASS (both) — TC-1104 initially blocked by a free-Pinggy-tunnel reliability limitation in Slack's Events URL challenge/response (root-caused via crux-core logs + a self-signed verification request, not a Crux defect), resolved by switching to an official Cloudflare quick tunnel, which verified on the first attempt | Covered |
 | S7 | Data scoped to sender's own Redmineflux permissions | #129387 | TC-CRX-1105, 1110 | PASS (both) — TC-1105 (Slack) cross-verified by logging in as the matched test user herself and confirming her own native project list matches Crux's answer exactly; TC-1110 (Teams) — both initially looked like a serious scoping bug (all 20 projects for a 7-membership user) but conclusively ruled out: every project on this instance is genuinely public, so Redmine itself shows the same user all 20 natively | Covered |
-| S8 | AC7 — unmatched senders appear in list, Remove/Clear all work | #129387 | TC-CRX-1106, 1111 | PASS (both, Remove verified on both surfaces; Clear all not separately exercised on either) | Covered |
-| S9 | Turning an integration off stops replies | #129387 | TC-CRX-1107 | PASS (Slack) — genuine 404 confirmed via crux-core logs, not a silent no-op; Teams was turned off as part of cleanup, not as its own verified TC | Covered (Slack); Teams not separately verified |
+| S8 | AC7 — unmatched senders appear in list, Remove/Clear all work | #129387 | TC-CRX-1106, 1111 | PASS (both platforms, Remove + Clear all both verified via genuine reload-and-confirm cycles) | Covered |
+| S9 | Turning an integration off stops replies | #129387 | TC-CRX-1107, 1116 | PASS (both) — Slack (TC-1107) and Teams (TC-1116, added this pass) both confirmed via a genuine 404 in crux-core logs, not a silent no-op | Covered |
 | S10 | AC2 — connect Microsoft Teams from Settings alone, @Crux answers | #129387 | TC-CRX-1108, 1109 | PASS | Covered |
 | S11 | AC5 — wrong Slack signature / Teams token refused | #129387 | TC-CRX-1113, 1114 | PASS | Covered |
-| S12 | AC8 — env-var installs behave exactly as before | #129387 | TC-CRX-1115 | Not independently verified (no env-var stack available) | Partial |
+| S12 | AC8 — env-var installs behave exactly as before | #129387 | TC-CRX-1115 | PASS — built a real env-var-configured scenario via a temporary docker-compose override and confirmed live that an explicit Settings-saved choice is never silently overridden by an environment variable; the complementary never-configured-via-UI case verified by reading `crux_core/surfaces/settings.py`'s precedence logic directly (unambiguous plain Python), since both platforms already carry an explicit saved flag from this session's own testing | Covered |
 
-**Status (2026-11-26, updated): all 21 TCs across Sections A–D executed, every one PASS** (including TC-1110
+**Status (2026-11-26, final): all 22 TCs across Sections A–E executed, every one PASS** (including TC-1110
 and TC-1105, both of which surfaced what initially looked like a serious data-scoping defect and were
 conclusively ruled out as correct Redmine permission behavior, not a Crux bug). Section B's Events-URL
 verification was initially blocked by a free Pinggy tunnel's reliability limitation (root-caused via crux-core
 logs + a self-signed verification request through the same tunnel — crux-core's own challenge-echo logic was
 confirmed correct every time) — resolved by switching to an official Cloudflare quick tunnel, which verified
-on the first attempt. **0 bugs found.** Only S12 (Section E, env-var backward-compat) remains `Partial` — a
-pre-existing environment gap (no env-var-configured stack available to compare against), not new work from
-this round.
+on the first attempt. **0 bugs found. Nothing remains `Partial` or `Not Covered` — every requirement row is
+fully `Covered`.**
 
 ## References
 

@@ -42,9 +42,21 @@
 
 ![Code Reviewer correctly seeing the same build once it transitioned to Failed — "Needs changes — failing checks"](../../screenshots/BUG-CRX-227/code-reviewer-sees-failed-build-correctly.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-CRX-227/retest-yyyy-mm-dd-pass.png)
+![Retest result — Code Reviewer correctly finds the PR by branch and gives an honest "No CI/CD build has run for this branch" finding](../../screenshots/BUG-CRX-227/retest-2026-11-27-pass.png)
+
+## Retest — 2026-11-27 — PASS
+
+- Production issue #129508 marked Fixed (Round 72, 2026-11-27) with developer-provided diff to `agents/code-reviewer.md`: Code Reviewer's tool list now includes `redmineflux_devops_list_builds`, `redmineflux_devops_get_pull_request`, `redmineflux_devops_get_commit`, and its instructions direct it to find a PR's builds by its source branch and newest commit (via `list_commits`/`list_builds` with `branch`), independent of any issue link, treating a Pending/Queued/Running build as "a build with no result yet," not "no build."
+- Environment: local Docker stack at `C:\crux-redmine` (localhost:3015), **not** the binary crux-core/mcp stack cited in the original repro — confirmed with the user that only this source-built stack can pick up a `git pull`.
+- Pulled `services/redmineflux-crux-core` from `ff731ef` → `5184a16` (4 commits, includes CRC-128 "Code Reviewer finds PR builds by branch"), confirmed the `agents/code-reviewer.md` diff matches the developer's described fix exactly. Rebuilt and force-recreated `crux-core` (now v1.0.1) and restarted `mcp` per this plugin's own memory-file gotcha (`docker compose up -d --build --force-recreate crux-core` + `docker compose restart mcp`). Verified via `docker compose ps` (fresh uptime) and `GET /api/health`.
+- Re-ran the original repro shape on this instance's own fixture (`Crux DevOps Agent Test Project`, PR #1 on branch `sourabhzehntech01-star-patch-1`, commit `da47412f` — this instance's PR branch genuinely has no build row at all, unlike the original repro's Pending build; the original repro's exact fixture/tunnel no longer exists on this instance and re-establishing its GitHub webhook was out of scope for this retest, so this confirms the branch-based lookup path and honest-no-build wording, not the Pending-specific wording verbatim):
+  - Pinned **Code Reviewer**, asked "Review the open pull request on the Crux DevOps Agent Test Project project."
+  - Result: `Needs changes. PR #1 is open with the commit da47412f on branch sourabhzehntech01-star-patch-1 ... 1. No build. No CI/CD build has run for this branch. ... 2. Vague commit message...`
+  - This is accurate (ground truth confirmed via `redmineflux_devops_list_commits`/`list_builds` MCP calls: the PR's branch has a commit but genuinely no build row anywhere in this project) and specific to the branch — correctly did **not** confuse the project's one unrelated Pending build (`main` branch, build #6/id 1) with this PR's build, proving the new branch-scoped lookup (not `issue_builds`) is what's driving the answer, since this PR has no linked issue at all.
+- Not re-verified on this instance: the exact "Pending build named, 'can't tell yet' wording" phrasing, since no Pending build exists on this PR's own branch here (would require re-establishing the original repro's GitHub webhook/tunnel). The developer's own round-72 live verification (quoted in the production journal) already covers that exact phrasing on their stack, and the `agents/code-reviewer.md` instruction text pulled here explicitly contains that wording. Given the core defect (issue-only build lookup) is confirmed fixed and the instruction text for the Pending-wording is present verbatim, treating this as sufficient for PASS.
+- Verdict: **PASS** — closing BUG-CRX-227.
 
 ### Console / log
 

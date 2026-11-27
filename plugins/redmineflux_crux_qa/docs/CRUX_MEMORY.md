@@ -2,6 +2,23 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## The binary stack (localhost:3016) literally cannot pick up a `git pull` — retest fixes on `C:\crux-redmine` (localhost:3015) instead (2026-11-27)
+
+BUG-CRX-227 was found on the "binary" `crux-redmine-mcp-binary` stack (localhost:3016), which runs a pre-built
+Nuitka binary for `crux-core`/`mcp` with no mounted source repo at all — unlike `C:\crux-redmine`'s (localhost:3015)
+`build:`-based Docker services (already documented below, 2026-11-03 entry), which at least rebuild from a mounted
+source checkout given `--build --force-recreate`. The binary stack has no source checkout to pull into in the
+first place, so a developer's fix landing on `redmineflux-crux-core`'s `master` branch is **never** reachable
+there, by any means. **When retesting a fix for a bug originally found on the binary stack, retest on
+`C:\crux-redmine` (localhost:3015) instead** — confirmed working end-to-end this session: `git pull` in
+`services/redmineflux-crux-core` (ff731ef → 5184a16), `docker compose up -d --build --force-recreate crux-core`
+(now reporting version 1.0.1, matching the developer's own journal), `docker compose restart mcp` (stale-session
+gotcha), then re-ran the repro via Ask Crux. The retest's project/PR/build fixture will very likely differ from
+the original repro's (different instance, different seeded DevOps data) — confirm via direct MCP calls
+(`list_commits`/`list_builds` with the PR's real branch) what the *current* ground truth actually is on this
+instance before judging the agent's answer right or wrong, rather than assuming the original repro's exact
+Pending-build scenario still exists.
+
 ## How tool discovery actually works, and why a "missing capability" finding needs care (2026-11-25)
 
 Read `crux_core/askcrux/discovery.py` and `config.py` directly on `C:\crux-redmine` (services/redmineflux-crux-core).
